@@ -32,12 +32,12 @@ function web_resource_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'title' => 'title',
-  );
-  $handler->display->display_options['row_options']['hide_empty'] = 0;
+  $handler->display->display_options['style_plugin'] = 'views_json';
+  $handler->display->display_options['style_options']['root_object'] = 'rows';
+  $handler->display->display_options['style_options']['top_child_object'] = 'row';
+  $handler->display->display_options['style_options']['plaintext_output'] = 1;
+  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
+  $handler->display->display_options['style_options']['using_views_api_mode'] = 0;
   /* Field: Fields: URL */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
@@ -319,6 +319,7 @@ function web_resource_views_default_views() {
   $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
   $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
   $handler->display->display_options['filters']['keys']['expose']['label'] = 'Search';
+  $handler->display->display_options['filters']['keys']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
   $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
   $handler->display->display_options['filters']['keys']['expose']['multiple'] = FALSE;
@@ -330,6 +331,7 @@ function web_resource_views_default_views() {
   $handler->display->display_options['filters']['term_node_tid_depth']['exposed'] = TRUE;
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator_id'] = 'term_node_tid_depth_op';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['label'] = 'Neighborhood';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator'] = 'term_node_tid_depth_op';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'term_node_tid_depth';
   $handler->display->display_options['filters']['term_node_tid_depth']['reduce_duplicates'] = 1;
@@ -340,6 +342,10 @@ function web_resource_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'web-resources';
+
+  /* Display: ( JSON) Web Resource */
+  $handler = $view->new_display('page', '( JSON) Web Resource', 'page_1');
+  $handler->display->display_options['path'] = 'json/web-resources';
   $translatables['web_resources'] = array(
     t('Master'),
     t('Web resources'),
@@ -359,6 +365,7 @@ function web_resource_views_default_views() {
     t('Search'),
     t('Neighborhood'),
     t('Page'),
+    t('( JSON) Web Resource'),
   );
   $export['web_resources'] = $view;
 
