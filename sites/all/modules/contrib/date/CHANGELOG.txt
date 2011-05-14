@@ -1,0 +1,62 @@
+Date Module 7.x
+=================
+
+===================
+Version 7.x-2.x-dev
+===================
+
+This is a new branch that will contain a complete re-work of the Views handling.
+
+This branch will totally re-work and simplify the Views filters. These changes may/will 
+break some views and will require that you check views that use the date filter or 
+argument to be sure they are still configured correctly.
+
+There is a new date_filter_handler_simple for an individual date field that simplifies 
+the Views handling by using most of the core Views field handling but adds in the 
+possibility to set a default date using options like 'now', along with a choice of a 
+month/day/year drop-down selector or popup calendar selector.
+
+The date_filter_handler is an extension of the simple handler that allows you to combine 
+multiple dates into a single filter so that you can control all of them with the same 
+filter widget, allowing you to either 'OR' or 'AND' them together.
+
+The arguments will be rewritten in the same way, with a simple argument handler for 
+individual dates and another handler that extends that to control multiple dates with 
+a single argument.
+
+The Calendar module will need an update when this is finished to use the new handlers 
+correctly.
+
+This code is NOT yet ready to use.
+
+- #1082658: Saving the options as arrays breaks other things. Add a custom export plugin instead.
+- #1082658, Views options need to be declared as arrays or they are not saved in the export in Views 3.
+- #1075896 Initial pass at breaking out the code into the simple argument and a complex argument that combines date fields.
+- #1075890 Initial pass at breaking out the code into the simple filter and a complex filter that combines date fields.
+
+
+===================
+Version 7.x-1.x-dev
+===================
+
+- Add some error trapping in case the parent dateObject is unable to make a date out of a string to avoid showing the user errors.
+- #1027752 by B-Prod and dboulet, Fix missing table join on argument summary view.
+- #1047412 by das-peter - Using date filter in February causes "The day is invalid" error.
+- #1014162 Now that the datefield processing expands to date & time, the form_value is corrupted.
+- Changes to the data migration code to work with latest iteration of Content Migrate.
+
+======================
+Version 7.x-1.0-alpha2
+======================
+
+- Views made lots of changes to field handling just before the new release, which broke lots of things here. 
+- Adding some work-arounds to get things working again and waiting until the dust settles on how the new core fields will be handled in Views before doing much more with the Views integration. These changes should get things working with latest Views release.
+
+======================
+Version 7.x-1.0-alpha1
+======================
+
+- Initial release, probably still buggy.
+- Remove Date PHP4, no longer needed because PHP4 is not supported any more. 
+- Remove Date Timezone, now handled by core.
+

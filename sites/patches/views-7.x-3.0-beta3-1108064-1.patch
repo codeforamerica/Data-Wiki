@@ -1,0 +1,14 @@
+See: http://drupal.org/node/1108064
+
+diff -Nurp ../views.orig//modules/search/views_handler_filter_search.inc ./modules/search/views_handler_filter_search.inc
+--- ../views.orig//modules/search/views_handler_filter_search.inc	2011-03-28 12:28:00.000000000 -0500
++++ ./modules/search/views_handler_filter_search.inc	2011-03-28 12:28:12.000000000 -0500
+@@ -162,7 +162,7 @@ class views_handler_filter_search extend
+   }
+ }
+ 
+-class viewsSearchQuery extends searchQuery {
++class viewsSearchQuery extends SearchQuery {
+   public function &conditions() {
+     return $this->conditions;
+   }

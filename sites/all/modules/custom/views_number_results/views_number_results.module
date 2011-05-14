@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * 
+ * Return a global field with a number of results for a view.
+ */
+
+/**
+ * Advertise the current views api version
+ */
+function views_number_results_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'views_number_results'),
+  );
+}
+
+/**
+ * Implements hook_views_data()
+ */
+function views_number_results_views_data()  {
+  $data['views']['views_number_results'] = array(
+    'title' => t('Total Number Results'),
+    'help' => t('Displays the total number of results for this view.'),
+    'field' => array(
+      'handler' => 'views_number_results_handler_field_counter_total',
+    ),
+    'area' => array(
+      'handler' => 'views_number_results_handler_area_counter_total',
+    ),
+    'group' => t('Global'),
+  );
+
+  return $data;
+}

@@ -1,0 +1,82 @@
+# $Id: page_title.pot,v 1.2 2009/10/29 18:14:38 njt1982 Exp $
+#
+# LANGUAGE translation of Drupal (page_title.module)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  page_title.install,v 1.2.2.1 2007/07/10 07:19:49 johnalbin
+#  page_title.info,v 1.1.2.1 2007/06/20 13:32:02 robertDouglass
+#  page_title.module,v 1.2.2.5 2007/07/10 07:58:02 johnalbin
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2007-07-10 02:29-0700\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: page_title.install:30
+msgid "Page title module installed successfully."
+msgstr ""
+
+#: page_title.install:33
+msgid "Table installation for the Page title module was unsuccessful. The tables may need to be installed by hand. See the README.txt file for a list of the installation queries."
+msgstr ""
+
+#: page_title.info:0
+msgid "Page Title"
+msgstr ""
+
+#: page_title.info:0
+msgid "Enhanced control over the page title (in the &lt;head> tag)."
+msgstr ""
+
+#: page_title.module:17;49
+msgid "Enhanced control over the page title (in the &lt;head&gt; tag)."
+msgstr ""
+
+#: page_title.module:20
+msgid "<p>Adds an extra form element to node creation forms that allows you to specify the page title.</p>\n        <p>Allows for better global configuration of the page title.</p>"
+msgstr ""
+
+#: page_title.module:24
+msgid "<p>The default page title follows one of two patterns:\n        <ol><li><em>page title</em> | <em>site name</em></li>\n            <li><em>site name</em> | <em>site slogan</em></li></ol>\n        <p>#1 is the common case where the visitor is viewing a specific page whereas #2 is used at least for the default front page (<em>node</em>).</p>\n        <p>The page_title.module lets you change these defaults in two ways. First, you can adjust the patterns below using the placeholders given. This will change the way the default page titles are created. Second, on every node creation form, you can have the option of specifying a title that is different than the title of the node. If a value is provided, this will be used to generate the <code>!page_title</code> placeholder. If left blank, <code>!page_title</code> will be the node's title, as is now the case.</p>"
+msgstr ""
+
+#: page_title.module:48;85
+msgid "Page title"
+msgstr ""
+
+#: page_title.module:62
+msgid "Page title patterns"
+msgstr ""
+
+#: page_title.module:66
+msgid "Pattern for individual pages"
+msgstr ""
+
+#: page_title.module:69
+msgid "Available placeholders: <code>!page_title</code>, <code>!site_name</code>, <code>!site_slogan</code>."
+msgstr ""
+
+#: page_title.module:73
+msgid "Pattern for front page"
+msgstr ""
+
+#: page_title.module:76
+msgid "Available placeholders: <code>!site_name</code>, <code>!site_slogan</code>."
+msgstr ""
+
+#: page_title.module:38
+msgid "set page title"
+msgstr ""
+
+#: page_title.module:0
+msgid "page_title"
+msgstr ""
+

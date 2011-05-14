@@ -1,0 +1,153 @@
+<?php
+
+/**
+ * @file
+ * Workbench module file for editorial workspaces.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function workbench_menu() {
+  $items = array();
+
+  $items['admin/config/workbench'] = array(
+    'title' => 'Workbench',
+    'description' => 'Workbench',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access workbench'),
+    'position' => 'right',
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/workbench'] = array(
+    'title' => 'My Workbench',
+    'description' => 'My Workbench area',
+    'page callback' => 'workbench_content',
+    'access arguments' => array('access workbench'),
+    'weight' => -20,
+    'file' => 'workbench.pages.inc',
+  );
+  $items['admin/workbench/content'] = array(
+    'title' => 'My content',
+    'page callback' => 'workbench_content',
+    'access arguments' => array('access workbench'),
+    'weight' => -20,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'file' => 'workbench.pages.inc',
+  );
+  $items['admin/workbench/create'] = array(
+    'title' => 'Create content',
+    'page callback' => 'workbench_create',
+    'access arguments' => array('access workbench'),
+    'weight' => -15,
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'workbench.pages.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function workbench_permission() {
+  $permissions = array(
+    'administer workbench' => array(
+      'title' => t('Administer Workbench settings'),
+    ),
+    'access workbench' => array(
+      'title' => t('Access My Workbench'),
+    ),
+  );
+  return $permissions;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function workbench_views_api() {
+  return array('api' => 2);
+}
+
+/**
+ * Implements hook_views_default_views().
+ */
+function workbench_views_default_views() {
+  return workbench_load_all_exports('workbench', 'views', 'view.inc', 'view');
+}
+
+/**
+ * Fetches an array of exportables from files.
+ *
+ * @param $module
+ *   The module invoking this request. (Can be called by other modules.)
+ * @param $directory
+ *   The subdirectory in the custom module.
+ * @param $extension
+ *   The file extension.
+ * @param $name
+ *   The name of the variable found in each file. Defaults to the same as
+ *   $extension.
+ *
+ * @return
+ *   Array of $name objects.
+ */
+function workbench_load_all_exports($module, $directory, $extension, $name = NULL) {
+  if (!$name) {
+    $name = $extension;
+  }
+
+  $return = array();
+  // Find all the files in the directory with the correct extension.
+  $files = file_scan_directory(drupal_get_path('module', $module) . "/$directory", "/.$extension/");
+  foreach ($files as $path => $file) {
+    require $path;
+    if (isset($$name)) {
+      $return[$$name->name] = $$name;
+    }
+  }
+
+  return $return;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Provides a theme function for use with the RenderAPI that uses the #title and
+ * #attributes properties of a render array, if they're present.
+ */
+function workbench_theme($existing, $type, $theme, $path) {
+  return array(
+    'workbench_element' => array(
+      'render element' => 'element',
+      'file' => 'workbench.theme.inc',
+    ),
+  );
+}
+
+
+
+
+
+
+/**
+ * Implementation of hook_preprocess_views_view_table().
+ *
+ * This is done to convert the "type" field to a thumbnail for image files.
+ *
+ */
+function workbench_preprocess_views_view_field(&$variables) {
+  $view = $variables['view'];
+
+  if ($view->name == 'workbench_current_user'  && $variables['field']->definition['handler'] == 'views_handler_field_user_picture') {
+    if (empty($variables['output'])) {
+      // We could put the default picture here
+      $variables['output'] = theme('image', array(
+        'path' => drupal_get_path('module', 'workbench') . '/images/profile_default.jpg',
+        'attributes' => array(
+          'width' => '100px',
+         ),
+      ));
+    }
+  }
+}

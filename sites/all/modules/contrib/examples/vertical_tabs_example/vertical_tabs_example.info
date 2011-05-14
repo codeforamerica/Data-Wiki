@@ -1,0 +1,11 @@
+name = Vertical tabs example
+description = Show how to use vertical tabs for enhancing user experience.
+core = 7.x
+package = Example modules
+
+; Information added by drupal.org packaging script on 2011-04-15
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "examples"
+datestamp = "1302869178"
+

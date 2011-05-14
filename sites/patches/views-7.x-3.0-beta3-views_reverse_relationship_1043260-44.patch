@@ -1,0 +1,113 @@
+diff --git a/drupal/sites/all/modules/contrib/views/handlers/views_handler_relationship.inc b/drupal/sites/all/modules/contrib/views/handlers/views_handler_relationship.inc
+index 9af9938..64cff88 100755
+--- a/drupal/sites/all/modules/contrib/views/handlers/views_handler_relationship.inc
++++ b/drupal/sites/all/modules/contrib/views/handlers/views_handler_relationship.inc
+@@ -63,6 +63,7 @@ class views_handler_relationship extends views_handler {
+     $label = !empty($this->definition['label']) ? $this->definition['label'] : $this->definition['field'];
+     $options['label'] = array('default' => $label, 'translatable' => TRUE);
+     $options['required'] = array('default' => FALSE);
++    $options['reverse_relation'] = array('default' => FALSE);
+ 
+     return $options;
+   }
+@@ -86,6 +87,12 @@ class views_handler_relationship extends views_handler {
+       '#description' => t('Enable to hide items that do not contain this relationship'),
+       '#default_value' => !empty($this->options['required']),
+     );
++    $form['reverse_relation'] = array(
++      '#type' => 'checkbox',
++      '#title' => t('Reverse this relationship'),
++      '#description' => t('If reversed, the new entity holds a reference to the main entity.'),
++      '#default_value' => !empty($this->options['reverse_relation']),
++    );
+   }
+ 
+   /**
+@@ -106,6 +113,23 @@ class views_handler_relationship extends views_handler {
+     if (!empty($this->options['required'])) {
+       $def['type'] = 'INNER';
+     }
++    
++    if (empty($this->options['reverse_relation'])) {
++      $def['left_field_reverse_relation'] = NULL;
++    }
++    else {
++      // Set the fields for the next relationship
++      $def['left_field'] = 'entity_id';
++      $def['left_field_reverse_relation'] = $this->field;
++
++      // Adjust_join for the previous base table
++      $t = end($this->query->table_queue);  // get the current/last tabel/join from the queue
++      $swapped_field = $def['left_field_reverse_relation'];
++
++      $t['join']->definition['left_table'] = $t['relationship']; // The alias is not stored in the definition
++      $t['join']->definition['field'] = $swapped_field;          // The left_field is the swapped field from the relationship  !!!!!!!!!!!!!!!!!!
++      $t['join']->construct();    // You need to build the join again from the new definition
++    }
+ 
+     if (!empty($def['join_handler']) && class_exists($def['join_handler'])) {
+       $join = new $def['join_handler'];
+diff --git a/drupal/sites/all/modules/contrib/views/includes/handlers.inc b/drupal/sites/all/modules/contrib/views/includes/handlers.inc
+index 3c5633c..e26445a 100755
+--- a/drupal/sites/all/modules/contrib/views/includes/handlers.inc
++++ b/drupal/sites/all/modules/contrib/views/includes/handlers.inc
+@@ -1326,7 +1326,7 @@ class views_join {
+   /**
+    * Construct the views_join object.
+    */
+-  function construct($table = NULL, $left_table = NULL, $left_field = NULL, $field = NULL, $extra = array(), $type = 'LEFT') {
++  function construct($table = NULL, $left_table = NULL, $left_field = NULL, $field = NULL, $extra = array(), $type = 'LEFT', $reverse = NULL) {
+     $this->extra_type = 'AND';
+     if (!empty($table)) {
+       $this->table = $table;
+@@ -1335,6 +1335,7 @@ class views_join {
+       $this->field = $field;
+       $this->extra = $extra;
+       $this->type = strtoupper($type);
++      $this->left_field_reverse_relation = $reverse;
+     }
+     elseif (!empty($this->definition)) {
+       // if no arguments, construct from definition.
+@@ -1351,6 +1352,9 @@ class views_join {
+       }
+ 
+       $this->type = !empty($this->definition['type']) ? strtoupper($this->definition['type']) : 'LEFT';
++      if (!empty($this->definition['left_field_reverse_relation'])) {
++        $this->left_field_reverse_relation = $this->definition['left_field_reverse_relation'];
++      }
+     }
+   }
+ 
+diff --git a/drupal/sites/all/modules/contrib/views/plugins/views_plugin_query_default.inc b/drupal/sites/all/modules/contrib/views/plugins/views_plugin_query_default.inc
+index 00d1207..bc18bbb 100755
+--- a/drupal/sites/all/modules/contrib/views/plugins/views_plugin_query_default.inc
++++ b/drupal/sites/all/modules/contrib/views/plugins/views_plugin_query_default.inc
+@@ -627,6 +627,28 @@ class views_plugin_query_default extends views_plugin_query {
+     if (!empty($join->adjusted)) {
+       return $join;
+     }
++    
++    $t = end($this->table_queue);   // get the last added table
++    if (!empty($t['join'])) {
++      // Check if the last one is reversed.
++      if  ((!empty($t['join']->definition['left_field_reverse_relation'])) 
++      && (!($t['join']->definition['left_field_reverse_relation'] == NULL))) {
++
++        // Adjust_join for the previous base table
++        // rescue the left_field from the relation ship
++        $swapped_field = $t['join']->left_field_reverse_relation; 
++        // Now fetch the previous table
++        $t = prev($this->table_queue);
++
++        if (($t['join']->definition['left_table'] == 'node') 
++         && (!empty($left_field_reverse_relation))) {
++          $t['join']->definition['left_table'] = $t['relationship'];     // The alias is not stored in the definition
++          $t['join']->definition['field'] = $swapped_field;  // The left_field is the swapped field from the relationship  !!!!!!!!!!!!!!!!!!
++          $t['join']->construct();    // You need to build the join again from the new definition
++        } 
++      }
++      $t = end($this->table_queue);  //reset cursor
++    }   
+ 
+     if (empty($relationship) || empty($this->relationships[$relationship])) {
+       return $join;

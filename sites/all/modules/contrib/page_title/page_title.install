@@ -1,0 +1,87 @@
+<?php
+// $Id: page_title.install,v 1.11.4.2 2010/07/16 09:46:16 njt1982 Exp $
+
+
+/**
+ * Implementation of hook_schema().
+ */
+function page_title_schema() {
+  $schema['page_title'] = array(
+    'fields' => array(
+      'type'       => array('type' => 'varchar', 'length' => 15,  'not null' => TRUE, 'default' => 'node'),
+      'id'         => array('type' => 'int', 'unsigned' => TRUE,  'not null' => TRUE, 'default' => 0),
+      'page_title' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => '')
+    ),
+    'primary key' => array('type', 'id'),
+  );
+
+  return $schema;
+}
+
+
+/**
+ * Implementation of hook_update_n().
+ */
+function page_title_update_6200() {
+  $ret = array();
+
+  if (db_column_exists('page_title', 'id')) {
+    return $ret;
+  }
+
+  db_create_table($ret, 'page_title_temp', array(
+    'fields' => array(
+      'type'       => array('type' => 'varchar', 'length' => 15,  'not null' => TRUE, 'default' => 'node'),
+      'id'         => array('type' => 'int', 'unsigned' => TRUE,  'not null' => TRUE, 'default' => 0),
+      'page_title' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => '')
+    ),
+    'primary key' => array('type', 'id'),
+  ));
+
+  $ret[] = update_sql('INSERT INTO {page_title_temp} (id, page_title) SELECT nid, page_title FROM {page_title}');
+
+  db_rename_table($ret, 'page_title', 'page_title_old');
+
+  db_rename_table($ret, 'page_title_temp', 'page_title');
+
+  $display_settings = variable_get('page_title_display', array());
+  foreach ($display_settings as $type) {
+    if ($type) {
+      variable_set('page_title_type_'. $type .'_showfield', 1);
+    }
+  }
+  variable_del('page_title_display');
+
+  return $ret;
+}
+
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function page_title_uninstall() {
+  // Clear variables
+  variable_del('page_title_default');
+  variable_del('page_title_individual');
+  variable_del('page_title_front');
+  variable_del('page_title_blog');
+  variable_del('page_title_user');
+  variable_del('page_title_user_showfield');
+  variable_del('page_title_pager_pattern');
+
+  // Clear the node specific variables
+  $types = node_type_get_names();
+  foreach ($types as $type => $name) {
+    variable_del("page_title_type_{$type}");
+    variable_del("page_title_type_{$type}_showfield");
+  }
+
+  // Clear the vocab specific variables
+  if(module_exists('taxonomy')) {
+    $vocabs = taxonomy_get_vocabularies();
+    foreach ($vocabs as $vid => $vocab) {
+      variable_del("page_title_vocab_{$vid}");
+      variable_del("page_title_vocab_{$vid}_showfield");
+    }
+  }
+}

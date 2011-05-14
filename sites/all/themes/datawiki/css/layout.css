@@ -1,0 +1,105 @@
+/* Special Layouts (most layout handled with 906 grid system. */
+#container {
+
+}
+
+#header {
+
+}
+
+.header-sub-site-name {
+
+}
+
+.header-menu-container {
+
+}
+
+#header-menu-inner .block {
+
+}
+
+#block-menu-menu-et-menu .inner ul.menu li {
+  display: inline;
+  margin: 10px;
+  padding: 10px;
+}
+
+#block-search-form {
+
+}
+
+.header-signin-container {
+
+}
+
+#main {
+
+}
+
+.preface-container {
+
+}
+
+.messages-container {
+
+}
+.sidebar-first-container {
+
+}
+
+.main-content-region {
+
+}
+
+.main-content-region {
+
+}
+
+.sidebar-second-container{
+
+}
+
+.postscript-container {
+
+}
+
+.facebook-like{
+
+}
+
+#footer {
+
+}
+
+/* Views Layout */
+.view  table.cols-4 td {
+  width: 25%;
+  vertical-align: top;
+}
+
+.view .pager {
+
+}
+
+.more-link {
+  padding: 20px;
+  background: #000000;
+}
+
+.view .more-link a {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+ul.pager a, ul.pager li.pager-current {
+  border-style: none;
+  border-width: 1px;
+  padding: 3px 6px 2px 6px;
+  text-decoration: none;
+}
+
+ul.pager li.pager-current {
+  background-color: #000;
+  color: white;
+}

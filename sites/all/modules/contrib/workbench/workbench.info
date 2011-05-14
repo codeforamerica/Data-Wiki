@@ -1,0 +1,17 @@
+name = Workbench
+description = Workbench editorial suite.
+package = Workbench
+core = 7.x
+configure = admin/config/workbench/settings
+dependencies[] = views
+files[] = workbench.module
+files[] = workbench.page.inc
+files[] = workbench.theme.inc
+files[] = workbench.views.inc
+
+; Information added by drupal.org packaging script on 2011-03-02
+version = "7.x-1.0-beta5"
+core = "7.x"
+project = "workbench"
+datestamp = "1299096669"
+

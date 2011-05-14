@@ -1,0 +1,227 @@
+
+
+/* Quicktabs
+/-------------------------------------------------------------- */
+.quicktabs .block {
+  float: none;   /* keep content in div */
+}
+
+
+/*---- MESSAGES ----*/
+	
+div.status, table tr.ok {
+/*     background-color: #F8FFF0; */
+}
+div.status, .ok {
+/*     color: #96a044; */
+}
+div.status {
+/*
+    border-color: #96a044;
+	background:url(../images/message-24-ok.png) no-repeat #ecede1 ;
+*/
+}
+
+div.warning, table tr.warning {
+/*     background-color:#ca673c; */
+}
+div.warning, .warning {
+/*     color: #ca673c; */
+}
+div.warning {
+/* 	border-color: #ca673c; */
+/*     background: url(../images/message-24-warning.png) no-repeat #f1e8e4; */
+}
+
+div.error, table tr.error {
+/*     background-color: #efdcdf; */
+}
+div.error, .error {
+/*     color: #992739; */
+}
+div.error {
+/*     background: url(../images/message-24-error.png) no-repeat #efdcdf; */
+/*     border-color: #992739; */
+}
+
+div.messages {
+/*
+    background-position: 8px 6px;
+    background-repeat: no-repeat;
+    border: 1px solid;
+    margin: 6px 0;
+    padding: 10px 10px 10px 50px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	-moz-box-shadow: 1px 1px 2px #000;
+	-webkit-box-shadow: 1px 1px 2px #000;
+	box-shadow: 1px 1px 2px #000;
+	/* For IE 8 */
+/* 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#000000')"; */
+	/* For IE 5.5 - 7 */
+/* 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#000000'); */
+*/
+}
+.messages-wrapper {
+/* 	margin:0 0 15px 0; */
+	}
+
+/* ----- SEARCH ----- */
+
+.views-exposed-form .views-exposed-widget {
+/*
+    float: left;
+    padding: 0;
+*/
+}
+.views-submit-button {
+/* 	margin:-15px 0 0 0; */
+	}
+.views-exposed-form {
+/* 	display:block; */
+/* 	margin:30px 0 0 0; */
+	}
+.views-exposed-form label {
+/*
+	font-size:24px;
+	font-weight:bold;
+	color:#533549;
+	line-height:130%;
+*/
+	}
+
+a#signin {
+/*
+    background: none repeat scroll 0 0 #992739;
+    border-radius: 5px 5px 0 0;
+    color: #FFFFFF;
+    padding: 5px;
+    position: absolute;
+    right: 60px;
+    text-decoration: none;
+    top: 37px;
+*/
+}
+a#signin:hover {
+/* 	text-decoration:underline; */
+	}
+
+/*  ----  STYLESHEET CSS  ----  */
+/*  ----  rewrites system CSS settings  ----  */
+
+li a.active {
+/*     color: #533549; */
+}
+
+ul.primary {
+
+}
+ul.primary li {
+
+}
+ul.primary li a {
+
+}
+ul.primary li.active a {
+
+}
+ul.primary li a:hover {
+
+}
+ul.secondary {
+
+}
+ul.secondary li {
+
+}
+ul.secondary a {
+}
+ul.secondary a.active {
+
+}
+
+.styleguide-description {
+
+}
+div.styleguide {
+
+}
+#styleguide-header {
+
+}
+
+/*---- LOGIN ----*/
+
+.toboggan-unified #login-links, .toboggan-unified #login-message {
+
+}
+.toboggan-unified #login-message {
+
+}
+.toboggan-unified #login-links a {
+
+}
+.toboggan-unified #login-links a.lt-active, .toboggan-unified #login-links a.lt-active:hover, .toboggan-unified #login-links a:hover {
+
+	} 
+#edit-submit {
+
+	}
+#edit-submit:hover {
+
+	}
+
+/*---- HEADER ----*/
+
+#header {
+    background-color: #533549;
+    color: white;
+    height: 40px;   
+    line-height: 40px;
+    margin-left: -5.5%;
+    width: 110%;
+}
+
+#header a {
+    color: white;
+    font-size: 11px;
+}
+
+#header .first a {
+    border-right: 1px solid white;
+    padding-right: 20px;
+    margin-right: -20px;
+}
+
+#header a,
+.header-logo-container {
+    text-transform: uppercase;
+}
+
+.header-logo-container {
+    font-weight: bold;
+    margin-left: 30px;
+    margin-right: -30px;
+}
+
+#block-search-form {
+    text-align: right;
+}
+
+#search-block-form [name=search_block_form] {
+    border: none;
+    height: 15px;
+}
+
+#search-block-form #edit-submit {
+    background-image: url('../images/search-icon.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+}
+
+.header-signin-container {
+    text-align: right;
+}

@@ -1,0 +1,104 @@
+/* Custom Content Styling & System overrides */
+
+/**
+ * Hide Node elements on home page
+ */
+body.front h1.title,
+body.front span.submitted {
+  display: none;
+}
+
+/**
+ * Views
+ */
+.field-items,
+.view .views-row {
+  margin-bottom: 2em;
+}
+
+/* Join button ("Let's Do this") */
+.flag-join {
+  margin: 20px;
+}   
+
+.flag-join .flag-wrapper {
+  padding: 20px;
+  margin: 20px;
+  background-color: #C23D29;
+  color: #fff;
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.flag-join .flag-wrapper a {
+  color: #fff;
+  font-size: 150%;
+  font-weight: bold;
+}
+
+#comments {
+  background-color: #eee;
+  margin: 60px 0 40px 0;
+  padding: 20px;
+}
+
+.view .jcarousel li{
+  width: 150px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.jcarousel-skin-default .jcarousel-container-horizontal {
+  width: 800px;
+  height: 150px;
+  padding: 0px 40px;
+  margin: auto;
+}
+
+.jcarousel-skin-default .jcarousel-clip-horizontal {
+  width: 750px;
+}
+
+/* Hide "Sign in" Menu item when logged in */
+body.logged-in #block-system-user-menu ul.menu li.first {
+  display: none;
+}
+
+/* View of tags */
+#block-views-tags-block .views-row {
+  float: left;
+  margin: 5px;
+}
+
+.header-sub-site-name {
+  font-size: 80%;
+  font-weight: bold;
+  background: #ddd;
+  margin: 10px;
+  padding: 10px;
+}
+
+.page-node .field-name-field-categories {
+  font-weight: bold;
+  background: #ddd;
+  padding: 20px;
+  margin: 40px 0;
+}
+.page-node .field-name-field-categories .field-item {
+  float: left;
+  padding: 0 20px 0 0;
+  clear: right;
+}
+
+.page-node .field-label {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.user-picture {
+
+}
+
+.meta {
+  font-size: 120%;
+}

@@ -1,0 +1,13 @@
+
+name = Login Destination
+description = Customize the destination that the user is redirected to after login.
+core = 7.x
+files[] = login_destination.module
+files[] = login_destination.admin.inc
+configure = admin/config/people/login-destination
+; Information added by drupal.org packaging script on 2011-03-28
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "login_destination"
+datestamp = "1301334068"
+
