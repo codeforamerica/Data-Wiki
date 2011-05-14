@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry external="true" kind="lib" path="C:/Webs/ApacheDrupal/drupal6/viewsds/includes"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry external="true" kind="lib" path="C:/Webs/ApacheDrupal/drupal6/viewsds/sites/all/modules/views"/>
+	<buildpathentry kind="src" path=""/>
+	<buildpathentry external="true" kind="lib" path="C:/Webs/ApacheDrupal/drupal6/viewsds/modules"/>
+</buildpath>

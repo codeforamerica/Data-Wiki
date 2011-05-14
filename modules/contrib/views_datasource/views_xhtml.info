@@ -1,0 +1,13 @@
+; $Id: views_xhtml.info,v 1.1.4.4 2010/05/17 18:12:55 allisterbeharry Exp $
+name = Views XHTML
+description = "Views style plugin to render node content as XHTML microformats."
+package = Views
+core = 7.x
+dependencies[] = views
+php = 5.1
+; Information added by drupal.org packaging script on 2010-07-16
+version = "7.x-dev"
+core = "7.x"
+project = "views_datasource"
+datestamp = "1279257012"
+

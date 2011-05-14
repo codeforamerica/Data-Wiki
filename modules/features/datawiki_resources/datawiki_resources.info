@@ -1,0 +1,7 @@
+core = "7.x"
+dependencies[] = "features"
+dependencies[] = "taxonomy"
+description = "Shared resources for data wiki"
+features[taxonomy][] = "feed_categories"
+name = "DataWiki Resources"
+package = "Features"
