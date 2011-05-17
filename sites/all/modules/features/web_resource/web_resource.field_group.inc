@@ -54,10 +54,12 @@ function web_resource_field_group_info() {
     'weight' => '7',
     'children' => array(
       0 => 'field_description',
-      1 => 'field_categories',
-      2 => 'field_image',
-      3 => 'field_type_web_resource',
-      4 => 'field_ownership',
+      1 => 'field_contact',
+      2 => 'field_categories',
+      3 => 'field_image',
+      4 => 'field_type_web_resource',
+      5 => 'field_ownership',
+      6 => 'field_source',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

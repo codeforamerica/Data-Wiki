@@ -19,7 +19,7 @@ function datawiki_preprocess_html(&$vars) {
   }
 
   // Add a unique page id
-  $vars['body_id'] = 'pid-' . strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', drupal_gdatawiki_path_alias($_GET['q'])));
+  $vars['body_id'] = 'pid-' . strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', drupal_get_path_alias($_GET['q'])));
 }
 
 /**
@@ -48,7 +48,7 @@ function datawiki_preprocess_page(&$vars) {
   // Create some resource variables
 /*
   $vars['logo_image'] = theme('image', array(
-    'path' => drupal_gdatawiki_path('theme', 'et') . '/images/header_logo.gif', 
+    'path' => drupal_get_path('theme', 'et') . '/images/header_logo.gif', 
     )
   );
 */
@@ -68,7 +68,7 @@ function datawiki_preprocess_page(&$vars) {
   ));
   
   // Temp for wireframing or MVP
-  $vars['submit_btn'] = url(drupal_gdatawiki_path('theme', 'et') . '/images/submit-large-overlay.gif');
+  $vars['submit_btn'] = url(drupal_get_path('theme', 'et') . '/images/submit-large-overlay.gif');
   
   // Hardcoded site names
   switch ($_SERVER['HTTP_HOST']) {
@@ -98,7 +98,7 @@ function datawiki_preprocess_page(&$vars) {
   }
 
   // Remove breadcrumbs if disabled
-  if (theme_gdatawiki_setting('breadcrumb_display') == 0) {
+  if (theme_get_setting('breadcrumb_display') == 0) {
     $vars['breadcrumb'] = '';
   }
 }
@@ -249,26 +249,26 @@ function datawiki_preprocess_search_result(&$vars) {
 
   // Check for snippet existence. User search does not include snippets.
   $vars['snippet'] = '';
-  if (isset($result['snippet']) && theme_gdatawiki_setting('search_snippet')) {
+  if (isset($result['snippet']) && theme_get_setting('search_snippet')) {
     $vars['snippet'] = $result['snippet'];
   }
 
   $info = array();
-  if (!empty($result['type']) && theme_gdatawiki_setting('search_info_type')) {
+  if (!empty($result['type']) && theme_get_setting('search_info_type')) {
     $info['type'] = check_plain($result['type']);
   }
-  if (!empty($result['user']) && theme_gdatawiki_setting('search_info_user')) {
+  if (!empty($result['user']) && theme_get_setting('search_info_user')) {
     $info['user'] = $result['user'];
   }
-  if (!empty($result['date']) && theme_gdatawiki_setting('search_info_date')) {
+  if (!empty($result['date']) && theme_get_setting('search_info_date')) {
     $info['date'] = format_date($result['date'], 'small');
   }
   if (isset($result['extra']) && is_array($result['extra'])) {
     // $info = array_merge($info, $result['extra']);  Drupal bug?  [extra] array not keyed with 'comment' & 'upload'
-    if (!empty($result['extra'][0]) && theme_gdatawiki_setting('search_info_comment')) {
+    if (!empty($result['extra'][0]) && theme_get_setting('search_info_comment')) {
       $info['comment'] = $result['extra'][0];
     }
-    if (!empty($result['extra'][1]) && theme_gdatawiki_setting('search_info_upload')) {
+    if (!empty($result['extra'][1]) && theme_get_setting('search_info_upload')) {
       $info['upload'] = $result['extra'][1];
     }
   }

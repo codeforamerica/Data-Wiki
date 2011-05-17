@@ -74,16 +74,16 @@
 <div id="container" class="container_16">
   <div id="header" class="grid_16 alpha">
     <div class="header-logo-container grid_4 alpha">
-      <?php // print $site_name; ?>
-      <?php print $sub_site_name; ?>
+      <?php  print '<a href="/">' . $site_name . '</a>'; ?>
+      <?php //print $sub_site_name; ?>
       <?php // print $logo_image_link; ?>
     </div>
     
-    <div class="header-menu-container grid_6">
+    <div class="header-menu-container grid_8">
       <?php print render($page['header_menu']); ?>
     </div>
 
-    <div class="header-gap-container grid_4">
+    <div class="header-gap-container grid_2">
       <?php print render($page['header_gap']); ?>
     </div>
 

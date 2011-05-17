@@ -11,10 +11,12 @@ body.front span.submitted {
 /**
  * Views
  */
+/*
 .field-items,
 .view .views-row {
   margin-bottom: 2em;
 }
+*/
 
 /* Join button ("Let's Do this") */
 .flag-join {
@@ -78,21 +80,28 @@ body.logged-in #block-system-user-menu ul.menu li.first {
   padding: 10px;
 }
 
+/*
 .page-node .field-name-field-categories {
   font-weight: bold;
   background: #ddd;
   padding: 20px;
   margin: 40px 0;
 }
+*/
 .page-node .field-name-field-categories .field-item {
   float: left;
   padding: 0 20px 0 0;
   clear: right;
 }
 
-.page-node .field-label {
-  font-size: 150%;
+.node .field-label {
+/*   font-size: 150%; */
   font-weight: bold;
+}
+
+.node .meta {
+  margin: 10px 0 20px 0;
+  
 }
 
 .user-picture {
@@ -100,5 +109,33 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 }
 
 .meta {
-  font-size: 120%;
+/*   font-size: 120%; */
+}
+
+#main h1.title {
+  margin: 20px 0 40px 0;
+}
+
+.view-web-resources .views-field-field-categories,
+.view-web-resources .views-field-field-ownership,
+.view-web-resources .views-field-field-type-web-resource,
+.view-web-resources .data-edit,
+.view-web-resources .views-field-nothing {
+  font-size: 90%;
+  
+}
+
+.view-web-resources .views-field-title,
+.view-web-resources .views-field-field-url-1  {
+  font-size: 150%;
+  margin-bottom: 10px;
+}
+#block-system-main-menu li {
+  display: inline;
+  padding: 0 20px 0 0;
+}
+
+.view-web-resources .views-row .node {
+  background-color: #ededed;
+  padding: 20px;
 }

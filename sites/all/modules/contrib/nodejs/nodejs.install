@@ -1,0 +1,16 @@
+<?php
+// $Id: $
+
+/**
+ * @file
+ * Install, update and uninstall functions for the nodejs module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function nodejs_uninstall() {
+  variable_del('nodejs_server_scheme');
+  variable_del('nodejs_server_host');
+  variable_del('nodejs_server_port');
+}

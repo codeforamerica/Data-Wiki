@@ -21,7 +21,7 @@ function web_resource_feeds_importer_default() {
       'plugin_key' => 'FeedsFileFetcher',
       'config' => array(
         'allowed_extensions' => 'txt csv tsv xml opml',
-        'direct' => FALSE,
+        'direct' => 0,
       ),
     ),
     'parser' => array(
@@ -95,7 +95,7 @@ function web_resource_feeds_importer_default() {
           ),
         ),
         'update_existing' => '2',
-        'input_format' => 'full_html',
+        'input_format' => 'plain_text',
       ),
     ),
     'content_type' => 'feed_web_resource',
