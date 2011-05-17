@@ -41,7 +41,7 @@
   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <base href="<?php print base_path(); ?>" />
+
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
 
