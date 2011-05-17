@@ -41,6 +41,22 @@ function web_resource_views_api() {
  */
 function web_resource_node_info() {
   $items = array(
+    'feed_mailing_list_csv_' => array(
+      'name' => t('Feed: Mailing List (CSV)'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'feed_mailing_list_rss_' => array(
+      'name' => t('Feed: Mailing List (RSS)'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'feed_web_resource' => array(
       'name' => t('Feed: Web Resource'),
       'base' => 'node_content',

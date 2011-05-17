@@ -20,7 +20,7 @@ function web_resource_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '8',
+    'weight' => '4',
     'children' => array(
       0 => 'field_location',
       1 => 'field_neighborhood',
@@ -51,7 +51,7 @@ function web_resource_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Metadata',
-    'weight' => '7',
+    'weight' => '3',
     'children' => array(
       0 => 'field_description',
       1 => 'field_contact',
@@ -60,6 +60,7 @@ function web_resource_field_group_info() {
       4 => 'field_type_web_resource',
       5 => 'field_ownership',
       6 => 'field_source',
+      7 => 'field_activity',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
