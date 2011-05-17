@@ -66,7 +66,7 @@ function web_resource_node_info() {
       'help' => '',
     ),
     'web_resource' => array(
-      'name' => t('Web resource'),
+      'name' => t('Online Community'),
       'base' => 'node_content',
       'description' => t('A web resource that is of particular use to the community. For example, a hyperlocal blog.'),
       'has_title' => '1',
