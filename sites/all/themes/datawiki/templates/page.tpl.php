@@ -71,13 +71,11 @@
  * @see template_process()
  */
 
-global $base_url;
-
 ?>
 <div id="container" class="container_16">
   <div id="header" class="grid_16 alpha">
     <div class="header-logo-container grid_4 alpha">
-      <?php  print '<a href="' . $base_url . '">' . $site_name . '</a>'; ?>
+      <?php  print '<a href="' . base_path() . '">' . $site_name . '</a>'; ?>
       <?php //print $sub_site_name; ?>
       <?php // print $logo_image_link; ?>
     </div>

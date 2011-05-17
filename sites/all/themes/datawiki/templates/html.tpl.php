@@ -33,8 +33,6 @@
  * @see template_process()
  */
 
-global $base_url;
-
 ?>
 <!doctype html>
 <html class="no-js" xmlns:fb="http://www.facebook.com/2008/fbml" lang="<?php print $language->language; ?>">
@@ -43,7 +41,7 @@ global $base_url;
   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <base href="<?php print $base_url; ?>" />
+  <base href="<?php print base_path(); ?>" />
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
 
