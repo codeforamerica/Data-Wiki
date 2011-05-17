@@ -70,6 +70,9 @@
  * @see template_preprocess_page()
  * @see template_process()
  */
+
+global $base_url;
+
 ?>
 <div id="container" class="container_16">
   <div id="header" class="grid_16 alpha">
