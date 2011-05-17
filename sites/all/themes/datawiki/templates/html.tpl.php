@@ -32,6 +32,9 @@
  * @see template_preprocess_html()
  * @see template_process()
  */
+
+global $base_url;
+
 ?>
 <!doctype html>
 <html class="no-js" xmlns:fb="http://www.facebook.com/2008/fbml" lang="<?php print $language->language; ?>">
