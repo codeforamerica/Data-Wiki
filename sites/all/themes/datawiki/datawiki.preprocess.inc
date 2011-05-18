@@ -232,6 +232,43 @@ function datawiki_preprocess_comment(&$vars) {
  */
 function datawiki_preprocess_views_view(&$vars) {
   $vars['css_name'] = $vars['css_name'] .' view-style-'. drupal_clean_css_identifier(strtolower($vars['view']->plugin_name));
+  // Yes, this is kludgy.
+  $term0 = $term1 = $term2 = $vars['search_string'] = '';
+
+  if(!empty($vars['view']->exposed_input['neighborhood'])) {
+    $term0 = $vars['view']->exposed_input['neighborhood'];
+    if(is_numeric($term0)) {
+      $term0 = taxonomy_term_load($term0)->name;
+    }
+/*
+    if(is_array($term0)) {
+      $term1 = t('Neighborhood:') . taxonomy_term_load($term0[0])->name;
+    }
+*/
+
+  }
+  if(!empty($vars['view']->exposed_input['category'])) {
+    $term1 = $vars['view']->exposed_input['category'];
+    if(is_numeric($term1)) {
+      $term1 = taxonomy_term_load($term1)->name;
+    }
+  }
+
+  if(!empty($vars['view']->exposed_input['type_community'])) {
+    $term2 = $vars['view']->exposed_input['type_community'];
+    if(is_numeric($term2)) {
+      $term2 = taxonomy_term_load($term2)->name;
+    }
+  }
+
+  if(!empty($vars['view']->exposed_input['category']) || !empty($vars['view']->exposed_input['type_community']) || !empty($vars['view']->exposed_input['category'])) {
+    $vars['search_string'] = '<div class="search-terms">' . 
+      '<h3>' . t('Search terms') . '</h3>' . 
+        t('Neighborhood: ') . $term0  . '<br />' .
+        t('Category: ') .$term1  . '<br />' .
+        t('Type of Community: ') .$term2   . '<br />' . 
+      '</div>';
+  }
 }
 
 

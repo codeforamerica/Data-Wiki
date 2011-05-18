@@ -96,7 +96,13 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 
 .node .field-label {
 /*   font-size: 150%; */
-  font-weight: bold;
+  font-weight: normal;
+  color: #aaa;
+}
+
+.views-row .node .field-item {
+font-weight: bold;
+font-size: 120%;
 }
 
 .node .meta {
@@ -109,7 +115,25 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 }
 
 .meta {
-/*   font-size: 120%; */
+  color: #aaa;
+}
+
+li.flag-like span.flag-like a{
+  margin: 5px 0 0 0;
+  padding: 10px 20px;
+  display: inline-block;
+  background-color: #533549;
+  font-weight: bold;
+  color: #fff;
+}
+
+li.flag-like span.flag-like a.unflag-action{
+  margin: 5px 0 0 0;
+  padding: 10px 20px;
+  display: inline-block;
+  background-color: #666;
+  font-weight: bold;
+  color: #fff;
 }
 
 #main h1.title {
@@ -138,4 +162,12 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 .view-web-resources .views-row .node {
   background-color: #ededed;
   padding: 20px;
+}
+
+.search-terms {
+  font-weight: bold;
+	color:#7B3F91;
+  margin: 10px 0 20px 0;
+  padding: 20px;
+    background-color: #ededed;
 }
