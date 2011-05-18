@@ -10,287 +10,6 @@
 function web_resource_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-feed_mailing_list_csv_-body'
-  $fields['node-feed_mailing_list_csv_-body'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(
-        0 => 'node',
-      ),
-      'field_name' => 'body',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'module' => 'text',
-      'settings' => array(
-        'profile2_private' => FALSE,
-      ),
-      'translatable' => '1',
-      'type' => 'text_with_summary',
-    ),
-    'field_instance' => array(
-      'bundle' => 'feed_mailing_list_csv_',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(
-            'trim_length' => 600,
-          ),
-          'type' => 'text_summary_or_trimmed',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'body',
-      'label' => 'Body',
-      'required' => FALSE,
-      'settings' => array(
-        'display_summary' => TRUE,
-        'text_processing' => 1,
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'module' => 'text',
-        'settings' => array(
-          'rows' => 20,
-          'summary_rows' => 5,
-        ),
-        'type' => 'text_textarea_with_summary',
-        'weight' => '-4',
-      ),
-      'widget_type' => 'text_textarea_with_summary',
-    ),
-  );
-
-  // Exported field: 'node-feed_mailing_list_csv_-field_contact'
-  $fields['node-feed_mailing_list_csv_-field_contact'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_contact',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'module' => 'text',
-      'settings' => array(
-        'max_length' => '255',
-      ),
-      'translatable' => '1',
-      'type' => 'text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'feed_mailing_list_csv_',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => 2,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_contact',
-      'label' => 'Contact',
-      'required' => 0,
-      'settings' => array(
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'size' => '255',
-        ),
-        'type' => 'text_textfield',
-        'weight' => '0',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-feed_mailing_list_csv_-field_source'
-  $fields['node-feed_mailing_list_csv_-field_source'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_source',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'module' => 'text',
-      'settings' => array(
-        'max_length' => '255',
-      ),
-      'translatable' => '1',
-      'type' => 'text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'feed_mailing_list_csv_',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => 1,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_source',
-      'label' => 'Source',
-      'required' => 0,
-      'settings' => array(
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'size' => '255',
-        ),
-        'type' => 'text_textfield',
-        'weight' => '-2',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-feed_mailing_list_csv_-field_type_dataset'
-  $fields['node-feed_mailing_list_csv_-field_type_dataset'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_type_dataset',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'parent' => '0',
-            'vocabulary' => 'dataset_type',
-          ),
-        ),
-      ),
-      'translatable' => '1',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'feed_mailing_list_csv_',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 3,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_type_dataset',
-      'label' => 'Type of Dataset',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '2',
-      ),
-    ),
-  );
-
   // Exported field: 'node-feed_mailing_list_rss_-body'
   $fields['node-feed_mailing_list_rss_-body'] = array(
     'field_config' => array(
@@ -785,8 +504,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_activity'
-  $fields['node-web_resource-field_activity'] = array(
+  // Exported field: 'node-online_community-field_activity'
+  $fields['node-online_community-field_activity'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -819,7 +538,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -861,8 +580,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_area_code'
-  $fields['node-web_resource-field_area_code'] = array(
+  // Exported field: 'node-online_community-field_area_code'
+  $fields['node-online_community-field_area_code'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -895,7 +614,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -940,84 +659,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_audience_size'
-  $fields['node-web_resource-field_audience_size'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_audience_size',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'parent' => '0',
-            'vocabulary' => 'audience',
-          ),
-        ),
-      ),
-      'translatable' => '1',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'web_resource',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 17,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_audience_size',
-      'label' => 'Audience Size',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '6',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-web_resource-field_categories'
-  $fields['node-web_resource-field_categories'] = array(
+  // Exported field: 'node-online_community-field_categories'
+  $fields['node-online_community-field_categories'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -1050,7 +693,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1095,8 +738,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_city'
-  $fields['node-web_resource-field_city'] = array(
+  // Exported field: 'node-online_community-field_city'
+  $fields['node-online_community-field_city'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1129,7 +772,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1175,8 +818,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_contact'
-  $fields['node-web_resource-field_contact'] = array(
+  // Exported field: 'node-online_community-field_contact'
+  $fields['node-online_community-field_contact'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1204,7 +847,7 @@ function web_resource_field_default_fields() {
       'type' => 'text',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1244,13 +887,13 @@ function web_resource_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '9',
+        'weight' => '8',
       ),
     ),
   );
 
-  // Exported field: 'node-web_resource-field_description'
-  $fields['node-web_resource-field_description'] = array(
+  // Exported field: 'node-online_community-field_description'
+  $fields['node-online_community-field_description'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1276,7 +919,7 @@ function web_resource_field_default_fields() {
       'type' => 'text_long',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1321,8 +964,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_district'
-  $fields['node-web_resource-field_district'] = array(
+  // Exported field: 'node-online_community-field_district'
+  $fields['node-online_community-field_district'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1355,7 +998,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1400,8 +1043,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_email'
-  $fields['node-web_resource-field_email'] = array(
+  // Exported field: 'node-online_community-field_email'
+  $fields['node-online_community-field_email'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1416,7 +1059,7 @@ function web_resource_field_default_fields() {
       'type' => 'email',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1460,8 +1103,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_image'
-  $fields['node-web_resource-field_image'] = array(
+  // Exported field: 'node-online_community-field_image'
+  $fields['node-online_community-field_image'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1490,7 +1133,7 @@ function web_resource_field_default_fields() {
       'type' => 'image',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1544,8 +1187,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_location'
-  $fields['node-web_resource-field_location'] = array(
+  // Exported field: 'node-online_community-field_location'
+  $fields['node-online_community-field_location'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1560,7 +1203,7 @@ function web_resource_field_default_fields() {
       'type' => 'geofield',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1604,8 +1247,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_neighborhood'
-  $fields['node-web_resource-field_neighborhood'] = array(
+  // Exported field: 'node-online_community-field_neighborhood'
+  $fields['node-online_community-field_neighborhood'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -1638,7 +1281,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1684,8 +1327,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_ownership'
-  $fields['node-web_resource-field_ownership'] = array(
+  // Exported field: 'node-online_community-field_ownership'
+  $fields['node-online_community-field_ownership'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -1718,7 +1361,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1758,13 +1401,13 @@ function web_resource_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '7',
+        'weight' => '6',
       ),
     ),
   );
 
-  // Exported field: 'node-web_resource-field_region'
-  $fields['node-web_resource-field_region'] = array(
+  // Exported field: 'node-online_community-field_region'
+  $fields['node-online_community-field_region'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -1797,7 +1440,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1842,8 +1485,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_source'
-  $fields['node-web_resource-field_source'] = array(
+  // Exported field: 'node-online_community-field_source'
+  $fields['node-online_community-field_source'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1871,7 +1514,7 @@ function web_resource_field_default_fields() {
       'type' => 'text',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1911,13 +1554,13 @@ function web_resource_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '8',
+        'weight' => '7',
       ),
     ),
   );
 
-  // Exported field: 'node-web_resource-field_state'
-  $fields['node-web_resource-field_state'] = array(
+  // Exported field: 'node-online_community-field_state'
+  $fields['node-online_community-field_state'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -1950,7 +1593,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1996,8 +1639,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_type_web_resource'
-  $fields['node-web_resource-field_type_web_resource'] = array(
+  // Exported field: 'node-online_community-field_type_web_resource'
+  $fields['node-online_community-field_type_web_resource'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -2022,7 +1665,7 @@ function web_resource_field_default_fields() {
         'allowed_values' => array(
           0 => array(
             'parent' => '0',
-            'vocabulary' => 'web_resource',
+            'vocabulary' => 'types_community',
           ),
         ),
       ),
@@ -2030,7 +1673,7 @@ function web_resource_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -2076,8 +1719,8 @@ function web_resource_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-web_resource-field_url'
-  $fields['node-web_resource-field_url'] = array(
+  // Exported field: 'node-online_community-field_url'
+  $fields['node-online_community-field_url'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -2105,7 +1748,7 @@ function web_resource_field_default_fields() {
       'type' => 'link_field',
     ),
     'field_instance' => array(
-      'bundle' => 'web_resource',
+      'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -2210,7 +1853,6 @@ function web_resource_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Activity Level');
   t('Area Code');
-  t('Audience Size');
   t('Body');
   t('Categories');
   t('City');
@@ -2226,7 +1868,6 @@ function web_resource_field_default_fields() {
   t('Source');
   t('State');
   t('Type');
-  t('Type of Dataset');
   t('Type of dataset');
   t('URL');
 

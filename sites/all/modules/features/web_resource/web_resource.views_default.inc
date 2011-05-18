@@ -76,14 +76,14 @@ function web_resource_views_default_views() {
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'node';
-  $view->human_name = 'Web resources';
+  $view->human_name = 'Online Communities';
   $view->core = 7;
   $view->api_version = '3.0-alpha1';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Web resources';
+  $handler->display->display_options['title'] = 'Online Communities';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -106,7 +106,7 @@ function web_resource_views_default_views() {
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = 'These are online community resources, blogs, and links to discussions.
 
-Anyone can add more community discussions. <a href="/user">Sign up</a> to <a href="/node/add/web-resource">add</a>, update and <a href="/node/add/feed-web-resource">import</a> data.';
+Anyone can add more community discussions. <a href="/user">Sign up</a> to <a href="/node/add/online-community">add</a>, update and <a href="/node/add/feed-web-resource">import</a> data.';
   /* Relationship: Feeds item: Owner feed */
   $handler->display->display_options['relationships']['feed_nid']['id'] = 'feed_nid';
   $handler->display->display_options['relationships']['feed_nid']['table'] = 'feeds_item';
@@ -483,14 +483,14 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'web_resource' => 'web_resource',
+    'online_community' => 'online_community',
   );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['defaults']['group_by'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
-  $handler->display->display_options['path'] = 'web-resources';
+  $handler->display->display_options['path'] = 'online-communities';
 
   /* Display: ( JSON) Web Resource */
   $handler = $view->new_display('page', '( JSON) Web Resource', 'page_1');
@@ -785,10 +785,10 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['feed_nid']['hide_empty'] = 0;
   $handler->display->display_options['fields']['feed_nid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['feed_nid']['format_plural'] = 0;
-  $handler->display->display_options['path'] = 'json/web-resources';
+  $handler->display->display_options['path'] = 'json/online-communities';
   $translatables['web_resources'] = array(
     t('Master'),
-    t('Web resources'),
+    t('Online Communities'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -800,7 +800,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
     t('Offset'),
     t('These are online community resources, blogs, and links to discussions.
 
-Anyone can add more community discussions. <a href="/user">Sign up</a> to <a href="/node/add/web-resource">add</a>, update and <a href="/node/add/feed-web-resource">import</a> data.'),
+Anyone can add more community discussions. <a href="/user">Sign up</a> to <a href="/node/add/online-community">add</a>, update and <a href="/node/add/feed-web-resource">import</a> data.'),
     t('Owner feed'),
     t('[field_url]'),
     t('[field_neighborhood][field_region]

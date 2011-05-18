@@ -9,6 +9,10 @@
  */
 function web_resource_ctools_plugin_api() {
   list($module, $api) = func_get_args();
+  if ($module == "context" && $api == "context") {
+    return array("version" => 3);
+  }
+  list($module, $api) = func_get_args();
   if ($module == "feeds" && $api == "feeds_importer_default") {
     return array("version" => 1);
   }
@@ -37,6 +41,49 @@ function web_resource_views_api() {
 }
 
 /**
+ * Implementation of hook_flag_default_flags().
+ */
+function web_resource_flag_default_flags() {
+  $flags = array();
+  // Exported flag: "Like".
+  $flags['like'] = array(
+    'content_type' => 'node',
+    'title' => 'Like',
+    'global' => '0',
+    'types' => array(
+      0 => 'web_resource',
+    ),
+    'flag_short' => 'Like',
+    'flag_long' => 'I like this.',
+    'flag_message' => '',
+    'unflag_short' => 'Unlike',
+    'unflag_long' => '',
+    'unflag_message' => '',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+      ),
+      'unflag' => array(
+        0 => '2',
+      ),
+    ),
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
+    'show_on_form' => 0,
+    'access_author' => '',
+    'i18n' => 0,
+    'api_version' => 2,
+    'module' => 'web_resource',
+    'locked' => array(
+      0 => 'name',
+    ),
+  );
+  return $flags;
+}
+
+/**
  * Implementation of hook_node_info().
  */
 function web_resource_node_info() {
@@ -50,7 +97,7 @@ function web_resource_node_info() {
       'help' => '',
     ),
     'feed_mailing_list_rss_' => array(
-      'name' => t('Feed: Mailing List (RSS)'),
+      'name' => t('Feed: Online Community (RSS)'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
@@ -58,14 +105,14 @@ function web_resource_node_info() {
       'help' => '',
     ),
     'feed_web_resource' => array(
-      'name' => t('Feed: Web Resource'),
+      'name' => t('Feed: Online Community (CSV)'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'web_resource' => array(
+    'online_community' => array(
       'name' => t('Online Community'),
       'base' => 'node_content',
       'description' => t('A web resource that is of particular use to the community. For example, a hyperlocal blog.'),

@@ -61,7 +61,6 @@ function web_resource_field_group_info() {
       5 => 'field_ownership',
       6 => 'field_source',
       7 => 'field_activity',
-      8 => 'field_audience_size',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
