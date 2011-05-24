@@ -125,7 +125,7 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Go';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Search';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'default';
@@ -134,18 +134,18 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['row_options']['links'] = 1;
   $handler->display->display_options['row_options']['comments'] = 0;
   $handler->display->display_options['exposed_block'] = TRUE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['empty'] = FALSE;
-  $handler->display->display_options['header']['area']['content'] = 'These are the community groups that match your search terms.';
   /* Header: Global: Total Number Results */
   $handler->display->display_options['header']['views_number_results']['id'] = 'views_number_results';
   $handler->display->display_options['header']['views_number_results']['table'] = 'views';
   $handler->display->display_options['header']['views_number_results']['field'] = 'views_number_results';
   $handler->display->display_options['header']['views_number_results']['label'] = 'Number of groups found';
   $handler->display->display_options['header']['views_number_results']['empty'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['empty'] = FALSE;
+  $handler->display->display_options['header']['area']['content'] = 'Group(s) match your search terms';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -268,7 +268,7 @@ You can request pages to be scraped, share data with us via links to csv & json 
     t('Master'),
     t('Search Community Groups'),
     t('more'),
-    t('Go'),
+    t('Search'),
     t('Reset'),
     t('Sort by'),
     t('Asc'),
@@ -276,8 +276,8 @@ You can request pages to be scraped, share data with us via links to csv & json 
     t('Items per page'),
     t('- All -'),
     t('Offset'),
-    t('These are the community groups that match your search terms.'),
     t('Number of groups found'),
+    t('Group(s) match your search terms'),
     t('No results found.'),
     t('Type'),
     t('Updated date'),

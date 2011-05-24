@@ -60,7 +60,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Fields: URL */
+  /* Field: Content: URL */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -81,7 +81,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_url']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_url']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_url']['field_api_classes'] = 0;
-  /* Field: Fields: Email */
+  /* Field: Content: Email */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -103,7 +103,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_email']['click_sort_column'] = 'email';
   $handler->display->display_options['fields']['field_email']['type'] = 'email_default';
   $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
-  /* Field: Fields: Categories */
+  /* Field: Content: Categories */
   $handler->display->display_options['fields']['field_categories']['id'] = 'field_categories';
   $handler->display->display_options['fields']['field_categories']['table'] = 'field_data_field_categories';
   $handler->display->display_options['fields']['field_categories']['field'] = 'field_categories';
@@ -127,7 +127,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_categories']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_categories']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_categories']['field_api_classes'] = 0;
-  /* Field: Fields: Description */
+  /* Field: Content: Description */
   $handler->display->display_options['fields']['field_description']['id'] = 'field_description';
   $handler->display->display_options['fields']['field_description']['table'] = 'field_data_field_description';
   $handler->display->display_options['fields']['field_description']['field'] = 'field_description';
@@ -147,7 +147,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_description']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_description']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_description']['field_api_classes'] = 0;
-  /* Field: Fields: Activity Level */
+  /* Field: Content: Activity Level */
   $handler->display->display_options['fields']['field_activity']['id'] = 'field_activity';
   $handler->display->display_options['fields']['field_activity']['table'] = 'field_data_field_activity';
   $handler->display->display_options['fields']['field_activity']['field'] = 'field_activity';
@@ -168,7 +168,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_activity']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_activity']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_activity']['field_api_classes'] = 0;
-  /* Field: Fields: Neighborhood */
+  /* Field: Content: Neighborhood */
   $handler->display->display_options['fields']['field_neighborhood']['id'] = 'field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['table'] = 'field_data_field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['field'] = 'field_neighborhood';
@@ -192,7 +192,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_neighborhood']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_neighborhood']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_neighborhood']['field_api_classes'] = 0;
-  /* Field: Fields: District */
+  /* Field: Content: District */
   $handler->display->display_options['fields']['field_district']['id'] = 'field_district';
   $handler->display->display_options['fields']['field_district']['table'] = 'field_data_field_district';
   $handler->display->display_options['fields']['field_district']['field'] = 'field_district';
@@ -213,7 +213,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_district']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_district']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_district']['field_api_classes'] = 0;
-  /* Field: Fields: Region */
+  /* Field: Content: Region */
   $handler->display->display_options['fields']['field_region']['id'] = 'field_region';
   $handler->display->display_options['fields']['field_region']['table'] = 'field_data_field_region';
   $handler->display->display_options['fields']['field_region']['field'] = 'field_region';
@@ -237,7 +237,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_region']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_region']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_region']['field_api_classes'] = 0;
-  /* Field: Fields: City */
+  /* Field: Content: City */
   $handler->display->display_options['fields']['field_city']['id'] = 'field_city';
   $handler->display->display_options['fields']['field_city']['table'] = 'field_data_field_city';
   $handler->display->display_options['fields']['field_city']['field'] = 'field_city';
@@ -258,7 +258,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_city']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_city']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_city']['field_api_classes'] = 0;
-  /* Field: Fields: State */
+  /* Field: Content: State */
   $handler->display->display_options['fields']['field_state']['id'] = 'field_state';
   $handler->display->display_options['fields']['field_state']['table'] = 'field_data_field_state';
   $handler->display->display_options['fields']['field_state']['field'] = 'field_state';
@@ -279,7 +279,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_state']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_state']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_state']['field_api_classes'] = 0;
-  /* Field: Fields: Area Code */
+  /* Field: Content: Area Code */
   $handler->display->display_options['fields']['field_area_code']['id'] = 'field_area_code';
   $handler->display->display_options['fields']['field_area_code']['table'] = 'field_data_field_area_code';
   $handler->display->display_options['fields']['field_area_code']['field'] = 'field_area_code';
@@ -300,7 +300,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_area_code']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_area_code']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_area_code']['field_api_classes'] = 0;
-  /* Field: Fields: Contact */
+  /* Field: Content: Contact */
   $handler->display->display_options['fields']['field_contact']['id'] = 'field_contact';
   $handler->display->display_options['fields']['field_contact']['table'] = 'field_data_field_contact';
   $handler->display->display_options['fields']['field_contact']['field'] = 'field_contact';
@@ -342,7 +342,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_location']['click_sort_column'] = 'wkt';
   $handler->display->display_options['fields']['field_location']['type'] = 'geofield_wkt';
   $handler->display->display_options['fields']['field_location']['field_api_classes'] = 0;
-  /* Field: Fields: Ownership */
+  /* Field: Content: Ownership */
   $handler->display->display_options['fields']['field_ownership']['id'] = 'field_ownership';
   $handler->display->display_options['fields']['field_ownership']['table'] = 'field_data_field_ownership';
   $handler->display->display_options['fields']['field_ownership']['field'] = 'field_ownership';
@@ -366,7 +366,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_ownership']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_ownership']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_ownership']['field_api_classes'] = 0;
-  /* Field: Fields: Type of Group */
+  /* Field: Content: Type of Group */
   $handler->display->display_options['fields']['field_type_web_resource']['id'] = 'field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['table'] = 'field_data_field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['field'] = 'field_type_web_resource';
@@ -388,7 +388,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_type_web_resource']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_type_web_resource']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_type_web_resource']['field_api_classes'] = 0;
-  /* Field: Fields: Source */
+  /* Field: Content: Source */
   $handler->display->display_options['fields']['field_source']['id'] = 'field_source';
   $handler->display->display_options['fields']['field_source']['table'] = 'field_data_field_source';
   $handler->display->display_options['fields']['field_source']['field'] = 'field_source';
@@ -636,7 +636,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Fields: URL */
+  /* Field: Content: URL */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -657,7 +657,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_url']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_url']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_url']['field_api_classes'] = 0;
-  /* Field: Fields: Email */
+  /* Field: Content: Email */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -679,7 +679,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_email']['click_sort_column'] = 'email';
   $handler->display->display_options['fields']['field_email']['type'] = 'email_default';
   $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
-  /* Field: Fields: Categories */
+  /* Field: Content: Categories */
   $handler->display->display_options['fields']['field_categories']['id'] = 'field_categories';
   $handler->display->display_options['fields']['field_categories']['table'] = 'field_data_field_categories';
   $handler->display->display_options['fields']['field_categories']['field'] = 'field_categories';
@@ -703,7 +703,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_categories']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_categories']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_categories']['field_api_classes'] = 0;
-  /* Field: Fields: Description */
+  /* Field: Content: Description */
   $handler->display->display_options['fields']['field_description']['id'] = 'field_description';
   $handler->display->display_options['fields']['field_description']['table'] = 'field_data_field_description';
   $handler->display->display_options['fields']['field_description']['field'] = 'field_description';
@@ -724,7 +724,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_description']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_description']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_description']['field_api_classes'] = 0;
-  /* Field: Fields: Activity Level */
+  /* Field: Content: Activity Level */
   $handler->display->display_options['fields']['field_activity']['id'] = 'field_activity';
   $handler->display->display_options['fields']['field_activity']['table'] = 'field_data_field_activity';
   $handler->display->display_options['fields']['field_activity']['field'] = 'field_activity';
@@ -745,7 +745,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_activity']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_activity']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_activity']['field_api_classes'] = 0;
-  /* Field: Fields: Neighborhood */
+  /* Field: Content: Neighborhood */
   $handler->display->display_options['fields']['field_neighborhood']['id'] = 'field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['table'] = 'field_data_field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['field'] = 'field_neighborhood';
@@ -769,7 +769,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_neighborhood']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_neighborhood']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_neighborhood']['field_api_classes'] = 0;
-  /* Field: Fields: District */
+  /* Field: Content: District */
   $handler->display->display_options['fields']['field_district']['id'] = 'field_district';
   $handler->display->display_options['fields']['field_district']['table'] = 'field_data_field_district';
   $handler->display->display_options['fields']['field_district']['field'] = 'field_district';
@@ -790,7 +790,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_district']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_district']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_district']['field_api_classes'] = 0;
-  /* Field: Fields: Region */
+  /* Field: Content: Region */
   $handler->display->display_options['fields']['field_region']['id'] = 'field_region';
   $handler->display->display_options['fields']['field_region']['table'] = 'field_data_field_region';
   $handler->display->display_options['fields']['field_region']['field'] = 'field_region';
@@ -814,7 +814,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_region']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_region']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_region']['field_api_classes'] = 0;
-  /* Field: Fields: City */
+  /* Field: Content: City */
   $handler->display->display_options['fields']['field_city']['id'] = 'field_city';
   $handler->display->display_options['fields']['field_city']['table'] = 'field_data_field_city';
   $handler->display->display_options['fields']['field_city']['field'] = 'field_city';
@@ -835,7 +835,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_city']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_city']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_city']['field_api_classes'] = 0;
-  /* Field: Fields: State */
+  /* Field: Content: State */
   $handler->display->display_options['fields']['field_state']['id'] = 'field_state';
   $handler->display->display_options['fields']['field_state']['table'] = 'field_data_field_state';
   $handler->display->display_options['fields']['field_state']['field'] = 'field_state';
@@ -856,7 +856,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_state']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_state']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_state']['field_api_classes'] = 0;
-  /* Field: Fields: Area Code */
+  /* Field: Content: Area Code */
   $handler->display->display_options['fields']['field_area_code']['id'] = 'field_area_code';
   $handler->display->display_options['fields']['field_area_code']['table'] = 'field_data_field_area_code';
   $handler->display->display_options['fields']['field_area_code']['field'] = 'field_area_code';
@@ -877,7 +877,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_area_code']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_area_code']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_area_code']['field_api_classes'] = 0;
-  /* Field: Fields: Contact */
+  /* Field: Content: Contact */
   $handler->display->display_options['fields']['field_contact']['id'] = 'field_contact';
   $handler->display->display_options['fields']['field_contact']['table'] = 'field_data_field_contact';
   $handler->display->display_options['fields']['field_contact']['field'] = 'field_contact';
@@ -919,7 +919,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_location']['click_sort_column'] = 'wkt';
   $handler->display->display_options['fields']['field_location']['type'] = 'geofield_wkt';
   $handler->display->display_options['fields']['field_location']['field_api_classes'] = 0;
-  /* Field: Fields: Ownership */
+  /* Field: Content: Ownership */
   $handler->display->display_options['fields']['field_ownership']['id'] = 'field_ownership';
   $handler->display->display_options['fields']['field_ownership']['table'] = 'field_data_field_ownership';
   $handler->display->display_options['fields']['field_ownership']['field'] = 'field_ownership';
@@ -943,7 +943,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_ownership']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_ownership']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_ownership']['field_api_classes'] = 0;
-  /* Field: Fields: Type of Group */
+  /* Field: Content: Type of Group */
   $handler->display->display_options['fields']['field_type_web_resource']['id'] = 'field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['table'] = 'field_data_field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['field'] = 'field_type_web_resource';
@@ -965,7 +965,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['field_type_web_resource']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_type_web_resource']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_type_web_resource']['field_api_classes'] = 0;
-  /* Field: Fields: Source */
+  /* Field: Content: Source */
   $handler->display->display_options['fields']['field_source']['id'] = 'field_source';
   $handler->display->display_options['fields']['field_source']['table'] = 'field_data_field_source';
   $handler->display->display_options['fields']['field_source']['field'] = 'field_source';
@@ -1261,8 +1261,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['relationships']['feed_nid']['table'] = 'feeds_item';
   $handler->display->display_options['relationships']['feed_nid']['field'] = 'feed_nid';
   $handler->display->display_options['relationships']['feed_nid']['required'] = 0;
-  $handler->display->display_options['relationships']['feed_nid']['reverse_relation'] = 0;
-  /* Field: Fields: Neighborhood */
+  /* Field: Content: Neighborhood */
   $handler->display->display_options['fields']['field_neighborhood']['id'] = 'field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['table'] = 'field_data_field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['field'] = 'field_neighborhood';
@@ -1288,7 +1287,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_neighborhood']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_neighborhood']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_neighborhood']['field_api_classes'] = 0;
-  /* Field: Fields: Region */
+  /* Field: Content: Region */
   $handler->display->display_options['fields']['field_region']['id'] = 'field_region';
   $handler->display->display_options['fields']['field_region']['table'] = 'field_data_field_region';
   $handler->display->display_options['fields']['field_region']['field'] = 'field_region';
@@ -1314,7 +1313,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_region']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_region']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_region']['field_api_classes'] = 0;
-  /* Field: Fields: State */
+  /* Field: Content: State */
   $handler->display->display_options['fields']['field_state']['id'] = 'field_state';
   $handler->display->display_options['fields']['field_state']['table'] = 'field_data_field_state';
   $handler->display->display_options['fields']['field_state']['field'] = 'field_state';
@@ -1337,7 +1336,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_state']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_state']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_state']['field_api_classes'] = 0;
-  /* Field: Fields: City */
+  /* Field: Content: City */
   $handler->display->display_options['fields']['field_city']['id'] = 'field_city';
   $handler->display->display_options['fields']['field_city']['table'] = 'field_data_field_city';
   $handler->display->display_options['fields']['field_city']['field'] = 'field_city';
@@ -1387,7 +1386,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
     'data' => 'full',
   );
   $handler->display->display_options['fields']['field_location']['field_api_classes'] = 0;
-  /* Field: Fields: URL */
+  /* Field: Content: URL */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -1433,7 +1432,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 0;
-  /* Field: Fields: URL */
+  /* Field: Content: URL */
   $handler->display->display_options['fields']['field_url_1']['id'] = 'field_url_1';
   $handler->display->display_options['fields']['field_url_1']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url_1']['field'] = 'field_url';
@@ -1455,7 +1454,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_url_1']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_url_1']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_url_1']['field_api_classes'] = 0;
-  /* Field: Fields: Categories */
+  /* Field: Content: Categories */
   $handler->display->display_options['fields']['field_categories']['id'] = 'field_categories';
   $handler->display->display_options['fields']['field_categories']['table'] = 'field_data_field_categories';
   $handler->display->display_options['fields']['field_categories']['field'] = 'field_categories';
@@ -1480,7 +1479,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_categories']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_categories']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_categories']['field_api_classes'] = 0;
-  /* Field: Fields: Ownership */
+  /* Field: Content: Ownership */
   $handler->display->display_options['fields']['field_ownership']['id'] = 'field_ownership';
   $handler->display->display_options['fields']['field_ownership']['table'] = 'field_data_field_ownership';
   $handler->display->display_options['fields']['field_ownership']['field'] = 'field_ownership';
@@ -1675,7 +1674,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 0;
-  /* Field: Fields: URL */
+  /* Field: Content: URL */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -1743,7 +1742,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
     'data' => 'full',
   );
   $handler->display->display_options['fields']['field_location']['field_api_classes'] = 0;
-  /* Field: Fields: Neighborhood */
+  /* Field: Content: Neighborhood */
   $handler->display->display_options['fields']['field_neighborhood']['id'] = 'field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['table'] = 'field_data_field_neighborhood';
   $handler->display->display_options['fields']['field_neighborhood']['field'] = 'field_neighborhood';
@@ -1768,7 +1767,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_neighborhood']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_neighborhood']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_neighborhood']['field_api_classes'] = 0;
-  /* Field: Fields: Region */
+  /* Field: Content: Region */
   $handler->display->display_options['fields']['field_region']['id'] = 'field_region';
   $handler->display->display_options['fields']['field_region']['table'] = 'field_data_field_region';
   $handler->display->display_options['fields']['field_region']['field'] = 'field_region';
@@ -1793,7 +1792,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_region']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_region']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_region']['field_api_classes'] = 0;
-  /* Field: Fields: City */
+  /* Field: Content: City */
   $handler->display->display_options['fields']['field_city']['id'] = 'field_city';
   $handler->display->display_options['fields']['field_city']['table'] = 'field_data_field_city';
   $handler->display->display_options['fields']['field_city']['field'] = 'field_city';
@@ -1815,7 +1814,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_city']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_city']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_city']['field_api_classes'] = 0;
-  /* Field: Fields: State */
+  /* Field: Content: State */
   $handler->display->display_options['fields']['field_state']['id'] = 'field_state';
   $handler->display->display_options['fields']['field_state']['table'] = 'field_data_field_state';
   $handler->display->display_options['fields']['field_state']['field'] = 'field_state';
@@ -1837,7 +1836,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_state']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_state']['click_sort_column'] = 'tid';
   $handler->display->display_options['fields']['field_state']['field_api_classes'] = 0;
-  /* Field: Fields: Categories */
+  /* Field: Content: Categories */
   $handler->display->display_options['fields']['field_categories']['id'] = 'field_categories';
   $handler->display->display_options['fields']['field_categories']['table'] = 'field_data_field_categories';
   $handler->display->display_options['fields']['field_categories']['field'] = 'field_categories';
@@ -1862,7 +1861,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_categories']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_categories']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_categories']['field_api_classes'] = 0;
-  /* Field: Fields: Ownership */
+  /* Field: Content: Ownership */
   $handler->display->display_options['fields']['field_ownership']['id'] = 'field_ownership';
   $handler->display->display_options['fields']['field_ownership']['table'] = 'field_data_field_ownership';
   $handler->display->display_options['fields']['field_ownership']['field'] = 'field_ownership';
