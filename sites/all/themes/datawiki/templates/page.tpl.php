@@ -13,16 +13,16 @@
       <?php print '<a href="' . base_path() . '">' . $logo_image_link . '</a>'; ?>
     </div>
     
-    <div class="header-menu-container grid_4">
+    <div class="header-menu-container grid_2">
       <?php print render($page['header_menu']); ?>
     </div>
 
-    <div class="header-signin-container grid_4 omega">
+    <div class="header-signin-container grid_4">
       <?php print render($page['header_signin']); ?>
       <?php print $account_link; ?>
     </div>
 
-    <div class="header-gap-container grid_4">
+    <div class="header-gap-container grid_6 omega">
       <?php print render($page['header_gap']); ?>
     </div>
 

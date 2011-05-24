@@ -445,12 +445,12 @@ select option {
 /*   padding: 0 0 0 10px; */
 }
 
-.views-exposed-widget .views-widget input {
+#content .views-exposed-widget .views-widget input {
   width: 200px;
   color: #666;
 }
 
-.views-exposed-form label {
+#content .views-exposed-form label {
   background-color: #e89a41;
   padding: 5px 10px;
   margin: 0 20% 10px 0;
@@ -459,9 +459,9 @@ select option {
 }
 
 /* .views-submit-button, */
-.view-footer a, 
-.view .more-link a,
-input.form-submit {
+#content .view-footer a, 
+#content .view .more-link a,
+#content input.form-submit {
   background-color: #96a141;
   color: #ffffff;
   text-transform: uppercase;
