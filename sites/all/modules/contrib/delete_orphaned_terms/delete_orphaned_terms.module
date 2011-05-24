@@ -1,0 +1,597 @@
+<?php
+
+/**
+ * @file
+ * Taxonomy pruner - deletes orphaned terms from taxonomy.
+ *
+ * The "Delete orphaned terms" module allows for manual and automatic pruning
+ * of taxonomy terms that are no longer referenced by a minimum (configurable)
+ * number of nodes, optionally via hook_cron().
+ */
+
+/**
+ * Simple debug function for Drupal 7.
+ */
+function _dd7($d, $enable = TRUE) {
+  var_dump($d);
+  if ($enable) ob_flush();
+}
+
+/**
+ * Returns default values, used by _dot_get().
+ *
+ * it's not a good idea to fill memory with define()s
+ */
+function __delete_orphaned_terms_defaults($var) {
+  switch ($var) {
+  case 'delete_orphaned_terms_failsafe':
+    return 50;
+    break;
+  case 'delete_orphaned_terms_failsafe_all':
+    return 25;
+    break;
+  case 'delete_orphaned_terms_threshold':
+    return 0;
+    break;
+  case 'delete_orphaned_terms_whitelist':
+  case 'delete_orphaned_terms_blacklist':
+    return array();
+    break;
+  case 'delete_orphaned_terms_tagsonly':
+    return TRUE;
+    break;
+  case 'delete_orphaned_terms_removeemptyvoc':
+    return FALSE;
+    break;
+  case 'delete_orphaned_terms_vocabs':
+    return array();
+    break;
+  case 'delete_orphaned_terms_enablecron':
+    return FALSE;
+    break;
+  case 'delete_orphaned_terms_voctags':
+    return array(1); // default tags on new Drupal 7.x install
+    break;
+  default:
+    DIE('Don\'t know this option');
+  }
+}
+
+/**
+ * Wrapper for variable_get().
+ */
+function _dot_get($var) {
+  return variable_get($var, __delete_orphaned_terms_defaults($var));
+}
+
+/**
+ * Get count of vocabularies that are a tag based field on some content type (bundle).
+ *
+ * replacement for taxonomy_term_count_nodes()
+ */
+function __delete_orphaned_terms_tax_term_count_entities($tid, $count = TRUE) {
+  $cnt = 0;
+  $conditions = array(array('tid', $tid));
+
+  $instances = field_read_instances();
+  foreach ($instances as $instance) {
+    // check if this has to do with taxonomy, otherwise there will be no 'tid' column
+    if ($instance['widget']['module'] == 'taxonomy') {
+      $cnt += field_attach_query($instance['field_id'], $conditions, array('count' => $count));
+    }
+  }
+
+  drupal_set_message("__delete_orphaned_terms_tax_term_count_entities(tid=$tid): $cnt");
+  return $cnt;
+}
+
+/**
+ * Check if a vocabulary is used as a source for at least one auto-complete term widget (tag).
+ */
+function _delete_orphaned_terms_voc_is_tag($vid) {
+  $fi_auto = array();
+
+  // get all field instances
+  $instances = field_read_instances();
+  foreach ($instances as $instance) {
+    // check if instance is of autocomplete type
+    if (isset($instance['widget']['type']) && $instance['widget']['type'] == 'taxonomy_autocomplete') {
+      $fi_auto[] = $instance;
+    }
+  }
+
+  $ret = FALSE;
+
+  $terms = taxonomy_get_tree($vid);
+  foreach ($terms as $term) {
+    $conditions = array(array('tid', $term->tid));
+    foreach ($fi_auto as $fi) {
+      // if a field exists for that term and in the previously compiled list,
+      // then we have a tagging term
+      $ok = field_attach_query($fi['field_id'], $conditions);
+      if (!empty($ok)) {
+        $ret = TRUE;
+        break 2;
+      }
+    }
+  }
+
+  drupal_set_message("_delete_orphaned_terms_voc_is_tag(vid=$vid): $ret");
+  return $ret;
+  //return in_array($vid, _dot_get('delete_orphaned_terms_voctags'));
+}
+
+/**
+ * Helper function: retrieves vocabularies' names
+ */
+function _delete_orphaned_terms_vocab_names($verbose = FALSE, $show_if_tags = FALSE) {
+  if (function_exists('i18n_selection_mode')) {
+    i18n_selection_mode('off');
+  }
+  $thres = _dot_get('delete_orphaned_terms_threshold');
+
+  $vocab_names = array();
+  $vocabularies = taxonomy_get_vocabularies();
+  foreach ($vocabularies as $vocabulary) {
+    $vocab_names[$vocabulary->vid] = $vocabulary->name;
+    $count = count(taxonomy_get_tree($vocabulary->vid));
+    if ($verbose) {
+      $vocab_names[$vocabulary->vid] .= ' (' . $count . ' terms)';
+    }
+    else {
+      $vocab_names[$vocabulary->vid] .= ' (' . $count . ')';
+    }
+    if ($show_if_tags && _delete_orphaned_terms_voc_is_tag($vocabulary->vid)) {
+      $vocab_names[$vocabulary->vid] .= ' [t]';
+    }
+  }
+
+  return $vocab_names;
+}
+
+/**
+ * Verifies the syntax of the given percentage value.
+ *
+ * @param $element
+ *   The form element to be validated.
+ * @param $form_state
+ *   A reference to the entire form containing the element to be validated.
+ *   Since this parameter is passed by reference one can also modify the form.
+ */
+function _delete_orphaned_terms_element_validate_percentage($element, &$form_state) {
+  if ($element['#value'] < 0 || $element['#value'] > 100) {
+    form_error($element, t('%title must be a number between 0 and 100.', array('%title' => $element['#title'])));
+  }
+  //$form_state['values']['delete_orphaned_terms_failsafe'] = (int)$element['#value'];
+}
+
+/**
+ * Verifies the syntax of the given threshold value.
+ *
+ * @param $element
+ *   The form element to be validated.
+ * @param $form_state
+ *   A reference to the entire form containing the element to be validated.
+ *   Since this parameter is passed by reference one can also modify the form.
+ */
+function _delete_orphaned_terms_element_validate_threshold($element, &$form_state) {
+  if (!is_numeric($element['#value']) || $element['#value'] < 0) {
+    form_error($element, t('%title must contain a non-negative number.', array('%title' => $element['#title'])));
+  }
+}
+
+/**
+ * Checks which elements of the form were used and prunes the taxonomy
+ * according to those settings. (internal function, not to be considered as API)
+ *
+ * @param $form
+ *   The form
+ * @param $form_state
+ *   The state of the form
+ */
+function _delete_orphaned_terms($form, $form_state) {
+  // disable language selection, i.e. don't consider node language
+  // when searching for referencing terms etc.
+  if (function_exists('i18n_selection_mode')) {
+    i18n_selection_mode('off');
+  }
+
+  // initialize state array
+  $state = array(
+    'cron' => FALSE,
+    'sim' => TRUE,
+    'cronman' => FALSE,
+    'all' => FALSE,
+  );
+
+  // are we running from cron?
+  if ($form===NULL && $form_state===NULL) {
+    $state['cron'] = TRUE;
+    $state['sim'] = $state['cronman'] = $state['all'] = FALSE;
+  }
+  else {
+    // are we simulating?
+    $state['sim'] = $form_state['clicked_button']['#sim'];
+    // was a manual cron run selected? (all submit buttons carry this attribute)
+    $state['cronman'] = $form_state['clicked_button']['#cronman'];
+    // was "All" selected in the manual pruning dialog?
+    if (isset($form_state['values']['delete_orphaned_terms_vocabs']['all'])) {
+      $state['all'] = $form_state['values']['delete_orphaned_terms_vocabs']['all'];
+    }
+  }
+  $w = _dot_get('delete_orphaned_terms_whitelist');
+  $b = _dot_get('delete_orphaned_terms_blacklist');
+  $t = _dot_get('delete_orphaned_terms_tagsonly');
+
+  if ($state['sim']) {
+    drupal_set_message(t('%sim', array('%sim' => 'Simulation')));
+  }
+  $vids = array();
+  if ($state['cron'] || $state['cronman'] || $state['all']) {
+    $vocabs = taxonomy_get_vocabularies();
+    foreach ($vocabs as $vocab) {
+      if ($state['all'] && !$state['cron'] && !$state['cronman']) {
+        $vids[] = $vocab->vid;
+      }
+      // white/black list processing (see README)
+      elseif (in_array($vocab->vid, $w) || (!in_array($vocab->vid, $b) && _delete_orphaned_terms_voc_is_tag($vocab->vid) == $t)) {
+        $vids[] = $vocab->vid;
+      }
+    }
+  }
+  else {
+    $vids = $form_state['values']['delete_orphaned_terms_vocabs'];
+    variable_set('delete_orphaned_terms_vocabs', $form_state['values']['delete_orphaned_terms_vocabs']);
+  }
+  $thres = _dot_get('delete_orphaned_terms_threshold');
+
+  // assemble the terms to process and generate output
+  $prune = array();
+  $all_terms = 0;
+  foreach ($vids as $vid) {
+    if ($vid <= 0) continue;
+
+    $vocab = taxonomy_vocabulary_load($vid);
+    $terms = taxonomy_get_tree($vid);
+    $del_term = 0;
+    $prune_local = array();
+    foreach ($terms as $term) {
+      if (__delete_orphaned_terms_tax_term_count_entities($term->tid) <= $thres) {
+        $prune_local[] = $term->tid;
+        $del_term++;
+        if ($state['sim']) {
+          drupal_set_message(t('Would delete term #!tid: !name (!vname)', array('!tid' => $term->tid,
+                                                                                '!name' => $term->name,
+                                                                                '!vname' => $vocab->name)));
+        }
+        else {
+          if (!$state['cron']) {
+            drupal_set_message(t('Deleting term #!tid: !name (!vname)', array('!tid' => $term->tid,
+                                                                              '!name' => $term->name,
+                                                                              '!vname' => $vocab->name)));
+          }
+        }
+      }
+    }
+    // issue an error to the log if the configured failsafe (any) is out of bounds
+    if (count($terms) > 0 && count($prune)/count($terms)*100 > _dot_get('delete_orphaned_terms_failsafe')) {
+      $errmsg = t('[cron] FAILSAFE (any): did not delete !count/!total terms from !vname', array('!count' => count($prune),
+                                                                                                 '!total' => count($terms),
+                                                                                                 '!vname' => $vocab->name));
+      if ($state['cron']) {
+        watchdog('delete_orphaned_terms', $errmsg, array(), WATCHDOG_ERROR);
+        continue; // in order not to be triggered in manual mode, this is here and not below
+      }
+      elseif ($state['cronman']) {
+        drupal_set_message($errmsg);
+        continue;
+      }
+    }
+    if ($del_term > 0 && !$state['cron']) {
+      drupal_set_message(t('Previous %vname term count: !count', array('%vname' => $vocab->name,
+                                                                       '!count' => count($terms))));
+    }
+    $all_terms += count($terms);
+    $prune = array_merge($prune, $prune_local);
+  }
+
+  // issue an error and do not do anything if the configured failsafe (all) is out of bounds
+  if ($all_terms > 0 && count($prune)/$all_terms*100 > _dot_get('delete_orphaned_terms_failsafe_all')) {
+    $errmsg = t('[cron] FAILSAFE (all): did not delete !count/!total terms', array('!count' => count($prune),
+                                                                                   '!total' => $all_terms));
+    if ($state['cron']) {
+      watchdog('delete_orphaned_terms', $errmsg, array(), WATCHDOG_ERROR);
+      return FALSE; // in order not to be triggered in manual mode, this is here and not below
+    }
+    elseif ($state['cronman']) {
+      drupal_set_message($errmsg);
+      return FALSE;
+    }
+  }
+
+  // do the processing
+  if (!$state['sim']) {
+    foreach ($prune as $p) {
+      taxonomy_term_delete($p);
+    }
+  }
+
+  // scan vocabularies and remove empty ones
+  $del_voc = 0;
+  if (($state['cron'] || $state['cronman']) && _dot_get('delete_orphaned_terms_removeemptyvoc')) {
+    $vocabularies = taxonomy_get_vocabularies();
+    foreach ($vocabularies as $vocabulary) {
+      // account for vocabulary in blacklist
+      if (in_array($vocabulary->vid, $b)) continue;
+      $terms = taxonomy_get_tree($vocabulary->vid);
+      // account for terms that would have been removed in the previous step of a simulation
+      if ($state['sim']) {
+        foreach ($terms as $k => $term) {
+          if (in_array($term->tid, $prune)) {
+            unset($terms[$k]);
+          }
+        }
+      }
+      if (count($terms) != 0) continue;
+      $del_voc++;
+      if ($state['sim']) {
+        drupal_set_message(t('Would delete vocabulary #!vid: !vname', array('!vid' => $vocabulary->vid,
+                                                                            '!vname' => $vocabulary->name)));
+      }
+      else {
+        if (!$state['cron']) {
+          drupal_set_message(t('Deleting vocabulary #!vid: !vname', array('!vid' => $vocabulary->vid,
+                                                                          '!vname' => $vocabulary->name)));
+        }
+        taxonomy_vocabulary_delete($vocabulary->vid);
+      }
+    }
+  }
+
+  // give a final message
+  $logmsg = t('Taxonomy pruned.');
+  if (count($prune) > 0) $logmsgdet[] = t('!count !terms', array('!count' => count($prune),
+                                                                 '!terms' => format_plural(count($prune), 'term', 'terms')));
+  if ($del_voc > 0) $logmsgdet[] = t('!count !vocs', array('!count' => $del_voc,
+                                                           '!vocs' => format_plural($del_voc, 'vocabulary', 'vocabularies')));
+  if (count($prune) + $del_voc > 0) {
+    $logmsg .= ' (' . implode(', ', $logmsgdet) . ')';
+  }
+  if (!$state['cron']) {
+    if (count($prune) + $del_voc > 0) {
+      drupal_set_message($logmsg);
+    }
+    else {
+      drupal_set_message(t('Nothing to do.'));
+    }
+  }
+  else {
+    if (count($prune) + $del_voc > 0) {
+      watchdog('delete_orphaned_terms', '[cron] ' . $logmsg, array(), WATCHDOG_INFO);
+    }
+  }
+}
+
+/**
+ * The user menu.
+ */
+function delete_orphaned_terms_form_manual() {
+  if (count(_delete_orphaned_terms_vocab_names()) <= 0) {
+    $form['info'] = array(
+      '#value' => t('There are no vocabularies.'),
+    );
+
+    return $form;
+  }
+
+  $form['delete_orphaned_terms_vocabs'] = array(
+ // '#default_value' => array_fill(0, count(taxonomy_get_vocabularies()), FALSE),
+    '#default_value' => _dot_get('delete_orphaned_terms_vocabs'),
+    '#description' => t('Select one or more or all vocabularies to delete orphaned terms from. Current orphan threshold is !threshold.', array('!threshold' => _dot_get('delete_orphaned_terms_threshold'))),
+    '#multiple' => TRUE,
+    '#options' => _delete_orphaned_terms_vocab_names(TRUE),
+    '#type' => 'checkboxes',
+    '#title' => t('Vocabularies'),
+  );
+  $form['delete_orphaned_terms_vocabs']['#options']['all'] = t('%all', array('%all' => 'All'));
+
+  $form['delete_orphaned_terms_runnow']['go'] = array(
+    '#cronman' => FALSE,
+    '#sim' => FALSE,
+    '#submit' => array('_delete_orphaned_terms'),
+    '#type' => 'submit',
+    '#value' => t('Delete orphaned terms now'),
+  );
+
+  $form['delete_orphaned_terms_runnow']['sim'] = array(
+    '#cronman' => FALSE,
+    '#sim' => TRUE,
+    '#submit' => array('_delete_orphaned_terms'),
+    '#type' => 'submit',
+    '#value' => t('Simulate'),
+  );
+
+  return $form;
+}
+
+/**
+ * The admin menu. (Tab 1)
+ */
+function delete_orphaned_terms_admin() {
+  drupal_add_css(drupal_get_path('module', 'delete_orphaned_terms') . "/delete_orphaned_terms.css", 'module', 'all', FALSE);
+
+  $form['dot_cron']['delete_orphaned_terms_enablecron'] = array(
+    '#default_value' => _dot_get('delete_orphaned_terms_enablecron'),
+    '#title' => '<strong>' . t('Enable automatic pruning') . '</strong>',
+    '#type' => 'checkbox',
+  );
+
+  $form['dot_cron']['lists'] = array(
+    '#description' => t('Use these options to force or prevent automatic pruning of your taxonomy.') . '<br/><small>' . t('[t] indicates a tag based vocabulary.') . '</small><br/><span style="text-decoration: underline; font-weight: bold;">' . t('Warning') . '</span>: ' . t('First save at the bottom of this dialog to apply this setting before testing the pruning.') . '<br/><small>' . t('Ctrl-Click for multi select') . '</small>',
+    '#title' => t('Whitelisting and blacklisting of vocabularies'),
+    '#type' => 'fieldset',
+  );
+  $form['dot_cron']['lists']['delete_orphaned_terms_whitelist'] = array(
+    '#default_value' => _dot_get('delete_orphaned_terms_whitelist'),
+    '#description' => t('Which vocabularies to always prune, even if tag based or blacklisted.'),
+    '#multiple' => TRUE,
+    '#options' => _delete_orphaned_terms_vocab_names(FALSE, TRUE),
+    '#title' => t('Whitelist'),
+    '#type' => 'select',
+  );
+  $form['dot_cron']['lists']['delete_orphaned_terms_blacklist'] = array(
+    '#default_value' => _dot_get('delete_orphaned_terms_blacklist'),
+    '#description' => t('Which vocabularies to never prune.') . '<br/><em>' . t('Note') . '</em>: ' . t('This has no effect if a same item is already selected in the whitelist.'),
+    '#multiple' => TRUE,
+    '#options' => $form['dot_cron']['lists']['delete_orphaned_terms_whitelist']['#options'],
+    '#title' => t('Blacklist'),
+    '#type' => 'select',
+  );
+
+  $form['dot_cron']['delete_orphaned_terms_tagsonly'] = array(
+    '#default_value' => _dot_get('delete_orphaned_terms_tagsonly'),
+    '#description' => t('Only act on terms that are part of vocabularies which are tag based.') . '<br/><em>' . t('Note') . '</em>: ' . t('This condition does not apply to items in the whitelist, which are always pruned.'),
+    '#title' => t('Prune tag based vocabularies only'),
+    '#type' => 'checkbox',
+  );
+
+  $form['dot_cron']['delete_orphaned_terms_removeemptyvoc'] = array(
+    '#default_value' => _dot_get('delete_orphaned_terms_removeemptyvoc'),
+    '#description' => t('Remove vocabularies altogether that might have become empty after pruning (no matter if tag based or not).') . '<br/><em>' . t('Note') . '</em>: ' . t('This does not apply to vocabularies in the blacklist, which will never be deleted.'),
+    '#title' => t('Remove empty vocabularies'),
+    '#type' => 'checkbox',
+  );
+
+  $form['dot_cron']['failsafe'] = array(
+    '#collapsible' => TRUE,
+    '#description' => t('Use these options to define upper bounds on how many terms should be automatically deleted.'),
+    '#title' => t('Failsafe'),
+    '#type' => 'fieldset',
+  );
+  $form['dot_cron']['failsafe']['delete_orphaned_terms_failsafe'] = array(
+    '#default_value' => _dot_get('delete_orphaned_terms_failsafe'),
+    '#description' => t('Maximum percentage of tags to delete from any one vocabulary in automatic mode.'),
+    '#element_validate' => array('_delete_orphaned_terms_element_validate_percentage'),
+    '#field_suffix' => '%',
+    '#maxlength' => 3,
+    '#size' => 3,
+    '#title' => t('Any'),
+    '#type' => 'textfield',
+  );
+  $form['dot_cron']['failsafe']['delete_orphaned_terms_failsafe_all'] = array(
+    '#default_value' => _dot_get('delete_orphaned_terms_failsafe_all'),
+    '#description' => t('Maximum percentage of tags to delete from all vocabularies combined in automatic mode.'),
+    '#element_validate' => array('_delete_orphaned_terms_element_validate_percentage'),
+    '#field_suffix' => '%',
+    '#maxlength' => 3,
+    '#size' => 3,
+    '#title' => t('All'),
+    '#type' => 'textfield',
+  );
+
+  $form['dot_cron']['simulation'] = array(
+    '#collapsible' => FALSE,
+    '#description' => t('Use these buttons to simulate what automatic pruning would do to your taxonomy.'),
+    '#title' => t('Simulation'),
+    '#type' => 'fieldset',
+  );
+  $form['dot_cron']['simulation']['sim'] = array(
+    '#cronman' => TRUE,
+    '#sim' => TRUE,
+    '#submit' => array('_delete_orphaned_terms'),
+    '#type' => 'submit',
+    '#value' => t('Simulate cron'),
+  );
+  $form['dot_cron']['simulation']['go'] = array(
+    '#cronman' => TRUE,
+    '#sim' => FALSE,
+    '#submit' => array('_delete_orphaned_terms'),
+    '#type' => 'submit',
+    '#value' => t('Prune taxonomy now (stored cron settings)'),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * The admin menu. (Tab 2)
+ */
+function delete_orphaned_terms_admin_parameters() {
+
+  $form['dot_param']['delete_orphaned_terms_threshold'] = array(
+    '#description' => t('Number of nodes associated to a term below (or equal) to which it is considered as orphaned.'),
+    '#default_value' => _dot_get('delete_orphaned_terms_threshold'),
+    '#element_validate' => array('_delete_orphaned_terms_element_validate_threshold'),
+    '#maxlength' => 1,
+    '#size' => 1,
+    '#title' => t('Orphan threshold'),
+    '#type' => 'textfield',
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_cron().
+ */
+function delete_orphaned_terms_cron() {
+  if (_dot_get('delete_orphaned_terms_enablecron')) {
+    _delete_orphaned_terms(NULL, NULL);
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function delete_orphaned_terms_help($path, $arg) {
+  $output = '';  // declare output variable, otherwise NULL might be returned
+  switch ($path) {
+  case "admin/settings/delete_orphaned_terms":
+    $output = '<p>' . t('These options, when enabled, prune taxonomy regularly according to several parameters.') . '</p>';
+    break;
+  case "admin/settings/delete_orphaned_terms/parameters":
+    $output = '<p>' . t('These parameters are applied to both automatic and manual removal of orphaned terms.') . '</p>';
+    break;
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function delete_orphaned_terms_menu() {
+  $items = array();
+
+  $items['dot'] = array(
+    'access arguments' => array('administer taxonomy'),
+    'description' => "Delete terms with no content associated with them.",
+    'menu_name' => 'management',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('delete_orphaned_terms_form_manual'),
+    'title' => 'Orphaned Terms Deletion',
+  );
+
+  $items['admin/settings/delete_orphaned_terms'] = array(
+    'access arguments' => array('administer taxonomy'),
+    'description' => 'Configure orphaned terms removal on your taxonomy.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('delete_orphaned_terms_admin'),
+    'title' => 'Taxonomy Pruner',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/settings/delete_orphaned_terms/settings'] = array(
+    'access arguments' => array('administer taxonomy'),
+    'title' => 'Automatic Pruning Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -1,
+  );
+  $items['admin/settings/delete_orphaned_terms/parameters'] = array(
+    'access arguments' => array('administer taxonomy'),
+    'page arguments' => array('delete_orphaned_terms_admin_parameters'),
+    'title' => 'Parameters',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}

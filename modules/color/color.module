@@ -1,5 +1,4 @@
 <?php
-// $Id: color.module,v 1.92 2010/10/05 19:59:10 dries Exp $
 
 /**
  * Implements hook_help().

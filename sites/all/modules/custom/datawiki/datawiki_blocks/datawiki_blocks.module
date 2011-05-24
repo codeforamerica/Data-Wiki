@@ -91,15 +91,27 @@ function datawiki_blocks_contents($type) {
       
     case 'branding_footer':
       $code_for_america = '';
-      $output .= '<div id="branding-footer"><img src="/sites/all/themes/images/cfa-full-logo.png" /></div>';
+      $output .= '<div id="branding-footer"><img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" /></div>';
       break;
       
     case 'add_data':
-      $links = '<a href="">Facebook</a> <a href="">Yahoo</a> <a href="">Meetup</a> <a href="">Mailing Lists</a> <a href="">Social Networks</a> <a href="">Community Blogs</a>';
+
+      $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/facebook-icon.png" width="50" />';
+      $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/yahoo_groups_icon_50x50.png" />';
+      $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/google-groups-icon.jpg" width="80" />';
+      $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/meetup-icon-small.png" />';
+      $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/email-icon.png" width="50"/>';
+      $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/twitter_icon.jpg" width="50"/>';
+      $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/blog-icon.jpg" width="50" />';
+      $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/mail-icon.png" width="50"/>';
+/*       $ning = '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" />'; */
+
+
+      $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $mail . $yahoo /*. $ning */;
       $output .= '
         <div class="add-data">' 
         . t('We make it easy to find groups in your city.') 
-        . $links
+        . '<div class="groups-icons">' . $links . '</div>'
 /*           . t('Know a cool group? Why not <a href="/node/add/online-community">Add</a> it?') */
         . '</div>';
       break;

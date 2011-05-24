@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the delete_orphaned_items module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function delete_orphaned_terms_install() {
+
+}
+
+/**
+ * Implements hook_update().
+ */
+function delete_orphaned_terms_update_6200() {
+  $ret = array();
+
+  // convert old values to new consistently named parameters
+  $vocabs = variable_get('orphaned_terms_vocabs', FALSE);
+  if ($vocabs !== FALSE) {
+    variable_set('delete_orphaned_terms_vocabs', $vocabs);
+    $ret[] = update_sql("DELETE FROM {variable} WHERE name='orphaned_terms_vocabs'");
+  }
+  $value = variable_get('orphan_value', FALSE);
+  if ($value !== FALSE) {
+    variable_set('delete_orphaned_terms_threshold', $value);
+    $ret[] = update_sql("DELETE FROM {variable} WHERE name='orphan_value'");
+  }
+
+  return $ret;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function delete_orphaned_terms_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'delete_orphaned_terms_%'");
+}

@@ -1,0 +1,8 @@
+
+.form-item-delete-orphaned-terms-whitelist,
+.form-item-delete-orphaned-terms-blacklist,
+.form-item-delete-orphaned-terms-failsafe,
+.form-item-delete-orphaned-terms-failsafe-all {
+  float: left; /* LTR */
+  width: 50%;
+}

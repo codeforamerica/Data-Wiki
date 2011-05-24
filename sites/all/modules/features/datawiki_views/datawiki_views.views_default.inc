@@ -122,7 +122,9 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Find Online Communities';
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'time';
+  $handler->display->display_options['cache']['results_lifespan'] = '21600';
+  $handler->display->display_options['cache']['output_lifespan'] = '3600';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'input_required';
   $handler->display->display_options['exposed_form']['options']['text_input_required'] = array(
@@ -238,7 +240,7 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator'] = 'term_node_tid_depth_op';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'neighborhood';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['reduce'] = 0;
-  $handler->display->display_options['filters']['term_node_tid_depth']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['term_node_tid_depth']['reduce_duplicates'] = 1;
   $handler->display->display_options['filters']['term_node_tid_depth']['type'] = 'select';
   $handler->display->display_options['filters']['term_node_tid_depth']['vocabulary'] = 'neighborhood';
   $handler->display->display_options['filters']['term_node_tid_depth']['error_message'] = 0;
@@ -254,7 +256,7 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['operator'] = 'term_node_tid_depth_1_op';
   $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['identifier'] = 'category';
   $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['reduce'] = 0;
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['reduce_duplicates'] = 1;
   $handler->display->display_options['filters']['term_node_tid_depth_1']['type'] = 'select';
   $handler->display->display_options['filters']['term_node_tid_depth_1']['vocabulary'] = 'categories';
   $handler->display->display_options['filters']['term_node_tid_depth_1']['error_message'] = 0;

@@ -1,0 +1,15 @@
+name = Taxonomy Pruner
+description = "Delete orphaned terms from taxonomy, i.e. those that are no longer referenced by any node."
+core = 7.x
+version = $Name$
+dependencies[] = taxonomy
+package = "Other"
+files[] = delete_orphaned_items.module
+files[] = delete_orphaned_items.install
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "delete_orphaned_terms"
+datestamp = "1298619101"
+

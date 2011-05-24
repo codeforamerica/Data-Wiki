@@ -1,0 +1,31 @@
+delete_orphaned_terms 7.x-2.x, 2010-03-04
+-----------------------------------------
+#679606: by jmroth: first development snapshot for 7.x API
+- port of 6.x-2.x-dev to 7.x API
+- replaced relevant taxonomy functions with 7.x counterpart
+- working around deprecated taxonomy_term_count_nodes() with new custom function __delete_orphaned_terms_tax_term_count_entities()
+- integrated UI with management block
+- replaced single state variables in _delete_orphaned_terms with state[] array
+- updated .info file
+- updated CSS
+
+delete_orphaned_terms 6.x-2.x, 2010-02-27
+-----------------------------------------
+redone UI, now on separate pages and using tabs
+implemented update function to handle variables from 1.x release
+updated README
+adding CSS files and CHANGELOG.txt
+#726654: by jmroth: adding many new features
+  I'm joining forces with this module, effectively providing the following:
+  * Cron support:
+    Whitelist/blacklist
+    option to only prune tag based vocabularies
+    option to remove empty vocabularies
+    failsafe
+  * Admin page
+  * addition of "all" to manual pruning
+  * simulation of what would be removed for manual and automatic modes
+
+delete_orphaned_terms 6.x-1.x, 2009-10-26
+-----------------------------------------
+initial development release

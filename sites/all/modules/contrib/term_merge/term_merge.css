@@ -1,0 +1,40 @@
+#term-merge-term-merge-form div.terms-selector {
+    float: left;
+    margin-right: 25px;
+}
+
+#term-merge-term-merge-form div.terms-selector select {
+    min-width: 200px;
+    max-width: 300px;
+}
+
+#term-merge-term-merge-form div.merge-selectors {
+    float: left;
+}
+
+#term-merge-term-merge-form input.form-submit {
+    clear: both;
+}
+
+
+
+#taxonomy-form-term div.form-item-replacement-term-replace {
+  margin-top: 20px;
+}
+
+#taxonomy-form-term div.form-item-replacement-term,
+#taxonomy-form-term div.form-item-replacement-term-replace {
+  display: inline;
+}
+
+#taxonomy-form-term div.disabled,
+#term-merge-term-merge-form div.disabled {
+  opacity: 0.5;
+}
+
+
+
+#edit-replacement-term option.new-term {
+  font-weight: bold;
+  margin-top: 5px;
+}

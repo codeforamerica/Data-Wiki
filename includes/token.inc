@@ -1,5 +1,4 @@
 <?php
-// $Id: token.inc,v 1.10 2010/10/18 01:13:07 dries Exp $
 
 /**
  * @file
@@ -18,7 +17,7 @@
  *
  * Tokens follow the form: [$type:$name], where $type is a general class of
  * tokens like 'node', 'user', or 'comment' and $name is the name of a given
- * placeholder. For example, [node:title].
+ * placeholder. For example, [node:title] or [node:created:since].
  *
  * In addition to raw text containing placeholders, modules may pass in an array
  * of objects to be used when performing the replacement. The objects should be
@@ -104,9 +103,16 @@ function token_replace($text, array $data = array(), array $options = array()) {
  *   An associative array of discovered tokens, grouped by type.
  */
 function token_scan($text) {
-  // Matches tokens with the following pattern: [$type:$token]
-  // $type and $token may not contain white spaces.
-  preg_match_all('/\[([^\s\]:]*):([^\s\]]*)\]/', $text, $matches);
+  // Matches tokens with the following pattern: [$type:$name]
+  // $type and $name may not contain  [ ] or whitespace characters.
+  // $type may not contain : characters, but $name may.
+  preg_match_all('/
+    \[             # [ - pattern start
+    ([^\s\[\]:]*)  # match $type not containing whitespace : [ or ]
+    :              # : - separator
+    ([^\s\[\]]*)   # match $name not containing whitespace [ or ]
+    \]             # ] - pattern end
+    /x', $text, $matches);
 
   $types = $matches[1];
   $tokens = $matches[2];
