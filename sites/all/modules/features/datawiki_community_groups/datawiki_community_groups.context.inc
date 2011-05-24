@@ -26,6 +26,12 @@ function datawiki_community_groups_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'datawiki_blocks-datawiki_site_tagline' => array(
+          'module' => 'datawiki_blocks',
+          'delta' => 'datawiki_site_tagline',
+          'region' => 'preface',
+          'weight' => '-10',
+        ),
         'datawiki_blocks-datawiki_welcome' => array(
           'module' => 'datawiki_blocks',
           'delta' => 'datawiki_welcome',
@@ -59,11 +65,22 @@ function datawiki_community_groups_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'search*' => 'search*',
+        'search/online-communities' => 'search/online-communities',
       ),
     ),
   );
-  $context->reactions = array();
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'datawiki_blocks-datawiki_new_group_search' => array(
+          'module' => 'datawiki_blocks',
+          'delta' => 'datawiki_new_group_search',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
   $context->condition_mode = 0;
 
   // Translatables

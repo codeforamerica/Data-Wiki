@@ -15,7 +15,7 @@ function datawiki_community_groups_menu_default_menu_links() {
     'menu_name' => 'main-menu',
     'link_path' => 'groups/all/csv/export',
     'router_path' => 'groups/all/csv/export',
-    'link_title' => 'Download',
+    'link_title' => 'Download (CSV)',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -26,7 +26,7 @@ function datawiki_community_groups_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-43',
   );
   // Exported menu link: main-menu:node/2932
   $menu_links['main-menu:node/2932'] = array(
@@ -44,7 +44,7 @@ function datawiki_community_groups_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-47',
+    'weight' => '-45',
   );
   // Exported menu link: main-menu:node/3334
   $menu_links['main-menu:node/3334'] = array(
@@ -60,14 +60,14 @@ function datawiki_community_groups_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-45',
+    'weight' => '-48',
   );
   // Exported menu link: main-menu:node/3335
   $menu_links['main-menu:node/3335'] = array(
     'menu_name' => 'main-menu',
     'link_path' => 'node/3335',
     'router_path' => 'node/%',
-    'link_title' => 'Community Data',
+    'link_title' => 'Community Data & API',
     'options' => array(
       'attributes' => array(),
     ),
@@ -76,14 +76,14 @@ function datawiki_community_groups_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-46',
+    'weight' => '-44',
   );
   // Translatables
   // Included for use with string extractors like potx.
   t('About');
   t('Add Groups');
-  t('Community Data');
-  t('Download');
+  t('Community Data & API');
+  t('Download (CSV)');
 
 
   return $menu_links;

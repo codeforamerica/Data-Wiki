@@ -673,10 +673,10 @@ function datawiki_community_groups_field_default_fields() {
           'weight' => 16,
         ),
         'search_result' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -752,7 +752,7 @@ function datawiki_community_groups_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '17',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -828,10 +828,10 @@ function datawiki_community_groups_field_default_fields() {
           'weight' => 17,
         ),
         'search_result' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -905,9 +905,10 @@ function datawiki_community_groups_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '3',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -987,7 +988,7 @@ function datawiki_community_groups_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '9',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1058,10 +1059,10 @@ function datawiki_community_groups_field_default_fields() {
           'weight' => 14,
         ),
         'search_result' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1133,7 +1134,7 @@ function datawiki_community_groups_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '1',
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1212,7 +1213,7 @@ function datawiki_community_groups_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1270,10 +1271,10 @@ function datawiki_community_groups_field_default_fields() {
           'weight' => 15,
         ),
         'search_result' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1349,7 +1350,7 @@ function datawiki_community_groups_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1419,7 +1420,7 @@ function datawiki_community_groups_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1496,7 +1497,7 @@ function datawiki_community_groups_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '6',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1575,7 +1576,7 @@ function datawiki_community_groups_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '5',
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1654,7 +1655,7 @@ function datawiki_community_groups_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '7',
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1725,10 +1726,10 @@ function datawiki_community_groups_field_default_fields() {
           'weight' => 13,
         ),
         'search_result' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1808,7 +1809,7 @@ function datawiki_community_groups_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '10',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1888,7 +1889,7 @@ function datawiki_community_groups_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1963,7 +1964,7 @@ function datawiki_community_groups_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'default',
-          'weight' => '2',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
