@@ -51,6 +51,10 @@
   <?php print $styles; ?>
   <?php print $scripts; ?>
 
+  <?php global $base_url; ?>
+  <base href="<?php  print $base_url ?>" />
+
+
   <!-- Uncomment if you are specifically targeting less enabled mobile browsers
   <link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">  -->
 </head>
