@@ -170,58 +170,58 @@ div.styleguide {
 	}
 #edit-submit:hover {
 
-	}
+}
 
 /*---- HEADER ----*/
 
 #header {
-    background-color: #533549;
-    color: white;
-    height: 40px;   
+/*     background-color: #533549; */
+    color: #000;
+/*     height: 40px;    */
     line-height: 40px;
     margin-left: -5.5%;
     width: 110%;
 }
 
 #header a {
-    color: white;
-    font-size: 11px;
+/*     color: white; */
+/*     font-size: 11px; */
 }
 
 #header .first a {
-    border-right: 1px solid white;
+/*     border-right: 1px solid white; */
     padding-right: 20px;
     margin-right: -20px;
 }
 
 #header a,
 .header-logo-container {
-    text-transform: uppercase;
+/*     text-transform: uppercase; */
 }
 
 .header-logo-container {
-    font-weight: bold;
-    margin-left: 30px;
-    margin-right: -30px;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-right: -30px;
 }
 
 #block-search-form {
-    text-align: right;
+  text-align: right;
 }
 
 #search-block-form [name=search_block_form] {
-    border: none;
-    height: 15px;
+  border: none;
+  height: 15px;
 }
 
 #search-block-form #edit-submit {
-    background-image: url('../images/search-icon.png');
-    background-repeat: no-repeat;
-    background-color: transparent;
-    border: none;
-    color: transparent;
+  background-image: url('../images/search-icon.png');
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  color: transparent;
 }
 
 .header-signin-container {
-    text-align: right;
+  text-align: right;
 }

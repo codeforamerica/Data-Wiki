@@ -84,12 +84,14 @@
 
 .more-link {
   padding: 20px;
-  background: #000000;
+/*   background: #000000; */
 }
 
 .view .more-link a {
+/*
   color: #ffffff;
   font-weight: bold;
+*/
 }
 
 ul.pager a, ul.pager li.pager-current {

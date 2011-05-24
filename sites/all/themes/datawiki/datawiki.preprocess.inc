@@ -72,24 +72,20 @@ function datawiki_preprocess_page(&$vars) {
   
   // Hardcoded site names
   switch ($_SERVER['HTTP_HOST']) {
-    case 'philly.et.codeforamerica.org':
+    case 'philly.citygroups.org':
       $vars['sub_site_name'] = t('Philadelphia');
       break;
       
-    case 'seattle.et.codeforamerica.org':
+    case 'seattle.citygroups.org':
       $vars['sub_site_name'] = t('Seattle');
       break;
       
-    case 'sf.et.codeforamerica.org':
-      $vars['sub_site_name'] = t('San Francisco');
+    case 'bayarea.citygroups.org':
+      $vars['sub_site_name'] = t('San Francisco Bay Area');
       break;
       
-    case 'staging.et.codeforamerica.org':
+    case 'staging.citygroups.org':
       $vars['sub_site_name'] = t('Staging');
-      break;
-      
-    case 'et.codeforamerica.org':
-      $vars['sub_site_name'] = t('Main ET');
       break;
       
     default:
@@ -253,6 +249,7 @@ function datawiki_preprocess_views_view(&$vars) {
       $term1 = taxonomy_term_load($term1)->name;
     }
   }
+/*
 
   if(!empty($vars['view']->exposed_input['type_community'])) {
     $term2 = $vars['view']->exposed_input['type_community'];
@@ -260,13 +257,14 @@ function datawiki_preprocess_views_view(&$vars) {
       $term2 = taxonomy_term_load($term2)->name;
     }
   }
+*/
 
   if(!empty($vars['view']->exposed_input['category']) || !empty($vars['view']->exposed_input['type_community']) || !empty($vars['view']->exposed_input['category'])) {
     $vars['search_string'] = '<div class="search-terms">' . 
       '<h3>' . t('Search terms') . '</h3>' . 
         t('Neighborhood: ') . $term0  . '<br />' .
         t('Category: ') .$term1  . '<br />' .
-        t('Type of Community: ') .$term2   . '<br />' . 
+/*         t('Type of Community: ') .$term2   . '<br />' .  */
       '</div>';
   }
 }
