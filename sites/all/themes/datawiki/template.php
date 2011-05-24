@@ -15,26 +15,3 @@ function datawiki_form_alter(&$form, &$form_state, $form_id) {
     $form['search_block_form']['#attributes']['placeholder'] = t('SEARCH');
   }
 }
-
-/**
- * Header region override
- * Prints header blocks without region wrappers
- */
-/*
-function datawiki_region__header($vars) {
-  return $vars['content'];
-}
-*/
-
-
-/**
- * File element override
- * Sets form file input max width
- */
-/*
-function datawiki_file($element) {
-  $element['#size'] = ($element['#size'] > 40) ? 40 : $element['#size'];
-  return theme_file($element);
-}
-*/
-

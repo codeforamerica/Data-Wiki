@@ -91,7 +91,11 @@ function datawiki_blocks_contents($type) {
       
     case 'branding_footer':
       $code_for_america = '';
-      $output .= '<div id="branding-footer"><img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" /></div>';
+      $output .= '<div id="branding-footer alpha omega grid_16">' 
+      . '<div class="about grid_6">' . t('Created as Open Source by <a href="http://codeforamerica.org">Code for America</a>') 
+      . '<div class="tagline">' .  t('"For a more transparent, efficient and participatory future."') . '</div>' . '</div>'
+      . '<div class="logo grid_10"><a href="http://codeforamerica.org">' . '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" width="150" />' . '</a></div>'
+      . '</div>';
       break;
       
     case 'add_data':

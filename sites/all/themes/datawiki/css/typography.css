@@ -1,62 +1,4 @@
 
-/* Typography
--------------------------------------------------------------- */
-
-/* Base Settings
--------------------------------------------------------------- */
-body {
-  font-family: Helvetica, Arial, sans-serif; color:#666; /* web safe fonts */
-  font-size: 14px;
-  
-  line-height: 150%;   /* 1.5x vertical rhythm */
-}
-
-.form-text {
-  font-family: Arial, Helvetica, "Nimbus Sans L", FreeSans, sans-serif; 
-}
-
-
-/* HTML Elements
--------------------------------------------------------------- */
-h1 {
-  font-size:24px;
-  line-height:150%;
-  margin-bottom:15px;
-}
-
-h2 {
-  font-size:18px;
-  line-height:150%;
-  margin-bottom:15px;
-}
-
-h3 {
-  font-size:16px;
-  line-height:150%;
-  margin-bottom:15px;
-}
-
-h4 {
-  font-size: 100%;
-  line-height:150%;
-  margin-bottom:15px;
-}
-
-h5 {
-  font-size: 100%;
-  line-height:150%;
-  margin-bottom:15px;
-}
-
-h6 {
-  font-size: 100%;
-  line-height:150%;
-  margin-bottom:15px;
-}
-
-#footer {
-/*   font-size: 95%; */
-}
 
 
 /* Nodes
@@ -89,26 +31,6 @@ div.comment ul.links a {
 /*   font-size: 91.6%; */
 }
 
-
-/* Links
-/-------------------------------------------------------------- */
-
-a:link, a:visited { 
-  color:#96a044; 
-  text-decoration:none;
-}
-a:hover, a:active { 
-  color:#96a044; 
-  text-decoration:underline;
-}
-#header a:link, #header a:visited { 
-  color:#ffffff; 
-  text-decoration:none;
-}
-#header a:hover, #header a:active { 
-  color:#e7e7e7; 
-  text-decoration:underline;
-}
 
 /* breadcrumbs */
 .breadcrumbs {
@@ -299,8 +221,4 @@ div.content-help-inner div.help {
 #site-name a:hover,
 #site-name a:active {
 /*   text-decoration: none; */
-}
-
-#site-name a {
-  outline: 0;
 }
