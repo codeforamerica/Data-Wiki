@@ -50,5 +50,40 @@ function datawiki_resources_context_default_contexts() {
   $context->condition_mode = 0;
   $export['All Pages'] = $context;
 
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'Browse';
+  $context->description = '';
+  $context->tag = '';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'browse' => 'browse',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-all_groups-block' => array(
+          'module' => 'views',
+          'delta' => 'all_groups-block',
+          'region' => 'content',
+          'weight' => '-18',
+        ),
+        'views-categories-block_1' => array(
+          'module' => 'views',
+          'delta' => 'categories-block_1',
+          'region' => 'content',
+          'weight' => '-17',
+        ),
+      ),
+    ),
+    'menu' => 'node/2930',
+  );
+  $context->condition_mode = 0;
+  $export['Browse'] = $context;
+
   return $export;
 }

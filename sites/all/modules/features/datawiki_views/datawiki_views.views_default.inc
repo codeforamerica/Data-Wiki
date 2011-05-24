@@ -120,17 +120,12 @@ You can request pages to be scraped, share data with us via links to csv & json 
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Find Online Communities';
+  $handler->display->display_options['title'] = 'Search Community Groups';
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'time';
-  $handler->display->display_options['cache']['results_lifespan'] = '21600';
-  $handler->display->display_options['cache']['output_lifespan'] = '3600';
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'input_required';
-  $handler->display->display_options['exposed_form']['options']['text_input_required'] = array(
-    'value' => 'Select any filter and click on Apply to see results',
-    'format' => 'filtered_html',
-  );
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Go';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'default';
@@ -139,20 +134,24 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['row_options']['links'] = 1;
   $handler->display->display_options['row_options']['comments'] = 0;
   $handler->display->display_options['exposed_block'] = TRUE;
-  /* Footer: Global: Text area */
-  $handler->display->display_options['footer']['area']['id'] = 'area';
-  $handler->display->display_options['footer']['area']['table'] = 'views';
-  $handler->display->display_options['footer']['area']['field'] = 'area';
-  $handler->display->display_options['footer']['area']['empty'] = FALSE;
-  $handler->display->display_options['footer']['area']['content'] = '<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>';
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['empty'] = FALSE;
+  $handler->display->display_options['header']['area']['content'] = 'These are the community groups that match your search terms.';
+  /* Header: Global: Total Number Results */
+  $handler->display->display_options['header']['views_number_results']['id'] = 'views_number_results';
+  $handler->display->display_options['header']['views_number_results']['table'] = 'views';
+  $handler->display->display_options['header']['views_number_results']['field'] = 'views_number_results';
+  $handler->display->display_options['header']['views_number_results']['label'] = 'Number of groups found';
+  $handler->display->display_options['header']['views_number_results']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = FALSE;
-  $handler->display->display_options['empty']['area']['content'] = 'No results found.
-
-<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>';
+  $handler->display->display_options['empty']['area']['content'] = 'No results found.';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -236,7 +235,7 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['filters']['term_node_tid_depth']['ui_name'] = 'Neighborhood';
   $handler->display->display_options['filters']['term_node_tid_depth']['exposed'] = TRUE;
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator_id'] = 'term_node_tid_depth_op';
-  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['label'] = 'Neighborhood';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['label'] = 'Location';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator'] = 'term_node_tid_depth_op';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'neighborhood';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['reduce'] = 0;
@@ -267,9 +266,9 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['path'] = 'search/online-communities';
   $translatables['neighborhood'] = array(
     t('Master'),
-    t('Find Online Communities'),
+    t('Search Community Groups'),
     t('more'),
-    t('Apply'),
+    t('Go'),
     t('Reset'),
     t('Sort by'),
     t('Asc'),
@@ -277,13 +276,12 @@ You can request pages to be scraped, share data with us via links to csv & json 
     t('Items per page'),
     t('- All -'),
     t('Offset'),
-    t('<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>'),
-    t('No results found.
-
-<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>'),
+    t('These are the community groups that match your search terms.'),
+    t('Number of groups found'),
+    t('No results found.'),
     t('Type'),
     t('Updated date'),
-    t('Neighborhood'),
+    t('Location'),
     t('Topic'),
     t('Page'),
   );
