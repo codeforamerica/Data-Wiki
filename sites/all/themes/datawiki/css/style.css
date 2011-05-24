@@ -202,11 +202,15 @@ div.styleguide {
 
 #search-block-form [name=search_block_form] {
   border: none;
-  height: 25px;
+  height: 14px;
   width: 200px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   margin: 0;
+  padding: 5px;
+  font-size: 14px;
+  line-height: 14px;
+  text-transform: uppercase;
 }
 
 #search-block-form #edit-submit {
