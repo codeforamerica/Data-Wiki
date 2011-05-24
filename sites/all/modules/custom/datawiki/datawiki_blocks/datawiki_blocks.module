@@ -100,18 +100,18 @@ function datawiki_blocks_contents($type) {
       
     case 'add_data':
 
-      $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/facebook-icon.png" width="50" />';
-      $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/yahoo_groups_icon_50x50.png" />';
-      $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/google-groups-icon.jpg" width="80" />';
-      $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/meetup-icon-small.png" />';
-      $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/email-icon.png" width="50"/>';
-      $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/twitter_icon.jpg" width="50"/>';
-      $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/blog-icon.jpg" width="50" />';
-      $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/mail-icon.png" width="50"/>';
+      $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/facebook-icon.png" width="50" title="Facebook" alt="Facebook" />';
+      $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/yahoo_groups_icon_50x50.png" title="Yahoo Groups" alt="Yahoo Groups" />';
+      $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/google-groups-icon.jpg" width="70" title="Google Groups" alt="Google Groups" />';
+      $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/meetup-icon-small.png" title="Meetup Groups" alt="Meetup Groups" />';
+      $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/email-icon.png" width="50" title="Email" alt="Email" />';
+      $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/twitter_icon.jpg" width="50" title="Twitter" alt="Twitter" />';
+      $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/blog-icon.jpg" width="50" title="Community Blogs" alt="Community Blogs" />';
+      $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/mail-icon.png" width="50" title="Personal Email" alt="Personal Email" />';
 /*       $ning = '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" />'; */
 
 
-      $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $mail . $yahoo /*. $ning */;
+      $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $yahoo . $mail /*. $ning */;
       $output .= '
         <div class="add-data">' .
         '<h3>' . t('We make it easy to find groups in your city.') . '</h3>'
