@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * web_resource.features.menu_custom.inc
+ * datawiki_community_groups.features.menu_custom.inc
  */
 
 /**
  * Implementation of hook_menu_default_menu_custom().
  */
-function web_resource_menu_default_menu_custom() {
+function datawiki_community_groups_menu_default_menu_custom() {
   $menus = array();
 
   // Exported menu: main-menu

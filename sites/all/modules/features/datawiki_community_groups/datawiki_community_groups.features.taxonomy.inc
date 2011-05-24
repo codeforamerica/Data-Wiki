@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * web_resource.features.taxonomy.inc
+ * datawiki_community_groups.features.taxonomy.inc
  */
 
 /**
  * Implementation of hook_taxonomy_default_vocabularies().
  */
-function web_resource_taxonomy_default_vocabularies() {
+function datawiki_community_groups_taxonomy_default_vocabularies() {
   return array(
     'activity_level' => array(
       'name' => 'Activity Level',
@@ -35,6 +35,29 @@ function web_resource_taxonomy_default_vocabularies() {
     'area_code' => array(
       'name' => 'Area Code',
       'machine_name' => 'area_code',
+      'description' => '',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
+    'audience_size' => array(
+      'name' => 'Audience Size',
+      'machine_name' => 'audience_size',
       'description' => '',
       'hierarchy' => '0',
       'module' => 'taxonomy',
@@ -243,6 +266,29 @@ function web_resource_taxonomy_default_vocabularies() {
       'name' => 'Tags',
       'machine_name' => 'tags',
       'description' => 'Use tags to group articles on similar topics into categories.',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
+    'types_community' => array(
+      'name' => 'Types of Communities',
+      'machine_name' => 'types_community',
+      'description' => '',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',

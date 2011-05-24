@@ -4,4 +4,4 @@
  * Code for the Web resource feature.
  */
 
-include_once('web_resource.features.inc');
+include_once('datawiki_community_groups.features.inc');

@@ -21,6 +21,11 @@
       <?php print render($page['header_gap']); ?>
     </div>
 
+  <div class="header-signin-container grid_2 omega">
+    <?php print render($page['header_signin']); ?>
+    <?php print $account_link; ?>
+  </div>
+
   </div>
   <div class="clear"></div>
   <div id="main" role="main" class="grid_16 alpha">
@@ -80,12 +85,8 @@
     <div class="clear"></div>
   </div>
   <div class="clear"></div>
-  <div id="footer" class="grid_14 alpha">
+  <div id="footer" class="grid_16 alpha">
       <?php print render($page['footer']); ?>
-  </div>
-  <div class="footer-signin-container grid_2 omega">
-    <?php print render($page['header_signin']); ?>
-    <?php print $account_link; ?>
   </div>
   <div class="clear"></div>
 </div>

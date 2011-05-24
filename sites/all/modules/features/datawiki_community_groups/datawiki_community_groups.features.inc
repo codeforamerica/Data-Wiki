@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * web_resource.features.inc
+ * datawiki_community_groups.features.inc
  */
 
 /**
  * Implementation of hook_ctools_plugin_api().
  */
-function web_resource_ctools_plugin_api() {
+function datawiki_community_groups_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "context" && $api == "context") {
     return array("version" => 3);
@@ -33,7 +33,7 @@ function web_resource_ctools_plugin_api() {
 /**
  * Implementation of hook_views_api().
  */
-function web_resource_views_api() {
+function datawiki_community_groups_views_api() {
   list($module, $api) = func_get_args();
   if ($module == "views" && $api == "views_default") {
     return array("version" => 3.0);
@@ -43,7 +43,7 @@ function web_resource_views_api() {
 /**
  * Implementation of hook_flag_default_flags().
  */
-function web_resource_flag_default_flags() {
+function datawiki_community_groups_flag_default_flags() {
   $flags = array();
   // Exported flag: "Like".
   $flags['like'] = array(
@@ -74,7 +74,7 @@ function web_resource_flag_default_flags() {
     'show_on_form' => 0,
     'access_author' => '',
     'i18n' => 0,
-    'module' => 'web_resource',
+    'module' => 'datawiki_community_groups',
     'locked' => array(
       0 => 'name',
     ),
@@ -86,10 +86,10 @@ function web_resource_flag_default_flags() {
 /**
  * Implementation of hook_node_info().
  */
-function web_resource_node_info() {
+function datawiki_community_groups_node_info() {
   $items = array(
-    'feed_mailing_list_csv_' => array(
-      'name' => t('Feed: Mailing List (CSV)'),
+    'feed_datawiki_community_groups' => array(
+      'name' => t('Feed: Online Community (CSV)'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
@@ -98,14 +98,6 @@ function web_resource_node_info() {
     ),
     'feed_mailing_list_rss_' => array(
       'name' => t('Feed: Online Community (RSS)'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'feed_web_resource' => array(
-      'name' => t('Feed: Online Community (CSV)'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

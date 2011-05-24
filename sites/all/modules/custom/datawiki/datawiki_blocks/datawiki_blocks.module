@@ -1,0 +1,110 @@
+<?php
+
+/**
+ * @file
+ * A custom module for ET that defines blocks, probably for static content.
+ * This will make it easier to have things in code.
+ */
+
+ 
+
+
+
+/**
+ * Implements hook_block_info().
+ */
+function datawiki_blocks_block_info() {
+  $blocks['datawiki_welcome'] = array(
+    'info' => t('Welcome Message'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_branding_header'] = array(
+    'info' => t('Branding Header'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_branding_footer'] = array(
+    'info' => t('Branding Footer'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_facebook_like'] = array(
+    'info' => t('Facebook Like'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_add_data'] = array(
+    'info' => t('Add Data'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function datawiki_blocks_block_view($delta = '') {
+  switch ($delta) {
+    case 'datawiki_welcome':
+      $block['subject'] = '';
+      $block['content'] = datawiki_blocks_contents('welcome');
+      break;
+      
+    case 'datawiki_branding_header':
+      $block['subject'] = '';
+      $block['content'] = datawiki_blocks_contents('branding_header');
+      break;
+      
+    case 'datawiki_branding_footer':
+      $block['subject'] = '';
+      $block['content'] = datawiki_blocks_contents('branding_footer');
+      break;     
+      
+    case 'datawiki_facebook_like':
+      $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
+      $url .= '://';
+      $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
+      $url .= $_SERVER['REQUEST_URI'];
+      $block['subject'] = '';
+      $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
+      break;
+
+    case 'datawiki_add_data':
+      $block['subject'] = '';
+      $block['content'] = datawiki_blocks_contents('add_data');
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Block placeholder content
+ */
+function datawiki_blocks_contents($type) {
+  $output = '';
+  
+  switch ($type) {
+    case 'welcome':
+      $output .= t('Find groups by place or topic.');
+      break;
+      
+    case 'branding_header':
+      $output .= '<div id="branding-header"></div>';
+      break;
+      
+    case 'branding_footer':
+      $code_for_america = '';
+      $output .= '<div id="branding-footer"><img src="/sites/all/themes/images/cfa-full-logo.png" /></div>';
+      break;
+      
+    case 'add_data':
+      $links = '<a href="">Facebook</a> <a href="">Yahoo</a> <a href="">Meetup</a> <a href="">Mailing Lists</a> <a href="">Social Networks</a> <a href="">Community Blogs</a>';
+      $output .= '
+        <div class="add-data">' 
+        . t('We make it easy to find groups in your city.') 
+        . $links
+/*           . t('Know a cool group? Why not <a href="/node/add/online-community">Add</a> it?') */
+        . '</div>';
+      break;
+      
+  }
+  
+  return $output;
+}

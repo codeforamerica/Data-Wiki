@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * web_resource.context.inc
+ * datawiki_community_groups.context.inc
  */
 
 /**
  * Implementation of hook_context_default_contexts().
  */
-function web_resource_context_default_contexts() {
+function datawiki_community_groups_context_default_contexts() {
   $export = array();
 
   $context = new stdClass;
@@ -26,23 +26,23 @@ function web_resource_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'block-2' => array(
-          'module' => 'block',
-          'delta' => 2,
+        'datawiki_blocks-datawiki_welcome' => array(
+          'module' => 'datawiki_blocks',
+          'delta' => 'datawiki_welcome',
           'region' => 'content',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
         'views--exp-neighborhood-page' => array(
           'module' => 'views',
           'delta' => '-exp-neighborhood-page',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-9',
         ),
-        'block-3' => array(
-          'module' => 'block',
-          'delta' => 3,
+        'datawiki_blocks-datawiki_add_data' => array(
+          'module' => 'datawiki_blocks',
+          'delta' => 'datawiki_add_data',
           'region' => 'content',
-          'weight' => '-7',
+          'weight' => '-8',
         ),
       ),
     ),

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * web_resource.feeds_tamper_default.inc
+ * datawiki_community_groups.feeds_tamper_default.inc
  */
 
 /**
  * Implementation of hook_feeds_tamper_default().
  */
-function web_resource_feeds_tamper_default() {
+function datawiki_community_groups_feeds_tamper_default() {
   $export = array();
 
   $feeds_tamper = new stdClass;

@@ -1,0 +1,5 @@
+name = Data Wiki Blocks
+description = "Custom blocks for a Data Wiki site."
+core = 7.x
+
+files[] = datawiki_blocks.module
