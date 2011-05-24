@@ -1,0 +1,17 @@
+? 973794_rc_notice.patch
+Index: relevant_content.module
+===================================================================
+RCS file: /cvs/drupal-contrib/contributions/modules/relevant_content/relevant_content.module,v
+retrieving revision 1.10
+diff -u -p -r1.10 relevant_content.module
+--- relevant_content.module	29 Oct 2009 14:31:10 -0000	1.10
++++ relevant_content.module	16 Nov 2010 21:29:49 -0000
+@@ -578,7 +578,7 @@ function relevant_content_element_info()
+ function relevant_content_preprocess_field(&$variables) {
+   // If the field is a relevant content field, we need to add more suggestion types (so we can easily theme all RC fields).
+   // This is necessary so that we can override the default content-field template (which doesn't work correctly for us)
+-  if ($variables['field_type'] == 'relevant_content') {
++  if (isset($variables['field_type']) && $variables['field_type'] == 'relevant_content') {
+     $suggestions = array(
+       'field-relevant-content',
+       'field-relevant-content-'. $variables['field_name'],
