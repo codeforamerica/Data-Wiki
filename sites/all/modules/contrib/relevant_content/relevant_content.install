@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * This is the relevant content install file.
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function relevant_content_install() {
+  $t = get_t();
+  drupal_set_message($t("Relevant Content settings are available under !link",
+    array( '!link' => l($t('Administer > Site configuration > Relevant Content'),  'admin/settings/relevant_content' ) )
+  ));
+}
+
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function relevant_content_uninstall() {
+  variable_del('relevant_content');
+}

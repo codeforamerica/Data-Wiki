@@ -1,0 +1,400 @@
+<?php
+
+
+/**
+ * Copyleft (C) 2010 by Fernao Lopes
+ * Author(s): Fernao Lopes
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY. See the LICENSE.txt file for more details.
+ *
+ **/
+
+// @file relevance.module
+
+/**
+* Display help and module information
+* @param path which path of the site we're displaying help
+* @param arg array that holds the current path as would be returned from arg() function
+* @return help text for the path
+*/
+function relevance_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#relevance":
+      $output = '<p>'.  t("Displays links to nodes that has relevance with the current node. The site's admin may enable and defined the importance of vocabularies, periods of time and statistics.") .'</p>';
+      break;
+  }
+  return $output;
+} // function relevance_help
+
+
+/**
+* Valid permissions for this module
+* @return array An array of valid permissions for the relevance module
+*/
+
+function relevance_permission() {
+  return array(
+    'administer relevance' => array(
+      'title' => t('Administer relevance'),
+      'description' => t('Allows settings adjusts for relevance results.'),
+    )
+  );
+} // function relevance_permission()
+
+
+/**
+ * Implementation of hook_menu().
+ */
+function relevance_menu() {
+    
+  $items['admin/config/search/relevance'] = array(
+    'title' => t('Relevance settings'),
+    'description' => t('Configuration and adjusts of relevance module'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('relevance_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'relevance.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+
+}
+
+/**
+ * Implements hook_init().
+ */
+function relevance_init() {
+     drupal_add_css(drupal_get_path('module', 'relevance') . '/relevance.css');
+}
+
+
+/**
+ * Hook block info
+ */
+function relevance_block_info() {
+  
+  $blocks['relevant_content']['info'] = t('Relevant content');
+  
+  return $blocks;
+}
+
+
+/**
+ * Hook block view
+ */
+function relevance_block_view($delta = '') {
+  $block = array();
+  
+  switch ($delta) {
+    case 'relevant_content':
+      $block['subject'] = t('Relevant content');
+      $block['content'] = relevance_block_contents($delta);
+      break;
+  }
+  return $block;
+}
+
+function relevance_block_contents($which_block) {
+  switch ($which_block) {
+    case 'relevant_content':
+      return relevance_load();
+    break;
+  }
+}
+
+
+/**
+* Loads the relevant data based on actual nid
+* @returns content HTML
+
+ * // drupal-6 (old code)
+
+*/
+function relevance_load() {
+  
+  // gets nid and node 
+  if (is_numeric(arg(1))) {
+    $nid = arg(1);
+    $node = node_load($nid);
+  }
+  else {
+    return;
+  }
+  
+  $fields = relevance_get_taxonomy($node->type);
+  
+  // get configurations
+  $settings_taxonomy  = relevance_get_settings('taxonomy', $fields);
+  $settings_date      = relevance_get_settings('date', $fields);
+  $exclude_list  = variable_get('relevance_' . $node->type . '_exclude_list');
+  $display_timer = variable_get('relevance_' . $node->type . '_display_timer');
+  
+  // timer  
+  if ($display_timer) {
+    $start_time = microtime(0);
+  }
+  
+
+  // Start of the relevance algorithm
+  
+  // TODO: check if will stay like that
+  $relevance     = "(count(*)"; // counts the occurrence of the same nid
+  $tables        = "{node} n";
+  $joins         = "n.nid <> :nid ";
+  $args          = array(':nid' => $nid);
+  
+  // TODO: trash
+  $content = "Relevance:";
+  
+  
+  /*
+  
+  // relevance by vocabularies
+  if (count($settings_voc) > 0) { 
+    $actual        = 0;
+    $parentesys    = 0;
+    $checked_enabled = FALSE;
+    foreach ($settings_voc as $vid => $voc) {
+      if ($voc['enabled'] && !$checked_enabled) {
+        $relevance      .= " * ";
+        $tables         .= " INNER JOIN {taxonomy_term_node} tn ON tn.nid = n.nid ";
+	$tables		.= " INNER JOIN {taxonomy_term_data} td ON td.tid = tn.tid ";
+	$tables		.= " INNER JOIN (SELECT tn.tid FROM {term_node} tn WHERE tn.nid = :nid) as tids ON tids.tid = tn.tid ";
+        // TODO: put joins here ?
+        $joins          .= " ";
+	array_push($args, array(':nid' => $nid));
+        $checked_enabled = TRUE;
+      }
+      
+      $last = count($settings_voc) -1;
+      // check for unfilled factors
+      $voc['factor'] = ($voc['factor'] == '' || $voc['factor'] == 0) ? '1' : $voc['factor'];
+
+      if ($voc['enabled'] == TRUE) {
+        $str_vocs   .= "$vid,";
+        if ($actual < $last) {
+          $relevance  .= "(IF(td.vid = $vid, " . $voc['factor'] . ", ";
+          $parentesys += 2;
+        }
+      }
+      if ($str_vocs != "" && $actual == $last) {
+        // last voc - it's time to close everything
+        $relevance .= $voc['factor'] .  str_repeat(")", $parentesys);
+      }
+      $actual ++;
+    }
+    $str_vocs = rtrim($str_vocs, ",");
+    if ($str_vocs != '') {
+      $joins .= "AND td.vid IN ($str_vocs)";
+    }
+  }
+  
+  // relevance by date 
+  if (count($settings_date) > 0) {
+    $actual          = 0;
+    $parentesys      = 0;
+    $checked_enabled = FALSE;
+    
+    foreach ($settings_date as $period => $date) {
+      if ($date['enabled'] && !$checked_enabled) {
+        $relevance      .= " * ";
+        $timestamp       = db_query("SELECT created FROM {node} WHERE nid = :nid", array(':nid' => $nid))->fetchField();
+        $checked_enabled = TRUE;
+      }
+      
+      $last = count($settings_date) -1;
+      // TODO: if enabled
+      if ($actual < $last) {
+        if ($date['enabled']) {
+          $from = $timestamp - $date['seconds'];
+          $to   = $timestamp + $date['seconds'];
+          $relevance .= "(IF(n.created BETWEEN $from AND $to, " . $date['factor'] . ", ";
+          $parentesys +=2;
+        }
+      }
+      else {
+        // if has at least one
+        if ($parentesys > 0) {
+          $relevance .= $date['factor'] . str_repeat(")", $parentesys);
+        }
+      }
+      $actual ++;
+    }
+  }
+  
+  // relevance by stats
+  // - check if the module is enabled
+  $stats_enabled = _is_module_enabled('statistics');
+  if ($stats_enabled) {
+    $stat_factor = variable_get('relevance_stat_factor');
+    if ($stat_factor) {
+      $tables    .= ",{node_counter} nc";
+      $joins     .= " AND nc.nid = n.nid";
+      $relevance .= " + nc.totalcount / $stat_factor";
+    }
+  }
+
+
+  // close the query
+  $relevance .= ") AS relevance"; 
+  $limit = variable_get('relevance_display_itens', 5);
+  array_push($args, array(':limit' => $limit));
+
+  // executes the query
+  $result = db_query("SELECT n.nid, n.title, " . $relevance . " FROM $tables WHERE " . $joins . " GROUP BY n.nid ORDER BY relevance DESC,n.nid DESC LIMIT :limit", array(':' => $args));
+  
+  // get data and create links
+  while ($links = db_fetch_object($result)) {
+    
+    // equalization
+    // - gets only the first (the higher one)
+    if (!isset($equalizer)) {
+      // TODO: user can define the scale
+      $scale = 10; 
+      $equalizer = $links->relevance / $scale;
+    }
+    $links->relevance = round($links->relevance / $equalizer, 2);
+    
+    // build the line
+    $content .= l($links->title, 'node/' . $links->nid);
+    if(variable_get('relevance_display_score')){
+      $content .= " <span class='relevance-score'>" . $links->relevance . "</span>";
+    }
+    $content .= "<br/>";
+  }
+    
+  // check to see if there was any content 
+  if ($content == '') {
+    // no content related, return nothing.
+    return;
+  }
+  
+  if ($display_timer) {
+    $end_time = microtime(0);
+    $total_time = round($end_time - $start_time, 3);
+    $content .= "<p>" . t('Time elapsed:') . $total_time . "" . t('s') . "</p>";
+  }
+
+*/
+  return $content;
+}
+
+
+/**
+ * Get an array of settings or get their default values
+ *
+ * @param $op
+ *   String specifying the operation. Possible values are:
+ *     'taxonomy'
+ *     'date'
+ *
+ * @return
+ *   Array of configuration
+ *
+ */
+function relevance_get_settings($op, $fields = '') {
+  $variables = array();
+  $content_type = key($fields);
+ 
+  switch ($op) {
+    case 'taxonomy':
+	foreach ($fields[$content_type] as $field) {
+          $_enabled = 'relevance_' . $content_type . '_tax_'. $field . '_enabled';
+	  $_ratio = 'relevance_' . $content_type . '_tax_'. $field . '_ratio';
+	
+          $variables[$_enabled] = variable_get($_enabled);
+          $variables[$_ratio] = variable_get($_ratio);
+	}
+      return $variables;
+
+    case 'date':
+      $dates = array(
+        'day' => array('enabled' => TRUE, 'name' => t('day'),  'ratio' => 4, 'seconds' => 604800), 
+        'week' => array('enabled' => TRUE, 'name' => t('week'), 'ratio' => 2, 'seconds' => 1209600), 
+        'month' => array('enabled' => TRUE, 'name' => t('month'), 'ratio' => 1, 'seconds' => 2592000), 
+      );
+      foreach ($dates as $period => $values) {
+	$_enabled = 'relevance_' . $content_type . '_date_'. $period . '_enabled';
+	$_ratio = 'relevance_' . $content_type . '_date_'. $period . '_ratio';
+	
+        $variables[$period][$_enabled] = variable_get($_enabled, $values['enabled']);
+        $variables[$period][$_ratio] = variable_get($_ratio, $values['ratio']);
+      }
+      return $variables;
+
+    case 'stats':
+      $_enabled = 'relevance_' . $content_type . '_stats_enabled';
+      $_ratio = 'relevance_' . $content_type . '_stats_ratio';
+      $variables[$_enabled] = variable_get($_enabled);
+      $variables[$_ratio] = variable_get($_ratio);
+      return $variables;
+
+    case 'exclude':
+      $_exclude = 'relevance_' . $content_type . '_exclude_list';
+      $variables[$_exclude] = variable_get($_exclude);
+      return $variables;
+
+    case 'display':
+      $_itens_to_show = 'relevance_' . $content_type . '_display_itens_to_show';
+      $_display_score = 'relevance_' . $content_type . '_display_score';
+      $_display_timer = 'relevance_' . $content_type . '_display_timer';
+      
+      $variables[$_itens_to_show] = variable_get($_itens_to_show);
+      $variables[$_display_score] = variable_get($_display_score);
+      $variables[$_display_timer] = variable_get($_display_timer);
+      return $variables;
+      
+    default:
+      return FALSE;
+  }
+}
+
+
+/**
+ * Implementation of hook_theme
+ */
+/*
+// http://drupal.org/update/modules/6/7#hook_theme_render_changes
+function relevance_theme() {
+  return array(
+    'relevance_settings_form' => array(
+      'render_element' => 'table',
+      'file' => 'relevance.admin.inc',
+    ),
+  );
+}
+*/
+
+
+/**
+ * Returns an array of content types and every taxomony term associated to it
+ *
+ * @param $content_type
+ *   String of content_type system name
+ *     'tid'
+ *
+ * @return
+ *   Array of configuration
+ */
+function relevance_get_taxonomy($content_type = '') {
+
+  $fields = array();
+
+  if (!$content_type) {
+    // get all content types that has at least one taxonomy_term field
+    $t_fields = db_query("SELECT fci.bundle,fci.field_name FROM field_config_instance fci, field_config fc WHERE fci.field_id = fc.id AND fc.type = 'taxonomy_term_reference' ORDER BY fci.bundle ASC")->fetchAll();          
+  } else {
+    // if a content type is specified
+    $t_fields = db_query("SELECT fci.bundle,fci.field_name FROM field_config_instance fci, field_config fc WHERE fci.field_id = fc.id AND fc.type = 'taxonomy_term_reference' AND fci.bundle = :content_type ORDER BY fci.bundle ASC", array(':content_type' => $content_type))->fetchAll();
+  }
+
+  foreach ($t_fields as $t_field) {
+    $fields[$t_field->bundle][] = $t_field->field_name;
+  }
+  return $fields;
+}

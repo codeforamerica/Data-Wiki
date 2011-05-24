@@ -1,0 +1,31 @@
+
+CHANGELOG for Relevance Module
+
+Relevance 7.x.0-dev, 2010-01-05
+-----------------------------
+- dev release - starting the port to drupal-7
+
+Relevance 6.x.2.2, 2009-08-04
+-----------------------------
+- speeded up the query [#531394] - thanks to hippich
+
+
+Relevance 6.x.2.1, 2009-04-23
+-----------------------------
+- fixed [#441942] - added form validation at admin
+- fixed a wrong concating (was concating 0 to the factor of last selected item)
+- fixed error message on admin when stats is not enabled
+- rounded relevance score
+
+
+Relevance 6.x.2.0, 2009-04-01
+-----------------------------
+- Statistics module now is optional
+- New timer for testing/debugging the speed of the algorithm
+- Equalization on algorithm numbers
+- Some layout improvements
+
+
+Relevance 6.x, 2008-12-05
+-------------------------
+Initial release of relevance module.

@@ -1,0 +1,45 @@
+
+#block-taxonomy_filter-2 ul {
+  padding: 0;
+}
+	
+.block-taxonomy_filter li {
+  list-style-type: none;
+  background: none;
+}
+
+.block-taxonomy_filter .selected {
+  font-weight: bold;
+}
+
+.li-inline {
+  display: inline;
+  padding: 0;
+}
+
+/*
+ * Warning - CSS hacks below *
+ 
+ These are required due to IE 6 & 7 bugs when rendering nested lists.
+ IE renders large margins above nested lists, but oddly renders properly when
+ the list items have a top border of at least 1px.
+ 
+ Because taxonomy_filter has no way of knowing what background color your 
+ theme uses for this block the borders need to be transparent. Unfortunately
+ IE6 doesn't understand transparent as a border color.
+ 
+ I would welcome any theme independent ideas on how to avoid using these hacks
+*/
+.block-taxonomy_filter > div.content li {
+  /* This rule is skipped by IE6 and below due to the child selector
+  IE 7 will apply the border and avoid its bug. Other browsers will also apply
+  the border but it should be harmless unless that browser doesn't support
+  transparent border colors. */
+  border-top: 1px solid transparent;
+}
+* html .block-taxonomy_filter li ul {
+  /* this rule only applies to IE6 and below due to the * html hack.
+  because we can't apply a transparent border, we just shove it upwards a bit
+  to close the gap. */
+  margin-top: -1.2em;
+}

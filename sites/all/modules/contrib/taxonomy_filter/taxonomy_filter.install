@@ -1,0 +1,205 @@
+<?php
+
+/**
+ * @file
+ * The installation file for the Taxonomy Filter module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function taxonomy_filter_install() {
+  // unnecessary - hook_enable is run by module installs
+  //taxonomy_filter_update_mappings();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function taxonomy_filter_uninstall() {
+  variable_del('taxonomy_filter_general');
+  variable_del('taxonomy_filter_input');
+  variable_del('taxonomy_filter_input_parsed');
+  variable_del('taxonomy_filter_output');
+  //variable_del('taxonomy_filter_cache');
+  variable_del('taxonomy_filter_mappings');
+  variable_del('taxonomy_filter_menus');
+  // Leave in case module is uninstalled without running update_6003.
+  variable_del('taxonomy_filter_next_id');
+}
+
+/**
+ * Implements hook_requirements().
+ *
+ * This code was added when we renumbered the hook_update_N routines to be in
+ * 6101+ to adhere to Drupal convention. After the 6.x-1.0 release was created,
+ * the numbering should have changed. Leaving here for historical interest.
+ *//*
+function taxonomy_filter_requirements($phase) {
+  $requirements = array();
+  if ($phase == 'runtime') {
+    // This code is invoked when 'admin/reports/status' is viewed.
+    // system_requirements() is called before this hook_requirements()
+    // so it will report this module has database updates. If the user
+    // continues and runs update.php, it will call update_get_update_list()
+    // which calls drupal_get_installed_schema_version(). We can stop
+    // any attempted updates at that point by calling
+    // drupal_get_installed_schema_version() with reset.
+    // If the user goes first to update.php, then the updates will be run again
+    // and will result in a messed up variable for 'taxonomy_filter_mappings.'
+    $schema_version = drupal_get_installed_schema_version('taxonomy_filter');
+    if ($schema_version > 6000 && $schema_version < 6100) {
+      // Update schema_version to reflect renumbered hook_update_N() routines.
+      $record = db_query("SELECT * FROM {system} WHERE type = 'module' AND name ='taxonomy_filter'")->fetchObject();
+      $record->schema_version += 99;
+      drupal_write_record('system', $record, array('filename'));
+      // Update the cached (or static) schema_version.
+      drupal_get_installed_schema_version('taxonomy_filter', TRUE);
+    }
+  }
+  return $requirements;
+}*/
+
+/**
+ * Convert settings from Drupal 5 to Drupal 6.
+ *
+ * TODO What are the changes?
+ */
+/*
+function taxonomy_filter_update_6000() {
+  // convert variables to new format
+
+  return array();
+}
+*/
+
+/**
+ * Adds default settings.
+ */
+function taxonomy_filter_update_6001() {
+  // Collect default settings.
+  $settings = array();
+  $modules = module_implements('tf_default_settings');
+  foreach ($modules as $module) {
+    $settings[$module] = module_invoke($module, 'tf_default_settings');
+  }
+
+  // Update settings for each menu.
+  $menus = variable_get('taxonomy_filter_menus', array());
+  foreach ($menus as $id => $menu) {
+    $menus[$id] += array(
+      'depth' => '0',
+    );
+    foreach ($modules as $module) {
+      $menus[$id][$module] = $settings[$module];
+    }
+  }
+
+  // Save settings.
+  variable_set('taxonomy_filter_menus', $menus);
+
+  return t('Added default filter menu settings to the variables table.');
+}
+
+/**
+ * Updates vocabulary mappings.
+ */
+function taxonomy_filter_update_6002() {
+  // Retrieve current mappings.
+  $old_mappings = variable_get('taxonomy_filter_mappings', array());
+  $new_mappings = array();
+
+  // Update mappings for each vocabulary.
+  $vocabs = _taxonomy_filter_get_vocabs();
+  foreach ($vocabs as $vid => $name) {
+    // Recreate array in case vocab weights have changed.
+    if (array_key_exists($vid, $old_mappings)) {
+      $new_mappings[$vid] = array(
+        'vocab' => $name, // In case the vocab name has changed. TODO This probably could be omitted.
+        'refine_menu' => $old_mappings[$vid]['menu'],
+        'current_menu' => 0,
+        'mappings' => $old_mappings[$vid]['mappings'],
+      );
+    }
+    else {
+      $new_mappings[$vid] = array(
+        'vocab' => $name,
+        'refine_menu' => 0,
+        'current_menu' => 0,
+        'mappings' => array(),
+      );
+    }
+  }
+
+  // Save updated mappings.
+  variable_set('taxonomy_filter_mappings', $new_mappings);
+
+  return t('Updated taxonomy vocabulary mappings.');
+}
+
+/**
+ * Eliminates the next_id variable.
+ */
+function taxonomy_filter_update_6003() {
+  // Delete the variable.
+  variable_del('taxonomy_filter_next_id');
+
+  return t('Eliminated the next_id variable.');
+}
+
+/**
+ * Adds default settings for new features in tf_count.
+ */
+function taxonomy_filter_update_6004() {
+  // Collect default settings.
+  $settings = array();
+  $modules = module_implements('tf_default_settings');
+  foreach ($modules as $module) {
+    $settings[$module] = module_invoke($module, 'tf_default_settings');
+  }
+
+  // Update settings for each menu.
+  $menus = variable_get('taxonomy_filter_menus', array());
+  foreach ($menus as $id => $menu) {
+    foreach ($modules as $module) {
+      $menus[$id][$module] += $settings[$module];
+    }
+  }
+
+  // Save settings.
+  variable_set('taxonomy_filter_menus', $menus);
+
+  return t('Added default settings for new features in tf_count.');
+}
+
+/**
+ * Reverts change to feed parameter in default URL to listen on.
+ */
+function taxonomy_filter_update_6005() {
+  // Check input setting.
+  $input = variable_get('taxonomy_filter_input', '');
+  if ($input == 'taxonomy/term/%tids/%depth!feed') {
+    variable_del('taxonomy_filter_input');
+  }
+
+  return t('Reverted change to feed parameter in default URL to listen on.');
+}
+
+/**
+ * Adds default settings for new features in tf_multi.
+ */
+function taxonomy_filter_update_6006() {
+  taxonomy_filter_update_default_settings();
+  return t('Added default settings for new features in tf_multi.');
+}
+
+/**
+ * Renames block deltas using new strings.
+ *//*
+function taxonomy_filter_update_7000() {
+  // @todo Complete this. Make sure we dont end up with the numeric deltas and the string versions.
+  // Block module does not redo the block items when the cache is cleared. Is there a separate function?
+  // What is the upgrade path for this change?
+//   taxonomy_filter_update_default_settings();
+  return t('Renamed block deltas using new strings.');
+}*/

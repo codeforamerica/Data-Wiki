@@ -1,0 +1,305 @@
+<?php
+
+/**
+ * @file
+ * Define enhanced autocomplete wdiget.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function autocomplete_deluxe_field_widget_info() {
+  return array(
+    'autocomplete_deluxe_taxonomy' => array(
+      'label' => t('Autocomplete Deluxe'),
+      'field types' => array('taxonomy_term_reference'),
+      'settings' => array(
+        'size' => 60,
+        'autocomplete_path' => 'autocomplete_deluxe/taxonomy',
+      ),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+    'autocomplete_deluxe_list' => array(
+      'label' => t('Autocomplete Deluxe'),
+      'field types' => array('list', 'list_text', 'list_number'),
+      'settings' => array(
+        'size' => 60,
+      ),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+  );
+}
+
+/**
+ * Costume taxonomy callback, which also accepts an empty string search.
+ */
+function taxonomy_autocomplete_deluxe($field_name, $tags_typed = '') {
+  $field = field_info_field($field_name);
+
+  // The user enters a comma-separated list of tags. We only autocomplete the last tag.
+  $tags_typed = drupal_explode_tags($tags_typed);
+  $tag_last = drupal_strtolower(array_pop($tags_typed));
+
+  $matches = array();
+
+  // Part of the criteria for the query come from the field's own settings.
+  $vids = array();
+  $vocabularies = taxonomy_vocabulary_get_names();
+  foreach ($field['settings']['allowed_values'] as $tree) {
+    $vids[] = $vocabularies[$tree['vocabulary']]->vid;
+  }
+
+  $query = db_select('taxonomy_term_data', 't');
+  $query->addTag('translatable');
+  $query->addTag('term_access');
+
+  if ($tag_last != '') {
+    // Do not select already entered terms.
+    if (!empty($tags_typed)) {
+      $query->condition('t.name', $tags_typed, 'NOT IN');
+    }
+    // Select rows that match by term name.
+    $tags_return = $query
+      ->fields('t', array('tid', 'name'))
+      ->condition('t.vid', $vids)
+      ->condition('t.name', '%' . db_like($tag_last) . '%', 'LIKE')
+      ->execute()
+      ->fetchAllKeyed();
+  }
+  else {
+    $tags_return = $query
+      ->fields('t', array('tid', 'name'))
+      ->condition('t.vid', $vids)
+      ->execute()
+      ->fetchAllKeyed();
+  }
+
+  $prefix = count($tags_typed) ? implode(', ', $tags_typed) . ', ' : '';
+
+  $term_matches = array();
+  foreach ($tags_return as $tid => $name) {
+    $n = $name;
+    // Term names containing commas or quotes must be wrapped in quotes.
+    if (strpos($name, ',') !== FALSE || strpos($name, '"') !== FALSE) {
+      $n = '"' . str_replace('"', '""', $name) . '"';
+    }
+    else {
+      $term_matches[$prefix . $n] = check_plain($name);
+    }
+  }
+
+  drupal_json_output($term_matches);
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function autocomplete_deluxe_field_widget_error($element, $error, $form, &$form_state) {
+  form_error($element, $error['message']);
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function autocomplete_deluxe_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $type = str_replace('autocomplete_deluxe_', '', $instance['widget']['type']);
+  $element += array(
+    '#type' => 'autocomplete_deluxe',
+    '#size' => $instance['widget']['settings']['size'],
+  );
+
+  $multiple = $field['cardinality'] > 1 || $field['cardinality'] == FIELD_CARDINALITY_UNLIMITED ? TRUE : FALSE;
+
+  switch ($type) {
+    case 'taxonomy':
+      $tags = array();
+      foreach ($items as $item) {
+        $tags[$item['tid']] = isset($item['taxonomy_term']) ? $item['taxonomy_term'] : taxonomy_term_load($item['tid']);
+      }
+      $element += array(
+        '#default_value' => taxonomy_implode_tags($tags),
+        '#autocomplete_path' => url($instance['widget']['settings']['autocomplete_path'] . '/' . $field['field_name'], array('absolute' => TRUE)),
+        '#autocomplete_min_length' => 0,
+        '#element_validate' => array('taxonomy_autocomplete_validate'),
+        '#multiple' => $multiple,
+      );
+
+      break;
+    case 'list':
+      $value_key = key($field['columns']);
+
+      $type = str_replace('options_', '', $instance['widget']['type']);
+      $required = $element['#required'];
+      $has_value = isset($items[0][$value_key]);
+      $properties = _options_properties($type, $multiple, $required, $has_value);
+
+      // Prepare the list of options.
+      $options = _options_get_options($field, $instance, $properties);
+      $default_value = _options_storage_to_form($items, $options, $value_key, $properties);
+
+      $element += array(
+        '#options' => $options,
+        '#autocomplete_min_length' => 0,
+        '#multiple' => $multiple && count($options) > 1,
+        '#value_key' => $value_key,
+        '#element_validate' => array('options_field_widget_validate'),
+        '#properties' => $properties,
+        '#default_value' => $default_value,
+      );
+      break;
+  };
+
+  return $element;
+}
+
+/**
+ * Generates the basic form elements and javascript settings.
+ */
+function autocomplete_deluxe_process($element) {
+  $element['#attached'] = array(
+    'library' => array(array('system', 'ui.autocomplete'), array('system', 'ui.button')),
+    'js' => array(drupal_get_path('module', 'autocomplete_deluxe') . '/autocomplete_deluxe.js'),
+    'css' => array(drupal_get_path('module', 'autocomplete_deluxe') . '/autocomplete_deluxe.css'),
+  );
+  // Workaround for problems with jquery css in seven theme.
+  if ($GLOBALS['theme'] == 'seven') {
+    $element['#attached']['css'][] = drupal_get_path('module', 'autocomplete_deluxe') . '/autocomplete_deluxe.seven.css';
+  }
+
+  $html_id = drupal_html_id('autocomplete-deluxe-input');
+
+  $element['#after_build'][] = 'autocomplete_deluxe_after_build';
+
+  // Set default options for multiple values.
+  $element['#multiple'] = isset($element['#multiple']) ? $element['#multiple'] : FALSE;
+
+  $element['value'] = array(
+    '#type' => 'textfield',
+    '#size' => isset($element['#size']) ? $element['#size'] : '',
+    '#required' => isset($element['#required']) ? $element['#required'] : '',
+    '#attributes' => array('class' => array('autocomplete-deluxe-form', 'form-autocomplete'), 'id' => array($html_id)),
+    '#default_value' => '',
+  );
+
+  $js_settings['autocomplete_deluxe'][$html_id] = array(
+    'input_id' => $html_id,
+    'min_length' => isset($element['#autocomplete_min_length']) ? $element['#autocomplete_min_length'] : 0,
+    'multiple' => $element['#multiple'],
+    'multiple_delimeter' => $element['#autocomplete_multiple_delimiter'] = isset($element['#autocomplete_multiple_delimiter']) ? $element['#autocomplete_multiple_delimiter'] : ', ',
+  );
+
+  if (isset($element['#autocomplete_path'])) {
+    $element['value']['#default_value'] = isset($element['#default_value']) ? $element['#default_value'] : '';
+
+    $js_settings['autocomplete_deluxe'][$html_id] += array(
+      'type' => 'ajax',
+      'uri' => $element['#autocomplete_path'],
+    );
+  }
+  elseif (isset($element['#options'])) {
+    $js_settings['autocomplete_deluxe'][$html_id] += array(
+      'type' => 'list',
+      'data' => $element['#options'],
+    );
+
+    $html_id_select = drupal_html_id('autocomplete-deluxe-input-select');
+    $element['list_value'] = array(
+      '#type' => 'select',
+      '#options' => $element['#options'],
+      '#multiple' => $element['#multiple'],
+      '#attributes' => array('class' => array('autocomplete-deluxe-form', 'form-autocomplete'), 'id' => array($html_id_select)),
+      '#default_value' => isset($element['#default_value']) ? $element['#default_value'] : '',
+    );
+
+    // Add delimiters to the default values.
+    $addon = (! empty($element['#multiple'])) ? $element['#autocomplete_multiple_delimiter'] : '';
+    foreach ($element['#default_value'] as $key) {
+      $element['value']['#default_value'] .= $element['#options'][$key] . $addon;
+    }
+
+    // Hide textfield so that, in case javascript is deactivated
+    $element['value']['#attributes']['style'] = 'display: none;';
+    $js_settings['autocomplete_deluxe'][$html_id]['select_input'] = $html_id_select;
+  }
+  else {
+    // If there is no source (path or data), we don't want to add the js
+    // settings and so the functions will be abborted.
+    return $element;
+  }
+  $element['#attached']['js'][] = array('data' => $js_settings, 'type' => 'setting');
+
+  return $element;
+}
+
+/**
+ * Helper function to determine the value for a autocomplete deluxe form
+ * element.
+ */
+function autocomplete_deluxe_value(&$element, $input = FALSE, $form_state = NULL) {
+  // This runs before child elements are processed, so we cannot calculate the
+  // value here. But we have to make sure the value is an array, so the form
+  // API is able to proccess the children to set their values in the array. Thus
+  // once the form API has finished processing the element, the value is an
+  // array containing the child element values. Then finally the after build
+  // callback converts it back to the numeric value and sets that.
+  return array();
+}
+
+/**
+ * Helper function for array_filter.
+ */
+function autocomplete_deluxe_value_filter($var) {
+  $string = trim($var);
+  if (empty($string)) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
+}
+
+/**
+ * FAPI after build callback for the duration parameter type form.
+ * Fixes up the form value by applying the multiplier.
+ */
+function autocomplete_deluxe_after_build($element, &$form_state) {
+  if (!isset($element['list_value'])) {
+    $element['#value'] = $element['value']['#value'];
+  }
+  else {
+    $element['#value'] = $element['list_value']['#value'];
+  }
+
+  form_set_value($element, $element['#value'], $form_state);
+  return $element;
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function autocomplete_deluxe_element_info() {
+  $types['autocomplete_deluxe'] = array(
+    '#input' => TRUE,
+    '#value_callback' => 'autocomplete_deluxe_value',
+    '#pre_render' => array('form_pre_render_conditional_form_element'),
+    '#process' => array('autocomplete_deluxe_process'),
+  );
+  return $types;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function autocomplete_deluxe_menu() {
+  $items['autocomplete_deluxe/taxonomy'] = array(
+    'title' => 'Autocomplete deluxe taxonomy',
+    'page callback' => 'taxonomy_autocomplete_deluxe',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}

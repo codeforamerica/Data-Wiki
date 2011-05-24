@@ -1,0 +1,10 @@
+<?php
+/**
+ * @file
+ * .install for Pretty paths
+ *
+ * (C)2011 Michael Moritz miiimooo/at/drupal.org
+ */
+function search_api_facets_paths_uninstall() {
+  variable_del('search_api_facets_paths');
+}

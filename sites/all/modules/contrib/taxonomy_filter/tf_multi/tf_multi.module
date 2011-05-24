@@ -1,0 +1,306 @@
+<?php
+
+/**
+ * @file
+ * Taxonomy Filter add-on module to allow filtering by more than two terms.
+ */
+
+/**
+ * Implements hook_tf_default_settings().
+ */
+function tf_multi_tf_default_settings() {
+  return array(
+    'apply_multi' => TRUE,
+    'show_two_links' => FALSE,
+    'add_prefix' => '[+]',
+    'subtract_prefix' => '[X]',
+    'remove_suffix' => '[Remove]',
+//     'preserve_selection_order' => TRUE,
+    'sort_terms_in_url' => TRUE,
+  );
+}
+
+/**
+ * Quasi-Implements hook_tf_default_settings().
+ *
+ * @todo Refactor the settings. Use a category key for base settings.
+ */
+function tf_multi_general_settings() {
+  return array(
+    'sort_terms_in_current' => TRUE,
+//     'sort_terms_in_url' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_enable().
+ */
+function tf_multi_enable() {
+  // Add default settings to existing filter menus.
+  $menus = variable_get('taxonomy_filter_menus', array());
+  foreach ($menus as &$menu) {
+    if (!isset($menu['tf_multi'])) {
+      $menu['tf_multi'] = tf_multi_tf_default_settings();
+    }
+  }
+  variable_set('taxonomy_filter_menus', $menus);
+
+  // Add to general settings.
+  $settings = variable_get('taxonomy_filter_general', array());
+  $settings += tf_multi_general_settings();
+  variable_set('taxonomy_filter_general', $settings);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function tf_multi_form_taxonomy_filter_admin_general_form_alter(&$form, $form_state) {
+  $settings = variable_get('taxonomy_filter_general', array());
+  $settings += tf_multi_general_settings();
+
+  $form['tf_multi'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Term ordering (NEW on 2010-10-15)'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#tree' => TRUE,
+  );
+  $form['tf_multi']['sort_terms_in_current'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Sort the terms in the search results block.'),
+    '#default_value' => $settings['sort_terms_in_current'],
+    '#description' => t('If enabled, the terms displayed in the search results block (and the display above the content area) will be sorted by vocabulary weight and term weight. Otherwise, the order will match that of the terms in the URL. For example, if the "Create filter link URLs with terms sorted by term id" setting is unchecked for a menu, the order will match the order selected by the user.'),
+  );
+//   $form['tf_multi']['sort_terms_in_url'] = array(
+//     '#type' => 'checkbox',
+//     '#title' => t('Create filter link URLs with terms sorted by term id.'),
+//     '#default_value' => $settings['sort_terms_in_url'],
+//     '#description' => t('This avoids multiple URLs resolving to the same content display which may be an issue for search engine optimization (SEO). If enabled, an example of a sorted link would be: <a href="/taxonomy/1,2,3">[+]Term 2</a>. Otherwise, an unsorted menu link might be <a href="/taxonomy/3,1,2">[+]Term 2</a> matching the order the terms were selected by the user.'),
+//   );
+  $form['#submit'][] = 'tf_multi_general_submit';
+}
+
+/**
+ * Submit handler.
+ */
+function tf_multi_general_submit($form, &$form_state) {
+  $settings = variable_get('taxonomy_filter_general', array());
+  $settings['sort_terms_in_current'] = $form_state['values']['tf_multi']['sort_terms_in_current'];
+//   $settings['sort_terms_in_url'] = $form_state['values']['tf_multi']['sort_terms_in_url'];
+  variable_set('taxonomy_filter_general', $settings);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function tf_multi_form_taxonomy_filter_admin_menu_edit_form_alter(&$form, $form_state) {
+  $menu_id = $form['menu_id']['#value'];
+
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $settings = isset($menus[$menu_id]['tf_multi']) ? $menus[$menu_id]['tf_multi'] : array();
+  $settings += array(
+    'apply_multi' => FALSE, // TRUE,
+    'show_two_links' => FALSE,
+    'add_prefix' => '', // '[+]',
+    'subtract_prefix' => '', // '[X]',
+    'remove_suffix' => '[Remove]',
+    'sort_terms_in_url' => TRUE,
+  );
+
+  $form['tf_multi'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Multiple term filtering'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+  );
+  $form['tf_multi']['apply_multi'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable multiple term filtering with this menu template.'),
+    '#default_value' => $settings['apply_multi'],
+    '#description' => t('If enabled, cumulative menu links will be displayed allowing the user to filter on multiple terms from multiple vocabularies.'),
+  );
+  $form['tf_multi']['show_two_links'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display separate add (or subtract) and term links instead of one cumulative menu link.'),
+    '#default_value' => $settings['show_two_links'],
+    '#description' => t('If enabled, an example of separate links would be: <a href="/taxonomy/1,2">[+]</a> <a href="/taxonomy/2">Term 2</a>. Otherwise, the cumulative menu link would be <a href="/taxonomy/1,2">[+]Term 2</a>.'),
+  );
+  $form['tf_multi']['add_prefix'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Add filter prefix'),
+    '#default_value' => $settings['add_prefix'],
+    '#description' => t('Link prefix to display indicating the term can be added to the filter. Example: "[+]".'),
+    '#size' => 10,
+  );
+  $form['tf_multi']['subtract_prefix'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Subtract filter prefix'),
+    '#default_value' => $settings['subtract_prefix'],
+    '#description' => t('Link prefix to display indicating the term can be subtracted from the filter. Example: "[X]".'),
+    '#size' => 10,
+  );
+
+  $form['tf_multi_2'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Term ordering (NEW on 2010-10-15)'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#tree' => TRUE,
+  );
+//   $form['tf_multi_2']['preserve_selection_order'] = array(
+//     '#type' => 'checkbox',
+//     '#title' => t('Preserve the user selection order in the search results block.'),
+//     '#default_value' => $settings['preserve_selection_order'],
+//     '#description' => t('If enabled, the order of terms displayed in the search results block (and the display above the content area) will match the order selected by the user.'),
+//   );
+  $form['tf_multi_2']['sort_terms_in_url'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Create filter link URLs with terms sorted by term id.'),
+    '#default_value' => $settings['sort_terms_in_url'],
+    '#description' => t('This avoids multiple URLs resolving to the same content display which may be an issue for search engine optimization (SEO). If enabled, an example of a sorted link would be: <a href="/taxonomy/1,2,3">[+]Term 2</a>. Otherwise, an unsorted menu link might be <a href="/taxonomy/3,1,2">[+]Term 2</a> matching the order the terms were selected by the user.'),
+  );
+
+  $form['#submit'][] = 'tf_multi_menu_edit_submit';
+}
+
+/**
+ * Submit handler.
+ */
+function tf_multi_menu_edit_submit($form, &$form_state) {
+  $menu_id = $form_state['values']['menu_id'];
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $menus[$menu_id]['tf_multi'] = $form_state['values']['tf_multi'] + $form_state['values']['tf_multi_2'];
+  variable_set('taxonomy_filter_menus', $menus);
+}
+
+/**
+ * Implements hook_tf_block_alter().
+ */
+function tf_multi_tf_block_alter(&$block) {
+  $add_css = FALSE;
+  unset($block['sections']['base_terms']); // TODO Does this value exist?
+//  $block['title'] = t('Refine your search'); // t('Select topics tagged with:');
+  foreach ($block['sections'] as &$section) {
+    $settings = $section['info']['section_settings']['tf_multi'];
+    if (isset($settings['apply_multi']) && $settings['apply_multi']) {
+      $section['info']['class'][] = 'tf_multi';
+      $add_css = TRUE;
+    }
+  }
+  if ($add_css) {
+    drupal_add_css(drupal_get_path('module', 'tf_multi') . '/tf_multi.css');
+  }
+}
+
+/**
+ * Implementation of hook_tf_section_alter().
+ */
+/*
+function tf_multi_tf_section_alter(&$section, $block_info) {
+  $settings = $section['info']['section_settings']['tf_multi'];
+  if (!isset($settings['apply_multi']) || !$settings['apply_multi']) {
+    return;
+  }
+
+  $tids = $block_info['url_tids'];
+  foreach ($section['items'] as &$item) {
+    if (in_array($item['info']['item_tid'], $tids)) {
+      // item is selected
+      $link_tids = array_diff($tids, array($item['info']['item_tid']));
+      $item['info']['tf_multi']['selected'] = TRUE;
+    }
+    else {
+      $link_tids = array_merge($tids, array($item['info']['item_tid']));
+      $item['info']['tf_multi']['selected'] = FALSE;
+    }
+    $item['info']['tf_multi']['tids'] = $link_tids;
+  }
+}
+*/
+/**
+ * Implements hook_tf_item_alter().
+ */
+function tf_multi_tf_item_alter(&$item, $details, $context = NULL) { // function tf_multi_tf_item_alter(&$item, $section_info, $block_info, $context = NULL) {
+  $section_info = $details['section_info'];
+  $block_info = $details['block_info'];
+  $settings = $section_info['section_settings']['tf_multi'];
+  if (!isset($settings['apply_multi']) || !$settings['apply_multi']) {
+    return;
+  }
+
+  // Move here from tf_multi_tf_section_alter.
+  $tids = $block_info['url_tids'];
+  if (in_array($item['info']['item_tid'], $tids)) {
+    // Item is selected.
+    $link_tids = array_diff($tids, array($item['info']['item_tid']));
+    $item['info']['tf_multi']['selected'] = TRUE;
+  }
+  else {
+    $link_tids = array_merge($tids, array($item['info']['item_tid']));
+    $item['info']['tf_multi']['selected'] = FALSE;
+  }
+  if ($settings['sort_terms_in_url']) {
+    // Sort tids in link for SEO purposes.
+    // @todo Add a hook to allow for custom sort routines?
+    sort($link_tids);
+  }
+  $item['info']['tf_multi']['tids'] = $link_tids;
+
+  if (!$settings['show_two_links']) {
+    // Display a single link for addition or subtraction of term.
+    $item['info']['link_tids'] = $link_tids;
+    if ($item['info']['tf_multi']['selected']) {
+      $item['title'] = $settings['subtract_prefix'] . $item['title']; // . '&nbsp' ???
+    }
+    else {
+      $item['title'] = $settings['add_prefix'] . $item['title'];
+    }
+  }
+}
+
+/**
+ * Implements hook_tf_link_tids_alter().
+ */
+function tf_multi_tf_link_tids_alter(&$link_tids, $item_tid, $context) {
+  // just use the item tid - filtering will be handled by other links
+//  $link_tids = array($item_tid);
+}
+
+/**
+ * Implements hook_preprocess_taxonomy_filter_item().
+ */
+function tf_multi_preprocess_taxonomy_filter_item(&$variables) {
+  if (!isset($variables['item']['info']['tf_multi'])) {
+    return;
+  }
+  if (!isset($variables['section_info']['section_settings']['tf_multi'])) {
+    return;
+  }
+
+  $settings = $variables['section_info']['section_settings']['tf_multi'];
+  if (!$settings['show_two_links']) {
+    return;
+  }
+
+  // Display separate links for addition and subtraction of term.
+  $attributes = array();
+  $tids = $variables['item']['info']['tf_multi']['tids'];
+  // TODO Make a depth function. This is also done in template_preprocess_taxonomy_filter_item.
+  $depth = isset($variables['section_info']['section_settings']['depth']) ? $variables['section_info']['section_settings']['depth'] : 0;
+  $depth = !$depth && isset($variables['block_info']['url_depth']) ? $variables['block_info']['url_depth'] : $depth;
+  $attributes['href'] = _taxonomy_filter_filter_link_path($tids, $depth);
+
+  if ($variables['item']['info']['tf_multi']['selected']) {
+    $link_text = $settings['subtract_prefix'];
+  }
+  else {
+    $link_text = $settings['add_prefix'];
+  }
+  $link = theme('taxonomy_filter_link', array('name' => $link_text, 'attributes' => $attributes));
+
+  if (!isset($variables['pre_link'])) {
+    $variables['pre_link'] = '';
+  }
+  $variables['pre_link'] .= $link;
+}

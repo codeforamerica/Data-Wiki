@@ -1,0 +1,108 @@
+<?php
+
+/**
+ * @file
+ * Similar By Terms install file
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function similarterms_schema() {
+  $schema['similarterms_override'] = array(
+    'module' => 'similarterms',
+    'description' => 'Override information for the similarterms blocks implemented as node type.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'Node identifier',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'vid' => array(
+        'description' => 'Version identifier',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'path' => array(
+        'description' => 'Node Id to point to of overide',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+      'weight' => array(
+        'description' => 'Node weight',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'vid' => array('vid'),
+    ),
+  );
+  $schema['cache_similarterms'] = drupal_get_schema_unprocessed('system', 'cache');
+  $schema['cache_similarterms']['module'] = 'similarterms';
+  $schema['cache_similarterms']['description'] = 'Cache table for the Similar by Terms Module.';
+
+  return $schema;
+}
+
+/**
+ * Implements hook_update().
+ */
+function similarterms_update_7102() {
+  $schema['similarterms_override'] = array(
+    'module' => 'similarterms',
+    'description' => 'Override information for the similarterms blocks implemented as node type.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'Node identifier',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'vid' => array(
+        'description' => 'Version identifier',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'path' => array(
+        'description' => 'Node Id to point to of overide',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+      'weight' => array(
+        'description' => 'Node weight',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'vid' => array('vid'),
+    ),
+  );
+  $schema['cache_similarterms'] = drupal_get_schema_unprocessed('system', 'cache');
+  $schema['cache_similarterms']['module'] = 'similarterms';
+  $schema['cache_similarterms']['description'] = 'Cache table for the Similar by Terms Module.';
+  $ret = array();
+
+  db_drop_table('cache_similarterms');
+  db_create_table('cache_similarterms', $schema['cache_similarterms']);
+  db_create_table('similarterms_override', $schema['similarterms_override']);
+  return $ret;
+}

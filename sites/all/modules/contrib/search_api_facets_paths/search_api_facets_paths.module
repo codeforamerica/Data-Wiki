@@ -1,0 +1,256 @@
+<?php
+/**
+ * @file
+ * Pretty paths for Search API Facets
+ *
+ * Adds functionality to Search API to rewrite taxonomy filters to pretty
+ * paths similar to clean URLs
+ * (C)2011 Michael Moritz miiimooo/at/drupal.org
+ */
+
+function search_api_facets_paths_current_context($path) {
+  $contexts = variable_get('search_api_facets_paths', array());
+  $path .= '/';
+  foreach($contexts as $context) {
+    $p = $context['path'];
+    $length = strlen($p);
+    if (substr($path, 0, $length) === $p) {
+      return $context;
+    }
+  }
+  return false;
+}
+/**
+ * Implements hook_menu().
+ */
+function search_api_facets_paths_menu() {
+  $items = array();
+
+  $items['admin/config/search/search_api/facets_paths'] = array(
+    'title' => 'Facets paths rewriting',
+    'description' => 'Configuration of path rewriting for facets',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('search_api_facets_paths_settings_form'),
+    'access arguments' => array('administer search_api'),
+    'file' => 'search_api_facets_paths.admin.inc',
+    'weight' => 9999,
+    'type' => MENU_LOCAL_TASK,
+  );
+ return $items;
+}
+/**
+ * Implements hook_init().
+ */
+function search_api_facets_paths_init() {
+  $q = $_GET['q'];
+  $context = search_api_facets_paths_current_context($q);
+  if (!$context) {
+    return;
+  }
+  if (strlen($context['path']) == strlen($q)) {
+    return;
+  }
+  $filters = substr($q, strlen($context['path']) + 1);
+  $parts = search_api_facets_paths_split_path($filters, $context);
+  $added = 0;
+  static $_vocs_by_id;
+  if (!is_array($_vocs_by_id)) {
+    $vocs_by_name = taxonomy_vocabulary_get_names();
+    $field_infos = field_info_fields();
+    foreach($field_infos as $key => $val) {
+      if ($val['type'] != 'taxonomy_term_reference') {
+        unset($field_infos[$key]);
+        continue;
+      }
+      foreach($val['settings']['allowed_values'] as $voc) {
+        if (!$voc['vocabulary'] || !$vocs_by_name[$voc['vocabulary']]) {
+          continue;
+        }
+        $vid = $vocs_by_name[$voc['vocabulary']]->vid;
+        $_vocs_by_id[$vid] = $key;
+      }
+    }
+  }
+  foreach($parts as $part) {
+    $parsed_path = search_api_facets_paths_parse_path($part, $context);
+    if (!$parsed_path) {
+      continue;
+    }
+    list($vid, $names) = $parsed_path;
+    foreach($names as $name) {
+      $_GET['filter'][$_vocs_by_id[$vid] . ":name"][] = '"' . $name . '"';
+    }
+    $added++;
+  }
+  if ($added > 0) {
+    $_GET['q'] = $context['path'];
+  }
+}
+/**
+ * Implements hook_url_outbound_alter().
+ */
+function search_api_facets_paths_url_outbound_alter(&$path, &$options, $original_path) {
+  $context = search_api_facets_paths_current_context($path);
+  if (!$context) {
+    return;
+  }
+
+  if (!is_array($options) || !isset($options['query']['filter'])) {
+    return;
+  }
+  static $_vocs_by_name;
+  if (!is_array($_vocs_by_name)) {
+    $_vocs_by_name = taxonomy_vocabulary_get_names();
+  }
+  if (empty($_vocs_by_name)) {
+    return;
+  }
+  $vals = array();
+  foreach(array_keys($options['query']['filter']) as $key) {
+    if (!strpos($key, ":")) {
+      continue;
+    }
+    list($field_name, $property) = explode(":", $key, 2);
+    $fi = field_info_field($field_name);
+    if (!$fi) {
+      continue;
+    }
+    foreach($fi['settings']['allowed_values'] as $voc) {
+      if ($voc['vocabulary'] && $_vocs_by_name[$voc['vocabulary']]) {
+        $vid = $_vocs_by_name[$voc['vocabulary']]->vid;
+        if ($options['query']['filter'][$key]) {
+          $vals[$vid] = $options['query']['filter'][$key];
+        }
+      }
+    }
+    unset($options['query']['filter'][$key]);
+  }
+  if (empty($vals)) {
+    return;
+  }
+  $parts = array();
+  foreach($vals as $vid => $filters) {
+    $names = array();
+    foreach($filters as $filter) {
+      $names[] = _search_api_create_filter_name($filter, 'options', array($filter));
+    }
+    if (count($names) == 0) {
+      continue;
+    }
+    $parts[] = search_api_facets_paths_make_path($vid, $names, $context);
+  }
+  $path .= (count($parts) ? '/' . implode('/', $parts) : '');
+}
+function search_api_facets_paths_escape($text) {
+  return drupal_strtolower(str_replace(
+    array("-", " ", "_"),
+    array("--", "-", "---"), $text));
+}
+function search_api_facets_paths_unescape($text) {
+  $text = preg_replace("/\b-\b/", " ", $text);
+  $text = str_replace("---", "_", $text);
+  return drupal_strtolower(str_replace("--", "-", $text));
+}
+function search_api_facets_paths_make_path($vid, $names, $context) {
+  $pathmaker = $context['pathtype'] . '_make_path';
+  return (function_exists($pathmaker) ? $pathmaker($vid, $names)
+    : search_api_facets_paths_voc_slash_name_make_path($vid, $names));
+}
+function search_api_facets_paths_split_path($path, $context) {
+  $pathsplitter = $context['pathtype'] . '_split_path';
+  return (function_exists($pathsplitter) ? $pathsplitter($path)
+    : search_api_facets_paths_voc_slash_name_split_path($path));
+}
+function search_api_facets_paths_parse_path($path, $context) {
+  $pathparser = $context['pathtype'] . '_parse_path';
+  return (function_exists($pathparser) ? $pathparser($path)
+    : search_api_facets_paths_voc_slash_name_parse_path($path));
+}
+
+/**
+ * Implements hook_search_api_facets_paths_pathtypes
+ */
+function search_api_facets_paths_search_api_facets_paths_pathtypes() {
+  return array(
+    "search_api_facets_paths_voc_slash_name" => t("vocabulary-name/term-name"),
+    "search_api_facets_paths_id_name" => t("vid-term-name (vocabulary ID, name)"),
+  );
+}
+
+function search_api_facets_paths_voc_slash_name_make_path($vid, $names) {
+  $names = array_map('search_api_facets_paths_escape', $names);
+  $name = implode('_', $names);
+  $vocs = taxonomy_get_vocabularies();
+  $voc = $vocs[$vid];
+  $vname = search_api_facets_paths_escape($voc->name);
+  return implode('/', array($vname, $name));
+}
+function search_api_facets_paths_voc_slash_name_split_path($path) {
+  // this is a bit weird
+  $a = explode("/", $path);
+  $r = array();
+  for($i=0; $i < count($a); $i+=2) {
+    $r[] = $a[$i] . '/' . $a[$i+1];
+  }
+  return $r;
+}
+function search_api_facets_paths_voc_slash_name_parse_path($path) {
+  if (!preg_match("/^(.+)\/(.+)$/", $path, $matches)) {
+    return false;
+  }
+  list(, $vname, $lname) = $matches;
+  $lnames = explode("_", $lname);
+  $lnames = array_map('search_api_facets_paths_unescape', $lnames);
+  $vname = search_api_facets_paths_unescape($vname);
+  $vocs = taxonomy_get_vocabularies();
+  $names = array();
+  foreach($lnames as $lname) {
+    $terms = taxonomy_get_term_by_name($lname);
+    $name = false;
+    foreach($terms as $term) {
+      $voc = $vocs[$term->vid];
+      if (strcasecmp($voc->name, $vname) === 0) {
+        $name = $term->name;
+        $vid = $term->vid;
+        break;
+      }
+    }
+    if (!$name) {
+      return false;
+    }
+    $names[] = $name;
+  }
+  return array($vid, $names);
+}
+function search_api_facets_paths_id_name_make_path($vid, $names) {
+  $names = array_map('search_api_facets_paths_escape', $names);
+  $name = implode('_', $names);
+  return implode('-', array($vid, $name));
+}
+function search_api_facets_paths_id_name_split_path($path) {
+  return explode("/", $path);
+}
+function search_api_facets_paths_id_name_parse_path($path) {
+  if (!preg_match("/^(\d+)-(.+)$/", $path, $matches)) {
+    return false;
+  }
+  list(, $vid, $lname) = $matches;
+  $lnames = explode("_", $lname);
+  $lnames = array_map('search_api_facets_paths_unescape', $lnames);
+  $names = array();
+  foreach($lnames as $lname) {
+    $terms = taxonomy_get_term_by_name($lname);
+    $name = false;
+    foreach($terms as $term) {
+      if ($term->vid == $vid) {
+        $name = $term->name;
+        break;
+      }
+    }
+    if (!$name) {
+      return false;
+    }
+    $names[] = $name;
+  }
+  return array($vid, $names);
+}

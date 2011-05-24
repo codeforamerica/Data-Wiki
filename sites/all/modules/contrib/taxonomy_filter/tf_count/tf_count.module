@@ -1,0 +1,295 @@
+<?php
+
+/**
+ * @file
+ * Taxonomy Filter add-on module for displaying counts of nodes matching terms.
+ */
+
+/*
+ TODO:
+ clarify what the results mean with tf_multi
+ */
+
+/* TODO
+ Unless the user goes to the edit menu form settings page and saves it
+ the variables table item is not created and then there is an error
+ in subsequent code for unitialized variables like
+ $variables['section_info']['section_settings']['tf_count']['show_nums'];
+ Add default values to the module install?
+ */
+
+/**
+ * Implements hook_tf_default_settings().
+ */
+function tf_count_tf_default_settings() {
+  return array(
+    'show_nums' => TRUE,
+    'hover_nums' => FALSE,
+    'show_empty' => FALSE,
+    'add_space' => TRUE,
+    'minimum_node_count' => 0,
+    'maximum_term_count' => 0,
+  );
+}
+
+/**
+ * Implements hook_enable().
+ */
+function tf_count_enable() {
+  // Add default settings to existing filter menus.
+  $menus = variable_get('taxonomy_filter_menus', array());
+  foreach ($menus as &$menu) {
+    if (!isset($menu['tf_count'])) {
+      $menu['tf_count'] = tf_count_tf_default_settings();
+    }
+  }
+  variable_set('taxonomy_filter_menus', $menus);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function tf_count_form_taxonomy_filter_admin_menu_edit_form_alter(&$form, $form_state) {
+  $menu_id = $form['menu_id']['#value'];
+
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $settings = isset($menus[$menu_id]['tf_count']) ? $menus[$menu_id]['tf_count'] : array();
+  $settings += array(
+    'show_nums' => FALSE,
+    'hover_nums' => FALSE,
+    'show_empty' => FALSE,
+    'add_space' => FALSE,
+    'minimum_node_count' => 0,
+    'maximum_term_count' => 0,
+  );
+  $description = '';
+  if (in_array($menus[$menu_id]['template'], array('context', 'dynamic'))) {
+    $description = t('Warning: Enabling any of the above options with the <b>context or dynamic menu templates</b> will reduce the performance of taxonomy listings as a query will be made on each menu link to count the number of matches. Whether this performance hit is noticeable depends on various factors (e.g. number of nodes, number of taxonomy terms, speed of computer). This issue should be fixed in a future release.');
+  }
+  $form['tf_count'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Matching nodes'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+  );
+  $form['tf_count']['show_nums'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display the number of matches in parentheses after the menu item.'),
+    '#default_value' => $settings['show_nums'],
+  );
+  $form['tf_count']['hover_nums'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display the number of matches in parentheses in the title attribute of the menu item.'),
+    '#default_value' => $settings['hover_nums'],
+    '#description' => 'Most browsers will display this as a rollover.',
+  );
+  $form['tf_count']['show_empty'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display a menu item for terms that do not match any nodes.'),
+    '#default_value' => $settings['show_empty'],
+  );
+  $form['tf_count']['warning'] = array(
+    '#type' => 'item',
+    '#value' => $description,
+  );
+  $form['tf_count']['add_space'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Include a space between the menu item and the number of matches.'),
+    '#default_value' => $settings['add_space'],
+  );
+  $form['tf_count_2'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Restricting terms displayed'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+  );
+  $form['tf_count_2']['minimum_node_count'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Minimum node count'),
+    '#default_value' => $settings['minimum_node_count'],
+    '#description' => t('Only display terms that match at least the minimum number of nodes. When multiple terms are involved, the test is relative to the count of nodes matching all of the terms.'),
+    '#size' => 10,
+  );
+  $form['tf_count_2']['maximum_term_count'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maximum term count'),
+    '#default_value' => $settings['maximum_term_count'],
+    '#description' => t('Limit the number of terms displayed for a given vocabulary.'),
+    '#size' => 10,
+  );
+  $form['#validate'][] = 'tf_count_menu_edit_validate';
+  $form['#submit'][] = 'tf_count_menu_edit_submit';
+}
+
+/**
+ * Validation handler.
+ */
+function tf_count_menu_edit_validate($form, &$form_state) {
+  $values = $form_state['values']['tf_count_2'];
+  // Note: Numbers +0 and -0 are not valid integers to filter_var but validate as floats.
+  $min = $values['minimum_node_count'];
+  if ($min !== '0' && !filter_var($min, FILTER_VALIDATE_INT) || $min < 0) {
+    form_set_error('minimum_node_count', t('Minimum node count must be a non-negative integer value.'));
+  }
+  $max = $values['maximum_term_count'];
+  if ($max !== '0' && !filter_var($max, FILTER_VALIDATE_INT) || $max < 0) {
+    form_set_error('maximum_term_count', t('Maximum term count must be a non-negative integer value.'));
+  }
+}
+
+/**
+ * Submit handler.
+ */
+function tf_count_menu_edit_submit($form, &$form_state) {
+  $menu_id = $form_state['values']['menu_id'];
+
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $menus[$menu_id]['tf_count'] = $form_state['values']['tf_count'] + $form_state['values']['tf_count_2'];
+  variable_set('taxonomy_filter_menus', $menus);
+}
+
+/**
+ * Implements hook_tf_item_alter().
+ */
+function tf_count_tf_item_alter(&$item, $details, $context = NULL) { // function tf_count_tf_item_alter(&$item, $section_info, $block_info, $context = NULL) {
+  $section_info = $details['section_info'];
+  $block_info = $details['block_info'];
+  /* //redundant code? */
+//  $tids = $block_info['url_tids'];
+//  if ($tids[0] == $item['info']['item_tid']) {
+//    $item_tids = $tids;
+//  }
+//  else {
+//    $item_tids = array($tids[0], $item['info']['item_tid']);
+//  }
+  $item_tids = $block_info['url_tids']; // This does nothing now
+  $item_tids[] = $item['info']['item_tid'];
+
+  //$item_tids = $item['info']['link_tids'];
+  if (!isset($item['info']['tf_count'])) {
+    $item['info']['tf_count'] = tf_count_nodes_by_terms($item_tids); // TODO Change so not needed by submodules!!!
+  }
+}
+
+/**
+ * Implements hook_tf_section_alter().
+ */
+function tf_count_tf_section_alter(&$section, $block_info) {
+//  return; // TODO Re-enable this code?
+
+  // Gather settings.
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $menu_id = $section['info']['menu_id'];
+  $count_settings = $menus[$menu_id]['tf_count'];
+  $show_empty = (bool) $count_settings['show_empty'];
+  $hover_nums = (bool) $count_settings['hover_nums'];
+  $minimum_node_count = $count_settings['minimum_node_count'];
+  $maximum_term_count = $count_settings['maximum_term_count'];
+
+  // Maximum term count display.
+  // Sort the item counts to determine the count threshhold for display.
+  $count_threshhold = 0;
+  if ($maximum_term_count) {
+    foreach ($section['items'] as $key => &$item) {
+      $counts[] = $item['info']['tf_count'];
+    }
+    rsort($counts);
+    $count_threshhold = isset($counts[$maximum_term_count]) ? $counts[$maximum_term_count] : $count_threshhold;
+  }
+
+  // Apply settings.
+  foreach ($section['items'] as $key => &$item) {
+    $count = $item['info']['tf_count'];
+    if (!$show_empty && $count == 0) {
+      unset($section['items'][$key]);
+      continue;
+    }
+    elseif ($hover_nums) {
+      // TODO Allow this hover text to be input in the admin settings form.
+      $text = ($count == 1) ? t('1 matching topic') : t('@num matching topics', array('@num' => $count));
+      $item['link_attributes']['title'] .= $text;
+    }
+    if ($count < $minimum_node_count) {
+      unset($section['items'][$key]);
+      continue;
+    }
+    if ($count < $count_threshhold) {
+      unset($section['items'][$key]);
+      continue;
+    }
+  }
+  // Slice the array to get count down to the requested term limit.
+  // This is needed if there are multiple terms with the same count.
+  // The DB query sorts on weight and name -- use this order to cherry pick.
+  if ($maximum_term_count && count($section['items']) > $maximum_term_count) {
+    $section['items'] = array_slice($section['items'], 0, $maximum_term_count, TRUE);
+  }
+}
+
+/**
+ * Implements hook_preprocess_taxonomy_filter_item().
+ */
+function tf_count_preprocess_taxonomy_filter_item(&$variables) {
+  if (!isset($variables['section_info']['section_settings']['tf_count'])) {
+    return;
+  }
+
+  $settings = $variables['section_info']['section_settings']['tf_count'];
+  $show_nums = (bool) $settings['show_nums'];
+  $add_space = (bool) $settings['add_space'] ? '&nbsp;' : '';
+  $count = $variables['item']['info']['tf_count'];
+  if (is_numeric($count) && $show_nums) {
+    if (!isset($variables['post_link'])) {
+      $variables['post_link'] = '';
+    }
+    $variables['post_link'] .= $add_space . '(' . $count . ')';
+  }
+}
+
+/**
+ * Count the nodes that match selected taxonomy conditions.
+ *
+ * TODO
+ * When using the base menu template, the counts are already being retrieved
+ * in taxonomy_filter.module. Avoid this routine for all templates and remove
+ * warning about performance degradation in the admin settings page.
+ *
+ * Based on the taxonomy_select_nodes() function
+ *
+ * @param $tids
+ *   An array of term IDs to match.
+ * @param $depth
+ *   How many levels deep to traverse the taxonomy tree. Can be a nonnegative
+ *   integer or "all".
+ * @return
+ *   The count of matching nodes.
+ */
+function tf_count_nodes_by_terms($tids = array(), $depth = 0) {
+  $count = 0;
+  if (count($tids) > 0) {
+    // For each term ID, generate an array of descendant term IDs to the right depth.
+    $descendant_tids = array();
+    if ($depth === 'all') {
+      $depth = NULL;
+    }
+    foreach ($tids as $index => $tid) {
+      $term = taxonomy_term_load($tid);
+      $tree = taxonomy_get_tree($term->vid, $tid, $depth);
+      $descendant_tids[] = array_merge(array($tid), array_map('_taxonomy_get_tid_from_term', $tree));
+    }
+
+    $joins = '';
+    $wheres = '';
+    foreach ($descendant_tids as $index => $tids) {
+      $joins .= ' INNER JOIN {taxonomy_index} tn' . $index . ' ON n.nid = tn' . $index . '.nid'; // $joins .= ' INNER JOIN {taxonomy_term_node} tn' . $index . ' ON n.vid = tn' . $index . '.vid';
+      $wheres .= ' AND tn' . $index . '.tid IN (' . implode(',', $tids) . ')';
+    }
+    $sql_count = 'SELECT COUNT(DISTINCT(n.nid)) FROM {node} n ' . $joins . ' WHERE n.status = 1 ' . $wheres; // Remove  AND n.moderate = 0
+//     $sql_count = db_rewrite_sql($sql_count);
+    // TODO Please convert this statement to the D7 database API syntax.
+    $count = db_query($sql_count)->fetchField();
+  }
+  return $count;
+}

@@ -1,0 +1,30 @@
+
+Requirements
+------------
+
+Drupal 6.x with the taxonomy module enabled.
+
+Installation
+------------
+
+This module requires no database modifications.
+
+1. Download and unzip the taxonomy_filter project file in the appropriate site directory
+(e.g. in /sites/all/modules or /sites/my_site/modules).
+
+2. In Administer > Site building > Modules (admin/build/modules), enable the Taxonomy
+Filter Core module and any desired submodules.
+
+3. In Administer > Site building > Blocks (admin/build/block), set the Taxonomy
+Filter blocks to display.
+
+4. In Administer > Site configuration > Taxonomy filter (admin/settings/taxonomy_filter),
+configure the module as needed.
+
+Optional submodules
+-------------------
+
+The Taxonomy Filter module ships with a number of add-on modules for displaying links
+in different formats and to enhance or alter the core module functionality.
+
+See the README.txt file for an overview of the core module and its add-on modules.

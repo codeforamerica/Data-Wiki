@@ -1,0 +1,392 @@
+<?php
+
+/**
+ * @file
+ * Tests for Taxonomy Filter module.
+ */
+
+/**
+ * Class with common helper methods.
+ */
+class TaxonomyFilterTestCase extends DrupalWebTestCase {
+  // TODO Do we need this class?
+}
+
+/**
+ * Tests for the admin settings interface.
+ */
+class TaxonomyFilterSettingsTest extends TaxonomyFilterTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => t('Settings interface'),
+      'description' => t('Test the administration interface for the taxonomy filter menus.'),
+      'group' => t('Taxonomy filter'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp('taxonomy', 'taxonomy_filter');
+    $this->admin_user = $this->drupalCreateUser(array('access administration pages', 'administer site configuration', 'administer blocks' /*, 'administer taxonomy'*/));
+    $this->drupalLogin($this->admin_user);
+  }
+
+  /**
+   * Call test methods (prefixed with 'check' to avoid setUp overhead).
+   */
+  function testAdminInterface() {
+    // Include the admin file so we can call its functions.
+    module_load_include('inc', 'taxonomy_filter', 'taxonomy_filter.admin');
+    // Reset this file so all other calls can append.
+//    file_put_contents('output.html', "");
+
+    // These three settings do not depend on having taxonomy and content.
+    $this->checkMenuInterface();
+    $this->checkGeneralInterface();
+    $this->checkAdvancedInterface();
+
+    // Check mappings page before and after adding vocabularies.
+    $this->checkMappingsInterface();
+    // Add test data.
+    $this->addTestData();
+    $this->checkMappingsInterface();
+    $this->enableBlocks();
+    $this->checkContentListings();
+
+    // TODO
+    // Add tests for the other submodules.
+    // Add tests for the content listings.
+  }
+
+  /**
+   * Add test data.
+   */
+  function addTestData() {
+    // Add taxonomy (vocabularies and terms) and content.
+    module_load_include('php', 'taxonomy_filter', 'tests/test_data');
+    taxonomy_filter_add_test_data();
+
+    // Add a menu. (Add more than one???)
+    $name = $this->randomName();
+    $template = 'base';
+    $all_templates = _taxonomy_filter_menu_templates(FALSE);
+    $module = $all_templates[$template]['module'];
+    _taxonomy_filter_menu_create($name, $template, $module);
+  }
+
+  /**
+   * Add, edit and delete a menu via the user interface.
+   */
+  function checkMenuInterface() {
+    // Visit the main settings page.
+    $this->drupalGet('admin/config/user-interface/taxonomy_filter');
+
+    $names = array();
+
+    $i = 0;
+    while ($i < 3) {
+      $i++;
+      // Add a menu.
+      $edit = array();
+      $edit['new_name'] = $this->randomName();
+      $edit['new_template'] = 'base';
+      $this->drupalPost(NULL, $edit, t('Add menu'));
+      $this->assertRaw(t('Added menu %name.', array('%name' => $edit['new_name'])), t('Menu created successfully'));
+      $this->assertText($edit['new_name'], t('Menu found in the filter menu overview listing.'));
+
+      // Find the menu id.
+      $menus = variable_get('taxonomy_filter_menus', array());
+      $mid = array_pop(array_keys($menus));
+      $menu = array_pop($menus);
+      $name = $menu['name'];
+      $this->assertTrue($menu, t('Menu found in database.'));
+      $this->assertEqual($name, $edit['new_name'], t('Menu name found in variable.'));
+      $this->assertEqual($mid, $i, t("Menu index $mid matches menu count."));
+
+      // Update the menu.
+      $this->drupalGet('admin/config/user-interface/taxonomy_filter/' . $mid . '/edit');
+      $edit = array();
+      $edit['name'] = $this->randomName();
+      $this->drupalPost(NULL, $edit, t('Save settings'));
+      $this->assertRaw(t('Updated menu %name.', array('%name' => $edit['name'])));
+      $this->assertText($edit['name'], t('Menu found in the filter menu overview listing.'));
+
+      // Save names for delete checks.
+      $names[] = $edit['name'];
+
+      // TODO Change more menu settings and confirm the display. Do this in a separate function?
+    }
+
+    $i = 3;
+    while ($i > 0) {
+      $mid = $i;
+      $i--;
+      // Delete the menu.
+      $this->drupalGet('admin/config/user-interface/taxonomy_filter/' . $mid . '/delete');
+      $this->assertRaw(t('Are you sure you want to delete the taxonomy filter menu %name?', array('%name' => $names[$i])), t('[confirm deletion] Asks for confirmation.'));
+      $this->assertText(t('This action cannot be undone.'), t('[confirm deletion] Inform that the menu will be deleted.'));
+
+      // Confirm deletion.
+      $this->drupalPost(NULL, array(), t('Delete'));
+      $this->assertRaw(t('Deleted menu %name.', array('%name' => $names[$i])), t('Menu deleted'));
+      $menus = variable_get('taxonomy_filter_menus', array());
+      $this->assertFalse(isset($menus[$mid]), t('Menu is not found in the database'));
+    }
+  }
+
+  /**
+   * Edit the general menu settings via the user interface.
+   */
+  function checkGeneralInterface() {
+    // Visit the general menu settings page.
+    $this->drupalGet('admin/config/user-interface/taxonomy_filter/general');
+
+    // Update the general settings.
+    $edit = array();
+    $edit['current_block_title'] = $this->randomName();
+    $edit['refine_block_title'] = $this->randomName();
+    $edit['display_current_atop_content'] = 1;
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertRaw(t('Updated the general settings.'), t('General settings updated successfully'));
+
+    // Verify the general settings.
+    $settings = variable_get('taxonomy_filter_general', array());
+    $this->assertEqual($settings['current_block_title'], $edit['current_block_title'], t('Current block title found in variable.'));
+    $this->assertEqual($settings['refine_block_title'], $edit['refine_block_title'], t('Refine block title found in variable.'));
+    $this->assertEqual($settings['display_current_atop_content'], $edit['display_current_atop_content'], t('Display current atop content found in variable.'));
+
+    // Reset the general settings.
+    $edit = array();
+    $edit['current_block_title'] = TAXONOMY_FILTER_CURRENT_BLOCK_TITLE;
+    $edit['refine_block_title'] = TAXONOMY_FILTER_REFINE_BLOCK_TITLE;
+    $edit['display_current_atop_content'] = FALSE;
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertRaw(t('Updated the general settings.'), t('General settings updated successfully'));
+
+    // Verify the general settings.
+    $settings = variable_get('taxonomy_filter_general', array());
+    $this->assertEqual($settings['current_block_title'], $edit['current_block_title'], t('Current block title found in variable.'));
+    $this->assertEqual($settings['refine_block_title'], $edit['refine_block_title'], t('Refine block title found in variable.'));
+    $this->assertEqual($settings['display_current_atop_content'], 0, t('Display current atop content found in variable.'));
+  }
+
+  /**
+   * Edit the advanced menu settings via the user interface.
+   */
+  function checkAdvancedInterface() {
+    // Visit the advanced menu settings page.
+    $this->drupalGet('admin/config/user-interface/taxonomy_filter/advanced');
+
+    // Update the advanced settings.
+    $edit = array();
+    $edit['taxonomy_filter_input'] = $this->randomName();
+    $edit['taxonomy_filter_output'] = $this->randomName();
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertRaw(t('Updated the advanced settings.'), t('Advanced settings updated successfully'));
+
+    // Verify the advanced settings.
+    $settings = variable_get('taxonomy_filter_input', '');
+    $this->assertEqual($settings, $edit['taxonomy_filter_input'], t('Input URLs found in variable.'));
+    $settings = variable_get('taxonomy_filter_output', '');
+    $this->assertEqual($settings, $edit['taxonomy_filter_output'], t('Output URL found in variable.'));
+
+    // Verify the parsed input filters.
+    // TODO How to get value to compare to??? The function taxonomy_filter_parse_input_filters does not return it.
+    $settings = variable_get('taxonomy_filter_input_parsed', array());
+//    $this->assertEqual($settings['taxonomy_filter_input'], $edit['taxonomy_filter_input'], t('Current block title found in variable.'));
+
+    // Reset the advanced settings.
+    $edit = array();
+    $this->drupalPost(NULL, $edit, t('Reset to defaults'));
+    $this->assertRaw(t('Updated the advanced settings.'), t('Advanced settings updated successfully'));
+
+    // Verify the advanced settings.
+    $settings = variable_get('taxonomy_filter_input', '');
+    $this->assertEqual($settings, '', t('Input URL variable was cleared.'));
+    $settings = variable_get('taxonomy_filter_output', '');
+    $this->assertEqual($settings, '', t('Output URL variable was cleared.'));
+  }
+
+  /**
+   * Edit the mappings menu settings via the user interface.
+   */
+  function checkMappingsInterface() {
+    // Visit the mappings menu settings page.
+    $this->drupalGet('admin/config/user-interface/taxonomy_filter/mappings');
+
+    // Verify message display with empty environment.
+    $vocabs = _taxonomy_filter_get_vocabs();
+    if (!$vocabs) {
+      $this->assertRaw(t('No vocabularies have been defined to be mapped.'), 'Warning message displays when no vocabularies');
+    }
+    $menus = _taxonomy_filter_menu_list();
+    if (!$menus) {
+      $this->assertRaw(t('No menus have been defined to be mapped.'), 'Warning message displays when no menus');
+    }
+    if (!$vocabs || !$menus) {
+      return;
+    }
+
+    // Verify vocabulary names.
+    foreach ($vocabs as $vocab) {
+      $this->assertRaw($vocab, t('Vocabulary name %name displays on mappings page', array('%name' => $vocab)));
+    }
+
+    // Verify menu names in select field.
+    foreach ($menus as $menu) {
+      $this->assertRaw($menu, t('Menu name %name displays on mappings page', array('%name' => $menu)));
+    }
+
+//    file_put_contents('output.html', $this->getUrl() . $this->drupalGetContent(), FILE_APPEND);
+
+    // This looks for filter menu with id = 1!!!
+//    if ($this->assertTrue($select = $this->xpath('//select[@name="refine_menu1"]'))) {
+    $select = $this->xpath('//select[@name="refine_menu1"]');
+//    file_put_contents('output.html', "select = \n", FILE_APPEND);
+//    file_put_contents('output.html', print_r($select, 1), FILE_APPEND);
+    if ($this->assertTrue($select, t('Select field for refine menu found on page'))) {
+      $this->assertTrue(count($select) == 1, t('Only one select field for refine menu found on page'));
+      // This only returns the values not the text of the options.
+      $x_options = $this->getAllOptions($select[0]);
+//      file_put_contents('output.html', "select options = \n", FILE_APPEND);
+//      file_put_contents('output.html', print_r($x_options, 1), FILE_APPEND);
+      $options = array();
+      foreach ($x_options as $option) {
+//        $this->assertTrue(is_array($option), t('Option is an array'));
+//        file_put_contents('output.html', "option = \n", FILE_APPEND);
+//        file_put_contents('output.html', print_r($option, 1), FILE_APPEND);
+        $options[] = $option['value'];
+      }
+//      file_put_contents('output.html', "extracted options = \n", FILE_APPEND);
+//      file_put_contents('output.html', print_r($options, 1), FILE_APPEND);
+//      $filler = array_diff($options, $menus);
+//      $this->assertTrue(count($filler) == 1, t('All menus found in select field options'));
+    }
+
+    // Update the criteria menu choices.
+    $edit = array();
+    $edit['refine_menu1'] = 1;
+    $edit['current_menu1'] = 1;
+    $edit['refine_menu2'] = 1;
+    $edit['current_menu2'] = 1;
+    $edit['refine_menu3'] = 1;
+    $edit['current_menu3'] = 1;
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertRaw(t('Updated the criteria menus.'), t('Criteria menus updated successfully'));
+
+    // Verify the criteria menu choices.
+    $settings = variable_get('taxonomy_filter_mappings', array());
+    $this->assertEqual($settings[1]['refine_menu'], $edit['refine_menu1'], t('Refine menu found in variable.'));
+    $this->assertEqual($settings[1]['current_menu'], $edit['current_menu1'], t('Current menu found in variable.'));
+
+    // TODO Could clear the criteria menus and see that the refine criteria menu is not displayed.
+
+    // Update the mappings.
+    $vid = 1;
+    $this->drupalGet('admin/config/user-interface/taxonomy_filter/mappings/' . $vid . '/edit');
+    $edit = array();
+    $edit['vocabs[]'] = array('2', '3');
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertRaw(t('Updated the vocabulary mappings.'), t('Vocabulary mappings updated successfully'));
+
+    // Verify the mappings.
+    $settings = variable_get('taxonomy_filter_mappings', array());
+    $this->assertEqual($settings[$vid]['mappings'], $edit['vocabs[]'], t('Vocabulary mappings found in variable.'));
+
+    // Clear the mappings.
+    $this->drupalGet('admin/config/user-interface/taxonomy_filter/mappings/' . $vid . '/edit');
+    $edit['vocabs[]'] = array('0');
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertRaw(t('Updated the vocabulary mappings.'), t('Vocabulary mappings updated successfully'));
+
+    // Verify the mappings.
+    // Note: can not compare $edit['vocabs[]'] = array('0') since code changes value to array().
+    $settings = variable_get('taxonomy_filter_mappings', array());
+    $this->assertEqual($settings[$vid]['mappings'], array(), t('Vocabulary mappings found in variable.'));
+
+    // Reset the mappings.
+    foreach ($vocabs as $vid => $name) {
+      $this->drupalGet('admin/config/user-interface/taxonomy_filter/mappings/' . $vid . '/edit');
+      $edit['vocabs[]'] = array('1', '2', '3');
+      $this->drupalPost(NULL, $edit, t('Save settings'));
+      $this->assertRaw(t('Updated the vocabulary mappings.'), t('Vocabulary mappings updated successfully'));
+
+      // Verify the mappings.
+      $settings = variable_get('taxonomy_filter_mappings', array());
+      $this->assertEqual($settings[$vid]['mappings'], $edit['vocabs[]'], t('Vocabulary mappings found in variable.'));
+    }
+
+//    file_put_contents('output.html', $this->getUrl() . $this->drupalGetContent(), FILE_APPEND);
+  }
+
+  /**
+   * Adapted from block.test.
+   */
+  function enableBlocks() {
+    // Specify the region.
+    $region = array('name' => 'left', 'id' => 'sidebar-left');
+
+    // Enable blocks in the region.
+    $block['module'] = 'taxonomy_filter';
+    $deltas = array(0, 1);
+    foreach ($deltas as $delta) {
+      $block['delta'] = $delta;
+
+      // Add the block to the region.
+      $edit = array();
+      $edit[$block['module'] . '_' . $block['delta'] . '[region]'] = $region['name'];
+      $this->drupalPost('admin/structure/block', $edit, t('Save blocks'));
+
+      // Confirm that the block was moved to the proper region.
+      $this->assertText(t('The block settings have been updated.'), t('Block successfully moved to %region_name region.', array('%region_name' => $region['name'])));
+    }
+  }
+
+  /**
+   * Verify the content listing displays match the filter settings.
+   */
+  function checkContentListings() {
+    // Visit a non-taxonomy listings page.
+    $this->drupalGet('taxonomy/terms/11');
+
+    // Verify the advanced settings.
+    $this->assertNoRaw(t(TAXONOMY_FILTER_CURRENT_BLOCK_TITLE), t('Current block title not found on page'));
+    $this->assertNoRaw(t(TAXONOMY_FILTER_REFINE_BLOCK_TITLE), t('Refine block title not found on page'));
+
+    // Visit a taxonomy listings page.
+    $this->drupalGet('taxonomy/term/11');
+
+    // Verify the general settings.
+    $this->assertRaw(t(TAXONOMY_FILTER_CURRENT_BLOCK_TITLE), t('Current block title found on page'));
+    $this->assertRaw(t(TAXONOMY_FILTER_REFINE_BLOCK_TITLE), t('Refine block title found on page'));
+
+    // Verify the advanced settings.
+    // TODO View a taxonomy listing page and verify the links against 'taxonomy_filter_output'.
+
+    // Verify the mapping settings.
+    $div = $this->xpath('//*[@id="block-taxonomy_filter-0"]');
+    if ($this->assertTrue($div, 'Refine block found')) {
+      $div = $div[0];
+      // Verify the vocabulary names.
+      $vids = array(1, 2, 3);
+      foreach ($vids as $vid) {
+        $this->assertTrue(strpos($div->asXML(), 'Vocab #' . $vid) !== FALSE, 'Found vocabulary name ' . $vid);
+      }
+      // Verify the term names.
+      $tids = array(1, 6, 11, 16, 21, 26, 31);
+      foreach ($tids as $tid) {
+        $this->assertTrue(strpos($div->asXML(), 'term #' . $tid) !== FALSE, 'Found term name ' . $tid);
+      }
+    }
+
+    // Verify the mapping settings.
+    // TODO View taxonomy listing pages and verify the menu display corresponds to the menu selected for the vocab.
+    // Verify the vocab links appear on pages with other term listings.
+  }
+
+//    file_put_contents('output.html', "mappings = \n", FILE_APPEND);
+//    file_put_contents('output.html', print_r($settings, 1), FILE_APPEND);
+//    file_put_contents('output.html', "filter input = $settings\n", FILE_APPEND);
+//    file_put_contents('output.html', $this->getUrl() . $this->drupalGetContent());
+
+}

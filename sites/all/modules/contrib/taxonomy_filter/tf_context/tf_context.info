@@ -1,0 +1,15 @@
+name = "Context Menu"
+description = "Provides a context specific menu template for displaying links to parent, child and related terms."
+dependencies[] = taxonomy_filter
+dependencies[] = tf_count
+package = Taxonomy Filter
+core = 7.x
+
+files[] = tf_context.module
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "taxonomy_filter"
+datestamp = "1298620348"
+

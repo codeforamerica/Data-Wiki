@@ -1,0 +1,14 @@
+name = "Count Results"
+description = "Extends Taxonomy Filter by adding result count features."
+dependencies[] = taxonomy_filter
+package = Taxonomy Filter
+core = 7.x
+
+files[] = tf_count.module
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "taxonomy_filter"
+datestamp = "1298620348"
+

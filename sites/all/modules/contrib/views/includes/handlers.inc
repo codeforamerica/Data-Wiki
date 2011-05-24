@@ -1326,7 +1326,7 @@ class views_join {
   /**
    * Construct the views_join object.
    */
-  function construct($table = NULL, $left_table = NULL, $left_field = NULL, $field = NULL, $extra = array(), $type = 'LEFT', $reverse = NULL) {
+  function construct($table = NULL, $left_table = NULL, $left_field = NULL, $field = NULL, $extra = array(), $type = 'LEFT') {
     $this->extra_type = 'AND';
     if (!empty($table)) {
       $this->table = $table;
@@ -1335,7 +1335,6 @@ class views_join {
       $this->field = $field;
       $this->extra = $extra;
       $this->type = strtoupper($type);
-      $this->left_field_reverse_relation = $reverse;
     }
     elseif (!empty($this->definition)) {
       // if no arguments, construct from definition.
@@ -1352,9 +1351,6 @@ class views_join {
       }
 
       $this->type = !empty($this->definition['type']) ? strtoupper($this->definition['type']) : 'LEFT';
-      if (!empty($this->definition['left_field_reverse_relation'])) {
-        $this->left_field_reverse_relation = $this->definition['left_field_reverse_relation'];
-      }
     }
   }
 

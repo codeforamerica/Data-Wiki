@@ -63,7 +63,6 @@ class views_handler_relationship extends views_handler {
     $label = !empty($this->definition['label']) ? $this->definition['label'] : $this->definition['field'];
     $options['label'] = array('default' => $label, 'translatable' => TRUE);
     $options['required'] = array('default' => FALSE);
-    $options['reverse_relation'] = array('default' => FALSE);
 
     return $options;
   }
@@ -87,12 +86,6 @@ class views_handler_relationship extends views_handler {
       '#description' => t('Enable to hide items that do not contain this relationship'),
       '#default_value' => !empty($this->options['required']),
     );
-    $form['reverse_relation'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Reverse this relationship'),
-      '#description' => t('If reversed, the new entity holds a reference to the main entity.'),
-      '#default_value' => !empty($this->options['reverse_relation']),
-    );
   }
 
   /**
@@ -112,23 +105,6 @@ class views_handler_relationship extends views_handler {
     $def['left_field'] = $this->field;
     if (!empty($this->options['required'])) {
       $def['type'] = 'INNER';
-    }
-    
-    if (empty($this->options['reverse_relation'])) {
-      $def['left_field_reverse_relation'] = NULL;
-    }
-    else {
-      // Set the fields for the next relationship
-      $def['left_field'] = 'entity_id';
-      $def['left_field_reverse_relation'] = $this->field;
-
-      // Adjust_join for the previous base table
-      $t = end($this->query->table_queue);  // get the current/last tabel/join from the queue
-      $swapped_field = $def['left_field_reverse_relation'];
-
-      $t['join']->definition['left_table'] = $t['relationship']; // The alias is not stored in the definition
-      $t['join']->definition['field'] = $swapped_field;          // The left_field is the swapped field from the relationship  !!!!!!!!!!!!!!!!!!
-      $t['join']->construct();    // You need to build the join again from the new definition
     }
 
     if (!empty($def['join_handler']) && class_exists($def['join_handler'])) {

@@ -1202,7 +1202,7 @@ function views_get_applicable_views($type) {
         // This view uses hook menu. Clone it so that different handlers
         // don't trip over each other, and add it to the list.
         $v = $view->clone_view();
-        if ($v->set_display($id)) {
+        if ($v->set_display($id) && $v->display_handler->get_option('enabled')) {
           $result[] = array($v, $id);
         }
         // In PHP 4.4.7 and presumably earlier, if we do not unset $v
@@ -1492,6 +1492,18 @@ function views_exposed_form($form, &$form_state) {
   views_exposed_form_cache($view->name, $view->current_display, $form);
 
   return $form;
+}
+
+/**
+ * Implement hook_form_alter for the exposed form.
+ *
+ * Since the exposed form is a GET form, we don't want it to send a wide
+ * variety of information.
+ */
+function views_form_views_exposed_form_alter(&$form, &$form_state) {
+  $form['form_build_id']['#access'] = FALSE;
+  $form['form_token']['#access'] = FALSE;
+  $form['form_id']['#access'] = FALSE;
 }
 
 /**

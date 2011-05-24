@@ -1,0 +1,18 @@
+
+#taxonomy-filter-admin-templates-form tr.enabled td.status {
+    background-image: url(../../../../misc/watchdog-ok.png);
+}
+
+#taxonomy-filter-admin-templates-form tr.disabled td.status {
+    background-image: url(../../../../misc/watchdog-warning.png);
+}
+
+#taxonomy-filter-admin-templates-form tr.missing td.status {
+    background-image: url(../../../../misc/watchdog-error.png);
+}
+
+#taxonomy-filter-admin-templates-form tr td.status {
+    padding-left: 30px;
+    background-position: 5px 50%;
+    background-repeat: no-repeat;
+}

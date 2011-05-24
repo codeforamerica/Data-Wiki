@@ -1,0 +1,599 @@
+<?php
+
+/**
+ * @file
+ * This module provides blocks to inform users of relevant content. This is done on a per-content-type basis
+ */
+
+
+/**
+ * Implement hook_help().
+ */
+function relevant_content_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help' :
+      return t('Provides a block using the Views module to display relevant nodes for the current page.');
+    case 'admin/blocks/relevant_content' :
+      $output  = '<p>'. t('On this page you can configure which blocks should be provided on a per-content-type basis. If you enabled a content type, please make sure to provided a block title.') .'</p>';
+      $output .= '<p>'. t('The <em>Limit</em> field allows you to provide a maximum number of nodes to be displayed for that block.') .'</p>';
+      $output .= '<p>'. t('The <em>Block Header Text</em> field allows you to provide some text which can appear at the top of the block - good for explaining to the user what the block is.') .'</p>';
+      return $output;
+  }
+}
+
+
+/**
+ * Implement hook_perm().
+ */
+function relevant_content_perm() {
+  return array('administer relevant content');
+}
+
+
+/**
+ * Implement hook_menu().
+ */
+function relevant_content_menu() {
+  $items = array();
+
+  $defaults = array(
+    'access arguments' => array('administer relevant content'),
+    'file' => 'relevant_content.admin.inc',
+    'file path' => drupal_get_path('module', 'relevant_content'),
+  );
+
+  $items['admin/config/relevant_content'] = array(
+    'title' => 'Relevant Content',
+    'description' => 'Configuration for Relevant Content',
+    'page callback' => 'system_admin_menu_block_page',
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'access arguments' => array('administer relevant content'),
+  );
+
+  $items['admin/config/relevant_content/blocks'] = $defaults + array(
+    'title' => 'Relevant Content',
+    'description' => 'Configure the sites <em>relevant content</em> blocks.',
+    'page callback' => 'relevant_content_admin',
+  );
+
+  $items['admin/config/relevant_content/blocks/%relevant_content_delta'] = $defaults + array(
+    'title' => 'Edit Block',
+    'description' => 'Configure the sites <em>relevant content</em> blocks.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('relevant_content_admin_block_form', 4),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/config/relevant_content/blocks/%relevant_content_delta/delete'] = $defaults + array(
+    'page callback' => 'relevant_content_admin_delete',
+    'page arguments' => array(4),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implement hook_load().
+ *
+ * This is simply here (currently) to act as a nice URL delta parser. Returns false if block not available.
+ * TODO: Modify system to load the settings. This means modifying form inputs too.
+ */
+function relevant_content_delta_load($delta) {
+  $settings = variable_get('relevant_content', array());
+  if (isset($settings[$delta])) return $delta;
+
+  return FALSE;
+}
+
+
+/**
+ * Implement hook_form_alter().
+ */
+function relevant_content_form_alter(&$form, &$form_state, $form_id) {
+  // If we're on a field edit form and the fiel type is relevant content, tweak the form to remove unecessary elements
+  if ($form_id == 'field_ui_field_edit_form' && $form['#field']['type'] == 'relevant_content') {
+    unset($form['instance']['default_value_widget']['#type']);
+    $form['field']['cardinality']['#type'] = $form['instance']['required']['#type'] = 'value';
+  }
+}
+
+
+/**
+ * Implement hook_block_info().
+ */
+function relevant_content_block_info() {
+  $blocks = array();
+  $settings = variable_get('relevant_content', array());
+
+  if (!empty($settings)) {
+    foreach ($settings as $delta => $params) {
+      $blocks[$delta] = array(
+        'info' => t('Relevant Content: @title', array('@title' => $delta)),
+        'cache' => DRUPAL_CACHE_PER_ROLE | DRUPAL_CACHE_PER_PAGE,
+        'visibility' => 1,
+        'pages' => 'node/*',
+      );
+    }
+  }
+
+  return $blocks;
+}
+
+
+/**
+ * Implement hook_block_view().
+ */
+function relevant_content_block_view($delta = '') {
+  $settings = variable_get('relevant_content', array());
+
+  //Get the terms for the current page using a little reusable wrapper function
+  $terms = relevant_content_get_page_terms();
+
+  //If there are no terms, not a lot of point in continuing
+  if (empty($terms)) {
+    return;
+  }
+
+  //Filter out the terms which are not in a selected vocabulary
+  foreach ($terms as $key => $term) {
+    if (isset($settings[$delta]['vocabs'][$term->vid])) {
+      $terms[$key] = $term->tid;
+    }
+    else {
+      unset($terms[$key]);
+    }
+  }
+
+  //Again - if there are no terms, no need to continue!
+  if (empty($terms)) {
+    return;
+  }
+
+  //Create a node exclusion list - this will exclude the currently viewed node - if applicable.
+  //This stops the currently viewed node appearing top of a list - afterall, it IS the most relevant!
+  $exclude = array();
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    $exclude[] = arg(1);
+  }
+
+  if ($nodes = relevant_content_get_nodes($settings[$delta]['types'], $terms, $exclude, $settings[$delta]['limit'])) {
+    $header = isset($settings[$delta]['header_text']) ? $settings[$delta]['header_text'] : FALSE;
+    return array(
+      'subject' => t('Relevant Content'),
+      'content' => theme('relevant_content_block', array('nodes' => $nodes, 'header' => $header, 'delta' => $delta)),
+    );
+  }
+}
+
+
+/**
+ * Handy wrapper function to find the terms for the current page
+ */
+function relevant_content_get_page_terms($node = NULL) {
+  /**
+   * If we have passed in a node, or if there is one available from the menu object, use the node ID to load all the terms for the node...
+   * This seems to be necessary due to the new Field API not really giving us "one" taxonomy array on the node.
+   */
+  if (isset($node) || (arg(0) == 'node' && is_numeric(arg(1)) && $node = menu_get_object())) {
+    // Select from the taxonomy_index and the taxonomy_term_data
+    $query = db_select('taxonomy_index', 't');
+    $query->join('taxonomy_term_data', 'td', 'td.tid = t.tid');
+
+    // We need the Term ID, Name and Vocabulary ID
+    $query->addField('t', 'tid');
+    $query->fields('td', array('vid', 'name'));
+
+    // And we need to filter for the node in question
+    $query->condition('t.nid', $node->nid);
+
+    // Get the terms as a tid-indexed array of objects
+    $terms = $query->execute()->fetchAllAssoc('tid');
+  }
+  // Fall back to the term_cache if the above worked
+  else {
+    $terms = relevant_content_term_cache();
+  }
+
+  // Provide a hook_relevant_content_terms where other modules can change or add to the relevant terms...
+  drupal_alter('relevant_content_terms', $terms);
+
+  return $terms;
+}
+
+
+/**
+ * Implement hook_theme().
+ */
+function relevant_content_theme($existing, $type, $theme, $path) {
+  $base = array('file' => 'relevant_content.theme.inc', 'theme path' => $path);
+
+  return array(
+    'relevant_content_block'                        => $base + array('arguments' => array('nodes' => NULL, 'header' => NULL, 'delta' => NULL),),
+    'relevant_content_token_help'                   => $base + array('arguments' => array()),
+    'relevant_content_field_formatter_general'      => $base + array('arguments' => array('element' => NULL, 'type' => NULL)),
+    'relevant_content_individual_field'             => $base + array('arguments' => array('attributes' => NULL, 'result' => NULL)),
+    'field_formatter_relevant_content_default'      => $base + array('arguments' => array('element' => NULL)),
+    'field_formatter_relevant_content_plain'        => $base + array('arguments' => array('element' => NULL)),
+    'field_formatter_relevant_content_teaser'       => $base + array('arguments' => array('element' => NULL)),
+    'field_formatter_relevant_content_full'         => $base + array('arguments' => array('element' => NULL)),
+    'field_formatter_relevant_content_token_teaser' => $base + array('arguments' => array('element' => NULL)),
+    'field_formatter_relevant_content_token_full'   => $base + array('arguments' => array('element' => NULL)),
+  );
+}
+
+
+/**
+ * Function to get a set of nodes.
+ *
+ * This returns a set of nodes based on the provided type and array of term
+ * ID's.
+ *
+ * @param $type
+ *   Array representing the node types
+ * @param $terms
+ *   Array of Term ID's
+ * @param $exclude
+ *   Array - Optional: An array of Node ID's to exclude. Useful for excluding the node you might be comparing to currently. Default: No exclusions.
+ * @param $limit
+ *   Integer - Optional: Integer controlling the maximum number of nodes returned. Default: 5
+ * @param $languages
+ *   Array - Optional: An array of languages to restrict nodes to.
+ *                     An empty string in the array corresponds to Language Neutral nodes.
+ *                     An empty array will include all nodes regardless of language.
+ *
+ * @return mixed
+ *   FALSE if no result or error or an associative array with node ID's as keys and the value's as arrays of nid's, vid's, title's, type's & term match counts.
+ */
+function relevant_content_get_nodes($types, $terms, $exclude = array(), $limit = 5, $languages = array()) {
+  // If terms or types are empty, there isn't anything to match to so not a lot of point continuing.
+  if (empty($terms) || empty($types)) return FALSE;
+
+  // Define the query
+  $query = db_select('node', 'n');
+  $query->leftJoin('taxonomy_index', 'ti', 'n.nid = ti.nid');
+  $query->fields('n', array('nid', 'vid', 'title', 'type'));
+  $query->addExpression('COUNT(*)', 'cnt');
+
+  // Filter for all nodes which are published, in the "types" array and has at least one of the selected terms
+  $query->condition('n.status', 1)->condition('n.type', $types, 'IN')->condition('ti.tid', $terms, 'IN');
+
+  // Exclude any specific node id's
+  if (!empty($exclude))   { $query->condition('n.nid', $exclude, 'NOT IN'); }
+
+  // IF language is specified, make sure we filter for those too
+  if (!empty($languages)) { $query->condition('n.language', $languages, 'IN'); }
+
+  // Group, order and limit the query
+  $query->groupBy('n.nid')->orderBy('cnt', 'DESC')->orderBy('n.created', 'DESC')->orderBy('n.nid', 'DESC')->range(0, $limit);
+
+  // Execute and loop to store the results against the node ID key
+  $nodes = $query->execute()->fetchAllAssoc('nid', PDO::FETCH_ASSOC);
+
+  // Return the node array or FALSE if there is no result/an error.
+  return empty($nodes) ? FALSE : $nodes;
+}
+
+
+/**
+ * Function to locally cache terms
+ * TODO: Use the Drupal Static Cache function
+ *
+ * This allows either this module or any other module to add terms to the cache.
+ * This cache is used to determine which nodes appear in the relevant content
+ * blocks.
+ *
+ * @param $terms
+ *   Array of term id's
+ * @param $clear
+ *   Boolean flag - can be set to force a clearing of the local cache.
+ * @return
+ *   Array of the term id's currently in the cache
+ */
+function relevant_content_term_cache($terms = array(), $clear = FALSE) {
+  static $term_cache = array();
+
+  if ($clear) {
+    $term_cache = array();
+  }
+
+  if (!empty($terms)) {
+    $term_cache = array_merge($term_cache, $terms);
+  }
+
+  return $term_cache;
+}
+
+
+/**
+ * Private function used as a callback for array_map which sets the item to the value of $value using $key as either an array offset or an object property.
+ *
+ * @param $item
+ *   This is a variable reference to the item being mapped to. Chaning this value will change the value in the array being mapped using array_map
+ * @param $key
+ *   They key of $item in the array being mapped
+ * @param $values
+ *   A user defined array passed in. In this case, it us used for reference purposes
+ */
+function _relevant_content_array_map_key_to_values(&$item, $key, $values) {
+  if (isset($values[$key])) {
+    if (is_object($values[$key])) {
+      $item = $values[$key]->name;
+    }
+    else {
+      $item = $values[$key];
+    }
+  }
+  else {
+    $item = t('Error: Item missing.');
+  }
+}
+
+
+/**
+ * Implement hook_field_info().
+ *
+ * Field settings: ...
+ */
+function relevant_content_field_info() {
+  return array(
+    'relevant_content' => array(
+      'label' => t('Relevant Content'),
+      'description' => t('This is an output-only field which looks up related content for the node the field is attached to.'),
+      'default_widget' => 'relevant_content_list',
+      'default_formatter' => 'relevant_content_default',
+      'settings' => array(),
+      'instance_settings' => array(),
+    ),
+  );
+}
+
+
+/**
+ *  Implement hook_field_settings_form().
+ */
+function relevant_content_field_settings_form($field, $instance, $has_data) {
+  $form = array();
+
+  // Node Type Filter
+  $form['relevant_nodetypes'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Relevant Node Types'),
+    '#default_value' => isset($field['settings']['relevant_nodetypes']) ? $field['settings']['relevant_nodetypes'] : array(),
+    '#options' => node_type_get_names(),
+    '#required' => TRUE,
+    '#description' => t('Select the node types you would like to include in this <em>Relevant Content Field</em>'),
+  );
+
+  // Load the system vocabs
+  $vocabs = array();
+  foreach (taxonomy_get_vocabularies() as $vid => $voc) {
+    $vocabs[$vid] = $voc->name;
+  }
+
+  // If there are no vocabularies configured, show an error
+  if (empty($vocabs)) {
+    // TODO: Show error
+  }
+  // Otherwise, show a vocabulary selector
+  else {
+    $form['relevant_vocabs'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Relevant Vocabularies'),
+      '#default_value' => isset($field['settings']['relevant_vocabs']) ? $field['settings']['relevant_vocabs'] : array(),
+      '#options' => $vocabs,
+      '#required' => TRUE,
+      '#description' => t('Select the vocabularies you would like to include in this <em>Relevant Content Field</em>. Only terms in the selected vocabularies will be used to find relevant content.'),
+    );
+  }
+
+  // Define a result limitor field
+  $form['relevant_result_limit'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Results Per Page'),
+    '#description' => t('Relevant content to display per page. Must be more than 0'),
+    '#default_value' => isset($field['settings']['relevant_result_limit']) ? $field['settings']['relevant_result_limit'] : 5,
+    '#required' => TRUE,
+  );
+
+  // Define a result header field with formatter options
+  $form['relevant_header'] = array(
+    '#tree' => TRUE,
+    '#title' => t('Header Text'),
+    '#type' => 'fieldset',
+    '#description' => t('Optionally include some text to appear above the list and below the label (if the label is enabled).'),
+  );
+  $form['relevant_header']['body'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($field['settings']['relevant_header']['body']) ? $field['settings']['relevant_header']['body'] : '',
+  );
+  $form['relevant_header']['format'] = filter_form(
+    isset($field['settings']['relevant_header']['format']) ? $field['settings']['relevant_header']['format'] : NULL,
+    NULL,
+    array('field', 'settings', 'relevant_header', 'format')
+  );
+
+  return $form;
+}
+
+
+/**
+ * Implement hook_field_widget_settings_form().
+ */
+function relevant_content_field_instance_settings_form($field, $instance) {
+  $form = array();
+  $form['token_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Token Output Settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['token_settings']['token_teaser'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Tokens for teaser view formatter'),
+    '#tree' => TRUE,
+  );
+  $form['token_settings']['token_teaser']['body'] = array(
+    '#type' => 'textarea',
+    '#description' => t('Tokens entered in here will be used for the optional token teaser formatter. This allows customized output.'),
+    '#default_value' => isset($instance['settings']['token_settings']['token_teaser']['body']) ? $instance['settings']['token_settings']['token_teaser']['body'] : '',
+    '#rows' => 4,
+  );
+  $form['token_settings']['token_teaser']['format'] = filter_form(
+    isset($instance['settings']['token_settings']['token_teaser']['format']) ? $instance['settings']['token_settings']['token_teaser']['format'] : NULL,
+    NULL,
+    array('instance', 'settings', 'token_settings', 'token_teaser', 'format')
+  );
+
+
+  $form['token_settings']['token_full'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Tokens for full view formatter'),
+    '#tree' => TRUE,
+  );
+  $form['token_settings']['token_full']['body'] = array(
+    '#type' => 'textarea',
+    '#description' => t('Tokens entered in here will be used for the optional token full formatter. This allows customized output.'),
+    '#default_value' => isset($instance['settings']['token_settings']['token_full']['body']) ? $instance['settings']['token_settings']['token_full']['body'] : '',
+    '#rows' => 4,
+  );
+  $form['token_settings']['token_full']['format'] = filter_form(
+    isset($instance['settings']['token_settings']['token_full']['format']) ? $instance['settings']['token_settings']['token_full']['format'] : '',
+    NULL,
+    array('instance', 'settings', 'token_settings', 'token_full', 'format')
+  );
+
+  $form['token_settings']['token_help'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Token Help'),
+    '#collapsed' => TRUE,
+    '#collapsible' => TRUE,
+  );
+  $form['token_settings']['token_help']['view'] = array(
+    '#type' => 'markup',
+    '#markup' => theme('relevant_content_token_help'),
+  );
+
+  return $form;
+}
+
+
+/**
+ * Implement hook_field_is_empty().
+ */
+// TODO
+function relevant_content_field_is_empty($item, $field) {
+  return FALSE;
+}
+
+
+/**
+ * Implement hook_field_formatter_info().
+ */
+function relevant_content_field_formatter_info() {
+  $defaults = array('field types' => array('relevant_content'), 'behaviors' => array('multiple values' => FIELD_BEHAVIOR_CUSTOM));
+
+  return array(
+    'relevant_content_default'      => $defaults + array('label' => t('Node Title - Link')),
+    'relevant_content_plain'        => $defaults + array('label' => t('Node Title - Plain')),
+    'relevant_content_teaser'       => $defaults + array('label' => t('Node Teaser')),
+    'relevant_content_full'         => $defaults + array('label' => t('Node Full')),
+    'relevant_content_token_teaser' => $defaults + array('label' => t('Node Token Teaser')),
+    'relevant_content_token_full'   => $defaults + array('label' => t('Node Token Full')),
+  );
+}
+
+
+/**
+ * Implement hook_field_load().
+ */
+function relevant_content_field_load($obj_type, $objects, $field, $instances, $langcode, &$items, $age) {
+  foreach ($objects as $id => $object) {
+    //Get the terms using the handy term wrapper in the parent module
+    $terms = relevant_content_get_page_terms($object);
+
+    // If there are no terms, return an empty item set - there will be nothing in common with this.
+    if (empty($terms)) return;
+
+    // Grab the types & vocabs
+    $types  = array_values(array_filter($field['settings']['relevant_nodetypes']));
+    $vocabs = array_values(array_filter($field['settings']['relevant_vocabs']));
+
+    // Filter the terms from the vocabs associated with this field.
+    foreach ($terms as $tid => $term) {
+      if (in_array($term->vid, $vocabs)) {
+        $terms[$tid] = $tid;
+      }
+      else {
+        unset($terms[$tid]);
+      }
+    }
+
+    // If there are no terms *after* filtering, return an empty item set - there will be nothing in common with this.
+    if (empty($terms)) return;
+
+    // Search for items and return the item set.
+    $relevant_items = relevant_content_get_nodes($types, $terms, array($object->nid), $field['settings']['relevant_result_limit']);
+    if (empty($relevant_items)) return;
+
+    // Set the items which will get passed to the theme layer
+    $items[$id]['items'] = $relevant_items;
+    $items[$id]['header'] = $field['settings']['relevant_header'];
+    $items[$id]['#settings'] = $instances[$id]['settings']['token_settings'];
+  }
+}
+
+
+/**
+ * Implement hook_field_widget_info().
+ */
+function relevant_content_field_widget_info() {
+  return array(
+    'relevant_content_list' => array(
+      'label' => t('Relevant Nodes (Read Only)'),
+      'field types' => array('relevant_content'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Implement hook_element_info().
+ */
+function relevant_content_element_info() {
+  return array(
+    'relevant_content_list' => array(
+      '#input' => FALSE,
+    ),
+  );
+}
+
+
+function relevant_content_preprocess_field(&$variables) {
+  // If the field is a relevant content field, we need to add more suggestion types (so we can easily theme all RC fields).
+  // This is necessary so that we can override the default content-field template (which doesn't work correctly for us)
+  if (isset($variables['field_type']) && $variables['field_type'] == 'relevant_content') {
+    $suggestions = array(
+      'field-relevant-content',
+      'field-relevant-content-'. $variables['field_name'],
+      'field-relevant-content-'. $variables['instance']['bundle'],
+      'field-relevant-content-'. $variables['field_name'] .'-'. $variables['instance']['bundle'],
+    );
+
+    $variables['template_files'] = array_merge($variables['template_files'], $suggestions);
+    $header = $variables['element']['items']['header']['#item'];
+    $variables['header'] = check_markup($header['body'], $header['format']);
+  }
+  drupal_add_css(drupal_get_path('module', 'relevant_content') .'/relevant_content.css');
+}
+
+
+function relevant_content_theme_registry_alter(&$theme_registry) {
+  // This seems necessary to allow the theme registry to also search the RC folder for template files.
+  $theme_registry['field']['theme paths'][] = drupal_get_path('module', 'relevant_content');
+}

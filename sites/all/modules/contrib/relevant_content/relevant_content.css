@@ -1,0 +1,7 @@
+.field-label-inline .field-content {
+  float:left;
+}
+
+.field-label-inline .field-content .field-items {
+  float:none;
+}

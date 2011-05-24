@@ -1,0 +1,26 @@
+name = "Taxonomy Filter Core"
+
+description = "Allows users to browse taxonomy listings using a combination of terms.
+               This is the core API module."
+
+package = Taxonomy Filter
+dependencies[] = taxonomy
+
+files[] = taxonomy_filter.admin.inc
+files[] = taxonomy_filter.base.inc
+files[] = taxonomy_filter.install
+files[] = taxonomy_filter.module
+files[] = taxonomy_filter.test
+files[] = taxonomy_filter.theme.inc
+
+configure = admin/config/user-interface/taxonomy_filter
+
+core = 7.x
+php = 5.1
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "taxonomy_filter"
+datestamp = "1298620348"
+

@@ -1,0 +1,999 @@
+<?php
+
+/**
+ * @file
+ * The core Taxonomy Filter module containing the API bits.
+ */
+
+/*
+ TODO - Overall tasks before release:
+ Refactor data structures etc - weed out redundancies
+ Investigate block caching when n_a modules installed
+ Depth handling - both on the outgoing links and on term selection
+ Check for unused functions
+ Add back some sql_rewrite wrappers on database queries for sites that use access control on terms
+ Documentation and commenting
+ Add explanation text to admin UI
+ Add Drupal 5 upgrade code
+ Add api.php file to document hooks
+ */
+
+// Define constants for variable defaults
+define('TAXONOMY_FILTER_INPUT', 'taxonomy/term/%tids/%depth/!feed');
+define('TAXONOMY_FILTER_OUTPUT', 'taxonomy/term/%tids/%depth');
+define('TAXONOMY_FILTER_CURRENT_BLOCK_TITLE', 'Search results');
+define('TAXONOMY_FILTER_REFINE_BLOCK_TITLE', 'Refine your search');
+
+module_load_include('inc', 'taxonomy_filter', 'taxonomy_filter.base');
+
+/**
+ * Implements hook_menu().
+ */
+function taxonomy_filter_menu() {
+  $items = array();
+  $items['admin/config/user-interface/taxonomy_filter'] = array(
+    'title' => 'Taxonomy filter',
+    'description' => 'Configure the display of taxonomy filter menu blocks, including URL settings for search engine optimization.',
+//     'page callback' => 'taxonomy_filter_admin_list',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_list_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'taxonomy_filter.admin.inc',
+  );
+  $items['admin/config/user-interface/taxonomy_filter/menus'] = array(
+    'title' => 'Menus',
+    'weight' => -5,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items['admin/config/user-interface/taxonomy_filter/general'] = array(
+    'title' => 'General',
+    'weight' => 0,
+    'description' => 'General settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_general_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'taxonomy_filter.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/config/user-interface/taxonomy_filter/mappings'] = array(
+    'title' => 'Mappings',
+    'weight' => 7,
+    'description' => 'Map menus to vocabs.',
+//     'page callback' => 'taxonomy_filter_admin_mappings_form',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_mappings_form'),
+    'access arguments' => array('administer site configuration'),
+    'parent' => 'admin/config/user-interface/taxonomy_filter/',
+    'file' => 'taxonomy_filter.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/config/user-interface/taxonomy_filter/advanced'] = array(
+    'title' => 'Advanced',
+    'weight' => 10,
+    'description' => 'Advanced settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_advanced_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'taxonomy_filter.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/config/user-interface/taxonomy_filter/templates'] = array(
+    'title' => 'Templates',
+    'weight' => 13,
+    'description' => 'Installed templates.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_templates_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'taxonomy_filter.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/config/user-interface/taxonomy_filter/menus/%/edit'] = array(
+    // TODO - fix breadcrumb for this page
+    'title' => 'Edit Taxonomy Filter menu',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_menu_edit_form', 5),
+    'access arguments' => array('administer site configuration'),
+//     'parent' => 'admin/config/user-interface/taxonomy_filter/menus',
+    'file' => 'taxonomy_filter.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/config/user-interface/taxonomy_filter/%/delete'] = array(
+    'title' => 'Delete Taxonomy Filter menu',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_menu_delete_confirm', 4),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'taxonomy_filter.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/config/user-interface/taxonomy_filter/mappings/%/edit'] = array(
+    'title' => 'Edit Taxonomy Filter mappings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_filter_admin_mappings_edit_form', 5),
+    'access arguments' => array('administer site configuration'),
+    'parent' => 'admin/config/user-interface/taxonomy_filter/mappings',
+    'file' => 'taxonomy_filter.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_taxonomy().
+ */
+function taxonomy_filter_taxonomy($op, $type, $object = NULL) {
+  // TODO: when manual block caching is implemented, the cache will need to be flushed
+  // after taxonomy changes.
+  if ($type == 'taxonomy_vocabulary') {
+    taxonomy_filter_update_mappings();
+  }
+}
+
+/**
+ * Implements hook_enable().
+ */
+function taxonomy_filter_enable() {
+  $filters = variable_get('taxonomy_filter_input', TAXONOMY_FILTER_INPUT);
+  taxonomy_filter_parse_input_filters($filters);
+  taxonomy_filter_update_mappings();
+  // @todo Add general and advanced settings.
+}
+
+/**
+ * Implements hook_help().
+ */
+function taxonomy_filter_help() {
+  // TODO?
+}
+
+/**
+ * Implements hook_forms().
+ */
+function taxonomy_filter_forms() {
+  // use this for building menu settings forms?
+}
+
+/**
+ * Implements hook_theme().
+ */
+function taxonomy_filter_theme($existing, $type, $theme, $path) {
+  return array(
+    'taxonomy_filter_templates_table' => array(
+      'render element' => 'form', // 'render element' => array('form' => array()),
+      'file' => 'taxonomy_filter.theme.inc',
+    ),
+    'taxonomy_filter_menus_table' => array(
+      'render element' => 'form', // 'render element' => array('form' => array()),
+      'file' => 'taxonomy_filter.theme.inc',
+    ),
+    'taxonomy_filter_mappings_table' => array(
+      'render element' => 'form', // 'render element' => array('form' => array()),
+      'file' => 'taxonomy_filter.theme.inc',
+    ),
+    // Current criteria
+    'taxonomy_filter_block_current_content' => array(
+      'variables' => array('terms' => NULL, 'block_info' => NULL),
+      'file' => 'taxonomy_filter.theme.inc',
+    ),
+    'taxonomy_filter_current_item' => array(
+      'variables' => array('item' => NULL, 'block_info' => NULL),
+      'file' => 'taxonomy_filter.theme.inc',
+      'template' => 'taxonomy-filter-item',
+    ),
+    // Refine criteria
+    'taxonomy_filter_block_content' => array(
+      'variables' => array('sections' => NULL, 'block_info' => NULL),
+      'file' => 'taxonomy_filter.theme.inc',
+    ),
+    'taxonomy_filter_section' => array(
+      'variables' => array('section' => NULL, 'block_info' => NULL),
+      'file' => 'taxonomy_filter.theme.inc',
+      'template' => 'taxonomy-filter-section',
+    ),
+    'taxonomy_filter_item' => array(
+      'variables' => array('item' => NULL, 'section_info' => NULL, 'block_info' => NULL),
+      'file' => 'taxonomy_filter.theme.inc',
+      'template' => 'taxonomy-filter-item',
+    ),
+    'taxonomy_filter_link' => array(
+      'variables' => array('name' => NULL, 'attributes' => NULL),
+      'file' => 'taxonomy_filter.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function taxonomy_filter_block_info() {
+  if (TRUE) {
+    $blocks = array();
+    $blocks['refine'] = array(
+      'info' => t('Taxonomy filter - refine criteria'),
+      // cache per page as menu is different for each url
+      // no point also caching per user or role - it would only vary if a node
+      // access module is installed and that bypasses block caching anyway.
+      // See: http://drupal.org/node/80951 and http://drupal.org/node/186636
+      // TODO: (later) implement manual per user or role caching
+      'cache' => DRUPAL_CACHE_PER_PAGE,
+    );
+    $blocks['current'] = array(
+      'info' => t('Taxonomy filter - current criteria'),
+      'cache' => DRUPAL_CACHE_PER_PAGE,
+      'weight' => -20,
+    );
+    $blocks['results'] = array(
+      'info' => t('Taxonomy filter - search results'),
+      'cache' => DRUPAL_CACHE_PER_PAGE,
+      'weight' => -20,
+    );
+    return $blocks;
+  }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function taxonomy_filter_block_view($delta) {
+  if (TRUE) {
+    $block = array();
+    // Check url to see if we should display on this page.
+    $url_tokens = taxonomy_filter_get_url_tokens();
+    if (isset($url_tokens['tids']) && $url_tokens['tids'] && (!isset($url_tokens['op']) || $url_tokens['op'] != 'feed')) {
+      $depth = isset($url_tokens['depth']) ? _taxonomy_filter_validate_depth($url_tokens['depth']) : 0;
+      $tids = _taxonomy_filter_validate_tids($url_tokens['tids']);
+      switch ($delta) {
+        case 'refine':
+          // Refine search criteria block.
+          if (count($tids) > 0) {
+            $block_data = taxonomy_filter_block_refine($tids, $depth);
+            $block = array(
+              'subject' => filter_xss_admin($block_data['title']),
+              'content' => theme('taxonomy_filter_block_content', array('sections' => $block_data['sections'], 'block_info' => $block_data['info'])),
+            );
+          }
+          break;
+
+        case 'current':
+          // Current search criteria block.
+          $block_data = taxonomy_filter_block_current($tids, $depth);
+          $block = array(
+            'subject' => filter_xss_admin($block_data['title']),
+            'content' => theme('taxonomy_filter_block_content', array('sections' => $block_data['sections'], 'block_info' => $block_data['info'])),
+          );
+          break;
+
+        case 'results':
+          // Current search criteria block - above content.
+          $block_data = taxonomy_filter_block_current_content($tids, $depth);
+          $block = array(
+            'subject' => filter_xss_admin($block_data['title']),
+            'content' => theme('taxonomy_filter_block_current_content', array('terms' => $block_data['terms'], 'block_info' => $block_data['info'])),
+          );
+          break;
+      }
+      return $block;
+    }
+  }
+}
+
+/**
+ * Implements hook_block().
+ */
+function taxonomy_filter_block_OLD($op = 'list', $delta = 0, $edit = array()) {
+}
+
+/**
+ * Returns array for current search results block when displayed above content.
+ *
+ * @param array $url_tids Term IDs.
+ * @param integer $url_depth Depth of taxonomy terms to display (NA).
+ * @return array Block content.
+ */
+function taxonomy_filter_block_current_content($url_tids, $url_depth = NULL) {
+  $terms = array();
+  $settings = variable_get('taxonomy_filter_general', array());
+  if ($settings['sort_terms_in_current']) {
+    $sql = "SELECT td.*, v.vid, v.name AS vocab_name, v.weight
+            FROM {taxonomy_term_data} td
+            INNER JOIN {taxonomy_vocabulary} v ON v.vid = td.vid
+            WHERE tid IN (:url_tids)
+            ORDER BY v.weight, v.name, td.weight, td.name"; //  WHERE tid IN (" . db_placeholders($url_tids) . ")
+    $result = db_query($sql, array(':url_tids' => $url_tids)); // $result = db_query($sql, $url_tids);
+    foreach ($result as $term) { // while ($term = db_fetch_object($result)) {
+      $terms[] = $term;
+    }
+  }
+  else {
+    foreach ($url_tids as $tid) {
+      $terms[] = taxonomy_term_load($tid);
+    }
+    foreach ($terms as $term) {
+      $term->vocab_name = taxonomy_vocabulary_load($term->vid)->name;
+    }
+  }
+
+  $block['title'] = t($settings['current_block_title']);
+  $block['terms'] = $terms;
+  $block['info'] = array(
+    'url_tids' => $url_tids,
+    'url_depth' => $url_depth,
+  );
+  return $block;
+}
+
+/**
+ * Returns array for current search results block.
+ *
+ * @param array $url_tids Term IDs.
+ * @param integer $url_depth Depth of taxonomy terms to display (NA).
+ * @return array Block content.
+ */
+function taxonomy_filter_block_current($url_tids, $url_depth = NULL) {
+  $block['title'] = '';
+  $block['sections'] = array();
+  $block['info'] = array(
+    'url_tids' => $url_tids,
+    'url_depth' => $url_depth,
+  );
+  $sections_info = taxonomy_filter_sections_current($block['info']);
+  if (!$sections_info) {
+    return $block;
+  }
+  $terms = array();
+  foreach ($url_tids as $tid) {
+    $terms[] = taxonomy_term_load($tid);
+  }
+  foreach ($sections_info as $section_info) {
+    $module = $section_info['module']; // TODO Implement other menu templates?
+    // TODO Context menu is not implemented for the current search block.
+    $section_info['module'] = $module == 'tf_context' ? 'taxonomy_filter' : $module;
+    $section_terms = array();
+    foreach ($terms as $term) {
+      if ($term->vid == $section_info['vid']) {
+        $section_terms[] = $term;
+      }
+    }
+    $items = array();
+    if (count($section_terms) > 0) {
+      $items = taxonomy_filter_section_items($section_terms, $section_info, $block['info']);
+    }
+    if (!count($items)) {
+      continue;
+    }
+    $section = array(
+      'title' => $section_info['section_title'],
+      'items' => $items,
+      'info' => $section_info,
+    );
+    // Allow other modules to alter the section.
+    drupal_alter('tf_section', $section, $block['info']);
+    if (!count($section['items'])) {
+      continue;
+    }
+    $block['sections'][] = $section;
+  }
+  drupal_alter('tf_block', $block);
+  $settings = variable_get('taxonomy_filter_general', array());
+  $block['title'] = isset($settings['current_block_title']) ? t($settings['current_block_title']) : t(TAXONOMY_FILTER_CURRENT_BLOCK_TITLE); // JB NEW Override tf_multi
+  return $block;
+}
+
+/**
+ * Section builder (where section is a vocabulary).
+ *
+ * @param array $block_info Block information.
+ * @return array $sections
+ *   Section information - title, menu id, module that renders this menu template, etc.
+ */
+function taxonomy_filter_sections_current($block_info) {
+  $sections = $term_vids = array();
+  $all_mappings = variable_get('taxonomy_filter_mappings', array());
+  if (!$all_mappings) {
+    return $sections;
+  }
+  $menus = variable_get('taxonomy_filter_menus', array());
+  if (!$menus) {
+    return $sections;
+  }
+
+  $url_tids = $block_info['url_tids'];
+  // @todo This query does not necessarily return vids in the url order.
+//   $sql = "SELECT DISTINCT(vid) FROM {taxonomy_term_data} WHERE tid IN (:url_tids)"; // $sql = "SELECT DISTINCT(vid) FROM {taxonomy_term_data} WHERE tid IN (" . db_placeholders($url_tids) . ")";
+  // TODO Please convert this statement to the D7 database API syntax.
+//   $result = db_query($sql, array(':url_tids' => $url_tids)); // $result = db_query($sql, $url_tids);
+//   foreach ($result as $row) {
+//     $term_vids[] = $row->vid;
+//   }
+
+  // Collect vids in order of terms in URL (in case terms are to not be sorted).
+  foreach ($url_tids as $tid) {
+    $term = taxonomy_term_load($tid);
+    if (!in_array($term->vid, $term_vids)) {
+      $term_vids[] = $term->vid;
+    }
+  }
+
+  $settings = variable_get('taxonomy_filter_general', array());
+  if ($settings['sort_terms_in_current']) {
+    // Sort terms based on vocabulary and term weights.
+    foreach ($all_mappings as $vid => $vid_mapping) {
+      if (!in_array($vid, $term_vids)) {
+        continue;
+      }
+      taxonomy_filter_section_create($sections, $vid, $menus, $all_mappings);
+    }
+  }
+  else {
+    // Display terms in same order as in URL.
+    foreach ($term_vids as $vid) {
+      taxonomy_filter_section_create($sections, $vid, $menus, $all_mappings);
+    }
+  }
+  return $sections;
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function taxonomy_filter_section_create(&$sections, $vid, $menus, $all_mappings) {
+  $menu_id = $all_mappings[$vid]['current_menu'] ? $all_mappings[$vid]['current_menu'] : $all_mappings[$vid]['refine_menu'];
+  if (!$menu_id) {
+    return;
+  }
+  $menu = $menus[$menu_id];
+  $section = array(
+    // TODO - this needs some refactoring / clean up
+    'section_title' => check_plain(tf_tt('vocabulary', $vid, $all_mappings[$vid]['vocab'])),
+    'vid' => $vid,
+    'menu_id' => $menu_id,
+    'module' => $menu['module'], // use $module_tf_section to get data
+    'section_settings' => $menu,
+    'class' => array('section', $menu['module']), // TODO - should we use template name instead of module name?
+  );
+  $sections[] = $section;
+}
+
+/**
+ * Block builder.
+ *
+ * @param array $url_tids Term ids in page URL.
+ * @param integer $url_depth Depth of terms to display.
+ * @return array Block content.
+ */
+function taxonomy_filter_block_refine($url_tids, $url_depth = NULL) {
+//  drupal_set_title('Search results');
+
+  $first_term = taxonomy_term_load($url_tids[0]);
+  // TODO Do we want to offer this option???
+  $block['title'] = t('Select topics tagged with \'@term\' and:', array('@term' => $first_term->name));
+
+  $settings = variable_get('taxonomy_filter_general', array());
+  $block['title'] = isset($settings['refine_block_title']) ? t($settings['refine_block_title']) : t(TAXONOMY_FILTER_REFINE_BLOCK_TITLE); // JB NEW Override tf_multi
+
+  $block['sections'] = array();
+  $block['info'] = array(
+    'url_tids' => $url_tids,
+    'url_depth' => $url_depth,
+  );
+  $sections_info = taxonomy_filter_sections_refine($block['info']);
+  if (!$sections_info) {
+    return $block;
+  }
+  foreach ($sections_info as $section_info) {
+    $module = $section_info['module'];
+    $items = taxonomy_filter_invoke($module, 'tf_section', $section_info, $block['info']);
+    if (!count($items)) {
+      continue;
+    }
+    $section = array(
+      'title' => $section_info['section_title'],
+      'items' => $items,
+      'info' => $section_info,
+    );
+    // Allow other modules to alter the section.
+    drupal_alter('tf_section', $section, $block['info']);
+    if (!count($section['items'])) {
+      continue;
+    }
+    $block['sections'][] = $section;
+  }
+  drupal_alter('tf_block', $block);
+  return $block;
+}
+
+/**
+ * Section builder (where section is a vocabulary).
+ *
+ * The sections are sorted by vocabulary weight and name.
+ *
+ * @param array $block_info Block information.
+ * @return array $sections
+ *   Section information - title, menu id, module that renders this menu template, etc.
+ */
+function taxonomy_filter_sections_refine($block_info) {
+  $sections = array();
+  $url_tids = $block_info['url_tids'];
+  $sql = "SELECT DISTINCT(vid) FROM {taxonomy_term_data} WHERE tid IN (:url_tids)"; // $sql = "SELECT DISTINCT(vid) FROM {taxonomy_term_data} WHERE tid IN (" . db_placeholders($url_tids) . ")";
+  // TODO Please convert this statement to the D7 database API syntax.
+  $result = db_query($sql, array(':url_tids' => $url_tids)); // $result = db_query($sql, $url_tids);
+  foreach ($result as $row) {
+    $term_vids[] = $row->vid;
+  }
+  // As the mappings are sorted by the vocabulary weights, so are the filters.
+  $all_mappings = variable_get('taxonomy_filter_mappings', array());
+  $menus = variable_get('taxonomy_filter_menus', array());
+  foreach ($all_mappings as $vid => $vid_mapping) {
+    $menu_id = $vid_mapping['refine_menu'];
+    // array_intersect is not strict enough; we need a subset relationship
+    if (!array_diff($term_vids, $vid_mapping['mappings']) && $menu_id != 0) {
+      $menu = $menus[$menu_id];
+      $section = array(
+        // TODO - this needs some refactoring / clean up
+        'section_title' => check_plain(tf_tt('vocabulary', $vid, $vid_mapping['vocab'])), // check_plain($vid_mapping['vocab']),
+        'vid' => $vid,
+        'menu_id' => $menu_id,
+        'module' => $menu['module'], // use $module_tf_section to get data
+        'section_settings' => $menu,
+        'class' => array('section', $menu['module']), // TODO - should we use template name instead of module name?
+      );
+      $sections[] = $section;
+    }
+  }
+  return $sections;
+}
+
+/**
+ * Returns list of terms to display in this section.
+ *
+ * @param array $section_info Section information.
+ * @param array $block_info Block information.
+ * @return array Section items.
+ */
+function taxonomy_filter_tf_section($section_info, $block_info) {
+  // Should we use taxonomy_get_tree for these functions?
+  $context = NULL;
+  $terms = array();
+  $vid = $section_info['vid'];
+  $tids = $block_info['url_tids'];
+//  $menu_id = $section_info['menu_id']; // Not used
+
+  $select = "SELECT td.vid, td.tid, td.name, COUNT(DISTINCT(n.nid)) AS count" .
+         " FROM {taxonomy_term_data} td" .
+         " INNER JOIN {taxonomy_index} tn ON tn.tid = td.tid"; // " INNER JOIN {taxonomy_term_node} tn ON tn.tid = td.tid";
+
+  $joins = '';
+  // By replacing %d with multiple %d's we could run this query at one time (from another function above)
+  $wheres = ' WHERE td.vid IN (:vid)'; // $wheres = ' WHERE td.vid IN (%d)';
+  foreach ($tids as $index => $tid) {
+    $joins .= ' INNER JOIN {taxonomy_index} tn' . $index . ' ON tn.nid = tn' . $index . '.nid'; // $joins .= ' INNER JOIN {taxonomy_term_node} tn' . $index . ' ON tn.vid = tn' . $index . '.vid';
+    $wheres .= ' AND tn' . $index . '.tid IN (' . $tid . ')';
+  }
+  $joins .= " INNER JOIN {node} n ON tn.nid = n.nid";
+  $wheres .= ' AND n.status = 1'; // $wheres .= ' AND n.status = 1 AND n.moderate = 0';
+  $group = ' GROUP BY td.vid, td.tid, td.name, td.weight';
+  $order = ' ORDER BY vid, weight, name';
+
+  $sql = $select . $joins . $wheres . $group . $order;
+  // Contrary to documentation for db_rewrite_sql(), passing the bracketed table
+  // name '{term_data}' will generate a SQL error (in MySQL at least) about the
+  // ON clause. In general, if a table is joined multiple times, it must have an
+  // alias for use in ON clauses in order to avoid ambiguity.
+//   $sql = db_rewrite_sql($sql, 'taxonomy_term_data', 'tid'); // @todo Reimplement rewrite. @see addTag()
+
+  // TODO Please convert this statement to the D7 database API syntax.
+  $result = db_query($sql, array(':vid' => $vid)); // $result = db_query($sql, $vid);
+  foreach ($result as $term) {
+    $terms[] = $term;
+  }
+  // If only one term, then the section is not needed as all existing nodes have this one term value.
+  // Unset the section in the calling routine.
+  $items = array();
+  if (count($terms) > 0) {
+    $items = taxonomy_filter_section_items($terms, $section_info, $block_info, $context);
+  }
+  return $items;
+}
+
+/**
+ * Item builder.
+ *
+ * @param array $terms Term objects to produce items for.
+ * @param array $section_info Section information.
+ * @param array $block_info Block information.
+ * @param unknown_type $context
+ * @return array $items Item information.
+ */
+function taxonomy_filter_section_items($terms, $section_info, $block_info, $context = NULL) {
+  $items = array();
+  $module = $section_info['module'];
+  foreach ($terms as $term) {
+    $item_tid = $term->tid;
+    $link_tids = taxonomy_filter_get_link_tids($block_info['url_tids'], $item_tid, $context);
+    $item = array(
+      'title' => check_plain(tf_tt('term', $term->tid, $term->name)), // 'title' => check_plain($term->name),
+      'item_attributes' => array(),
+      'link_attributes' => array(),
+      'info' => array(
+        'item_tid' => $item_tid,
+        'link_tids' => $link_tids,
+      ),
+    );
+    if (isset($term->count)) {
+      $item['info']['tf_count'] = $term->count;
+    }
+//    if ($term->template_settings) {
+      // TODO - should this be template name not module name?
+      $item['info'][$module] = ''; // $term->template_settings;
+//    }
+    $details = array('section_info' => $section_info, 'block_info' => $block_info, 'term' => $term);
+    drupal_alter('tf_item', $item, $details, $context); // drupal_alter('tf_item', $item, $section_info, $block_info, $context);
+    // TODO Combine this with above alter after stabilizing module with tests.
+//     $details = array('section_info' => $section_info, 'block_info' => $block_info, 'term' => $term);
+    drupal_alter('tf_item_2', $item, $details, $context); // drupal_alter('tf_item_2', $item, $section_info, $block_info, $term, $context);
+    $items[] = $item;
+  }
+  return $items;
+}
+
+/**
+ * Returns translated taxonomy vocabulary or term name.
+ *
+ * @param string $type
+ * @param integer $id
+ * @param string $value
+ * @return string
+ *   The translated taxonomy item.
+ */
+function tf_tt($type, $id, $value) {
+  global $user;
+  static $tt;
+  if (!isset($tt)) {
+    $tt = variable_get('i18n_tt', 'tt');
+    if (!function_exists($tt)) {
+      $tt = FALSE;
+    }
+  }
+  if ($tt) {
+    $name = "taxonomy:$type:$id:name";
+    $langcode = $user->language;
+    return $tt($name, $value, $langcode);
+  }
+  else {
+    return t($value);
+  }
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function taxonomy_filter_get_link_tids($url_tids, $item_tid, $context = NULL) {
+  $link_tids = array();
+  if (!in_array($item_tid, $url_tids)) {
+    // only return link tids for unselected items
+//    $link_tids = array_merge($url_tids, array($item_tid)); // TEMP Code change made on 2009-04-28.
+    $link_tids = array($url_tids[0], $item_tid); // TEMP Revert to code prior to 2009-04-28.
+  }
+  drupal_alter('tf_link_tids', $link_tids, $item_tid, $context);
+  return $link_tids;
+}
+
+/**
+ * Generates filter link paths for filter menu items.
+ *
+ * @todo This is hard-coded to the default output link path defined by this
+ * module. To be flexible, we could implement tokens (with the Token module
+ * as a dependency). As an interim measure, make an API hook so other modules
+ * can create (or modify) the link path.
+ */
+function _taxonomy_filter_filter_link_path($tids, $depth = 0, $op = '' /*NULL*/) {
+  // if no tids return empty path (TODO do we need this check?)
+  if (!$tids) {
+    return '';
+  }
+
+  $template = variable_get('taxonomy_filter_output', TAXONOMY_FILTER_OUTPUT);
+  $tokens = module_invoke_all('filter_link_tokens', $tids, $depth, $op);
+  $raw_url = strtr($template, $tokens);
+  $raw_url = trim($raw_url, '/');
+
+  $url = drupal_get_path_alias(str_replace('%2C', ',', url($raw_url)));
+  return $url;
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function taxonomy_filter_filter_link_tokens($tids = array(), $depth = 0, $op = '') {
+  return array(
+    '%tids' => implode(',', $tids),
+    '%depth' => ($depth) ? $depth : '',
+    '%op' => ($op) ? $op : '',
+    '//' => '/',
+  );
+}
+
+/**
+ * Checks the current url against the list of urls to listen on.
+ *
+ * @return array Matched or unmatched tokens.
+ */
+function taxonomy_filter_get_url_tokens() {
+  static $url_tokens;
+
+  if (!is_null($url_tokens)) {
+    return $url_tokens;
+  }
+
+  $args = arg();
+  $tokens = array_keys(module_invoke_all('filter_link_tokens'));
+
+  // TODO: make this extensible by other modules?
+  $filters = variable_get('taxonomy_filter_input_parsed', array());
+  foreach ($filters as $filter_bits) {
+    $url_tokens = array();
+    $min = min(count($args), count($filter_bits)); // TODO - this needs rethinking for checking against extra params
+    for ($i = 0; $i < $min; $i++) {
+      $filter_bit = $filter_bits[$i];
+      $filter_bit_prefix = (strpos('/*%!', $filter_bit{0})) ? $filter_bit{0} : ''; // uses a dummy '/' as pos 0
+      if ($filter_bit_prefix == '') {
+        // The filter bit is a literal string; the url argument must match it.
+        if ($filter_bit != $args[$i]) {
+          break;
+        }
+      }
+      elseif ($filter_bit_prefix == '!') {
+        // The filter bit is a negated literal string; the url argument must NOT match it.
+        if ($filter_bit == '!' . $args[$i]) {
+          break;
+        }
+      }
+      elseif (in_array($filter_bit, $tokens)) {
+        // The filter bit is a token to be replaced.
+        $url_tokens[trim($filter_bit, '%')] = $args[$i];
+      }
+    }
+    // Allow other modules to alter the url tokens.
+    drupal_alter('tf_url_tokens', $url_tokens, $filter_bits);
+    if (isset($url_tokens['tids']) && $url_tokens['tids']) {
+      return $url_tokens;
+    }
+  }
+  $url_tokens = array('tids' => NULL, 'depth' => NULL, 'op' => NULL);
+  return $url_tokens;
+}
+
+/**
+ * Validates and converts the term ids in the url to an array.
+ */
+function _taxonomy_filter_validate_tids($raw_tids) {
+  $tids = array();
+  foreach (preg_split('/[+ ,]/', $raw_tids) as $tid) {
+    if (is_numeric($tid) && (int) $tid > 0) {
+      $tids[] = (int) $tid;
+    }
+  }
+  return $tids;
+}
+
+/**
+ * Validates the depth parameter in the current path.
+ */
+function _taxonomy_filter_validate_depth($raw_depth) {
+  if (is_numeric($raw_depth)) {
+    $depth = ($raw_depth > 0) ? min(9, (int) $raw_depth) : 0;
+  }
+  else {
+    $depth = ($raw_depth == 'all') ? 'all' : NULL;
+  }
+  return $depth;
+}
+
+function _taxonomy_filter_get_vocabs() {
+  static $vocabs = array();
+  // TODO: supply vocab weight for further calcs?
+  // TODO: use taxonomy_get_vocabularies?
+  if (!$vocabs) {
+    $result = db_query('SELECT v.vid, v.name FROM {taxonomy_vocabulary} v ORDER BY v.weight, v.name');
+    foreach ($result as $voc) {
+      $vocabs[$voc->vid] = $voc->name;
+    }
+  }
+  return $vocabs;
+}
+
+/**
+ * Updates default settings variable for new features.
+ */
+function taxonomy_filter_update_default_settings() {
+  // Collect default settings.
+  $settings = array();
+  $modules = module_implements('tf_default_settings');
+  foreach ($modules as $module) {
+    $settings[$module] = module_invoke($module, 'tf_default_settings');
+  }
+
+  // Update settings for each menu.
+  $menus = variable_get('taxonomy_filter_menus', array());
+  foreach ($menus as $id => $menu) {
+    foreach ($modules as $module) {
+      $menus[$id][$module] += $settings[$module];
+    }
+  }
+
+  // Save settings.
+  variable_set('taxonomy_filter_menus', $menus);
+}
+
+/**
+ * Updates mappings variable for vocabulary changes.
+ */
+function taxonomy_filter_update_mappings() {
+  $vocabs = _taxonomy_filter_get_vocabs();
+  $old_mappings = variable_get('taxonomy_filter_mappings', array());
+
+  // Check for any deleted vocabularies.
+  $vids = array_keys($vocabs);
+  foreach ($old_mappings as $vid => &$old_mapping) {
+    if (!array_key_exists($vid, $vocabs)) {
+      // Delete the mapping variable entry for the deleted vocabulary.
+      unset($old_mappings[$vid]);
+    }
+    elseif ($deleted_vids = array_diff($old_mapping['mappings'], $vids)) {
+      // Delete any mappings pointing to the deleted vocabulary.
+      foreach ($deleted_vids as $index => $deleted_vid) {
+        $key = array_search($deleted_vid, $old_mapping['mappings']);
+        unset($old_mapping['mappings'][$key]);
+      }
+    }
+  }
+
+  // Recreate the entire variable to synchronize the filter menu "display"
+  // order to a vocabulary weight change.
+  $new_mappings = array();
+  foreach ($vocabs as $vid => $name) {
+    if (array_key_exists($vid, $old_mappings)) {
+      // For existing mappings:
+      // - store the current vocabulary name (it may have changed).
+      // - create a mappings item if not present.
+      $new_mappings[$vid] = array(
+        'vocab' => $name,
+        'refine_menu' => $old_mappings[$vid]['refine_menu'],
+        'current_menu' => $old_mappings[$vid]['current_menu'],
+        'mappings' => isset($old_mappings[$vid]['mappings']) ? $old_mappings[$vid]['mappings'] : array(),
+      );
+    }
+    else {
+      // For missing mappings, add default values.
+      $new_mappings[$vid] = array(
+        'vocab' => $name,
+        'refine_menu' => 0,
+        'current_menu' => 0,
+        'mappings' => array(),
+      );
+    }
+  }
+
+  // Save the mappings.
+  variable_set('taxonomy_filter_mappings', $new_mappings);
+}
+
+/**
+ * Breaks the input filter patterns into component pieces.
+ */
+function taxonomy_filter_parse_input_filters($filters) {
+  $input_bits = array();
+  $lines = preg_split('/[\n\r]+/', trim($filters));
+  foreach ($lines as $line) {
+    $temp = array();
+    $bits = explode('/', trim($line, '/'));
+    foreach ($bits as $bit) {
+      $temp[] = $bit;
+    }
+    $input_bits[] = $temp;
+  }
+  variable_set('taxonomy_filter_input_parsed', $input_bits);
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function taxonomy_filter_invoke() {
+  // Just like module_invoke() but falls back on base menu template implementation.
+  $args = func_get_args();
+  $module = $args[0];
+  $hook = $args[1];
+  unset($args[0], $args[1]);
+  $function = $module . '_' . $hook;
+  if (module_hook($module, $hook)) {
+    return call_user_func_array($function, $args);
+  }
+  elseif (module_hook('taxonomy_filter', $hook)) {
+    return call_user_func_array('taxonomy_filter_' . $hook, $args);
+  }
+}
+
+/**
+ * Get all tids in the url up to and including the current tid based on the
+ * order selected by the user.
+ *
+ * @param array $tids
+ * @param integer $this_tid
+ * @return array
+ */
+function _taxonomy_filter_tids_upto($tids, $this_tid) {
+  $length = 1;
+  foreach ($tids as $tid) {
+    if ($tid == $this_tid) {
+      break;
+    }
+    $length++;
+  }
+  /*
+   * On the last url tid omit a link to select all tids up to this tid as this
+   * content is already being displayed.
+   */
+  if ($length == count($tids)) {
+    return null;
+  }
+  return array_slice($tids, 0, $length);
+}
+
+/**
+ * Return variables table entries for the 'taxonomy_filter_menus' key.
+ *
+ * TODO Is this useful?
+ *
+ * @param integer $menu_id First level index.
+ * @param string $key Second level index.
+ * @return array Values.
+ */
+function taxonomy_filter_menu_settings($menu_id, $key) {
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $settings = array();
+  if (isset($menus[$menu_id]) && isset($menus[$menu_id][$key])) {
+    $settings = $menus[$menu_id][$key];
+  }
+  return $settings;
+}
+
+/**
+ * Process variables for page.tpl.php.
+ *
+ * This preprocess function works because the page hook is in a template.
+ * If the page hook was in a theme function then this would not be possible.
+ */
+function taxonomy_filter_preprocess_page(&$variables) {
+  // Check url to see if we should display on this page.
+  $url_tokens = taxonomy_filter_get_url_tokens();
+  if (isset($url_tokens['tids']) && $url_tokens['tids'] && (!isset($url_tokens['op']) || $url_tokens['op'] != 'feed')) {
+    $settings = variable_get('taxonomy_filter_general', array());
+    if (isset($settings['display_current_atop_content']) && $settings['display_current_atop_content']) {
+      // The best we can do is to display the search results block between title
+      // and content. Because this is a block, it may be added to the page like
+      // any other block. Turn off the automatic display setting and theme it.
+
+      $block = module_invoke('taxonomy_filter', 'block_view', 'results');
+      $elements['#markup'] = $elements['#children'] = $block['content']; // '<span>Print something for petes sake</span>';
+      unset($block['content']);
+
+      $block['module'] = 'taxonomy_filter';
+      $block['delta'] = 'content'; // Give this block a different name.
+      $block['region'] = '';
+//       $block['subject'] = ''; // Included in $block returned from module_invoke() above
+      $elements['#block'] = (object) $block;
+      $elements['#type'] = 'markup';
+      $elements['#weight'] = -10;
+
+      $new = theme('block', array('elements' => $elements));
+      $elements['#markup'] = $new;
+
+      // The 'title_prefix' allows us to place our block above the page title;
+      // something we could not do in D6.
+      $variables['title_prefix'] = array('taxonomy_filter_content' => $elements);
+    }
+  }
+}

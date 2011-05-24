@@ -1,0 +1,14 @@
+name = Relevance
+core = 7.x
+description = Display a block of related nodes similar by several - defined - things, such as taxonomy, date, and access.
+files[] = relevance.module
+files[] = relevance.admin.inc
+dependencies[] = taxonomy
+
+configure = admin/config/search/relevance
+; Information added by drupal.org packaging script on 2011-02-25
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "relevance"
+datestamp = "1298620069"
+

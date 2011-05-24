@@ -366,9 +366,10 @@ li.flag-like span.flag-like a.unflag-action{
 }
 
 .search-terms {
-/*   margin: 10px 20px 20px 0; */
+  margin: 10px 20px 20px 0;
   padding: 20px;
-/*   float: left; */
+  display: block;
+  float: left;
   background-color: #ededed;
   width: 400px;
   height: 100px;
@@ -387,18 +388,15 @@ li.flag-like span.flag-like a.unflag-action{
 #view-id-neighborhood-page .view-filters {
   clear: both;
 }
-#view-id-neighborhood-page .view-header {
-/*   clear: both; */
-}
 
 #view-id-neighborhood-page .view-header {
-/*   margin: 10px 20px 20px 0; */
-  padding: 20px;
-float: left;
-  background-color: #ededed;
+  margin: 0px 20px 20px 0;
+  padding: 40px 20px;
+/*   background-color: #ededed; */
   width: 400px;
-/*   clear: right; */
-  height: 100px;
+  display: block;
+  float: left;
+  height: 50px;
 }
 #view-id-neighborhood-page .view-header p{
   display: inline;
@@ -720,4 +718,8 @@ div.styleguide {
 	}
 #edit-submit:hover {
 
+}
+
+.front.not-logged-in .messages-container .error {
+  display: none;
 }

@@ -1,0 +1,605 @@
+<?php
+/**
+ * Implements hook_field_widget_info().
+ */
+function term_reference_tree_field_widget_info() {
+  return array(
+    'term_reference_tree' => array (
+      'label' => 'Term reference tree',
+      'field types' => array('taxonomy_term_reference'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM, 
+        'default value' => FIELD_BEHAVIOR_DEFAULT,
+      ),
+      'settings' => array(
+        'start_minimized' => 0,
+        'leaves_only' => 0,
+        'filter_view' => '',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_settings_form().
+ */
+function term_reference_tree_field_widget_settings_form($field, $instance) {
+  $widget = $instance['widget'];
+  $settings = $widget['settings'];
+  $form = array();
+  
+  if($widget['type'] == 'term_reference_tree') {
+    $form['start_minimized'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Start minimized'),
+      '#description' => t('Make the tree appear minimized on the form by default'),
+      '#default_value' => $settings['start_minimized'],
+      '#return_value' => 1,
+    );
+    
+    $form['leaves_only'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Leaves only'),
+      '#description' => t("Don't allow the user to select items that have children"),
+      '#default_value' => $settings['leaves_only'],
+      '#return_value' => 1,
+    );
+
+    if(module_exists('views')) {
+      $views = views_get_all_views();
+      $options = array('' => 'none');
+      
+      foreach($views as $name => $view) {
+        if($view->base_table == 'taxonomy_term_data') {
+          foreach($view->display as $display) {
+            $options["$name:{$display->id}"] = "{$view->human_name}: {$display->display_title}";
+          }
+        }
+      }
+
+      $form['filter_view'] = array(
+        '#type' => 'select',
+        '#title' => 'Filter by view',
+        '#description' => t("Filter the available options based on whether they appear in the selected view."),
+        '#default_value' => $settings['filter_view'],
+        '#options' => $options,
+      );
+    }
+    else {
+      $form['filter_view'] = array(
+        '#type' => 'hidden',
+        '#value' => $settings['filter_view'],
+      );
+    }   
+  }
+  
+  return $form;
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function term_reference_tree_element_info() {
+  $types = array(
+    'checkbox_tree' => array(
+      '#input' => true,
+      '#process' => array('term_reference_tree_process_checkbox_tree'),
+      '#theme' => array('checkbox_tree'),
+      '#pre_render' => array('form_pre_render_conditional_form_element'),
+    ),
+    'checkbox_tree_level' => array(
+      '#input' => false,
+      '#theme' => array('checkbox_tree_level'),
+      '#pre_render' => array('form_pre_render_conditional_form_element'),
+    ),
+    'checkbox_tree_item' => array(
+      '#input' => false,
+      '#theme' => array('checkbox_tree_item'),
+      '#pre_render' => array('form_pre_render_conditional_form_element'),
+    ),
+  );
+  
+  return $types;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function term_reference_tree_theme() {
+  return array(
+    'checkbox_tree' => array(
+      'render element' => 'element',
+    ),
+    'checkbox_tree_level' => array(
+      'render element' => 'element',
+    ),
+    'checkbox_tree_item' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+/**
+ * Process the checkbox_tree widget.
+ * 
+ * This function processes the checkbox_tree widget.
+ * 
+ * @param $element
+ *   The element to be drawn.
+ * @param $form_state
+ *   The form state.
+ * 
+ * @return
+ *   The processed element.
+ */
+function term_reference_tree_process_checkbox_tree($element, $form_state) {
+  $element = _term_reference_tree_build($element, $form_state);
+  return $element;
+}
+
+/**
+ * Returns HTML for a checkbox_tree form element.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *
+ * @ingroup themeable
+ */
+function theme_checkbox_tree($variables) {
+  $element = $variables['element'];
+  $element['#children'] = drupal_render_children($element);
+  
+  $attributes = array();
+  if (isset($element['#id'])) {
+    $attributes['id'] = $element['#id'];
+  }
+  $attributes['class'][] = 'term-reference-tree';
+  
+  if(form_get_error($element)) {
+    $attributes['class'][] = 'error';
+  }
+  
+  if(!empty($element['#required'])) {
+    $attributes['class'][] = 'required';
+  }
+
+  if(array_key_exists('#start_minimized', $element) && $element['#start_minimized']) {
+    $attributes['class'][] = "term-reference-tree-start-minimized";
+  }
+
+  if(!empty($element['#max_choices'])) {
+    $attributes['data-max-choices'] = $element['#max_choices'];
+  }
+  
+  if (!empty($element['#attributes']['class'])) {
+    $attributes['class'] = array_merge($attributes['class'], $element['#attributes']['class']);
+  }
+  return '<div' . drupal_attributes($attributes) . '>' . (!empty($element['#children']) ? $element['#children'] : '') . '</div>';
+}
+
+
+/**
+ * This function prints a list item with a checkbox and an unordered list
+ * of all the elements inside it.
+ */
+function theme_checkbox_tree_level($variables) {
+  $element = $variables['element'];
+  $sm = '';
+  if(array_key_exists('#start_minimized', $element) && $element['#start_minimized']) {
+    $sm = " term-reference-tree-start-minimized";
+  }
+
+  $max_choices = 0;
+  if(array_key_exists('#max_choices', $element)) {
+    $max_choices = $element['#max_choices'];
+  }
+
+  $output = "<ul class='term-reference-tree-level$sm' data-max-choices='$max_choices'>";
+  $children = element_children($element);
+  foreach($children as $child) {
+    $output .= "<li>";
+    $output .= drupal_render($element[$child]);
+    $output .= "</li>";
+  }
+
+  $output .= "</ul>";
+
+  return $output;
+}
+
+function theme_checkbox_tree_item($variables) {
+  $element = $variables['element'];
+  $children = element_children($element);
+  $output = "";
+  
+  if(count($children) > 1) {
+    $output .= "<div class='term-reference-tree-button'></div>";
+  }
+  elseif(!$element['#leaves_only']) {
+    $output .= "<div class='no-term-reference-tree-button'></div>";
+  }
+
+  foreach($children as $child) {
+    $output .= drupal_render($element[$child]);
+  }
+  
+  return $output;
+}
+
+/**
+ * This function returns a taxonomy term hierarchy in a nested array.
+ *
+ * @param $tid
+ *   The ID of the root term.
+ * @param $vid
+ *   The vocabulary ID to restrict the child search.
+ *
+ * @return
+ *   A nested array of the term's child objects.  
+ */
+function _term_reference_tree_get_term_hierarchy($tid, $vid, &$allowed, $filter) {
+  if($tid == 0) {
+    $terms = taxonomy_get_tree($vid, 0, 1);
+  }
+  else {
+    $terms = taxonomy_get_children($tid, $vid);
+  }
+
+  $result = array();
+  
+  foreach($terms as &$term) {
+    if($filter == '' || array_key_exists($term->tid, $allowed)) {
+      $children = _term_reference_tree_get_term_hierarchy($term->tid, $vid, $allowed, $filter);
+      if(is_array($children)) {
+        $term->children = $children;
+      }
+      array_push($result, $term);
+    }
+  }
+  
+  return $result;
+}
+
+/**
+ * Implements hook_widget_field_form().
+ */
+function term_reference_tree_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $settings = $instance['widget']['settings'];
+  $voc = taxonomy_vocabulary_machine_name_load($field['settings']['allowed_values'][0]['vocabulary']);
+  $path = drupal_get_path('module', 'term_reference_tree');
+  $value_key = key($field['columns']);
+
+  $allowed = _term_reference_tree_get_allowed_values($settings['filter_view']);
+  $terms = _term_reference_tree_get_term_hierarchy($field['settings']['allowed_values'][0]['parent'], $voc->vid, $allowed, $settings['filter_view']);
+  
+  $required = $element['#required'];
+  if($field['cardinality'] == 1 && !$required) {
+    array_unshift($terms, (object) array(
+      'tid' => '',
+      'name' => 'N/A',
+      'depth' => 0
+      )
+    );
+  }
+
+  $type = $instance['widget']['type'];
+  $multiple = $field['cardinality'] > 1 || $field['cardinality'] == FIELD_CARDINALITY_UNLIMITED;  
+  $has_value = isset($items[0][$value_key]);
+  
+  
+  $properties = array();
+  $options = _term_reference_tree_get_options($terms, $allowed, $settings['filter_view']);
+  $default_value = array();
+  foreach($items as $item) {
+    $key = $item[$value_key];
+    if(isset($options[$key])) {
+      if($key === 0) {
+        $default_value[$key] = '0';
+      }
+      else {
+        $default_value[$key] = $key;
+      }
+    }
+  }
+  
+  if(!array_key_exists('#value', $element))
+    $element['#value'] = array();
+
+  // A switch statement, in case we ever add more widgets to this module.
+  switch($instance['widget']['type']) {
+    case 'term_reference_tree':
+      $element['#attached']['js'] = array($path . '/term_reference_tree.js');
+      $element['#attached']['css'] = array($path . '/term_reference_tree.css');
+      $element['#type'] = 'checkbox_tree';   
+      $element['#options'] = $options;
+      $element['#options_tree'] = $terms;
+      $element['#default_value'] = $multiple ? $default_value : array(reset($default_value) => reset($default_value));
+      $element['#max_choices'] = $field['cardinality'];
+      $element['#start_minimized'] = $settings['start_minimized'];
+      $element['#leaves_only'] = $settings['leaves_only'];
+      $element['#filter_view'] = $settings['filter_view'];
+
+      $value = (is_array($element['#value'])) ? $element['#value'] : array();
+      break;
+  }
+  
+  $element += array(
+    '#value_key' => $value_key,
+    '#element_validate' => array('_term_reference_tree_widget_validate'),
+    '#properties' => $properties,
+  );
+  
+  return $element;
+}
+
+/**
+ * Validates the term reference tree widgets.
+ * 
+ * This function sets the value of the tree widgets into a form that Drupal
+ * can understand, and also checks if the field is required and has been
+ * left empty.
+ * 
+ * @param $element
+ *   The element to be validated.
+ * @param $form_state
+ *   The state of the form.
+ * 
+ * @return
+ *   The validated element.
+ */
+function _term_reference_tree_widget_validate(&$element, &$form_state) {
+  $items = _term_reference_tree_flatten($element);
+  $value = array();
+  
+  if($element['#max_choices'] != 1) {
+    foreach($items as $child) {
+      if(array_key_exists('#value', $child) && $child['#value'] !== 0) {
+        array_push($value, array($element['#value_key'] => $child['#value']));
+      } 
+    }
+  }
+  else {
+    // If it's a tree of radio buttons, they all have the same value, so we can just
+    // grab the value of the first one.
+    if(count($items) > 0) {
+      $child = reset($items);
+      if(array_key_exists('#value', $child) && $child['#value'] !== 0) {
+        array_push($value, array($element['#value_key'] => $child['#value']));
+      }       
+    }
+  }
+  
+  if ($element['#required'] && count($value) == 0) {
+    form_error($element, t('!name field is required.', array('!name' => $element['#title'])));
+  }
+
+  #dsm($value, 'value');
+  
+  form_set_value($element, $value, $form_state);
+  return $element;
+}
+
+/**
+ * Recursively go through the option tree and return a flat array of
+ * options
+ */
+function _term_reference_tree_flatten($element) {
+  $output = array();
+  $children = element_children($element);
+  foreach($children as $c) {
+    $child = $element[$c];
+    if(array_key_exists('#type', $child) && ($child['#type'] == 'radio' || $child['#type'] == 'checkbox')) {
+      $output[] = $child;
+    }
+    else {
+      $output = array_merge($output, _term_reference_tree_flatten($child));
+    }
+  }
+  return $output;
+}
+
+/**
+ * Return an array of options.
+ * 
+ * This function converts a list of taxonomy terms to a key/value list of options.
+ * 
+ * @param $terms
+ *   An array of taxonomy term IDs.
+ * @param $allowed
+ *   An array containing the terms allowed by the filter view
+ * @param $filter
+ *   A string defining the view to filter by (only used to detect whether view
+ *   filtering is enabled
+ * 
+ * @return
+ *   A key/value array of taxonomy terms (name => id)
+ */
+function _term_reference_tree_get_options(&$terms, &$allowed, $filter) {
+  $options = array();
+
+  if(is_array($terms) && count($terms) > 0) {
+    foreach($terms as $term) {
+      if(!$filter || $allowed[$term->tid]) {
+        $options[$term->tid] = $term->name;
+        $options += _term_reference_tree_get_options($term->children, $allowed, $filter);
+      }
+    }
+  }
+  return $options;
+}
+
+/**
+ * Returns an array of allowed values defined by the given view.
+ *
+ * @param $filter
+ *   A view, in the format VIEWNAME:DISPLAYNAME
+ *
+ * @return
+ *   An array of term IDs (tid => true) returned by the view.
+ */
+function _term_reference_tree_get_allowed_values($filter) {
+  $viewname = "";
+  $displayname = "";
+  $allowed = array();
+
+  if(module_exists('views') && $filter != '') {
+    list($viewname, $displayname) = explode(":", $filter);
+    $view = views_get_view($viewname);
+    if($view->access($displayname)) {
+      $view->execute_display($displayname);
+      foreach($view->result as $item) {
+        $allowed[$item->tid] = true;
+      }
+    } else {
+      drupal_set_message("Cannot access view for term reference tree widget.", 'warning');
+    }
+  }
+
+  return $allowed;
+}
+
+/**
+ * Builds the term reference tree widget element.
+ *
+ * @param $element
+ *   The term reference tree element.
+ * @param $form_state
+ *   The form state
+ *
+ * @return
+ *   The term reference tree element, including child tags.
+ */
+function _term_reference_tree_build($element, $form_state) {
+  $value = !empty($element['#default_value']) ? $element['#default_value'] : array();
+  $terms = !empty($element['#options_tree']) ? $element['#options_tree'] : array();
+  $max_choices = !empty($element['#max_choices']) ? $element['#max_choices'] : 1;
+
+  if($max_choices != 1)
+    $element['#tree'] = TRUE;
+      
+  $tree = new stdClass;
+  $tree->children = $terms;
+  $element[] = _term_reference_tree_build_level($element, $tree, $form_state, $value, $max_choices);
+
+  return $element;
+}
+
+/**
+ * Builds a single item in the term reference tree widget.
+ *
+ * This function returns an element with a checkbox for a single taxonomy term.
+ * If that term has children, it appends checkbox_tree_level element that
+ * contains the children.  It is meant to be called recursively when the widget
+ * is built.
+ *
+ * @param $element
+ *   The main checkbox_tree element.
+ * @param $term
+ *   A taxonomy term object.  $term->children should be an array of the term
+ *   objects that are that term's children.
+ * @param $form_state
+ *   The form state.
+ * @param $value
+ *   The value of the element.
+ * @param $max_choices
+ *   The maximum number of allowed selections.
+ *
+ * @return
+ *   A completed checkbox_tree_item element, which contains a checkbox and
+ *   possibly a checkbox_tree_level element as well.
+ */
+function _term_reference_tree_build_item(&$element, &$term, &$form_state, &$value, $max_choices) {
+  $start_minimized = FALSE;
+  if(array_key_exists('#start_minimized', $element)) {
+    $start_minimized = $element['#start_minimized'];
+  }
+
+  $leaves_only = FALSE;
+  if(array_key_exists('#leaves_only', $element)) {
+    $leaves_only = $element['#leaves_only'];
+  }
+  
+  $container = array(
+    '#type' => 'checkbox_tree_item',
+    '#max_choices' => $max_choices,
+    '#start_minimized' => $start_minimized,
+    '#leaves_only' => $leaves_only,
+  );
+
+  if(!$element['#leaves_only'] || count($term->children) == 0) {
+    $e = array(
+      '#type' => ($max_choices == 1) ? 'radio' : 'checkbox',
+      '#title' => $term->name,
+      '#return_value' => $term->tid,
+      '#default_value' => isset($value[$term->tid]) ? $term->tid : NULL,
+      '#attributes' => isset($element['#attributes']) ? $element['#attributes'] : NULL,
+      '#ajax' => isset($element['#ajax']) ? $element['#ajax'] : NULL,
+    );
+
+    if($e['#type'] == 'radio') {
+      $parents_for_id = array_merge($element['#parents'], array($term->tid));
+      $e['#id'] = drupal_html_id('edit-' . implode('-', $parents_for_id));
+      $e['#parents'] = $element['#parents'];
+    }
+  }
+  else {
+    $e = array(
+      '#markup' => "<div class='parent-term'>{$term->name}</div>",
+    );
+  }
+
+  $container[] = $e;
+
+  if(property_exists($term, 'children') && count($term->children) > 0) {
+    $container[] = _term_reference_tree_build_level($element, $term, $form_state, $value, $max_choices);
+  }
+
+  return $container;
+}
+
+/**
+ * Builds a level in the term reference tree widget.
+ *
+ * This function returns an element that has a number of checkbox_tree_item elements
+ * as children.  It is meant to be called recursively when the widget is built.
+ *
+ * @param $element
+ *   The main checkbox_tree element.
+ * @param $term
+ *   A taxonomy term object.  $term->children should be an array of the term
+ *   objects that are that term's children.
+ * @param $form_state
+ *   The form state.
+ * @param $value
+ *   The value of the element.
+ * @param $max_choices
+ *   The maximum number of allowed selections.
+ *
+ * @return
+ *   A completed checkbox_tree_level element.
+ */
+function _term_reference_tree_build_level(&$element, &$term, &$form_state, &$value, $max_choices) {
+  $start_minimized = FALSE;
+  if(array_key_exists('#start_minimized', $element)) {
+    $start_minimized = $element['#start_minimized'];
+  }
+
+  $leaves_only = FALSE;
+  if(array_key_exists('#leaves_only', $element)) {
+    $leaves_only = $element['#leaves_only'];
+  }
+  
+  $container = array(
+    '#type' => 'checkbox_tree_level',
+    '#max_choices' => $max_choices,
+    '#start_minimized' => $start_minimized,
+    '#leaves_only' => $leaves_only,
+  );
+
+  foreach($term->children as $t) {
+    $container[] = _term_reference_tree_build_item($element, $t, $form_state, $value, $max_choices);
+  }
+  
+  return $container;
+}

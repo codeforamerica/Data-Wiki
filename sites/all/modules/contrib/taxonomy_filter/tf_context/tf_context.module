@@ -1,0 +1,227 @@
+<?php
+
+/**
+ * @file
+ * Taxonomy Filter add-on module for displaying contextual terms.
+ */
+
+// Define constants for variable defaults
+// define('TAXONOMY_FILTER_CONTEXT_SELECTED_TITLE', 'Selected categories');
+define('TAXONOMY_FILTER_CONTEXT_TOPLEVEL_TITLE', 'No category selected');
+define('TAXONOMY_FILTER_CONTEXT_PARENTS_TITLE', 'More general categories');
+define('TAXONOMY_FILTER_CONTEXT_CHILDREN_TITLE', 'More specific categories');
+define('TAXONOMY_FILTER_CONTEXT_RELATED_TITLE', 'Other related categories');
+
+/**
+ * Implements hook_tf_template_info().
+ */
+function tf_context_tf_template_info() {
+  return array(
+    'name' => 'context',
+    'desc' => 'Shows terms related in some way to the base term.',
+  );
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function tf_context_theme_registry_alter(&$cache) {
+  // Accommodate core patch [#396224] not allowing $variables['template_files']
+  // in preprocess functions to include a path reference.
+  $module_path = drupal_get_path('module', 'tf_context');
+  foreach ($cache as $theme => &$details) {
+    if ($theme == 'taxonomy_filter_section') {
+      $details['theme paths'][] = $module_path;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function tf_context_form_taxonomy_filter_admin_menu_edit_form_alter(&$form, $form_state) {
+  if ($form['module']['#value'] != 'tf_context') {
+    return;
+  }
+
+  $menu_id = $form['menu_id']['#value'];
+
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $settings = isset($menus[$menu_id]['tf_context']) ? $menus[$menu_id]['tf_context'] : array();
+  $settings += array(
+//    'selected' => TAXONOMY_FILTER_CONTEXT_SELECTED_TITLE,
+    'toplevel' => TAXONOMY_FILTER_CONTEXT_TOPLEVEL_TITLE,
+    'parents' => TAXONOMY_FILTER_CONTEXT_PARENTS_TITLE,
+    'children' => TAXONOMY_FILTER_CONTEXT_CHILDREN_TITLE,
+    'related' => TAXONOMY_FILTER_CONTEXT_RELATED_TITLE,
+  );
+
+  $form['tf_context'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Context menu titles'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+    '#description' => t('The context menu displays links in various categories within each vocabulary section
+                         of the "Taxonomy filter - refine criteria" block. The category titles displayed depend
+                         on 1) the number of terms in the URL and 2) the vocabulary section being displayed.
+                         The first three titles below apply when there are two terms in the URL and within the
+                         vocabulary section of the second term.
+                         The last title applies in all other vocabulary sections and when there is only one
+                         term in the URL.'),
+  );
+  // 5.x had this subsection but omitted it in _taxonomy_filter_get_menu_data
+  // if (in_array($term->tid, $tids)) { continue; }
+//  $form['tf_context']['selected'] = array(
+//    '#type' => 'textfield',
+//    '#title' => t('Selected categories'),
+//    '#default_value' => $settings['selected'],
+//    '#description' => t('Title displayed above selected menu links.'),
+//  );
+  $form['tf_context']['parents'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Parent categories'),
+    '#default_value' => $settings['parents'],
+    '#description' => t('Title displayed above parent menu links.'),
+  );
+  $form['tf_context']['children'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Child categories'),
+    '#default_value' => $settings['children'],
+    '#description' => t('Title displayed above child menu links.'),
+  );
+  $form['tf_context']['related'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Related categories'),
+    '#default_value' => $settings['related'],
+    '#description' => t('Title displayed above related menu links.'),
+  );
+  $form['tf_context']['toplevel'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Toplevel categories'),
+    '#default_value' => $settings['toplevel'],
+    '#description' => t('Title displayed above menu links when there is only one
+                         term in the URL or in a different vocabulary than that of the second term in the URL.'),
+  );
+  $form['#submit'][] = 'tf_context_menu_edit_submit';
+}
+
+/**
+ * Submit handler.
+ */
+function tf_context_menu_edit_submit($form, &$form_state) {
+  $menu_id = $form_state['values']['menu_id'];
+  $menus = variable_get('taxonomy_filter_menus', array());
+  $menus[$menu_id]['tf_context'] = $form_state['values']['tf_context'];
+  variable_set('taxonomy_filter_menus', $menus);
+}
+
+/**
+ * Implements hook_tf_section().
+ *
+ * In 5.x function _taxonomy_filter_get_raw_term_data, the parents, children
+ * and related are relative to $tids[1]. But the counts for each link are done
+ * relative to $tids[0] and the link tid. Does this give inconsistent results???
+ * Was it intended???
+ *
+ * $selected_term = taxonomy_get_term($tids[1]); // No check for existence of second tid in url!!!
+ * if ($selected_term->vid == $vid) {
+ *   get parents, children, and related
+ * }
+ * else {
+ *   get toplevel
+ * }
+ *
+ */
+function tf_context_tf_section($section_info, $block_info) {
+  $vid = $section_info['vid'];
+  $tids = $block_info['url_tids'];
+  $depth = $section_info['section_settings']['depth'];
+
+  $subsections = array(); // ('parents' => array(), 'children' => array(), 'related' => array());
+
+  if (count($tids) > 1) {
+    $last_tid = $tids[count($tids) - 1]; // TODO Use array_pop if we dont need $tids?
+    // TODO 5.x checks for $settings['extra'] and adds $max_depth parameter to children!!!
+    $subsections['parents'] = tf_context_count_nodes(taxonomy_get_parents($last_tid), $tids, $depth);
+    $subsections['children'] = tf_context_count_nodes(taxonomy_get_children($last_tid), $tids, $depth);
+    $subsections['related'] = tf_context_count_nodes(taxonomy_get_related($last_tid), $tids, $depth);
+  }
+  else {
+    $max_depth = 1; // TODO Not used. Implement this? In 5.x this is $levels[$settings['extra']].
+    $subsections['toplevel'] = tf_context_count_nodes(taxonomy_get_tree($vid, 0, $max_depth), $tids, $depth);
+  }
+  $items = array();
+  foreach ($subsections as $subsection_name => $subsection_terms) {
+    if (count($subsection_terms) > 0) {
+      $items[$subsection_name] = taxonomy_filter_section_items($subsection_terms, $section_info, $block_info);
+    }
+  }
+  return $items;
+}
+
+/**
+ * Return filtered list of terms to display (with node counts).
+ *
+ * @param array $terms
+ * @param array $tids Term ids in URL.
+ * @param integer $depth Term depth to consider in counts.
+ */
+function tf_context_count_nodes($terms, $tids, $depth) {
+  $hide_empty = TRUE; // TODO Use value in settings.
+  $base_tid = $tids[0]; // Same as 5.x version.
+
+  $node_terms = array();
+  foreach ($terms as $term) {
+    if (in_array($term->tid, $tids)) {
+      continue;
+    }
+    // TODO This means tf_context has tf_count as a dependency!!!
+    $count = tf_count_nodes_by_terms(array($base_tid, $term->tid), $depth);
+    if ($count == 0 && $hide_empty) {
+      continue;
+    }
+    $term->count = $count;
+    $node_terms[] = $term;
+  }
+  return $node_terms;
+}
+
+/**
+ * Process variables for tf-context-section.tpl.php template
+ * (instead of taxonomy-filter-section.tpl.php).
+ */
+function tf_context_preprocess_taxonomy_filter_section(&$variables) {
+  if ($variables['section']['info']['module'] == 'tf_context') {
+    // Get category titles.
+    $menu_id = $variables['section']['info']['menu_id'];
+    $menus = variable_get('taxonomy_filter_menus', array());
+    $settings = isset($menus[$menu_id]['tf_context']) ? $menus[$menu_id]['tf_context'] : array();
+    $settings += array(
+//       'selected' => TAXONOMY_FILTER_CONTEXT_SELECTED_TITLE,
+      'toplevel' => TAXONOMY_FILTER_CONTEXT_TOPLEVEL_TITLE,
+      'parents' => TAXONOMY_FILTER_CONTEXT_PARENTS_TITLE,
+      'children' => TAXONOMY_FILTER_CONTEXT_CHILDREN_TITLE,
+      'related' => TAXONOMY_FILTER_CONTEXT_RELATED_TITLE,
+    );
+    // Add section information.
+    $section_info = $variables['section']['info'];
+    $block_info = $variables['block_info'];
+    $subsections = $variables['section']['items'];
+    foreach ($subsections as $subsection => $items) {
+      $content = ''; // 'Missing'; // $item['info']['tf_context']; // TODO This is blank???
+      foreach ($items as $item) {
+        $content .= theme('taxonomy_filter_item', array('item' => $item, 'section_info' => $section_info, 'block_info' => $block_info));
+      }
+      $variables[$subsection] = $content;
+      $variables[$subsection . '_title'] = $settings[$subsection];
+    }
+    // Override the default template file.
+    $variables['template_files'][] = 'tf-context-section';
+  }
+  // Add title and class.
+  $variables['title'] = $variables['section']['title'];
+  if (is_array($variables['section']['info']['class'])) {
+    $variables['class'] = implode(' ', $variables['section']['info']['class']);
+  }
+}

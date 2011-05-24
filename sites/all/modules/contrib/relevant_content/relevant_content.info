@@ -1,0 +1,15 @@
+name = "Relevant Content"
+description = "Provides blocks displaying relevant nodes for the current page based on taxonomy."
+dependencies[] = block
+dependencies[] = taxonomy
+files[] = relevant_content.module
+files[] = relevant_content.admin.inc
+files[] = relevant_content.theme.inc
+core = 7.x
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "relevant_content"
+datestamp = "1298620069"
+

@@ -1,0 +1,175 @@
+
+taxonomy_filter 7.x-1.x, 2009-xx-xx (development version)
+-----------------------------------
+- Changes (2010-12-10):
+  * various
+  * - apply 6.x branch changes from 2010-09-18 through 2010-11-27
+  * - revert grammar parser changes to indentation of 'code' comments
+  * - move menu templates from menus form to new templates form
+  * - display warning message if no filter blocks are assigned to a region
+  * - move module settings to 'admin/config/user-interface/taxonomy_filter'
+  * - rename block deltas
+
+- Changes (2010-11-27):
+  * module
+  * - #973660: pass table alias to db_rewrite_sql() so ON clause does not generate SQL error
+  * - #966168: use h2 for current criteria block title above content (the default with theme_block)
+  * - add a block for the current criteria above content
+  * theme.inc
+  * - include '<ul>' tags in theme_taxonomy_filter_block_current_content() output
+  * make 6.x-1.5 release
+
+- Changes (2010-11-18):
+  * module
+  * - #973660: pass bracketed table name to db_rewrite_sql() so database prefix is added
+  * - #966168: do not set current criteria block title as page title above content
+  * - taxonomy_filter_section_create(): change continue to return
+  * make 6.x-1.4 release
+
+- Changes (2010-10-16):
+  * module
+  * - #408544: Implement new settings for term display order in the current search results blocks
+  * - Use the current search results title in the block above the content
+  * - Refactor taxonomy_filter_update_6004() to taxonomy_filter_update_default_settings() for use with updates
+  * - Use static variable in _taxonomy_filter_get_vocabs()
+  * install
+  * - Add update_6006 for new default settings
+  * admin, tf_context, tf_multi
+  * - Collapse fieldsets on admin_menu_edit_form
+  * tf_multi
+  * - Add new settings for term display order in the URL and in search results block
+  * - #408544: Implement the new settings for term display order in the URL
+
+- Changes (2010-09-24):
+  * #921552 by danyg: remove negation operator.
+
+- Changes (2010-09-18):
+  * #714858: support i18n internationalization.
+
+- Changes (2010-09-13):
+  * Continue on D7 branch
+  * Make additional changes to run under D7
+  * - test_data.php
+  *   - update table names and columns
+  *   - add debug printing
+  *   - add inflation parameters
+
+- Changes (2010-09-10):
+  * Start on D7 branch
+  * - Apply grammar parser
+  * - Apply coder upgrade routines
+  * - Make additional changes to run under D7
+  *   - hook_theme(): value of 'render element' should be a string, not array
+  *   - db_fetch_object, db_placeholders, db_rewrite_sql
+  *   - BLOCK_CACHE_PER_PAGE
+  *   - taxonomy_term_node table is now taxonomy_index, relation is on nid instead of vid
+  *   - db_query: arrayitize the 2nd parameter
+  *   - drupal_alter($type, &$data, &$context1 = NULL, &$context2 = NULL)
+  *   - FAPI: class attributes need to be arrays
+  *   - taxonomy_filter_admin_list_form(): change '#value' to '#markup' OR revert and change theme to grab #value like it did for status
+  *   - change paths
+  *     - '/admin/content/taxonomy' => '/admin/structure/taxonomy/add' (mappings form)
+  *     - '/admin/settings/taxonomy_filter' => '/admin/config/taxonomy_filter'
+  * - Rename themes
+  *   - taxonomy_filter_admin_list_form_templates => taxonomy_filter_templates_table
+  *   - taxonomy_filter_admin_list_form_menus => taxonomy_filter_menus_table
+  *   - taxonomy_filter_admin_mappings_table => taxonomy_filter_mappings_table
+  * - Add paths to menu items so breadcrumb is displayed (NOT DONE)
+  *   - admin/config/taxonomy_filter/1/edit only has 'Home'
+  *   - admin/config/taxonomy_filter/mappings/2/edit only has 'Home'
+
+- Changes (2010-01-28):
+  * #697678 by Nick Fedchik: Commit code intended to be committed on 2010-01-08 related to default depth parameter.
+  * #677708 by hefox: Add alter hook for setting the url tokens.
+  * Make 6.x-1.3 release.
+
+- Changes (2010-01-27):
+  * Make 6.x-1.2 release.
+
+- Changes (2010-01-08):
+  * Check for filter menus before displaying current criteria block. (Eliminates PHP error.)
+  * Implement a default depth parameter in filter menu links based on the URL depth parameter.
+  * Fix typos in form and documentation items.
+  * #451742: Switch to text field for specifying minimum number of nodes.
+  * #666952: Switch to text field for specifying maximum number of terms displayed for a given vocabulary.
+  * Correct the application of maximum number of terms (off by one).
+  * Revert change to feed parameter in default URL to listen on.
+
+- Changes (2010-01-05):
+  * #451742: Restrict display to terms matching a specified minimum number of nodes.
+  * #666952: Limit the number of terms displayed for a given vocabulary.
+
+- Changes (2010-01-04):
+  * #216150, #643698, #671552: partial solution to performance issue; use vid instead of nid with term_node joins
+
+- Changes (2009-07-25):
+  * Fix html tags in search criteria block when displayed at top of content area.
+  * Change this block id to 2 and add item to style sheet.
+  * Fix html typos so page is W3C compliant.
+
+- Changes (2009-06-23):
+  * Add all non-aggregated fields to the GROUP BY clause in taxonomy_filter_tf_section.
+  * Change array index from '$op' to 'op' in taxonomy_filter_get_url_tokens.
+
+- Changes (2009-06-02):
+  * Add return array() statements to update hooks to eliminate warning.
+
+- Changes (2009-05-29):
+  * Add tests of settings pages and content listings (the latter using sample data).
+  * Display message on mappings page when no vocabularies or filter menus are defined.
+  * Use index of one for first filter menu.
+  * Rewrite _taxonomy_filter_menu_templates to accommodate different values of $names_only.
+  * Clean out mappings array when filter menu is deleted.
+  * Add module enable hooks to add default settings on existing filter menus.
+  * Reenable submit handler on advanced settings and implement 'reset to defaults'.
+  * Remove redirects on general settings page.
+
+- Changes (2009-05-27):
+  * Change current criteria block weight to -20 from -200.
+
+- Changes (2009-05-23):
+  * Add brackets around 'node' table in taxonomy_filter_tf_section.
+  * Clean out mappings array when vocabulary is deleted.
+
+- Changes (2009-05-17):
+  * Add category titles for context menu to configuration settings.
+  * Utilize category titles for context menu in section template file.
+  * Clarify the item descriptions in configuration settings pages.
+  * Eliminate TAXONOMY_FILTER_NEXT_ID constant.
+  * Update and clarify the text in README, API and INSTALL files.
+  * Make first 6.x branch release.
+
+- Changes (2009-05-16):
+  * Add none to mappings select on admin/settings/taxonomy_filter/mappings/%/edit and submit handler.
+  * Add clear settings button on admin/settings/taxonomy_filter/mappings/%/edit and submit handler.
+  * Eliminate php warnings on mappings form when no mappings are defined.
+  * Eliminate the taxonomy_filter_next_id variable.
+  * Implement the depth parameter that was in 5.x branch.
+  * Remove '/' before '!feed' in TAXONOMY_FILTER_INPUT = 'taxonomy/term/%tids/%depth!feed' (ALSO BACK PORT to 5.x)
+  * Implement the dynamic and context menu templates which had not been fully ported from the 5.x branch.
+  * Remove duplicate class="section tf_context section tf_context tf_multi" tags.
+
+- Changes (2009-05-11):
+  * Only include css files on taxonomy filter pages and only based on module settings.
+  * Only add 'current search results' div on taxonomy filter pages (and when indicated by settings).
+  * Display current search block using a menu template specified in a new admin setting.
+  * Accommodate core patch [#396224] not allowing $variables['template_files'] in preprocess functions
+    to include a path reference (e.g. module subdirectories).
+  * Add update hook to reconfigure the variables table entries. (NOT DONE)
+  * Add update hook to set default values for enabled menu templates.
+  * Add default settings for tf_count and tf_multi modules if present.
+  * Add general settings tab to admin settings pages.
+  * Enhance configuration settings for tf_multi, tf_count, and general purposes.
+  * Enhance configuration settings for menu mappings by adding another menu template select for the
+    current search block.
+  * Enhance performance of admin settings pages with more statics.
+  * Check for valid menu id on taxonomy_filter_admin_menu_edit_form.
+  * Eliminate php notices from uninitialized variables, etc.
+  * Add more comments and documentation.
+
+- Changes (2009-04-28):
+  * Change base (and cloud) menu templates to display a refine search block
+    and the current search criteria (hard-coded to top of content area).
+  * Change base menu template to display multi style links on the term name and the '+' (may revert)
+  * Eliminate php notices from uninitialized variables, etc.
+  * Add more comments and documentation.

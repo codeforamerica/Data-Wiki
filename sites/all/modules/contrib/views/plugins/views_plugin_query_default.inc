@@ -627,28 +627,6 @@ class views_plugin_query_default extends views_plugin_query {
     if (!empty($join->adjusted)) {
       return $join;
     }
-    
-    $t = end($this->table_queue);   // get the last added table
-    if (!empty($t['join'])) {
-      // Check if the last one is reversed.
-      if  ((!empty($t['join']->definition['left_field_reverse_relation'])) 
-      && (!($t['join']->definition['left_field_reverse_relation'] == NULL))) {
-
-        // Adjust_join for the previous base table
-        // rescue the left_field from the relation ship
-        $swapped_field = $t['join']->left_field_reverse_relation; 
-        // Now fetch the previous table
-        $t = prev($this->table_queue);
-
-        if (($t['join']->definition['left_table'] == 'node') 
-         && (!empty($left_field_reverse_relation))) {
-          $t['join']->definition['left_table'] = $t['relationship'];     // The alias is not stored in the definition
-          $t['join']->definition['field'] = $swapped_field;  // The left_field is the swapped field from the relationship  !!!!!!!!!!!!!!!!!!
-          $t['join']->construct();    // You need to build the join again from the new definition
-        } 
-      }
-      $t = end($this->table_queue);  //reset cursor
-    }   
 
     if (empty($relationship) || empty($this->relationships[$relationship])) {
       return $join;
@@ -1152,6 +1130,7 @@ class views_plugin_query_default extends views_plugin_query {
     if (empty($this->no_distinct) && $this->distinct && !empty($this->fields)) {
       $base_field_alias = $this->add_field($this->base_table, $this->base_field);
       $this->add_groupby($base_field_alias);
+      $distinct = TRUE;
     }
 
     /**
@@ -1190,6 +1169,10 @@ class views_plugin_query_default extends views_plugin_query {
     // Go ahead and build the query.
     // db_select doesn't support to specify the key, so use getConnection directly.
     $query = Database::getConnection($target, $key)->select($this->base_table, $this->base_table, $options)->addTag('views');
+
+    if (!empty($distinct)) {
+      $query->distinct();
+    }
 
     $joins = $where = $having = $orderby = $groupby = '';
     $fields = $distinct = array();

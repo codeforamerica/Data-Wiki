@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * @file
+ * Taxonomy Filter add-on module for displaying filter terms in a tag cloud.
+ */
+
+/*
+ TODO: Allow item sorting by number of matches
+ */
+
+/**
+ * Implements hook_tf_template_info().
+ */
+function tf_cloud_tf_template_info() {
+  return array(
+    'name' => 'cloud',
+    'desc' => 'Terms presented as a tag cloud weighted by the number of filter results.',
+  );
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function tf_cloud_theme_registry_alter(&$cache) {
+  // Accommodate core patch [#396224] not allowing $variables['template_files']
+  // in preprocess functions to include a path reference.
+  $module_path = drupal_get_path('module', 'tf_cloud');
+  foreach ($cache as $theme => &$details) {
+    if (in_array($theme, array('taxonomy_filter_section', 'taxonomy_filter_item'))) {
+      $details['theme paths'][] = $module_path;
+    }
+  }
+}
+
+/**
+ * Implements hook_tf_section_alter().
+ */
+function tf_cloud_tf_section_alter(&$section, $block_info) {
+  if (/* isset($section['info']['module']) && */ $section['info']['module'] == 'tf_cloud') {
+    $results = array();
+    foreach ($section['items'] as $item) {
+      $results[] = $item['info']['tf_count'];
+    }
+    $thresholds = _tf_cloud_calc_thresholds($results);
+    foreach ($section['items'] as &$item) {
+      $size = _tf_cloud_calc_font_size($item['info']['tf_count'], $thresholds);
+      $item['info']['tf_cloud'] = $size;
+      $item['item_attributes']['class'][] = 'size' . $size;
+    }
+  }
+}
+
+/**
+ * Process variables for tf-cloud-section.tpl.php template
+ * (instead of taxonomy-filter-section.tpl.php).
+ */
+function tf_cloud_preprocess_taxonomy_filter_section(&$variables) {
+  if ($variables['section']['info']['module'] == 'tf_cloud') {
+    drupal_add_css(drupal_get_path('module', 'tf_cloud') . '/tf_cloud.css');
+    $variables['template_files'][] = 'tf-cloud-section';
+  }
+}
+
+/**
+ * Process variables for tf-cloud-item.tpl.php template
+ * (instead of taxonomy-filter-item.tpl.php).
+ */
+function tf_cloud_preprocess_taxonomy_filter_item(&$variables) {
+  if ($variables['section_info']['module'] == 'tf_cloud') {
+    $variables['template_files'][] = 'tf-cloud-item';
+  }
+}
+
+/**
+ * Calculate threshold counts for grouping terms based on number of tagged nodes.
+ *
+ * Use up to seven groups based on number of unique counts.
+ *
+ * @param array $result_list Unkeyed array of tagged node counts.
+ * @return array Keyed array of result counts by threshold.
+ */
+function _tf_cloud_calc_thresholds($result_list) {
+  sort($result_list);
+  $result_list_uniq = array_unique($result_list);
+  $result_list_length = count($result_list);
+  //$min_value = $result_list[0];
+
+  if (count($result_list_uniq) < 8) {
+    $thresholds = array_values($result_list_uniq);
+  }
+  else {
+    // TODO This needs a lot of work.
+    $step = $result_list_length / 6;
+    $thresholds = array(0, 1);
+    foreach (range(2, 6) as $threshold) {
+      $result_key = round($threshold * $step);
+      $thresholds[$threshold] = $result_list[$result_key];
+    }
+  }
+  return $thresholds;
+}
+
+/**
+ * Set relative font size indicator based on node count and threshold array.
+ *
+ * @param integer $count Node count.
+ * @param array $thresholds Keyed array of result counts by threshold.
+ * @return integer Relative font size indicator.
+ */
+function _tf_cloud_calc_font_size($count, $thresholds) {
+  $i = 0;
+  while ($i < count($thresholds)) {
+    if ($thresholds[$i] >= $count) {
+      break;
+    }
+    $i++;
+  }
+  return $i;
+}

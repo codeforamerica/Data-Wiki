@@ -1,0 +1,25 @@
+/*
+ style for relevance admin
+*/
+table.config_relevance {
+  width: 360px;
+  text-align: center;
+}
+table.config_relevance td,
+.page-admin-config-search-relevance .form-item {
+  padding: 2px;
+  margin: 2px;
+}
+table.config_relevance th {
+  font-weight: bold;
+}
+table.config_relevance th.th_1 {
+  width: 300px;
+}
+table.config_relevance td.td_1 {
+  text-align: left;
+}
+.page-admin-config-search-relevance .form-type-item {
+  margin-top: 10px;
+  font-size: 16px;
+}

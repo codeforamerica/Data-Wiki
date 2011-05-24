@@ -1,0 +1,273 @@
+<?php
+
+/**
+ * @file
+ * Taxonomy Filter add-on module for displaying a dynamic set of terms.
+ */
+
+/**
+ * Implements hook_tf_template_info().
+ */
+function tf_dynamic_tf_template_info() {
+  return array(
+    'name' => 'dynamic',
+    'desc' => 'An expandible menu template suitable for deeper term hierarchies.',
+  );
+}
+
+/**
+ * Implements hook_tf_section().
+ */
+function tf_dynamic_tf_section($section_info, $block_info) {
+  $tids = $block_info['url_tids'];
+  $depth = $section_info['section_settings']['depth'];
+
+  // TODO Weed out terms with no related nodes when asked not to display them.
+  $terms = tf_dynamic_count_nodes(taxonomy_get_tree($section_info['vid']), $tids, $depth);
+  $items = array();
+  if (count($terms) > 0) {
+    // TODO After this call we have lost the depth, parents, etc. items from the tree!!!
+    // TODO The function below calls drupal_alter('tf_item', $item, $section_info, $block_info, $context);
+    // But the info we need to add to the item is in the $term variable that is not passed.
+    // We need to call our own taxonomy_filter_section_items OR
+    // the drupal_alter hook should have the term passed to it.
+    $items = taxonomy_filter_section_items($terms, $section_info, $block_info);
+  }
+  return $items;
+}
+
+/**
+ * Implements hook_tf_item_2_alter().
+ *
+ * TODO This may be a temporary implementation. Implement tests before changing all modules.
+ */
+function tf_dynamic_tf_item_2_alter(&$item, $details, $context = NULL) { // function tf_dynamic_tf_item_2_alter(&$item, $section_info, $block_info, $term, $context = NULL) {
+  $section_info = $details['section_info'];
+  $block_info = $details['block_info'];
+  $term = $details['term'];
+  $item['info']['tf_dynamic'] = array(
+    'depth' => isset($term->depth) ? $term->depth : 0,
+    'parents' => isset($term->parents) ? $term->parents : array(),
+  );
+}
+
+/**
+ * Return filtered list of terms to display (with node counts).
+ *
+ * @todo THIS IS A COPY OF THE SAME FUNCTION IN tf_context!!! NOW WITH A CHANGE!!!
+ *
+ * @param array $terms
+ * @param array $tids Term ids in URL.
+ * @param integer $depth Term depth to consider in counts.
+ */
+function tf_dynamic_count_nodes($terms, $tids, $depth) {
+  $hide_empty = TRUE; // TODO Use value in settings.
+  $base_tid = $tids[0]; // Same as 5.x version.
+
+  $node_terms = array();
+  foreach ($terms as $term) {
+//    if (in_array($term->tid, $tids)) {
+//      continue;
+//    }
+    $count = 0;
+    if (!in_array($term->tid, $tids)) {
+      // TODO This means tf_dynamic has tf_count as a dependency!!!
+      $count = tf_count_nodes_by_terms(array($base_tid, $term->tid), $depth);
+      if ($count == 0 && $hide_empty) {
+        continue;
+      }
+    }
+    $term->count = $count;
+    $node_terms[] = $term;
+  }
+  return $node_terms;
+}
+
+/**
+ * Implements hook_tf_section_alter().
+ */
+function tf_dynamic_tf_section_alter(&$section, $block_info) {
+  // make sure references work
+  if ($section['info']['module'] == 'tf_dynamic') {
+    _tf_dynamic_process_parents($section['items']);
+//    $selected_items = array_filter($section['items'], '_tf_dynamic_item_is_selected');
+    $selected_items = _tf_dynamic_get_selected_terms($section['items'], $block_info['url_tids']);
+    $selected_parents = array();
+    foreach ($selected_items as $selected_item) {
+      $selected_parents = array_merge($selected_parents, $selected_item['info']['tf_dynamic']['trail']);
+    }
+    $prev_depth = 0;
+    foreach ($section['items'] as $key => &$item) {
+      if (_tf_dynamic_term_in_tree($item, $selected_parents, $section['info'], $block_info)) {
+        // Set depth difference to use when rendering terms in a tree format.
+        if (isset($item['info']['tf_dynamic']['depth'])) {
+          $depth_diff = $item['info']['tf_dynamic']['depth'] - $prev_depth;
+          $item['info']['tf_dynamic']['depth_diff'] = $depth_diff;
+          $prev_depth = $item['info']['tf_dynamic']['depth'];
+        }
+        else {
+          $item['info']['tf_dynamic']['depth'] = 0;
+          $item['info']['tf_dynamic']['depth_diff'] = 0;
+        }
+      }
+      else {
+        unset($section['items'][$key]);
+      }
+    }
+  }
+}
+
+/**
+ * Process variables for taxonomy-filter-item.tpl.php.
+ */
+function tf_dynamic_preprocess_taxonomy_filter_item(&$variables) {
+  if ($variables['section_info']['module'] == 'tf_dynamic') {
+    $depth_diff = $variables['item']['info']['tf_dynamic']['depth_diff'];
+    if ($depth_diff > 0) {
+      $variables['pre_item'] = str_repeat('<li class="container"><ul>', abs($depth_diff));
+    }
+    elseif ($depth_diff < 0) {
+      $variables['pre_item'] = str_repeat('</ul></li>', abs($depth_diff)); // 'post_item'
+    }
+  }
+}
+
+/**
+ * Work out a trail of parent ids and the local parent for each term object.
+ *
+ * @param $term_data
+ *   The current menu data.
+ * @return
+ *   A copy of $term_data with 'trail' and 'parent' properties added to each
+ *   term object.
+ */
+function _tf_dynamic_process_parents(&$items) {
+  // Taxonomy returns a 'parents' item from the data in in the term_hierarchy
+  // table. This code determines a single 'parent' item.
+
+  // make sure references work
+  // reconcile $parents() vs $parent
+  $parent_trail = array(0 => 0);
+  $prev_item = $items[0]; // TODO This assumes 2 terms at most in the URL. Does tf_multi come into play?
+  $prev_parent = 0;
+
+  foreach ($items as $item_key => &$item) {
+    $item_depth = isset($item['info']['tf_dynamic']['depth']) ? $item['info']['tf_dynamic']['depth'] : 0;
+    $prev_tid = $prev_item['info']['item_tid'];
+    $prev_depth = isset($prev_item['info']['tf_dynamic']['depth']) ? $prev_item['info']['tf_dynamic']['depth'] : 0;
+
+    $depth_diff = $item_depth - $prev_depth;
+    if ($depth_diff > 0) {
+      // depth has increased - add previous items tid to parents_trail
+      // it should only increase by 1
+      $parent_trail[$item_key] = $prev_tid;
+      $prev_parent = $prev_tid;
+    }
+    elseif ($depth_diff < 0) {
+      // depth has decreased
+      // remove $depth_diff number of items from parents_trail
+      for ($i = 0; $i < abs($depth_diff); $i++) {
+        $dummy = array_pop($parent_trail);
+      }
+      $prev_parent = end($parent_trail);
+    }
+    $item['info']['tf_dynamic']['trail'] = $parent_trail;
+    $item['info']['tf_dynamic']['parent'] = $prev_parent;
+    $prev_item = $item;
+  }
+}
+
+
+/**
+ * Decides whether or not to show each term in a dynamic menu.
+ *
+ * @param $term
+ *   The current menu term object being tested.
+ * @param $settings
+ *   The settings array for the current menu.
+ * @param $selected_terms
+ *   An array of term objects relating to each tid in the url.
+ * @return
+ *   A boolean.
+ */
+function _tf_dynamic_term_in_tree($item, $selected_parents, $section_info, $block_info) {
+  $tids = $block_info['url_tids'];
+//  $extra_levels = $section_info['tf_dynamic']['extra_levels']; // not defined yet
+  $extra_levels = FALSE; // temp value
+
+  $item_tid = $item['info']['item_tid'];
+  $item_depth = isset($item['info']['tf_dynamic']['depth']) ? $item['info']['tf_dynamic']['depth'] : 0;
+  $item_parent = $item['info']['tf_dynamic']['parent'];
+  $item_trail = $item['info']['tf_dynamic']['trail'];
+
+  // Top level terms should be shown by default
+  if ($item_parent == 0) {
+    return TRUE;
+  }
+
+  // 2nd level terms shown if extra terms are selected.
+  // TODO - add additional check when extra terms is "lots".
+  if ($item_depth == 1 && $extra_levels) {
+    return TRUE;
+  }
+
+  // Current term is in the url.
+  if (in_array($item_tid, $tids)) {
+    return TRUE;
+  }
+
+  // current term is a direct child of a selected term
+  if (in_array($item_parent, $tids)) {
+    return TRUE;
+  }
+
+  // Check if current term is in the parent trail of a chosen term.
+  if (in_array($item_tid, $selected_parents)) {
+    return TRUE;
+  }
+
+  // Check if current term shares a parent with a chosen term
+  // ie current term is a sibling of a chosen term.
+  if (in_array($item_parent, $selected_parents)) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * array_filter() callback function for removing non selected items.
+ *
+ * TODO This is not used!!!
+ */
+function _tf_dynamic_item_is_selected($item) {
+  if (isset($item['link_attributes']['class']) && is_array($item['link_attributes']['class'])) {
+    return in_array('selected', $item['link_attributes']['class']);
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Get terms objects related to the term ids in the url.
+ *
+ * COPIED FROM 5.x code.
+ *
+ * @param $term_data
+ *   The current menu data.
+ * @param $tids
+ *   Array of term ids from the url.
+ * @return
+ *   An array of term objects.
+ */
+function _tf_dynamic_get_selected_terms($term_data, $tids) {
+  $selected_terms = array();
+  foreach ($term_data as $term) {
+//    if (in_array($term->tid, $tids)) {
+    if (in_array($term['info']['item_tid'], $tids)) {
+      $selected_terms[] = $term;
+    }
+  }
+  return $selected_terms;
+}

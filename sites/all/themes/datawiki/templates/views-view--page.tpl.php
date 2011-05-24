@@ -27,8 +27,6 @@
  */
 ?>
 <div id="view-id-<?php print $name; ?>-<?php print $display_id; ?>" class="view view-<?php print $css_name; ?> view-id-<?php print $name; ?> view-display-id-<?php print $display_id; ?> view-dom-id-<?php print $dom_id; ?>">
-
-
   <div class="inner content">
     <?php if ($header): ?>
       <?php print $search_string; ?>

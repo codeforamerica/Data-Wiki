@@ -1,0 +1,123 @@
+
+This file describes the Taxonomy Filter API for creating add-on modules.
+
+Note: Please study the supplied add-on modules for examples of how to use this
+API as the following descriptions may be a bit brief.
+
+
+Module and hook naming
+----------------------
+
+You will note that the supplied add-on module names and their functions are all
+prefixed with 'tf_' which does make some of their function names look a little
+untidy. This is just to prevent namespace conflicts with other modules that may
+already be or in the future exist in the Drupal CVS repository. This is because
+these modules won't have their own drupal.org project to otherwise reserve their
+own namespace.
+
+Note: Your own modules do not have to follow this module naming convention.
+
+The hooks provided by the Taxonomy Filter API are also prefixed with 'tf_' to
+avoid namespace collisions with other contrib module frameworks.
+
+
+Module placement
+----------------
+
+Your own add-on modules shouldn't need to be placed in the Taxonomy Filter
+directory, and I would recommend they not be to avoid potential problems with
+updates overwriting files.
+
+You should (via your modules .info file) put your module in the Taxonomy Filter
+group to make it easier to enable/disable Taxonomy Filter add-on modules.
+
+
+Taxonomy Filter data structure descriptions
+-------------------------------------------
+
+block
+
+An array containing all the data for the block. Contains an 'info' array of
+common data and a 'sections' array containing each sections data structure.
+
+section
+
+Generally each menu is a section, but modules can also create, alter (or even
+delete) sections. Each section contains an 'info' array of data relating to the
+section and an 'items' array of individual menu items.
+
+item
+
+This array correlates to a menu item. Basically it contains a link plus some
+surrounding information or markup.
+
+link
+
+This is the actual HTML link.
+
+
+Hook descriptions
+-----------------
+
+hook_tf_template_info()
+
+This hook is required for all add-on modules that provide a menu template. It should
+return an associative array containing a user friendly name and description of
+the menu template.
+
+
+hook_tf_section($section_info, $block_info)
+
+This is an optional hook for template modules. It allows them to supply a custom
+array of term objects to the section factory function. Note: if the term objects
+have a template_settings attribute, that will be copied into the section data
+also.
+
+
+hook_tf_item_alter(&$item, $section_info, $block_info, $context = NULL)
+
+An optional standard Drupal style alter hook for each item before it gets
+inserted into the section array. The $context is an optional parameter than can
+be checked for elsewhere.
+
+
+hook_tf_link_tids_alter(&$link_tids, $item_tid, $context)
+
+This optional hook allows a add-on module to alter the term ids listed in its link.
+The $context parameter will contain any value passed into the modules
+tf_alter_item hook.
+
+
+hook_tf_section_alter(&$section, $block_info)
+
+An optional standard Drupal style alter hook for the section data. This runs
+after the section has been created from all the (potentially altered) item data.
+
+
+hook_tf_block_alter(&$block)
+
+Once the (potentially altered) section data is assembled into the block array,
+This optional hook allows the block itself to be altered.
+
+
+hook_tf_settings()
+
+Returns a FormAPI array that gets inserted in the menu edit form. This optional
+hook allows add-on modules to collect their own settings.
+
+
+hook_tf_settings_submit($form, &$form_state)
+
+A standard FormAPI submit handler for the extra settings. Only required if the
+module supplies a tf_settings hook.
+
+
+
+Theme overrides
+---------------
+
+PHPTemplate in Drupal 6.x is cool.
+
+Submodules can supply their own preprocess functions to add/alter template
+variables and even add their own templates. See the shipped add-on modules for
+examples.

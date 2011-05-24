@@ -1,0 +1,10 @@
+name = "Big Autocomplete TAXonomy"
+description = "Converts select fields into alternate fields if they have greater than 'n' terms in them."
+package = "Scratchpads"
+core = 7.x
+; Information added by drupal.org packaging script on 2011-04-14
+version = "7.x-1.0"
+core = "7.x"
+project = "batax"
+datestamp = "1302796014"
+
