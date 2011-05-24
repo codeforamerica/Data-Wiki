@@ -366,9 +366,12 @@ li.flag-like span.flag-like a.unflag-action{
 }
 
 .search-terms {
-  margin: 10px 0 20px 0;
+/*   margin: 10px 20px 20px 0; */
   padding: 20px;
+/*   float: left; */
   background-color: #ededed;
+  width: 400px;
+  height: 100px;
 }
 
 .search-terms .field-label {
@@ -380,6 +383,38 @@ li.flag-like span.flag-like a.unflag-action{
   font-weight: bold;
   clear: right;
   text-transform: capitalize;
+}
+#view-id-neighborhood-page .view-filters {
+  clear: both;
+}
+#view-id-neighborhood-page .view-header {
+/*   clear: both; */
+}
+
+#view-id-neighborhood-page .view-header {
+/*   margin: 10px 20px 20px 0; */
+  padding: 20px;
+float: left;
+  background-color: #ededed;
+  width: 400px;
+/*   clear: right; */
+  height: 100px;
+}
+#view-id-neighborhood-page .view-header p{
+  display: inline;
+}
+
+#view-id-neighborhood-page .views-number-results {
+  display: inline;
+  background-color: #96a141;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0px 10px;
+  padding: 10px 10px;
+  border:none;
+  line-height: 24px;
 }
 
 #branding-footer .logo {

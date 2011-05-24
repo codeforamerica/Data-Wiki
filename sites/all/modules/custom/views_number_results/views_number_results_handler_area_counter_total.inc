@@ -18,7 +18,7 @@ class views_number_results_handler_area_counter_total extends views_handler_area
   }
 
   function render($values) {
-    $count = $this->view->total_rows;
+    $count = '<div class="views-number-results">' . $this->view->total_rows . '</div>';
     return $count;
   }
 
