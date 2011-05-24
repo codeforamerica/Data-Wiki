@@ -46,13 +46,11 @@ function datawiki_preprocess_page(&$vars) {
   }
 
   // Create some resource variables
-/*
   $vars['logo_image'] = theme('image', array(
-    'path' => drupal_get_path('theme', 'et') . '/images/header_logo.gif', 
+    'path' => drupal_get_path('theme', 'datawiki') . '/images/city-groups-logo.png', 
     )
   );
-*/
-//  $vars['logo_image_link'] = l($vars['logo_image'], '<front>', array('html' => TRUE));
+  $vars['logo_image_link'] = l($vars['logo_image'], '<front>', array('html' => TRUE));
   
   // Create login link
   $account_text = t('Sign in');
@@ -315,4 +313,3 @@ function datawiki_preprocess_search_result(&$vars) {
   // Provide alternate search result template.
   $vars['template_files'][] = 'search-result-'. $vars['type'];
 }
-

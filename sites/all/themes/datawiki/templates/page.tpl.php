@@ -8,23 +8,23 @@
 <div id="container" class="container_16">
   <div id="header" class="grid_16 alpha">
     <div class="header-logo-container grid_4 alpha">
-      <?php  print '<a href="' . base_path() . '">' . $site_name . '</a>'; ?>
+      <?php  // print '<a href="' . base_path() . '">' . $site_name . '</a>'; ?>
       <?php // print $sub_site_name; ?>
-      <?php // print $logo_image_link; ?>
+      <?php print '<a href="' . base_path() . '">' . $logo_image_link . '</a>'; ?>
     </div>
     
-    <div class="header-menu-container grid_8">
+    <div class="header-menu-container grid_4">
       <?php print render($page['header_menu']); ?>
     </div>
 
-    <div class="header-gap-container grid_2">
-      <?php print render($page['header_gap']); ?>
+    <div class="header-signin-container grid_4 omega">
+      <?php print render($page['header_signin']); ?>
+      <?php print $account_link; ?>
     </div>
 
-  <div class="header-signin-container grid_2 omega">
-    <?php print render($page['header_signin']); ?>
-    <?php print $account_link; ?>
-  </div>
+    <div class="header-gap-container grid_4">
+      <?php print render($page['header_gap']); ?>
+    </div>
 
   </div>
   <div class="clear"></div>

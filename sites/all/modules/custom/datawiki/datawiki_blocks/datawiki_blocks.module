@@ -82,7 +82,7 @@ function datawiki_blocks_contents($type) {
   
   switch ($type) {
     case 'welcome':
-      $output .= t('Find groups by place or topic.');
+      $output .= '<h2>' . t('Find groups by place or topic.') . '</h2>';
       break;
       
     case 'branding_header':
@@ -109,8 +109,8 @@ function datawiki_blocks_contents($type) {
 
       $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $mail . $yahoo /*. $ning */;
       $output .= '
-        <div class="add-data">' 
-        . t('We make it easy to find groups in your city.') 
+        <div class="add-data">' .
+        '<h3>' . t('We make it easy to find groups in your city.') . '</h3>'
         . '<div class="groups-icons">' . $links . '</div>'
 /*           . t('Know a cool group? Why not <a href="/node/add/online-community">Add</a> it?') */
         . '</div>';

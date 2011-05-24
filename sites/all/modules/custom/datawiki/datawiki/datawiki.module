@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * 
+ *
+ */
+
+/**
+ * Implements hook_help().
+ */
+function datawiki_help($path, $arg) {
+  switch ($path) {
+    case 'datawiki':
+      $explanation = t(
+        'Custom features for Data Wiki.');
+      return "<p>$explanation</p>";
+  }
+}

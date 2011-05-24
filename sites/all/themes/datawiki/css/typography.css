@@ -5,7 +5,7 @@
 /* Base Settings
 -------------------------------------------------------------- */
 body {
-  font-family: Arial, Helvetica, "Nimbus Sans L", FreeSans, sans-serif; /* web safe fonts */
+  font-family: Helvetica, Arial, sans-serif; color:#666; /* web safe fonts */
   font-size: 14px;
   
   line-height: 150%;   /* 1.5x vertical rhythm */
@@ -19,31 +19,43 @@ body {
 /* HTML Elements
 -------------------------------------------------------------- */
 h1 {
-  font-size: 180%;
+  font-size:24px;
+  line-height:150%;
+  margin-bottom:15px;
 }
 
 h2 {
-  font-size: 142.85%;
+  font-size:18px;
+  line-height:150%;
+  margin-bottom:15px;
 }
 
 h3 {
-  font-size: 114.28%;
+  font-size:16px;
+  line-height:150%;
+  margin-bottom:15px;
 }
 
 h4 {
   font-size: 100%;
+  line-height:150%;
+  margin-bottom:15px;
 }
 
 h5 {
-  font-size: 90%;
+  font-size: 100%;
+  line-height:150%;
+  margin-bottom:15px;
 }
 
 h6 {
-  font-size: 80%;
+  font-size: 100%;
+  line-height:150%;
+  margin-bottom:15px;
 }
 
 #footer {
-  font-size: 95%;
+/*   font-size: 95%; */
 }
 
 
@@ -52,17 +64,17 @@ h6 {
 /* bylines and taxonomy */
 .submitted,
 .terms {
-  font-size: 95%;
+/*   font-size: 95%; */
 }
 
 .terms {
-  line-height: 130%;
+/*   line-height: 130%; */
 }
 
 .node .read-more,
 .node .more-link,
 .node .links {
-  font-size: 95%;
+/*   font-size: 95%; */
 }
 
 
@@ -70,44 +82,52 @@ h6 {
 /-------------------------------------------------------------- */
 div.comment div.links a,
 div.comment ul.links a {
-  font-size: 90%;
+/*   font-size: 90%; */
 }
 
 .signature {
-  font-size: 91.6%;
+/*   font-size: 91.6%; */
 }
 
 
 /* Links
 /-------------------------------------------------------------- */
 
-a, a:link, a:visited {
-  font-family: Arial, Helvetica, "Nimbus Sans L", FreeSans, sans-serif; /* web safe fonts */
-	color:#7B3F91;
-	text-decoration:none;
-
+a:link, a:visited { 
+  color:#96a044; 
+  text-decoration:none;
 }
-a:hover, a:active {
-
-	color:#533549;
-	text-decoration:underline;
-
+a:hover, a:active { 
+  color:#96a044; 
+  text-decoration:underline;
+}
+#header a:link, #header a:visited { 
+  color:#ffffff; 
+  text-decoration:none;
+}
+#header a:hover, #header a:active { 
+  color:#e7e7e7; 
+  text-decoration:underline;
 }
 
 /* breadcrumbs */
 .breadcrumbs {
+/*
   font-size: 90%;
   line-height: 100%;
+*/
 }
 
 /* pagers */
 ul.pager {
+/*
   font-size: 90%;
   line-height: 150%;
+*/
 }
 
 ul.pager li {
-  line-height: 250%;
+/*   line-height: 250%; */
 }
 
 
@@ -117,7 +137,7 @@ li,
 li.leaf,
 ul.menu li,
 .item-list ul li {
-  line-height: 150%;
+/*   line-height: 150%; */
 }
 
 
@@ -125,17 +145,19 @@ ul.menu li,
 /-------------------------------------------------------------- */
 /* form buttons */
 .form-submit {
-  font-size: 80%;
+/*   font-size: 80%; */
 }
 
 .form-item .description {
+/*
   font-size: 95%;
   line-height: 130%;
+*/
 }
 
 /* region labels on block admin page */
 .block-region {
-  font-size: 130%;
+/*   font-size: 130%; */
 }
 
 
@@ -143,14 +165,18 @@ ul.menu li,
 /-------------------------------------------------------------- */
 #content-tabs ul.primary li a:link,
 #content-tabs ul.primary li a:visited {
+/*
   font-size: 110%;
   line-height: 120%;
+*/
 }
 
 #content-tabs ul.secondary li a:link,
 #content-tabs ul.secondary li a:visited {
+/*
   font-size: 100%;
   line-height: 110%;
+*/
 }
 
 
@@ -165,14 +191,14 @@ ul.menu li,
 /* Forum
 /-------------------------------------------------------------- */
 #forum .description {
-  font-size: 90%;
+/*   font-size: 90%; */
 }
 
 
 /* Grid Mask Overlay
 -------------------------------------------------------------- */
 #grid-mask-toggle {
-  font-size: 14px;
+/*   font-size: 14px; */
 }
 
 
@@ -272,7 +298,7 @@ div.content-help-inner div.help {
 #site-name a:visited,
 #site-name a:hover,
 #site-name a:active {
-  text-decoration: none;
+/*   text-decoration: none; */
 }
 
 #site-name a {
