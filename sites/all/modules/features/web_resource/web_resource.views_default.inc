@@ -356,7 +356,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_ownership']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_ownership']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_ownership']['field_api_classes'] = 0;
-  /* Field: Fields: Type */
+  /* Field: Fields: Type of Group */
   $handler->display->display_options['fields']['field_type_web_resource']['id'] = 'field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['table'] = 'field_data_field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['field'] = 'field_type_web_resource';
@@ -740,7 +740,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['field_ownership']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_ownership']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_ownership']['field_api_classes'] = 0;
-  /* Field: Fields: Type */
+  /* Field: Fields: Type of Group */
   $handler->display->display_options['fields']['field_type_web_resource']['id'] = 'field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['table'] = 'field_data_field_type_web_resource';
   $handler->display->display_options['fields']['field_type_web_resource']['field'] = 'field_type_web_resource';

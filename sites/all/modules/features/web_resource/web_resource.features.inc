@@ -51,7 +51,7 @@ function web_resource_flag_default_flags() {
     'title' => 'Like',
     'global' => '0',
     'types' => array(
-      0 => 'web_resource',
+      0 => 'online_community',
     ),
     'flag_short' => 'Like',
     'flag_long' => 'I like this.',
@@ -74,11 +74,11 @@ function web_resource_flag_default_flags() {
     'show_on_form' => 0,
     'access_author' => '',
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'web_resource',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   return $flags;
 }
@@ -118,7 +118,7 @@ function web_resource_node_info() {
       'description' => t('A web resource that is of particular use to the community. For example, a hyperlocal blog.'),
       'has_title' => '1',
       'title_label' => t('Name'),
-      'help' => '',
+      'help' => t('What is the name of the community group. Try to use the name that the group calls itself. That will help prevent duplicates.'),
     ),
   );
   return $items;

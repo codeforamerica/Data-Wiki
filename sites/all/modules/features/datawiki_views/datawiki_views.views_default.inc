@@ -30,11 +30,10 @@ function datawiki_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'title' => 'title',
-  );
-  $handler->display->display_options['row_options']['hide_empty'] = 0;
+  $handler->display->display_options['row_plugin'] = 'node';
+  $handler->display->display_options['row_options']['view_mode'] = 'search_result';
+  $handler->display->display_options['row_options']['links'] = 1;
+  $handler->display->display_options['row_options']['comments'] = 0;
   /* Header: Global: Text area */
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
@@ -42,9 +41,9 @@ function datawiki_views_views_default_views() {
   $handler->display->display_options['header']['area']['empty'] = FALSE;
   $handler->display->display_options['header']['area']['content'] = 'We want to make the best quality information. 
 
-<a href="/content/import">Import data</a>
+<a href="http://50.17.146.253/citywho/Data-Wiki/content/import">Import data</a>
 
-If you have information that we can upload in bulk, <a href="/content/contact-data">let us know.</a> 
+If you have information that we can upload in bulk, <a href="http://50.17.146.253/citywho/Data-Wiki/content/contact-data">let us know.</a> 
 You can request pages to be scraped, share data with us via links to csv & json files.
 ';
   /* Field: Content: Title */
@@ -100,9 +99,9 @@ You can request pages to be scraped, share data with us via links to csv & json 
     t('Offset'),
     t('We want to make the best quality information. 
 
-<a href="/content/import">Import data</a>
+<a href="http://50.17.146.253/citywho/Data-Wiki/content/import">Import data</a>
 
-If you have information that we can upload in bulk, <a href="/content/contact-data">let us know.</a> 
+If you have information that we can upload in bulk, <a href="http://50.17.146.253/citywho/Data-Wiki/content/contact-data">let us know.</a> 
 You can request pages to be scraped, share data with us via links to csv & json files.
 '),
     t('Page'),
@@ -111,25 +110,47 @@ You can request pages to be scraped, share data with us via links to csv & json 
 
   $view = new view;
   $view->name = 'neighborhood';
-  $view->description = 'All content by neighborhood';
+  $view->description = 'Search content';
   $view->tag = 'default';
   $view->base_table = 'node';
-  $view->human_name = 'Neighborhood';
+  $view->human_name = 'Search';
   $view->core = 7;
   $view->api_version = '3.0-alpha1';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Neighborhood';
+  $handler->display->display_options['title'] = 'Find Online Communities';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['type'] = 'input_required';
+  $handler->display->display_options['exposed_form']['options']['text_input_required'] = array(
+    'value' => 'Select any filter and click on Apply to see results',
+    'format' => 'filtered_html',
+  );
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_plugin'] = 'node';
+  $handler->display->display_options['row_options']['view_mode'] = 'search_result';
+  $handler->display->display_options['row_options']['links'] = 1;
+  $handler->display->display_options['row_options']['comments'] = 0;
+  $handler->display->display_options['exposed_block'] = TRUE;
+  /* Footer: Global: Text area */
+  $handler->display->display_options['footer']['area']['id'] = 'area';
+  $handler->display->display_options['footer']['area']['table'] = 'views';
+  $handler->display->display_options['footer']['area']['field'] = 'area';
+  $handler->display->display_options['footer']['area']['empty'] = FALSE;
+  $handler->display->display_options['footer']['area']['content'] = '<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = FALSE;
+  $handler->display->display_options['empty']['area']['content'] = 'No results found.
+
+<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -204,30 +225,47 @@ You can request pages to be scraped, share data with us via links to csv & json 
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'web_resource' => 'web_resource',
+    'online_community' => 'online_community',
   );
-  /* Filter criterion: Taxonomy: Term ID (with depth) */
+  /* Filter criterion: Neighborhood */
   $handler->display->display_options['filters']['term_node_tid_depth']['id'] = 'term_node_tid_depth';
   $handler->display->display_options['filters']['term_node_tid_depth']['table'] = 'node';
   $handler->display->display_options['filters']['term_node_tid_depth']['field'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['ui_name'] = 'Neighborhood';
   $handler->display->display_options['filters']['term_node_tid_depth']['exposed'] = TRUE;
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator_id'] = 'term_node_tid_depth_op';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['label'] = 'Neighborhood';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator'] = 'term_node_tid_depth_op';
-  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'neighborhood';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['reduce'] = 0;
-  $handler->display->display_options['filters']['term_node_tid_depth']['reduce_duplicates'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['term_node_tid_depth']['type'] = 'select';
   $handler->display->display_options['filters']['term_node_tid_depth']['vocabulary'] = 'neighborhood';
-  $handler->display->display_options['filters']['term_node_tid_depth']['error_message'] = 1;
-  $handler->display->display_options['filters']['term_node_tid_depth']['depth'] = '0';
+  $handler->display->display_options['filters']['term_node_tid_depth']['error_message'] = 0;
+  $handler->display->display_options['filters']['term_node_tid_depth']['depth'] = '-1';
+  /* Filter criterion: Category */
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['id'] = 'term_node_tid_depth_1';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['table'] = 'node';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['field'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['ui_name'] = 'Category';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['operator_id'] = 'term_node_tid_depth_1_op';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['label'] = 'Topic';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['operator'] = 'term_node_tid_depth_1_op';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['identifier'] = 'category';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['reduce'] = 0;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['type'] = 'select';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['vocabulary'] = 'categories';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['error_message'] = 0;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['depth'] = '0';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'search/neighborhood';
+  $handler->display->display_options['path'] = 'search/online-communities';
   $translatables['neighborhood'] = array(
     t('Master'),
-    t('Neighborhood'),
+    t('Find Online Communities'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -237,8 +275,14 @@ You can request pages to be scraped, share data with us via links to csv & json 
     t('Items per page'),
     t('- All -'),
     t('Offset'),
+    t('<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>'),
+    t('No results found.
+
+<a href="http://50.17.146.253/citywho/Data-Wiki/">New Search</a>'),
     t('Type'),
     t('Updated date'),
+    t('Neighborhood'),
+    t('Topic'),
     t('Page'),
   );
   $export['neighborhood'] = $view;

@@ -26,11 +26,23 @@ function web_resource_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'block-2' => array(
+          'module' => 'block',
+          'delta' => 2,
+          'region' => 'content',
+          'weight' => '-9',
+        ),
         'views--exp-neighborhood-page' => array(
           'module' => 'views',
           'delta' => '-exp-neighborhood-page',
           'region' => 'content',
-          'weight' => '-10',
+          'weight' => '-8',
+        ),
+        'block-3' => array(
+          'module' => 'block',
+          'delta' => 3,
+          'region' => 'content',
+          'weight' => '-7',
         ),
       ),
     ),
