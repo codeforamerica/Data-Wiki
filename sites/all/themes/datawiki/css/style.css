@@ -21,37 +21,37 @@ body {
 h1 {
   font-size:24px;
   line-height:150%;
-  margin-bottom:15px;
+  margin: 0 0 5px 0;
 }
 
 h2 {
   font-size:18px;
   line-height:150%;
-  margin-bottom:15px;
+  margin: 0 0 5px 0;
 }
 
 h3 {
   font-size:16px;
   line-height:150%;
-  margin-bottom:15px;
+  margin: 0 0 5px 0;
 }
 
 h4 {
   font-size: 100%;
   line-height:150%;
-  margin-bottom:15px;
+  margin: 0 0 5px 0;
 }
 
 h5 {
   font-size: 100%;
   line-height:150%;
-  margin-bottom:15px;
+  margin: 0 0 5px 0;
 }
 
 h6 {
   font-size: 100%;
   line-height:150%;
-  margin-bottom:15px;
+  margin: 0 0 5px 0;
 }
 
 #site-name a {
@@ -309,13 +309,34 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 
 .node .field-label {
   font-weight: normal;
-  color: #aaa;
+/*   color: #aaa; */
+}
+
+
+.views-row .node .field-label {
+/* font-weight: bold; */
+  width: 150px;
+/* font-size: 120%; */
 }
 
 .views-row .node .field-item {
-font-weight: bold;
-font-size: 120%;
+/* font-weight: bold; */
+/* font-size: 120%; */
 }
+.views-row .field-type-taxonomy-term-reference .field-items {
+  text-transform: capitalize;
+/*   margin: 0 0px 0 150px; */
+}
+
+
+.views-row .field-type-taxonomy-term-reference .field-item {
+  text-transform: capitalize;
+  margin: 0 10px 0 0;
+  float: left;
+/*   width: 300px; */
+/*   display: inline; */
+}
+
 
 .node .meta {
 /*   margin: 10px 0 20px 0; */
@@ -329,8 +350,9 @@ li.flag-like span.flag-like a{
   margin: 5px 0 0 0;
   padding: 10px 20px;
   display: inline-block;
+  text-transform: uppercase;
   background-color: #533549;
-  font-weight: bold;
+/*   font-weight: bold; */
   color: #fff;
 }
 
@@ -342,36 +364,23 @@ li.flag-like span.flag-like a.unflag-action{
   font-weight: bold;
   color: #fff;
 }
-/*
 
-#block-system-main-menu li {
-  display: inline;
-  padding: 0 20px 0 0;
-}
-
-#header a,
-#block-system-main-menu li a {
-  font-size: 100%;
-}
-*/
-/*
-
-.view-web-resources .views-row .node {
-  background-color: #ededed;
-  padding: 20px;
-}
-*/
-
-/*
 .search-terms {
-  font-weight: bold;
-	color:#7B3F91;
   margin: 10px 0 20px 0;
   padding: 20px;
   background-color: #ededed;
 }
 
-*/
+.search-terms .field-label {
+  float: left;
+  width: 150px;
+}
+
+.search-terms .field-item {
+  font-weight: bold;
+  clear: right;
+  text-transform: capitalize;
+}
 
 #branding-footer .logo {
   margin: 10px;
@@ -429,6 +438,7 @@ select {
   line-height: 14px;
   font-size: 14px;
   font-weight: bold;
+  text-transform: capitalize;
 }
 .views-exposed-widgets input {
 /*   margin: 0; */
@@ -461,6 +471,7 @@ select option {
 /* .views-submit-button, */
 #content .view-footer a, 
 #content .view .more-link a,
+#new-group-search .form-submit a,
 #content input.form-submit {
   background-color: #96a141;
   color: #ffffff;

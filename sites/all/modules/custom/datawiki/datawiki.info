@@ -1,9 +1,0 @@
-name = Data Wiki
-description = "Custom features for a Data Wiki site."
-core = 7.x
-
-files[] = datawiki.module
-# files[] = js/datawiki.js
-# files[] = css/datawiki.css
-
-# configure = admin/config/datawiki/settings

@@ -259,11 +259,12 @@ function datawiki_preprocess_views_view(&$vars) {
 
   if(!empty($vars['view']->exposed_input['category']) || !empty($vars['view']->exposed_input['type_community']) || !empty($vars['view']->exposed_input['category'])) {
     $vars['search_string'] = '<div class="search-terms">' . 
-      '<h3>' . t('Search terms') . '</h3>' . 
-        t('Neighborhood: ') . $term0  . '<br />' .
-        t('Category: ') .$term1  . '<br />' .
-/*         t('Type of Community: ') .$term2   . '<br />' .  */
-      '</div>';
+      '<h3>' . t('Search terms') . '</h3>'
+        . '<div class="field-label">' . t('Neighborhood: ') . '</div>' 
+        . '<div class="field-item">' . $term0 . '</div>' 
+        . '<div class="field-label">' . t('Category: ') . '</div>' 
+        . '<div class="field-item">' . $term1 . '</div>'
+        . '</div>';
   }
 }
 
