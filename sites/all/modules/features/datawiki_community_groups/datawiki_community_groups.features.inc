@@ -61,10 +61,10 @@ function datawiki_community_groups_flag_default_flags() {
     'types' => array(
       0 => 'online_community',
     ),
-    'flag_short' => 'I think this is a great group!',
+    'flag_short' => 'Recommend',
     'flag_long' => 'I like this.',
     'flag_message' => '',
-    'unflag_short' => 'Actually, no this group is not so great.',
+    'unflag_short' => 'Not Recommended',
     'unflag_long' => '',
     'unflag_message' => '',
     'unflag_denied_text' => '',
