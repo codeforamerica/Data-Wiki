@@ -58,7 +58,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: URL */
+  /* Field: Content: Link */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -265,7 +265,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: URL */
+  /* Field: Content: Link */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -376,7 +376,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['sorts']['last_updated']['table'] = 'node_comment_statistics';
   $handler->display->display_options['sorts']['last_updated']['field'] = 'last_updated';
   $handler->display->display_options['sorts']['last_updated']['order'] = 'DESC';
-  /* Sort criterion: Fields: URL (field_url) - url */
+  /* Sort criterion: Fields: Link (field_url) - url */
   $handler->display->display_options['sorts']['field_url_url']['id'] = 'field_url_url';
   $handler->display->display_options['sorts']['field_url_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['sorts']['field_url_url']['field'] = 'field_url_url';
@@ -398,17 +398,17 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
+    'feed_datawiki_community_groups' => 'feed_datawiki_community_groups',
+    'feed_mailing_list_rss_' => 'feed_mailing_list_rss_',
     'online_community' => 'online_community',
+    'feed_web_resource' => 'feed_web_resource',
   );
   $handler->display->display_options['filters']['type']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
-  $handler->display->display_options['filters']['type']['expose']['label'] = 'Content: Type';
-  $handler->display->display_options['filters']['type']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
-  $handler->display->display_options['filters']['type']['expose']['required'] = FALSE;
-  $handler->display->display_options['filters']['type']['expose']['remember'] = FALSE;
-  $handler->display->display_options['filters']['type']['expose']['multiple'] = FALSE;
+  $handler->display->display_options['filters']['type']['expose']['reduce'] = 1;
   $handler->display->display_options['path'] = 'groups/all';
 
   /* Display: Recently Added */
@@ -606,7 +606,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: URL */
+  /* Field: Content: Link */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -1132,7 +1132,7 @@ function datawiki_community_groups_views_default_views() {
     t('- All -'),
     t('Offset'),
     t('Title'),
-    t('URL'),
+    t('Link'),
     t('Email'),
     t('Updated/commented date'),
     t('Edit link'),
@@ -1142,6 +1142,8 @@ function datawiki_community_groups_views_default_views() {
     t('more'),
     t('Edit'),
     t('Added By'),
+    t('URL'),
+    t('Type'),
     t('Recently Added'),
     t('Number of Groups'),
     t('Recently Added Groups'),
@@ -1158,7 +1160,6 @@ function datawiki_community_groups_views_default_views() {
     t('Contact'),
     t('Location'),
     t('Ownership'),
-    t('Type'),
     t('Source'),
     t('Updated date'),
     t('GroupCounter'),
@@ -1405,7 +1406,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
     'data' => 'full',
   );
   $handler->display->display_options['fields']['field_location']['field_api_classes'] = 0;
-  /* Field: Content: URL */
+  /* Field: Content: Link */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -1451,7 +1452,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 0;
-  /* Field: Content: URL */
+  /* Field: Content: Link */
   $handler->display->display_options['fields']['field_url_1']['id'] = 'field_url_1';
   $handler->display->display_options['fields']['field_url_1']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url_1']['field'] = 'field_url';
@@ -1693,7 +1694,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 0;
-  /* Field: Content: URL */
+  /* Field: Content: Link */
   $handler->display->display_options['fields']['field_url']['id'] = 'field_url';
   $handler->display->display_options['fields']['field_url']['table'] = 'field_data_field_url';
   $handler->display->display_options['fields']['field_url']['field'] = 'field_url';
@@ -1978,7 +1979,7 @@ Anyone can add more community discussions. <a href="/user">Sign up</a> to <a hre
     t('Correct this data'),
     t('Page'),
     t('( JSON) Web Resource'),
-    t('URL'),
+    t('Link'),
     t('permalink'),
     t('location'),
     t('neighborhood'),
