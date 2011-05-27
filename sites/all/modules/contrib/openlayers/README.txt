@@ -86,7 +86,7 @@ maps.
 
 1. Normal Drupal module installation
 
-2. Set OpenLayers Source at: admin/build/openlayers
+2. Set OpenLayers Source at: admin/structure/openlayers
    It is suggested to download the library and use it locally for performance.
 
 3. A tutorial 

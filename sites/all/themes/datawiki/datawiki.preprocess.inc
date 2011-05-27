@@ -178,10 +178,7 @@ function datawiki_node_share(&$vars) {
   datawiki_fb_like($vars);
   $output = '';
   $output .= '<div class="node-share">';
-  $output .= 'Facebook';
   $output .= '<div class="facebook">' . $vars['fb_like'] . '</div>';
-  $output .= '<div class="twitter">Twitter</div>';
-  $output .= '<div class="supporters">23</div>';
   $output .= '</div>';
   return $output;
 }
@@ -201,10 +198,13 @@ function datawiki_fb_like(&$vars) {
 /**
  * Preprocessing function for node types.
  */
-function datawiki_preprocess_node_project(&$vars) {
+function datawiki_preprocess_node_online_community(&$vars) {
   // Create content variables for this node type.
-  $vars['location'] =  datawiki_node_location($vars);
-  $vars['share'] = datawiki_node_share($vars);
+  $vars['edit'] = l("Is this information incorrect? Sign in to edit it.", 'node/' . $vars['node']->nid . '/edit');
+
+  $vars['content']['links']['share']['#links']['share']['title'] = datawiki_node_share($vars);
+  $vars['content']['links']['share']['#links']['share']['html'] = TRUE;
+
 }
 
 /**

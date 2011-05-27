@@ -208,7 +208,7 @@ function openlayers_render_map($map = '') {
   
   // If it's an array, then we have been passed the map data array
   if (is_array($map)) {
-    return openlayres_render_map_data($map);
+    return openlayers_render_map_data($map);
   }
   
   // If it's a string, then we are passing a map name instead of the whole map object

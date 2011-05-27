@@ -295,7 +295,7 @@ function openlayers_ui_styles_form_submit(&$form, &$form_state) {
   // Redirect to edit page
   if ($success) {
     drupal_set_message(t('Style saved.'));
-    $form_state['redirect'] = 'admin/build/openlayers/styles/' . $style->name . '/edit';
+    $form_state['redirect'] = 'admin/structure/openlayers/styles/' . $style->name . '/edit';
   }
   else {
     form_set_error('openlayers', t('Error trying to save style.'));

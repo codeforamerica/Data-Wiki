@@ -225,7 +225,7 @@ class openlayers_views_style_data extends views_plugin_style {
         '%syntax' => '${field_name}',
         '%rendered' => '_rendered'))
       . '</p>'
-      . theme('item_list', $variable_fields)
+      . theme('item_list', array('items' => $variable_fields))
       . '<p>'
       . t('Please note that this does not apply to Grouped Displays.')
       . '</p>',
@@ -243,6 +243,7 @@ class openlayers_views_style_data extends views_plugin_style {
     $handlers = $this->display->handler->get_handlers('field');
     foreach ($sets as $title => $records) {
       foreach ($records as $id => $record) {
+        $this->view->row_index = $id;
         $attributes = array();
         foreach ($handlers as $hid => $handler) {
           if (!empty($handler->options['exclude'])) {

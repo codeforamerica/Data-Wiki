@@ -60,7 +60,7 @@ function openlayers_ui_layers_form_submit(&$form, &$form_state) {
   // Redirect to edit page
   if ($success) {
     drupal_set_message(t('Layer saved.'));
-    $form_state['redirect'] = 'admin/build/openlayers/layers/' . $layer->name . '/edit';
+    $form_state['redirect'] = 'admin/structure/openlayers/layers/' . $layer->name . '/edit';
   }
   else {
     form_set_error('openlayers', t('Error trying to save layer.'));
@@ -161,7 +161,7 @@ function openlayers_ui_get_layer_type_options($type) {
       // Build form.
       $form[$key] = array(
         '#type' => 'item',
-        '#title' => l($plugin['title'], "admin/build/openlayers/layers/add/{$key}"),
+        '#title' => l($plugin['title'], "admin/structure/openlayers/layers/add/{$key}"),
         '#value' =>  $plugin['description'],
       );
     }
@@ -224,7 +224,7 @@ function openlayers_ui_layers_import_validate($form, &$form_state) {
 
   if ($exists = openlayers_layer_load($layer->name)) {
     drupal_set_message(t('An existing layer of this name already exists'), 'error');
-    $form_state['redirect'] = 'admin/build/openlayers/layers';
+    $form_state['redirect'] = 'admin/structure/openlayers/layers';
   }
   else {
     drupal_set_title(t('Add Layer'));

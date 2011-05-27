@@ -59,8 +59,10 @@ function openlayers_test_install() {
  * Implementation of hook_uninstall().
  */
 function openlayers_test_uninstall() {
-  // Remove any added data
-  node_type_delete('openlayers_test_type');
+  // Remove any added data (check for function)
+  if (function_exists('node_type_delete')) {
+    node_type_delete('openlayers_test_type');
+  }
 
   // Get module variables
   $results = db_query("SELECT v.name FROM {variable} AS v WHERE v.name LIKE '%s%%'", 'openlayers_test_');

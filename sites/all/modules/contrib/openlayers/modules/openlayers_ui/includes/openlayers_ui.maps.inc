@@ -25,7 +25,7 @@ function openlayers_ui_maps_form($form_state, $args = NULL, $map = FALSE, $edit 
   openlayers_include();
   ctools_include('dependent');
   drupal_add_js(drupal_get_path('module', 'openlayers_ui') .
-    '/js/openlayers_ui.maps.js', 'module');
+    '/js/openlayers_ui.maps.js');
   drupal_add_css(drupal_get_path('module', 'openlayers_ui') .
     '/openlayers_ui.css');
 
@@ -528,7 +528,7 @@ function openlayers_ui_maps_add_projection_submit($form, &$form_state) {
 function openlayers_ui_maps_form_submit($form, &$form_state) {
   // Check for cancel
   if ($form_state['clicked_button']['#id'] == 'edit-openlayers-cancel') {
-    $form_state['redirect'] = 'admin/build/openlayers/maps/list';
+    $form_state['redirect'] = 'admin/structure/openlayers/maps/list';
   }
 
   // Only save if save button is pressed
@@ -546,7 +546,7 @@ function openlayers_ui_maps_form_submit($form, &$form_state) {
     // Redirect to edit page
     if ($success) {
       drupal_set_message(t('Map saved.'));
-      $form_state['redirect'] = "admin/build/openlayers/maps/{$map_object->name}/edit";
+      $form_state['redirect'] = "admin/structure/openlayers/maps/{$map_object->name}/edit";
     }
     else {
       form_set_error('openlayers', t('Error trying to save map'));

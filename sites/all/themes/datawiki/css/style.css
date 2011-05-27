@@ -555,6 +555,15 @@ select option {
   width: 200px;
 }
 
+
+ul.links {
+  clear: both;
+}
+ul.links li.flag-like {
+ margin: 5px;
+}
+
+
 /*---- MESSAGES ----*/
 	
 div.status, table tr.ok {

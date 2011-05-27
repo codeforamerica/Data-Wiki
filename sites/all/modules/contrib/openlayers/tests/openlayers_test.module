@@ -16,7 +16,7 @@
 function openlayers_test_menu() {
   $items = array();
 
-  $items['admin/build/openlayers/test'] = array(
+  $items['admin/structure/openlayers/test'] = array(
     'title' => 'OpenLayers Test Page',
     'description' => 'Test Page for OpenLayers.',
     'page callback' => 'openlayers_test_page',
@@ -437,7 +437,7 @@ function openlayers_test_openlayers_map_preprocess_alter(&$map) {
   // For testing purposes, display a message on the only the Test
   // page, and only once.
   static $performed = FALSE;
-  if (!$performed && $_GET['q'] == 'admin/build/openlayers/test') {
+  if (!$performed && $_GET['q'] == 'admin/structure/openlayers/test') {
     drupal_set_message(t('OpenLayers preprocess map alter hook fired.'));
     $performed = TRUE;
   }
@@ -450,7 +450,7 @@ function openlayers_test_openlayers_map_alter(&$map) {
   // For testing purposes, display a message on the only the Test
   // page, and only once.
   static $performed = FALSE;
-  if (!$performed && $_GET['q'] == 'admin/build/openlayers/test') {
+  if (!$performed && $_GET['q'] == 'admin/structure/openlayers/test') {
     drupal_set_message(t('OpenLayers map alter hook fired.'));
     $performed = TRUE;
   }

@@ -11,15 +11,9 @@
     <?php if ($display_submitted || !empty($content['links']['terms'])): ?>
       <div class="meta">
         <?php if ($display_submitted): ?>
-        <?php if($node->type == 'project'): ?>
           <span class="submitted">
-            <?php print t('Added by !username!location', array('!username' => $name, '!location' => $location)); ?>
+            <?php print t('Added by !username on !date', array('!username' => $name, '!date' => $date)); ?>
           </span>
-        <?php else: ?>
-          <span class="submitted">
-            <?php print t('Added by !username', array('!username' => $name)); ?>
-          </span>
-        <?php endif; ?>
       <?php endif; ?>
 
         <?php if (!empty($content['links']['terms'])): ?>
@@ -29,6 +23,9 @@
         <?php endif; ?>
       </div>
     <?php endif; ?>
+
+    <?php print render($content['links']); ?>
+
     <?php if ($node_top && !$teaser): ?>
     <div id="node-top" class="node-top row nested">
       <div id="node-top-inner" class="node-top-inner inner">
@@ -55,7 +52,7 @@
       <?php
         // We hide the comments and links now so that we can render them later.
         hide($content['comments']);
-        hide($content['links']);
+/*         hide($content['links']); */
         print render($content);
       ?>
     </div>
@@ -69,7 +66,7 @@
     <div class="clear"></div>
   <?php endif; ?>
 
-    <?php print render($content['links']); ?>
+
     <div class="clear"></div>
     <?php print render($content['comments']); ?>
     <div class="clear"></div>
