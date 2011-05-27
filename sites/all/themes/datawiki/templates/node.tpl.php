@@ -24,8 +24,6 @@
       </div>
     <?php endif; ?>
 
-    <?php print render($content['links']); ?>
-
     <?php if ($node_top && !$teaser): ?>
     <div id="node-top" class="node-top row nested">
       <div id="node-top-inner" class="node-top-inner inner">
@@ -34,7 +32,8 @@
     </div><!-- /node-top -->
     <?php endif; ?>
 
-    <div class="content <?php print $node_content_width; ?>"<?php print $content_attributes; ?>>
+    <div class="content grid_12 alpha <?php print $node_content_width; ?>"<?php print $content_attributes; ?>>
+
         <?php hide($content['field_image']); ?>
 
       <div class="content-top">
@@ -52,10 +51,17 @@
       <?php
         // We hide the comments and links now so that we can render them later.
         hide($content['comments']);
-/*         hide($content['links']); */
+        hide($content['links']);
         print render($content);
       ?>
     </div>
+
+
+  <?php if($content['links']): ?>
+    <div class="links grid_4 omega">
+      <?php print render($content['links']); ?>
+    </div>
+  <?php endif; ?>
 
   <?php if ($node_sidebar && !$teaser): ?>
     <div id="node-sidebar" class="node-sidebar row nested grid_4 omega">
