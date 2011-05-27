@@ -25,6 +25,14 @@ function datawiki_community_groups_ctools_plugin_api() {
     return array("version" => 1);
   }
   list($module, $api) = func_get_args();
+  if ($module == "openlayers" && $api == "openlayers_maps") {
+    return array("version" => 1);
+  }
+  list($module, $api) = func_get_args();
+  if ($module == "openlayers" && $api == "openlayers_styles") {
+    return array("version" => 1);
+  }
+  list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => 1);
   }
@@ -53,10 +61,10 @@ function datawiki_community_groups_flag_default_flags() {
     'types' => array(
       0 => 'online_community',
     ),
-    'flag_short' => 'Like',
+    'flag_short' => 'I think this is a great group!',
     'flag_long' => 'I like this.',
     'flag_message' => '',
-    'unflag_short' => 'Unlike',
+    'unflag_short' => 'Actually, no this group is not so great.',
     'unflag_long' => '',
     'unflag_message' => '',
     'unflag_denied_text' => '',
@@ -89,7 +97,7 @@ function datawiki_community_groups_flag_default_flags() {
 function datawiki_community_groups_node_info() {
   $items = array(
     'feed_datawiki_community_groups' => array(
-      'name' => t('Feed: Online Community (CSV)'),
+      'name' => t('Feed: Online Community (Link to CSV)'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

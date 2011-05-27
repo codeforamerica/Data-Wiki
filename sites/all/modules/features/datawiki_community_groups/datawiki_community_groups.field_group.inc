@@ -20,7 +20,7 @@ function datawiki_community_groups_field_group_info() {
   $field_group->parent_name = 'group_online_community';
   $field_group->data = array(
     'label' => 'Basic Information',
-    'weight' => '7',
+    'weight' => '1',
     'children' => array(
       0 => 'field_url',
       1 => 'field_description',
@@ -50,16 +50,16 @@ function datawiki_community_groups_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'online_community';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_online_community';
+  $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Geographic',
-    'weight' => '10',
+    'label' => 'Map this Group',
+    'weight' => '1',
     'children' => array(
       0 => 'field_location',
     ),
-    'format_type' => 'tab',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'formatter' => 'collapsible',
       'instance_settings' => array(
         'classes' => '',
         'required_fields' => 1,
@@ -67,6 +67,61 @@ function datawiki_community_groups_field_group_info() {
     ),
   );
   $export['group_geographic|node|online_community|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_group|node|online_community|default';
+  $field_group->group_name = 'group_group';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'online_community';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Group',
+    'weight' => '11',
+    'children' => array(
+      0 => 'group_location',
+      1 => 'group_metadata',
+      2 => 'group_overview',
+    ),
+    'format_type' => 'tabs',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_group|node|online_community|default'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_location|node|online_community|default';
+  $field_group->group_name = 'group_location';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'online_community';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_group';
+  $field_group->data = array(
+    'label' => 'Where is this group?',
+    'weight' => '13',
+    'children' => array(
+      0 => 'field_area_code',
+      1 => 'field_state',
+      2 => 'field_neighborhood',
+      3 => 'field_city',
+      4 => 'field_district',
+      5 => 'field_region',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_location|node|online_community|default'] = $field_group;
 
   $field_group = new stdClass;
   $field_group->api_version = 1;
@@ -78,7 +133,7 @@ function datawiki_community_groups_field_group_info() {
   $field_group->parent_name = 'group_online_community';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '9',
+    'weight' => '4',
     'children' => array(
       0 => 'field_area_code',
       1 => 'field_state',
@@ -100,6 +155,65 @@ function datawiki_community_groups_field_group_info() {
 
   $field_group = new stdClass;
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_location|node|web_resource|form';
+  $field_group->group_name = 'group_location';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'web_resource';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Location',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_location',
+      1 => 'field_neighborhood',
+      2 => 'field_district',
+      3 => 'field_city',
+      4 => 'field_area_code',
+      5 => 'field_state',
+      6 => 'field_region',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_location|node|web_resource|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_metadata|node|online_community|default';
+  $field_group->group_name = 'group_metadata';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'online_community';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_group';
+  $field_group->data = array(
+    'label' => 'More about this group',
+    'weight' => '14',
+    'children' => array(
+      0 => 'field_type_web_resource',
+      1 => 'field_ownership',
+      2 => 'field_source',
+      3 => 'field_activity',
+      4 => 'field_audience_size',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_metadata|node|online_community|default'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_metadata|node|online_community|form';
   $field_group->group_name = 'group_metadata';
   $field_group->entity_type = 'node';
@@ -108,7 +222,7 @@ function datawiki_community_groups_field_group_info() {
   $field_group->parent_name = 'group_online_community';
   $field_group->data = array(
     'label' => 'Say more about this',
-    'weight' => '8',
+    'weight' => '2',
     'children' => array(
       0 => 'field_image',
       1 => 'field_ownership',
@@ -131,6 +245,38 @@ function datawiki_community_groups_field_group_info() {
 
   $field_group = new stdClass;
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_metadata|node|web_resource|form';
+  $field_group->group_name = 'group_metadata';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'web_resource';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Metadata',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_description',
+      1 => 'field_contact',
+      2 => 'field_categories',
+      3 => 'field_image',
+      4 => 'field_type_web_resource',
+      5 => 'field_ownership',
+      6 => 'field_source',
+      7 => 'field_activity',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_metadata|node|web_resource|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_online_community|node|online_community|form';
   $field_group->group_name = 'group_online_community';
   $field_group->entity_type = 'node';
@@ -139,12 +285,11 @@ function datawiki_community_groups_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Online Community',
-    'weight' => '5',
+    'weight' => '0',
     'children' => array(
       0 => 'group_metadata',
       1 => 'group_location',
-      2 => 'group_geographic',
-      3 => 'group_basic',
+      2 => 'group_basic',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
@@ -155,6 +300,35 @@ function datawiki_community_groups_field_group_info() {
     ),
   );
   $export['group_online_community|node|online_community|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_overview|node|online_community|default';
+  $field_group->group_name = 'group_overview';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'online_community';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_group';
+  $field_group->data = array(
+    'label' => 'Overview',
+    'weight' => '12',
+    'children' => array(
+      0 => 'field_url',
+      1 => 'field_description',
+      2 => 'field_categories',
+      3 => 'field_image',
+      4 => 'field_contact',
+      5 => 'field_email',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_overview|node|online_community|default'] = $field_group;
 
   return $export;
 }

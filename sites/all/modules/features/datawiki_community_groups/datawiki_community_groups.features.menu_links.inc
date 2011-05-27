@@ -35,9 +35,7 @@ function datawiki_community_groups_menu_default_menu_links() {
     'router_path' => 'node/%',
     'link_title' => 'Add Groups',
     'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
+      'attributes' => array(),
     ),
     'module' => 'menu',
     'hidden' => '0',
