@@ -68,11 +68,11 @@ h6 {
 /-------------------------------------------------------------- */
 
 a:link, a:visited { 
-  color:#82A047; 
+  color:#7D8426; 
   text-decoration:none;
 }
 a:hover, a:active { 
-  color:#82A047; 
+  color:#7D8426; 
   text-decoration:underline;
 }
 #header a:link, #header a:visited { 
@@ -352,7 +352,7 @@ li.flag-like span.flag-like a{
   padding: 10px 20px;
   display: inline-block;
   text-transform: uppercase;
-  background-color: #95DCEF;
+  background-color: #C0C48A;
 /*   font-weight: bold; */
   color: #fff;
 }
