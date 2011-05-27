@@ -9,10 +9,23 @@
   margin: 10px;
   padding: 20px;
   background-color: #ddd;
+  width: 400px;
 }
 
+
+fieldset a.fieldset-title {
+  font-size: 150%;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #66ACBF;
+  padding: 5px 10px;
+  margin: 20px 20px 10px 0;
+  font-weight: bold;
+}
+
+
 .node-form .form-item label {
-  background-color: #e89a41;
+  background-color: #66ACBF;
   padding: 5px 10px;
   margin: 0 20% 10px 0;
   color: #fff;
@@ -27,8 +40,15 @@
 .node-form .form-item textarea,
 .node-form .form-item input {
   font-size: 100%;
+  width: 400px;
 }
 
+.node-form .form-item input.form-checkbox {
+  width: auto;
+}
+.grippie {
+  width: 400px;
+}
 .node-form  .form-actions {
   font-size: 100%;
   padding: 10px;  
@@ -42,11 +62,36 @@
 }
 
 
+.vertical-tabs ul.vertical-tabs-list li.selected {
+  background-color: #0FBAE8;
+  border: 0;
+  border-bottom: 1px solid #fff;
+}
+
+.vertical-tabs ul.vertical-tabs-list li {
+  background-color: #0B9AAD;
+  border: 0;
+  border-bottom: 1px solid #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.vertical-tabs ul.vertical-tabs-list li a {
+  color: #fff;
+}
+
+
+
+
 /* Error that appears when a required form field is not filled out */
 .form-item input.error,
 .form-item textarea.error,
 .form-item select.error {
   border: 1px solid #aa1144;
+}
+
+fieldset.group-geographic {
+  background-color: #CBE8EF;
+  border: none;
 }
 
 
