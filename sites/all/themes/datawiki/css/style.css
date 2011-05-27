@@ -347,21 +347,20 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 }
 
 li.flag-like span.flag-like a{
-  margin: 5px 0 0 0;
+  margin: 5px 0 10px 0;
   padding: 10px 20px;
   display: inline-block;
   text-transform: uppercase;
-  background-color: #533549;
+  background-color: #95DCEF;
 /*   font-weight: bold; */
   color: #fff;
 }
 
 li.flag-like span.flag-like a.unflag-action{
-  margin: 5px 0 0 0;
+  margin: 5px 0 10px 0;
   padding: 10px 20px;
   display: inline-block;
-  background-color: #666;
-  font-weight: bold;
+  background-color: #99B9C1;
   color: #fff;
 }
 
