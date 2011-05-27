@@ -323,6 +323,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
   $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
@@ -365,6 +366,7 @@ function datawiki_community_groups_views_default_views() {
   $handler->display->display_options['sorts']['last_updated']['id'] = 'last_updated';
   $handler->display->display_options['sorts']['last_updated']['table'] = 'node_comment_statistics';
   $handler->display->display_options['sorts']['last_updated']['field'] = 'last_updated';
+  $handler->display->display_options['sorts']['last_updated']['order'] = 'DESC';
   /* Sort criterion: Fields: URL (field_url) - url */
   $handler->display->display_options['sorts']['field_url_url']['id'] = 'field_url_url';
   $handler->display->display_options['sorts']['field_url_url']['table'] = 'field_data_field_url';
@@ -1104,6 +1106,7 @@ function datawiki_community_groups_views_default_views() {
     t('Name'),
     t('Page'),
     t('more'),
+    t('Edit'),
     t('Added By'),
     t('Recently Added'),
     t('Number of Groups'),
