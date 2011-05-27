@@ -6,7 +6,8 @@
 -------------------------------------------------------------- */
 body {
   font-family: Helvetica, Arial, sans-serif; color:#666; /* web safe fonts */
-  font-size: 14px;
+  font-size: 16px;
+  letter-spacing: 0.06em;
   
   line-height: 150%;   /* 1.5x vertical rhythm */
 }
