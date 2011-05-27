@@ -201,7 +201,7 @@ function datawiki_fb_like(&$vars) {
 function datawiki_preprocess_node_online_community(&$vars) {
   // Create content variables for this node type.
   $vars['edit'] = l("Is this information incorrect? Sign in to edit it.", 'node/' . $vars['node']->nid . '/edit');
-  if(!$vars['teaser'] && !$vars['view_mode'] == 'search_result') {
+  if(($vars['teaser'] == FALSE) && ($vars['view_mode'] != 'search_result')) {
     $vars['content']['links']['share']['#links']['share']['title'] = datawiki_node_share($vars);
     $vars['content']['links']['share']['#links']['share']['html'] = TRUE;
   }
