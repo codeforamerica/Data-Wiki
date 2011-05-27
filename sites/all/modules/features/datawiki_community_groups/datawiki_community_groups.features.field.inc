@@ -1238,7 +1238,7 @@ function datawiki_community_groups_field_default_fields() {
       'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended) List categories, separated by commas, describing this group.',
+      'description' => '(Recommended) List categories, separated by commas, describing this group. <a href="/categories">See all the categories</a>',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1393,7 +1393,7 @@ function datawiki_community_groups_field_default_fields() {
       'bundle' => 'online_community',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Optional) Provide contact information for getting in touch with the group.',
+      'description' => '(Optional) Provide contact information for getting in touch with the group. Could be a name, or a phone number, or an email address.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1608,7 +1608,7 @@ function datawiki_community_groups_field_default_fields() {
       'description' => '(Recommended) Provide an email address (if appropriate) for the best way to join the group by email.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
@@ -1762,7 +1762,7 @@ function datawiki_community_groups_field_default_fields() {
           'weight' => '15',
         ),
         'search_result' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '16',
@@ -2254,12 +2254,12 @@ function datawiki_community_groups_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'options',
         'settings' => array(
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'options_select',
         'weight' => '12',
       ),
     ),
@@ -2399,10 +2399,10 @@ function datawiki_community_groups_field_default_fields() {
   // Included for use with string extractors like potx.
   t('(Optional) Describe the group in a way that might help a general audience to understand what the group is about.');
   t('(Optional) How active is this group?');
-  t('(Optional) Provide contact information for getting in touch with the group.');
+  t('(Optional) Provide contact information for getting in touch with the group. Could be a name, or a phone number, or an email address.');
   t('(Optional) What geographic information can you provide for this group?');
   t('(Optional) Who provided information about the existence of this group?');
-  t('(Recommended) List categories, separated by commas, describing this group.');
+  t('(Recommended) List categories, separated by commas, describing this group. <a href="/categories">See all the categories</a>');
   t('(Recommended) Point to the best page that explains the group and how to join the group.');
   t('(Recommended) Provide an email address (if appropriate) for the best way to join the group by email.');
   t('(Recommended) What kind of community group is this? Examples include: Facebook Group or page, Yahoo or Google Group, Meetup Group, Mailing list, Hyperlocal blog.');
