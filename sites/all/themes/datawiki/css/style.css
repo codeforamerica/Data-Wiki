@@ -67,11 +67,11 @@ h6 {
 /-------------------------------------------------------------- */
 
 a:link, a:visited { 
-  color:#96a044; 
+  color:#368936; 
   text-decoration:none;
 }
 a:hover, a:active { 
-  color:#96a044; 
+  color:#368936; 
   text-decoration:underline;
 }
 #header a:link, #header a:visited { 
