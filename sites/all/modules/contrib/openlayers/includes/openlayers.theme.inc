@@ -12,7 +12,7 @@
  */
 function theme_openlayers_map($args) {
   $map = $args['map'];
-  $map_name = $args['map_name'];
+  $map_name = $map['map_name'];
   // To ensure that any controls are on the map correctly, we need to
   // wrap the map in a container, and take into account percentage dimensions
   $container_width = $map['width'];
