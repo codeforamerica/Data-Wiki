@@ -23,4 +23,8 @@ dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = rdf
+
+dependencies[] = features
+dependencies[] = datawiki_install
+
 files[] = citygroups.profile
