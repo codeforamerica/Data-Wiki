@@ -22,3 +22,12 @@ The goal, later on, is to have it be possible to have other install profiles,
 but especially to add other content types as necessary while keeping largely similar interactions.
 
 
+* Fill in features
+
+Community Group Content Type
+Views
+Feed upload
+Feed
+
+city groups views
+city groups contexts

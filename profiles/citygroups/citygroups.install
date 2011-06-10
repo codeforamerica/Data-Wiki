@@ -7,6 +7,17 @@
  * Perform actions to set up the site for this profile.
  */
 function citygroups_install() {
+
+  // Update the menu router information.
+  menu_rebuild();
+
+
+ // Enable default theme
+  theme_enable(array('datawiki', 'datawiki_admin'));
+  variable_set('theme_default', 'datawiki');
+  variable_set('admin_theme', 'datawiki_admin');
+  variable_set('node_admin_theme', '1');
+  
   // Add text formats.
   $filtered_html_format = array(
     'format' => 'filtered_html',
@@ -62,6 +73,7 @@ function citygroups_install() {
   );
   $full_html_format = (object) $full_html_format;
   filter_format_save($full_html_format);
+/*
 
   // Enable some standard blocks.
   $default_theme = variable_get('theme_default', 'datawiki');
@@ -193,6 +205,8 @@ function citygroups_install() {
     $query->values($record);
   }
   $query->execute();
+*/
+/*
 
   // Insert default pre-defined node types into the database. For a complete
   // list of available node type attributes, refer to the node type API
@@ -267,6 +281,8 @@ function citygroups_install() {
 
   // Allow visitor account creation with administrative approval.
   variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+*/
+/*
 
   // Create a default vocabulary named "Tags", enabled for the 'article' content type.
   $description = st('Use tags to group articles on similar topics into categories.');
@@ -279,7 +295,9 @@ function citygroups_install() {
 
   );
   taxonomy_vocabulary_save($vocabulary);
+*/
 
+/*
   $field = array(
     'field_name' => 'field_' . $vocabulary->machine_name,
     'type' => 'taxonomy_term_reference',
@@ -318,7 +336,9 @@ function citygroups_install() {
     ),
   );
   field_create_instance($instance);
+*/
 
+/*
 
   // Create an image field named "Image", enabled for the 'article' content type.
   // Many of the following values will be defaulted, they're included here as an illustrative examples.
@@ -388,6 +408,8 @@ function citygroups_install() {
     ),
   );
   field_create_instance($instance);
+*/
+/*
 
   // Enable default permissions for system roles.
   $filtered_html_permission = filter_permission_name($filtered_html_format);
@@ -415,16 +437,9 @@ function citygroups_install() {
     'menu_name' => 'main-menu',
   );
   menu_link_save($item);
-
-  // Update the menu router information.
-  menu_rebuild();
+*/
 
 
- // Enable default theme
-  theme_enable(array('datawiki', 'datawiki_admin'));
-  variable_set('theme_default', 'datawiki');
-  variable_set('admin_theme', 'datawiki_admin');
-  variable_set('node_admin_theme', '1');
 
   // Enable the admin theme.
 /*
