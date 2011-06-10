@@ -1,0 +1,4 @@
+core = "7.x"
+description = "DataWiki Community Groups Content Type"
+name = "DataWiki Community Groups Content Type"
+package = "Features"

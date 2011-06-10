@@ -1,0 +1,4 @@
+core = "7.x"
+description = "DataWiki Community Settings"
+name = "DataWiki Community Group Settings"
+package = "Features"

@@ -1,0 +1,4 @@
+core = "7.x"
+description = "CityGroups Installation (modules, dependent features)"
+name = "CityGroups Install"
+package = "Features"

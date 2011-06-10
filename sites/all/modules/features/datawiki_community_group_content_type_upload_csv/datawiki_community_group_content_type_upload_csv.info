@@ -1,0 +1,4 @@
+core = "7.x"
+description = "DataWiki Community Groups Content Type Upload CSV (container for Feed Importer)"
+name = "DataWiki Community Groups Content Type Upload CSV"
+package = "Features"
