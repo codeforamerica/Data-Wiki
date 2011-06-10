@@ -112,6 +112,7 @@ function datawiki_community_group_content_type_field_group_info() {
       3 => 'field_city',
       4 => 'field_district',
       5 => 'field_region',
+      6 => 'field_zipcode',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -141,6 +142,7 @@ function datawiki_community_group_content_type_field_group_info() {
       3 => 'field_city',
       4 => 'field_district',
       5 => 'field_region',
+      6 => 'field_zipcode',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -172,6 +174,7 @@ function datawiki_community_group_content_type_field_group_info() {
       4 => 'field_area_code',
       5 => 'field_state',
       6 => 'field_region',
+      7 => 'field_zipcode',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -201,6 +204,7 @@ function datawiki_community_group_content_type_field_group_info() {
       2 => 'field_source',
       3 => 'field_activity',
       4 => 'field_audience_size',
+      5 => 'field_notes',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
