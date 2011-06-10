@@ -183,7 +183,7 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'citygroups_db_pure',
+      'database' => 'citygroups_db_cleanup',
       'username' => 'root',
       'password' => 'root',
       'host' => 'localhost',
