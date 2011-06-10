@@ -63,8 +63,9 @@ function citygroups_install() {
   filter_format_save($full_html_format);
 
   // Enable some standard blocks.
-  $default_theme = variable_get('theme_default', 'bartik');
-  $admin_theme = 'seven';
+  $default_theme = variable_get('theme_default', 'citygroups');
+  $admin_theme = 'citygroups_admin';
+/*
   $values = array(
     array(
       'module' => 'system',
@@ -187,6 +188,8 @@ function citygroups_install() {
       'cache' => -1,
     ),
   );
+*/
+/*
   $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
   foreach ($values as $record) {
     $query->values($record);
@@ -426,4 +429,5 @@ function citygroups_install() {
     ->execute();
   variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');
+*/
 }
