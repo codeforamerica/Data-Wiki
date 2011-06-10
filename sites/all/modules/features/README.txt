@@ -19,7 +19,14 @@ There are many modules that need installing, they are installed to sites/all lik
 
 
 DataWiki is the core feature that turns on the shared Drupal settings common for other types of datawikis. For example, in addition to collecting crowd-sourced structured data for community groups, you can also collect social services information, information about community gardens, kitchens & farms.
-Lives here: drupal/sites/all/modules/features/datawiki_install
+Lives here: 
+
+drupal/sites/all/modules/features/datawiki_install
+
+DataWiki Views
+General Views across all DataWiki content.
+datawiki_views
+
 
 This includes:
 Module settings, special module dependencies. 
@@ -34,6 +41,9 @@ CityGroups
 datawiki_citygroups_install
 A features that provides special handling for City Groups the site.
 
+CityGroups Views
+General Views across all CityGroups content.
+datawiki_citygroups_views
 
 DataWiki Community Group
 A collection of features that make up the DataWiki Community Group App.

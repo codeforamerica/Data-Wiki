@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DataWiki Views feature.
+ */
+
+include_once('datawiki_views.features.inc');
