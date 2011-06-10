@@ -2,3 +2,7 @@ core = "7.x"
 description = "CityGroups Installation (modules, dependent features)"
 name = "CityGroups Install"
 package = "Features"
+
+dependencies[] = datawiki_citygroups_settings
+dependencies[] = datawiki_citygroups_views
+dependencies[] = datawiki_community_group_install

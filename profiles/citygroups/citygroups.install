@@ -1,4 +1,5 @@
 <?php
+// $Id: standard.install,v 1.30 2011/01/04 18:24:24 webchick Exp $
 
 /**
  * Implements hook_install().
@@ -63,9 +64,8 @@ function citygroups_install() {
   filter_format_save($full_html_format);
 
   // Enable some standard blocks.
-  $default_theme = variable_get('theme_default', 'citygroups');
-  $admin_theme = 'citygroups_admin';
-/*
+  $default_theme = variable_get('theme_default', 'datawiki');
+  $admin_theme = 'datawiki_admin';
   $values = array(
     array(
       'module' => 'system',
@@ -188,8 +188,6 @@ function citygroups_install() {
       'cache' => -1,
     ),
   );
-*/
-/*
   $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
   foreach ($values as $record) {
     $query->values($record);
@@ -274,7 +272,7 @@ function citygroups_install() {
   $description = st('Use tags to group articles on similar topics into categories.');
   $help = st('Enter a comma-separated list of words to describe your content.');
   $vocabulary = (object) array(
-    'name' => st('Tags'),
+    'name' => 'Tags',
     'description' => $description,
     'machine_name' => 'tags',
     'help' => $help,
@@ -301,7 +299,7 @@ function citygroups_install() {
   $instance = array(
     'field_name' => 'field_' . $vocabulary->machine_name,
     'entity_type' => 'node',
-    'label' => 'Tags',
+    'label' => $vocabulary->name,
     'bundle' => 'article',
     'description' => $vocabulary->help,
     'widget' => array(
@@ -421,13 +419,20 @@ function citygroups_install() {
   // Update the menu router information.
   menu_rebuild();
 
+
+ // Enable default theme
+  theme_enable(array('datawiki', 'datawiki_admin'));
+  variable_set('theme_default', 'datawiki');
+  variable_set('admin_theme', 'datawiki_admin');
+  variable_set('node_admin_theme', '1');
+
   // Enable the admin theme.
+/*
   db_update('system')
     ->fields(array('status' => 1))
     ->condition('type', 'theme')
-    ->condition('name', 'seven')
+    ->condition('name', 'datawiki_admin')
     ->execute();
-  variable_set('admin_theme', 'seven');
-  variable_set('node_admin_theme', '1');
 */
+
 }
