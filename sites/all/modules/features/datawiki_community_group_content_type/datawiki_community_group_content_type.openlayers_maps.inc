@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * datawiki_community_groups.openlayers_maps.inc
+ * datawiki_community_group_content_type.openlayers_maps.inc
  */
 
 /**

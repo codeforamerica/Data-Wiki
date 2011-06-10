@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * datawiki_community_groups.features.inc
+ * datawiki_community_group_content_type.features.inc
  */
 
 /**
@@ -26,13 +26,12 @@ function datawiki_community_group_content_type_ctools_plugin_api() {
   }
 }
 
-
 /**
  * Implementation of hook_flag_default_flags().
  */
 function datawiki_community_group_content_type_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Like".
+  // Exported flag: "Recommend".
   $flags['like'] = array(
     'content_type' => 'node',
     'title' => 'Recommend',

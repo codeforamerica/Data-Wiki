@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * datawiki_community_groups.features.taxonomy.inc
+ * datawiki_community_group_content_type.features.taxonomy.inc
  */
 
 /**
@@ -124,29 +124,6 @@ function datawiki_community_group_content_type_taxonomy_default_vocabularies() {
         ),
       ),
     ),
-    'dataset_type' => array(
-      'name' => 'Type of Dataset',
-      'machine_name' => 'type_dataset',
-      'description' => '',
-      'hierarchy' => '0',
-      'module' => 'taxonomy',
-      'weight' => '0',
-      'rdf_mapping' => array(
-        'rdftype' => array(
-          0 => 'skos:ConceptScheme',
-        ),
-        'name' => array(
-          'predicates' => array(
-            0 => 'dc:title',
-          ),
-        ),
-        'description' => array(
-          'predicates' => array(
-            0 => 'rdfs:comment',
-          ),
-        ),
-      ),
-    ),
     'district' => array(
       'name' => 'District',
       'machine_name' => 'district',
@@ -239,29 +216,6 @@ function datawiki_community_group_content_type_taxonomy_default_vocabularies() {
         ),
       ),
     ),
-    'zipcode' => array(
-      'name' => 'Zipcode',
-      'machine_name' => 'zipcode',
-      'description' => '',
-      'hierarchy' => '0',
-      'module' => 'taxonomy',
-      'weight' => '0',
-      'rdf_mapping' => array(
-        'rdftype' => array(
-          0 => 'skos:ConceptScheme',
-        ),
-        'name' => array(
-          'predicates' => array(
-            0 => 'dc:title',
-          ),
-        ),
-        'description' => array(
-          'predicates' => array(
-            0 => 'rdfs:comment',
-          ),
-        ),
-      ),
-    ),
     'state' => array(
       'name' => 'State',
       'machine_name' => 'state',
@@ -308,9 +262,55 @@ function datawiki_community_group_content_type_taxonomy_default_vocabularies() {
         ),
       ),
     ),
-    'types_community' => array(
+    'type_dataset' => array(
+      'name' => 'Type of Dataset',
+      'machine_name' => 'type_dataset',
+      'description' => '',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
+    'type_group' => array(
       'name' => 'Type of Community Group',
       'machine_name' => 'type_group',
+      'description' => '',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
+    'zipcode' => array(
+      'name' => 'Zipcode',
+      'machine_name' => 'zipcode',
       'description' => '',
       'hierarchy' => '0',
       'module' => 'taxonomy',
