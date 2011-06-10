@@ -2,9 +2,9 @@ Refactoring the features to make them more intuitively named & less buggy.
 
 This requires moving all the old features into the new feature structure (mostly by hand.)
 
-* New naming structure for the features.
-* Set up all the features containers.
-* Set up major dependency structure in relation to install profile.
+* New naming structure for the features. (done)
+* Set up all the features containers. (done)
+* Set up major dependency structure in relation to install profile. (done)
 
 -- Profile installs the theme & as *few* settings as possible.
 
@@ -20,4 +20,5 @@ The install features load up settings, views, content types, feeds.
 
 The goal, later on, is to have it be possible to have other install profiles, 
 but especially to add other content types as necessary while keeping largely similar interactions.
+
 
