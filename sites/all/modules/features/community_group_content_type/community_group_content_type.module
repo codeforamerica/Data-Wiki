@@ -1,0 +1,6 @@
+<?php
+/**
+ * @file
+ */
+
+include_once('community_group_content_type.features.inc');
