@@ -24,9 +24,9 @@ but especially to add other content types as necessary while keeping largely sim
 
 * Fill in features
 
-Community Group Content Type
+Community Group Content Type (done)
 Views
-Feed upload
+Feed upload Container (done)
 Feed
 
 city groups views

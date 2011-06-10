@@ -49,14 +49,23 @@ DataWiki Community Group
 A collection of features that make up the DataWiki Community Group App.
 
 DataWiki Community Group Content Type 
-datawiki_community_group_content_type
+community_group_content_type
 Contains all of the fields, taxonomies for the structured data.
 
-DataWiki Community Group Feed Upload CSV
-datawiki_community_group_feed_upload_csv
+DataWiki Community Group Feed CSV Upload
+community_group_feed_csv_upload
 
-DataWiki Community Group Content Type Upload CSV
-datawiki_community_group_content_type_upload_csv
+DataWiki Community Group Feed CSV Link
+community_group_feed_csv_link
+
+DataWiki Community Group Feed RSS Link
+community_group_feed_rss_link
+
+DataWiki Community Group Feed JSON Link
+community_group_feed_json_link
+
+DataWiki Community Group Upload CSV (Content Type)
+community_group_upload_csv
 
 A container content type & Feed that allow for importing CSVs in the same format as the content type.
 
