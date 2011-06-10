@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Web resource feature.
- */
-
-include_once('datawiki_community_groups.features.inc');

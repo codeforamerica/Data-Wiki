@@ -60,12 +60,12 @@ datawiki_community_group_content_type_upload_csv
 
 A container content type & Feed that allow for importing CSVs in the same format as the content type.
 
-DataWiki Community Group View Data
-datawiki_community_group_view_data
-A view that displays the data as JSON and CSV (CSV is an export CSV button, and there is also a previewable table.)
+DataWiki Community Group Views
+datawiki_community_group_views
 
-DataWiki Community Group View Display
-datawiki_community_group_view_display
+Contains view of data & display.
+
+A view that displays the data as JSON and CSV (CSV is an export CSV button, and there is also a previewable table.)
 A view that displays the view to the user. Has search blocks.
 
 DataWiki Community Group Site Settings
