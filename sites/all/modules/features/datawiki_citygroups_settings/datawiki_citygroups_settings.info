@@ -1,0 +1,4 @@
+core = "7.x"
+description = "CityGroups Site Settings (permissions, contexts etc.)"
+name = "CityGroups Settings"
+package = "Features"
