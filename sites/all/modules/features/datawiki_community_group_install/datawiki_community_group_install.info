@@ -3,8 +3,8 @@ description = "DataWiki Community Install"
 name = "DataWiki Community Group Installer"
 package = "Features"
 
-dependencies[] = datawiki_community_group_settings
 dependencies[] = community_group_content_type
 dependencies[] = community_group_upload_csv
-dependencies[] = datawiki_community_group_feed_upload_csv
+dependencies[] = community_group_feed_csv_upload
 dependencies[] = datawiki_community_group_views
+dependencies[] = datawiki_community_group_settings

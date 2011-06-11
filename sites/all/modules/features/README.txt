@@ -53,15 +53,20 @@ community_group_content_type
 Contains all of the fields, taxonomies for the structured data.
 
 DataWiki Community Group Feed CSV Upload
+Community Group Feed CSV Upload
 community_group_feed_csv_upload
+Feed that uploads CSVs into Community Group Content Type
 
 DataWiki Community Group Feed CSV Link
+Community Group Feed CSV Link
 community_group_feed_csv_link
 
 DataWiki Community Group Feed RSS Link
+Community Group Feed RSS Link
 community_group_feed_rss_link
 
 DataWiki Community Group Feed JSON Link
+Community Group Feed JSON Link
 community_group_feed_json_link
 
 DataWiki Community Group Upload CSV (Content Type)

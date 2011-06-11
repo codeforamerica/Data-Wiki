@@ -1,6 +1,0 @@
-<?php
-/**
- * @file
- */
-
-include_once('datawiki_community_group_content_type.features.inc');

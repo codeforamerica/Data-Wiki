@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Community Group Feed CSV Upload feature.
+ */
+
+include_once('community_group_feed_csv_upload.features.inc');

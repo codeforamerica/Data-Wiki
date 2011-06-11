@@ -1,0 +1,8 @@
+core = "7.x"
+dependencies[] = "feeds"
+description = "Feed that uploads CSVs into Community Group Content Type"
+features[ctools][] = "feeds:feeds_importer_default:1"
+features[feeds_importer][] = "community_group_feed_csv_upload"
+name = "Community Group Feed CSV Upload"
+package = "Features"
+php = "5.2.4"

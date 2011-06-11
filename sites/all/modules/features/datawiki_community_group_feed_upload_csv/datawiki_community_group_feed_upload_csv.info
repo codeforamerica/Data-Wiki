@@ -1,4 +1,0 @@
-core = "7.x"
-description = "DataWiki Community Group Feed Upload CSV"
-name = "DataWiki Community Group Feed Upload CSV"
-package = "Features"
