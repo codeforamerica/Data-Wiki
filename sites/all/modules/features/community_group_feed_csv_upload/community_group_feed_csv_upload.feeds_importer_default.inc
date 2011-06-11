@@ -48,107 +48,117 @@ function community_group_feed_csv_upload_feeds_importer_default() {
             'target' => 'field_url:url',
             'unique' => FALSE,
           ),
-          2 => array(
-            'source' => 'email',
-            'target' => 'field_email',
-            'unique' => FALSE,
-          ),
           3 => array(
-            'source' => 'contact',
-            'target' => 'field_contact',
-            'unique' => FALSE,
-          ),
-          4 => array(
-            'source' => 'type_group',
-            'target' => 'field_type_web_resource',
-            'unique' => FALSE,
-          ),
-          5 => array(
-            'source' => 'categories',
-            'target' => 'field_categories',
-            'unique' => FALSE,
-          ),
-          6 => array(
-            'source' => 'description',
-            'target' => 'field_description',
-            'unique' => FALSE,
-          ),
-          7 => array(
-            'source' => 'notes',
-            'target' => 'field_notes',
-            'unique' => FALSE,
-          ),
-          8 => array(
-            'source' => 'source',
-            'target' => 'field_source',
-            'unique' => FALSE,
-          ),
-          9 => array(
-            'source' => 'activity_level',
-            'target' => 'field_activity',
-            'unique' => FALSE,
-          ),
-          10 => array(
-            'source' => 'audience_size',
-            'target' => 'field_audience_size',
-            'unique' => FALSE,
-          ),
-          11 => array(
-            'source' => 'ownership',
-            'target' => 'field_ownership',
-            'unique' => FALSE,
-          ),
-          12 => array(
-            'source' => 'image',
-            'target' => 'field_image',
-            'unique' => FALSE,
-          ),
-          13 => array(
-            'source' => 'neighborhood',
-            'target' => 'field_neighborhood',
-            'unique' => FALSE,
-          ),
-          14 => array(
-            'source' => 'neighborhood',
-            'target' => 'field_neighborhood',
-            'unique' => FALSE,
-          ),
-          15 => array(
-            'source' => 'district',
-            'target' => 'field_district',
-            'unique' => FALSE,
-          ),
-          16 => array(
-            'source' => 'region',
-            'target' => 'field_region',
-            'unique' => FALSE,
-          ),
-          17 => array(
-            'source' => 'city',
-            'target' => 'field_city',
-            'unique' => FALSE,
-          ),
-          18 => array(
-            'source' => 'state',
-            'target' => 'field_state',
-            'unique' => FALSE,
-          ),
-          19 => array(
-            'source' => 'area_code',
-            'target' => 'field_area_code',
-            'unique' => FALSE,
-          ),
-          20 => array(
-            'source' => 'latitude',
-            'target' => 'field_location:lat',
-            'unique' => FALSE,
-          ),
-          21 => array(
             'source' => 'calendar_url',
             'target' => 'field_url_calendar:url',
             'unique' => FALSE,
           ),
+          4 => array(
+            'source' => 'email',
+            'target' => 'field_email',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'contact',
+            'target' => 'field_contact',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'type_group',
+            'target' => 'field_type_web_resource',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'categories',
+            'target' => 'field_categories',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => 'description',
+            'target' => 'field_description',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => 'notes',
+            'target' => 'field_notes',
+            'unique' => FALSE,
+          ),
+          10 => array(
+            'source' => 'source',
+            'target' => 'field_source',
+            'unique' => FALSE,
+          ),
+          11 => array(
+            'source' => 'activity_level',
+            'target' => 'field_activity',
+            'unique' => FALSE,
+          ),
+          12 => array(
+            'source' => 'audience_size',
+            'target' => 'field_audience_size',
+            'unique' => FALSE,
+          ),
+          13 => array(
+            'source' => 'ownership',
+            'target' => 'field_ownership',
+            'unique' => FALSE,
+          ),
+          14 => array(
+            'source' => 'image',
+            'target' => 'field_image',
+            'unique' => FALSE,
+          ),
+          15 => array(
+            'source' => 'location',
+            'target' => 'field_location_description',
+            'unique' => FALSE,
+          ),
+          16 => array(
+            'source' => 'address',
+            'target' => 'field_address',
+            'unique' => FALSE,
+          ),
+          17 => array(
+            'source' => 'neighborhood',
+            'target' => 'field_neighborhood',
+            'unique' => FALSE,
+          ),
+          18 => array(
+            'source' => 'district',
+            'target' => 'field_district',
+            'unique' => FALSE,
+          ),
+          19 => array(
+            'source' => 'region',
+            'target' => 'field_region',
+            'unique' => FALSE,
+          ),
+          20 => array(
+            'source' => 'city',
+            'target' => 'field_city',
+            'unique' => FALSE,
+          ),
+          21 => array(
+            'source' => 'state',
+            'target' => 'field_state',
+            'unique' => FALSE,
+          ),
           22 => array(
+            'source' => 'area_code',
+            'target' => 'field_area_code',
+            'unique' => FALSE,
+          ),
+          23 => array(
+            'source' => 'latitude',
+            'target' => 'field_location:lat',
+            'unique' => FALSE,
+          ),
+          24 => array(
+            'source' => 'longitude',
+            'target' => 'field_location:lon',
+            'unique' => FALSE,
+          ),
+          25 => array(
             'source' => 'location_geo',
             'target' => 'field_location:wkt',
             'unique' => FALSE,
