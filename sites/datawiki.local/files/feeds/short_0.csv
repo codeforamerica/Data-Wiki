@@ -1,0 +1,2 @@
+name,url,calendar_url,email,contact,type_group,categories,description,notes,source,activity_level,audience_size,ownership,image,location,address,neighborhood,district,region,city,state,area_code,latitude,longitude,location_geo
+name,http://url.com,http://url/calendar_url,email,contact,type_group,categories,description,notes,source,activity_level,audience_size,ownership,image,location,address,neighborhood,district,region,city,state,area_code,47.5976,-122.323, POINT (-122.323493952 47.5975977262)

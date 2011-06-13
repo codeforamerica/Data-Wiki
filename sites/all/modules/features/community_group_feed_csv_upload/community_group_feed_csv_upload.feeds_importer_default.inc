@@ -36,7 +36,7 @@ function community_group_feed_csv_upload_feeds_importer_default() {
       'config' => array(
         'content_type' => 'community_group',
         'expire' => '-1',
-        'author' => 0,
+        'author' => '0',
         'mappings' => array(
           0 => array(
             'source' => 'name',
@@ -63,7 +63,7 @@ function community_group_feed_csv_upload_feeds_importer_default() {
             'target' => 'field_contact',
             'unique' => FALSE,
           ),
-          6 => array(
+           6 => array(
             'source' => 'type_group',
             'target' => 'field_type_web_resource',
             'unique' => FALSE,
@@ -105,7 +105,7 @@ function community_group_feed_csv_upload_feeds_importer_default() {
           ),
           14 => array(
             'source' => 'image',
-            'target' => 'field_image',
+            'target' => 'field_url_image:url',
             'unique' => FALSE,
           ),
           15 => array(
@@ -128,37 +128,42 @@ function community_group_feed_csv_upload_feeds_importer_default() {
             'target' => 'field_district',
             'unique' => FALSE,
           ),
-          19 => array(
-            'source' => 'region',
-            'target' => 'field_region',
-            'unique' => FALSE,
-          ),
           20 => array(
             'source' => 'city',
             'target' => 'field_city',
             'unique' => FALSE,
           ),
           21 => array(
+            'source' => 'zipcode',
+            'target' => 'field_zipcode',
+            'unique' => FALSE,
+          ),
+          22 => array(
             'source' => 'state',
             'target' => 'field_state',
             'unique' => FALSE,
           ),
-          22 => array(
+          23 => array(
+            'source' => 'region',
+            'target' => 'field_region',
+            'unique' => FALSE,
+          ),
+          24 => array(
             'source' => 'area_code',
             'target' => 'field_area_code',
             'unique' => FALSE,
           ),
-          23 => array(
+          25 => array(
             'source' => 'latitude',
             'target' => 'field_location:lat',
             'unique' => FALSE,
           ),
-          24 => array(
+          26 => array(
             'source' => 'longitude',
             'target' => 'field_location:lon',
             'unique' => FALSE,
           ),
-          25 => array(
+          27 => array(
             'source' => 'location_geo',
             'target' => 'field_location:wkt',
             'unique' => FALSE,

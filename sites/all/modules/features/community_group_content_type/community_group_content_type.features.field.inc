@@ -111,17 +111,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '(Optional) How active is this group?',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '28',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '6',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -142,7 +142,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '5',
+        'weight' => '9',
       ),
     ),
   );
@@ -180,11 +180,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 17,
+          'weight' => '19',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -257,13 +263,13 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '11',
+          'weight' => '26',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '22',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -332,17 +338,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '6',
+          'weight' => '29',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -363,7 +369,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '6',
+        'weight' => '10',
       ),
     ),
   );
@@ -412,14 +418,14 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '24',
         ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -492,14 +498,14 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '9',
+          'weight' => '23',
         ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -567,13 +573,13 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '25',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -635,17 +641,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '(Optional) Describe the group in a way that might help a general audience to understand what the group is about.',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '1',
+          'weight' => '20',
         ),
         'search_result' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -718,13 +724,13 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '8',
+          'weight' => '22',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '19',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -779,13 +785,13 @@ function community_group_content_type_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '3',
+          'weight' => '23',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '7',
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -809,90 +815,6 @@ function community_group_content_type_field_default_fields() {
         ),
         'type' => 'email_textfield',
         'weight' => '-2',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-community_group-field_image'
-  $fields['node-community_group-field_image'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_image',
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'module' => 'image',
-      'settings' => array(
-        'default_image' => 0,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '1',
-      'type' => 'image',
-    ),
-    'field_instance' => array(
-      'bundle' => 'community_group',
-      'deleted' => '0',
-      'description' => 'If there is an image for this group, you can upload it here.',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
-          ),
-          'type' => 'image',
-          'weight' => '0',
-        ),
-        'search_result' => array(
-          'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '10',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_image',
-      'label' => 'Image',
-      'required' => 0,
-      'settings' => array(
-        'alt_field' => 0,
-        'file_directory' => '',
-        'file_extensions' => 'png gif jpg jpeg',
-        'max_filesize' => '',
-        'max_resolution' => '',
-        'min_resolution' => '',
-        'title_field' => 0,
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'image',
-        'settings' => array(
-          'preview_image_style' => 'thumbnail',
-          'progress_indicator' => 'throbber',
-        ),
-        'type' => 'image_image',
-        'weight' => '8',
       ),
     ),
   );
@@ -932,7 +854,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '20',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -993,11 +915,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 18,
+          'weight' => '18',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1070,14 +998,14 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '6',
+          'weight' => '20',
         ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1139,17 +1067,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '(Optional) Describe the group in a way that might help a general audience to understand what the group is about.',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '1',
+          'weight' => '27',
         ),
         'search_result' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1222,13 +1150,13 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '8',
+          'weight' => '31',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '17',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1252,7 +1180,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '7',
+        'weight' => '11',
       ),
     ),
   );
@@ -1301,13 +1229,13 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '7',
+          'weight' => '21',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '18',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1371,17 +1299,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '(Optional) Who provided information about the existence of this group?',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '30',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1405,7 +1333,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '4',
+        'weight' => '8',
       ),
     ),
   );
@@ -1454,14 +1382,14 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '10',
+          'weight' => '24',
         ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1490,14 +1418,14 @@ function community_group_content_type_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-community_group-field_type_web_resource'
-  $fields['node-community_group-field_type_web_resource'] = array(
+  // Exported field: 'node-community_group-field_type_group'
+  $fields['node-community_group-field_type_group'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_type_web_resource',
+      'field_name' => 'field_type_group',
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -1516,7 +1444,7 @@ function community_group_content_type_field_default_fields() {
         'allowed_values' => array(
           0 => array(
             'parent' => '0',
-            'vocabulary' => 'types_community',
+            'vocabulary' => 'type_of_group',
           ),
         ),
       ),
@@ -1527,21 +1455,20 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended) What kind of community group is this? Examples include: Facebook Group or page, Yahoo or Google Group, Meetup Group, Mailing list, Hyperlocal blog.',
+      'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '26',
         ),
         'search_result' => array(
           'label' => 'inline',
-          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'type' => 'hidden',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1551,21 +1478,18 @@ function community_group_content_type_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_type_web_resource',
+      'field_name' => 'field_type_group',
       'label' => 'Type of Group',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
+        'active' => 1,
         'module' => 'options',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
+        'settings' => array(),
         'type' => 'options_select',
-        'weight' => '0',
+        'weight' => '7',
       ),
     ),
   );
@@ -1609,7 +1533,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'default',
-          'weight' => '2',
+          'weight' => '21',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1689,11 +1613,17 @@ function community_group_content_type_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
           'type' => 'default',
-          'weight' => 16,
+          'weight' => '22',
+        ),
+        'search_result' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1727,6 +1657,89 @@ function community_group_content_type_field_default_fields() {
         'settings' => array(),
         'type' => 'link_field',
         'weight' => '-3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_url_image'
+  $fields['node-community_group-field_url_image'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_url_image',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'link',
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_value' => '',
+        'url' => 0,
+      ),
+      'translatable' => '1',
+      'type' => 'link_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
+          'weight' => '25',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_url_image',
+      'label' => 'Image',
+      'required' => 0,
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 1,
+        'title' => 'none',
+        'title_value' => '',
+        'url' => 'optional',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '12',
       ),
     ),
   );
@@ -1775,13 +1788,13 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '11',
+          'weight' => '25',
         ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '21',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1866,7 +1879,6 @@ function community_group_content_type_field_default_fields() {
   t('(Recommended) List categories, separated by commas, describing this group. <a href="/categories">See all the categories</a>');
   t('(Recommended) Point to the best page that explains the group and how to join the group.');
   t('(Recommended) Provide an email address (if appropriate) for the best way to join the group by email.');
-  t('(Recommended) What kind of community group is this? Examples include: Facebook Group or page, Yahoo or Google Group, Meetup Group, Mailing list, Hyperlocal blog.');
   t('(Recommended, if you know it.) Select the neighborhood');
   t('(Recommended, if you know it.) What area code is this group in?');
   t('(Recommended, if you know it.) What city is this group in?');
@@ -1886,7 +1898,6 @@ function community_group_content_type_field_default_fields() {
   t('Description');
   t('District');
   t('Email');
-  t('If there is an image for this group, you can upload it here.');
   t('Image');
   t('Location');
   t('Location Description');
