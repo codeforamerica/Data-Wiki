@@ -6,5 +6,5 @@ package = "Features"
 dependencies[] = community_group_content_type
 dependencies[] = community_group_upload_csv
 dependencies[] = community_group_feed_csv_upload
-dependencies[] = datawiki_community_group_views
+dependencies[] = community_group_view
 dependencies[] = datawiki_community_group_settings
