@@ -465,7 +465,7 @@ function node_views_data() {
     'relationship' => array(
       'handler' => 'views_handler_relationship',
       'base' => 'node',
-      'base field' => 'nid',
+      'base field' => 'vid',
       'title' => t('Content'),
       'label' => t('Get the actual content from a content revision.'),
     ),
@@ -508,8 +508,8 @@ function node_views_data() {
   // revision timestamp
   // changed field
   $data['node_revision']['timestamp'] = array(
-    'title' => t('Created date'), // The item it appears as on the UI,
-    'help' => t('The date the content revision was created.'), // The help that appears on the UI,
+    'title' => t('Updated date'), // The item it appears as on the UI,
+    'help' => t('The date the node was last updated.'), // The help that appears on the UI,
     'field' => array(
       'handler' => 'views_handler_field_date',
       'click sortable' => TRUE,
@@ -671,6 +671,12 @@ function template_preprocess_views_view_row_node(&$vars) {
   $node->view = $vars['view'];
   // Detect which build module should be used.
   $node->view_mode = (!empty($options['view_mode'])) ? $options['view_mode'] : 'full';
+
+  // Prevent the comment form from showing up if this is not a page display.
+  if ($node->view_mode == 'full' && !$vars['view']->display_handler->has_path()) {
+    $node->comment = FALSE;
+  }
+
   $content = node_view_multiple(array($node->nid => $node), $node->view_mode);
   $content = $content['nodes'][$node->nid];
   if (!$options['links']) {
