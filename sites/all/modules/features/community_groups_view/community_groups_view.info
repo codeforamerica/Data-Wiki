@@ -1,0 +1,7 @@
+core = "7.x"
+dependencies[] = "views"
+description = "A view of community groups."
+features[ctools][] = "views:views_default:3.0"
+features[views_view][] = "community_groups"
+name = "Community Groups View"
+package = "Features"
