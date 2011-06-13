@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers.render.inc,v 1.3.2.18.2.3 2010/12/08 14:21:03 tmcw Exp $
 
 /**
  * @file
@@ -95,18 +96,6 @@ function _openlayers_styles_process($styles = array(),
         !empty($styles_info[$style]) && 
         $info = $styles_info[$style]->data) {
       $processed[$style] = $info;
-    }
-  }
-  
-  // Update URLs to support different types of paths
-  foreach ($processed as $k => $style) {
-    if (!empty($style['externalGraphic'])) {
-      // Check full URL or absolute path
-      if (!valid_url($style['externalGraphic'], TRUE) 
-        && strpos($style['externalGraphic'], '/') !== 0) {
-        // Make full URL from Drupal path
-        $processed[$k]['externalGraphic'] = url($style['externalGraphic'], array('absolute' => TRUE));
-      }
     }
   }
 

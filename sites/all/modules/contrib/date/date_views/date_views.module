@@ -117,7 +117,7 @@ function date_real_url($view, $date_type = NULL, $date_arg = NULL, $force_view_u
       if ($argument->position == $pos) {
         break;
       }
-      $args[] = $argument->options['wildcard'];
+      $args[] = $argument->options['exception']['value'];
     }
   }
 
@@ -150,14 +150,14 @@ function date_real_url($view, $date_type = NULL, $date_arg = NULL, $force_view_u
     $key = date_block_identifier($view);
     if (!empty($key)) {
       return url($_GET['q'], array(
-        'query' => drupal_get_query_parameters(NULL, array($key => $url)), 
+        'query' => date_views_querystring($view, array($key => $url)), 
         'absolute' => TRUE));
     }
   }  
   // Normal views may need querystrings appended to them
   // if they use exposed filters.
   return url($view->get_url($args), array(
-    'query' => drupal_get_query_parameters(), 
+    'query' => date_views_querystring($view), 
     'absolute' => TRUE));
 }
 function date_block_identifier($view) {
@@ -230,7 +230,7 @@ function date_views_field_views_data_alter(&$result, $field, $module) {
           // Not sure yet if we still need a custom field handler in D7 now that custom formatters are available.
           // Might still need it to handle grouping of multiple value dates.
           //$result[$table][$column]['field']['handler'] = 'date_handler_field_date';
-          $result[$table][$column]['field']['add fields to query'] = TRUE;
+          //$result[$table][$column]['field']['add fields to query'] = TRUE;
         } 
       } 
     }
@@ -238,38 +238,16 @@ function date_views_field_views_data_alter(&$result, $field, $module) {
 }
 
 /**
- * Implements hook_views_data_alter().
- *
- * Create copies of core date fields that use the Date API handling.
- */
-function date_views_views_data_alter(&$data) {
-  return;
-  foreach ($data as $table => $result) {
-    foreach ($result as $field => $item) {
-      if (array_key_exists('filter', $item) && $item['filter']['handler'] == 'views_handler_filter_date') {
-        $new_field = date_views_new_name($field);
-        $item['title'] .= ' - ' . t('Date API');
-        $item['help'] .= ' ' . t('Uses Date API widgets and date handling.');
-        if (array_key_exists('filter', $item)) { 
-          $item['filter']['handler'] = 'date_views_filter_handler_simple';
-        }
-        unset($item['field'], $item['sort'], $item['argument']);
-        $data[$table][$new_field] = $item;
-      }
-    }
+ * The instanceof function makes this work for any handler that was derived 
+ * from 'views_handler_filter_date' or 'views_handler_argument_date', 
+ * which includes core date fields like the node updated field.
+*/
+function date_views_handler_is_date($handler, $type = 'argument') {
+  switch ($type) {
+    case 'filter':
+      return $handler instanceof views_handler_filter_date;
+    case 'argument':
+      return $handler instanceof views_handler_argument_date;
   }
-}
-
-/**
- * Make a pseudo field name from an existing field name.
- */
-function date_views_new_name($field_name) {
-  return $field_name . '-dateapi';
-}
-
-/**
- * Return a pseudo field name to the original.
- */
-function date_views_old_name($field_name) {
-  return str_replace('-dateapi', '', $field_name);
+  return FALSE;
 }

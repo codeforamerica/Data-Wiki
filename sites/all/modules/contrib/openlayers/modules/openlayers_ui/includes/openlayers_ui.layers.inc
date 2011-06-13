@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers_ui.layers.inc,v 1.1.2.6.2.4 2010/11/30 15:36:24 tmcw Exp $
 
 /**
  * @file
@@ -38,7 +39,7 @@ function openlayers_ui_layers_form($form_state, $layer = NULL) {
  * Submit handler for layers.
  */
 function openlayers_ui_layers_form_submit(&$form, &$form_state) {
-  // Save layer
+  // Save preset
   $layer_class = $form_state['values']['data']['layer_type'];
   $layer = openlayers_layer_type_load($layer_class);
 
@@ -60,7 +61,7 @@ function openlayers_ui_layers_form_submit(&$form, &$form_state) {
   // Redirect to edit page
   if ($success) {
     drupal_set_message(t('Layer saved.'));
-    $form_state['redirect'] = 'admin/structure/openlayers/layers/' . $layer->name . '/edit';
+    $form_state['redirect'] = 'admin/build/openlayers/layers/' . $layer->name . '/edit';
   }
   else {
     form_set_error('openlayers', t('Error trying to save layer.'));
@@ -161,7 +162,7 @@ function openlayers_ui_get_layer_type_options($type) {
       // Build form.
       $form[$key] = array(
         '#type' => 'item',
-        '#title' => l($plugin['title'], "admin/structure/openlayers/layers/add/{$key}"),
+        '#title' => l($plugin['title'], "admin/build/openlayers/layers/add/{$key}"),
         '#value' =>  $plugin['description'],
       );
     }
@@ -170,7 +171,7 @@ function openlayers_ui_get_layer_type_options($type) {
 }
 
 /**
- * Import a layer from cut & paste
+ * Import a preset from cut & paste
  */
 function openlayers_ui_layers_import_form($form_state) {
   $form['name'] = array(
@@ -195,7 +196,7 @@ function openlayers_ui_layers_import_form($form_state) {
 }
 
 /**
- * Validate handler to import a layer
+ * Validate handler to import a preset
  */
 function openlayers_ui_layers_import_validate($form, &$form_state) {
 
@@ -224,7 +225,7 @@ function openlayers_ui_layers_import_validate($form, &$form_state) {
 
   if ($exists = openlayers_layer_load($layer->name)) {
     drupal_set_message(t('An existing layer of this name already exists'), 'error');
-    $form_state['redirect'] = 'admin/structure/openlayers/layers';
+    $form_state['redirect'] = 'admin/build/openlayers/layers';
   }
   else {
     drupal_set_title(t('Add Layer'));

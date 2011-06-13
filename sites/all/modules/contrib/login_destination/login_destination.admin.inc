@@ -197,9 +197,9 @@ function login_destination_edit_form($form, &$form_state, array $rule = array())
   $form['triggers'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Redirect upon triggers'),
-    '#options' => array('login' => 'Login', 'logout' => 'Logout'),
+    '#options' => array('login' => 'Login, registration, one-time login link', 'logout' => 'Logout'),
     '#default_value' => $triggers,
-    '#description' => 'Redirect only upon selected triggers. Login trigger compromises registration and one-time login link.',
+    '#description' => 'Redirect only upon selected triggers.',
   );
 
   $type = $rule['pages_type'];

@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers.api.php,v 1.2.2.5 2010/06/02 23:13:40 zzolo Exp $
 
 /**
  * @file
@@ -76,9 +77,9 @@ function hook_openlayers_layer_types() {
  *
  * IMPORTANT:
  *
- * In order to support styles, maps, and layers in an external module,
+ * In order to support styles, presets, and layers in an external module,
  * one must notify the CTools module that that module provides implementations 
- * of the hooks for styles, maps, and/or layers.
+ * of the hooks for styles, presets, and/or layers.
  *
  * This function is just an example implementation of 
  * hook_ctools_plugin_api() and should be alter according to
@@ -97,7 +98,7 @@ function hook_openlayers_layer_types() {
 function openlayers_example_ctools_plugin_api($module, $api) {
   if ($module == "openlayers") {
     switch ($api) {
-      case 'openlayers_maps':
+      case 'openlayers_presets':
         return array('version' => 1);
 
       case 'openlayers_layers':
@@ -233,9 +234,9 @@ function hook_openlayers_styles() {
 }
 
 /**
- * OpenLayers maps
+ * OpenLayers Presets
  *
- * Define map objects.
+ * Define map presets.
  *
  * @return
  *   Return an associative array with index being a unique string 
@@ -245,14 +246,14 @@ function hook_openlayers_styles() {
  *   - "title": 
  *   - "data":
  */
-function hook_openlayers_maps() {
-  // Taken from openlayers.maps.inc
+function hook_openlayers_presets() {
+  // Taken from openlayers.presets.inc
 
   $default = new stdClass();
   $default->api_version = 1;
   $default->name = 'default';
   $default->title = t('Default Map');
-  $default->description = t('This is the default map that comes with the OpenLayers module.');
+  $default->description = t('This is the default map preset that comes with the OpenLayers module.');
   $default->data = array(
     'projection' => '900913',
     'width' => 'auto',

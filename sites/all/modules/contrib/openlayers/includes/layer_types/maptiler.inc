@@ -1,4 +1,5 @@
 <?php
+// $Id: maptiler.inc,v 1.1.2.3 2010/08/02 20:42:27 tmcw Exp $
 
 /**
  * @file

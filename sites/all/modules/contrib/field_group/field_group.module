@@ -105,7 +105,8 @@ function field_group_menu_load($group_name, $entity_type, $bundle_name, $bundle_
   }
 
   $args = func_get_args();
-  $mode = array_pop(array_pop($args));
+  $args_pop = array_pop($args);
+  $mode = array_pop($args_pop);
 
   ctools_include('export');
   $objects = ctools_export_load_object('field_group', 'conditions', array(
@@ -449,7 +450,7 @@ function field_group_field_group_pre_render(& $element, $group, & $form) {
     $classes .= ' ' . check_plain($group->format_settings['instance_settings']['classes']);
   }
 
-  $description = isset($group->format_settings['instance_settings']['description']) ? check_plain($group->format_settings['instance_settings']['description']) : '';
+  $description = isset($group->format_settings['instance_settings']['description']) ? filter_xss_admin($group->format_settings['instance_settings']['description']) : '';
 
   // Add all field_group format types to the js settings.
   $form['#attached']['js'][] = array(
@@ -812,6 +813,41 @@ function field_group_library() {
 }
 
 /**
+ * Implements hook_field_extra_fields().
+ */
+function field_group_field_extra_fields() {
+  $extra = array();
+
+  $extra['user']['user'] = array(
+    'form' => array(
+      'contact' => array(
+        'label' => t('Contact'),
+        'description' => t('Contact user element'),
+        'weight' => -5,
+      ),
+      'picture' => array(
+        'label' => t('Picture'),
+        'description' => t('User picture'),
+        'weight' => -5,
+      ),
+    ),
+  );
+
+  return $extra;
+}
+
+/**
+ * Implements hook_field_attach_rename_bundle().
+ */
+function field_group_field_attach_rename_bundle($entity_type, $bundle_old, $bundle_new) {
+  db_query('UPDATE {field_group} SET bundle = :bundle WHERE bundle = :old_bundle AND entity_type = :entity_type', array(
+    ':bundle' => $bundle_new,
+    ':old_bundle' => $bundle_old,
+    ':entity_type' => $entity_type,
+  ));
+}
+
+/**
  * Creates a group formatted as horizontal tabs.
  *
  * @param $element
@@ -885,7 +921,7 @@ function field_group_info_groups($entity_type = NULL, $bundle = NULL, $view_mode
   static $groups = FALSE;
 
   if (!$groups || $reset) {
-    if ($cached = cache_get('field_groups', 'cache_field')) {
+    if (!$reset && $cached = cache_get('field_groups', 'cache_field')) {
       $groups = $cached->data;
     }
     else {
@@ -919,6 +955,27 @@ function field_group_read_groups($params = array()) {
     $groups[$group->entity_type][$group->bundle][$group->mode][$group->group_name] = field_group_unpack($group);
   }
   return $groups;
+
+}
+
+/**
+ * Utility function to recreate identifiers.
+ */
+function _field_group_recreate_identifiers() {
+
+  // Migrate the field groups so they have a unique identifier.
+  $result = db_select('field_group', 'fg')
+    ->fields('fg')
+    ->execute();
+  $rows = array();
+  foreach($result as $row) {
+    $row->identifier = $row->group_name . '|' . $row->entity_type . '|' . $row->bundle . '|' . $row->mode;
+    $row->data = unserialize($row->data);
+    $rows[] = $row;
+  }
+  foreach ($rows as $row) {
+    drupal_write_record('field_group', $row, array('id'));
+  }
 
 }
 
@@ -995,7 +1052,7 @@ function field_group_pack($group) {
  * @param $group
  *   A group definition.
  */
-function field_group_delete($group) {
+function field_group_export_delete($group) {
 
   $query = db_delete('field_group');
 
@@ -1089,12 +1146,9 @@ function field_group_attach_groups(&$element, $view_mode) {
   }
   $element['#group_children'] = $group_children;
 
-  // Add a pre render or process callback.
+  // Add a pre render callback.
   // This is needed since process seems too early for the front view modes.
-  // TODO Really check what's the difference on forms to use pre_render or process.
-  //$element[$view_mode == 'form' ? '#process': '#pre_render'][] = 'field_group_build_pre_render';
   $element['#pre_render'][] = 'field_group_build_pre_render';
-  //$element['#process'][] = 'field_group_build_pre_render';
 }
 
 /**
@@ -1114,17 +1168,13 @@ function field_group_build_pre_render($element) {
   $element['#groups'] = array_merge($element['#groups'], $element['#fieldgroups']);
 
   // Nest the fields in the corresponding field groups.
-  field_group_fields_nest($element, $element);
-
-  // Cleanup nested groups from root element.
-  foreach ($element['#group_children'] as $groupname => $parent) {
-    unset($element[$groupname]);
-  }
+  field_group_fields_nest($element);
 
   // Allow others to alter the pre_rendered build.
   drupal_alter('field_group_build_pre_render', $element);
 
   return $element;
+
 }
 
 /**
@@ -1136,60 +1186,37 @@ function field_group_build_pre_render($element) {
  * stash fields and groups in it while we go deeper in the array.
  * @param Array $element
  *   The current element to analyse for grouping.
- * @param Array $root_element
- *   The root element to control.
- * @param String $parent
- *   the parent name to look for in each level.
  */
-function field_group_fields_nest(&$element, &$root_element, $parent_name = NULL) {
+function field_group_fields_nest(&$element) {
 
-  static $groups = array();
-  static $group_fields = array();
-  if (!isset($parent_name)) {
-    $groups = $root_element['#groups'];
-    $group_fields = $root_element['#group_children'];
+  // Create all groups and keep a flat list of references to these groups.
+  $group_references = array();
+  foreach ($element['#groups'] as $group_name => $group) {
+    $element[$group_name] = array();
+    $group_references[$group_name] = &$element[$group_name];
   }
 
-  foreach ($groups as $name => $group) {
-
-    // Add fieldgroups to the current element. But only if the parent is the current
-    // group parent or if we are starting from the root.
-    if ((!isset($parent_name) && empty($group->parent_name)) || (!empty($group->parent_name) && $parent_name == $group->parent_name)) {
-
-      // We first create a new element wrapper, and loop over the fields
-      // to detect children. After this point, the fields are stashed
-      // in the group element and removed from the root.
-      $element[$name] = array();
-      foreach ($group_fields as $groupfield => $groupname) {
-        // Stash the field in the group.
-        if ($groupname == $name && isset($root_element[$groupfield])) {
-          // Block the denied fields (#access) before they are put in groups.
-          $access = !isset($root_element[$groupfield]['#access']) || $root_element[$groupfield]['#access'];
-          if ($access) {
-            $element[$name][$groupfield] = $root_element[$groupfield];
-          }
-          // We can not meet this field again!
-          unset($root_element[$groupfield]);
-          unset($group_fields[$groupfield]);
-          unset($root_element['#group_children'][$groupfield]);
-        }
-        // Or hey, is the field maybe a group, then prepare the array.
-        if ($groupname == $name && isset($root_element['#groups'][$groupfield])) {
-          $element[$name][$groupfield] = array();
-        }
-
-      }
-      // Go deeper with the current group element and the parent $name.
-      // @TODO check if the order of these two functions are correct.
-      // Recently changed to fix unnested fieldgroups. Needs revision & testing.
-      field_group_fields_nest($element[$name], $root_element, $name);
-
-      // Bring extra element wrappers to achieve a grouping of fields.
-      // This will mainly be prefix and suffix altering.
-      field_group_pre_render($element[$name], $group, $root_element);
-
+  // Move all children to their parents. Use the flat list of references for
+  // direct access as we don't know where in the root_element hierarchy the
+  // parent currently is situated.
+  foreach ($element['#group_children'] as $child_name => $parent_name) {
+    // Block denied fields (#access) before they are put in groups,
+    // or fields that were not processed (like field_permissions).
+    if ((!isset($element[$child_name]['#access']) || $element[$child_name]['#access']) && (!isset($element[$child_name]['#processed']) || $element[$child_name]['#processed'] == TRUE)) {
+      // If this is a group, we have to use a reference to keep the reference
+      // list intact (but if it is a field we don't mind).
+      $group_references[$parent_name][$child_name] = &$element[$child_name];
     }
+    // The child has been copied to its parent: remove it from the root element.
+    unset($element[$child_name]);
   }
+
+  // Bring extra element wrappers to achieve a grouping of fields.
+  // This will mainly be prefix and suffix altering.
+  foreach ($element['#groups'] as $group_name => $group) {
+    field_group_pre_render($group_references[$group_name], $group, $element);
+  }
+
 }
 
 /**

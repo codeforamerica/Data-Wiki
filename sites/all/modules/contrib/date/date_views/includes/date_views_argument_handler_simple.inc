@@ -21,8 +21,7 @@ class date_views_argument_handler_simple extends views_handler_argument_date {
 
     // Add a date handler.
     module_load_include('inc', 'date_api', 'date_api_sql');
-    $this->date_handler = new date_sql_handler();
-    $this->date_handler->date_type = DATE_UNIX;
+    $this->date_handler = new date_sql_handler(DATE_UNIX);
     if (!empty($this->definition['field_name'])) {
       $field = field_info_field($this->definition['field_name']);
       if (!empty($field) && !empty($field['type'])) {
@@ -33,7 +32,6 @@ class date_views_argument_handler_simple extends views_handler_argument_date {
 
     $this->format = $this->date_handler->views_formats($this->date_handler->granularity, 'display');
     $this->sql_format = $this->date_handler->views_formats($this->date_handler->granularity, 'sql');
-
     // $this->arg_format is the format the parent date handler will use to create a default argument.
     $this->arg_format = $this->format();
  }
@@ -168,7 +166,7 @@ class date_views_argument_handler_simple extends views_handler_argument_date {
     $format = $this->date_handler->views_formats($this->options['granularity'], 'sql');
     $value = $data->{$this->name_alias};
     if (empty($value)) {
-      return $this->options['wildcard'];
+      return $this->options['exception']['value'];
     }
     $range = $this->date_handler->arg_range($value);
     return date_format_date($range[0], 'custom', $format);
@@ -189,15 +187,20 @@ class date_views_argument_handler_simple extends views_handler_argument_date {
    * Inject a test for valid date range before the regular query.
    * Override the parent query to be able to control the $group.
    */
-  function query($group = 0) {
+  function query($group_by = FALSE) {
     if ($this->date_forbid()) {
       return;
     }
     $this->formula = $this->formula($this->real_field);
-    $this->granularity = $this->date_handler->arg_granularity($this->argument);
+    $this->date_handler->granularity = $this->date_handler->arg_granularity($this->argument);
+    $this->format = $this->date_handler->views_formats($this->date_handler->granularity, 'display');
+    $this->sql_format = $this->date_handler->views_formats($this->date_handler->granularity, 'sql');
+
     $this->ensure_my_table();
+    $group = !empty($this->options['date_group']) ? $this->options['date_group'] : 0;
+
     // Now that our table is secure, get our formula.
-    if ($this->granularity != 'week') {
+    if ($this->date_handler->granularity != 'week') {
       $placeholder = $this->placeholder();
       $formula = $this->get_formula() .' = ' . $placeholder;
       $placeholders = array(
@@ -206,15 +209,14 @@ class date_views_argument_handler_simple extends views_handler_argument_date {
       $this->query->add_where($group, $formula, $placeholders, 'formula');
     }
     else {
-      $format = DATE_FORMAT_DATETIME;
-      $from_field = str_replace($field['table_name'] .'_', $this->table .'.', $field['fromto'][0]);
-      $to_field = str_replace($field['table_name'] .'_', $this->table .'.', $field['fromto'][1]);
-      $from = $this->date_handler->sql_where_date('DATE', $from_field, '<=', date_format($this->max_date, $format));
-      $to   = $this->date_handler->sql_where_date('DATE', $to_field, '>=', date_format($this->min_date, $format));          
-      $sql = str_replace('***table***', $field['table_name'], "($from AND $to)");
-      if ($sql) {
-        $this->query->add_where_expression($group, $sql, array());
-      }
+      $min_value = date_format($this->min_date, DATE_FORMAT_DATETIME);
+      $max_value = date_format($this->max_date, DATE_FORMAT_DATETIME);
+      $field = $this->date_handler->sql_field($this->table . '.' . $this->real_field);
+      $field = $this->date_handler->sql_format(DATE_FORMAT_DATETIME, $field);
+      $placeholder_min = $this->placeholder();
+      $placeholder_max = $this->placeholder();
+      $this->query->add_where_expression($group, "$field >= $placeholder_min", array($placeholder_min => $min_value));
+      $this->query->add_where_expression($group, "$field <= $placeholder_max", array($placeholder_max => $max_value));
     }
 
   }
@@ -223,15 +225,19 @@ class date_views_argument_handler_simple extends views_handler_argument_date {
    * Add a callback to determine if we have moved outside the valid date range for this argument.
    */
   function date_forbid() {
+    if (empty($this->argument)) {
+      return;
+    }
     $this->date_range = $this->date_handler->arg_range($this->argument);
     $this->min_date = $this->date_range[0];
     $this->max_date = $this->date_range[1];
     $this->limit = date_range_years($this->options['year_range']); 
+    $group = !empty($this->options['date_group']) ? $this->options['date_group'] : 0;
 
     // See if we're outside the allowed date range for our argument.
     if (date_format($this->min_date, 'Y') < $this->limit[0] || date_format($this->max_date, 'Y') > $this->limit[1]) {
       $this->forbid = TRUE;
-      $this->query->add_where_expression('date', "0=1", array());
+      $this->query->add_where_expression($group, "0=1", array());
       return TRUE;
     }
     return FALSE;

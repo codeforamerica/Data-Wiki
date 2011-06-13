@@ -37,14 +37,17 @@ function content_migrate_number_field_alter(&$field_value, $instance_value) {
         case 'optionwidgets_buttons':
         case 'optionwidgets_select':
           if ($field_value['type'] == 'number_integer') {
+            $field_value['messages'][] = t("Changed field type: The '@field' field uses a '@widget' widget. The field type will be changed from '@type' to 'list_integer'.", array('@type' => $field_value['type'], '@field' => $field_value['field_name'], '@widget' => $instance_value['widget']['type']));
             $field_value['type'] = 'list_integer';
           }
           else {
+            $field_value['messages'][] = t("Changed field type: The '@field' field uses a '@widget' widget. The field type will be changed from '@type' to 'list_float'.", array('@type' => $field_value['type'], '@field' => $field_value['field_name'], '@widget' => $instance_value['widget']['type']));
             $field_value['type'] = 'list_float';
           }
           $field_value['module'] = 'list';
           break;
         case 'optionwidgets_onoff':
+          $field_value['messages'][] = t("Changed field type: The '@field' field uses a '@widget' widget. The field type will be changed from '@type' to 'list_boolean'.", array('@type' => $field_value['type'], '@field' => $field_value['field_name'], '@widget' => $instance_value['widget']['type']));
           $field_value['type'] = 'list_boolean';
           $field_value['module'] = 'list';
           break;
@@ -76,7 +79,7 @@ function content_migrate_number_instance_alter(&$instance_value, $field_value) {
       // have changed.
       $new_type = array(
         'unformatted' => 'number_unformatted',
-        'default' => 'number_decimal',
+        'default' => $field_value['type'] == 'number_integer' ? 'number_integer' : 'number_decimal',
         'us_0' => 'number_integer',
         'us_1' => 'number_decimal',
         'us_2' => 'number_decimal',
@@ -150,10 +153,17 @@ function content_migrate_number_instance_alter(&$instance_value, $field_value) {
         ),
       );
       foreach ($instance_value['display'] as $context => $settings) {
-        $instance_value['display'][$context]['type'] = $new_type[$settings['type']];
-        $instance_value['display'][$context]['settings'] = $new_settings[$settings['type']];
+        if (array_key_exists($settings['type'], $new_type)) {
+          $instance_value['display'][$context]['type'] = $new_type[$settings['type']];
+          $instance_value['display'][$context]['settings'] = $new_settings[$settings['type']];
+        }
       }
+
+      // Min, max, prefix, and suffix moved to instance settings.
+      $instance_value['settings']['min'] = $field_value['settings']['min'];
+      $instance_value['settings']['max'] = $field_value['settings']['max'];
+      $instance_value['settings']['prefix'] = $field_value['settings']['prefix'];
+      $instance_value['settings']['suffix'] = $field_value['settings']['suffix'];
       break;
   }
-
 }

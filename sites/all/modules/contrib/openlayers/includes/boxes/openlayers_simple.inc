@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers_simple.inc,v 1.1.2.3 2010/12/01 23:24:33 tmcw Exp $
 
 /**
  * OpenLayers Boxk
@@ -9,7 +10,7 @@ class openlayers_simple extends boxes_box {
    */
   public function options_defaults() {
     return array(
-      'map' => ''
+      'preset' => ''
     );
   }
 
@@ -18,14 +19,14 @@ class openlayers_simple extends boxes_box {
    */
   public function options_form() {
     $form = array();
-    // Map objects
-    $form['map'] = array(
+    // Map Preset
+    $form['preset'] = array(
       '#type' => 'select',
-      '#title' => t('Map'),
+      '#title' => t('Map preset'),
       '#description' => t('This is map that will be used to render the view.'),
-      '#options' => openlayers_map_options(),
-      '#default_value' => $this->options['map'] ?
-        $this->options['map'] : variable_get('openlayers_default_map', 'default'),
+      '#options' => openlayers_preset_options(),
+      '#default_value' => $this->options['preset'] ?
+        $this->options['preset'] : variable_get('openlayers_default_preset', 'default'),
     );
     return $form;
   }
@@ -35,13 +36,13 @@ class openlayers_simple extends boxes_box {
    */
   public function render() {
     $title = isset($this->title) ? check_plain($this->title) : NULL;
-    $map = openlayers_map_load($this->options['map']);
+    $preset = openlayers_preset_load($this->options['preset']);
 
     return array(
       'delta' => $this->delta, // Crucial.
       'title' => $title,
       'subject' => $title,
-      'content' => openlayers_render_map($map, $map->name)
+      'content' => openlayers_render_map($preset->data, $preset->name)
     );
   }
 }

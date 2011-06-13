@@ -7,12 +7,10 @@
 class date_views_filter_handler_simple extends views_handler_filter_date {
   var $date_handler = NULL;
 
-  // Add a date handler to the filter.
-  function construct() {
-    parent::construct();
+  function init(&$view, &$options) {
+    parent::init($view, $options);
     module_load_include('inc', 'date_api', 'date_api_sql');
-    $this->date_handler = new date_sql_handler();
-    $this->date_handler->date_type = DATE_UNIX;
+    $this->date_handler = new date_sql_handler(DATE_UNIX);
     if (!empty($this->definition['field_name'])) {
       $field = field_info_field($this->definition['field_name']);
       if (!empty($field) && !empty($field['type'])) {
@@ -20,13 +18,8 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
       }
     }
     $this->form_submitted = FALSE;
-  }
-
-  function init(&$view, &$options) {
-    parent::init($view, $options);
     $this->date_handler->granularity = isset($options['granularity']) ? $options['granularity'] : 'day';
     $this->format = $this->date_handler->views_formats($this->options['granularity'], 'sql');
-    $this->real_field = date_views_old_name($this->real_field);
   }
 
   // Set default values for the date filter.
@@ -72,8 +65,12 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
     // This is a date that needs to be constructed from options like 'now' .
     $default_option = $prefix == 'max' ? $options['default_to_date'] : $options['default_date'];
     if (!empty($default_option)) {
+      str_replace('now', 'today', $default_option);
       $date = date_create($default_option, date_default_timezone_object());
       $default_date = !empty($date) ? $date->format($this->format) : '';
+
+      // The format for our filter is in ISO format, but the widget will need it in datetime format.
+      $default_date = str_replace('T', ' ', $default_date);
     }
     // This a fixed date.
     else {
@@ -89,7 +86,7 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
    * see if anything actually was submitted. If nothing has really been submitted, we need
    * to swap in our default value logic.
    */
-  function get_value($prefix, $input) {
+  function get_filter_value($prefix, $input) {
     if (empty($input)) {
       if (empty($this->options['exposed'])) {
         return $this->date_default_value($prefix);
@@ -98,16 +95,17 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
         return $this->date_default_value($prefix);
       }
     }
-    return $input;
+    // All our date widgets provide datetime values but we use ISO in our SQL
+    // for consistency between the way filters and arguments work (arguments
+    // cannot contain spaces).
+    return str_replace(' ', 'T', $input);
   }
 
   function accept_exposed_input($input) {
-      
     $element_input = $input[$this->options['expose']['identifier']];
-
-    $element_input['value'] = $this->get_value('value', $element_input['value']);
-    $element_input['min'] = $this->get_value('min', $element_input['min']);
-    $element_input['max'] = $this->get_value('max', $element_input['max']);
+    $element_input['value'] = $this->get_filter_value('value', !empty($element_input['value']) ? $element_input['value'] : '');
+    $element_input['min'] = $this->get_filter_value('min', !empty($element_input['min']) ? $element_input['min'] : '');
+    $element_input['max'] = $this->get_filter_value('max', !empty($element_input['max']) ? $element_input['max'] : '');
     unset($element_input['default_date']);
     unset($element_input['default_to_date']);
 
@@ -117,27 +115,29 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
   }
 
   function op_between($field) {
-    $min_value = $this->get_value('min', $this->value['min']);
-    $max_value = $this->get_value('max', $this->value['max']);
+    $min_value = $this->get_filter_value('min', $this->value['min']);
+    $max_value = $this->get_filter_value('max', $this->value['max']);
     $field = $this->date_handler->sql_field($field);
     $field = $this->date_handler->sql_format($this->format, $field);
     $placeholder_min = $this->placeholder();
     $placeholder_max = $this->placeholder();
+    $group = !empty($this->options['date_group']) ? $this->options['date_group'] : $this->options['group'];
     if ($this->operator == 'between') {
-      $this->query->add_where_expression($this->options['group'], "$field >= $placeholder_min", array($placeholder_min => $min_value));
-      $this->query->add_where_expression($this->options['group'], "$field <= $placeholder_max", array($placeholder_max => $max_value));
+      $this->query->add_where_expression($group, "$field >= $placeholder_min", array($placeholder_min => $min_value));
+      $this->query->add_where_expression($group, "$field <= $placeholder_max", array($placeholder_max => $max_value));
     }
     else {
-      $this->query->add_where_expression($this->options['group'], "$field <= $placeholder_min OR $field >= $placeholder_max", array($placeholder_min => $min_value, $placeholder_max => $max_value));
+      $this->query->add_where_expression($group, "$field <= $placeholder_min OR $field >= $placeholder_max", array($placeholder_min => $min_value, $placeholder_max => $max_value));
     }
   }
 
   function op_simple($field) {
-    $value = $this->get_value('value', $this->value['value']);
+    $value = $this->get_filter_value('value', $this->value['value']);
     $field = $this->date_handler->sql_field($field);
     $field = $this->date_handler->sql_format($this->format, $field);
     $placeholder = $this->placeholder();
-    $this->query->add_where_expression($this->options['group'], "$field $this->operator $placeholder", array($placeholder => $value));
+    $group = !empty($this->options['date_group']) ? $this->options['date_group'] : $this->options['group'];
+    $this->query->add_where_expression($group, "$field $this->operator $placeholder", array($placeholder => $value));
   }
 
   /**
@@ -208,6 +208,7 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
 
     // Below section copied from views_handler_filter_numeric.inc.
     $which = 'all';
+    $source = '';
     if (!empty($form['operator'])) {
       $source = ($form['operator']['#type'] == 'radios') ? 'radio:options[operator]' : 'edit-options-operator';
     }
@@ -215,12 +216,12 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
     if (!empty($form_state['exposed'])) {
       $identifier = $this->options['expose']['identifier'];
 
-      if (empty($this->options['expose']['use_operator']) || empty($this->options['expose']['operator'])) {
+      if (empty($this->options['expose']['use_operator']) || empty($this->options['expose']['operator_id'])) {
         // exposed and locked.
         $which = in_array($this->operator, $this->operator_values(2)) ? 'minmax' : 'value';
       }
       else {
-        $source = 'edit-' . drupal_html_id($this->options['expose']['operator']);
+        $source = 'edit-' . drupal_html_id($this->options['expose']['operator_id']);
       }
     }
 
@@ -317,10 +318,9 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
       '#suffix' => '</div></div>',
     );
     if ($which == 'all') {
-      $form[$prefix]['#process'] = array('ctools_dependent_process', $type . '_element_process');
-      $form[$prefix]['#dependency'] = array($source => $operator_values);  
+      $form[$prefix]['#pre_render'][] = 'ctools_dependent_pre_render';
+      $form[$prefix]['#dependency'] = array($source => $operator_values);
     }
-
     if (!empty($form_state['exposed']) && !isset($form_state['input'][$identifier][$prefix])) {
       $form_state['input'][$identifier][$prefix] = $this->value[$prefix];
     } 
@@ -361,16 +361,14 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
   // Update the summary values to provide
   // meaningful information for each option.
   function admin_summary() {
-    $field = $this->value;
-
-    $output = "$field " . check_plain($this->operator) . ' ';
     $parts = $this->date_handler->date_parts();
     $widget_options = $this->widget_options();
     // If the filter is exposed, display the granularity.
     if ($this->options['exposed']) {
-      return t('(@field) <strong>Exposed</strong> @widget @format', array('@field' => $field, '@format' => $parts[$this->date_handler->granularity], '@widget' => $widget_options[$this->options['form_type']]));
+      return t('<strong>Exposed</strong> @widget @format', array('@format' => $parts[$this->date_handler->granularity], '@widget' => $widget_options[$this->options['form_type']]));
     }
     // If not exposed, display the value.
+    $output = '';
     if (in_array($this->operator, $this->operator_values(2))) {
       $min = check_plain(!empty($this->options['default_date']) ? $this->options['default_date'] : $this->options['value']['min']);
       $max = check_plain(!empty($this->options['default_to_date']) ? $this->options['default_to_date'] : $this->options['value']['max']);

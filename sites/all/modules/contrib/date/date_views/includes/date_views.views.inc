@@ -185,7 +185,7 @@ function date_views_querystring($view, $extra_params = array()) {
   if (empty($extra_params['view'])) {
     $exclude[] = 'view';
   }
-  $query = drupal_http_build_query(drupal_get_query_parameters($query_params, $exclude));
+  $query = drupal_get_query_parameters($query_params, $exclude);
   // To prevent an empty query string from adding a "?" on to the end of a URL,
   // we return NULL.
   return !empty($query) ? $query : NULL;

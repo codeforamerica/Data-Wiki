@@ -1,3 +1,4 @@
+// $Id: openlayers_behavior_tooltip.js,v 1.1.2.2.2.2 2010/11/29 16:39:19 tmcw Exp $
 
 /**
  * Javascript Drupal Theming function for inside of Tooltips
@@ -10,16 +11,13 @@
  *  Formatted HTML.
  */
 Drupal.theme.prototype.openlayersTooltip = function(feature) {
-  var output = '';
-  
-  if (feature.attributes.name) {
-    output += '<div class="openlayers-popup openlayers-tooltip-name">' + feature.attributes.name + '</div>';
-  }
-  
-  if (feature.attributes.description) {
-    output += '<div class="openlayers-popup openlayers-tooltip-description">' + feature.attributes.description + '</div>';
-  }
-  
+  var output =
+    '<div class="openlayers-popup openlayers-tooltip-name">' +
+      feature.attributes.name +
+    '</div>' +
+    '<div class="openlayers-popup openlayers-tooltip-description">' +
+      feature.attributes.description +
+    '</div>';
   return output;
 };
 
@@ -57,27 +55,22 @@ Drupal.behaviors.openlayers_behavior_tooltip = {
           multiple: false,
           onSelect: function(feature) {
             // Create FramedCloud popup for tooltip.
-            var output = Drupal.theme('openlayersTooltip', feature);
-            if (typeof output != 'undefined') {
-              popup = new OpenLayers.Popup.FramedCloud(
-                'tooltip',
-                feature.geometry.getBounds().getCenterLonLat(),
-                null,
-                output,
-                null,
-                true
-              );
-              feature.popup = popup;
-              feature.layer.map.addPopup(popup);
-            }
+            popup = new OpenLayers.Popup.FramedCloud(
+              'tooltip',
+              feature.geometry.getBounds().getCenterLonLat(),
+              null,
+              Drupal.theme('openlayersTooltip', feature),
+              null,
+              true
+            );
+            feature.popup = popup;
+            feature.layer.map.addPopup(popup);
           },
           onUnselect: function(feature) {
             // Remove popup.
-            if (typeof feature.popup != 'undefined') {
-              feature.layer.map.removePopup(feature.popup);
-              feature.popup.destroy();
-              feature.popup = null;
-            }
+            feature.layer.map.removePopup(feature.popup);
+            feature.popup.destroy();
+            feature.popup = null;
           }
         }
       );

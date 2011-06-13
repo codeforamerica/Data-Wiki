@@ -190,7 +190,7 @@ function template_preprocess_date_vcalendar(&$vars) {
   // Format the event results as iCal expects.
   $events_in = $vars['events'];
   $events = array();
-  $rows = $vars['rows'];
+  $rows = (array) $vars['rows'];
   foreach ($events_in as $uid => $event) {
     $row = array_shift($rows);
     // Omit any items with empty dates.
@@ -203,7 +203,7 @@ function template_preprocess_date_vcalendar(&$vars) {
       else {
         $events[$uid]['timezone'] = '';
       }
-      $date_format = ($row->calendar_all_day == TRUE) ? DATE_FORMAT_ICAL_DATE : DATE_FORMAT_ICAL;
+      $date_format = (!empty($row->calendar_all_day) && $row->calendar_all_day == TRUE) ? DATE_FORMAT_ICAL_DATE : DATE_FORMAT_ICAL;
       $events[$uid]['start'] = date_format($event['start'], $date_format);
       if ($event['start'] && $event['end']) {
         $events[$uid]['end'] = date_format($event['end'], $date_format);

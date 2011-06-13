@@ -69,6 +69,18 @@ function login_destination_schema() {
 }
 
 /**
+ * Implementation of hook_install().
+ */
+function login_destination_install() {
+  // update the alter option of 'user/logout' to TRUE (menu_save invokes necessary hooks)
+  $result = db_query("SELECT mlid FROM {menu_links} WHERE link_path = 'user/logout' ORDER BY mlid ASC")->fetchAssoc();
+  foreach($result as $res) {
+    $item = menu_link_load($res['mlid']);
+    menu_link_save($item);
+  }
+}
+
+/**
  * Implementation of hook_uninstall().
  */
 function login_destination_uninstall() {
@@ -77,7 +89,6 @@ function login_destination_uninstall() {
 }
 
 function login_destination_update_7000() {
-
   $type = variable_get('ld_condition_type', 'always');
   $snippet = variable_get('ld_condition_snippet', '');
 

@@ -1,4 +1,5 @@
 <?php
+// $Id: destinations.db.mysql.inc,v 1.1.4.4 2010/12/07 06:22:59 ronan Exp $
 
 backup_migrate_include('destinations.db');
 
@@ -147,7 +148,7 @@ class backup_migrate_destination_db_mysql extends backup_migrate_destination_db 
   /**
    * Get a list of tables in the database.
    */
-  function _get_table_names() {
+  function get_table_names() {
     $out = array();
     foreach ($this->_get_tables() as $table) {
       $out[$table['name']] = $table['name'];

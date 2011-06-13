@@ -88,6 +88,12 @@ function content_migrate_storage_type($field_value) {
   }
   else {
     $instance_values = content_migrate_get_instance_values(NULL, $field_value['field_name']);
+    foreach ($instance_values as $bundle => $instance_value) {
+      if (isset($instance_value['messages'])) { 
+        $messages = array_merge($messages, $instance_value['messages']);    
+        unset($instance_values[$bundle]['messages']);
+      }
+    }
     if (count($instance_values) > 1) {
       $storage = CONTENT_DB_STORAGE_PER_FIELD;
     }
@@ -126,8 +132,8 @@ function content_migrate_new_revision($field) {
  */
 function content_migrate_old_columns($field_value, $instance_value) {
   $columns = array();
-  foreach ($field_value['columns'] as $col => $values) {
-    $columns[] = $field_value['field_name'] .'_'. $col;
+  foreach ($field_value['columns'] as $column_name => $values) {
+    $columns[$column_name] = $field_value['field_name'] .'_'. $column_name;
   }
   return $columns;
 }
@@ -141,18 +147,16 @@ function content_migrate_old_columns($field_value, $instance_value) {
 function content_migrate_new_columns($field) {
   $columns = array();
   if (empty($field['storage']['details'])) {
-    foreach ($field['columns'] as $col => $values) {
-      $columns[] = $field['field_name'] .'_'. $col;
+    foreach ($field['columns'] as $column_name => $values) {
+      $columns[$column_name] = $field['field_name'] .'_'. $column_name;
     }
     return $columns;
   }
   else {
-    foreach ($field['storage']['details']['sql'][FIELD_LOAD_CURRENT] as $table => $cols) {
-      foreach ($cols as $col) {
-        $columns[] = $col;
-      }
+    // There is only one table in this array, but the columns for all tables are the same so it doesn't matter.
+    foreach ($field['storage']['details']['sql'][FIELD_LOAD_CURRENT] as $table => $columns) {
+      return $columns;
     }
-    return $columns;
   }
 }
 
@@ -207,10 +211,10 @@ function content_migrate_content_migrate_instance_alter(&$instance_value, $field
  *
  * Tweaks individual records in a field.
  */
-function content_migrate_content_migrate_data_record_alter(&$record, $field) {
+function content_migrate_content_migrate_data_record_alter(&$record, $field, $instance) {
 
   module_load_include('inc', 'content_migrate', 'modules/content_migrate.filefield');
-  content_migrate_filefield_data_record_alter($record, $field);
+  content_migrate_filefield_data_record_alter($record, $field, $instance);
 
 }
 

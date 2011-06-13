@@ -35,9 +35,9 @@ files[] = theme/views-data-export-xml-footer.tpl.php
 files[] = theme/views-data-export-xml-header.tpl.php
 files[] = theme/views-data-export.tpl.php
 
-; Information added by drupal.org packaging script on 2011-04-09
-version = "7.x-3.x-dev"
+; Information added by drupal.org packaging script on 2011-04-08
+version = "7.x-3.0-beta4"
 core = "7.x"
 project = "views_data_export"
-datestamp = "1302309661"
+datestamp = "1302280017"
 

@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers_behavior_navigation.inc,v 1.1.2.5 2010/05/18 19:25:57 tmcw Exp $
 
 /**
  * @file
@@ -40,7 +41,7 @@ class openlayers_behavior_navigation extends openlayers_behavior {
    */
   function render(&$map) {
     drupal_add_js(drupal_get_path('module', 'openlayers') 
-      . '/includes/behaviors/js/openlayers_behavior_navigation.js');
+      .'/includes/behaviors/js/openlayers_behavior_navigation.js');
     return $this->options;
   }
 }

@@ -1,3 +1,4 @@
+// $Id: openlayers_behavior_navigation.js,v 1.1.2.4.2.2 2010/11/29 16:39:19 tmcw Exp $
 
 /**
  * @file

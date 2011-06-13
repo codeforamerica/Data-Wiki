@@ -88,37 +88,6 @@ function _date_api_element_info() {
 }
 
 /**
- * Helper function to round minutes and seconds to requested value.
- */
-function date_increment_round(&$date, $increment) {
-  // Round minutes and seconds, if necessary.
-  if (is_object($date) && $increment > 1) {
-    $day = intval(date_format($date, 'j'));
-    $hour = intval(date_format($date, 'H'));
-    $second = intval(round(intval(date_format($date, 's')) / $increment) * $increment);
-    $minute = intval(date_format($date, 'i'));
-    if ($second == 60) {
-      $minute += 1;
-      $second = 0;
-    }
-    $minute = intval(round($minute / $increment) * $increment);
-    if ($minute == 60) {
-      $hour += 1;
-      $minute = 0;
-    }
-    date_time_set($date, $hour, $minute, $second);
-    if ($hour == 24) {
-      $day += 1;
-      $hour = 0;
-      $year = date_format($date, 'Y');
-      $month = date_format($date, 'n');
-      date_date_set($date, $year, $month, $day);
-    }
-  }
-  return $date;
-}
-
-/**
  * Create a date object from a datetime string value.
  */
 function date_default_date($element) {
@@ -138,9 +107,14 @@ function date_default_date($element) {
  * Element value callback for date_timezone element.
  */
 function date_timezone_element_value_callback($element, $input = FALSE, &$form_state) {
-  //if (!$input) {
-    return array();
-  //}
+  $return = ''; 
+  if ($input !== FALSE) {
+    $return = $input;
+  }
+  elseif (!empty($element['#default_value'])) {
+    $return = $element['#default_value'];
+  }
+  return $return;
 }
 
 /**
@@ -155,8 +129,8 @@ function date_timezone_element_process($element, $form_state, $form) {
   $element['timezone'] = array(
     '#type' => 'select',
     '#title' => theme('date_part_label_timezone', array('part_type' => 'select', 'element' => $element)),
-    '#default_value' => $element['#default_value'],
     '#options' => date_timezone_names($element['#required']),
+    '#value' => $element['#value'],
     '#weight' => $element['#weight'],
     '#required' => $element['#required'],
     '#theme' => 'date_select_element',
@@ -528,8 +502,7 @@ function date_select_validate($element, &$form_state) {
   }
 
   $label = !empty($element['#date_title']) ? $element['#date_title'] : (!empty($element['#title']) ? $element['#title'] : '');
-
-  if (isset($element['#value']['ampm'])) {
+  if (isset($input['ampm'])) {
     if ($input['ampm'] == 'pm' && $input['hour'] < 12) {
       $input['hour'] += 12;
     }
@@ -539,7 +512,6 @@ function date_select_validate($element, &$form_state) {
   }
   unset($input['ampm']);
   $date = date_select_input_date($element, $input);
-
   if (empty($date) && $element['#required']) {
     form_error($element, t('A valid value is required.'));
   }
@@ -562,6 +534,15 @@ function date_select_input_date($element, $input) {
     return NULL;
   }  
   $granularity = date_format_order($element['#date_format']);
+  if (isset($input['ampm'])) {
+    if ($input['ampm'] == 'pm' && $input['hour'] < 12) {
+      $input['hour'] += 12;
+    }
+    elseif ($input['ampm'] == 'am' && $input['hour'] == 12) {
+      $input['hour'] -= 12;
+    }
+  }
+  unset($input['ampm']);
   $date = new DateObject($input, $element['#date_timezone']);
   if (is_object($date)) {
     $date->limitGranularity($granularity);

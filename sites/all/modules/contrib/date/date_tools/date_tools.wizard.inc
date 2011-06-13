@@ -417,7 +417,7 @@ function date_tools_wizard_create_calendar($name, $bundle, $date_field, $date_in
   ctools_object_cache_clear('view', 'calendar_' . $bundle);  
 
   // Force Views to empty its cache and find the new view.
-  views_discover_default_views();
+  views_get_all_views(TRUE);
 
   return 'calendar_' . $bundle;
 }

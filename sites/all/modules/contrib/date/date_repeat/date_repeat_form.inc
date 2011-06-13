@@ -210,7 +210,7 @@ function _date_repeat_rrule_process($element, $form_state, $form) {
       'datetime' => array(
         '#type' => $element['#date_repeat_widget'],
         '#default_value' => $RDATE,
-        '#date_timezone' => !empty($element['#date_timezone']) ? $element['#date_timezone'] : date_default_timezone_name(),
+        '#date_timezone' => !empty($element['#date_timezone']) ? $element['#date_timezone'] : date_default_timezone(),
         '#date_format' => !empty($element['#date_format']) ? date_limit_format($element['#date_format'], array('year', 'month', 'day')) : 'Y-m-d',
         '#date_text_parts'  => !empty($element['#date_text_parts']) ? $element['#date_text_parts'] : array(),
         '#date_year_range'  => !empty($element['#date_year_range']) ? $element['#date_year_range'] : '-3:+3',

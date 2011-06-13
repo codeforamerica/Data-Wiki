@@ -1,3 +1,4 @@
+; $Id: openlayers_views.info,v 1.4.2.1.2.4 2010/12/03 00:05:45 tmcw Exp $
 name = OpenLayers Views
 description = Provides OpenLayers Views plugins.
 core = 7.x
@@ -15,9 +16,9 @@ files[] = views/openlayers_views_plugin_row_bounding_box.inc
 files[] = views/openlayers_views_plugin_row_geometry.inc
 files[] = includes/layer_types/openlayers_views_vector.inc
 
-; Information added by drupal.org packaging script on 2011-05-23
-version = "7.x-2.x-dev"
+; Information added by drupal.org packaging script on 2011-01-14
+version = "7.x-2.0-alpha1"
 core = "7.x"
 project = "openlayers"
-datestamp = "1306152732"
+datestamp = "1295020307"
 

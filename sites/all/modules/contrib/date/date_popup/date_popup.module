@@ -88,10 +88,10 @@ function date_popup_js_settings_id($id, $func, $settings) {
   // Make sure popup date selector grid is in correct year.
   if (!empty($settings['yearRange'])) {
     $parts = explode(':', $settings['yearRange']);
-	  // Set the default date to 0 or the lowest bound if the date ranges do not include the current year
-	  // Necessary for the datepicker to render and select dates correctly
-	  $defaultDate = ($parts[0] > 0 || 0 > $parts[1]) ? $parts[0] : 0;
-	  $settings += array('defaultDate' => (string) $defaultDate . 'y');
+    // Set the default date to 0 or the lowest bound if the date ranges do not include the current year
+    // Necessary for the datepicker to render and select dates correctly
+    $defaultDate = ($parts[0] > 0 || 0 > $parts[1]) ? $parts[0] : 0;
+    $settings += array('defaultDate' => (string) $defaultDate . 'y');
   }
 
   if (!$js_added) {
@@ -312,6 +312,13 @@ function date_popup_process_time(&$element) {
     'spinnerImage' => '',
     'fromTo' => isset($fromto),
     );
+  if (strpos($element['#date_format'], 'a') !== FALSE) {
+    // Then we are using lowercase am/pm.
+    $settings['ampmNames'] = array('am', 'pm');
+  }
+  if (strpos($element['#date_format'], ' A') !== FALSE || strpos($element['#date_format'], ' a') !== FALSE) {
+    $settings['ampmPrefix'] = ' ';
+  }
 
   // Create a unique id for each set of custom settings.
   $id = date_popup_js_settings_id($element['#id'], 'timeEntry', $settings);
@@ -477,19 +484,19 @@ function date_popup_format_to_popup($format) {
 }
 
 /**
- * Recreate a date format string so it has the values popup expects.
+ * Recreate a time format string so it has the values popup expects.
  *
  * @param string $format
- *   a normal date format string, like Y-m-d
+ *   a normal time format string, like h:i (a)
  * @return string
- *   a format string in popup format, like YMD-
+ *   a format string that the popup can accept like h:i a
  */
 function date_popup_format_to_popup_time($format) {
   if (empty($format)) {
     $format = 'H:i';
   }
   $format = strtr($format, timepicker_format_replacements());
-  $format = str_replace(array(' ', '/', '-', ' .', ',', 'F', 'M', 'l', 'z', 'w', 'W', 'd', 'j', 'm', 'n', 'y', 'Y'), '', $format);
+  $format = str_replace(array('/', '-', ' .', ',', 'F', 'M', 'l', 'z', 'w', 'W', 'd', 'j', 'm', 'n', 'y', 'Y'), '', $format);
   return $format;
 }
 
@@ -510,9 +517,6 @@ function timepicker_format_replacements() {
   return array(
     'G' => 'H',
     'g' => 'h',
-    'a' => 'A',
-    ' a' => 'A',
-    ' A' => 'A',   
     );
 }
 

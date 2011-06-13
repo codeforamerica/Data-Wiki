@@ -103,14 +103,14 @@ function drush_content_migrate_fields() {
 }
 
 function drush_content_migrate_field_structure($field_name) {
-  drush_log(dt('Migrating structure for !field', array('!fields' => $field_name)), 'status');
+  drush_log(dt('Migrating structure for !field', array('!field' => $field_name)), 'status');
   module_load_include('inc', 'content_migrate', 'includes/content_migrate.admin');
   $context = array();
   _content_migrate_batch_process_create_fields($field_name, $context);
 }
 
 function drush_content_migrate_field_data($field_name) {
-  drush_log(dt('Migrating data for !field', array('!fields' => $field_name)), 'status');
+  drush_log(dt('Migrating data for !field', array('!field' => $field_name)), 'status');
   module_load_include('inc', 'content_migrate', 'includes/content_migrate.admin');
   $context = array(
     'sandbox' => array(),
@@ -140,7 +140,7 @@ function drush_content_migrate_rollback() {
   drush_log(dt('Roll back complete'), 'status');
 }
 
-function drush_content_migrate_get_fields($requests = array(), $status) {
+function drush_content_migrate_get_fields($requests = array(), $status = 'available') {
   module_load_include('inc', 'content_migrate', 'includes/content_migrate.admin');
   $fields_info = content_migrate_get_options();
   $field_names = array();

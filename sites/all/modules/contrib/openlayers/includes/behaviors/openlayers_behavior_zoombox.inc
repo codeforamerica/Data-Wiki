@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers_behavior_zoombox.inc,v 1.1.2.4 2010/05/18 19:25:57 tmcw Exp $
 
 /**
  * @file
@@ -30,8 +31,7 @@ class openlayers_behavior_zoombox extends openlayers_behavior {
    * Render.
    */
   function render(&$map) {
-    drupal_add_js(drupal_get_path('module', 'openlayers') . 
-      '/includes/behaviors/js/openlayers_behavior_zoombox.js');
+    drupal_add_js(drupal_get_path('module', 'openlayers') .'/includes/behaviors/js/openlayers_behavior_zoombox.js');
     return $this->options;
   }
 }

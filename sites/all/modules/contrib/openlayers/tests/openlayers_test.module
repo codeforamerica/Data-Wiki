@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers_test.module,v 1.2.2.15 2010/06/27 15:57:01 zzolo Exp $
 
 /**
  * @file
@@ -16,7 +17,7 @@
 function openlayers_test_menu() {
   $items = array();
 
-  $items['admin/structure/openlayers/test'] = array(
+  $items['admin/build/openlayers/test'] = array(
     'title' => 'OpenLayers Test Page',
     'description' => 'Test Page for OpenLayers.',
     'page callback' => 'openlayers_test_page',
@@ -35,7 +36,7 @@ function openlayers_test_ctools_plugin_api($module, $api) {
   // Define plugins for OpenLayers plugins api
   if ($module == "openlayers") {
     switch ($api) {
-      case 'openlayers_maps':
+      case 'openlayers_presets':
         return array('version' => 1);
 
     }
@@ -52,9 +53,9 @@ function openlayers_test_views_api() {
 }
 
 /**
- * Implementation of hook_openlayers_maps().
+ * Implementation of hook_openlayers_presets().
  */
-function openlayers_test_openlayers_maps() {
+function openlayers_test_openlayers_presets() {
   $items = array();
 
   // Map with some behaviors
@@ -62,7 +63,7 @@ function openlayers_test_openlayers_maps() {
   $behaviors_test->api_version = 1;
   $behaviors_test->name = 'behaviors_test';
   $behaviors_test->title = t('Test: Behaviors');
-  $behaviors_test->description = t('This is a test map.');
+  $behaviors_test->description = t('This is a test preset.');
   $behaviors_test->data = array(
     'projection' => '4326',
     'projection' => '900913',
@@ -106,7 +107,7 @@ function openlayers_test_openlayers_maps() {
   $popup_test->api_version = 1;
   $popup_test->name = 'popup_test';
   $popup_test->title = t('Test: Popups');
-  $popup_test->description = t('This is a test map.');
+  $popup_test->description = t('This is a test preset.');
   $popup_test->data = array(
     'projection' => '4326',
     'projection' => '900913',
@@ -149,13 +150,13 @@ function openlayers_test_openlayers_maps() {
   $items['popup_test'] = $popup_test;
   */
 
-  $openlayers_maps_cck_views = new stdClass;
-  $openlayers_maps_cck_views->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
-  $openlayers_maps_cck_views->api_version = 1;
-  $openlayers_maps_cck_views->name = 'openlayers_test_map_cck_views';
-  $openlayers_maps_cck_views->title = 'Test: OpenLayers Test Views';
-  $openlayers_maps_cck_views->description = 'This map tests a custom content type with a WKT field and a views layer.';
-  $openlayers_maps_cck_views->data = array(
+  $openlayers_map_presets_cck_views = new stdClass;
+  $openlayers_map_presets_cck_views->disabled = FALSE; /* Edit this to true to make a default openlayers_presets disabled initially */
+  $openlayers_map_presets_cck_views->api_version = 1;
+  $openlayers_map_presets_cck_views->name = 'openlayers_test_preset_cck_views';
+  $openlayers_map_presets_cck_views->title = 'Test: OpenLayers Test Views';
+  $openlayers_map_presets_cck_views->description = 'This preset tests a custom content type with a WKT field and a views layer.';
+  $openlayers_map_presets_cck_views->data = array(
     'width' => 'auto',
     'height' => '400px',
     'image_path' => '',
@@ -201,16 +202,16 @@ function openlayers_test_openlayers_maps() {
     'options' => NULL,
   );
 
-  // We only want to provide the Views/CCK map if the
+  // We only want to provide the Views/CCK preset if the
   // modules are installed and the view is provide
   if (module_exists('content') && module_exists('views') && module_exists('content_copy')) {
     $layers = openlayers_layers_load();
     if (!empty($layers['openlayers_test_view_openlayers_1'])) {
-      $items['openlayers_test_map_cck_views'] = $openlayers_maps_cck_views;
+      $items['openlayers_test_preset_cck_views'] = $openlayers_map_presets_cck_views;
     }
   }
 
-  // Return maps
+  // Return presets
   return $items;
 }
 
@@ -229,12 +230,12 @@ function openlayers_test_page() {
       <li>' . $js_test_link . '</li>
     </ul>';
 
-  // Render all maps
-  $maps = openlayers_maps();
-  foreach ($maps as $name => $map) {
+  // Render all presets
+  $presets = openlayers_presets();
+  foreach ($presets as $name => $preset) {
     $output .= '
-      <h3>' . $map->title . '</h3>
-      ' . openlayers_render_map($map) . '
+      <h3>' . $preset->title . '</h3>
+      ' . openlayers_render_map($preset->data) . '
     ';
   }
 
@@ -437,7 +438,7 @@ function openlayers_test_openlayers_map_preprocess_alter(&$map) {
   // For testing purposes, display a message on the only the Test
   // page, and only once.
   static $performed = FALSE;
-  if (!$performed && $_GET['q'] == 'admin/structure/openlayers/test') {
+  if (!$performed && $_GET['q'] == 'admin/build/openlayers/test') {
     drupal_set_message(t('OpenLayers preprocess map alter hook fired.'));
     $performed = TRUE;
   }
@@ -450,7 +451,7 @@ function openlayers_test_openlayers_map_alter(&$map) {
   // For testing purposes, display a message on the only the Test
   // page, and only once.
   static $performed = FALSE;
-  if (!$performed && $_GET['q'] == 'admin/structure/openlayers/test') {
+  if (!$performed && $_GET['q'] == 'admin/build/openlayers/test') {
     drupal_set_message(t('OpenLayers map alter hook fired.'));
     $performed = TRUE;
   }

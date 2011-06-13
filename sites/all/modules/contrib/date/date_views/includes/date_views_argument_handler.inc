@@ -17,6 +17,10 @@ class date_views_argument_handler extends date_views_argument_handler_simple {
    */
   function init(&$view, &$options) {
     parent::init($view, $options);
+
+    if (empty($this->view->date_info)) {
+      $this->view->date_info = new stdClass();
+    }
     if (empty($this->view->date_info->date_fields)) {
       $this->view->date_info->date_fields = array();
     }
@@ -126,7 +130,7 @@ class date_views_argument_handler extends date_views_argument_handler_simple {
     $defaults = parent::default_actions();
   
     // There is no easy way to do summary queries on multiple fields, so remove that option.
-    unset($defaults['summary asc'], $defaults['summary desc'], $defaults['summary asc by count'], $defaults['summary desc by count']);
+    unset($defaults['summary']);
 
     if ($which) {
       if (!empty($defaults[$which])) {
@@ -144,8 +148,7 @@ class date_views_argument_handler extends date_views_argument_handler_simple {
     $this->query_fields = array();
     foreach ($this->options['date_fields'] as $delta => $name) {
       if (array_key_exists($name, $fields) && $field = $fields[$name]) {
-        $date_handler = new date_sql_handler();
-        $date_handler->construct($field['sql_type'], date_default_timezone());
+        $date_handler = new date_sql_handler($field['sql_type'], date_default_timezone());
         $date_handler->granularity = $this->options['granularity'];
         date_views_set_timezone($date_handler, $this, $field);
         $this->query_fields[] = array('field' => $field, 'date_handler' => $date_handler);
@@ -158,7 +161,7 @@ class date_views_argument_handler extends date_views_argument_handler_simple {
    *
    * The argument sent may be found at $this->argument.
    */
-  function query() {
+  function query($group_by = FALSE) {
     if ($this->date_forbid()) {
       return;
     }
@@ -189,6 +192,7 @@ class date_views_argument_handler extends date_views_argument_handler_simple {
         $i++;
       }
     }
+    $this->query->set_where_group($this->options['date_method'], $this->options['date_group']);
     $this->granularity = $this->date_handler->arg_granularity($this->argument);
     $format = $this->date_handler->views_formats($this->granularity, 'sql');
     if (!empty($this->query_fields)) {
@@ -208,7 +212,7 @@ class date_views_argument_handler extends date_views_argument_handler_simple {
           $this->table_alias = NULL;
         }
         $this->formula = $this->formula();
-        parent::query($this->options['date_group']);
+        parent::query($group_by);
       }
     }
   }

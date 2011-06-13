@@ -10,9 +10,9 @@ files[] = date_api_sql.inc
 files[] = date_api.admin.inc
 files[] = date_api.install
 files[] = theme/theme.inc
-; Information added by drupal.org packaging script on 2011-03-09
-version = "7.x-2.0-alpha1"
+; Information added by drupal.org packaging script on 2011-04-26
+version = "7.x-2.0-alpha3"
 core = "7.x"
 project = "date"
-datestamp = "1299682267"
+datestamp = "1303821715"
 

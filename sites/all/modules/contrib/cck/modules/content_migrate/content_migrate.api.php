@@ -64,7 +64,7 @@ function hook_content_migrate_instance_alter(&$instance_value, $field_value) {
  * @param $field
  *
  */
-function hook_content_migrate_data_record_alter(&$record, $field) {
+function hook_content_migrate_data_record_alter(&$record, $field, $instance) {
   switch($field['type']) {
     case 'file':
       // Map D6 filefield field columns to D7 file field columns. Note the data

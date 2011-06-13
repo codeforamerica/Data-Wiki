@@ -1,4 +1,5 @@
 <?php
+// $Id: openlayers.install,v 1.12.2.10.2.3 2011/01/14 15:44:15 tmcw Exp $
 
 /**
  * @file
@@ -22,7 +23,7 @@ function openlayers_uninstall() {
   $variables = db_query("SELECT v.name FROM {variable} AS v WHERE v.name LIKE ':pattern'",
     array(':pattern' => db_like('openlayers_') . '%'))->fetchAll();
   // Remove variables
-  foreach ($variables as $v) {
+  foreach($variables as $v) {
     variable_del($v);
   }
 }
@@ -33,34 +34,34 @@ function openlayers_uninstall() {
 function openlayers_schema() {
   $schema = array();
   // Maps table (ctools extras)
-  $schema['openlayers_maps'] = array(
-    'description' => 'Storage for User defined OpenLayers maps.',
+  $schema['openlayers_map_presets'] = array(
+    'description' => 'Storage for User defined OpenLayers map presets.',
     'export' => array(
       'key' => 'name',
-      'identifier' => 'openlayers_maps',
-      'default hook' => 'openlayers_maps',
+      'identifier' => 'openlayers_presets',
+      'default hook' => 'openlayers_presets',
       'api' => array(
         'owner' => 'openlayers',
-        'api' => 'openlayers_maps',
+        'api' => 'openlayers_presets',
         'minimum_version' => 1,
         'current_version' => 1,
       ),
     ),
     'fields' => array(
       'name' => array(
-        'description' => 'The primary identifier for the map.',
+        'description' => 'The primary identifier for the preset.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
       ),
       'title' => array(
-        'description' => 'The title of the map.',
+        'description' => 'The title of the preset.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
       ),
       'description' => array(
-        'description' => 'The description of the map.',
+        'description' => 'The description of the preset.',
         'type' => 'text',
         'not null' => TRUE,
       ),
@@ -166,17 +167,4 @@ function openlayers_schema() {
     ),
   );
   return $schema;
-}
-
-/**
- * Implements hook_update_N().
- *
- * Rename of presets to maps.
- */
-function openlayers_update_7201() {
-  // Change table name
-  db_rename_table('openlayers_map_presets', 'openlayers_maps');
-  // Set default map variable
-  variable_set('openlayers_default_map', variable_get('openlayers_default_preset', 'default'));
-  variable_del('openlayers_default_preset');
 }

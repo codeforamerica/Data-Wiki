@@ -1,3 +1,4 @@
+// $Id: openlayers_views_vector.js,v 1.1.2.5 2010/03/25 14:40:55 tmcw Exp $
 
 /**
  * OpenLayers Views Vector Layer Handler
