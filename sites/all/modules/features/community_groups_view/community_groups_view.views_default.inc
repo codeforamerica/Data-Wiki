@@ -737,6 +737,39 @@ function community_groups_view_views_default_views() {
   $handler->display->display_options['sorts']['field_location_lat']['table'] = 'field_data_field_location';
   $handler->display->display_options['sorts']['field_location_lat']['field'] = 'field_location_lat';
   $handler->display->display_options['sorts']['field_location_lat']['order'] = 'DESC';
+  /* Contextual filter: Content: Categories (field_categories) */
+  $handler->display->display_options['arguments']['field_categories_tid']['id'] = 'field_categories_tid';
+  $handler->display->display_options['arguments']['field_categories_tid']['table'] = 'field_data_field_categories';
+  $handler->display->display_options['arguments']['field_categories_tid']['field'] = 'field_categories_tid';
+  $handler->display->display_options['arguments']['field_categories_tid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['field_categories_tid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_categories_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_categories_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_categories_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_categories_tid']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['field_categories_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_categories_tid']['validate_options']['vocabularies'] = array(
+    'categories' => 'categories',
+    'activity_level' => 0,
+    'area_code' => 0,
+    'audience_size' => 0,
+    'city' => 0,
+    'district' => 0,
+    'neighborhood' => 0,
+    'ownership' => 0,
+    'region' => 0,
+    'state' => 0,
+    'tags' => 0,
+    'type_group' => 0,
+    'type_dataset' => 0,
+    'type_of_group' => 0,
+    'zipcode' => 0,
+  );
+  $handler->display->display_options['arguments']['field_categories_tid']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['field_categories_tid']['validate_options']['transform'] = '1';
+  $handler->display->display_options['arguments']['field_categories_tid']['validate']['fail'] = 'empty';
+  $handler->display->display_options['arguments']['field_categories_tid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_categories_tid']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -760,6 +793,10 @@ function community_groups_view_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'community-groups-data';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'community-group-data/term';
   $export['community_groups_data'] = $view;
 
   return $export;

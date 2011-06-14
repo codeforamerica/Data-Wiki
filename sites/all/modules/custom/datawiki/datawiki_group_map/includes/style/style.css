@@ -2,10 +2,22 @@
   width: 300px;
   background: #bbb;
 }
-#popular-terms {
+.block {
   background: #bbb;
   padding: 20px 10px;
-  width: 200px;
+  margin: 0 0 20px 0;
+}
+.block li a {
+  color: #fff;
+  
+}
+.block ul {
+  margin: 0;
+}
+.block li {
+  list-style: none;
+  padding: 0 0 4px 0;
+
 }
 
 #popup-content {
@@ -616,6 +628,7 @@ a.create-project:hover, a.create-project:active {
     width: 920px;
     height: 140px;
     font-weight: bold;
+    padding: 40px 0;
 }
 
 #footer ul li {
@@ -624,6 +637,7 @@ a.create-project:hover, a.create-project:active {
     float: left;
     border-right: 1px solid #666;
     padding: 0 4px 0 4px;
+    margin: 0 4px 0 4px;
 }
 
 #footer ul li:last-child {

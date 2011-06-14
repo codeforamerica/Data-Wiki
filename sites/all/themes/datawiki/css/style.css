@@ -346,10 +346,10 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 .meta {
   color: #aaa;
 }
-
+li.flag-group_inactive span.flag-wrapper a,
 li.flag-like span.flag-like a{
   margin: 5px 0 10px 0;
-  padding: 10px 20px;
+  padding: 5px 10px;
   display: inline-block;
   text-transform: uppercase;
   background-color: #C0C48A;
@@ -357,9 +357,10 @@ li.flag-like span.flag-like a{
   color: #fff;
 }
 
+li.flag-group_inactive span.flag-wrapper a.unflag-action,
 li.flag-like span.flag-like a.unflag-action{
   margin: 5px 0 10px 0;
-  padding: 10px 20px;
+  padding: 5px 10px;
   display: inline-block;
   background-color: #99B9C1;
   color: #fff;
