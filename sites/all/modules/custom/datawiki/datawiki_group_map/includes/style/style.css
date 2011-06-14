@@ -7,9 +7,18 @@
   padding: 20px 10px;
   margin: 0 0 20px 0;
 }
+
+#popup-content a {
+  color: #fff;
+}
+
+#popup-content .categories {
+  font-size: 80%;
+  padding: 20px 0 0 0;
+}
+
 .block li a {
   color: #fff;
-  
 }
 .block ul {
   margin: 0;
@@ -17,7 +26,6 @@
 .block li {
   list-style: none;
   padding: 0 0 4px 0;
-
 }
 
 #popup-content {
@@ -127,6 +135,7 @@ html[xmlns] .clearfix {
 /** 
  * Header section
  */
+/*
 #header {
     height:20px;
     padding:10px 20px;
@@ -138,6 +147,7 @@ html[xmlns] .clearfix {
     -moz-box-shadow: 0px 2px 5px #666;
     box-shadow: 0px 2px 5px #666;
 }
+*/
 .home .title-main {
     display:none;
 }
