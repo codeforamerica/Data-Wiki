@@ -64,8 +64,7 @@ cityGroups.geoJSON = function(nodes) {
         for (p in locationGeoObj.coordinates[0]) {
           polygonPoint = p;
           polygonPoint = new L.LatLng(locationGeoObj.coordinates[0][p][1], locationGeoObj.coordinates[0][p][0]);
-          polygonPoints.push(polygonPoint);
-
+          polygonPoints.push(polygonPoint); 
         }
         cityGroups.map.popupPolygons(polygonPoints, nodes);
       break;
@@ -104,7 +103,8 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   marker.on('click', onMapClick);
 
 	function onMapClick(e) {
-	  $('div#popup-content div.content').html(node.title);
+	  	console.log(node);
+	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
     cityGroups.map.rendered.addLayer(polygon);
     polygon.on('click',offMapClick);
 	}
@@ -114,6 +114,19 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
     $('div#popup-content div.content').html('Click map to see where the groups are');
 	}
 };
+
+cityGroups.map.popupTemplate = function(node) {
+  var output = '';
+  output += '<a href="' + node.permalink + '">' + node.title + '</a>';
+  if(node.description !== undefined) {
+    output += '<div class="description">' + node.description + '</div>';
+  }
+  if(node.categories !== undefined) {
+    output += '<div class="categories">' + node.categories + '</div>';
+  }
+  return output;
+};
+
 
 cityGroups.map.loadMap = function() {
   // initialize the map on the "map" div with a given center and zoom
