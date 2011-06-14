@@ -19,35 +19,37 @@
 <body>
 <div id="container" class="section container_12">
     <div id="header">
-        <div class="logo grid_6 alpha"><h1><a href="index.html">SiteName</a></h1></div>
-        <div class="grid_6 omega">
-          <ul class="menu">
-            <li><a href="#" >Link</a></li>
-            <li><a href="#" >Link</a></li>
-          </ul>
-        </div>
-        <div id="page-title" class="grid_12"><h2>Map</h2></div>
-        <div id="popup-content" class="grid_4 alpha">
-          <div class="content">Click map to see where the groups are</div>
-        
-          <div class="popular-terms">
+      <div class="logo grid_6 alpha"><h1><a href="/">CityGroups: Map of Community Groups in Seattle</a></h1></div>
+      <div class="grid_6 omega">
+        <ul class="menu">
+          <li><a href="#popular-searches" id="popular-search">Popular Searches</a></li>
+          <li><a href="node/add/community-group"  id="add-group">Add a Group</a></li>
+        </ul>
+      </div> 
+    </div>
+    <div id="page-content" class="grid_12">              
+        <div id="popular-terms" class="grid_4 alpha">
           <ul>
             <li><a href="#block-watch">Block Watch</a></li>
             <li><a href="#online-newspaper">Online Newspaper</a></li>
           </ul>
         </div>
-        </div> 
-        <div id="content" class="grid_8 omega">
-          <div id="map" style="height: 600px"></div> <!-- width equals available horizontal space by default -->
-          <div id="data"></div> <!-- width equals available horizontal space by default -->
-        </div>
         
-        <div id="footer" class="grid_12">
-          <ul class="menu">
-            <li><a href="link.html">Footer Menu</a></li>
-            <li><a href="link.html">Footer Menu</a></li>
-          </ul>
+        <div id="map-area" class="grid_8 omega">
+          <div id="map" style="height: 600px"></div>
+          <div id="data"></div>
         </div>
+
+        <div id="popup-content">
+            <div class="content">Click map to see where the groups are</div>
+        </div>
+      </div>                
+    <div id="footer" class="grid_12">
+      <ul class="menu">
+        <li><a href="about">About</a></li>
+        <li><a href="groups">View as list</a></li>
+      </ul>
     </div>
+  </div>
 </div>
 </html>

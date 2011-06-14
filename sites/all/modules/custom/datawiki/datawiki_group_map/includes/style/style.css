@@ -1,12 +1,31 @@
 #popup-content {
   width: 300px;
-  background: #ddd;
+  background: #bbb;
 }
-.popular-terms {
-  width: 300px;
-  background: #ddd;
+#popular-terms {
+  background: #bbb;
+  padding: 20px 10px;
+  width: 200px;
 }
 
+#popup-content {
+  position: fixed;
+  top: 130px;
+  right: 30px;
+  padding: 20px 10px;
+
+}
+ul.menu li {
+  float: left;
+  padding: 0 20px 0 0;
+}
+
+#page-title {
+}
+
+.popup-item a.title {
+  font-size: 18px;
+}
 /**
  * Main CSS for City-Hero
  */
@@ -18,7 +37,7 @@ body {
     background:#fff;
     font-family:Helvetica, Arial, sans-serif;
     color:#333;
-    font-size:12px;
+    font-size:16px;
     padding:0;
     margin:0;
 }

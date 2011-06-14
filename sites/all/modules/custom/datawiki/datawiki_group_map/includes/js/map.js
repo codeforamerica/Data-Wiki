@@ -10,7 +10,7 @@ cityGroups.paths = {
     "defaultPath": "community-groups-data",
     "#block-watch": "community-group-data/term/block-watch",
     "#online-newspaper": "community-group-data/term/online-newspaper"
-    };
+};
 
 cityGroups.map.polygonOptions = {
     color: 'red',
@@ -21,10 +21,19 @@ cityGroups.map.polygonOptions = {
 $(document).ready(function() {
   cityGroups.data.popularLoad();
   cityGroups.loadData(cityGroups.paths['defaultPath']);
+  cityGroups.mapPageInteractions();
 });
 
+
+cityGroups.mapPageInteractions = function () {
+  $('ul.menu a#popular-search').click(function() {
+  console.log("cl");
+    $('div#popular-terms').css('backgroundColor', '#bb4433');
+  });
+};
+
 cityGroups.data.popularLoad = function () {
-  $('div.popular-terms ul li a').click(function(){ 
+  $('div#popular-terms ul li a').click(function(){ 
     var path = cityGroups.paths[$(this).attr('href')];
     cityGroups.loadData(path);
   });
@@ -133,14 +142,15 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
 };
 
 cityGroups.map.popupTemplate = function(node) {
-  var output = '';
-  output += '<a href="' + node.permalink + '">' + node.title + '</a>';
+  var output = '<div class="popup-item">';
+  output += '<a href="' + node.permalink + '" class="title">' + node.title + '</a>';
   if(node.description !== undefined) {
     output += '<div class="description">' + node.description + '</div>';
   }
   if(node.categories !== undefined) {
     output += '<div class="categories">' + node.categories + '</div>';
   }
+  output += '</div>';
   return output;
 };
 
