@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * @file
+ * Custom module that renders and caches a json+leaflet map.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function datawiki_collection_help($path, $arg) {
+  switch ($path) {
+    case 'datawiki_collection':
+      $explanation = t(
+        'Custom features for Data Wiki Group Map.');
+      return "<p>$explanation</p>";
+  }
+}
+
+/**
+ * Implementatation of hook_menu().
+ */
+function datawiki_collection_menu() {
+  $items['collection'] = array(
+    'title' => 'Collections',
+    'description' => 'Data Collection Projects',
+    'page callback' => '_datawiki_collection_render',
+    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  $items['collection/termname'] = array(
+    'title' => 'Collection: Termname',
+    'description' => 'Data Collection Projects',
+    'page callback' => '_datawiki_collection_term_render',
+    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  $items['map/collection/termname'] = array(
+    'title' => 'Map',
+    'description' => 'Data Collection Projects',
+    'page callback' => '_datawiki_map_render',
+    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  $items['categories/collection/termname'] = array(
+    'title' => 'List of categories',
+    'description' => 'Categories',
+    'page callback' => '_datawiki_categories_render',
+    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  $items['list/collection/termname'] = array(
+    'title' => 'List',
+    'description' => 'List of content',
+    'page callback' => '_datawiki_list_render',
+    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  $items['about/collection/termname'] = array(
+    'title' => 'About',
+    'description' => 'About block',
+    'page callback' => '_datawiki_about_render',
+    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  // @TODO add wrapper function that will autogenerate for for other content types.
+  $items['node/add/community-group/collection/termname'] = array(
+    'title' => 'Add new Termname',
+    'description' => 'Add a community group',
+    'page callback' => '_datawiki_add_community_group_render',
+    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Render menu page.
+ */
+function _datawiki_collection_render() {
+ echo "collection";
+}
+
+/**
+ * Render menu page.
+ */
+function _datawiki_collection_term_render() {
+ echo "collections";
+}
+
+/**
+ * Render menu page.
+ */
+function _datawiki_map_render() {
+ echo "map";
+}
+
+/**
+ * Render menu page.
+ */
+function _datawiki_categories_render() {
+ echo "categories";
+}
+
+/**
+ * Render menu page.
+ */
+function _datawiki_list_render() {
+ echo "list";
+}
+
+/**
+ * Render menu page.
+ */
+function _datawiki_about_render() {
+ echo "about";
+}
