@@ -1,6 +1,7 @@
 ; Theme basics
-name = Data Wiki Theme
-description = Theme for DataWiki.
+name = CityGroups Seattle, Blockwatch
+description = A custom subtheme of Datawiki/CityGroups for a Collection of Blockwatches.
+base theme = citygroups_sea
 core = 7.x
 engine = phptemplate
 

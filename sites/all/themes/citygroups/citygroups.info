@@ -1,6 +1,7 @@
 ; Theme basics
-name = Data Wiki Theme
-description = Theme for DataWiki.
+name = CityGroups Theme
+description = A subtheme of Datawiki.
+base theme = datawiki
 core = 7.x
 engine = phptemplate
 
