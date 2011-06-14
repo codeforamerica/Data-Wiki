@@ -102,7 +102,16 @@ echo '
           </ul>
         </div>
         <div id="page-title" class="grid_12"><h2>Map</h2></div>
-        <div id="popup-content" class="grid_4 alpha"><div class="content">Click map to see where the groups are</div></div> 
+        <div id="popup-content" class="grid_4 alpha">
+          <div class="content">Click map to see where the groups are</div>
+        
+          <div class="popular-terms">
+          <ul>
+            <li><a href="#block-watch">Block Watch</a></li>
+            <li><a href="#online-newspaper">Online Newspaper</a></li>
+          </ul>
+        </div>
+        </div> 
         <div id="content" class="grid_8 omega">
           <div id="map" style="height: 600px"></div> <!-- width equals available horizontal space by default -->
           <div id="data"></div> <!-- width equals available horizontal space by default -->

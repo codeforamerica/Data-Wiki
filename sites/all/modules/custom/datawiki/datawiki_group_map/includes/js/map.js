@@ -3,6 +3,14 @@ cityGroups.map = {};
 cityGroups.geoJSON = {};
 cityGroups.map.settings = {};
 cityGroups.map.rendered;
+cityGroups.data = {};
+
+// Custom search paths.
+cityGroups.paths = {
+    "defaultPath": "community-groups-data",
+    "#block-watch": "community-group-data/term/block-watch",
+    "#online-newspaper": "community-group-data/term/online-newspaper"
+    };
 
 cityGroups.map.polygonOptions = {
     color: 'red',
@@ -11,18 +19,27 @@ cityGroups.map.polygonOptions = {
 };
         
 $(document).ready(function() {
-  cityGroups.loadData();
+  cityGroups.data.popularLoad();
+  cityGroups.loadData(cityGroups.paths['defaultPath']);
 });
 
+cityGroups.data.popularLoad = function () {
+  $('div.popular-terms ul li a').click(function(){ 
+    var path = cityGroups.paths[$(this).attr('href')];
+    cityGroups.loadData(path);
+  });
+};
 
-cityGroups.loadData = function() {
+cityGroups.loadData = function(path) {
 /*   var dataPath = "http://localhost/codeforamerica/citygroups/citygroups_map/data/community-groups-data.json"; */
-var dataPath = "community-groups-data";
+if (path === undefined) {
+  var path = "community-groups-data";
+}
 /*   var dataPath = "sites/all/modules/custom/datawiki/datawiki_group_map/includes/data/community-groups-data.json"; */
   var data = "";
 
   $.ajax({
-    url: dataPath,
+    url: path,
     dataType: 'json',
     data: data,
     success: cityGroups.loadDataSuccess,
