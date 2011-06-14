@@ -24,12 +24,17 @@ function community_group_content_type_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Community Groups Data';
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'time';
+  $handler->display->display_options['cache']['results_lifespan'] = '3600';
+  $handler->display->display_options['cache']['output_lifespan'] = '3600';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '100';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '300';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'views_json';
   $handler->display->display_options['style_options']['plaintext_output'] = 1;
   $handler->display->display_options['style_options']['jsonp_prefix'] = '';
@@ -588,11 +593,12 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['fields']['field_location']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_location']['element_label_colon'] = 0;
   $handler->display->display_options['fields']['field_location']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_location']['empty'] = 'no results here';
   $handler->display->display_options['fields']['field_location']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_location']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_location']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_location']['click_sort_column'] = 'wkt';
-  $handler->display->display_options['fields']['field_location']['type'] = 'geofield_wkt';
+  $handler->display->display_options['fields']['field_location']['type'] = 'geofield_geojson';
   $handler->display->display_options['fields']['field_location']['settings'] = array(
     'data' => 'full',
   );
@@ -660,6 +666,11 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  /* Sort criterion: Fields: Location (field_location:lat) */
+  $handler->display->display_options['sorts']['field_location_lat']['id'] = 'field_location_lat';
+  $handler->display->display_options['sorts']['field_location_lat']['table'] = 'field_data_field_location';
+  $handler->display->display_options['sorts']['field_location_lat']['field'] = 'field_location_lat';
+  $handler->display->display_options['sorts']['field_location_lat']['order'] = 'DESC';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -674,6 +685,11 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'community_group' => 'community_group',
   );
+  /* Filter criterion: Fields: Location (field_location:lat) */
+  $handler->display->display_options['filters']['field_location_lat']['id'] = 'field_location_lat';
+  $handler->display->display_options['filters']['field_location_lat']['table'] = 'field_data_field_location';
+  $handler->display->display_options['filters']['field_location_lat']['field'] = 'field_location_lat';
+  $handler->display->display_options['filters']['field_location_lat']['operator'] = 'not empty';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
