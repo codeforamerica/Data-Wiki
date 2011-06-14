@@ -203,8 +203,8 @@ function community_group_content_type_field_group_info() {
       2 => 'field_notes',
       3 => 'field_ownership',
       4 => 'field_source',
-      5 => 'field_url_image',
-      6 => 'field_type_group',
+      5 => 'field_type_group',
+      6 => 'field_url_image',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

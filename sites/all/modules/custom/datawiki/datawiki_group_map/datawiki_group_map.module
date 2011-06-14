@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * @file
+ * Custom module that renders and caches a json+leaflet map.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function datawiki_group_map_help($path, $arg) {
+  switch ($path) {
+    case 'datawiki_group_map':
+      $explanation = t(
+        'Custom features for Data Wiki Group Map.');
+      return "<p>$explanation</p>";
+  }
+}
+
+
+/**
+ * Implementatation of hook_menu().
+ */
+function datawiki_group_map_menu() {
+  $items['datawiki_group_map'] = array(
+    'title' => 'Map',
+    'description' => 'Display a map of Community Groups.',
+    'page callback' => '_datawiki_group_map_render',
+    'page arguments' => array(t('This page is displayed by the simplest (and base) menu example. Note that the title of the page is the same as the link title. You can also <a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'access callback' => TRUE,
+    // 'file' => 'menu_example.module',
+
+    // We can choose which menu gets the link. The default is 'navigation'.
+    // 'menu_name' => 'navigation',
+
+    // Show the menu link as expanded.
+    'expanded' => TRUE,
+  );
+  return $items;
+}
+
+
+/**
+ * Implements hook_cron_job_scheduler_info().
+ *
+ * Compare queue names with key names in feeds_cron_queue_info().
+ */
+function datawiki_group_map_cron_job_scheduler_info() {
+  $info = array();
+  $info['datawiki_group_map_import'] = array(
+    'queue name' => 'datawiki_group_map_import',
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function datawiki_group_map_cron_queue_info() {
+  $queues = array();
+  $queues['datawiki_group_map_import'] = array(
+    'worker callback' => 'datawiki_group_map_import',
+    'time' => 15,
+  );
+  return $queues;
+}
+
+/**
+ * Scheduler callback for importing from a source.
+ */
+function datawiki_group_map_import($job) {
+
+dsm("saving json");
+}
+
+
+function _datawiki_group_map_render() {
+  $html_root = drupal_get_path('module', 'datawiki_group_map');
+echo '
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SiteName</title>
+  <link rel="stylesheet" href="' . $html_root . '/includes/style/fluid_grid.css" type="text/css" />
+  <link rel="stylesheet" href="' . $html_root . '/includes/style/boilerplate.css" type="text/css" />
+  <link rel="stylesheet" href="' . $html_root . '/includes/js/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="' . $html_root . '/includes/style/style.css" type="text/css" />
+<!--[if lte IE 8]><link rel="stylesheet" href="' . $html_root . '/includes/style/leaflet/leaflet.ie.css" /><![endif]-->
+  <script type="text/javascript" src="' . $html_root . '/includes/js/jquery-1.5.min.js"></script>
+  <script type="text/javascript" src="' . $html_root . '/includes/js/leaflet/leaflet.js"></script>
+  <script type="text/javascript" src="' . $html_root . '/includes/js/map.js"></script>
+</head>
+<body>
+<div id="container" class="section container_12">
+    <div id="header">
+        <div class="logo grid_6 alpha"><h1><a href="index.html">SiteName</a></h1></div>
+        <div class="grid_6 omega">
+          <ul class="menu">
+            <li><a href="#" >Link</a></li>
+            <li><a href="#" >Link</a></li>
+          </ul>
+        </div>
+        <div id="page-title" class="grid_12"><h2>Map</h2></div>
+        <div id="popup-content" class="grid_4 alpha"><div class="content">Click map to see where the groups are</div></div> 
+        <div id="content" class="grid_8 omega">
+          <div id="map" style="height: 600px"></div> <!-- width equals available horizontal space by default -->
+          <div id="data"></div> <!-- width equals available horizontal space by default -->
+        </div>
+        
+        <div id="footer" class="grid_12">
+          <ul class="menu">
+            <li><a href="link.html">Footer Menu</a></li>
+            <li><a href="link.html">Footer Menu</a></li>
+          </ul>
+        </div>
+    </div>
+</div>
+</html>
+
+';
+}
+
+ 

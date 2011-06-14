@@ -845,7 +845,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'geofield',
           'settings' => array(
             'data' => 'full',
-            'map_preset' => 'citygroups',
+            'map_preset' => 'citygroups_form',
           ),
           'type' => 'geofield_openlayers',
           'weight' => '15',
@@ -874,7 +874,7 @@ function community_group_content_type_field_default_fields() {
         'active' => 1,
         'module' => 'geofield',
         'settings' => array(
-          'openlayers_preset' => 'citygroups',
+          'openlayers_preset' => 'citygroups_form',
         ),
         'type' => 'geofield_openlayers',
         'weight' => '13',

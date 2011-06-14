@@ -12,6 +12,10 @@ function community_groups_view_ctools_plugin_api() {
   if ($module == "openlayers" && $api == "openlayers_presets") {
     return array("version" => 1);
   }
+  list($module, $api) = func_get_args();
+  if ($module == "openlayers" && $api == "openlayers_styles") {
+    return array("version" => 1);
+  }
 }
 
 /**

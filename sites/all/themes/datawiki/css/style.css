@@ -731,3 +731,7 @@ div.styleguide {
 .front.not-logged-in .messages-container .error {
   display: none;
 }
+
+.page-map .error {
+  display: none;
+}
