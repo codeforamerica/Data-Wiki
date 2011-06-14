@@ -325,7 +325,6 @@ class openlayers_views_style_data extends views_plugin_style {
   function map_features($sets = array()) {
     $features = $excluded_fields = array();
     $handlers = $this->display->handler->get_handlers('field');
-
     foreach ($sets as $title => $records) {
       foreach ($records as $id => $record) {
         foreach ($handlers as $hid => $handler) {
@@ -368,7 +367,7 @@ class openlayers_views_style_data extends views_plugin_style {
    * Render the map features.
    */
   function render($result) {
-    return empty($this->view->live_preview) ?
+      return empty($this->view->live_preview) ?
       $this->map_features(
         $this->render_grouping($result, $this->options['grouping'])
       ) :
