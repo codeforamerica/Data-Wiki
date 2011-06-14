@@ -22,7 +22,7 @@ function datawiki_group_map_help($path, $arg) {
  * Implementatation of hook_menu().
  */
 function datawiki_group_map_menu() {
-  $items['datawiki_group_map'] = array(
+  $items['map-groups'] = array(
     'title' => 'Map',
     'description' => 'Display a map of Community Groups.',
     'page callback' => '_datawiki_group_map_render',
