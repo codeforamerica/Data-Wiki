@@ -27,6 +27,16 @@ function community_group_content_type_ctools_plugin_api() {
 }
 
 /**
+ * Implementation of hook_views_api().
+ */
+function community_group_content_type_views_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "views" && $api == "views_default") {
+    return array("version" => 3.0);
+  }
+}
+
+/**
  * Implementation of hook_flag_default_flags().
  */
 function community_group_content_type_flag_default_flags() {
