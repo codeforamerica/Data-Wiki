@@ -1,0 +1,5 @@
+name = Data Wiki Group Categories
+description = "Show Categories"
+core = 7.x
+
+files[] = datawiki_group_categories.module
