@@ -8,10 +8,10 @@ cityGroups.map.form = {};
 
 // Custom search paths.
 cityGroups.paths = {
-    "defaultPath": "community-groups-data",
-    "#defaultPath": "community-groups-data",
-    "#block-watch": "community-group-data/term/block-watch",
-    "#online-newspaper": "community-group-data/term/online-newspaper"
+    "defaultPath": "data/community-group",
+    "#defaultPath": "data/community-group",
+    "#block-watch": "data/community-group/block-watch",
+    "#online-newspaper": "data/community-group/online-newspaper"
 };
 
 cityGroups.map.polygonOptions = {

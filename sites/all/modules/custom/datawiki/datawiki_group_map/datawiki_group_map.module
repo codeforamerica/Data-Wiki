@@ -22,10 +22,10 @@ function datawiki_group_map_help($path, $arg) {
  * Implementatation of hook_menu().
  */
 function datawiki_group_map_menu() {
-  $items['map'] = array(
+  $items['map/render/community-group'] = array(
     'title' => 'Map',
     'description' => 'Display a map of Community Groups.',
-    'page callback' => '_datawiki_group_map_render',
+    'page callback' => 'datawiki_group_map_render',
     'page arguments' => array(t('This page is displayed by the simplest (and base) menu example. Note that the title of the page is the same as the link title. You can also <a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
     'access callback' => TRUE,
     // 'file' => 'menu_example.module',
@@ -74,7 +74,7 @@ dsm("saving json");
 }
 
 
-function _datawiki_group_map_render() {
+function datawiki_group_map_render() {
   include('includes/map.html.inc.php');
 }
 

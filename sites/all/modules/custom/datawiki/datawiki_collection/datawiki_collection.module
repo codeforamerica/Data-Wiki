@@ -16,115 +16,15 @@ function datawiki_collection_help($path, $arg) {
       return "<p>$explanation</p>";
   }
 }
-
-/**
- * Implementatation of hook_menu().
- */
-/*
 function datawiki_collection_menu() {
-  $items['collection'] = array(
-    'title' => 'Collections',
-    'description' => 'Data Collection Projects',
-    'page callback' => '_datawiki_collection_render',
-    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
-    'access callback' => TRUE,
-    'expanded' => TRUE,
-  );
-  $items['collection/termname'] = array(
-    'title' => 'Collection: Termname',
-    'description' => 'Data Collection Projects',
-    'page callback' => '_datawiki_collection_term_render',
-    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
-    'access callback' => TRUE,
-    'expanded' => TRUE,
-  );
   $items['map/collection/termname'] = array(
-    'title' => 'Map',
-    'description' => 'Data Collection Projects',
-    'page callback' => '_datawiki_map_render',
-    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
+    'title' => 'Termname',
+    'page callback' => 'datawiki_group_map_render',
+    'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
     'access callback' => TRUE,
-    'expanded' => TRUE,
-  );
-  $items['categories/collection/termname'] = array(
-    'title' => 'List of categories',
-    'description' => 'Categories',
-    'page callback' => '_datawiki_categories_render',
-    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
-    'access callback' => TRUE,
-    'expanded' => TRUE,
-  );
-  $items['list/collection/termname'] = array(
-    'title' => 'List',
-    'description' => 'List of content',
-    'page callback' => '_datawiki_list_render',
-    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
-    'access callback' => TRUE,
-    'expanded' => TRUE,
-  );
-  $items['about/collection/termname'] = array(
-    'title' => 'About',
-    'description' => 'About block',
-    'page callback' => '_datawiki_about_render',
-    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
-    'access callback' => TRUE,
-    'expanded' => TRUE,
-  );
-  // @TODO add wrapper function that will autogenerate for for other content types.
-  $items['node/add/community-group/collection/termname'] = array(
-    'title' => 'Add new Termname',
-    'description' => 'Add a community group',
-    'page callback' => '_datawiki_add_community_group_render',
-    'page arguments' => array(t('<a href="!link">visit a similar page with no menu link</a>', array('!link' => url('menu_example/path_only')))),
-    'access callback' => TRUE,
-    'expanded' => TRUE,
   );
   return $items;
 }
-*/
-
-/**
- * Render menu page.
- */
-function _datawiki_collection_render() {
- echo "collection";
-}
-
-/**
- * Render menu page.
- */
-function _datawiki_collection_term_render() {
- echo "collections";
-}
-
-/**
- * Render menu page.
- */
-function _datawiki_map_render() {
- echo "map";
-}
-
-/**
- * Render menu page.
- */
-function _datawiki_categories_render() {
- echo "categories";
-}
-
-/**
- * Render menu page.
- */
-function _datawiki_list_render() {
- echo "list";
-}
-
-/**
- * Render menu page.
- */
-function _datawiki_about_render() {
- echo "about";
-}
-
 
 /**
  * Implements hook_block_info().
@@ -167,7 +67,7 @@ function datawiki_collection_block_info() {
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   $blocks['datawiki_list'] = array(
-    'info' => t('Categories'),
+    'info' => t('List'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   $blocks['datawiki_home_menu'] = array(
@@ -182,7 +82,7 @@ function datawiki_collection_block_info() {
     'info' => t('Map Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_map_menu'] = array(
+  $blocks['datawiki_list_menu'] = array(
     'info' => t('List Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
@@ -252,11 +152,6 @@ function datawiki_collection_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('home_menu');
       break;
-      
-    case 'datawiki_map_menu':
-      $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('map_menu');
-      break;
     
     case 'datawiki_categories_menu':
       $block['subject'] = '';
@@ -266,6 +161,11 @@ function datawiki_collection_block_view($delta = '') {
     case 'datawiki_list_menu':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('list_menu');
+      break; 
+
+    case 'datawiki_map_menu':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('map_menu');
       break; 
   }
   return $block;
@@ -362,7 +262,7 @@ function datawiki_collection_contents($type) {
       break;
       
       case 'map_menu':
-        $output .= "map menu block";
+        $output .= '';
       break;
       
       case 'list_menu':

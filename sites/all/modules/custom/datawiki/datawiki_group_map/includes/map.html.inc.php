@@ -1,23 +1,26 @@
 <?php
   $html_root = drupal_get_path('module', 'datawiki_group_map');
+  $sitename = "CityGroups";
+  $tagline = "A public directory of groups in Seattle.";
+  $page_title = "Map";
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
   <meta charset="utf-8">
-  <title>CityGroups: Map of Community Groups in Seattle</title>
-  <link rel="stylesheet" href="<?php print $html_root; ?>/includes/style/fluid_grid.css" type="text/css" />
-  <link rel="stylesheet" href="<?php print $html_root; ?>/includes/style/boilerplate.css" type="text/css" />
-  <link rel="stylesheet" href="<?php print $html_root; ?>/includes/js/leaflet/leaflet.css" />
-  <link rel="stylesheet" href="sites/all/themes/datawiki/css/style.css"  />
+  <title><?php print $sitename; ?>: <?php print $tagline; ?>: <?php print $page_title; ?></title>
+  <link rel="stylesheet" href="/<?php print $html_root; ?>/includes/style/fluid_grid.css" type="text/css" />
+  <link rel="stylesheet" href="/<?php print $html_root; ?>/includes/style/boilerplate.css" type="text/css" />
+  <link rel="stylesheet" href="/<?php print $html_root; ?>/includes/js/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="/sites/all/themes/datawiki/css/style.css"  />
 
   
-  <link rel="stylesheet" href="<?php print $html_root; ?>/includes/style/style.css" type="text/css" />
-<!--[if lte IE 8]><link rel="stylesheet" href="<?php print $html_root; ?>/includes/style/leaflet/leaflet.ie.css" /><![endif]-->
-  <script type="text/javascript" src="<?php print $html_root; ?>/includes/js/jquery-1.5.min.js"></script>
-  <script type="text/javascript" src="<?php print $html_root; ?>/includes/js/leaflet/leaflet.js"></script>
-  <script type="text/javascript" src="<?php print $html_root; ?>/includes/js/map.js"></script>
+  <link rel="stylesheet" href="/<?php print $html_root; ?>/includes/style/style.css" type="text/css" />
+<!--[if lte IE 8]><link rel="stylesheet" href="/<?php print $html_root; ?>/includes/style/leaflet/leaflet.ie.css" /><![endif]-->
+  <script type="text/javascript" src="/<?php print $html_root; ?>/includes/js/jquery-1.5.min.js"></script>
+  <script type="text/javascript" src="/<?php print $html_root; ?>/includes/js/leaflet/leaflet.js"></script>
+  <script type="text/javascript" src="/<?php print $html_root; ?>/includes/js/map.js"></script>
 </head>
 <body>
 <div id="container" class="section container_12">
