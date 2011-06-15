@@ -170,6 +170,22 @@ function datawiki_collection_block_info() {
     'info' => t('Categories'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+  $blocks['datawiki_home_menu'] = array(
+    'info' => t('Home Menu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_categories_menu'] = array(
+    'info' => t('Categories Menu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_map_menu'] = array(
+    'info' => t('Map Menu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_map_menu'] = array(
+    'info' => t('List Menu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
   return $blocks;
 }
 
@@ -231,6 +247,26 @@ function datawiki_collection_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('list');
       break;
+      
+    case 'datawiki_home_menu':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('home_menu');
+      break;
+      
+    case 'datawiki_map_menu':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('map_menu');
+      break;
+    
+    case 'datawiki_categories_menu':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('categories_menu');
+      break;
+      
+    case 'datawiki_list_menu':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('list_menu');
+      break; 
   }
   return $block;
 }
@@ -305,6 +341,36 @@ function datawiki_collection_contents($type) {
       
       case 'list':
         $output .= "list block";
+      break;
+      
+      case 'home_menu':
+        $output .= '<div id="search-links">';
+        $output .= '<div id="search-places" class="form-input">' . t('Search Places');
+        $output .= '<input placeholder="Enter address, zipcode or neighborhood name" />';
+        $output .= '</div>';
+        $output .= '<div id="search-topics  class="form-input">' . t('Search Topics');
+        $output .= '<input placeholder="Enter topic." />';
+        $output .= '</div>';
+        $output .= '</div>';
+        $output .= '<div id="map-links">';
+        $output .= '<ul>';
+        $output .= '<li><a href="map/collection/termname">' . t('Map') . '</a></li>';
+        $output .= '<li><a href="list/collection/termname">' . t('View as List') . '</a></li>';
+        $output .= '<li><a href="categories/collection/termname">' . t('All Topics') . '</a></li>';
+        $output .= '</ul>';
+        $output .= '</div>';                
+      break;
+      
+      case 'map_menu':
+        $output .= "map menu block";
+      break;
+      
+      case 'list_menu':
+        $output .= "list menu block";
+      break;
+      
+      case 'categories_menu':
+        $output .= "categories menu block";
       break;
   }
   
