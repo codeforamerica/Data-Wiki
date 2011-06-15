@@ -19,6 +19,7 @@ cityGroups.map.polygonOptions = {
     fillColor: '#f03',
     fillOpacity: 0.5
 };
+cityGroups.map.polygonOptions = datawiki.map.settings.mapColors;
         
 $(document).ready(function() {
   cityGroups.data.popularLoad();
@@ -68,6 +69,7 @@ cityGroups.loadDataError = function(data) {
 
 cityGroups.loadDataSuccess = function(data) {
   console.log("success!");
+  $('div.loading').hide();
   cityGroups.data = data;
   cityGroups.map.loadMap();
   cityGroups.geoJSON(cityGroups.data.nodes);
@@ -111,7 +113,9 @@ cityGroups.map.popupPoints   = function (nodes){
   var node = nodes[i]["node"];
   if(node.latitude !== undefined){
   	var markerLocation = new L.LatLng(node.latitude, node.longitude);
-    var marker = new L.Marker(markerLocation);
+    var customMarker = new datawiki.map.settings.customMarkerStyle(),
+    marker = new L.Marker(markerLocation, {icon: customMarker});
+/*     marker = new L.Marker(markerLocation); */
     cityGroups.map.rendered.addLayer(marker);
     marker.on('click', onMapClick);
   	function onMapClick(e) {
@@ -130,7 +134,9 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   var polygon = new L.Polygon(polygonPoints, cityGroups.map.polygonOptions);
 	var markerLocation = new L.LatLng(-1*node.latitude, -1*node.longitude);
 
-  var marker = new L.Marker(markerLocation);
+  var customMarker = new datawiki.map.settings.customMarkerStyle(),
+  marker = new L.Marker(markerLocation, {icon: customMarker});
+/*   var marker = new L.Marker(markerLocation); */
   cityGroups.map.rendered.addLayer(marker);
   marker.on('click', onMapClick);
 
@@ -138,7 +144,7 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
 	  	console.log(node);
 	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
     cityGroups.map.rendered.addLayer(polygon);
-    polygon.on('click',offMapClick);
+    polygon.on('dblclick',offMapClick);
 	}
 	
 	function offMapClick(e) {

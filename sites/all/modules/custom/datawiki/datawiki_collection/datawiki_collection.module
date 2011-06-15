@@ -19,11 +19,58 @@ function datawiki_collection_help($path, $arg) {
 function datawiki_collection_menu() {
   $items['map/collection/termname'] = array(
     'title' => 'Termname',
-    'page callback' => 'datawiki_group_map_render',
+    'page callback' => 'datawiki_collection_termname_render',
     'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
     'access callback' => TRUE,
   );
   return $items;
+}
+
+function datawiki_collection_termname_render() {
+  $settings = array();
+  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_collection');
+  $settings['sitename'] = "CityGroups Block Watch Finder";
+  $settings['page_title'] = "Block Watch Finder";
+  $settings['place'] = "Seattle";
+  $settings['tagline'] = "A public directory of Block Watches in " . $settings['place'] . ".";
+  $settings['theme'] = "citygroups_blockwatch";
+  $settings['term'] = "termname";
+  $settings['popular_searches'] = '<ul>
+            <li><a href="#defaultPath">See All</a></li>
+            <li><a href="#block-watch">Block Watch</a></li>
+            <li><a href="#online-newspaper">Online Newspaper</a></li>
+            <li><a href="groups/categories">All Categories</a></li>
+          </ul>';
+  $settings['map_colors'] = '
+    color: "#2796F2",
+    fillColor: "white",
+    fillOpacity: 0.5,
+    weight: 1,
+    opacity: 1';
+    
+  $settings['map_markers'] = '
+     L.Icon.extend({
+        iconUrl: "/' . $settings['html_root_custom'] . '/images/noun_project_659_man.svg",
+        iconSize: new L.Point(20, 50),
+        iconAnchor: new L.Point(10, 40),
+        popupAnchor: new L.Point(0, 0)
+    });
+';  
+    
+  $settings['javascript_settings'] = '
+  
+  <script type="text/javascript"> 
+<!--//--><![CDATA[//><!--
+var datawiki = {};
+datawiki.map = {};
+datawiki.map.settings = {};
+datawiki.map.settings.mapColors = {' . $settings['map_colors'] . '};
+datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
+//--><!]]>
+</script> 
+  
+  ';
+  return datawiki_group_map_render($settings);
 }
 
 /**

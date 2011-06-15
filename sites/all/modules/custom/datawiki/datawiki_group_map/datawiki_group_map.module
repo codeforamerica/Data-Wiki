@@ -69,12 +69,11 @@ function datawiki_group_map_cron_queue_info() {
  * Scheduler callback for importing from a source.
  */
 function datawiki_group_map_import($job) {
-
-dsm("saving json");
+  dsm("saving json");
 }
 
 
-function datawiki_group_map_render() {
+function datawiki_group_map_render($settings) {
   include('includes/map.html.inc.php');
 }
 
