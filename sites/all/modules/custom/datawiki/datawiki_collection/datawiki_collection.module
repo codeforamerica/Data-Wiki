@@ -40,7 +40,8 @@ function datawiki_collection_termname_render() {
             <li><a href="#block-watch">Block Watch</a></li>
             <li><a href="#public-safety">Public Safety</a></li>
           </ul><br />
-          <a href="list/collection/termname">All Categories</a>';
+          <a href="/categories">All Categories</a>';
+          
   $settings['map_colors'] = '
     color: "#2796F2",
     fillColor: "white",
