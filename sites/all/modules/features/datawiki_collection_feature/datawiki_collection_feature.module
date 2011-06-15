@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the datawiki_collection_feature feature.
+ */
+
+include_once('datawiki_collection_feature.features.inc');

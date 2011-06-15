@@ -20,6 +20,7 @@ function datawiki_collection_help($path, $arg) {
 /**
  * Implementatation of hook_menu().
  */
+/*
 function datawiki_collection_menu() {
   $items['collection'] = array(
     'title' => 'Collections',
@@ -80,6 +81,7 @@ function datawiki_collection_menu() {
   );
   return $items;
 }
+*/
 
 /**
  * Render menu page.
@@ -121,4 +123,199 @@ function _datawiki_list_render() {
  */
 function _datawiki_about_render() {
  echo "about";
+}
+
+
+/**
+ * Implements hook_block_info().
+ */
+function datawiki_collection_block_info() {
+  $blocks['datawiki_welcome'] = array(
+    'info' => t('Welcome Message'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_branding_header'] = array(
+    'info' => t('Branding Header'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_branding_footer'] = array(
+    'info' => t('Branding Footer'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_facebook_like'] = array(
+    'info' => t('Facebook Like'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_add_data'] = array(
+    'info' => t('Add Data'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_new_group_search'] = array(
+    'info' => t('New Group Search'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_site_tagline'] = array(
+    'info' => t('Site Tagline'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_map'] = array(
+    'info' => t('Map'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_categories'] = array(
+    'info' => t('Categories'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_list'] = array(
+    'info' => t('Categories'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function datawiki_collection_block_view($delta = '') {
+  switch ($delta) {
+    case 'datawiki_welcome':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('welcome');
+      break;
+      
+    case 'datawiki_branding_header':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('branding_header');
+      break;
+      
+    case 'datawiki_branding_footer':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('branding_footer');
+      break;     
+      
+    case 'datawiki_facebook_like':
+      $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
+      $url .= '://';
+      $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
+      $url .= $_SERVER['REQUEST_URI'];
+      $block['subject'] = '';
+      $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
+      break;
+
+    case 'datawiki_new_group_search':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('new_group_search');
+      break;
+
+    case 'datawiki_add_data':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('add_data');
+      break;
+
+    case 'datawiki_site_tagline':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('site_tagline');
+      break;
+      
+    case 'datawiki_map':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('map');
+      break;
+    
+    case 'datawiki_categories':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('categories');
+      break;
+    
+    case 'datawiki_list':
+      $block['subject'] = '';
+      $block['content'] = datawiki_collection_contents('list');
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Block placeholder content
+ */
+function datawiki_collection_contents($type) {
+  $output = '';
+  
+  switch ($type) {
+    case 'welcome':
+      $output .= '<h2>' . t('Find groups by location or topic.') . '</h2>';
+      break;
+
+    case 'site_tagline':
+      $output .= '<h2>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h2>';
+      break;
+      
+    case 'branding_header':
+      $output .= '<div id="branding-header"></div>';
+      break;
+      
+    case 'branding_footer':
+      $code_for_america = '';
+      $output .= '<div id="branding-footer alpha omega grid_16">' 
+      . '<div class="about grid_6">' 
+      . t('Maintained by the City and Community Groups.') . '<br />'
+      . t('Created as Open Source by <a href="http://codeforamerica.org">Code for America</a>') 
+      . '<div class="tagline">' .  t('"For a more transparent, efficient and participatory future."') . '</div>' . '</div>'
+      . '<div class="logo grid_10"><a href="http://codeforamerica.org">' . '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" width="150" />' . '</a></div>'
+      . '</div>';
+      break;
+
+    case 'new_group_search':
+  global $base_url;
+      $output .= '<div id="new-group-search">' 
+        . '<div class="form-submit">'
+        . l('New Search', $base_url)
+        . '</div>'
+        . '</div>';
+      break;
+      
+    case 'add_data':
+
+      $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_facebook.png" title="Facebook" alt="Facebook" />';
+      $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_yahoo_groups.png" title="Yahoo Groups" alt="Yahoo Groups" />';
+      $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_google_groups.png" title="Google Groups" alt="Google Groups" />';
+      $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_meetup.png" title="Meetup Groups" alt="Meetup Groups" />';
+      $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_email.png" title="Email" alt="Email" />';
+      $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_twitter.png" title="Twitter" alt="Twitter" />';
+      $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_blogs.png" title="Community Blogs" alt="Community Blogs" />';
+      $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_mail.png" title="Personal Email" alt="Personal Email" />';
+/*       $ning = '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" />'; */
+
+      $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $yahoo . $mail /*. $ning */;
+      $output .= '
+        <div class="add-data">' .
+        '<h3>' . t('We make it easy to find and share all kinds of groups in your city.') . '</h3>'
+        . '<div class="groups-icons">' . $links . '</div>'
+/*           . t('Know a cool group? Why not <a href="/node/add/online-community">Add</a> it?') */
+        . '</div>';
+      break;
+      
+      case 'map':
+        $output .= "map block";
+      break;
+      
+      case 'categories':
+        $output .= "categories block";
+      break;
+      
+      case 'list':
+        $output .= "list block";
+      break;
+  }
+  
+  return $output;
+}
+
+function datawiki_collection_json_paths() {
+
+  // Build and set JSON paths for javascript.
+}
+
+function datawiki_collection_set_theme() {
+  // set the theme to datawiki_collection
 }
