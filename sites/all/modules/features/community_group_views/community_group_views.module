@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Community Group Views feature.
+ */
+
+include_once('community_group_views.features.inc');

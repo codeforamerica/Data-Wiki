@@ -14,7 +14,7 @@ function citygroups_install() {
 
  // Enable default theme
   theme_enable(array('datawiki', 'datawiki_admin'));
-  variable_set('theme_default', 'datawiki');
+  variable_set('theme_default', 'datawiki_collection');
   variable_set('admin_theme', 'datawiki_admin');
   variable_set('node_admin_theme', '1');
   

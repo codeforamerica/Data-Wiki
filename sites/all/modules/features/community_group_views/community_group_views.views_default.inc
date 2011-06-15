@@ -1,80 +1,14 @@
 <?php
 /**
  * @file
- * community_groups_view.views_default.inc
+ * community_group_views.views_default.inc
  */
 
 /**
  * Implementation of hook_views_default_views().
  */
-function community_groups_view_views_default_views() {
+function community_group_views_views_default_views() {
   $export = array();
-
-  $view = new view;
-  $view->name = 'community_groups';
-  $view->description = '';
-  $view->tag = 'default';
-  $view->base_table = 'node';
-  $view->human_name = 'Community Groups';
-  $view->core = 7;
-  $view->api_version = '3.0-alpha1';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Community Groups';
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'node';
-  $handler->display->display_options['row_options']['view_mode'] = 'search_result';
-  $handler->display->display_options['row_options']['links'] = 1;
-  $handler->display->display_options['row_options']['comments'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'community_group' => 'community_group',
-  );
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'groups';
-  $export['community_groups'] = $view;
 
   $view = new view;
   $view->name = 'community_groups_data';
@@ -640,7 +574,7 @@ function community_groups_view_views_default_views() {
   $handler->display->display_options['fields']['views_number_results']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['views_number_results']['hide_empty'] = 0;
   $handler->display->display_options['fields']['views_number_results']['empty_zero'] = 0;
-  /* Field: Fields: Location */
+  /* Field: Content: Location */
   $handler->display->display_options['fields']['field_location']['id'] = 'field_location';
   $handler->display->display_options['fields']['field_location']['table'] = 'field_data_field_location';
   $handler->display->display_options['fields']['field_location']['field'] = 'field_location';
@@ -669,7 +603,7 @@ function community_groups_view_views_default_views() {
     'data' => 'full',
   );
   $handler->display->display_options['fields']['field_location']['field_api_classes'] = 0;
-  /* Field: Fields: Location */
+  /* Field: Content: Location */
   $handler->display->display_options['fields']['field_location_1']['id'] = 'field_location_1';
   $handler->display->display_options['fields']['field_location_1']['table'] = 'field_data_field_location';
   $handler->display->display_options['fields']['field_location_1']['field'] = 'field_location';
@@ -698,7 +632,7 @@ function community_groups_view_views_default_views() {
     'format' => 'decimal_degrees',
   );
   $handler->display->display_options['fields']['field_location_1']['field_api_classes'] = 0;
-  /* Field: Fields: Location */
+  /* Field: Content: Location */
   $handler->display->display_options['fields']['field_location_2']['id'] = 'field_location_2';
   $handler->display->display_options['fields']['field_location_2']['table'] = 'field_data_field_location';
   $handler->display->display_options['fields']['field_location_2']['field'] = 'field_location';
@@ -732,7 +666,7 @@ function community_groups_view_views_default_views() {
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
-  /* Sort criterion: Fields: Location (field_location:lat) */
+  /* Sort criterion: Content: Location (field_location:lat) */
   $handler->display->display_options['sorts']['field_location_lat']['id'] = 'field_location_lat';
   $handler->display->display_options['sorts']['field_location_lat']['table'] = 'field_data_field_location';
   $handler->display->display_options['sorts']['field_location_lat']['field'] = 'field_location_lat';
@@ -741,7 +675,7 @@ function community_groups_view_views_default_views() {
   $handler->display->display_options['arguments']['field_categories_tid']['id'] = 'field_categories_tid';
   $handler->display->display_options['arguments']['field_categories_tid']['table'] = 'field_data_field_categories';
   $handler->display->display_options['arguments']['field_categories_tid']['field'] = 'field_categories_tid';
-  $handler->display->display_options['arguments']['field_categories_tid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['field_categories_tid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_categories_tid']['default_argument_skip_url'] = 0;
   $handler->display->display_options['arguments']['field_categories_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_categories_tid']['summary']['format'] = 'default_summary';
@@ -754,6 +688,7 @@ function community_groups_view_views_default_views() {
     'area_code' => 0,
     'audience_size' => 0,
     'city' => 0,
+    'civic_taxonomy' => 0,
     'district' => 0,
     'neighborhood' => 0,
     'ownership' => 0,
@@ -784,7 +719,7 @@ function community_groups_view_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'community_group' => 'community_group',
   );
-  /* Filter criterion: Fields: Location (field_location:lat) */
+  /* Filter criterion: Content: Location (field_location:lat) */
   $handler->display->display_options['filters']['field_location_lat']['id'] = 'field_location_lat';
   $handler->display->display_options['filters']['field_location_lat']['table'] = 'field_data_field_location';
   $handler->display->display_options['filters']['field_location_lat']['field'] = 'field_location_lat';
@@ -792,11 +727,7 @@ function community_groups_view_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'community-groups-data';
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'community-group-data/term';
+  $handler->display->display_options['path'] = 'data/community-group';
   $export['community_groups_data'] = $view;
 
   return $export;

@@ -121,7 +121,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -142,7 +142,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '30',
       ),
     ),
   );
@@ -190,7 +190,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -369,7 +369,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '31',
       ),
     ),
   );
@@ -425,7 +425,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -505,7 +505,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -789,9 +789,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
+          'module' => 'email',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '11',
+          'type' => 'email_default',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -925,7 +926,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '6',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1005,7 +1006,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1180,7 +1181,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '11',
+        'weight' => '32',
       ),
     ),
   );
@@ -1333,7 +1334,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '8',
+        'weight' => '29',
       ),
     ),
   );
@@ -1389,7 +1390,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1414,6 +1415,85 @@ function community_group_content_type_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '24',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_term_civic_taxonomy'
+  $fields['node-community_group-field_term_civic_taxonomy'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_civic_taxonomy',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'parent' => '0',
+            'vocabulary' => 'civic_taxonomy',
+          ),
+        ),
+      ),
+      'translatable' => '1',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 32,
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_term_civic_taxonomy',
+      'label' => 'Civic Taxonomy',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '27',
       ),
     ),
   );
@@ -1466,9 +1546,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '7',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1489,7 +1570,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '7',
+        'weight' => '28',
       ),
     ),
   );
@@ -1621,9 +1702,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
+          'module' => 'link',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '9',
+          'type' => 'default',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1706,7 +1788,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '5',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1739,7 +1821,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '12',
+        'weight' => '33',
       ),
     ),
   );
@@ -1823,14 +1905,295 @@ function community_group_content_type_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-neighborhood-field_location'
-  $fields['taxonomy_term-neighborhood-field_location'] = array(
+  // Exported field: 'taxonomy_term-area_code-field_term_location'
+  $fields['taxonomy_term-area_code-field_term_location'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_location',
+      'field_name' => 'field_term_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'area_code',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_term_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'openlayers_preset' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-city-field_term_location'
+  $fields['taxonomy_term-city-field_term_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'city',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_term_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'openlayers_preset' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-civic_taxonomy-field_file_image'
+  $fields['taxonomy_term-civic_taxonomy-field_file_image'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_file_image',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '1',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'civic_taxonomy',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_file_image',
+      'label' => 'Image File',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'txt jpg jpeg png svg gif',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-civic_taxonomy-field_term_image_url'
+  $fields['taxonomy_term-civic_taxonomy-field_term_image_url'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_image_url',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'link',
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_value' => '',
+        'url' => 0,
+      ),
+      'translatable' => '1',
+      'type' => 'link_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'civic_taxonomy',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
+          'weight' => 1,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_term_image_url',
+      'label' => 'Image URL',
+      'required' => 0,
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 1,
+        'title' => 'none',
+        'title_value' => '',
+        'url' => 'optional',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-district-field_term_location'
+  $fields['taxonomy_term-district-field_term_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'district',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_term_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'openlayers_preset' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-neighborhood-field_term_location'
+  $fields['taxonomy_term-neighborhood-field_term_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_location',
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'geofield',
@@ -1849,11 +2212,155 @@ function community_group_content_type_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'default',
+          'weight' => 1,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_term_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'openlayers_preset' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-region-field_term_location'
+  $fields['taxonomy_term-region-field_term_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'region',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
           'weight' => 0,
         ),
       ),
       'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_location',
+      'field_name' => 'field_term_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'openlayers_preset' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-state-field_term_location'
+  $fields['taxonomy_term-state-field_term_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'state',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_term_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'openlayers_preset' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-zipcode-field_term_location'
+  $fields['taxonomy_term-zipcode-field_term_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'zipcode',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'default',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_term_location',
       'label' => 'Location',
       'required' => 0,
       'settings' => array(
@@ -1863,8 +2370,8 @@ function community_group_content_type_field_default_fields() {
         'active' => 1,
         'module' => 'geofield',
         'settings' => array(),
-        'type' => 'geofield_textfields',
-        'weight' => '2',
+        'type' => 'geofield_openlayers',
+        'weight' => '1',
       ),
     ),
   );
@@ -1893,12 +2400,15 @@ function community_group_content_type_field_default_fields() {
   t('Calendar URL');
   t('Categories');
   t('City');
+  t('Civic Taxonomy');
   t('Comment');
   t('Contact');
   t('Description');
   t('District');
   t('Email');
   t('Image');
+  t('Image File');
+  t('Image URL');
   t('Location');
   t('Location Description');
   t('Neighborhood');

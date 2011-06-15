@@ -232,8 +232,9 @@ function community_group_content_type_field_group_info() {
       1 => 'field_audience_size',
       2 => 'field_ownership',
       3 => 'field_source',
-      4 => 'field_url_image',
-      5 => 'field_type_group',
+      4 => 'field_type_group',
+      5 => 'field_url_image',
+      6 => 'field_term_civic_taxonomy',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

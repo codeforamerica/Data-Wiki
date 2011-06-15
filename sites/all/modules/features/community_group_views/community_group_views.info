@@ -1,0 +1,8 @@
+core = "7.x"
+dependencies[] = "community_group_content_type"
+description = "Views for community groups"
+features[ctools][] = "views:views_default:3.0"
+features[views_view][] = "community_groups_data"
+name = "Community Group Views"
+package = "Features"
+php = "5.2.4"

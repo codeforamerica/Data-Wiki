@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Community Groups View feature.
- */
-
-include_once('community_groups_view.features.inc');

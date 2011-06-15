@@ -53,7 +53,7 @@ function community_group_content_type_flag_default_flags() {
     'types' => array(
       0 => 'community_group',
     ),
-    'flag_short' => 'Inactive Group',
+    'flag_short' => 'Seems defunct',
     'flag_long' => 'This group appears to be inactive.',
     'flag_message' => '',
     'unflag_short' => 'Actually, no, this group is active.',
@@ -74,11 +74,11 @@ function community_group_content_type_flag_default_flags() {
     'show_on_form' => 0,
     'access_author' => '',
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'community_group_content_type',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   // Exported flag: "Recommend".
   $flags['like'] = array(
