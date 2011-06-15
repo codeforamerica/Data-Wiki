@@ -8,23 +8,16 @@ cityGroups.map.form = {};
 
 // Custom search paths.
 cityGroups.paths = {
-    "defaultPath": "/data/community-group",
-    "#defaultPath": "/data/community-group",
+    "defaultPath": "/data/community-group/map",
+    "#defaultPath": "/data/community-group/map",
 };
 
-cityGroups.map.polygonOptions = {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-};
 cityGroups.map.polygonOptions = datawiki.map.settings.mapColors;
         
 $(document).ready(function() {
   cityGroups.data.popularLoad();
-  cityGroups.map.loadMap();
   cityGroups.loadData(cityGroups.paths['defaultPath']);
   cityGroups.mapPageInteractions();
-
 });
 
 
@@ -43,6 +36,9 @@ cityGroups.data.popularLoad = function () {
     var path = cityGroups.paths.defaultPath + '/' + $(this).attr('href');
     path = path.replace("#", '');
     console.log(path);
+    if( $(this).attr('href') == '#defaultPath') {
+     path = cityGroups.paths['defaultPath'];
+    }
     cityGroups.loadData(path);
   });
 };
@@ -73,6 +69,11 @@ cityGroups.loadDataSuccess = function(data) {
   console.log("success!");
   $('div.loading').hide();
   cityGroups.data = data;
+  
+  // Only load the map once.
+/*   if(cityGroups.map.rendered === undefined) { */
+    cityGroups.map.loadMap();
+/*   } */
   cityGroups.geoJSON(cityGroups.data.nodes);
   return false;
 };
@@ -84,7 +85,7 @@ cityGroups.map.loadMap = function() {
   cityGroups.map.settings.zoom = 11;
   cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
   // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
-
+  
   cityGroups.map.rendered = new L.Map('map', cityGroups.map.settings.center);
 
   // create a CloudMade tile layer
@@ -93,12 +94,16 @@ cityGroups.map.loadMap = function() {
   cityGroups.map.rendered.setView(cityGroups.map.settings.center, cityGroups.map.settings.zoom).addLayer(cityGroups.map.cloudmade);
 };
 
+cityGroups.clearMarkers = function(marker) {
+ 
+};
+
 cityGroups.geoJSON = function(nodes) {
   var mapObject = [];
   var polygonPoints = [];
   var polygonPoint;
   var features = {};
-  // console.log(cityGroups.map.rendered);
+
   for (i in nodes) {
     var locationGeoObj = $.parseJSON(nodes[i]["node"]["location_geo"]);
     if(locationGeoObj.type !== undefined) {
@@ -117,6 +122,7 @@ cityGroups.geoJSON = function(nodes) {
           cityGroups.map.popupPolygons(polygonPoints, nodes);
         break;
       }
+      console.log(nodes[i]["node"]["latitude"]);
       if(nodes[i]["node"]["latitude"] !== undefined) {
           cityGroups.map.popupPoints(nodes);    
       }
@@ -127,7 +133,7 @@ cityGroups.geoJSON = function(nodes) {
   }
 };
 
-cityGroups.map.popupPoints   = function (nodes){
+cityGroups.map.popupPoints = function (nodes){
   var node = nodes[i]["node"];
   var marker = "";
   if(node.latitude !== undefined){
@@ -135,8 +141,10 @@ cityGroups.map.popupPoints   = function (nodes){
     var customMarker = new datawiki.map.settings.customMarkerStyle(),
     marker = new L.Marker(markerLocation, {icon: customMarker});
     cityGroups.map.rendered.addLayer(marker);
-    // console.log(marker);
+    
+    console.log(marker);
     marker.on('click', onMapClick);
+    
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(node.title);
       cityGroups.map.rendered.addLayer(polygon);
