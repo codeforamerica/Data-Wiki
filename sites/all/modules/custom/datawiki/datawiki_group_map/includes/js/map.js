@@ -8,10 +8,10 @@ cityGroups.map.form = {};
 
 // Custom search paths.
 cityGroups.paths = {
-    "defaultPath": "data/community-group",
-    "#defaultPath": "data/community-group",
-    "#block-watch": "data/community-group/block-watch",
-    "#online-newspaper": "data/community-group/online-newspaper"
+    "defaultPath": "/data/community-group",
+    "#defaultPath": "/data/community-group",
+    "#block-watch": "/data/community-group/block-watch",
+    "#online-newspaper": "/data/community-group/online-newspaper"
 };
 
 cityGroups.map.polygonOptions = {
@@ -45,11 +45,9 @@ cityGroups.data.popularLoad = function () {
 };
 
 cityGroups.loadData = function(path) {
-/*   var dataPath = "http://localhost/codeforamerica/citygroups/citygroups_map/data/community-groups-data.json"; */
-if (path === undefined) {
-  var path = "community-groups-data";
-}
-/*   var dataPath = "sites/all/modules/custom/datawiki/datawiki_group_map/includes/data/community-groups-data.json"; */
+  if (path === undefined) {
+    var path = "/data/community-group";
+  }
   var data = "";
 
   $.ajax({
@@ -81,27 +79,30 @@ cityGroups.geoJSON = function(nodes) {
   var polygonPoints = [];
   var polygonPoint;
   var features = {};
-
   for (i in nodes) {
     var locationGeoObj = $.parseJSON(nodes[i]["node"]["location_geo"]);
-    console.log(locationGeoObj.type);
-    switch(locationGeoObj.type) {
-      case "Point":
-        cityGroups.map.popupPoints(nodes);
-      break;
-      case "Polygon":
-        var polygonPoints = Array();
-
-        for (p in locationGeoObj.coordinates[0]) {
-          polygonPoint = p;
-          polygonPoint = new L.LatLng(locationGeoObj.coordinates[0][p][1], locationGeoObj.coordinates[0][p][0]);
-          polygonPoints.push(polygonPoint); 
-        }
-        cityGroups.map.popupPolygons(polygonPoints, nodes);
-      break;
+    if(locationGeoObj.type !== undefined) {
+      switch(locationGeoObj.type) {
+        case "Point":
+          cityGroups.map.popupPoints(nodes);
+        break;
+        case "Polygon":
+          var polygonPoints = Array();
+  
+          for (p in locationGeoObj.coordinates[0]) {
+            polygonPoint = p;
+            polygonPoint = new L.LatLng(locationGeoObj.coordinates[0][p][1], locationGeoObj.coordinates[0][p][0]);
+            polygonPoints.push(polygonPoint); 
+          }
+          cityGroups.map.popupPolygons(polygonPoints, nodes);
+        break;
+      }
+      if(nodes[i]["node"]["latitude"] !== undefined) {
+          cityGroups.map.popupPoints(nodes);    
+      }
     }
-    if(nodes[i]["node"]["latitude"] !== undefined) {
-        cityGroups.map.popupPoints(nodes);    
+    else {
+
     }
   }
 };
