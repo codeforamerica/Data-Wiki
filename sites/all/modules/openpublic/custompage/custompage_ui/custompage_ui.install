@@ -1,0 +1,14 @@
+<?php
+// $Id: custompage_ui.install,v 1.1.2.2 2008/07/23 11:31:13 inadarei Exp $
+
+/**
+ * @file
+ * Custom Page Admin UI Installation
+ **/
+
+
+function custompage_ui_install() { }
+
+function custompage_ui_uninstall() {
+  variable_del('CUSTOMPAGE_UI_CONFIG');
+}

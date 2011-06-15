@@ -100,52 +100,16 @@ function datawiki_collection_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'datawiki_collection-datawiki_branding_header' => array(
+        'datawiki_collection-datawiki_categories' => array(
           'module' => 'datawiki_collection',
-          'delta' => 'datawiki_branding_header',
-          'region' => 'header_gap',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_site_tagline' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_site_tagline',
-          'region' => 'header_gap',
-          'weight' => '-10',
-        ),
-        'block-1' => array(
-          'module' => 'block',
-          'delta' => 1,
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_new_group_search' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_new_group_search',
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_add_data' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_add_data',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_welcome' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_welcome',
+          'delta' => 'datawiki_categories',
           'region' => 'content',
           'weight' => '-10',
         ),
-        'datawiki_collection-datawiki_facebook_like' => array(
+        'datawiki_collection-datawiki_categories_menu' => array(
           'module' => 'datawiki_collection',
-          'delta' => 'datawiki_facebook_like',
+          'delta' => 'datawiki_categories_menu',
           'region' => 'content',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_branding_footer' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_branding_footer',
-          'region' => 'footer',
           'weight' => '-10',
         ),
       ),
@@ -230,52 +194,16 @@ function datawiki_collection_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'datawiki_collection-datawiki_site_tagline' => array(
+        'datawiki_collection-datawiki_list' => array(
           'module' => 'datawiki_collection',
-          'delta' => 'datawiki_site_tagline',
-          'region' => 'header_gap',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_branding_header' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_branding_header',
-          'region' => 'header_gap',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_new_group_search' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_new_group_search',
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-        'block-1' => array(
-          'module' => 'block',
-          'delta' => 1,
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_add_data' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_add_data',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_facebook_like' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_facebook_like',
+          'delta' => 'datawiki_list',
           'region' => 'content',
           'weight' => '-10',
         ),
-        'datawiki_collection-datawiki_welcome' => array(
+        'datawiki_collection-datawiki_list_menu' => array(
           'module' => 'datawiki_collection',
-          'delta' => 'datawiki_welcome',
+          'delta' => 'datawiki_list_menu',
           'region' => 'content',
-          'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_branding_footer' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_branding_footer',
-          'region' => 'footer',
           'weight' => '-10',
         ),
       ),

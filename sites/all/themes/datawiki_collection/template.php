@@ -15,3 +15,12 @@ function datawiki_collection_form_alter(&$form, &$form_state, $form_id) {
     $form['search_block_form']['#attributes']['placeholder'] = t('SEARCH');
   }
 }
+
+function datawiki_collection_form_system_theme_settings_alter(&$form, $form_state) {
+  $form['datawiki_collection'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Widget'),
+    '#default_value' => theme_get_setting('sitename'),
+    '#description'   => t("Site name"),
+  );
+}

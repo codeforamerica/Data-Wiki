@@ -1,0 +1,18 @@
+<?php
+// $Id: recaptcha.install,v 1.2.4.2.2.3.2.2.2.1 2010/12/21 14:30:28 robloach Exp $
+
+/**
+ * @file
+ * Provides install, updated, and uninstall functions for recaptcha.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function recaptcha_uninstall() {
+  // Delete all the recaptcha variables and then clear the variable cache
+  db_delete('variable')
+    ->condition('name', 'recaptcha_%', 'LIKE')
+    ->execute();
+  cache_clear_all('variables', 'cache');
+}

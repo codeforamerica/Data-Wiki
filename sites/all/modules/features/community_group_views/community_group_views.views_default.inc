@@ -1615,9 +1615,9 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'node';
-  $handler->display->display_options['row_options']['links'] = 1;
-  $handler->display->display_options['row_options']['comments'] = 0;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = 0;
+  $handler->display->display_options['row_options']['default_field_elements'] = 1;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -2250,6 +2250,19 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  /* Contextual filter: Content: Type */
+  $handler->display->display_options['arguments']['type']['id'] = 'type';
+  $handler->display->display_options['arguments']['type']['table'] = 'node';
+  $handler->display->display_options['arguments']['type']['field'] = 'type';
+  $handler->display->display_options['arguments']['type']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['type']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['type']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['type']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['type']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['type']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['type']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['type']['validate_options']['access'] = 0;
+  $handler->display->display_options['arguments']['type']['validate']['fail'] = 'ignore';
   /* Contextual filter: Content: Categories (field_categories) */
   $handler->display->display_options['arguments']['field_categories_tid']['id'] = 'field_categories_tid';
   $handler->display->display_options['arguments']['field_categories_tid']['table'] = 'field_data_field_categories';

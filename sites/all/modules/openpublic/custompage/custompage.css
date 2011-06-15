@@ -1,0 +1,24 @@
+div.cp_tile:hover div.edit {
+  display: block;
+}
+
+div.cp_showborder:hover {
+  background-color: #ffff80;
+  cursor: pointer;
+}
+
+div.cp_tile div.edit {
+  background-color: white;
+  border: 1px solid rgb(238, 238, 238);
+  display: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0px 4px;
+  position: absolute;
+  z-index: 40;
+}
+
+div.cp_tile {
+  padding: 0px;
+  margin: 0px;
+}

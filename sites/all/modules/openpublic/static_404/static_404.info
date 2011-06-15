@@ -1,0 +1,5 @@
+name = "Static 404"
+description = "Allows for faster delivery of 404 pages by statically generating them on a cron run"
+package = "OpenPublic"
+core = "7.x"
+version = "7.x-1.0"

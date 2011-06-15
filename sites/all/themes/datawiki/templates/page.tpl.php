@@ -6,11 +6,14 @@
 ?>
 
 <div id="container" class="container_16">
+    <?php if ($page['header_top']): ?>
+    <div class="header-top grid_12">
+      <?php print render($page['header_top']); ?>
+    </div>
+    <?php endif; ?>
   <div id="header" class="grid_16 alpha">
     <div class="header-logo-container grid_4 alpha">
-      <?php  // print '<a href="' . base_path() . '">' . $site_name . '</a>'; ?>
-      <?php // print $sub_site_name; ?>
-      <?php print '<a href="' . base_path() . '">' . $logo_image_link . '</a>'; ?>
+
     </div>
     
     <div class="header-menu-container grid_2">
@@ -61,10 +64,25 @@
           <ul class="action-links"><?php print render($action_links); ?></ul>
         <?php endif; ?>
       </div>
+
+      <div class="clear"></div>                      
+      <?php if ($page['content_top']): ?>
+        <div id="content-content-top" class="content-content-top">
+          <?php print render($page['content_top']); ?>
+        </div>
+      <?php endif; ?>
+      
       <div class="clear"></div>                      
       <?php if ($page['content']): ?>
         <div id="content-content" class="content-content">
           <?php print render($page['content']); ?>
+        </div>
+      <?php endif; ?>
+
+      <div class="clear"></div>                      
+      <?php if ($page['content_bottom']): ?>
+        <div id="content-content-bottom" class="content-content-bottom">
+          <?php print render($page['content_bottom']); ?>
         </div>
       <?php endif; ?>
     </div>
@@ -86,7 +104,12 @@
   </div>
   <div class="clear"></div>
   <div id="footer" class="grid_16 alpha">
+      <?php print render($page['footer_top']); ?> 
+      <div class="clear"></div> 
       <?php print render($page['footer']); ?>
+      <div class="clear"></div>
+      <?php print render($page['footer']); ?>
+      <div class="clear"></div>
   </div>
   <div class="clear"></div>
 </div>

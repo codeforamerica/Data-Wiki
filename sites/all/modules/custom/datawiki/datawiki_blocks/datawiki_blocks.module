@@ -38,8 +38,8 @@ function datawiki_blocks_block_info() {
     'info' => t('New Group Search'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_site_tagline'] = array(
-    'info' => t('Site Tagline'),
+  $blocks['datawiki_home_menu'] = array(
+    'info' => t('Home Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   return $blocks;
@@ -49,7 +49,7 @@ function datawiki_blocks_block_info() {
  * Implements hook_block_view().
  */
 function datawiki_blocks_block_view($delta = '') {
-  switch ($delta) {
+  switch ($delta) {  
     case 'datawiki_welcome':
       $block['subject'] = '';
       $block['content'] = datawiki_blocks_contents('welcome');
@@ -83,11 +83,10 @@ function datawiki_blocks_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = datawiki_blocks_contents('add_data');
       break;
-
-
-    case 'datawiki_site_tagline':
+    
+    case 'datawiki_home_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_blocks_contents('site_tagline');
+      $block['content'] = datawiki_blocks_contents('home_menu');
       break;
   }
   return $block;
@@ -99,13 +98,9 @@ function datawiki_blocks_block_view($delta = '') {
 function datawiki_blocks_contents($type) {
   $output = '';
   
-  switch ($type) {
+  switch ($type) {      
     case 'welcome':
       $output .= '<h2>' . t('Find groups by location or topic.') . '</h2>';
-      break;
-
-    case 'site_tagline':
-      $output .= '<h2>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h2>';
       break;
       
     case 'branding_header':
@@ -124,7 +119,7 @@ function datawiki_blocks_contents($type) {
       break;
 
     case 'new_group_search':
-  global $base_url;
+      global $base_url;
       $output .= '<div id="new-group-search">' 
         . '<div class="form-submit">'
         . l('New Search', $base_url)
@@ -152,6 +147,10 @@ function datawiki_blocks_contents($type) {
 /*           . t('Know a cool group? Why not <a href="/node/add/online-community">Add</a> it?') */
         . '</div>';
       break;
+      
+      case 'home_menu':
+        $output .= "Place topic etc.";
+        break;
       
   }
   

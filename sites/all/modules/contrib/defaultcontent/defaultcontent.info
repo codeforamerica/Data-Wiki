@@ -1,0 +1,11 @@
+core = "7.x"
+description = "Allows Export/Import of Default Content"
+name = "Default Content"
+dependencies[] = features
+
+; Information added by drupal.org packaging script on 2011-03-04
+version = "7.x-1.0-alpha1"
+core = "7.x"
+project = "defaultcontent"
+datestamp = "1299272767"
+

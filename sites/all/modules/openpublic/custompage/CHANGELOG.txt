@@ -1,0 +1,11 @@
+$Id: CHANGELOG.txt,v 1.1.2.1 2008/10/20 20:39:31 febbraro Exp $
+
+Change Log for Custom Page
+
+Developers: Irakli Nadareishvili, Frank Febbraro
+
+Version 1.2
+ - Added configurable prefix to all custom page templates/functions.
+ - Added configuration option to enable/disable inline editing.
+ - Added custompage_region_tile to display a block region as a tile.
+ - Fixed custompage_view_tile $display_id to default to a typically valid first block display id.

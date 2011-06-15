@@ -37,6 +37,12 @@ function  datawiki_collection_preprocess_maintenance_page(&$vars) {
  */
 function datawiki_collection_preprocess_page(&$vars) {
 
+  // Create variables from theme settings (set in .info file)
+  $vars['sitename'] = theme_get_setting('sitename');
+  $vars['tagline'] = theme_get_setting('tagline');
+  $vars['logo_image_link'] = theme_get_setting('logo_image_link');
+
+
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {
     $vars['main_region_width'] = 'grid_16';

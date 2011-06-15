@@ -18,15 +18,30 @@ function datawiki_collection_help($path, $arg) {
 }
 function datawiki_collection_menu() {
   $items['map/collection/termname'] = array(
-    'title' => 'Termname',
-    'page callback' => 'datawiki_collection_termname_render',
+    'title' => 'Map Termname',
+    'page callback' => 'datawiki_collection_termname_map_render',
     'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
     'access callback' => TRUE,
   );
+/*
+  $items['list/community-group/block-watch'] = array(
+    'title' => 'List Termname',
+    'page callback' => 'datawiki_collection_termname_list_render',
+    'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
+    'access callback' => TRUE,
+  );
+*/
   return $items;
 }
 
-function datawiki_collection_termname_render() {
+/*
+
+function datawiki_collection_termname_list_render() {
+  return "list here";
+}
+*/
+
+function datawiki_collection_termname_map_render() {
   $settings = array();
   $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_collection');
   $settings['sitename'] = "CityGroups Block Watch Finder";

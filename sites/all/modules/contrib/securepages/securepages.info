@@ -1,0 +1,8 @@
+name = Secure Pages
+description = "Set which pages are always going to be used in secure mode (SSL) Warning: Do not enable this module without configuring your web server to handle SSL with this installation of Drupal"
+core = 7.x
+
+files[] = securepages.admin.inc
+files[] = securepages.install
+files[] = securepages.module
+files[] = securepages.test

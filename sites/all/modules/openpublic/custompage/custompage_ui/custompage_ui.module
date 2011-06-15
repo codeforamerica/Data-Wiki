@@ -1,0 +1,264 @@
+<?php
+// $Id: custompage_ui.module,v 1.1.2.6 2010/03/15 03:22:46 inadarei Exp $
+
+/**
+ * @file
+ * Custom Page Admin UI
+ **/
+
+function custompage_ui_menu() {
+
+  $access = array('administer custompage');
+
+  $items = array();
+
+  $items['admin/build/custompage'] = array(
+    'title' => 'Custom Pages',
+    'description' => 'Theme content of your site differently depending on the URI.',
+    'page callback' => 'custompage_ui_admin_settings',
+    'access arguments' => $access,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/build/custompage/list'] = array(
+    'title' => 'List Custom Pages',
+    'page callback' => 'custompage_ui_admin_settings',
+    'access arguments' => $access,
+    'weight' => -10,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items['admin/build/custompage/add'] = array(
+    'title' => 'Add a Custom Page or Block',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custompage_ui_admin_settings_form'),
+    'access arguments' => $access,
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/build/custompage/edit/%custompage'] = array(
+    'title' => 'Edit Custom Page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custompage_ui_admin_settings_form', 4),
+    'access arguments' => $access,
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/build/custompage/delete/%custompage'] = array(
+    'title' => 'Delete Custom Page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custompage_ui_delete_form', 4),
+    'access arguments' => $access,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+function custompage_load($key) {
+  $settings = variable_get('CUSTOMPAGE_UI_CONFIG', FALSE );
+
+  if ( $settings == FALSE ) {
+    return FALSE;
+  }
+
+  if ( is_object( $settings[$key] )) {
+    return $settings[$key];
+  }
+  else {
+    return FALSE;
+  }
+}
+
+function custompage_ui_admin_settings() {
+  $settings =   $settings = variable_get('CUSTOMPAGE_UI_CONFIG', array() );
+
+  $out = "
+<table>
+  <tr>
+    <th>" . t("Title") . "</th>
+    <th>" . t("Type") . "</th>
+    <th>" . t("Key") . "</th>
+    <th>" . t("Path") . "</th>
+    <th>" . t("Enabled") . "</th>
+    <th colspan=\"2\" align=\"center\">" . t("Control") . "</th>
+  </tr>
+  ";
+
+  foreach ( $settings as $obj ) {
+    $options = array('attributes' => array('target' => '_blank'));
+    $url = l($obj->path, $obj->path, $options);
+
+    $out .= "<tr>";
+    $out .= "<td>" . $obj->title . "</td>";
+    $obj->type = empty($obj->type) ? t('Page') : $obj->type;
+    $out .= "<td>" . ucfirst($obj->type) . "</td>";
+    $out .= "<td>" . $obj->key . "</td>";
+    $out .= "<td>" . $url . "</td>";
+    $enabled = ( $obj->enabled ) ? t("Yes") : t("No");
+    $out .= "<td>" . $enabled . "</td>";
+    $out .= "<td>" . l(t('Edit'), 'admin/build/custompage/edit/' . $obj->key ) . "</td>";
+    $out .= "<td>" . l(t('Delete'), 'admin/build/custompage/delete/' . $obj->key) . "</td>";
+    $out .= "</tr>";
+  }
+
+  $out .= "</table>";
+
+  $out .= custompage_clearcache_message();
+  return $out;
+}
+
+function custompage_ui_admin_settings_form($node, &$form_state, $saved = null) {
+  //print_r( $form_state );
+  //print_r ( $saved );
+  //print 'well, fuck'; die();
+  $saved = ( is_null($saved) ) ? new StdClass() : $saved;
+
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#default_value' => $saved->title,
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#description' => t('Title of the custom page or a custom block.'),
+  );
+
+  $form['key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Key'),
+    '#default_value' => $saved->key,
+    '#required' => TRUE,
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#description' => t('Please indicate a unique key for this page or block. Template file and theme functions used
+    for rendering will be named according to this key.<p><b>ATTENTION:</b> Do NOT use dash "-" in key names!</p>'),
+  );
+
+  $default_type = empty($saved->type) ? 'Page' : $saved->type;
+  $form['type'] = array(
+    '#type' => 'select',
+    '#title' => t('Type'),
+    '#default_value' => $saved->type,
+    '#options' => array(
+      'page' => t('Page'),
+      'block' => t('Block'),
+    ),
+    '#required' => TRUE,
+    '#description' => t('Whether to create a page or a block.'),
+  );
+
+  $form['path'] = array(
+    '#type' => 'textfield',
+    '#title' => t('URI Path'),
+    '#default_value' => $saved->path,
+    '#required' => FALSE,
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#description' => t('Only applicable if type is page: A Drupal URI path (relative to the root URI of Drupal) that this page should
+    show up at. N/A for blocks.'),
+  );
+
+  $form['enabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enabled'),
+    '#default_value' => (isset($saved->enabled)) ? $saved->enabled : True,
+    '#description' => t('You can disable a page/block during development. Only users with \'administer custompage\' permission can access the page when it is disabled.'),
+  );
+
+  if ( trim($saved->key) != "" ) {
+    drupal_set_title(t('Edit custom page/block: %title', array('%title' => $saved->title)));
+    $form['save'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save'),
+      '#submit' => array('custompage_ui_settings_submit'),
+    );
+  }
+  else {
+    drupal_set_title(t('Add a Custom Page/Block'));
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add Component'),
+      '#submit' => array('custompage_ui_settings_submit'),
+    );
+  }
+
+  return $form;
+}
+
+function custompage_ui_settings_submit( $form, &$form_state ) {
+  $post = $form_state['values'];
+  $obj = new StdClass();
+  $obj->title = $post['title'];
+  $obj->type = $post['type'];
+  $obj->key = $post['key'];
+  $obj->path = $post['path'];
+  $obj->enabled = $post['enabled'];
+  $settings = variable_get('CUSTOMPAGE_UI_CONFIG', array() );
+  $settings[$obj->key] = $obj;
+  variable_set('CUSTOMPAGE_UI_CONFIG', $settings);
+  drupal_flush_all_caches();
+
+  drupal_goto('admin/build/custompage');
+}
+
+function custompage_ui_delete_form($setting, &$form_state) {
+  $form['title'] = array(
+    '#type' => 'hidden',
+    '#value' => $setting->title,
+  );
+  $form['key'] = array(
+    '#type' => 'hidden',
+    '#value' => $setting->key,
+  );
+
+  return confirm_form(
+    $form,
+    t('Delete custom page %title', array('%title' => $setting->title)),
+    'admin/build/custompage',
+    '<p>' . t('Are you sure you want to delete the custom page %title?', array('%title' => $setting->title)) . '</p>',
+    t('Delete'),
+    t('Cancel')
+  );
+}
+
+function custompage_ui_delete_form_submit($form, &$form_state) {
+  $key = $form_state['values']['key'];
+  $settings = variable_get('CUSTOMPAGE_UI_CONFIG', null );
+  if ( is_array( $settings ) && is_object( $settings[$key] ) ) {
+    $new_settings = array_diff_key2($settings, array($key => 'remove') );
+  }
+  variable_set( 'CUSTOMPAGE_UI_CONFIG', $new_settings );
+  drupal_flush_all_caches();
+  drupal_set_message(t('The custom page: %title has been deleted.', array('%title' => $form_state['values']['title'])));
+  $form_state['redirect'] = 'admin/build/custompage';
+  return;
+}
+
+/**
+ * This gives support for PHP4 which does not have
+ * array_diff_key function.
+ */
+function array_diff_key2( $arr1, $arr2 ) {
+
+  if ( function_exists( 'array_diff_key' ) ) {
+    return array_diff_key( $arr1, $arr2 );
+  }
+  else {
+    $arr3 = array();
+    if ( ! is_array($arr1) || ! ( sizeof( $arr1 ) > 0 ) ) {
+      return $arr3;
+    }
+    foreach ( $arr1 as $key => $val ) {
+      if ( ! array_key_exists($key, $arr2) ) {
+        $arr3[$key] = $val;
+      }
+    }
+    return $arr3;
+  }
+}
+
+/**
+ * Implementation of hook_custompages
+ */
+function custompage_ui_custompages() {
+
+  return variable_get( 'CUSTOMPAGE_UI_CONFIG', null );
+
+}

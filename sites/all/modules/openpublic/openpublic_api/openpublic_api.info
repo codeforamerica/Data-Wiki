@@ -1,0 +1,5 @@
+; $Id$
+name = OpenPublic API
+description = Adds a block showing the current status of 3rd party api config
+package = OpenPublic
+core = 7.x

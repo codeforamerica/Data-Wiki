@@ -1,0 +1,58 @@
+<?php
+/**
+ * @file
+ *
+ * is an alter plugin for defaultcontent
+ *
+ * Handles the main processing for importing nodes 
+ */
+$plugin = array(
+  'export_alter weight' => 1000,
+);
+
+/**
+ * handles the main transfer of data from node to export
+ *
+ * We did at first try to move all things that were in node
+ * but some times this include node and so we had recusion issue when exporting
+ * also feature were overridden way to often
+ */
+function node_export_alter(&$node, &$export) {
+  $keys = array(
+    'title',
+    'status',
+    'promote',
+    'sticky',
+    'type',
+    'language',
+    'created',
+    'comment',
+    'translate',
+    'machine_name',
+    'body'
+  );
+  // grab core properties
+  foreach ($keys as $key) {
+    if(isset($node->{$key})) {
+      $export->{$key} = $node->{$key};
+    }
+  }
+  //grab all fields that are not empty
+  foreach( get_object_vars($node) as $key => $value) {
+    if (preg_match("/^field_/", $key)
+       && !empty($value)
+     ){
+      $export->{$key} = $node->{$key};
+    }
+  }
+}
+
+/**
+ * handles the importing of nodes
+ *
+ * TODO: use the current user id if we have one
+ */
+function node_import_alter(&$node) {
+  $node->uid = 1;
+}
+

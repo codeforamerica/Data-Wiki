@@ -11,3 +11,5 @@ files[] = datawiki.module
 dependencies[] = "datawiki_collection"
 dependencies[] = "datawiki_collection_feature"
 dependencies[] = "datawiki_feed_taxonomy_categories"
+dependencies[] = "datawiki_basic_page"
+dependencies[] = "datawiki_context"

@@ -1,0 +1,29 @@
+<?php
+// $Id$
+/**
+ * @file openpublic_api.module
+ * Displays a block of configuration links in a Colorbox popup.
+ */
+
+
+function openpublic_api_status() {
+  include_once DRUPAL_ROOT . '/includes/install.inc';
+
+  $requirements = module_invoke_all('requirements_api');
+  usort($requirements, '_system_sort_requirements');
+  return theme('status_report', array('requirements' => $requirements));
+}
+
+function openpublic_api_block_info() {
+  return array(
+    'api_status' => array(
+     'info' => 'API Status'
+   ),
+  );
+}
+function openpublic_api_block_view($delta = '') {
+  return array(
+    'subject' => 'API Status',
+    'content' => openpublic_api_status(),
+  );
+}

@@ -1,0 +1,34 @@
+<?php
+
+function defaultcontent_install() {
+  //drupal_install_schema('defaultcontent');
+  db_update('system')
+    ->fields(array(
+      'weight' => 1,
+    ))
+    ->condition('type', 'module')
+    ->condition('name', 'defaultcontent_install')
+    ->execute();
+}
+
+function defaultcontent_schema() {
+  $schema['defaultcontent'] = array(
+    'description' => 'Store state of default content nodes',
+    'fields' => array(
+      'name' => array(
+        'description' => 'Then machine name of the node',
+        'type' => 'varchar',
+        'length' => 225,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => 'Node id or NULL if there is no current node',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('name'),
+  );
+  return $schema;
+}

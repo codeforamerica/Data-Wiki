@@ -6,27 +6,41 @@
 ?>
 
 <div id="container" class="container_16">
-  <div id="header" class="grid_16 alpha">
-    <div class="header-logo-container grid_4 alpha">
-      <?php  // print '<a href="' . base_path() . '">' . $site_name . '</a>'; ?>
-      <?php // print $sub_site_name; ?>
-      <?php print '<a href="' . base_path() . '">' . $logo_image_link . '</a>'; ?>
+    <?php if ($page['header_top']): ?>
+    <div class="header-top grid_16">
+      <?php print render($page['header_top']); ?>
+      <div class="clear"></div>
     </div>
-    
-    <div class="header-menu-container grid_2">
-      <?php print render($page['header_menu']); ?>
+    <?php endif; ?>
+    <div id="header" class="grid_16">
+      <div class="header-logo-container grid_4 alpha">
+        <?php print render($page['header_logo']); ?>
+        <?php print $sitename; ?>
+      </div>
+      
+      <div class="header-menu-container grid_2">
+        <?php print render($page['header_menu']); ?>
+      </div>
+  
+      <div class="header-signin-container grid_4">
+        <?php print render($page['header_signin']); ?>
+        <?php print $account_link; ?>
+      </div>
+  
+      <div class="header-gap-container grid_6 omega">
+        <?php print render($page['header_gap']); ?>
+      </div>
     </div>
-
-    <div class="header-signin-container grid_4">
-      <?php print render($page['header_signin']); ?>
-      <?php print $account_link; ?>
+    <div id="tagline">
+      <?php print $tagline; ?>
     </div>
-
-    <div class="header-gap-container grid_6 omega">
-      <?php print render($page['header_gap']); ?>
+    <div class="clear"></div>
+    <?php if ($page['header_bottom']): ?>
+    <div class="clear"></div>
+    <div class="header-bottom grid_16 omega">
+      <?php print render($page['header_bottom']); ?>
     </div>
-
-  </div>
+    <?php endif; ?>
   <div class="clear"></div>
   <div id="main" role="main" class="grid_16 alpha">
     <div class="preface-container">
@@ -61,15 +75,32 @@
           <ul class="action-links"><?php print render($action_links); ?></ul>
         <?php endif; ?>
       </div>
-      <div class="clear"></div>                      
-      <?php if ($page['content']): ?>
-        <div id="content-content" class="content-content">
-          <?php print render($page['content']); ?>
-        </div>
-      <?php endif; ?>
+
+      <div class="clear"></div>
+      <div id="content">
+        <?php if ($page['content_top']): ?>
+          <div id="content-content-top" class="content-content-top">
+            <?php print render($page['content_top']); ?>
+          </div>
+        <?php endif; ?>
+        
+        <div class="clear"></div>                      
+        <?php if ($page['content_middle']): ?>
+          <div id="content-content-middle" class="content-content-middle">
+            <?php print render($page['content_middle']); ?>
+          </div>
+        <?php endif; ?>
+  
+        <div class="clear"></div>                      
+        <?php if ($page['content_bottom']): ?>
+          <div id="content-content-bottom" class="content-content-bottom">
+            <?php print render($page['content_bottom']); ?>
+          </div>
+        <?php endif; ?>
+      </div>
     </div>
 
-    <div class="sidebar-container grid_5 omega">
+    <div class="sidebar-container grid_4 push_1 omega">
       <div class="sidebar-first-container">
         <?php print render($page['sidebar_first']); ?>
       </div>
@@ -86,7 +117,12 @@
   </div>
   <div class="clear"></div>
   <div id="footer" class="grid_16 alpha">
+      <?php print render($page['footer_top']); ?> 
+      <div class="clear"></div> 
       <?php print render($page['footer']); ?>
+      <div class="clear"></div>
+      <?php print render($page['footer']); ?>
+      <div class="clear"></div>
   </div>
   <div class="clear"></div>
 </div>

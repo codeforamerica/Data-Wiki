@@ -1,0 +1,12 @@
+; $Id: custompage_ui.info,v 1.1.2.2 2008/07/23 11:31:13 inadarei Exp $
+name = "Custom Page Admin UI"
+description = "Administration user interface for Custom Page module."
+dependencies[] = custompage
+core = 7.x
+
+; Information added by drupal.org packaging script on 2010-06-24
+version = "7.x-1"
+core = "7.x"
+project = "custompage"
+datestamp = "1277410507"
+

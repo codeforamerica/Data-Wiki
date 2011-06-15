@@ -1,0 +1,14 @@
+; $Id: recaptcha_mailhide.info,v 1.1.2.5.2.3.2.1 2010/12/21 14:30:28 robloach Exp $
+name = reCAPTCHA Mailhide
+description = "Uses the reCAPTCHA web service to protect email addresses."
+package = "Spam control"
+core = 7.x
+ 
+files[] = recaptcha_mailhide.module
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "7.x-1.0"
+core = "7.x"
+project = "recaptcha"
+datestamp = "1295318017"
+

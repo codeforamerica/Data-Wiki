@@ -1,0 +1,321 @@
+<?php
+// $Id: custompage.module,v 1.1.2.11 2010/06/24 20:10:41 inadarei Exp $
+/**
+ * @file
+ * Custom Page Module
+ **/
+
+function custompage_init() {
+
+  $mpath = dirname(__FILE__);
+  require_once ( $mpath . '/custompage_util.inc');
+
+  if (module_exists('context')) { //Context module integration
+    include_once ( $mpath . '/custompage.context.inc');
+  }
+
+  /*
+   Load CSS. Since util functions are useful
+   and can be called from non-custompage pages
+   as well (e.g. a block), we need to always load
+   css, not - just when we are on a custom page.
+   */
+  $mod_uri = drupal_get_path('module', 'custompage');
+  drupal_add_css( $mod_uri . '/custompage.css');
+
+  //For Development Only. Do NOT un-comment in production
+  //drupal_flush_all_caches();
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function custompage_perm() {
+  return array(
+    'administer custompage',
+    'edit custompage tiles',
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ *
+ * Register menu callbacks for all custom page URLs.
+ */
+function custompage_menu() {
+
+  $items = array();
+
+  $items['admin/build/custompage/flushcache'] = array(
+    'title' => 'Flush Cache',
+    'page callback' => 'custompage_flushcache',
+    'access arguments' => array('administer custompage'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/build/custompage/settings'] = array(
+    'title' => 'Custom Page Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custompage_settings'),
+    'access arguments' => array('administer custompage'),
+    'file' => 'custompage.admin.inc',
+  );
+
+  $styled_pathes = _custompage_get_mappings();
+
+  foreach ( $styled_pathes as $path ) {
+    // only create callbacks for page-type components
+    if ($path->type == 'block') {
+      continue;
+    }
+
+    if ( $path->enabled ) {
+      $access = array('access content');
+    }
+    else {
+      $access = array('administer custompage');
+    }
+
+    $items[$path->path] = array(
+      'title' => t($path->title),
+      'page callback' => 'custompage_delegate',
+      'page arguments' => array($path->key),
+      'access arguments' => $access,
+      'type' => MENU_NORMAL_ITEM,
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Generate custom blocks
+ * @param op the operation from the URL
+ * @param delta offset
+ * @param edit edited values if a config or save
+ * @returns block HTML
+ */
+function custompage_block($op = 'list', $delta = 0, $edit = array()) {
+
+  $styled_pathes = _custompage_get_mappings();
+  if (!is_array($styled_pathes)) {
+    $styled_pathes = array();
+  }
+
+  if ($op == "list") {
+    $blocks = array();
+    foreach ( $styled_pathes as $path ) {
+      // only create callbacks for page-type components
+      if ($path->type != 'block') {
+        continue;
+      }
+
+      $blocks[$path->key] = array(
+        'info' => $path->title,
+      );
+    }
+    return $blocks;
+  }
+  else if ($op == 'view') {
+    $block = array();
+    foreach ( $styled_pathes as $path ) {
+      // only create callbacks for page-type components
+      if ($path->type != 'block') {
+        continue;
+      }
+      if ($delta == $path->key ) {
+        $block = array(
+          'subject' => $path->title,
+          'content' => theme( custompage_prefix($path->key), FALSE),
+        );
+      }
+    }
+    return $block;
+  }
+}
+
+/**
+ * Flush caches.
+ */
+function custompage_flushcache() {
+  drupal_flush_all_caches();
+  drupal_set_message('Cache cleared.');
+  drupal_goto($_SERVER['HTTP_REFERER']);
+}
+
+/**
+ * Implementation of hook_theme().
+ *
+ * Register theme tpl/functions for each custompage URL.
+ */
+function custompage_theme() {
+  $styled_pathes = _custompage_get_mappings();
+  $themes = array();
+
+  foreach ( $styled_pathes as $path ) {
+    $key = custompage_prefix($path->key);
+
+    $themes[$key] = array(
+      'arguments' => array(
+        'title' => '',
+        'user' => '',
+        'data' => '',
+      ),
+      'template' => $key,
+      //'function' => $key,
+    );
+  }
+
+  return $themes;
+}
+
+/**
+ * @return
+ *    The custompage key configured for theme prefix if necessary
+ */
+function custompage_prefix($key) {
+  $prefix = variable_get('custompage_theme_prefix', '');
+  if (!empty($prefix)) {
+    return "{$prefix}_{$key}";
+  }
+  return $key;
+}
+
+/**
+ * Find a theme function and/or template file and return content
+ */
+function custompage_delegate( $arg ) {
+  global $user;
+
+  //Context integration
+  if (module_exists('context')) {
+    // context 2
+    if (function_exists('context_set_by_condition')) {
+      context_set_by_condition('custompage', $arg);
+    }
+    // context 3
+    else {
+      if ($plugin = context_get_plugin('condition', 'custompage')) {
+        $plugin->execute($arg);
+      }
+    }
+  }
+
+  // Let's prepare some data for this baby.
+  $data = module_invoke_all( 'customdata_' . $arg );
+  $key = custompage_prefix($arg);
+
+  $themed = theme($key, drupal_get_title(), $user, $data);
+
+  //Remove ANNOYING errors about not finding functions that are optional anyway
+  $messages = drupal_get_messages( 'error', TRUE);
+  if ( is_array( $messages ) & is_array( $messages['error'] ) ) {
+    foreach ( $messages['error'] as $msg ) {
+      $pattern = '/warning: call_user_func_array.+?First argument is expected to be a valid callback.+?/ims';
+      if ( preg_match( $pattern, $msg ) ) {
+        continue;
+      }
+      drupal_set_message( $msg, 'error');
+    }
+  }
+
+  if ( trim($themed) == "" ) {
+    drupal_set_message( "custompage could not find an appropriate theming function or template file for this path [$arg].
+    <br /><b>The viable options (in ascending priority) are:</b>
+    <ul>
+      <li>'phptemplate_$arg' in any module
+      <li>'THEMENAME_$arg' in a theme with the name THEMENAME
+      <li> " . custompage_prefix($arg) . ".tpl.php template file in a current theme
+    </ul>
+    Please make sure at least one of these exist and returns a non-empty output" . custompage_clearcache_message(), 'error' );
+    return "&nbsp;"; //Returning empty leads to undesired effect of getting a blank page
+  }
+  else {
+    return $themed;
+  }
+
+}
+
+function custompage_clearcache_message() {
+
+  return "<div style=\"border-top: 1px solid silver;\"><b>ATTENTION:</b> Theme engine is strongly cached in Drupal version 7 and
+  if/when you add a new tpl.php or a theming function, you need to " . l(t('clear cache'), 'admin/build/custompage/flushcache') . " before you can see any changes.</div>";
+
+}
+
+function custompage_uri_load($id) {
+  return TRUE;
+}
+
+function _custompage_get_mappings() {
+  static $mappings;
+
+  if ( is_array( $mappings ) ) { //performance optimization
+    return $mappings;
+  }
+
+  $mappings = module_invoke_all('custompages');
+
+  /*** Structure:
+   $obj = new stdClass();
+
+   $obj->uri = 'homepage';
+   $obj->title = 'Home Page';
+   $obj->key = 'homepage';
+
+   $mappings[] = $obj;
+   **/
+
+  return $mappings;
+}
+
+
+
+/**
+ * Make module compatible with context 3
+ * implement hook_ctools_plugin_api().
+ */
+function custompage_ctools_plugin_api($module, $api) {
+  // site using context 2, but using ctools
+  if (function_exists('context_set_by_condition')) {
+    return;
+  }
+
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Make module compatible with context 3
+ * Implement hook_context_plugins().
+ */
+function custompage_context_plugins() {
+  $plugins = array();
+  $plugins['custompage_context_condition_alias'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'custompage') . '/plugins',
+      'file' => 'custompage_context_condition_alias.inc',
+      'class' => 'custompage_context_condition_alias',
+      'parent' => 'context_condition',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Make module compatible with context 3
+ * Implement hook_context_registry().
+ */
+function custompage_context_registry() {
+  $registry['conditions'] = array(
+    'custompage' => array(
+      'title' => t('Custompage'),
+      'description' => t('Set condition on visiting a custom page URL.'),
+      'plugin' => 'custompage_context_condition_alias',
+    ),
+  );
+  return $registry;
+}
+
+
