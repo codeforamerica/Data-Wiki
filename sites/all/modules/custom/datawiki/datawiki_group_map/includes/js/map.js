@@ -40,8 +40,10 @@ cityGroups.data.popularLoad = function () {
   $('div#popular-terms ul li a').click(function(){ 
 /*     var path = cityGroups.paths[$(this).attr('href')]; */
     // Dynamically load the path.
-    path = cityGroups.paths.defaultPath + '/' + $(this).attr('href');
-    cityGroups.loadData(path.replace("#", ''));
+    var path = cityGroups.paths.defaultPath + '/' + $(this).attr('href');
+    path = path.replace("#", '');
+    console.log(path);
+    cityGroups.loadData(path);
   });
 };
 
@@ -96,7 +98,7 @@ cityGroups.geoJSON = function(nodes) {
   var polygonPoints = [];
   var polygonPoint;
   var features = {};
-  console.log(cityGroups.map.rendered);
+  // console.log(cityGroups.map.rendered);
   for (i in nodes) {
     var locationGeoObj = $.parseJSON(nodes[i]["node"]["location_geo"]);
     if(locationGeoObj.type !== undefined) {
@@ -127,13 +129,13 @@ cityGroups.geoJSON = function(nodes) {
 
 cityGroups.map.popupPoints   = function (nodes){
   var node = nodes[i]["node"];
+  var marker = "";
   if(node.latitude !== undefined){
   	var markerLocation = new L.LatLng(node.latitude, node.longitude);
     var customMarker = new datawiki.map.settings.customMarkerStyle(),
     marker = new L.Marker(markerLocation, {icon: customMarker});
-/*     marker = new L.Marker(markerLocation); */
     cityGroups.map.rendered.addLayer(marker);
-    console.log(marker);
+    // console.log(marker);
     marker.on('click', onMapClick);
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(node.title);
@@ -148,19 +150,20 @@ cityGroups.map.popupPoints   = function (nodes){
 
 cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   var node = nodes[i]["node"];
+  var marker = "";
   var polygon = new L.Polygon(polygonPoints, cityGroups.map.polygonOptions);
 	var markerLocation = new L.LatLng(-1*node.latitude, -1*node.longitude);
 
   var customMarker = new datawiki.map.settings.customMarkerStyle(),
   marker = new L.Marker(markerLocation, {icon: customMarker});
-/*   var marker = new L.Marker(markerLocation); */
+  cityGroups.map.rendered.removeLayer(marker);
   cityGroups.map.rendered.addLayer(marker);
   marker.on('click', onMapClick);
 
 	function onMapClick(e) {
 	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
     cityGroups.map.rendered.addLayer(polygon);
-    polygon.on('dblclick',offMapClick);
+    polygon.on('click', offMapClick);
 	}
 	
 	function offMapClick(e) {
@@ -218,7 +221,7 @@ cityGroups.map.geocodeAddress = function (){
  */
 cityGroups.spaceToPlus = function(val) {
   // @TODO convert spaces to +
-  val = val;
+/*   val = val.replace(' ', '+'); */
   console.log(val);
   return val;
 };
