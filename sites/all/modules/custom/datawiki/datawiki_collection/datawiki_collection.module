@@ -38,9 +38,9 @@ function datawiki_collection_termname_render() {
   $settings['popular_searches'] = '<ul>
             <li><a href="#defaultPath">See All</a></li>
             <li><a href="#block-watch">Block Watch</a></li>
-            <li><a href="#online-newspaper">Online Newspaper</a></li>
-            <li><a href="groups/categories">All Categories</a></li>
-          </ul>';
+            <li><a href="#public-safety">Public Safety</a></li>
+          </ul><br />
+          <a href="list/collection/termname">All Categories</a>';
   $settings['map_colors'] = '
     color: "#2796F2",
     fillColor: "white",
@@ -51,7 +51,7 @@ function datawiki_collection_termname_render() {
   $settings['map_markers'] = '
      L.Icon.extend({
         iconUrl: "/' . $settings['html_root_custom'] . '/images/noun_project_659_man.svg",
-        iconSize: new L.Point(20, 50),
+        iconSize: new L.Point(15, 40),
         iconAnchor: new L.Point(10, 40),
         popupAnchor: new L.Point(0, 0)
     });

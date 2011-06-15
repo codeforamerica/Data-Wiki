@@ -10,8 +10,6 @@ cityGroups.map.form = {};
 cityGroups.paths = {
     "defaultPath": "/data/community-group",
     "#defaultPath": "/data/community-group",
-    "#block-watch": "/data/community-group/block-watch",
-    "#online-newspaper": "/data/community-group/online-newspaper"
 };
 
 cityGroups.map.polygonOptions = {
@@ -23,6 +21,7 @@ cityGroups.map.polygonOptions = datawiki.map.settings.mapColors;
         
 $(document).ready(function() {
   cityGroups.data.popularLoad();
+  cityGroups.map.loadMap();
   cityGroups.loadData(cityGroups.paths['defaultPath']);
   cityGroups.mapPageInteractions();
 
@@ -33,21 +32,22 @@ cityGroups.mapPageInteractions = function () {
   cityGroups.map.geocodeAddress();
   
   $('ul.menu a#popular-search').click(function() {
-  console.log("cl");
-    $('div#popular-terms').css('backgroundColor', '#bb4433');
+/*     $('div#popular-terms').css('backgroundColor', '#bb4433'); */
   });
 };
 
 cityGroups.data.popularLoad = function () {
   $('div#popular-terms ul li a').click(function(){ 
-    var path = cityGroups.paths[$(this).attr('href')];
-    cityGroups.loadData(path);
+/*     var path = cityGroups.paths[$(this).attr('href')]; */
+    // Dynamically load the path.
+    path = cityGroups.paths.defaultPath + '/' + $(this).attr('href');
+    cityGroups.loadData(path.replace("#", ''));
   });
 };
 
 cityGroups.loadData = function(path) {
   if (path === undefined) {
-    var path = "/data/community-group";
+    var path = cityGroups.paths.defaultPath;
   }
   var data = "";
 
@@ -71,9 +71,24 @@ cityGroups.loadDataSuccess = function(data) {
   console.log("success!");
   $('div.loading').hide();
   cityGroups.data = data;
-  cityGroups.map.loadMap();
   cityGroups.geoJSON(cityGroups.data.nodes);
   return false;
+};
+
+
+
+cityGroups.map.loadMap = function() {
+  // initialize the map on the "map" div with a given center and zoom
+  cityGroups.map.settings.zoom = 11;
+  cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
+  // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
+
+  cityGroups.map.rendered = new L.Map('map', cityGroups.map.settings.center);
+
+  // create a CloudMade tile layer
+  cityGroups.map.cloudmadeUrl = 'http://{s}.tile.cloudmade.com/b59bc8b09cd84af58fcef3019d84e662/997/256/{z}/{x}/{y}.png',
+  cityGroups.map.cloudmade = new L.TileLayer(cityGroups.map.cloudmadeUrl, {maxZoom: 18});
+  cityGroups.map.rendered.setView(cityGroups.map.settings.center, cityGroups.map.settings.zoom).addLayer(cityGroups.map.cloudmade);
 };
 
 cityGroups.geoJSON = function(nodes) {
@@ -81,6 +96,7 @@ cityGroups.geoJSON = function(nodes) {
   var polygonPoints = [];
   var polygonPoint;
   var features = {};
+  console.log(cityGroups.map.rendered);
   for (i in nodes) {
     var locationGeoObj = $.parseJSON(nodes[i]["node"]["location_geo"]);
     if(locationGeoObj.type !== undefined) {
@@ -117,6 +133,7 @@ cityGroups.map.popupPoints   = function (nodes){
     marker = new L.Marker(markerLocation, {icon: customMarker});
 /*     marker = new L.Marker(markerLocation); */
     cityGroups.map.rendered.addLayer(marker);
+    console.log(marker);
     marker.on('click', onMapClick);
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(node.title);
@@ -141,7 +158,6 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   marker.on('click', onMapClick);
 
 	function onMapClick(e) {
-	  	console.log(node);
 	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
     cityGroups.map.rendered.addLayer(polygon);
     polygon.on('dblclick',offMapClick);
@@ -171,20 +187,6 @@ cityGroups.map.popupTemplate = function(node) {
 };
 
 
-cityGroups.map.loadMap = function() {
-  // initialize the map on the "map" div with a given center and zoom
-  cityGroups.map.settings.zoom = 11;
-  cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
-  // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
-
-  cityGroups.map.rendered = new L.Map('map', cityGroups.map.settings.center);
-
-  // create a CloudMade tile layer
-  cityGroups.map.cloudmadeUrl = 'http://{s}.tile.cloudmade.com/b59bc8b09cd84af58fcef3019d84e662/997/256/{z}/{x}/{y}.png',
-  cityGroups.map.cloudmade = new L.TileLayer(cityGroups.map.cloudmadeUrl, {maxZoom: 18});
-  cityGroups.map.rendered.setView(cityGroups.map.settings.center, cityGroups.map.settings.zoom).addLayer(cityGroups.map.cloudmade);
-};
-
 /**
  * Use Google's Geocode API to return a geocoded address.
  */
@@ -206,7 +208,7 @@ cityGroups.map.geocodeAddress = function (){
       error: cityGroups.loadDataError
     });    
     
-    console.log(inputValue);
+    // console.log(inputValue);
   });
 
 };
