@@ -33,6 +33,7 @@ dependencies[] = colorbox
 dependencies[] = context
 dependencies[] = context_ui
 dependencies[] = ctools
+dependencies[] = dashboard
 dependencies[] = date
 dependencies[] = defaultcontent
 dependencies[] = date_api
@@ -58,7 +59,6 @@ dependencies[] = node_reference
 dependencies[] = openlayers
 dependencies[] = openlayers_ui
 dependencies[] = openlayers_views
-dependencies[] = openpublic_splash
 dependencies[] = pathauto
 dependencies[] = references
 dependencies[] = strongarm
@@ -69,7 +69,7 @@ dependencies[] = views_json
 dependencies[] = views_number_results
 dependencies[] = views_ui
 
-dependencies[] = dashboard
+
 
 ; Custom
 dependencies[] = datawiki

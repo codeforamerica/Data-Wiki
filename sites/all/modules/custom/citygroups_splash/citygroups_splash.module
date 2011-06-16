@@ -1,0 +1,272 @@
+<?php
+// $Id$
+/**
+ * @file openpublic_splash.module
+ * Displays a block of configuration links in a Colorbox popup.
+ */
+
+/**
+ * Implementation of hook_menu().
+ */
+function openpublic_splash_menu() { 
+  $items['splash/%openpublic_splash_block'] = array(
+    'title' => '',
+    'page callback' => 'openpublic_splash_block_display',
+    'page arguments' => array(1),
+    'access callback' => TRUE, 
+  );
+
+  $items['admin/content/demo-toggle'] = array(
+    'title' => t('Toggle demo content'),
+    'page callback' => 'openpublic_splash_toggle_demo_content',
+    'access arguments' => array('administer site configuration'), 
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implementation of hook_init().
+ */
+function openpublic_splash_init() {
+  if (drupal_is_front_page() 
+      && user_access('administer site configuration')
+      && !variable_get('openpublic_splash_welcome_seen', FALSE)) {
+      $url = url('splash/site_welcome');
+        
+    $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
+    $js .= 'href: "'.$url.'",';
+    $js .= 'width: 600,';
+    $js .= 'height: 400,';
+    $js .= 'opacity: .6,';
+    $js .= '});});';
+    drupal_add_js(drupal_get_path('module', 'openpublic_splash') . '/openpublic_splash.js');
+    drupal_add_js($js, 'inline');
+    
+    // This makes it so that the splash page will never show up again, unless
+    // this variable is set back to FALSE.
+    variable_set('openpublic_splash_welcome_seen', TRUE);
+  }
+  
+  $mod_uri = drupal_get_path('module', 'openpublic_splash');
+  drupal_add_css( $mod_uri . '/openpublic_splash.css');
+
+}
+
+
+/**
+ * Implementation of hook_block_info().
+ */
+function openpublic_splash_block_info() {
+  $blocks['site_welcome'] = array(
+    'info' => t('Welcome message splash screen'),
+  );
+  $blocks['site_config'] = array(
+    'info' => t('Welcome message splash screen'),
+    'status' => TRUE,
+    'region' => 'dashboard_main', // Not usually provided. 
+    'visibility' => 1, // Not usually provided. 
+  );
+
+  return $blocks;
+}
+
+
+/**
+ * Implementation of hook_block_view().
+ */
+function openpublic_splash_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'site_welcome':
+      $block['subject'] = t('Welcome to OpenPublic');
+      $block['content'] = openpublic_splash_block_site_welcome();
+      break;
+    case 'site_config':
+      $block['subject'] = t('Get Started');
+      $block['content'] = openpublic_splash_block_site_config();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Loader function for hook_menu().
+ */
+function openpublic_splash_block_load($delta) {
+  return block_load('openpublic_splash', $delta);
+}
+
+/**
+ * Helper function to assemble the initial site configuration block.
+ */
+function openpublic_splash_block_site_welcome() {
+  /* DEPRECATED
+  $links = array();
+  if (module_exists('recaptcha') && user_access('administer recaptcha')) {
+    $links[] = l('Configure reCAPTCHA spam protection', 'admin/config/people/captcha/recaptcha', array('attributes' => array('class' => array('openpublic-splash-link'), 'title' => 'Protect your site from spammers by enabling reCAPTCHA with your own API keys.')));
+  }
+  if (module_exists('googleanalytics') && user_access('administer google analytics')) {
+    $links[] = l('Configure Google Analytics', 'admin/config/system/googleanalytics', array('attributes' => array('class' => array('openpublic-splash-link'), 'title' => 'Track how users are using your site.')));
+  }
+  $links[] = l('Set site settings', 'admin/config/system/site-information', array('attributes' => array('class' => array('openpublic-splash-link'), 'title' => 'Set the settings for your site, such as the site name and administrative email address.')));
+  $links[] = l('Set your site\'s theme', 'admin/appearance', array('attributes' => array('class' => array('openpublic-splash-link'), 'title' => 'Enable and set the default theme for your site.')));
+
+  $markup = '';
+  $markup .= '<p>Welcome to your OpenPublic site. To complete the configuration of your site, please respond to the following items.</p>';
+  $markup .= theme('item_list', array('items' => $links, 'type' => 'ul'));
+  $markup .= '<p>You will be able to get back to these items by opening your Dashboard, found in the links at the top of this page.</p>';
+  */
+  
+  $markup = '';
+  $markup .= '<p>' . t('Ready to create a Drupal site?') . '</p>';
+  $markup .= '<p>' . t('To get started with your site, go straight to the !dashboard. From there, you\'ll be able to choose your theme, personalize your site, and configure all the bells and whistles.', array('!dashboard' => l(t('Dashboard'), 'admin/dashboard', array('attributes' => array('class' => array('openpublic-splash-link')))))) . '</p>';
+  $markup .= '<p>' . t('Tell us what you think, or better yet, !contribute to make it even better. Be The People!', array('!contribute' => l(t('contribute to OpenPublic'), 'http://openpublicapp.com/'))) . '</p>';
+
+  $block = array(
+    '#markup' => $markup,
+  );
+  return $block;
+}
+
+/**
+ * Helper function to assemble the initial site configuration block.
+ */
+function openpublic_splash_block_site_config() {
+  $items = array();
+
+  $markup = '';
+
+  $items[] = array (
+    'title' => 'Watch an Introductory Video',
+    'href' => 'http://p2te.ch/openpublicvideo',
+    'localized_options' => array('attributes' => array('class' => array('openpublicvideo'))),
+    'description' => t('New to OpenPublic? Take a video tour through the features and learn the basics before you get started.'),
+  );
+
+  $items[] = array (
+    'title' => 'Change or Add a New Design',
+    'href' => 'admin/appearance',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-design'))),    
+    'description' => t('Switch easily to any of OpenPublic\'s preloaded themes, or add a new one of your own to customize your site\'s design.'),
+  );
+
+  $items[] = array (
+    'title' => 'Configure Contexts, Layouts and Blocks',
+    'href' => 'admin/structure/context',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-context'))),    
+    'description' => t('Configure various contexts (sections) of your website, layouts used in those contexts and block placement in each context.'),
+  );
+
+  $items[] = array (
+    'title' => 'Enter Content',
+    'href' => 'node/add',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
+    'description' => t('Start entering articles, blogs, photos, and other content. You can also remove demo content.'),
+  );
+  
+  
+  if (!module_exists('openpublic_demo_content')) {
+    $demotitle = t('Enable demo content.');
+    $demohref =  'admin/content/demo-toggle';
+  }
+  else {
+    $demotitle = t('Remove demo content and start fresh');
+    $demohref = 'admin/content/demo-toggle';
+  }
+
+  $items[] = array (
+    'title' => $demotitle,
+    'href' => $demohref,
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-demo-content'))),        
+    'description' => t('Demo content pre-loads sample content to show examples of the content types and features in this distribution.'),
+  );
+  
+  
+
+  $items[] = array (
+    'title' => 'Personalize Site Settings',
+    'href' => 'admin/config/system/site-information',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-site-settings'))),        
+    'description' => t('Change the title, slogan, contact information, and default frontpage settings here.'),
+  );
+
+  $items[] = array (
+    'title' => 'Manage User Roles',
+    'href' => 'admin/people/permissions/roles',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-roles'))),            
+    'description' => t('Set up roles for your users, contributors, and site administrators.'),
+  );
+
+  $items[] = array (
+    'title' => 'Set User Permissions',
+    'href' => 'admin/people/permissions',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-permissions'))),            
+    'description' => t('Fine tune the permissions for each of your site\'s roles.'),
+  );
+  
+  $content = array ('content' => $items);
+  $markup = theme('admin_block_content', $content);
+
+  $block = array(
+    '#markup' => $markup,
+  );
+  return $block;
+}
+
+
+/**
+ * Implementation of hook_block_display().
+ */
+function openpublic_splash_block_display($block) {
+  $GLOBALS['devel_shutdown'] = FALSE; // Prevent devel module from spewing.
+  
+  $renderable_block = _block_get_renderable_array(_block_render_blocks(array($block)));
+  print render($renderable_block);
+
+  exit;
+}
+
+/**
+ * Implementation of hook_block_list_alter().
+ * Adds the OpenPublic Splash block to the Dashboard, provived all the 
+ * tasks in the block haven't been completed or dismissed.
+ */
+/* DEPRECATED
+function openpublic_splash_block_list_alter(&$blocks) {
+  if (openpublic_splash_site_welcome_check()) {
+    $site_welcome_block = block_load('openpublic_splash', 'site_welcome');
+    $site_welcome_block->theme = variable_get('admin_theme', 'bartik');
+    $site_welcome_block->region = 'dashboard_main';
+    $blocks[$site_welcome_block->bid] = $site_welcome_block;
+  }
+}
+*/
+
+/**
+ * Helper function to determine if all the tasks related to initial site configuration
+ * have either been completed or dismissed.
+ * TODO: Create a checklist of completed/dismissed tasks.
+ * TODO: Check that list here.
+ */
+function openpublic_splash_site_welcome_check() {
+  return TRUE;
+}
+
+/**
+ * Menu callback function to help toggle the demo content module's status.
+ */
+function openpublic_splash_toggle_demo_content() {
+  //module_load_include('inc', 'system', 'system.admin');
+  if (module_exists('openpublic_demo_content')) {
+    module_disable(array('openpublic_demo_content'));
+    drupal_set_message(t('Demo content has been disabled. !link', array('!link' => l(t('Reenable demo content'), 'admin/content/demo-toggle'))));
+  }
+  else {
+    module_enable(array('openpublic_demo_content'));
+    drupal_set_message(t('Demo content has been enabled.'));
+  }
+  //drupal_cron_run();
+  drupal_goto('admin/dashboard');
+}

@@ -1,0 +1,9 @@
+; $Id$
+name = OpenPublic Splash Page
+description = Adds a splash page for admins to solicit additional configuration such as API keys.
+dependencies[] = colorbox
+dependencies[] = features
+dependencies[] = context
+package = OpenPublic
+core = 7.x
+files[] = openpublic_splash.module
