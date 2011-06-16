@@ -143,7 +143,7 @@ a:hover, a:active {
 /**
  * Main Content Section
  */
-#content {
+#content-container {
   background-color: transparent;
   float:left;
   margin-right:20px;

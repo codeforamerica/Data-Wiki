@@ -23,9 +23,11 @@ scripts[] = js/script.js
 ; Regions
 regions[page_top] = "Page top"
 regions[header_top] = "Header top"
+regions[header_logo] = "Header logo"
 regions[header_menu] = "Header menu"
 regions[header_gap] = "Header gap"
 regions[header_signin] = "Header signin"
+regions[header_bottom] = "Header bottom"
 regions[sidebar_first] = "Sidebar first"
 regions[sidebar_second] = "Sidebar second"
 regions[preface] = "Preface"
@@ -41,6 +43,7 @@ regions[footer_top] = "Footer top"
 regions[footer] = "Footer"
 regions[footer_bottom] = "Footer bottom"
 regions[page_bottom] = "Page bottom"
+regions[dashboard_main] = "Dashboard Main"
 
 ; Features settings
 

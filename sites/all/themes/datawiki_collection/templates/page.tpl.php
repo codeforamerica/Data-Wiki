@@ -62,7 +62,7 @@
     <div class="clear"></div> 
 
     <div class="main-content-region <?php print $main_region_width; ?> alpha">
-      <div class="tabs-container">
+     test <div class="tabs-container">
         <?php print render($tabs); ?>
       </div>
       <div class="clear"></div>      
@@ -77,7 +77,7 @@
       </div>
 
       <div class="clear"></div>
-      <div id="content">
+      <div id="content-container">
         <?php if ($page['content_top']): ?>
           <div id="content-content-top" class="content-content-top">
             <?php print render($page['content_top']); ?>
@@ -85,9 +85,9 @@
         <?php endif; ?>
         
         <div class="clear"></div>                      
-        <?php if ($page['content_middle']): ?>
-          <div id="content-content-middle" class="content-content-middle">
-            <?php print render($page['content_middle']); ?>
+        <?php if ($page['content']): ?>
+          <div id="content-content" class="content-content">
+            <?php print render($page['content']); ?>
           </div>
         <?php endif; ?>
   
