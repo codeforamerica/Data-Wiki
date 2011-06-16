@@ -9,7 +9,7 @@
  *
  * add machine_name
  */
-function defaultcontent_node_load(&$nodes, $types) {
+function defaultcontent_node_load($nodes, $types) {
   foreach($nodes as $key => $node) {
     $nodes[$key]->machine_name = defaultcontent_get_default($node->nid);
   }
@@ -346,6 +346,18 @@ function defaultcontent_ctools_plugin_type() {
 function defaultcontent_get_alter_plugins($use = FALSE) {
   ctools_include('plugins');
   $plugins = ctools_get_plugins('defaultcontent', 'alter');
+
+  // check if the plugin has a enabled callback if so make sure this plugin 
+  // is enabled
+  foreach($plugins as $id=> $plugin) {
+    $cb = isset($plugin['enabled callback']) ? $plugin['enabled callback'] : $plugin['name'] ."_enabled";
+    if (function_exists($cb)) {
+      if (!$cb()) {
+        unset($plugins[$id]);
+      }
+    }
+  }
+
   if ($use) {
     usort($plugins, create_function('$a, $b', "return \$a['$use weight'] - \$b['$use weight'];"));
   }

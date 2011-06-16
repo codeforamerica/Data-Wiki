@@ -1,0 +1,5 @@
+core = "7.x"
+description = "Default Content for DataWiki"
+features[content][] = "datawiki_page_welcome"
+name = "datawiki_content"
+package = "Features"

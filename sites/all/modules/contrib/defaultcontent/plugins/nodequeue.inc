@@ -8,6 +8,7 @@
  * requires http://drupal.org/files/issues/1023606-qid-to-name-6.patch
  * from http://drupal.org/node/1023606
  */
+
 $plugin = array();
 // TODO add weight
 
@@ -47,3 +48,6 @@ function nodequeue_post_import($node) {
   }
 }
 
+function nodequeue_enabled() {
+  return module_exists('nodequeue');
+}

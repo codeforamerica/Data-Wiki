@@ -11,8 +11,8 @@
 function content_features_export_options() {
   
  $options = array();
- foreach(defaultcontent_get_default() as $name=>$id) {
-   $options[$name] = $name;
+ foreach(defaultcontent_get_default() as $record) {
+   $options[$record->name] = $record->name;
  }
  return $options;
 }

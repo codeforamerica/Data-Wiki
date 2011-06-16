@@ -1,4 +1,6 @@
-
+#first-time {
+  display: none;
+}
 /* Typography
 -------------------------------------------------------------- */
 
@@ -489,12 +491,12 @@ select option {
 /*   padding: 0 0 0 10px; */
 }
 
-#content .views-exposed-widget .views-widget input {
+#content-container .views-exposed-widget .views-widget input {
   width: 200px;
   color: #666;
 }
 
-#content .views-exposed-form label {
+#content-container .views-exposed-form label {
   background-color: #e89a41;
   padding: 5px 10px;
   margin: 0 20% 10px 0;
@@ -503,10 +505,10 @@ select option {
 }
 
 /* .views-submit-button, */
-#content .view-footer a, 
-#content .view .more-link a,
+#content-container .view-footer a, 
+#content-container .view .more-link a,
 #new-group-search .form-submit a,
-#content input.form-submit {
+#content-container input.form-submit {
   background-color: #96a141;
   color: #ffffff;
   text-transform: uppercase;

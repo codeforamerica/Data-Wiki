@@ -85,9 +85,9 @@ function datawiki_context_context_default_contexts() {
   $context->description = '';
   $context->tag = 'datawiki';
   $context->conditions = array(
-    'sitewide' => array(
+    'path' => array(
       'values' => array(
-        1 => 1,
+        '*' => '*',
       ),
     ),
   );
