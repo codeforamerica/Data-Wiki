@@ -386,6 +386,69 @@ A Well-known-text shape definition for the service area of the community, or Geo
     ),
   ),
 );
+$content['datawiki_page_get_involved'] = (object)array(
+  'exported_path' => 'get-involved',
+  'title' => '(PreAlpha) Get Involved',
+  'status' => '1',
+  'promote' => '0',
+  'sticky' => '0',
+  'type' => 'page',
+  'language' => 'und',
+  'created' => '1308202164',
+  'comment' => '1',
+  'translate' => '0',
+  'machine_name' => 'datawiki_page_get_involved',
+  'body' => array(
+    'und' => array(
+      0 => array(
+        'value' => '<em>This site is under active development.</em>
+
+Updated June 15, 2011
+
+We are doing a few things.
+
+<h4>Drupal Product</h4>
+Building this site as a Drupal product (similar to Managing News), which can be easily installed by anyone wishing to collect community data on a topic.
+
+<h4>Code is on Github</h4>
+https://github.com/codeforamerica/Data-Wiki
+(codeforamerica, chachasikes, Data-Wiki)
+
+The documentation may be out of sync, but the idea is for the project to be an installation profile.
+
+
+<h4>Development</h4>
+Currently this is a project of Team Seattle (Chach Sikes & Anna Bloom) as a tool for our <a href="http://codeforamerica.org">"Engagement Toolkit"</a> - tools that help community organizers work together.
+
+We are testing the site with various community members in the city of Seattle. This includes Block Watch Captains & people involved with local food systems.
+
+<h4>We are looking for community organizer partners</h4>
+If your neighborhood or favorite topic does not have all the best groups, you can share them.
+
+If you have data that should be listed on the site, by all means let us know. We are making it really easy to share group information - and you can upload properly formatted CSV files. If you are interested, contact Chach. chacha at codeforamerica dot org, @chachasikes on Twitter.',
+        'summary' => '',
+        'format' => 'filtered_html',
+        'safe_value' => '<p><em>This site is under active development.</em></p>
+<p>Updated June 15, 2011</p>
+<p>We are doing a few things.</p>
+<h4>Drupal Product</h4>
+<p>Building this site as a Drupal product (similar to Managing News), which can be easily installed by anyone wishing to collect community data on a topic.</p>
+<h4>Code is on Github</h4>
+<p><a href="https://github.com/codeforamerica/Data-Wiki">https://github.com/codeforamerica/Data-Wiki</a><br />
+(codeforamerica, chachasikes, Data-Wiki)</p>
+<p>The documentation may be out of sync, but the idea is for the project to be an installation profile.</p>
+<h4>Development</h4>
+<p>Currently this is a project of Team Seattle (Chach Sikes &amp; Anna Bloom) as a tool for our <a href="http://codeforamerica.org">"Engagement Toolkit"</a> - tools that help community organizers work together.</p>
+<p>We are testing the site with various community members in the city of Seattle. This includes Block Watch Captains &amp; people involved with local food systems.</p>
+<h4>We are looking for community organizer partners</h4>
+<p>If your neighborhood or favorite topic does not have all the best groups, you can share them.</p>
+<p>If you have data that should be listed on the site, by all means let us know. We are making it really easy to share group information - and you can upload properly formatted CSV files. If you are interested, contact Chach. chacha at codeforamerica dot org, @chachasikes on Twitter.</p>
+',
+        'safe_summary' => '',
+      ),
+    ),
+  ),
+);
 $content['datawiki_page_welcome'] = (object)array(
   'exported_path' => 'home',
   'title' => 'Home',

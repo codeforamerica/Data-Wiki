@@ -167,31 +167,35 @@ function datawiki_blocks_contents($type) {
           .  "<div id=\"home-menu-locations\" class=\"item\">"
           . "<h3>Location</h3>"
           . "<div class=\"menu-item place\"><a href=\"/map\">
-            <img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_place.gif\" title=\"Map\" alt=\"Map\" />Map</a></div>"
-          . "<div class=\"menu-item list\"><a href=\"/list\"><img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_tag.gif\" title=\"List\" alt=\"List\" />List</a></div>"
+              <img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_place.gif\" title=\"Map\" alt=\"Map\" />"
+          . "<div class=\"label\">Map</div></a></div>"
+          . "<div class=\"menu-item list\"><a href=\"/list\" ><img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_tag.gif\" title=\"List\" alt=\"List\" /><div class=\"label\">List</div></a></div>"
           . "</div>"
           .  "<div id=\"home-menu-locations\" class=\"item\">"
           . "<h3>Topic</h3>"
-          . "<div class=\"menu-item topics\"><a href=\"/categories\"><img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_blog.gif\" title=\"Topics\" alt=\"Topics\" />Topics</a></div>"
+          . "<div class=\"menu-item topics\"><a href=\"/categories\"><img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_blog.gif\" title=\"Topics\" alt=\"Topics\" /><div class=\"label\">Topics</div></a></div>"
           . "</div>";
         break;
         
       case 'navigation_menu':
         $output .= "<ul class=\"menu\">";
-/*         $output .= "<li><a href=\"/user\">Sign In</a></li>"; */
         $output .= "<li><a href=\"/about\">About</a></li>";
+        $output .= "<li><a href=\"/get-involved\">Get Involved</a></li>";
         $output .= "<li><a href=\"/map\">Map</a></li>";
         $output .= "<li><a href=\"/list\">List</a></li>";
         $output .= "<li><a href=\"/categories\">Topics</a></li>";
+        $output .= "<li><a href=\"/node/add/community-group\">Add Group</a></li>";
         $output .= "<li><a href=\"/community-data-api\">Community Data & API</a></li>";
         $output .= "<li><a href=\"/contact\">Contact</a></li>";
         $output .= "</ul>";
         break;
 
       case 'header_menu':
+/*
         $output .= "<ul class=\"menu\">";
         $output .= "<li><a href=\"/node/add/community-group\">Add A Group</a></li>";
         $output .= "</ul>";
+*/
         break;
       
   }

@@ -4,7 +4,6 @@
  * Default theme implementation to display a single Drupal page.
  */
 ?>
-
 <div id="container" class="container_16">
     <?php if ($page['header_top']): ?>
     <div class="header-top grid_16">
@@ -16,6 +15,7 @@
       <div class="header-logo-container grid_4 alpha">
         <?php print render($page['header_logo']); ?>
         <?php print $logo; ?>
+        <?php print $prealpha; ?>
       </div>
       
       <div class="header-menu-container grid_2">
@@ -77,7 +77,7 @@
       </div>
 
       <div class="clear"></div>
-      <div id="content-container">
+      <div id="content-container" class="<?php print $main_region_width; ?> alpha">
         <?php if ($page['content_top']): ?>
           <div id="content-content-top" class="content-content-top">
             <?php print render($page['content_top']); ?>

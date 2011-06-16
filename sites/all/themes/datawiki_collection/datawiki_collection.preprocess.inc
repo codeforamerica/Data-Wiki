@@ -36,7 +36,7 @@ function  datawiki_collection_preprocess_maintenance_page(&$vars) {
  * Generate count of groups and use it in the slogan.
  */
 function datawiki_collection_slogan_count() {
-  $count = "900";
+  $count = "250";
   $city = "Seattle";
   $slogan = t("A public directory of over ") . $count . t(" community groups in ") . $city . ".";
   return $slogan;
@@ -61,6 +61,9 @@ function datawiki_collection_preprocess_page(&$vars) {
   $vars['logo_image_link'] = theme_get_setting('logo_image_link');
   $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'datawiki_collection') . '/' . $vars['logo_image_link'] . '" /></a>';
 
+
+  $vars['prealpha'] = '<div class="prealpha">PRE-ALPHA</div>';
+  
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {
     $vars['main_region_width'] = 'grid_16';
@@ -70,11 +73,13 @@ function datawiki_collection_preprocess_page(&$vars) {
   }
 
   // Create some resource variables
+/*
   $vars['logo_image'] = theme('image', array(
     'path' => drupal_get_path('theme', 'datawiki') . '/images/city-groups-logo.png', 
     )
   );
   $vars['logo_image_link'] = l($vars['logo_image'], '<front>', array('html' => TRUE));
+*/
   
   // Create login link
   $account_text = t('Sign in');

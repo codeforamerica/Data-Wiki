@@ -143,6 +143,7 @@ a:hover, a:active {
  * Main Content Section
  */
 #content-container {
+
   background-color: transparent;
   float:left;
   margin-right:20px;
@@ -150,8 +151,16 @@ a:hover, a:active {
   border-image: url(../images/content-border.png) 20 24 29 24 stretch;
   -moz-border-image: url(../images/content-border.png) 20 24 29 24 stretch;
   -webkit-border-image: url(../images/content-border.png) 20 24 29 24 stretch;
+/*   padding: 10px; */
+/*   width: 100%; */
+
+}
+/*
+#content-top-container .content-inner,
+#content-container .content-inner,
+*/
+#content-bottom-inner .block {
   padding: 10px;
-  width: 100%;
 }
 
 .content-inner {
@@ -781,14 +790,17 @@ div.styleguide {
 }
 #home-menu .item {
   float: left;
-    margin-right: 80px;
+  margin-right: 20px;
+}
+
+#home-menu .item .label {
+/*   clear: both; */
 }
 #home-menu .menu-item {
-  padding: 40px;
   float: left;
   margin: 10px;
-  background-color: #ddd;
   height: 100px;
+
 }
 #home-menu .place {
   margin-right: 3px;
@@ -809,4 +821,10 @@ div.styleguide {
   font-size: 325%;
   font-weight: bold;
 }
-
+.prealpha {
+  color: #fff;
+  position: absolute;
+  top: 24px;
+  left: 180px;
+  font-size: 12px;
+}
