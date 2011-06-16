@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the citygroups_context feature.
+ */
+
+include_once('citygroups_context.features.inc');

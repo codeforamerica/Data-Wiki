@@ -33,6 +33,16 @@ function  datawiki_collection_preprocess_maintenance_page(&$vars) {
 }
 
 /**
+ * Generate count of groups and use it in the slogan.
+ */
+function datawiki_collection_slogan_count() {
+  $count = "900";
+  $city = "Seattle";
+  $slogan = t("A public directory of over ") . $count . t(" community groups in ") . $city . ".";
+  return $slogan;
+}
+
+/**
  * Page preprocessing
  */
 function datawiki_collection_preprocess_page(&$vars) {
@@ -44,6 +54,9 @@ function datawiki_collection_preprocess_page(&$vars) {
   if(empty($vars['site_slogan'])) {
     $vars['site_slogan'] = variable_get('site_slogan');
   }
+  
+  // Completely override slogan with count of number of groups.
+  $vars['site_slogan'] = datawiki_collection_slogan_count();
   
   $vars['logo_image_link'] = theme_get_setting('logo_image_link');
   $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'datawiki_collection') . '/' . $vars['logo_image_link'] . '" /></a>';

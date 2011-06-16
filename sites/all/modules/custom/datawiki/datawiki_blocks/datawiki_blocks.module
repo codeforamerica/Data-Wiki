@@ -42,6 +42,14 @@ function datawiki_blocks_block_info() {
     'info' => t('Home Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+  $blocks['datawiki_navigation_menu'] = array(
+    'info' => t('Navigation Menu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
+  $blocks['datawiki_header_menu'] = array(
+    'info' => t('Header Menu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
   return $blocks;
 }
 
@@ -88,6 +96,16 @@ function datawiki_blocks_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = datawiki_blocks_contents('home_menu');
       break;
+      
+    case 'datawiki_navigation_menu':
+      $block['subject'] = '';
+      $block['content'] = datawiki_blocks_contents('navigation_menu');
+      break;
+      
+    case 'datawiki_header_menu':
+      $block['subject'] = '';
+      $block['content'] = datawiki_blocks_contents('header_menu');
+      break;  
   }
   return $block;
 }
@@ -150,6 +168,24 @@ function datawiki_blocks_contents($type) {
       
       case 'home_menu':
         $output .= "Place topic etc.";
+        break;
+        
+      case 'navigation_menu':
+        $output .= "<ul class=\"menu\">";
+/*         $output .= "<li><a href=\"/user\">Sign In</a></li>"; */
+        $output .= "<li><a href=\"/about\">About</a></li>";
+        $output .= "<li><a href=\"/map/collection/termname\">Map</a></li>";
+        $output .= "<li><a href=\"/list\">List</a></li>";
+        $output .= "<li><a href=\"/categories\">Categories</a></li>";
+        $output .= "<li><a href=\"/community-data-api\">Community Data & API</a></li>";
+        $output .= "<li><a href=\"/contact\">Contact</a></li>";
+        $output .= "</ul>";
+        break;
+
+      case 'header_menu':
+        $output .= "<ul class=\"menu\">";
+        $output .= "<li><a href=\"/node/add/community-group\">Add A Group</a></li>";
+        $output .= "</ul>";
         break;
       
   }

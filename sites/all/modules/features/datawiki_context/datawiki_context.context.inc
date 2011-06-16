@@ -26,18 +26,6 @@ function datawiki_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'datawiki_blocks-datawiki_branding_header' => array(
-          'module' => 'datawiki_blocks',
-          'delta' => 'datawiki_branding_header',
-          'region' => 'header_top',
-          'weight' => '-10',
-        ),
-        'logintoboggan-logintoboggan_logged_in' => array(
-          'module' => 'logintoboggan',
-          'delta' => 'logintoboggan_logged_in',
-          'region' => 'header_signin',
-          'weight' => '-10',
-        ),
         'datawiki_blocks-datawiki_facebook_like' => array(
           'module' => 'datawiki_blocks',
           'delta' => 'datawiki_facebook_like',
@@ -94,9 +82,9 @@ function datawiki_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'system-main-menu' => array(
-          'module' => 'system',
-          'delta' => 'main-menu',
+        'datawiki_blocks-datawiki_header_menu' => array(
+          'module' => 'datawiki_blocks',
+          'delta' => 'datawiki_header_menu',
           'region' => 'header_menu',
           'weight' => '-10',
         ),
@@ -112,9 +100,9 @@ function datawiki_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
-        'system-navigation' => array(
-          'module' => 'system',
-          'delta' => 'navigation',
+        'datawiki_blocks-datawiki_navigation_menu' => array(
+          'module' => 'datawiki_blocks',
+          'delta' => 'datawiki_navigation_menu',
           'region' => 'footer_top',
           'weight' => '-10',
         ),
