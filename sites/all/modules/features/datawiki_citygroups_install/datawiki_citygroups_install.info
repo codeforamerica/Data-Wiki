@@ -9,3 +9,4 @@ dependencies[] = datawiki_citygroups_views
 dependencies[] = datawiki_community_group_install
 dependencies[] = datawiki_group_map
 dependencies[] = datawiki_group_categories
+dependencies[] = citygroups_permissions
