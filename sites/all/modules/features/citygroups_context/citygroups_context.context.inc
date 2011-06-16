@@ -162,12 +162,6 @@ function citygroups_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '-8',
         ),
-        'datawiki_collection-datawiki_branding_footer' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_branding_footer',
-          'region' => 'footer',
-          'weight' => '-10',
-        ),
       ),
     ),
   );

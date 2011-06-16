@@ -50,12 +50,6 @@ function datawiki_context_context_default_contexts() {
           'region' => 'content_bottom',
           'weight' => '-7',
         ),
-        'datawiki_collection-datawiki_branding_footer' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_branding_footer',
-          'region' => 'footer_bottom',
-          'weight' => '-10',
-        ),
       ),
     ),
   );
@@ -106,11 +100,17 @@ function datawiki_context_context_default_contexts() {
           'region' => 'footer_top',
           'weight' => '-10',
         ),
+        'datawiki_blocks-datawiki_branding_footer' => array(
+          'module' => 'datawiki_blocks',
+          'delta' => 'datawiki_branding_footer',
+          'region' => 'footer_bottom',
+          'weight' => '-10',
+        ),
         'system-powered-by' => array(
           'module' => 'system',
           'delta' => 'powered-by',
           'region' => 'footer_bottom',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
       ),
     ),

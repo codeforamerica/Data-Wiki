@@ -121,7 +121,7 @@
       <div class="clear"></div> 
       <?php print render($page['footer']); ?>
       <div class="clear"></div>
-      <?php print render($page['footer']); ?>
+      <?php print render($page['footer_bottom']); ?>
       <div class="clear"></div>
   </div>
   <div class="clear"></div>
