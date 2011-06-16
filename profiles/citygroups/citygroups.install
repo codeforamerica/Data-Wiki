@@ -96,11 +96,23 @@ function citygroups_install() {
   user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
   // Set this as the administrator role.
   variable_set('user_admin_role', $admin_role->rid);
-
   // Assign user 1 the "administrator" role.
   db_insert('users_roles')
     ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
     ->execute();
+
+  $moderator_role = new stdClass();
+  $moderator_role->name = 'moderator';
+  $moderator_role->weight = 3;
+  user_role_save($moderator_role);
+  
+  $tester_role = new stdClass();
+  $tester_role->name = 'tester';
+  $tester_role->weight = 4;
+  user_role_save($tester_role);
+  
+/*   user_role_grant_permissions($moderator_role->rid, array_keys(module_invoke_all('permission'))); */
+
 
   // Create a Home link in the main menu.
 /*

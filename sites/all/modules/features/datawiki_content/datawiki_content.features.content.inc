@@ -75,7 +75,8 @@ $content['datawiki_page_about'] = (object)array(
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => 'This is the about page.',
+        'value' => '<h3>Connecting community organizers with community groups to improve cities.</h3><p>In cities across the country, there is amazing work being done by community organizers to mobilize their neighbors and take on community problems.</p>
+<p>CityGroups is a searchable public directory which allows community organizers and residents to find community groups so that they can work together. Like a wiki, city staffers and community members can contribute and retrieve the data in the system. The goal is to promote and assist smaller, less-visible groups who do important work but require modern tools to publicize it. CityGroups will help them work together and work better.</p>',
         'summary' => '',
         'format' => 'filtered_html',
         'safe_value' => '<p>This is the about page.</p>
