@@ -1,8 +1,8 @@
 // $Id$
 (function ($) {
-  Drupal.behaviors.initOpenPublicSplash = {
+  Drupal.behaviors.initCityGroupsSplash = {
     attach: function (context, settings) {
-      $('.openpublic-splash-link', context).click(function() {
+      $('.citygroups-splash-link', context).click(function() {
         setTimeout($.colorbox.close, 2000);
       });
     }
