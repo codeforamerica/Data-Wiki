@@ -103,11 +103,13 @@ function citygroups_install() {
     ->execute();
 
   // Create a Home link in the main menu.
+/*
   $item = array(
     'link_title' => st('Home'),
     'link_path' => '<front>',
     'menu_name' => 'main-menu',
   );
   menu_link_save($item);
+*/
 
 }
