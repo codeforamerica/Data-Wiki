@@ -1,22 +1,38 @@
 core = 7.x
 
+dependencies[] = block
+dependencies[] = color
+dependencies[] = comment
+dependencies[] = dblog
+dependencies[] = email
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = help
+dependencies[] = image
+dependencies[] = link
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = path
+dependencies[] = rdf
+dependencies[] = search
+dependencies[] = taxonomy
+dependencies[] = token
+dependencies[] = update
+
+
+
+
+; Contrib
 dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
-
-dependencies[] = dblog
-
-dependencies[] = block
 dependencies[] = cck
-dependencies[] = comment
 dependencies[] = context
 dependencies[] = context_ui
 dependencies[] = ctools
-dependencies[] = datawiki
-dependencies[] = datawiki_blocks
 dependencies[] = date
 dependencies[] = defaultcontent
 dependencies[] = date_api
-dependencies[] = email
 dependencies[] = features
 dependencies[] = feeds
 dependencies[] = feeds_import
@@ -25,37 +41,23 @@ dependencies[] = feeds_tamper
 dependencies[] = feeds_tamper_ui
 dependencies[] = feeds_ui
 dependencies[] = field_group
-dependencies[] = field_ui
-dependencies[] = file
 dependencies[] = flag
 dependencies[] = flag_actions
 dependencies[] = geocode
 dependencies[] = geofield
 dependencies[] = googleanalytics
-dependencies[] = help
-dependencies[] = image
 dependencies[] = job_scheduler
 dependencies[] = libraries
-dependencies[] = link
-dependencies[] = list
 dependencies[] = login_destination
 dependencies[] = logintoboggan
 dependencies[] = markdown
-dependencies[] = menu
 dependencies[] = node_reference
-dependencies[] = number
 dependencies[] = openlayers
 dependencies[] = openlayers_ui
 dependencies[] = openlayers_views
-dependencies[] = path
 dependencies[] = pathauto
-dependencies[] = rdf
 dependencies[] = references
-dependencies[] = search
 dependencies[] = strongarm
-dependencies[] = taxonomy
-dependencies[] = token
-dependencies[] = update
 dependencies[] = user_reference
 dependencies[] = views
 dependencies[] = views_data_export
@@ -63,9 +65,8 @@ dependencies[] = views_json
 dependencies[] = views_number_results
 dependencies[] = views_ui
 
-dependencies[] = datawiki_developer
-dependencies[] = datawiki_settings
-dependencies[] = datawiki_views
+; Custom
+dependencies[] = datawiki
 
 
 description = Install all the main modules of DataWiki.

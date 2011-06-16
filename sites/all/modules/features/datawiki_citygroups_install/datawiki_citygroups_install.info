@@ -4,6 +4,7 @@ name = "CityGroups Install"
 package = "Features"
 
 dependencies[] = datawiki_citygroups_settings
+dependencies[] = citygroups_context
 dependencies[] = datawiki_citygroups_views
 dependencies[] = datawiki_community_group_install
 dependencies[] = datawiki_group_map

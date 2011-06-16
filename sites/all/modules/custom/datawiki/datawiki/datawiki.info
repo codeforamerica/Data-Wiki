@@ -8,9 +8,18 @@ files[] = datawiki.module
 
 # configure = admin/config/datawiki/settings
 
-dependencies[] = "datawiki_collection"
-dependencies[] = "citygroups_context"
-dependencies[] = "datawiki_feed_taxonomy_categories"
-dependencies[] = "datawiki_basic_page"
-dependencies[] = "datawiki_context"
-dependencies[] = "datawiki_content"
+; Custom Modules
+dependencies[] = datawiki_blocks
+dependencies[] = datawiki_collection
+
+; Features
+dependencies[] = datawiki_settings
+dependencies[] = datawiki_views
+
+dependencies[] = datawiki_feed_taxonomy_categories
+dependencies[] = datawiki_basic_page
+dependencies[] = datawiki_context
+dependencies[] = datawiki_content
+dependencies[] = datawiki_community_group_views
+
+dependencies[] = datawiki_developer
