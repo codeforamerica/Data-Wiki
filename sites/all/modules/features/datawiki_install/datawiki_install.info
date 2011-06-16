@@ -1,6 +1,7 @@
 core = 7.x
 
 dependencies[] = admin_menu
+dependencies[] = admin_menu_toolbar
 
 dependencies[] = dblog
 
@@ -13,6 +14,7 @@ dependencies[] = ctools
 dependencies[] = datawiki
 dependencies[] = datawiki_blocks
 dependencies[] = date
+dependencies[] = defaultcontent
 dependencies[] = date_api
 dependencies[] = email
 dependencies[] = features
@@ -27,8 +29,9 @@ dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = flag
 dependencies[] = flag_actions
+dependencies[] = geocode
 dependencies[] = geofield
-dependencies[] = googleanalytics
+dependencies[] = google_analytics
 dependencies[] = help
 dependencies[] = image
 dependencies[] = job_scheduler
