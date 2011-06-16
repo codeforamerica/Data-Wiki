@@ -50,3 +50,9 @@ features[] = slogan
 features[] = node_user_picture
 features[] = comment_user_picture
 features[] = favicon
+
+
+; Custom Theme Settings
+settings[sitename] = DataWiki
+settings[tagline] = Tagline
+settings[logo_image_link] = images/logo.png

@@ -32,22 +32,10 @@ function datawiki_context_context_default_contexts() {
           'region' => 'header_top',
           'weight' => '-10',
         ),
-        'datawiki_blocks-datawiki_logo' => array(
-          'module' => 'datawiki_blocks',
-          'delta' => 'datawiki_logo',
-          'region' => 'header_logo',
-          'weight' => '-10',
-        ),
         'logintoboggan-logintoboggan_logged_in' => array(
           'module' => 'logintoboggan',
           'delta' => 'logintoboggan_logged_in',
           'region' => 'header_signin',
-          'weight' => '-10',
-        ),
-        'datawiki_blocks-datawiki_site_tagline' => array(
-          'module' => 'datawiki_blocks',
-          'delta' => 'datawiki_site_tagline',
-          'region' => 'header_bottom',
           'weight' => '-10',
         ),
         'datawiki_blocks-datawiki_facebook_like' => array(
