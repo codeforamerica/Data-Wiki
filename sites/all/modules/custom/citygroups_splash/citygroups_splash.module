@@ -220,7 +220,12 @@ function citygroups_splash_block_site_config() {
   );
 */
   
-  
+    $items[] = array (
+    'title' => 'Manage Groups',
+    'href' => 'list/manage',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-site-settings'))),        
+    'description' => t('See recently added groups.'),
+  );
 
   $items[] = array (
     'title' => 'Personalize Site Settings',
