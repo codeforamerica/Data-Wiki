@@ -828,3 +828,46 @@ div.styleguide {
   left: 180px;
   font-size: 12px;
 }
+
+.view-community-groups-list table {
+  line-height: 1em;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+.view-community-groups-list a {
+  color: #666;
+}
+.view-community-groups-list {
+  color: #333;
+}
+.view-community-groups-list table tr,
+.view-community-groups-list table td {
+  padding: 0px 5px;
+  margin: 0;
+  line-height: 1em;
+}
+
+.view-community-groups-list table tr {
+  height: 40px;
+  overflow: hidden;
+}
+
+.view-community-groups-list  td.views-field-title {
+
+}
+.view-community-groups-list table tr.even, .view-community-groups-list table tr.odd {
+  background-color: #eee;
+}
+
+.view-community-groups-list table tr.even {
+  background-color: #fff;
+}
+
+.view-community-groups-list table tr.even td.active {
+  background-color: #bbeedd;
+}
+
+.view-community-groups-list table tr.odd td.active {
+  background-color: #bbffdd;
+}
