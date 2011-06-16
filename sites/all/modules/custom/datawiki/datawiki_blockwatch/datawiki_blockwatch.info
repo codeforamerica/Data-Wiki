@@ -1,0 +1,8 @@
+name = Data Wiki Collection
+description = "Custom blocks for a Data Wiki site."
+core = 7.x
+
+files[] = datawiki_blockwatch.module
+
+dependencies[] = "datawiki_group_categories"
+dependencies[] = "datawiki_group_map"

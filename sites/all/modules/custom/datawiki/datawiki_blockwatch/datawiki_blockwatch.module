@@ -8,25 +8,25 @@
 /**
  * Implements hook_help().
  */
-function datawiki_collection_help($path, $arg) {
+function datawiki_blockwatch_help($path, $arg) {
   switch ($path) {
-    case 'datawiki_collection':
+    case 'datawiki_blockwatch':
       $explanation = t(
-        'Custom features for Data Wiki Group Map.');
+        'Custom features for Data Wiki Blockwatch.');
       return "<p>$explanation</p>";
   }
 }
-function datawiki_collection_menu() {
-  $items['map'] = array(
+function datawiki_blockwatch_menu() {
+  $items['map/collection/blockwatch'] = array(
     'title' => 'Map Termname',
-    'page callback' => 'datawiki_collection_termname_map_render',
+    'page callback' => 'datawiki_blockwatch_termname_map_render',
     'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
     'access callback' => TRUE,
   );
 /*
   $items['list/community-group/block-watch'] = array(
     'title' => 'List Termname',
-    'page callback' => 'datawiki_collection_termname_list_render',
+    'page callback' => 'datawiki_blockwatch_termname_list_render',
     'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
     'access callback' => TRUE,
   );
@@ -36,27 +36,25 @@ function datawiki_collection_menu() {
 
 /*
 
-function datawiki_collection_termname_list_render() {
+function datawiki_blockwatch_termname_list_render() {
   return "list here";
 }
 */
 
-function datawiki_collection_termname_map_render() {
+function datawiki_blockwatch_termname_map_render() {
   $settings = array();
-  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_collection');
-  $settings['sitename'] = "CityGroups";
-  $settings['page_title'] = "Map";
+  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_blockwatch');
+  $settings['sitename'] = "CityGroups Block Watch Finder";
+  $settings['page_title'] = "Block Watch Finder";
   $settings['place'] = "Seattle";
-  $settings['tagline'] = "A public directory of Community Groups in " . $settings['place'] . ".";
-  $settings['theme'] = "datawiki_collection";
-  $settings['term'] = "all";
+  $settings['tagline'] = "A public directory of Block Watches in " . $settings['place'] . ".";
+  $settings['theme'] = "citygroups_blockwatch";
+  $settings['term'] = "termname";
   $settings['popular_searches'] = '<ul>
-            <li><a href="#defaultPath">See All</a></li>' .
-/*
+            <li><a href="#defaultPath">See All</a></li>
             <li><a href="#block-watch">Block Watch</a></li>
             <li><a href="#public-safety">Public Safety</a></li>
-*/
-         ' </ul><br />
+          </ul><br />
           <a href="/categories">All Categories</a>';
           
   $settings['map_colors'] = '
@@ -94,7 +92,7 @@ datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
 /**
  * Implements hook_block_info().
  */
-function datawiki_collection_block_info() {
+function datawiki_blockwatch_block_info() {
   $blocks['datawiki_welcome'] = array(
     'info' => t('Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
@@ -157,21 +155,21 @@ function datawiki_collection_block_info() {
 /**
  * Implements hook_block_view().
  */
-function datawiki_collection_block_view($delta = '') {
+function datawiki_blockwatch_block_view($delta = '') {
   switch ($delta) {
     case 'datawiki_welcome':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('welcome');
+      $block['content'] = datawiki_blockwatch_contents('welcome');
       break;
       
     case 'datawiki_branding_header':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('branding_header');
+      $block['content'] = datawiki_blockwatch_contents('branding_header');
       break;
       
     case 'datawiki_branding_footer':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('branding_footer');
+      $block['content'] = datawiki_blockwatch_contents('branding_footer');
       break;     
       
     case 'datawiki_facebook_like':
@@ -185,52 +183,52 @@ function datawiki_collection_block_view($delta = '') {
 
     case 'datawiki_new_group_search':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('new_group_search');
+      $block['content'] = datawiki_blockwatch_contents('new_group_search');
       break;
 
     case 'datawiki_add_data':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('add_data');
+      $block['content'] = datawiki_blockwatch_contents('add_data');
       break;
 
     case 'datawiki_site_tagline':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('site_tagline');
+      $block['content'] = datawiki_blockwatch_contents('site_tagline');
       break;
       
     case 'datawiki_map':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('map');
+      $block['content'] = datawiki_blockwatch_contents('map');
       break;
     
     case 'datawiki_categories':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('categories');
+      $block['content'] = datawiki_blockwatch_contents('categories');
       break;
     
     case 'datawiki_list':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('list');
+      $block['content'] = datawiki_blockwatch_contents('list');
       break;
       
     case 'datawiki_home_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('home_menu');
+      $block['content'] = datawiki_blockwatch_contents('home_menu');
       break;
     
     case 'datawiki_categories_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('categories_menu');
+      $block['content'] = datawiki_blockwatch_contents('categories_menu');
       break;
       
     case 'datawiki_list_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('list_menu');
+      $block['content'] = datawiki_blockwatch_contents('list_menu');
       break; 
 
     case 'datawiki_map_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_collection_contents('map_menu');
+      $block['content'] = datawiki_blockwatch_contents('map_menu');
       break; 
   }
   return $block;
@@ -239,7 +237,7 @@ function datawiki_collection_block_view($delta = '') {
 /**
  * Block placeholder content
  */
-function datawiki_collection_contents($type) {
+function datawiki_blockwatch_contents($type) {
   $output = '';
   
   switch ($type) {
@@ -297,15 +295,15 @@ function datawiki_collection_contents($type) {
       break;
       
       case 'map':
-        $output .= " k";
+        $output .= "map block";
       break;
       
       case 'categories':
-        $output .= " ";
+        $output .= "categories block";
       break;
       
       case 'list':
-        $output .= " ";
+        $output .= "list block";
       break;
       
       case 'home_menu':
@@ -319,9 +317,9 @@ function datawiki_collection_contents($type) {
         $output .= '</div>';
         $output .= '<div id="map-links">';
         $output .= '<ul>';
-        $output .= '<li><a href="map">' . t('Map') . '</a></li>';
-        $output .= '<li><a href="list">' . t('View as List') . '</a></li>';
-        $output .= '<li><a href="categories">' . t('All Topics') . '</a></li>';
+        $output .= '<li><a href="map/collection/termname">' . t('Map') . '</a></li>';
+        $output .= '<li><a href="list/collection/termname">' . t('View as List') . '</a></li>';
+        $output .= '<li><a href="categories/collection/termname">' . t('All Topics') . '</a></li>';
         $output .= '</ul>';
         $output .= '</div>';                
       break;
@@ -331,22 +329,22 @@ function datawiki_collection_contents($type) {
       break;
       
       case 'list_menu':
-        $output .= " ";
+        $output .= "list menu block";
       break;
       
       case 'categories_menu':
-        $output .= " ";
+        $output .= "categories menu block";
       break;
   }
   
   return $output;
 }
 
-function datawiki_collection_json_paths() {
+function datawiki_blockwatch_json_paths() {
 
   // Build and set JSON paths for javascript.
 }
 
-function datawiki_collection_set_theme() {
-  // set the theme to datawiki_collection
+function datawiki_blockwatch_set_theme() {
+  // set the theme to datawiki_blockwatch
 }

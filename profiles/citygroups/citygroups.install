@@ -123,5 +123,5 @@ function citygroups_install() {
   );
   menu_link_save($item);
 */
-
+  //variable_set('clean_url', '1');
 }
