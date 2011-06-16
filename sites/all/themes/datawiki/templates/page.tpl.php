@@ -32,7 +32,7 @@
       </div>
     </div>
     <div id="tagline">
-      <?php print $tagline; ?>
+      <?php print $site_slogan; ?>
     </div>
     <div class="clear"></div>
     <?php if ($page['header_bottom']): ?>
@@ -62,7 +62,7 @@
     <div class="clear"></div> 
 
     <div class="main-content-region <?php print $main_region_width; ?> alpha">
-     test <div class="tabs-container">
+      <div class="tabs-container">
         <?php print render($tabs); ?>
       </div>
       <div class="clear"></div>      

@@ -1,6 +1,3 @@
-#first-time {
-  display: none;
-}
 /* Typography
 -------------------------------------------------------------- */
 
@@ -153,7 +150,7 @@ a:hover, a:active {
   border-image: url(../images/content-border.png) 20 24 29 24 stretch;
   -moz-border-image: url(../images/content-border.png) 20 24 29 24 stretch;
   -webkit-border-image: url(../images/content-border.png) 20 24 29 24 stretch;
-  padding-bottom: 10px;
+  padding: 10px;
   width: 100%;
 }
 
@@ -737,4 +734,22 @@ div.styleguide {
 
 .page-map .error {
   display: none;
+}
+
+/* New Styles */
+#first-time {
+  display: none;
+}
+.block-menu h2 {
+  display: none;
+}
+.block-menu ul.menu li {
+  list-style-image: none;
+  list-style: none;
+}
+
+#slogan {
+  font-weight: bold;
+  font-size: 120%;
+  margin: 10px 0 10px 10px;
 }

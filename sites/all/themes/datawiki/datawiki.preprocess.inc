@@ -39,9 +39,15 @@ function datawiki_preprocess_page(&$vars) {
 
   // Create variables from theme settings (set in .info file)
   $vars['sitename'] = theme_get_setting('sitename');
-  $vars['tagline'] = theme_get_setting('tagline');
-  $vars['logo_image_link'] = theme_get_setting('logo_image_link');
   
+  $vars['site_slogan'] = theme_get_setting('site_slogan');
+  if(empty($vars['site_slogan'])) {
+    $vars['site_slogan'] = variable_get('site_slogan');
+  }
+  
+  $vars['logo_image_link'] = theme_get_setting('logo_image_link');
+  $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'datawiki') . '/' . $vars['logo_image_link'] . '" /></a>';
+ 
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {
     $vars['main_region_width'] = 'grid_16';

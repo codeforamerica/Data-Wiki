@@ -46,7 +46,7 @@ function datawiki_collection_preprocess_page(&$vars) {
   }
   
   $vars['logo_image_link'] = theme_get_setting('logo_image_link');
-
+  $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'datawiki_collection') . '/' . $vars['logo_image_link'] . '" /></a>';
 
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {

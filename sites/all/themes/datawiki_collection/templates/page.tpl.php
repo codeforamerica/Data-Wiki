@@ -15,7 +15,7 @@
     <div id="header" class="grid_16">
       <div class="header-logo-container grid_4 alpha">
         <?php print render($page['header_logo']); ?>
-        <?php print $sitename; ?>
+        <?php print $logo; ?>
       </div>
       
       <div class="header-menu-container grid_2">
@@ -31,7 +31,7 @@
         <?php print render($page['header_gap']); ?>
       </div>
     </div>
-    <div id="tagline">
+    <div id="slogan">
       <?php print $site_slogan; ?>
     </div>
     <div class="clear"></div>
@@ -62,7 +62,7 @@
     <div class="clear"></div> 
 
     <div class="main-content-region <?php print $main_region_width; ?> alpha">
-     test <div class="tabs-container">
+      <div class="tabs-container">
         <?php print render($tabs); ?>
       </div>
       <div class="clear"></div>      
