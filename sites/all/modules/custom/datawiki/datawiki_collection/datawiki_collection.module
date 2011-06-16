@@ -17,7 +17,7 @@ function datawiki_collection_help($path, $arg) {
   }
 }
 function datawiki_collection_menu() {
-  $items['map/collection/termname'] = array(
+  $items['map'] = array(
     'title' => 'Map Termname',
     'page callback' => 'datawiki_collection_termname_map_render',
     'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),

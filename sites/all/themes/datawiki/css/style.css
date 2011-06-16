@@ -345,24 +345,42 @@ body.logged-in #block-system-user-menu ul.menu li.first {
 .meta {
   color: #aaa;
 }
+.views-row .links .flag-throbber {
+  width: 20px;
+}
+
+.views-row .links li{
+  margin: 5px 0 10px 0;
+  padding: 5px 10px;
+  display: inline-block;
+  text-transform: uppercase;
+  background-color: #eee;
+  width: 200px;
+  color: #fff;
+}
+
 li.flag-group_inactive span.flag-wrapper a,
 li.flag-like span.flag-like a{
+/*
   margin: 5px 0 10px 0;
   padding: 5px 10px;
   display: inline-block;
   text-transform: uppercase;
   background-color: #C0C48A;
-/*   font-weight: bold; */
+  width: 200px;
   color: #fff;
+*/
 }
 
 li.flag-group_inactive span.flag-wrapper a.unflag-action,
 li.flag-like span.flag-like a.unflag-action{
+/*
   margin: 5px 0 10px 0;
   padding: 5px 10px;
   display: inline-block;
   background-color: #99B9C1;
   color: #fff;
+*/
 }
 
 .search-terms {
@@ -520,6 +538,17 @@ select option {
   line-height: 24px;
 }
 
+
+#content-container .views-reset-button input.form-submit {
+  background-color: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  color: inherit;
+  font-size: 80%;
+}
+
 .textarea,
 .textfield,
 .password {
@@ -553,13 +582,6 @@ select option {
 #views-exposed-form-neighborhood-page select
  {
   width: 200px;
-}
-
-
-ul.links {
-}
-ul.links li.flag-like {
- margin: 5px;
 }
 
 
@@ -737,9 +759,13 @@ div.styleguide {
 }
 
 /* New Styles */
+
+/* Hide node content on front page */
+.front #content .node,
 #first-time {
   display: none;
 }
+
 .block-menu h2 {
   display: none;
 }
@@ -753,3 +779,34 @@ div.styleguide {
   font-size: 120%;
   margin: 10px 0 10px 10px;
 }
+#home-menu .item {
+  float: left;
+    margin-right: 80px;
+}
+#home-menu .menu-item {
+  padding: 40px;
+  float: left;
+  margin: 10px;
+  background-color: #ddd;
+  height: 100px;
+}
+#home-menu .place {
+  margin-right: 3px;
+}
+#home-menu .topics {
+
+}
+
+#content .block {
+  margin-bottom: 5px;
+}
+
+.view .views-number-results {
+  padding: 20px;
+  float: left;
+  margin: 10px 20px 0 0;
+  background-color: #ddd;
+  font-size: 325%;
+  font-weight: bold;
+}
+

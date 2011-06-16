@@ -297,6 +297,7 @@ function datawiki_collection_preprocess_views_view(&$vars) {
 /**
  * Search result preprocessing
  */
+/*
 function datawiki_collection_preprocess_search_result(&$vars) {
   static $search_zebra = 'even';
 
@@ -339,3 +340,4 @@ function datawiki_collection_preprocess_search_result(&$vars) {
   // Provide alternate search result template.
   $vars['template_files'][] = 'search-result-'. $vars['type'];
 }
+*/

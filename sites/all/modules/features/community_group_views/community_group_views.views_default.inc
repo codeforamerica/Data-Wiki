@@ -1609,15 +1609,27 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Search';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Clear';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = 0;
+  $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 0;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '80';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['hide_empty'] = 0;
-  $handler->display->display_options['row_options']['default_field_elements'] = 1;
+  $handler->display->display_options['row_plugin'] = 'node';
+  $handler->display->display_options['row_options']['view_mode'] = 'search_result';
+  $handler->display->display_options['row_options']['links'] = 1;
+  $handler->display->display_options['row_options']['comments'] = 0;
+  /* Header: Global: Total Number Results */
+  $handler->display->display_options['header']['views_number_results']['id'] = 'views_number_results';
+  $handler->display->display_options['header']['views_number_results']['table'] = 'views';
+  $handler->display->display_options['header']['views_number_results']['field'] = 'views_number_results';
+  $handler->display->display_options['header']['views_number_results']['label'] = 'Number of Groups';
+  $handler->display->display_options['header']['views_number_results']['empty'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
