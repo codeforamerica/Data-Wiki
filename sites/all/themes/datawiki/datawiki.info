@@ -56,6 +56,6 @@ features[] = favicon
 
 
 ; Custom Theme Settings
-settings[sitename] = DataWiki
-settings[tagline] = Tagline
-settings[logo_image_link] = images/logo.png
+;settings[sitename] = DataWiki
+;settings[site_slogan] = Tagline
+;settings[logo_image_link] = images/logo.png

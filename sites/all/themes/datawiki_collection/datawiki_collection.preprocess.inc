@@ -39,7 +39,12 @@ function datawiki_collection_preprocess_page(&$vars) {
 
   // Create variables from theme settings (set in .info file)
   $vars['sitename'] = theme_get_setting('sitename');
-  $vars['tagline'] = theme_get_setting('tagline');
+  
+  $vars['site_slogan'] = theme_get_setting('site_slogan');
+  if(empty($vars['site_slogan'])) {
+    $vars['site_slogan'] = variable_get('site_slogan');
+  }
+  
   $vars['logo_image_link'] = theme_get_setting('logo_image_link');
 
 

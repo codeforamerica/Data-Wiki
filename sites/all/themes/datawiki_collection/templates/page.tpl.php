@@ -32,7 +32,7 @@
       </div>
     </div>
     <div id="tagline">
-      <?php print $tagline; ?>
+      <?php print $site_slogan; ?>
     </div>
     <div class="clear"></div>
     <?php if ($page['header_bottom']): ?>

@@ -57,5 +57,5 @@ features[] = favicon
 
 ; Custom Theme Settings
 settings[sitename] = CityGroupsCollection
-settings[tagline] = Tagline
+;settings[site_slogan] = Tagline
 settings[logo_image_link] = images/logo.png
