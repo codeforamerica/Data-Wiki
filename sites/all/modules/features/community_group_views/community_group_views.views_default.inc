@@ -2398,42 +2398,6 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'community_group' => 'community_group',
   );
-  /* Filter criterion: Search: Search Terms */
-  $handler->display->display_options['filters']['keys']['id'] = 'keys';
-  $handler->display->display_options['filters']['keys']['table'] = 'search_index';
-  $handler->display->display_options['filters']['keys']['field'] = 'keys';
-  $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['label'] = 'Search Text';
-  $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
-  $handler->display->display_options['filters']['keys']['expose']['multiple'] = FALSE;
-  /* Filter criterion: Content: Neighborhood (field_neighborhood) */
-  $handler->display->display_options['filters']['field_neighborhood_tid']['id'] = 'field_neighborhood_tid';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['table'] = 'field_data_field_neighborhood';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['field'] = 'field_neighborhood_tid';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['value'] = '';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['operator_id'] = 'field_neighborhood_tid_op';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['label'] = 'Neighborhood';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['operator'] = 'field_neighborhood_tid_op';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['identifier'] = 'field_neighborhood_tid';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['reduce_duplicates'] = 0;
-  $handler->display->display_options['filters']['field_neighborhood_tid']['vocabulary'] = 'neighborhood';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['error_message'] = 1;
-  /* Filter criterion: Content: Categories (field_categories) */
-  $handler->display->display_options['filters']['field_categories_tid']['id'] = 'field_categories_tid';
-  $handler->display->display_options['filters']['field_categories_tid']['table'] = 'field_data_field_categories';
-  $handler->display->display_options['filters']['field_categories_tid']['field'] = 'field_categories_tid';
-  $handler->display->display_options['filters']['field_categories_tid']['value'] = '';
-  $handler->display->display_options['filters']['field_categories_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_categories_tid']['expose']['operator_id'] = 'field_categories_tid_op';
-  $handler->display->display_options['filters']['field_categories_tid']['expose']['label'] = 'Categories';
-  $handler->display->display_options['filters']['field_categories_tid']['expose']['operator'] = 'field_categories_tid_op';
-  $handler->display->display_options['filters']['field_categories_tid']['expose']['identifier'] = 'field_categories_tid';
-  $handler->display->display_options['filters']['field_categories_tid']['reduce_duplicates'] = 1;
-  $handler->display->display_options['filters']['field_categories_tid']['vocabulary'] = 'categories';
-  $handler->display->display_options['filters']['field_categories_tid']['error_message'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -2441,66 +2405,79 @@ function community_group_views_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '150';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'nid' => 'nid',
+    'edit_node' => 'edit_node',
     'title' => 'title',
-    'field_address' => 'field_address',
-    'field_area_code' => 'field_area_code',
-    'field_audience_size' => 'field_audience_size',
+    'field_url' => 'field_url',
+    'field_email' => 'field_email',
     'field_url_calendar' => 'field_url_calendar',
     'field_categories' => 'field_categories',
-    'field_city' => 'field_city',
     'field_contact' => 'field_contact',
-    'field_description' => 'field_description',
-    'field_district' => 'field_district',
-    'field_email' => 'field_email',
-    'field_url_image' => 'field_url_image',
-    'field_location_description' => 'field_location_description',
-    'field_neighborhood' => 'field_neighborhood',
-    'nid' => 'nid',
-    'field_notes' => 'field_notes',
-    'field_ownership' => 'field_ownership',
-    'path' => 'path',
-    'field_region' => 'field_region',
     'field_source' => 'field_source',
-    'field_state' => 'field_state',
-    'type' => 'type',
+    'field_description' => 'field_description',
+    'field_notes' => 'field_notes',
+    'field_audience_size' => 'field_audience_size',
+    'field_ownership' => 'field_ownership',
     'field_type_group' => 'field_type_group',
+    'field_address' => 'field_address',
+    'field_neighborhood' => 'field_neighborhood',
+    'field_district' => 'field_district',
+    'field_city' => 'field_city',
     'field_zipcode' => 'field_zipcode',
-    'views_number_results' => 'views_number_results',
+    'field_area_code' => 'field_area_code',
+    'field_state' => 'field_state',
+    'field_region' => 'field_region',
+    'field_location_description' => 'field_location_description',
+    'field_url_image' => 'field_url_image',
+    'path' => 'path',
+    'created' => 'created',
+    'changed' => 'changed',
+    'type' => 'type',
     'field_location' => 'field_location',
     'field_location_1' => 'field_location_1',
     'field_location_2' => 'field_location_2',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'nid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'edit_node' => array(
+      'align' => '',
+      'separator' => '',
+    ),
     'title' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
     ),
-    'field_address' => array(
-      'sortable' => 0,
+    'field_url' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
     ),
-    'field_area_code' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'field_audience_size' => array(
-      'sortable' => 0,
+    'field_email' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
     ),
     'field_url_calendar' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -2509,53 +2486,19 @@ function community_group_views_views_default_views() {
       'align' => '',
       'separator' => '',
     ),
-    'field_city' => array(
-      'sortable' => 0,
+    'field_contact' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
     ),
-    'field_contact' => array(
-      'sortable' => 0,
+    'field_source' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
     ),
     'field_description' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'field_district' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'field_email' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'field_url_image' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'field_location_description' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'field_neighborhood' => array(
-      'align' => '',
-      'separator' => '',
-    ),
-    'nid' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -2567,11 +2510,59 @@ function community_group_views_views_default_views() {
       'align' => '',
       'separator' => '',
     ),
+    'field_audience_size' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
     'field_ownership' => array(
       'align' => '',
       'separator' => '',
     ),
-    'path' => array(
+    'field_type_group' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'field_address' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'field_neighborhood' => array(
+      'align' => '',
+      'separator' => '',
+    ),
+    'field_district' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'field_city' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'field_zipcode' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'field_area_code' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'field_state' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
     ),
@@ -2579,15 +2570,31 @@ function community_group_views_views_default_views() {
       'align' => '',
       'separator' => '',
     ),
-    'field_source' => array(
+    'field_location_description' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
     ),
-    'field_state' => array(
+    'field_url_image' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'path' => array(
+      'align' => '',
+      'separator' => '',
+    ),
+    'created' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+    ),
+    'changed' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
     ),
@@ -2597,37 +2604,21 @@ function community_group_views_views_default_views() {
       'align' => '',
       'separator' => '',
     ),
-    'field_type_group' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'field_zipcode' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-    ),
-    'views_number_results' => array(
-      'align' => '',
-      'separator' => '',
-    ),
     'field_location' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
     ),
     'field_location_1' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
     ),
     'field_location_2' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
     ),
@@ -2638,6 +2629,21 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Total Number Results */
+  $handler->display->display_options['header']['views_number_results']['id'] = 'views_number_results';
+  $handler->display->display_options['header']['views_number_results']['table'] = 'views';
+  $handler->display->display_options['header']['views_number_results']['field'] = 'views_number_results';
+  $handler->display->display_options['header']['views_number_results']['label'] = 'Number of Groups';
+  $handler->display->display_options['header']['views_number_results']['empty'] = TRUE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['empty'] = FALSE;
+  $handler->display->display_options['header']['area']['content'] = '<a href="data/community-group/csv">Download as CSV</a>';
+  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['header']['area']['tokenize'] = 0;
   $handler->display->display_options['path'] = 'list/manage';
   $export['community_groups_list'] = $view;
 
