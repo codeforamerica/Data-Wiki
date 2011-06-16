@@ -3,6 +3,7 @@ core = 7.x
 dependencies[] = block
 dependencies[] = color
 dependencies[] = comment
+
 dependencies[] = dblog
 dependencies[] = email
 dependencies[] = field_ui
@@ -27,10 +28,10 @@ dependencies[] = update
 dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
 dependencies[] = cck
+dependencies[] = colorbox
 dependencies[] = context
 dependencies[] = context_ui
 dependencies[] = ctools
-dependencies[] = dashboard
 dependencies[] = date
 dependencies[] = defaultcontent
 dependencies[] = date_api
@@ -66,6 +67,8 @@ dependencies[] = views_data_export
 dependencies[] = views_json
 dependencies[] = views_number_results
 dependencies[] = views_ui
+
+dependencies[] = dashboard
 
 ; Custom
 dependencies[] = datawiki
