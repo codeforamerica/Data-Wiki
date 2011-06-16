@@ -46,6 +46,10 @@ function datawiki_blocks_block_info() {
     'info' => t('Header Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+  $blocks['datawiki_dashboard_add_content'] = array(
+    'info' => t('Dashboard Add Content'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
   return $blocks;
 }
 
@@ -101,6 +105,11 @@ function datawiki_blocks_block_view($delta = '') {
     case 'datawiki_header_menu':
       $block['subject'] = '';
       $block['content'] = datawiki_blocks_contents('header_menu');
+      break;
+    
+    case 'datawiki_dashboard_add_content':
+      $block['subject'] = '';
+      $block['content'] = datawiki_blocks_contents('dashboard_add_content');
       break;  
   }
   return $block;
@@ -196,6 +205,20 @@ function datawiki_blocks_contents($type) {
         $output .= "<li><a href=\"/node/add/community-group\">Add A Group</a></li>";
         $output .= "</ul>";
 */
+        break;
+        
+      case 'dashboard_add_content':
+        $output .= "<h3>Initial Setup</h3>";
+        $output .= "<ol class=\"menu\">";
+        $output .= "<li>Import a CSV file: <a href=\"/node/add/community-group-feed-upload-csv\">Upload CSV</a></li>";
+        $output .= "<li>Edit site information: <a href=\"#\">Site</a></li>";
+        $output .= "</ol>";
+
+        $output .= "<h3>Add Content</h3>";
+        $output .= "<ul class=\"menu\">";
+        $output .= "<li><a href=\"/node/add/community-group\">Add A Group</a></li>";
+        $output .= "<li><a href=\"/node/add/community-group-feed-upload-csv\">Upload CSV</a></li>";
+        $output .= "</ul>";
         break;
       
   }

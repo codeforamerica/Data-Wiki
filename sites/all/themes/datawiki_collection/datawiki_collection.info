@@ -44,7 +44,7 @@ regions[footer_top] = "Footer top"
 regions[footer] = "Footer"
 regions[footer_bottom] = "Footer bottom"
 regions[page_bottom] = "Page bottom"
-regions[dashboard_main] = "Dashboard Main"
+
 
 ; Features settings
 
