@@ -36,7 +36,7 @@ function  citygroups_preprocess_maintenance_page(&$vars) {
  * Generate count of groups and use it in the slogan.
  */
 function citygroups_slogan_count() {
-  $count = "250";
+  $count = "350";
   $city = "Seattle";
   $slogan = t("A public directory of over ") . $count . t(" community groups in ") . $city . ".";
   return $slogan;
@@ -132,31 +132,6 @@ function citygroups_preprocess_page(&$vars) {
 
 
 /**
- * Region preprocessing
- */
-function citygroups_preprocess_region(&$vars) {
-  // Set region variables
-  $vars['region_style'] = $vars['fluid_width'] = '';
-  $vars['region_name'] = str_replace('_', '-', $vars['region']);
-  $vars['classes_array'][] = $vars['region_name'];
-}
-
-
-
-/**
- * Block preprocessing
- */
-function citygroups_preprocess_block(&$vars) {
-  global $theme_info, $user;
-
-  // Exit if block is outside a defined region
-  if (!in_array($vars['block']->region, array_keys($theme_info->info['regions']))) {
-    return;
-  }
-}
-
-
-/**
  * Node preprocessing
  */
 function citygroups_preprocess_node(&$vars) {
@@ -187,51 +162,11 @@ function citygroups_preprocess_node(&$vars) {
   $vars['node_content_width'] = 'alpha';
 }
 
-/* Load location data for nodes */
-function citygroups_node_location(&$vars) {
-  $output = '';
-  if(!empty($vars['field_location_text']['und'][0]['value'])) {
-    $output .=  t(', ') . $vars['field_location_text']['und'][0]['value'];
-  }
-  else {
-    if(!empty($vars['field_neighborhood']['und'][0]['taxonomy_term']->name)) {
-      $output .= t(', ') . $vars['field_neighborhood']['und'][0]['taxonomy_term']->name;
-    }
-    if(!empty($vars['field_city']['und'][0]['taxonomy_term']->name)) {
-      $output .= t(', ') . $vars['field_city']['und'][0]['taxonomy_term']->name;
-    }
-    if(!empty($vars['field_state']['und'][0]['taxonomy_term']->name)) {
-      $output .= t(', ') . $vars['field_state']['und'][0]['taxonomy_term']->name;
-    }
-  }
-  return $output;
-}
 
-function citygroups_node_share(&$vars) {
-  citygroups_fb_like($vars);
-  $output = '';
-  $output .= '<div class="node-share">';
-  $output .= '<div class="facebook">' . $vars['fb_like'] . '</div>';
-  $output .= '</div>';
-  return $output;
-}
-
-function citygroups_fb_like(&$vars) {
-  
-  // Facebook Like link (TODO: Use module)
-  // Make URL, Facebook is not ok with a "localhost" URL.
-  $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
-  $url .= '://';
-  $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
-  $url .= $_SERVER['REQUEST_URI'];
-  // @TODO replace with block from context.
-  $vars['fb_like'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
-
-}
 /**
  * Preprocessing function for node types.
  */
-function citygroups_preprocess_node_online_community(&$vars) {
+function citygroups_preprocess_node_community_group(&$vars) {
   // Create content variables for this node type.
   $vars['edit'] = l("Is this information incorrect? Sign in to edit it.", 'node/' . $vars['node']->nid . '/edit');
   if(($vars['teaser'] == FALSE) && ($vars['view_mode'] != 'search_result')) {
@@ -240,113 +175,3 @@ function citygroups_preprocess_node_online_community(&$vars) {
   }
 
 }
-
-/**
- * Comment preprocessing
- */
-function citygroups_preprocess_comment(&$vars) {
-  static $comment_odd = TRUE;
- // Comment is odd or even
-
-  // Add to array of handy comment classes
-  $vars['classes_array'][] = $comment_odd ? 'odd' : 'even';
-  $comment_odd = !$comment_odd;
-}
-
-
-/**
- * Views preprocessing
- * Add view type class (e.g., node, teaser, list, table)
- */
-function citygroups_preprocess_views_view(&$vars) {
-  $vars['css_name'] = $vars['css_name'] .' view-style-'. drupal_clean_css_identifier(strtolower($vars['view']->plugin_name));
-  // Yes, this is kludgy.
-  $term0 = $term1 = $term2 = $vars['search_string'] = '';
-
-  if(!empty($vars['view']->exposed_input['neighborhood'])) {
-    $term0 = $vars['view']->exposed_input['neighborhood'];
-    if(is_numeric($term0)) {
-      $term0 = taxonomy_term_load($term0)->name;
-    }
-/*
-    if(is_array($term0)) {
-      $term1 = t('Neighborhood:') . taxonomy_term_load($term0[0])->name;
-    }
-*/
-
-  }
-  if(!empty($vars['view']->exposed_input['category'])) {
-    $term1 = $vars['view']->exposed_input['category'];
-    if(is_numeric($term1)) {
-      $term1 = taxonomy_term_load($term1)->name;
-    }
-  }
-/*
-
-  if(!empty($vars['view']->exposed_input['type_community'])) {
-    $term2 = $vars['view']->exposed_input['type_community'];
-    if(is_numeric($term2)) {
-      $term2 = taxonomy_term_load($term2)->name;
-    }
-  }
-*/
-
-  if(!empty($vars['view']->exposed_input['category']) || !empty($vars['view']->exposed_input['type_community']) || !empty($vars['view']->exposed_input['category'])) {
-    $vars['search_string'] = '<div class="search-terms">' . 
-      '<h3>' . t('Search terms') . '</h3>'
-        . '<div class="field-label">' . t('Neighborhood: ') . '</div>' 
-        . '<div class="field-item">' . $term0 . '</div>' 
-        . '<div class="field-label">' . t('Category: ') . '</div>' 
-        . '<div class="field-item">' . $term1 . '</div>'
-        . '</div>';
-  }
-}
-
-
-/**
- * Search result preprocessing
- */
-/*
-function citygroups_preprocess_search_result(&$vars) {
-  static $search_zebra = 'even';
-
-  $search_zebra = ($search_zebra == 'even') ? 'odd' : 'even';
-  $vars['search_zebra'] = $search_zebra;
-  $result = $vars['result'];
-  $vars['url'] = check_url($result['link']);
-  $vars['title'] = check_plain($result['title']);
-
-  // Check for snippet existence. User search does not include snippets.
-  $vars['snippet'] = '';
-  if (isset($result['snippet']) && theme_get_setting('search_snippet')) {
-    $vars['snippet'] = $result['snippet'];
-  }
-
-  $info = array();
-  if (!empty($result['type']) && theme_get_setting('search_info_type')) {
-    $info['type'] = check_plain($result['type']);
-  }
-  if (!empty($result['user']) && theme_get_setting('search_info_user')) {
-    $info['user'] = $result['user'];
-  }
-  if (!empty($result['date']) && theme_get_setting('search_info_date')) {
-    $info['date'] = format_date($result['date'], 'small');
-  }
-  if (isset($result['extra']) && is_array($result['extra'])) {
-    // $info = array_merge($info, $result['extra']);  Drupal bug?  [extra] array not keyed with 'comment' & 'upload'
-    if (!empty($result['extra'][0]) && theme_get_setting('search_info_comment')) {
-      $info['comment'] = $result['extra'][0];
-    }
-    if (!empty($result['extra'][1]) && theme_get_setting('search_info_upload')) {
-      $info['upload'] = $result['extra'][1];
-    }
-  }
-
-  // Provide separated and grouped meta information.
-  $vars['info_split'] = $info;
-  $vars['info'] = implode(' - ', $info);
-
-  // Provide alternate search result template.
-  $vars['template_files'][] = 'search-result-'. $vars['type'];
-}
-*/

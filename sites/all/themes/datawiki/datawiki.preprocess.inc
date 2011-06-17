@@ -85,18 +85,6 @@ function datawiki_preprocess_page(&$vars) {
   
   // Hardcoded site names
   switch ($_SERVER['HTTP_HOST']) {
-    case 'philly.citygroups.org':
-      $vars['sub_site_name'] = t('Philadelphia');
-      break;
-      
-    case 'seattle.citygroups.org':
-      $vars['sub_site_name'] = t('Seattle');
-      break;
-      
-    case 'bayarea.citygroups.org':
-      $vars['sub_site_name'] = t('San Francisco Bay Area');
-      break;
-      
     case 'staging.citygroups.org':
       $vars['sub_site_name'] = t('Staging');
       break;
@@ -209,18 +197,6 @@ function datawiki_fb_like(&$vars) {
   $vars['fb_like'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
 
 }
-/**
- * Preprocessing function for node types.
- */
-function datawiki_preprocess_node_community_group(&$vars) {
-  // Create content variables for this node type.
-  $vars['edit'] = l("Is this information incorrect? Sign in to edit it.", 'node/' . $vars['node']->nid . '/edit');
-  if(($vars['teaser'] == FALSE) && ($vars['view_mode'] != 'search_result')) {
-    $vars['content']['links']['share']['#links']['share']['title'] = datawiki_node_share($vars);
-    $vars['content']['links']['share']['#links']['share']['html'] = TRUE;
-  }
-
-}
 
 /**
  * Comment preprocessing
@@ -233,103 +209,3 @@ function datawiki_preprocess_comment(&$vars) {
   $vars['classes_array'][] = $comment_odd ? 'odd' : 'even';
   $comment_odd = !$comment_odd;
 }
-
-
-/**
- * Views preprocessing
- * Add view type class (e.g., node, teaser, list, table)
- */
-function datawiki_preprocess_views_view(&$vars) {
-  $vars['css_name'] = $vars['css_name'] .' view-style-'. drupal_clean_css_identifier(strtolower($vars['view']->plugin_name));
-  // Yes, this is kludgy.
-  $term0 = $term1 = $term2 = $vars['search_string'] = '';
-
-  if(!empty($vars['view']->exposed_input['neighborhood'])) {
-    $term0 = $vars['view']->exposed_input['neighborhood'];
-    if(is_numeric($term0)) {
-      $term0 = taxonomy_term_load($term0)->name;
-    }
-/*
-    if(is_array($term0)) {
-      $term1 = t('Neighborhood:') . taxonomy_term_load($term0[0])->name;
-    }
-*/
-
-  }
-  if(!empty($vars['view']->exposed_input['category'])) {
-    $term1 = $vars['view']->exposed_input['category'];
-    if(is_numeric($term1)) {
-      $term1 = taxonomy_term_load($term1)->name;
-    }
-  }
-/*
-
-  if(!empty($vars['view']->exposed_input['type_community'])) {
-    $term2 = $vars['view']->exposed_input['type_community'];
-    if(is_numeric($term2)) {
-      $term2 = taxonomy_term_load($term2)->name;
-    }
-  }
-*/
-/*
-
-  if(!empty($vars['view']->exposed_input['category']) || !empty($vars['view']->exposed_input['type_group']) || !empty($vars['view']->exposed_input['category'])) {
-    $vars['search_string'] = '<div class="search-terms">' . 
-      '<h3>' . t('Search terms') . '</h3>'
-        . '<div class="field-label">' . t('Neighborhood: ') . '</div>' 
-        . '<div class="field-item">' . $term0 . '</div>' 
-        . '<div class="field-label">' . t('Category: ') . '</div>' 
-        . '<div class="field-item">' . $term1 . '</div>'
-        . '</div>';
-  }
-*/
-}
-
-
-/**
- * Search result preprocessing
- */
-/*
-function datawiki_preprocess_search_result(&$vars) {
-  static $search_zebra = 'even';
-
-  $search_zebra = ($search_zebra == 'even') ? 'odd' : 'even';
-  $vars['search_zebra'] = $search_zebra;
-  $result = $vars['result'];
-  $vars['url'] = check_url($result['link']);
-  $vars['title'] = check_plain($result['title']);
-
-  // Check for snippet existence. User search does not include snippets.
-  $vars['snippet'] = '';
-  if (isset($result['snippet']) && theme_get_setting('search_snippet')) {
-    $vars['snippet'] = $result['snippet'];
-  }
-
-  $info = array();
-  if (!empty($result['type']) && theme_get_setting('search_info_type')) {
-    $info['type'] = check_plain($result['type']);
-  }
-  if (!empty($result['user']) && theme_get_setting('search_info_user')) {
-    $info['user'] = $result['user'];
-  }
-  if (!empty($result['date']) && theme_get_setting('search_info_date')) {
-    $info['date'] = format_date($result['date'], 'small');
-  }
-  if (isset($result['extra']) && is_array($result['extra'])) {
-    // $info = array_merge($info, $result['extra']);  Drupal bug?  [extra] array not keyed with 'comment' & 'upload'
-    if (!empty($result['extra'][0]) && theme_get_setting('search_info_comment')) {
-      $info['comment'] = $result['extra'][0];
-    }
-    if (!empty($result['extra'][1]) && theme_get_setting('search_info_upload')) {
-      $info['upload'] = $result['extra'][1];
-    }
-  }
-
-  // Provide separated and grouped meta information.
-  $vars['info_split'] = $info;
-  $vars['info'] = implode(' - ', $info);
-
-  // Provide alternate search result template.
-  $vars['template_files'][] = 'search-result-'. $vars['type'];
-}
-*/
