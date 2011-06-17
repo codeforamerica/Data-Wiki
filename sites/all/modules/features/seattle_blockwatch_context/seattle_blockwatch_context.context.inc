@@ -19,34 +19,34 @@ function seattle_blockwatch_context_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'blockwatch-finder' => 'blockwatch-finder',
+        'blockwatch' => 'blockwatch',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'datawiki_collection-datawiki_facebook_like' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_facebook_like',
+        'seattle_blockwatch-seattle_blockwatch_new_group_search' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_new_group_search',
           'region' => 'sidebar_first',
-          'weight' => '-30',
+          'weight' => '-10',
+        ),
+        'seattle_blockwatch-seattle_blockwatch_facebook_like' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_facebook_like',
+          'region' => 'sidebar_first',
+          'weight' => '-9',
         ),
         'seattle_blockwatch-seattle_blockwatch_about_block' => array(
           'module' => 'seattle_blockwatch',
           'delta' => 'seattle_blockwatch_about_block',
           'region' => 'sidebar_first',
-          'weight' => '-10',
+          'weight' => '-8',
         ),
         'seattle_blockwatch-seattle_blockwatch_home_menu' => array(
           'module' => 'seattle_blockwatch',
           'delta' => 'seattle_blockwatch_home_menu',
-          'region' => 'content_top',
-          'weight' => '-10',
-        ),
-        'seattle_blockwatch-seattle_blockwatch_welcome' => array(
-          'module' => 'seattle_blockwatch',
-          'delta' => 'seattle_blockwatch_welcome',
           'region' => 'content',
           'weight' => '-10',
         ),

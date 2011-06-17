@@ -38,14 +38,6 @@ function citygroups_context_context_default_contexts() {
           'region' => 'header_gap',
           'weight' => '-10',
         ),
-/*
-        'block-1' => array(
-          'module' => 'block',
-          'delta' => 1,
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-*/
         'datawiki_collection-datawiki_collection_new_group_search' => array(
           'module' => 'datawiki_collection',
           'delta' => 'datawiki_new_group_search',
