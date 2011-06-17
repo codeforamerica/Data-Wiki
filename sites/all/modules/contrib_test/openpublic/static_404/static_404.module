@@ -1,0 +1,102 @@
+<?php
+
+// $Id$
+
+/**
+ * hook_menu - register a callback for 404 substitution
+ */
+function static_404_menu() {
+  $menu = array();
+  $menu['static_404'] = array(
+    'title' => 'View static 404 page',
+    'page callback' => 'static_404_return',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $menu;
+}
+
+/**
+ * hook_form_FORM_ID_alter
+ */
+function static_404_form_system_site_information_settings_alter(&$form, &$form_state, $form_id) {
+  $form['error_page']['static_404'] = $form['error_page']['site_404'];
+  $form['error_page']['static_404']['#default_value'] = variable_get('static_404', '');
+  $form['error_page']['site_404']['#type'] = 'hidden';
+  $form['error_page']['site_404']['#default_value'] = 'static_404';
+  $form['error_page']['generate'] = array(
+   '#type' => 'button',
+   '#value' => t('Generate 404 Page'),
+   '#name' => 'generate',
+   '#executes_submit_callback' => TRUE,
+  );
+  array_unshift($form['#submit'], 'static_404_generate_submit');
+}
+
+/**
+ * Submit callback for the site_information form which writes the 404 page.
+ */
+function static_404_generate_submit($form_id, $form_values) {
+  if (!empty($form_values['input']['generate'])) {
+    // Generate the page
+    global $base_url;
+    $path = drupal_get_normal_path(variable_get('static_404', ''));
+    if ($path) {
+      $result = drupal_http_request($base_url . '/' . $path, array('timeout' => 10));
+      if (!empty($result)) {
+        if ($result->code == 200 && !empty($result->data)) {
+          if (!file_exists('public://404')) {
+            drupal_mkdir('public://404');
+          }
+
+          $directory = 'public://404';
+          //file_put_contents('public://404/index.php', $result->data);
+          file_save_data($result->data, $directory . '/index.php', FILE_EXISTS_REPLACE);
+        }
+      }
+    }
+
+    // Redirect to the same page we're on
+    drupal_set_message(t('The 404 page has been created'), 'status');
+    drupal_goto('admin/config/system/site-information');
+  }
+}
+
+/**
+ * if a static 404 exists, include it and exit
+ */
+function static_404_return() {
+  if (file_exists('public://404/index.php')) {
+    include_once 'public://404/index.php';
+    drupal_exit();
+  }
+  else {
+    return 'Not Found';
+  }
+}
+
+/**
+ * generate the real 404 page and save it statically, code pulled from common.inc
+ */
+function static_404_generate() {
+  $path = drupal_get_normal_path(variable_get('static_404', ''));
+  if ($path) {
+    // Custom 404 handler. Set the active item in case there are tabs to
+    // display, or other dependencies on the path.
+    menu_set_active_item($path);
+    $return = menu_execute_active_handler($path, FALSE);
+  }
+
+  if (empty($return)) {
+    // Standard 404 handler.
+    drupal_set_title(t('Page not found'));
+    $return = t('The requested page could not be found.');
+  }
+
+  drupal_set_page_content($return);
+  $page = element_info('page');
+  
+  $directory = 'public://404';
+  file_save_data(drupal_render_page($page), $directory . '/index.php', FILE_EXISTS_REPLACE);
+  //file_put_contents('public://404/index.php', drupal_render_page($page));
+}

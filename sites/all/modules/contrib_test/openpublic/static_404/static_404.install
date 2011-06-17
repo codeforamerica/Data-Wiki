@@ -1,0 +1,24 @@
+<?php
+
+// $Id$
+
+/**
+ * @file
+ * Enable and disable functions for static_404 module
+ */
+
+/**
+ * steal the current site_404 on enable, subbing in our callback
+ */
+function static_404_enable() {
+  variable_set('static_404', variable_get('site_404', ''));
+  variable_set('site_404', 'static_404');
+}
+
+/**
+ * and put it back on disable
+ */
+function static_404_disable() {
+  variable_set('site_404', variable_get('static_404', ''));
+  variable_del('static_404');
+}
