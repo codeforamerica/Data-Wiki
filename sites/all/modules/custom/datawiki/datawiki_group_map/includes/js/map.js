@@ -143,16 +143,10 @@ cityGroups.map.popupPoints = function (nodes){
   var marker = "";
 
   if(node.latitude !== undefined){
-    console.log(node.latitude);
-    console.log(node.longitude);
-  
-  	var markerLocation = new L.LatLng(parseFloat(node.latitude), parseFloat(node.longitude));
-/*   	var markerLocation = new L.LatLng(47.5279, -122.274); */
+    var markerLocation = new L.LatLng(parseFloat(node.latitude), parseFloat(node.longitude));
     var customMarker = new datawiki.map.settings.customMarkerStyle(),
     marker = new L.Marker(markerLocation, {icon: customMarker});
     cityGroups.map.rendered.addLayer(marker);
-    
-    console.log(marker);
     marker.on('click', onMapClick);
     
   	function onMapClick(e) {
