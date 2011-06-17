@@ -1,4 +1,0 @@
-core = "7.x"
-description = "DataWiki Settings"
-name = "DataWiki Settings"
-package = "Features"

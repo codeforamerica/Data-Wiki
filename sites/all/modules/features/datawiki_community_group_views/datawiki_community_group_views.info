@@ -1,4 +1,0 @@
-core = "7.x"
-description = "DataWiki Community Groups View Data"
-name = "DataWiki Community Groups View Data"
-package = "Features"

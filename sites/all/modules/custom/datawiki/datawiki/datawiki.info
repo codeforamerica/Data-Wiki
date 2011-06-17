@@ -1,24 +1,87 @@
 name = Data Wiki
-description = "Custom features for a Data Wiki site."
 core = 7.x
+description = Install all the main modules of DataWiki.
+name = DataWiki
+package = DataWiki
 
 files[] = datawiki.module
-# files[] = js/datawiki.js
-# files[] = css/datawiki.css
-
 # configure = admin/config/datawiki/settings
 
-; Custom Modules
+core = 7.x
+dependencies[] = block
+dependencies[] = color
+dependencies[] = comment
+dependencies[] = dblog
+dependencies[] = email
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = help
+dependencies[] = image
+dependencies[] = link
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = overlay
+dependencies[] = path
+dependencies[] = rdf
+dependencies[] = search
+dependencies[] = taxonomy
+dependencies[] = token
+dependencies[] = update
+
+; Contrib
+dependencies[] = admin_menu
+; dependencies[] = admin_menu_toolbar
+dependencies[] = cck
+dependencies[] = colorbox
+dependencies[] = context
+dependencies[] = context_ui
+dependencies[] = ctools
+dependencies[] = dashboard
+dependencies[] = date
+dependencies[] = defaultcontent
+dependencies[] = date_api
+dependencies[] = features
+dependencies[] = feeds
+dependencies[] = feeds_import
+dependencies[] = feeds_jsonpath_parser
+dependencies[] = feeds_tamper
+dependencies[] = feeds_tamper_ui
+dependencies[] = feeds_ui
+dependencies[] = field_group
+dependencies[] = flag
+dependencies[] = flag_actions
+dependencies[] = geocode
+dependencies[] = geofield
+dependencies[] = googleanalytics
+dependencies[] = job_scheduler
+dependencies[] = libraries
+dependencies[] = login_destination
+dependencies[] = logintoboggan
+dependencies[] = markdown
+dependencies[] = node_reference
+dependencies[] = openlayers
+dependencies[] = openlayers_ui
+dependencies[] = openlayers_views
+dependencies[] = pathauto
+dependencies[] = references
+dependencies[] = strongarm
+dependencies[] = user_reference
+dependencies[] = views
+dependencies[] = views_data_export
+dependencies[] = views_json
+dependencies[] = views_number_results
+dependencies[] = views_ui
+
+; Custom
+dependencies[] = datawiki
 dependencies[] = citygroups_sub
 
 ; Features
-dependencies[] = datawiki_settings
 dependencies[] = datawiki_views
-
 dependencies[] = datawiki_feed_taxonomy_categories
 dependencies[] = datawiki_basic_page
 dependencies[] = datawiki_context
 dependencies[] = datawiki_content
 dependencies[] = datawiki_community_group_views
-
 dependencies[] = datawiki_developer

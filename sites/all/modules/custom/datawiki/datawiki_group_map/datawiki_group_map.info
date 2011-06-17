@@ -1,5 +1,6 @@
 name = Data Wiki Group Map
 description = "Custom blocks for a Data Wiki site."
 core = 7.x
+package = DataWiki
 
 files[] = datawiki_group_map.module

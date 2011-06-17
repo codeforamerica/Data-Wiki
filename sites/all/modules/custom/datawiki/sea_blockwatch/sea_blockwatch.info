@@ -1,8 +1,9 @@
 name = Seattle Blockwatch Finder
 description = "Citygroups Blockwatch Finder for Seattle."
 core = 7.x
+package = DataWiki
 
 files[] = sea_blockwatch.module
 
-dependencies[] = "datawiki_group_categories"
-dependencies[] = "datawiki_group_map"
+dependencies[] = datawiki_group_categories
+dependencies[] = datawiki_group_map

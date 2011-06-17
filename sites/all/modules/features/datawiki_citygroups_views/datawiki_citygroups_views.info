@@ -1,4 +1,0 @@
-core = "7.x"
-description = "CityGroups Site Views"
-name = "CityGroups View"
-package = "Features"
