@@ -1,0 +1,19 @@
+#header {
+  background-color: #2796F2;
+}
+.page-blockwatch .title-container {
+  display: none;
+}
+
+
+.loading {
+   background-color: #2796F2;
+   color: #fff;
+   font-size: 400%;
+   height: 400px;
+   padding: 50px;
+}
+
+#popular-terms {
+   background-color: #F77E11;
+}
