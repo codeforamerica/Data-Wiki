@@ -109,9 +109,11 @@ cityGroups.geoJSON = function(nodes) {
     if(locationGeoObj.type !== undefined) {
       switch(locationGeoObj.type) {
         case "Point":
+        console.log("point");
           cityGroups.map.popupPoints(nodes);
         break;
         case "Polygon":
+        console.log("polygon")
           var polygonPoints = Array();
   
           for (p in locationGeoObj.coordinates[0]) {
@@ -120,15 +122,18 @@ cityGroups.geoJSON = function(nodes) {
             polygonPoints.push(polygonPoint); 
           }
           cityGroups.map.popupPolygons(polygonPoints, nodes);
+          // Draw a marker in the center of the Polygon.
+          if(nodes[i]["node"]["latitude"] !== undefined) {
+            cityGroups.map.popupPoints(nodes);    
+          }
         break;
-      }
-      console.log(nodes[i]["node"]["latitude"]);
-      if(nodes[i]["node"]["latitude"] !== undefined) {
-          cityGroups.map.popupPoints(nodes);    
       }
     }
     else {
-
+      if(nodes[i]["node"]["latitude"] !== undefined) {
+      console.log("lat/lon");
+        cityGroups.map.popupPoints(nodes);    
+      }
     }
   }
 };
@@ -136,8 +141,13 @@ cityGroups.geoJSON = function(nodes) {
 cityGroups.map.popupPoints = function (nodes){
   var node = nodes[i]["node"];
   var marker = "";
+
   if(node.latitude !== undefined){
-  	var markerLocation = new L.LatLng(node.latitude, node.longitude);
+    console.log(node.latitude);
+    console.log(node.longitude);
+  
+  	var markerLocation = new L.LatLng(node.latitude, -122);
+/*   	var markerLocation = new L.LatLng(47.5279, -122.274); */
     var customMarker = new datawiki.map.settings.customMarkerStyle(),
     marker = new L.Marker(markerLocation, {icon: customMarker});
     cityGroups.map.rendered.addLayer(marker);
@@ -146,8 +156,7 @@ cityGroups.map.popupPoints = function (nodes){
     marker.on('click', onMapClick);
     
   	function onMapClick(e) {
-  	  $('div#popup-content div.content').html(node.title);
-      cityGroups.map.rendered.addLayer(polygon);
+  	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
   	}
   	
   	function offMapClick(e) {
@@ -160,7 +169,9 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   var node = nodes[i]["node"];
   var marker = "";
   var polygon = new L.Polygon(polygonPoints, cityGroups.map.polygonOptions);
-	var markerLocation = new L.LatLng(-1*node.latitude, -1*node.longitude);
+  console.log(node.latitude);
+  console.log(node.longitude);
+	var markerLocation = new L.LatLng(node.latitude, node.longitude);
 
   var customMarker = new datawiki.map.settings.customMarkerStyle(),
   marker = new L.Marker(markerLocation, {icon: customMarker});
