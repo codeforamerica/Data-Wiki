@@ -1,7 +1,6 @@
 core = "7.x"
 dependencies[] = "block"
 dependencies[] = "context"
-dependencies[] = "datawiki_collection"
 description = "Set of contexts for displaying collection blocks on different pages."
 features[context][] = "collection_about"
 features[context][] = "collection_categories"

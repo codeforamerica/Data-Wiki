@@ -1,6 +1,5 @@
 core = "7.x"
 dependencies[] = "context"
-dependencies[] = "datawiki_collection"
 dependencies[] = "logintoboggan"
 dependencies[] = "search"
 description = "Context for main datawiki."

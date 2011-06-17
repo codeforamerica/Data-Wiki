@@ -64,7 +64,7 @@ off the chain of triggering everything else.
 Provides blocks.
 Installs Datawiki related submodules.
 
-### datawiki_collection
+### citygroups_sub
 
 Dev: will be deprecated.
 The idea is to have a template demonstrate the implementation
