@@ -1,9 +1,4 @@
 sites/default/settings.php
 sites/default/files
 sites/sites.php
-sites/all/modules/contrib/geofield
-sites/datawiki.local
-sites/food-datawiki
-sites/philly-citygroups
-sites/sea.citygroups.local
-sites/seattle-citygroups
+sea.citygroups.local
