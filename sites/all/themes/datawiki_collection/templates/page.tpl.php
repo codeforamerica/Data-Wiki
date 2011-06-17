@@ -17,17 +17,21 @@
         <?php print $logo; ?>
         <?php print $prealpha; ?>
       </div>
-      
+      <?php if ($section_name): ?>
+        <div class="header-section-name grid_4">
+          <?php print $section_name; ?>
+        </div>
+      <?php endif; ?>
       <div class="header-menu-container grid_2">
         <?php print render($page['header_menu']); ?>
       </div>
   
-      <div class="header-signin-container grid_4">
+      <div class="header-signin-container grid_2">
         <?php print render($page['header_signin']); ?>
         <?php print $account_link; ?>
       </div>
   
-      <div class="header-gap-container grid_6 omega">
+      <div class="header-gap-container grid_4 omega">
         <?php print render($page['header_gap']); ?>
       </div>
     </div>

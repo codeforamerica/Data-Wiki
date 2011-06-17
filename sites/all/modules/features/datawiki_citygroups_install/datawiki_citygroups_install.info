@@ -11,3 +11,5 @@ dependencies[] = datawiki_group_map
 dependencies[] = datawiki_group_categories
 dependencies[] = citygroups_permissions
 dependencies[] = citygroups_splash
+
+dependencies[] = seattle_blockwatch

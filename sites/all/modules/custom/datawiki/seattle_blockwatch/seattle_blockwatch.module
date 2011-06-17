@@ -8,58 +8,120 @@
 /**
  * Implements hook_help().
  */
-function datawiki_blockwatch_help($path, $arg) {
+function seattle_blockwatch_help($path, $arg) {
   switch ($path) {
-    case 'datawiki_blockwatch':
+    case 'seattle_blockwatch':
       $explanation = t(
-        'Custom features for Data Wiki Blockwatch.');
+        'Custom features for Seattle Blockwatch Finder.');
       return "<p>$explanation</p>";
   }
 }
-function datawiki_blockwatch_menu() {
-  $items['blockwatch/home'] = array(
+function seattle_blockwatch_menu() {
+  $items['blockwatch-finder'] = array(
     'title' => 'Home',
-    'page callback' => 'datawiki_blockwatch_home_render',
+    'page callback' => 'seattle_blockwatch_home_render',
     'page arguments' => array(t('Blockwatch Home Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch/map'] = array(
+  $items['blockwatch-finder/map'] = array(
     'title' => 'Map',
-    'page callback' => 'datawiki_blockwatch_map_render',
+    'page callback' => 'seattle_blockwatch_map_render',
     'page arguments' => array(t('Blockwatch Map Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch/list'] = array(
+  $items['blockwatch-finder/list'] = array(
     'title' => 'List',
-    'page callback' => 'datawiki_blockwatch_list_render',
+    'page callback' => 'seattle_blockwatch_list_render',
     'page arguments' => array(t('Blockwatch List Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch/about'] = array(
+  $items['blockwatch-finder/topics'] = array(
+    'title' => 'Topics',
+    'page callback' => 'seattle_blockwatch_topics_render',
+    'page arguments' => array(t('Blockwatch Topics Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch-finder/about'] = array(
     'title' => 'About',
-    'page callback' => 'datawiki_blockwatch_about_render',
+    'page callback' => 'seattle_blockwatch_about_render',
     'page arguments' => array(t('Blockwatch About Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch/add'] = array(
+  $items['blockwatch-finder/add'] = array(
     'title' => 'Add',
-    'page callback' => 'datawiki_blockwatch_add_render',
+    'page callback' => 'seattle_blockwatch_add_render',
     'page arguments' => array(t('Blockwatch Add Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch-finder/contact'] = array(
+    'title' => 'Contact',
+    'page callback' => 'seattle_blockwatch_contact_render',
+    'page arguments' => array(t('Blockwatch Contact Page')),
     'access callback' => TRUE,
   );
   return $items;
 }
 
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_home_render() {
+  $output = "home";
+  return $output;
+}
+
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_map_render() {
+  $output = "map";
+  return $output;
+}
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_list_render() {
+  $output = "list";
+  return $output;
+}
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_topics_render() {
+  $output = "topics";
+  return $output;
+}
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_about_render() {
+  $output = "about";
+  return $output;
+}
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_add_render() {
+  $output = "add";
+  return $output;
+}
+
+function seattle_blockwatch_preprocess_page(&$vars) {
+  $vars["section_name"] = "Blockwatch Finder";
+  $vars["site_slogan"] = "A public directory of Block Watches in Seattle.";
+}
+
+
 /*
 
-function datawiki_blockwatch_termname_list_render() {
+function seattle_blockwatch_termname_list_render() {
   return "list here";
 }
 */
 
-function datawiki_blockwatch_termname_map_render() {
+function seattle_blockwatch_termname_map_render() {
   $settings = array();
-  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_blockwatch');
+  $settings['html_root_custom'] = drupal_get_path('module', 'seattle_blockwatch');
   $settings['sitename'] = "CityGroups Block Watch Finder";
   $settings['page_title'] = "Block Watch Finder";
   $settings['place'] = "Seattle";
@@ -108,7 +170,7 @@ datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
 /**
  * Implements hook_block_info().
  */
-function datawiki_blockwatch_block_info() {
+function seattle_blockwatch_block_info() {
   $blocks['datawiki_welcome'] = array(
     'info' => t('Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
@@ -171,21 +233,21 @@ function datawiki_blockwatch_block_info() {
 /**
  * Implements hook_block_view().
  */
-function datawiki_blockwatch_block_view($delta = '') {
+function seattle_blockwatch_block_view($delta = '') {
   switch ($delta) {
     case 'datawiki_welcome':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('welcome');
+      $block['content'] = seattle_blockwatch_contents('welcome');
       break;
       
     case 'datawiki_branding_header':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('branding_header');
+      $block['content'] = seattle_blockwatch_contents('branding_header');
       break;
       
     case 'datawiki_branding_footer':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('branding_footer');
+      $block['content'] = seattle_blockwatch_contents('branding_footer');
       break;     
       
     case 'datawiki_facebook_like':
@@ -199,52 +261,52 @@ function datawiki_blockwatch_block_view($delta = '') {
 
     case 'datawiki_new_group_search':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('new_group_search');
+      $block['content'] = seattle_blockwatch_contents('new_group_search');
       break;
 
     case 'datawiki_add_data':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('add_data');
+      $block['content'] = seattle_blockwatch_contents('add_data');
       break;
 
     case 'datawiki_site_tagline':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('site_tagline');
+      $block['content'] = seattle_blockwatch_contents('site_tagline');
       break;
       
     case 'datawiki_map':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('map');
+      $block['content'] = seattle_blockwatch_contents('map');
       break;
     
     case 'datawiki_categories':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('categories');
+      $block['content'] = seattle_blockwatch_contents('categories');
       break;
     
     case 'datawiki_list':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('list');
+      $block['content'] = seattle_blockwatch_contents('list');
       break;
       
     case 'datawiki_home_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('home_menu');
+      $block['content'] = seattle_blockwatch_contents('home_menu');
       break;
     
     case 'datawiki_categories_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('categories_menu');
+      $block['content'] = seattle_blockwatch_contents('categories_menu');
       break;
       
     case 'datawiki_list_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('list_menu');
+      $block['content'] = seattle_blockwatch_contents('list_menu');
       break; 
 
     case 'datawiki_map_menu':
       $block['subject'] = '';
-      $block['content'] = datawiki_blockwatch_contents('map_menu');
+      $block['content'] = seattle_blockwatch_contents('map_menu');
       break; 
   }
   return $block;
@@ -253,7 +315,7 @@ function datawiki_blockwatch_block_view($delta = '') {
 /**
  * Block placeholder content
  */
-function datawiki_blockwatch_contents($type) {
+function seattle_blockwatch_contents($type) {
   $output = '';
   
   switch ($type) {
@@ -356,11 +418,11 @@ function datawiki_blockwatch_contents($type) {
   return $output;
 }
 
-function datawiki_blockwatch_json_paths() {
+function seattle_blockwatch_json_paths() {
 
   // Build and set JSON paths for javascript.
 }
 
-function datawiki_blockwatch_set_theme() {
-  // set the theme to datawiki_blockwatch
+function seattle_blockwatch_set_theme() {
+  // set the theme to seattle_blockwatch
 }

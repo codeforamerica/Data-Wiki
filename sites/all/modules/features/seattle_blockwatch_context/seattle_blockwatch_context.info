@@ -1,0 +1,7 @@
+core = "7.x"
+dependencies[] = "context"
+description = "Context for Seattle Blockwatch"
+features[context][] = "seattle_blockwatch_context"
+features[ctools][] = "context:context:3"
+name = "Seattle Blockwatch Context"
+package = "Features"
