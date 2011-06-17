@@ -107,8 +107,8 @@ function seattle_blockwatch_add_render() {
 }
 
 function seattle_blockwatch_preprocess_page(&$vars) {
-  $vars["section_name"] = "Blockwatch Finder";
-  $vars["site_slogan"] = "A public directory of Block Watches in Seattle.";
+  // Generate settings and return them to the theme.
+  seattle_blockwatch_page_variables(&$vars);
 }
 
 
@@ -119,112 +119,114 @@ function seattle_blockwatch_termname_list_render() {
 }
 */
 
-function seattle_blockwatch_termname_map_render() {
-  $settings = array();
-  $settings['html_root_custom'] = drupal_get_path('module', 'seattle_blockwatch');
-  $settings['sitename'] = "CityGroups Block Watch Finder";
-  $settings['page_title'] = "Block Watch Finder";
-  $settings['place'] = "Seattle";
-  $settings['tagline'] = "A public directory of Block Watches in " . $settings['place'] . ".";
-  $settings['theme'] = "citygroups_blockwatch";
-  $settings['term'] = "termname";
-  $settings['popular_searches'] = '<ul>
+function seattle_blockwatch_page_variables(&$vars) {
+  // Override existing page variables.
+  $vars['site_slogan'] = "A public directory of block watch captains in Seattle.";
+
+  // Custom object of special settings to be integrated with the main theme.
+  $vars['section'] = array();
+  $vars['section']['section_name'] = "Block Watch Captain Finder";
+  $vars['section']['html_root_custom'] = drupal_get_path('module', 'seattle_blockwatch');
+  $vars['section']['place'] = "Seattle";
+  $vars['section']['theme'] = "citygroups_blockwatch";
+  $vars['section']['term'] = "block-watch";
+  $vars['section']['popular_searches'] = '<ul>
             <li><a href="#defaultPath">See All</a></li>
             <li><a href="#block-watch">Block Watch</a></li>
             <li><a href="#public-safety">Public Safety</a></li>
           </ul><br />
           <a href="/categories">All Categories</a>';
           
-  $settings['map_colors'] = '
+  $vars['section']['map_colors'] = '
     color: "#2796F2",
     fillColor: "white",
     fillOpacity: 0.5,
     weight: 1,
     opacity: 1';
     
-  $settings['map_markers'] = '
+  $vars['section']['map_markers'] = '
      L.Icon.extend({
-        iconUrl: "/' . $settings['html_root_custom'] . '/images/noun_project_659_man.svg",
+        iconUrl: "/' . $vars['section']['html_root_custom'] . '/images/noun_project_659_man.svg",
         iconSize: new L.Point(15, 40),
         iconAnchor: new L.Point(10, 40),
         popupAnchor: new L.Point(0, 0)
     });
 ';  
     
-  $settings['javascript_settings'] = '
+  $vars['section']['javascript_settings'] = '
   
   <script type="text/javascript"> 
 <!--//--><![CDATA[//><!--
 var datawiki = {};
 datawiki.map = {};
 datawiki.map.settings = {};
-datawiki.map.settings.mapColors = {' . $settings['map_colors'] . '};
-datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
+datawiki.map.settings.mapColors = {' . $vars['section']['map_colors'] . '};
+datawiki.map.settings.customMarkerStyle = ' . $vars['section']['map_markers'] .'
 //--><!]]>
 </script> 
   
   ';
-  return datawiki_group_map_render($settings);
+  //return datawiki_group_map_render($vars);
 }
 
 /**
  * Implements hook_block_info().
  */
 function seattle_blockwatch_block_info() {
-  $blocks['datawiki_welcome'] = array(
-    'info' => t('Welcome Message'),
+  $blocks['seattle_blockwatch_welcome'] = array(
+    'info' => t('Seattle Blockwatch Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_branding_header'] = array(
-    'info' => t('Branding Header'),
+  $blocks['seattle_blockwatch_branding_header'] = array(
+    'info' => t('Seattle Blockwatch Branding Header'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_branding_footer'] = array(
-    'info' => t('Branding Footer'),
+  $blocks['seattle_blockwatch_branding_footer'] = array(
+    'info' => t('Seattle Blockwatch Branding Footer'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_facebook_like'] = array(
-    'info' => t('Facebook Like'),
+  $blocks['seattle_blockwatch_facebook_like'] = array(
+    'info' => t('Seattle Blockwatch Facebook Like'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_add_data'] = array(
-    'info' => t('Add Data'),
+  $blocks['seattle_blockwatch_add_data'] = array(
+    'info' => t('Seattle Blockwatch Add Data'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_new_group_search'] = array(
-    'info' => t('New Group Search'),
+  $blocks['seattle_blockwatch_new_group_search'] = array(
+    'info' => t('Seattle Blockwatch New Group Search'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_site_tagline'] = array(
-    'info' => t('Site Tagline'),
+  $blocks['seattle_blockwatch_site_tagline'] = array(
+    'info' => t('Seattle Blockwatch Site Tagline'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_map'] = array(
-    'info' => t('Map'),
+  $blocks['seattle_blockwatch_map'] = array(
+    'info' => t('Seattle Blockwatch Map'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_categories'] = array(
-    'info' => t('Categories'),
+  $blocks['seattle_blockwatch_categories'] = array(
+    'info' => t('Seattle Blockwatch Categories'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_list'] = array(
-    'info' => t('List'),
+  $blocks['seattle_blockwatch_list'] = array(
+    'info' => t('Seattle Blockwatch List'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_home_menu'] = array(
-    'info' => t('Home Menu'),
+  $blocks['seattle_blockwatch_home_menu'] = array(
+    'info' => t('Seattle Blockwatch Home Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_categories_menu'] = array(
-    'info' => t('Categories Menu'),
+  $blocks['seattle_blockwatch_categories_menu'] = array(
+    'info' => t('Seattle Blockwatch Categories Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_map_menu'] = array(
-    'info' => t('Map Menu'),
+  $blocks['seattle_blockwatch_map_menu'] = array(
+    'info' => t('Seattle Blockwatch Map Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_list_menu'] = array(
-    'info' => t('List Menu'),
+  $blocks['seattle_blockwatch_list_menu'] = array(
+    'info' => t('Seattle Blockwatch List Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   return $blocks;
@@ -235,22 +237,22 @@ function seattle_blockwatch_block_info() {
  */
 function seattle_blockwatch_block_view($delta = '') {
   switch ($delta) {
-    case 'datawiki_welcome':
+    case 'seattle_blockwatch_welcome':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('welcome');
       break;
       
-    case 'datawiki_branding_header':
+    case 'seattle_blockwatch_branding_header':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('branding_header');
       break;
       
-    case 'datawiki_branding_footer':
+    case 'seattle_blockwatch_branding_footer':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('branding_footer');
       break;     
       
-    case 'datawiki_facebook_like':
+    case 'seattle_blockwatch_facebook_like':
       $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
       $url .= '://';
       $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
@@ -259,52 +261,52 @@ function seattle_blockwatch_block_view($delta = '') {
       $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
       break;
 
-    case 'datawiki_new_group_search':
+    case 'seattle_blockwatch_new_group_search':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('new_group_search');
       break;
 
-    case 'datawiki_add_data':
+    case 'seattle_blockwatch_add_data':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('add_data');
       break;
 
-    case 'datawiki_site_tagline':
+    case 'seattle_blockwatch_site_tagline':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('site_tagline');
       break;
       
-    case 'datawiki_map':
+    case 'seattle_blockwatch_map':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('map');
       break;
     
-    case 'datawiki_categories':
+    case 'seattle_blockwatch_categories':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('categories');
       break;
     
-    case 'datawiki_list':
+    case 'seattle_blockwatch_list':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('list');
       break;
       
-    case 'datawiki_home_menu':
+    case 'seattle_blockwatch_home_menu':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('home_menu');
       break;
     
-    case 'datawiki_categories_menu':
+    case 'seattle_blockwatch_categories_menu':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('categories_menu');
       break;
       
-    case 'datawiki_list_menu':
+    case 'seattle_blockwatch_list_menu':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('list_menu');
       break; 
 
-    case 'datawiki_map_menu':
+    case 'seattle_blockwatch_map_menu':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('map_menu');
       break; 
@@ -416,13 +418,4 @@ function seattle_blockwatch_contents($type) {
   }
   
   return $output;
-}
-
-function seattle_blockwatch_json_paths() {
-
-  // Build and set JSON paths for javascript.
-}
-
-function seattle_blockwatch_set_theme() {
-  // set the theme to seattle_blockwatch
 }
