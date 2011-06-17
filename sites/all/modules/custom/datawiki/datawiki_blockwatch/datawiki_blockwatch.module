@@ -17,20 +17,36 @@ function datawiki_blockwatch_help($path, $arg) {
   }
 }
 function datawiki_blockwatch_menu() {
-  $items['map/collection/blockwatch'] = array(
-    'title' => 'Map Termname',
-    'page callback' => 'datawiki_blockwatch_termname_map_render',
-    'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
+  $items['blockwatch/home'] = array(
+    'title' => 'Home',
+    'page callback' => 'datawiki_blockwatch_home_render',
+    'page arguments' => array(t('Blockwatch Home Page')),
     'access callback' => TRUE,
   );
-/*
-  $items['list/community-group/block-watch'] = array(
-    'title' => 'List Termname',
-    'page callback' => 'datawiki_blockwatch_termname_list_render',
-    'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
+  $items['blockwatch/map'] = array(
+    'title' => 'Map',
+    'page callback' => 'datawiki_blockwatch_map_render',
+    'page arguments' => array(t('Blockwatch Map Page')),
     'access callback' => TRUE,
   );
-*/
+  $items['blockwatch/list'] = array(
+    'title' => 'List',
+    'page callback' => 'datawiki_blockwatch_list_render',
+    'page arguments' => array(t('Blockwatch List Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch/about'] = array(
+    'title' => 'About',
+    'page callback' => 'datawiki_blockwatch_about_render',
+    'page arguments' => array(t('Blockwatch About Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch/add'] = array(
+    'title' => 'Add',
+    'page callback' => 'datawiki_blockwatch_add_render',
+    'page arguments' => array(t('Blockwatch Add Page')),
+    'access callback' => TRUE,
+  );
   return $items;
 }
 

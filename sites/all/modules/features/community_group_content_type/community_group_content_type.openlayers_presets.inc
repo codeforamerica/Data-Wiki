@@ -25,8 +25,8 @@ function community_group_content_type_openlayers_presets() {
     'hide_empty_map' => 0,
     'center' => array(
       'initial' => array(
-        'centerpoint' => '-122.30732171595, 47.624933164878',
-        'zoom' => '10',
+        'centerpoint' => '-122.36112753603, 47.593299492122',
+        'zoom' => '12',
       ),
       'restrict' => array(
         'restrictextent' => 0,
@@ -44,16 +44,30 @@ function community_group_content_type_openlayers_presets() {
         'zoomWheelEnabled' => 1,
       ),
       'openlayers_behavior_panzoombar' => array(),
+      'openlayers_behavior_scaleline' => array(),
+      'openlayers_behavior_zoomtolayer' => array(
+        'zoomtolayer' => 'geofield_formatter',
+        'point_zoom_level' => '5',
+      ),
+      'openlayers_behavior_drawfeatures' => array(
+        'feature_types' => array(
+          'point' => 'point',
+          'path' => 'path',
+          'polygon' => 'polygon',
+        ),
+        'feature_limit' => '1',
+        'element_id' => '',
+      ),
     ),
-    'default_layer' => 'osm_mapnik',
+    'default_layer' => 'osm_tah',
     'layers' => array(
-      'osm_mapnik' => 'osm_mapnik',
+      'osm_tah' => 'osm_tah',
       'geofield_formatter' => 'geofield_formatter',
       'community_groups_map_openlayers_1' => 0,
     ),
     'layer_styles' => array(
       'geofield_formatter' => 'city_group_map_form_style',
-      'community_groups_map_openlayers_1' => '0',
+      'community_groups_map_openlayers_1' => 'city_group_map_form_style',
     ),
     'layer_activated' => array(
       'geofield_formatter' => 'geofield_formatter',
@@ -66,9 +80,9 @@ function community_group_content_type_openlayers_presets() {
     'projection' => '900913',
     'displayProjection' => '4326',
     'styles' => array(
-      'default' => 'city_group_map_style',
-      'select' => 'city_group_map_style',
-      'temporary' => 'city_group_map_style',
+      'default' => 'city_group_map_form_style',
+      'select' => 'city_group_map_form_style',
+      'temporary' => 'city_group_map_form_style',
     ),
   );
   $export['citygroups_form'] = $openlayers_presets;
