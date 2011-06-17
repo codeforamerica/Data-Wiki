@@ -146,7 +146,7 @@ cityGroups.map.popupPoints = function (nodes){
     console.log(node.latitude);
     console.log(node.longitude);
   
-  	var markerLocation = new L.LatLng(node.latitude, -122);
+  	var markerLocation = new L.LatLng(parseFloat(node.latitude), parseFloat(node.longitude));
 /*   	var markerLocation = new L.LatLng(47.5279, -122.274); */
     var customMarker = new datawiki.map.settings.customMarkerStyle(),
     marker = new L.Marker(markerLocation, {icon: customMarker});
