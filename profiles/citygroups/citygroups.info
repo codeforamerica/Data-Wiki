@@ -4,7 +4,7 @@ version = VERSION
 core = 7.x
 
 dependencies[] = features
-dependencies[] = datawiki_install
+dependencies[] = datawiki
 dependencies[] = datawiki_citygroups_install
 
 files[] = citygroups.profile

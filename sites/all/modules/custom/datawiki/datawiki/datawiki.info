@@ -74,7 +74,6 @@ dependencies[] = views_number_results
 dependencies[] = views_ui
 
 ; Custom
-dependencies[] = datawiki
 dependencies[] = citygroups_sub
 
 ; Features
@@ -83,5 +82,4 @@ dependencies[] = datawiki_feed_taxonomy_categories
 dependencies[] = datawiki_basic_page
 dependencies[] = datawiki_context
 dependencies[] = datawiki_content
-dependencies[] = datawiki_community_group_views
 dependencies[] = datawiki_developer

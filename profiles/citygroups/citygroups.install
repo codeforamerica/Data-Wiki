@@ -113,13 +113,13 @@ function citygroups_install() {
 
   $developer_role = new stdClass();
   $developer_role->name = 'developer';
-  $developer_role->weight = 4;
+  $developer_role->weight = 5;
   user_role_save($developer_role);
-  user_role_grant_permissions($developer->rid, array_keys(module_invoke_all('permission')));
+/*   user_role_grant_permissions($developer->rid, array_keys(module_invoke_all('permission'))); */
 
   $preauthenticated_role = new stdClass();
   $preauthenticated_role->name = 'preauthenticated';
-  $preauthenticated_role->weight = 4;
+  $preauthenticated_role->weight = 6;
   user_role_save($preauthenticated_role);
   
 
