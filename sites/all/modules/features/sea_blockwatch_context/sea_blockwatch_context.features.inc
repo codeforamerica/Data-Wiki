@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * seattle_blockwatch_context.features.inc
+ * sea_blockwatch_context.features.inc
  */
 
 /**
  * Implementation of hook_ctools_plugin_api().
  */
-function seattle_blockwatch_context_ctools_plugin_api() {
+function sea_blockwatch_context_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "context" && $api == "context") {
     return array("version" => 3);

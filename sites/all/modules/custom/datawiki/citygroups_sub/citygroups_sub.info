@@ -1,0 +1,8 @@
+name = CityGroups Subsite
+description = "Special Pages & Blocks & Settings for CityGroups"
+core = 7.x
+
+files[] = citygroups_sub.module
+
+dependencies[] = "datawiki_group_categories"
+dependencies[] = "datawiki_group_map"
