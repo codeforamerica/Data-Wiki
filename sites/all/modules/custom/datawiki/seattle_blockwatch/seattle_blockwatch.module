@@ -17,49 +17,49 @@ function seattle_blockwatch_help($path, $arg) {
   }
 }
 function seattle_blockwatch_menu() {
-  $items['blockwatch-finder'] = array(
+  $items['blockwatch'] = array(
     'title' => 'Home',
     'page callback' => 'seattle_blockwatch_home_render',
     'page arguments' => array(t('Blockwatch Home Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch-finder/map'] = array(
+  $items['blockwatch/map'] = array(
     'title' => 'Map',
     'page callback' => 'seattle_blockwatch_map_render',
     'page arguments' => array(t('Blockwatch Map Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch-finder/list'] = array(
+  $items['blockwatch/list'] = array(
     'title' => 'List',
     'page callback' => 'seattle_blockwatch_list_render',
     'page arguments' => array(t('Blockwatch List Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch-finder/topics'] = array(
+  $items['blockwatch/topics'] = array(
     'title' => 'Topics',
     'page callback' => 'seattle_blockwatch_topics_render',
     'page arguments' => array(t('Blockwatch Topics Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch-finder/about'] = array(
+  $items['blockwatch/about'] = array(
     'title' => 'About',
     'page callback' => 'seattle_blockwatch_about_render',
     'page arguments' => array(t('Blockwatch About Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch-finder/add'] = array(
+  $items['blockwatch/add'] = array(
     'title' => 'Add',
     'page callback' => 'seattle_blockwatch_add_render',
     'page arguments' => array(t('Blockwatch Add Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch-finder/contact'] = array(
+  $items['blockwatch/contact'] = array(
     'title' => 'Contact',
     'page callback' => 'seattle_blockwatch_contact_render',
     'page arguments' => array(t('Blockwatch Contact Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch-finder/upload'] = array(
+  $items['blockwatch/upload'] = array(
     'title' => 'Upload',
     'page callback' => 'seattle_blockwatch_upload_render',
     'page arguments' => array(t('Blockwatch Upload Page')),
@@ -69,7 +69,7 @@ function seattle_blockwatch_menu() {
 }
 
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_home_render() {
   $output = "home";
@@ -77,35 +77,35 @@ function seattle_blockwatch_home_render() {
 }
 
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_map_render() {
   $output = "map";
   return $output;
 }
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_list_render() {
   $output = "list";
   return $output;
 }
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_topics_render() {
   $output = "topics";
   return $output;
 }
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_about_render() {
   $output = "about";
   return $output;
 }
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_add_render() {
   $output = "add";
@@ -113,7 +113,7 @@ function seattle_blockwatch_add_render() {
 }
 
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_upload_render() {
   $output = "upload";
@@ -121,7 +121,7 @@ function seattle_blockwatch_upload_render() {
 }
 
 /**
- * Render custom page for blockwatch-finder.
+ * Render custom page for blockwatch.
  */
 function seattle_blockwatch_contact_render() {
   $output = "contact";
@@ -132,17 +132,19 @@ function seattle_blockwatch_contact_render() {
  * Create variables for theme.
  */
 function seattle_blockwatch_preprocess_page(&$vars) {
-  switch ($vars['page_path']) {
-    case 'blockwatch-finder':
-    case 'blockwatch-finder/map':
-    case 'blockwatch-finder/list':
-    case 'blockwatch-finder/add': 
-    case 'blockwatch-finder/about':
-    case 'blockwatch-finder/contact':
-    case 'blockwatch-finder/topics':
-    case 'blockwatch-finder/upload':
-         seattle_blockwatch_page_variables(&$vars);
-    break;
+  if(!empty($vars['page_path'])) {
+    switch ($vars['page_path']) {
+      case 'blockwatch':
+      case 'blockwatch/map':
+      case 'blockwatch/list':
+      case 'blockwatch/add': 
+      case 'blockwatch/about':
+      case 'blockwatch/contact':
+      case 'blockwatch/topics':
+      case 'blockwatch/upload':
+        seattle_blockwatch_page_variables(&$vars);
+      break;
+    }
   }
 }
 
@@ -152,9 +154,13 @@ function seattle_blockwatch_preprocess_page(&$vars) {
 function seattle_blockwatch_page_variables(&$vars) {
   // Override existing page variables.
   $vars['site_slogan'] = "A public directory of block watch captains in Seattle.";
+  $vars['logo_image_link'] = drupal_get_path('module', 'seattle_blockwatch') . '/images/citygroups-logo.png';
+  $vars['logo'] = '<a href="/"><img src="/' . $vars['logo_image_link'] . '" /></a>';
+
 
   // Custom object of special settings to be integrated with the main theme.
-  $vars['section'] = (array) array();
+  $vars['section'] = array();
+
   $vars['section']['section_name'] = "Block Watch Captain Finder";
   $vars['section']['html_root_custom'] = drupal_get_path('module', 'seattle_blockwatch');
   $vars['section']['place'] = "Seattle";
@@ -196,252 +202,12 @@ datawiki.map.settings.customMarkerStyle = ' . $vars['section']['map_markers'] .'
 </script> 
   
   ';
+  
+  // Add special stylesheet.
+  drupal_add_css(drupal_get_path('module', 'seattle_blockwatch') . '/css/blockwatch.css', array('group' => CSS_THEME));
+
+
   // return datawiki_group_map_render($vars);
 }
 
-/**
- * Implements hook_block_info().
- */
-function seattle_blockwatch_block_info() {
-  $blocks['seattle_blockwatch_welcome'] = array(
-    'info' => t('Seattle Blockwatch Welcome Message'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_branding_header'] = array(
-    'info' => t('Seattle Blockwatch Branding Header'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_branding_footer'] = array(
-    'info' => t('Seattle Blockwatch Branding Footer'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_facebook_like'] = array(
-    'info' => t('Seattle Blockwatch Facebook Like'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_add_data'] = array(
-    'info' => t('Seattle Blockwatch Add Data'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_new_group_search'] = array(
-    'info' => t('Seattle Blockwatch New Group Search'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_site_tagline'] = array(
-    'info' => t('Seattle Blockwatch Site Tagline'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_map'] = array(
-    'info' => t('Seattle Blockwatch Map'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_categories'] = array(
-    'info' => t('Seattle Blockwatch Categories'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_list'] = array(
-    'info' => t('Seattle Blockwatch List'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_home_menu'] = array(
-    'info' => t('Seattle Blockwatch Home Menu'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_categories_menu'] = array(
-    'info' => t('Seattle Blockwatch Categories Menu'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_map_menu'] = array(
-    'info' => t('Seattle Blockwatch Map Menu'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_list_menu'] = array(
-    'info' => t('Seattle Blockwatch List Menu'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['seattle_blockwatch_about_block'] = array(
-    'info' => t('Seattle Blockwatch About Block'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  return $blocks;
-}
-
-/**
- * Implements hook_block_view().
- */
-function seattle_blockwatch_block_view($delta = '') {
-  switch ($delta) {
-    case 'seattle_blockwatch_welcome':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('welcome');
-      break;
-      
-    case 'seattle_blockwatch_branding_header':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('branding_header');
-      break;
-      
-    case 'seattle_blockwatch_branding_footer':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('branding_footer');
-      break;     
-      
-    case 'seattle_blockwatch_facebook_like':
-      $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
-      $url .= '://';
-      $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
-      $url .= $_SERVER['REQUEST_URI'];
-      $block['subject'] = '';
-      $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
-      break;
-
-    case 'seattle_blockwatch_new_group_search':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('new_group_search');
-      break;
-
-    case 'seattle_blockwatch_add_data':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('add_data');
-      break;
-
-    case 'seattle_blockwatch_site_tagline':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('site_tagline');
-      break;
-      
-    case 'seattle_blockwatch_map':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('map');
-      break;
-    
-    case 'seattle_blockwatch_categories':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('categories');
-      break;
-    
-    case 'seattle_blockwatch_list':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('list');
-      break;
-      
-    case 'seattle_blockwatch_home_menu':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('home_menu');
-      break;
-    
-    case 'seattle_blockwatch_categories_menu':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('categories_menu');
-      break;
-      
-    case 'seattle_blockwatch_list_menu':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('list_menu');
-      break; 
-
-    case 'seattle_blockwatch_map_menu':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('map_menu');
-      break;
-       
-    case 'seattle_blockwatch_about_block':
-      $block['subject'] = '';
-      $block['content'] = seattle_blockwatch_contents('about_block');
-      break;
-  }
-  return $block;
-}
-
-/**
- * Block placeholder content
- */
-function seattle_blockwatch_contents($type) {
-  $output = '';
-  
-  switch ($type) {
-    case 'welcome':
-/*       $output .= '<h2>' . t('Find groups by location or topic.') . '</h2>'; */
-      break;
-
-    case 'site_tagline':
-/*       $output .= '<h2>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h2>'; */
-      break;
-      
-    case 'branding_header':
-/*       $output .= '<div id="branding-header"></div>'; */
-      break;
-      
-    case 'branding_footer':
-/*       $output .= '<div id="branding-footer"></div>'; */
-      break;
-
-    case 'new_group_search':
-      global $base_url;
-      $output .= '<div id="new-group-search">' 
-        . '<div class="form-submit">'
-        . l('New Search', $base_url)
-        . '</div>'
-        . '</div>';
-      break;
-      
-    case 'add_data':
-        $output .= "<div class=\"add\">Are you a block watch captain? <a href=\"#\">Add</a></div>";
-      break;
-      
-      case 'map':
-        $output .= "<div id=\"map\">Map</div>";
-      break;
-      
-      case 'categories':
-        $output .= "<div id=\"topics\">Topics</div>";
-      break;
-      
-      case 'list':
-        $output .= "<div id=\"list\">List</div>";
-      break;
-      
-      case 'home_menu':
-        $output .= '<div id="search-links">';
-        $output .= '<div id="search-places" class="form-input">' . t('Find your block watch captain');
-        $output .= '<input placeholder="Enter your address here." />';
-        $output .= '</div>';
-        $output .= '</div>';
-        $output .= '<div id="map-links">';
-        $output .= '<ul>';
-        $output .= '<li><a href="blockwatch-finder/about">' . t('About') . '</a></li>';
-        $output .= '<li><a href="blockwatch-finder/map">' . t('Map') . '</a></li>';
-        $output .= '<li><a href="blockwatch-finder/list">' . t('List') . '</a></li>';
-        $output .= '<li><a href="blockwatch-finder/add">' . t('Add Block Watch') . '</a></li>';
-        $output .= '<li><a href="blockwatch-finder/upload">' . t('Upload Data') . '</a></li>';
-        $output .= '</ul>';
-        $output .= '</div>';                
-      break;
-      
-      case 'map_menu':
-        $output .= '';
-      break;
-      
-      case 'list_menu':
-        $output .= "list menu block";
-      break;
-      
-      case 'categories_menu':
-        $output .= "categories menu block";
-      break;
-      
-      case 'about_block':
-        $output .= "<h3>What is a Block Watch Captain?</h3>";
-        $output .= "<p>Block Watch is a national program that is based
-        on the principle that neighbors working together are the 
-        first and best line of defense against crime.</p>";
-        $output .= "<p>Block Watch Captains lead the program at the block-level,
-        serving as the eyes and ears for the police department and help
-        to organize block parties, street clean-ups and other 
-        events and initiatives.</p>";
-        $output .= "<p>Click <a href=\"/blockwatch-finder/about\">here</a> to learn more</p>";
-      break;
-  }
-  
-  return $output;
-}
+/* include('seattle_blockwatch_blocks.inc.php'); */

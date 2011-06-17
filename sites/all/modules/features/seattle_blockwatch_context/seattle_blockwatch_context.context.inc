@@ -26,23 +26,17 @@ function seattle_blockwatch_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'seattle_blockwatch-seattle_blockwatch_new_group_search' => array(
-          'module' => 'seattle_blockwatch',
-          'delta' => 'seattle_blockwatch_new_group_search',
+        'datawiki_collection-datawiki_facebook_like' => array(
+          'module' => 'datawiki_collection',
+          'delta' => 'datawiki_facebook_like',
           'region' => 'sidebar_first',
-          'weight' => '-32',
+          'weight' => '-30',
         ),
         'seattle_blockwatch-seattle_blockwatch_about_block' => array(
           'module' => 'seattle_blockwatch',
           'delta' => 'seattle_blockwatch_about_block',
           'region' => 'sidebar_first',
           'weight' => '-10',
-        ),
-        'datawiki_collection-datawiki_facebook_like' => array(
-          'module' => 'datawiki_collection',
-          'delta' => 'datawiki_facebook_like',
-          'region' => 'sidebar_first',
-          'weight' => '-30',
         ),
         'seattle_blockwatch-seattle_blockwatch_home_menu' => array(
           'module' => 'seattle_blockwatch',
