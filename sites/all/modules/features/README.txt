@@ -1,36 +1,100 @@
-Goal for Labs Friday
-
-Fix DataWiki features
-
-DataWiki Overview
-We are using a very simple Features-based framework to set up structured data types for the Data Wiki. The DataWiki is intended to be an open data workbook that allows for offline data collection (mobile apps & printable maps) & reconciling crowd-sourced data feeds.
-
-Structure
-
-CityGroups is an installation profile that will theme your site, add content pages, and turn on all of the Drupal settings that will give you a datawiki for collecting information on community groups in your city.
-Lives here: drupal/profiles/citygroups
-
-Triggers modules & dependent modules.
+# About the Features
 
 
-Modules
+## DataWiki Overview
+We are using a very simple Features-based framework to set up structured
+data types for the Data Wiki. The DataWiki is intended to be an open data
+workbook that allows for offline data collection (mobile apps & printable
+ maps) & reconciling crowd-sourced data feeds.
+
+
+There are a lot of features, the idea is that each feature is 
+broken into smaller components. 
+This makes the features easier to debug.
+
+## Structure
+
+CityGroups is an installation profile that will theme your site, 
+add content pages, and turn on all of the Drupal settings that will 
+give you a datawiki for collecting information on community groups 
+in your city.
+
+The install profile lives here: drupal/profiles/citygroups
+
+This install module triggers modules & dependent modules.
+It also installs the theme, user roles and a few custom settings.
+
+
+## Modules
 sites/all
-There are many modules that need installing, they are installed to sites/all like a normal Drupal site. A custom make script could build this. These must be installed before installing CityGroups.
+There are many modules that need installing, they are installed to
+sites/all like a normal Drupal site. A custom make script could 
+build this. These must be installed before installing CityGroups.
 
+If you checkout the Data-Wiki codebase, you should have most of the
+modules. There are a few modules we have checked out from 
+git.drupal.org because we are doing active devlopment (ex. geofield, geoPHP).
 
-DataWiki is the core feature that turns on the shared Drupal settings common for other types of datawikis. For example, in addition to collecting crowd-sourced structured data for community groups, you can also collect social services information, information about community gardens, kitchens & farms.
+Be sure you check out the correct branch: 
+currently: datawiki_prealpha_v1.0
+
+You will need to download and install these. (Use the master branch.)
+
+## Features & Custom Modules Overview
+
+(Will try to keep this up to date.)
+
+DataWiki is the core feature that turns on the shared Drupal settings 
+common for other types of datawikis. For example, in addition to collecting
+crowd-sourced structured data for community groups, you can also collect 
+social services information, information about community gardens, 
+kitchens & farms.
 Lives here: 
 
+### DataWiki Install Feature
 drupal/sites/all/modules/features/datawiki_install
 
-DataWiki Views
+Installs all dependent core & contrib modules.
+The idea: anything that is not a feature.
+
+This triggers the custom datawiki module, which sets
+off the chain of triggering everything else.
+
+### Datawiki Module
+
+
+
+
+
+### Citygroups Splash
+Based off OpenPublic Splash page, this provides an overlay on installation.
+Prompts administrators regarding what to do.
+
+
+### Views Number Results
+
+
+### FieldEdit
+Dev. This module does nothing.
+
+### Node Integration
+??? 
+
+
+
+
+---- ^ Current June 16, 2011 ---------------------------------------------------
+The stuff below may be out of date.
+
+
+### DataWiki Views
 General Views across all DataWiki content.
 datawiki_views
 
-
 This includes:
 Module settings, special module dependencies. 
-We are including the OpenPublic core feature set so as to help in instances where DataWikis are used by governments.
+We are including the OpenPublic core feature set so as to help in instances 
+where DataWikis are used by governments.
 
 
 Custom Modules

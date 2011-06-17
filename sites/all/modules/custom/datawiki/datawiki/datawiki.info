@@ -9,7 +9,6 @@ files[] = datawiki.module
 # configure = admin/config/datawiki/settings
 
 ; Custom Modules
-dependencies[] = datawiki_blocks
 dependencies[] = datawiki_collection
 
 ; Features
