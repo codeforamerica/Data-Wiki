@@ -13,7 +13,7 @@ function citygroups_install() {
 
  // Enable default theme
   theme_enable(array('datawiki', 'datawiki_admin'));
-  variable_set('theme_default', 'datawiki_collection');
+  variable_set('theme_default', 'citygroups_sub');
   variable_set('admin_theme', 'datawiki_admin');
   variable_set('admin_theme', 'datawiki_admin');
   variable_set('node_admin_theme', '0');
@@ -110,8 +110,19 @@ function citygroups_install() {
   $tester_role->name = 'tester';
   $tester_role->weight = 4;
   user_role_save($tester_role);
+
+  $developer_role = new stdClass();
+  $developer_role->name = 'developer';
+  $developer_role->weight = 4;
+  user_role_save($developer_role);
+  user_role_grant_permissions($developer->rid, array_keys(module_invoke_all('permission')));
+
+  $preauthenticated_role = new stdClass();
+  $preauthenticated_role->name = 'preauthenticated';
+  $preauthenticated_role->weight = 4;
+  user_role_save($preauthenticated_role);
   
-/*   user_role_grant_permissions($moderator_role->rid, array_keys(module_invoke_all('permission'))); */
+
 
 
   // Create a Home link in the main menu.

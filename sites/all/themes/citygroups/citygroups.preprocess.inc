@@ -6,7 +6,7 @@
 /**
  * HTML preprocessing
  */
-function datawiki_preprocess_html(&$vars) {
+function citygroups_preprocess_html(&$vars) {
   global $theme_key, $user;
 
   // Add to array of helpful body classes
@@ -25,17 +25,31 @@ function datawiki_preprocess_html(&$vars) {
 /**
  * Maintenance page preprocessing
  */
-function  datawiki_preprocess_maintenance_page(&$vars) {
+function  citygroups_preprocess_maintenance_page(&$vars) {
   if (class_exists('Database', FALSE)) {
-    datawiki_preprocess_html($vars);  // set html vars (html.tpl.php is in maintenance-page.tpl.php)
-    datawiki_preprocess_page($vars);  // set page vars
+    citygroups_preprocess_html($vars);  // set html vars (html.tpl.php is in maintenance-page.tpl.php)
+    citygroups_preprocess_page($vars);  // set page vars
   }
+}
+
+/**
+ * Generate count of groups and use it in the slogan.
+ */
+function citygroups_slogan_count() {
+  $count = "250";
+  $city = "Seattle";
+  $slogan = t("A public directory of over ") . $count . t(" community groups in ") . $city . ".";
+  return $slogan;
 }
 
 /**
  * Page preprocessing
  */
-function datawiki_preprocess_page(&$vars) {
+function citygroups_preprocess_page(&$vars) {
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  // @TODO Temp declaration of section here to prevent some bugs.
+  $vars['section'] = array();
+  $vars['section']['section_name'] = '';
 
   // Create variables from theme settings (set in .info file)
   $vars['sitename'] = theme_get_setting('sitename');
@@ -45,11 +59,15 @@ function datawiki_preprocess_page(&$vars) {
     $vars['site_slogan'] = variable_get('site_slogan');
   }
   
+  // Completely override slogan with count of number of groups.
+  $vars['site_slogan'] = citygroups_slogan_count();
+  
   $vars['logo_image_link'] = theme_get_setting('logo_image_link');
-  $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'datawiki') . '/' . $vars['logo_image_link'] . '" /></a>';
- 
+  $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'citygroups') . '/' . $vars['logo_image_link'] . '" /></a>';
+
+
   $vars['prealpha'] = '<div class="prealpha">PRE-ALPHA</div>';
- 
+  
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {
     $vars['main_region_width'] = 'grid_16';
@@ -65,8 +83,8 @@ function datawiki_preprocess_page(&$vars) {
     )
   );
   $vars['logo_image_link'] = l($vars['logo_image'], '<front>', array('html' => TRUE));
-  
 */
+  
   // Create login link
   $account_text = t('Sign in');
   global $user;
@@ -81,7 +99,7 @@ function datawiki_preprocess_page(&$vars) {
   ));
   
   // Temp for wireframing or MVP
-  $vars['submit_btn'] = url(drupal_get_path('theme', 'datawiki') . '/images/submit-large-overlay.gif');
+  $vars['submit_btn'] = url(drupal_get_path('theme', 'et') . '/images/submit-large-overlay.gif');
   
   // Hardcoded site names
   switch ($_SERVER['HTTP_HOST']) {
@@ -116,7 +134,7 @@ function datawiki_preprocess_page(&$vars) {
 /**
  * Region preprocessing
  */
-function datawiki_preprocess_region(&$vars) {
+function citygroups_preprocess_region(&$vars) {
   // Set region variables
   $vars['region_style'] = $vars['fluid_width'] = '';
   $vars['region_name'] = str_replace('_', '-', $vars['region']);
@@ -124,10 +142,11 @@ function datawiki_preprocess_region(&$vars) {
 }
 
 
+
 /**
  * Block preprocessing
  */
-function datawiki_preprocess_block(&$vars) {
+function citygroups_preprocess_block(&$vars) {
   global $theme_info, $user;
 
   // Exit if block is outside a defined region
@@ -140,7 +159,7 @@ function datawiki_preprocess_block(&$vars) {
 /**
  * Node preprocessing
  */
-function datawiki_preprocess_node(&$vars) {
+function citygroups_preprocess_node(&$vars) {
   // dpm($vars); not working, use this krumo call instead to see the node object.
 /*   var_dump(krumo($vars)); */
 
@@ -169,7 +188,7 @@ function datawiki_preprocess_node(&$vars) {
 }
 
 /* Load location data for nodes */
-function datawiki_node_location(&$vars) {
+function citygroups_node_location(&$vars) {
   $output = '';
   if(!empty($vars['field_location_text']['und'][0]['value'])) {
     $output .=  t(', ') . $vars['field_location_text']['und'][0]['value'];
@@ -188,8 +207,8 @@ function datawiki_node_location(&$vars) {
   return $output;
 }
 
-function datawiki_node_share(&$vars) {
-  datawiki_fb_like($vars);
+function citygroups_node_share(&$vars) {
+  citygroups_fb_like($vars);
   $output = '';
   $output .= '<div class="node-share">';
   $output .= '<div class="facebook">' . $vars['fb_like'] . '</div>';
@@ -197,7 +216,7 @@ function datawiki_node_share(&$vars) {
   return $output;
 }
 
-function datawiki_fb_like(&$vars) {
+function citygroups_fb_like(&$vars) {
   
   // Facebook Like link (TODO: Use module)
   // Make URL, Facebook is not ok with a "localhost" URL.
@@ -212,11 +231,11 @@ function datawiki_fb_like(&$vars) {
 /**
  * Preprocessing function for node types.
  */
-function datawiki_preprocess_node_community_group(&$vars) {
+function citygroups_preprocess_node_online_community(&$vars) {
   // Create content variables for this node type.
   $vars['edit'] = l("Is this information incorrect? Sign in to edit it.", 'node/' . $vars['node']->nid . '/edit');
   if(($vars['teaser'] == FALSE) && ($vars['view_mode'] != 'search_result')) {
-    $vars['content']['links']['share']['#links']['share']['title'] = datawiki_node_share($vars);
+    $vars['content']['links']['share']['#links']['share']['title'] = citygroups_node_share($vars);
     $vars['content']['links']['share']['#links']['share']['html'] = TRUE;
   }
 
@@ -225,7 +244,7 @@ function datawiki_preprocess_node_community_group(&$vars) {
 /**
  * Comment preprocessing
  */
-function datawiki_preprocess_comment(&$vars) {
+function citygroups_preprocess_comment(&$vars) {
   static $comment_odd = TRUE;
  // Comment is odd or even
 
@@ -239,7 +258,7 @@ function datawiki_preprocess_comment(&$vars) {
  * Views preprocessing
  * Add view type class (e.g., node, teaser, list, table)
  */
-function datawiki_preprocess_views_view(&$vars) {
+function citygroups_preprocess_views_view(&$vars) {
   $vars['css_name'] = $vars['css_name'] .' view-style-'. drupal_clean_css_identifier(strtolower($vars['view']->plugin_name));
   // Yes, this is kludgy.
   $term0 = $term1 = $term2 = $vars['search_string'] = '';
@@ -271,9 +290,8 @@ function datawiki_preprocess_views_view(&$vars) {
     }
   }
 */
-/*
 
-  if(!empty($vars['view']->exposed_input['category']) || !empty($vars['view']->exposed_input['type_group']) || !empty($vars['view']->exposed_input['category'])) {
+  if(!empty($vars['view']->exposed_input['category']) || !empty($vars['view']->exposed_input['type_community']) || !empty($vars['view']->exposed_input['category'])) {
     $vars['search_string'] = '<div class="search-terms">' . 
       '<h3>' . t('Search terms') . '</h3>'
         . '<div class="field-label">' . t('Neighborhood: ') . '</div>' 
@@ -282,7 +300,6 @@ function datawiki_preprocess_views_view(&$vars) {
         . '<div class="field-item">' . $term1 . '</div>'
         . '</div>';
   }
-*/
 }
 
 
@@ -290,7 +307,7 @@ function datawiki_preprocess_views_view(&$vars) {
  * Search result preprocessing
  */
 /*
-function datawiki_preprocess_search_result(&$vars) {
+function citygroups_preprocess_search_result(&$vars) {
   static $search_zebra = 'even';
 
   $search_zebra = ($search_zebra == 'even') ? 'odd' : 'even';

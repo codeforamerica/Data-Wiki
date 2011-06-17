@@ -44,16 +44,17 @@ regions[footer] = "Footer"
 regions[footer_bottom] = "Footer bottom"
 regions[page_bottom] = "Page bottom"
 
+
 ; Features settings
 
 features[] = logo
 features[] = name
 features[] = slogan
-features[] = node_user_picture
-features[] = comment_user_picture
+; features[] = node_user_picture
+; features[] = comment_user_picture
 features[] = favicon
 
 ; Custom Theme Settings
-settings[sitename] = CityGroupsCollection
-;settings[site_slogan] = Tagline
-settings[logo_image_link] = images/city-groups-logo.png
+settings[sitename] = DataWiki
+settings[site_slogan] = A public directory
+; settings[logo_image_link] = images/logo.png
