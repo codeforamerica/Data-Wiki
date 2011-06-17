@@ -1,3 +1,50 @@
+ROADMAP / DataWiki Dev Blog
+
+What's going on June 16, 2011
+by Chach
+
+We are adding a theme for blockwatches.
+I've been upgrading citygroups for map features and some better
+architecture.
+
+##########################
+!
+! Necessary Features for Blockwatch
+! 1. Home page
+! 2. Add page
+! 3. Map
+! 4. About
+! 5. List
+! 
+! Decisions
+! * path http://citygroups.org/blockwatch
+##########################
+
+Stuff for DataWiki
+##########################
+! geocoding
+! context-coding...
+! data cleanup! yay!
+! new seattle export (improved)
+! blockwatch vs main app & theme
+! - geocode search
+! - layout
+! domain management + update (transfer to dev server)
+! vocabularies
+! bounding box queries
+! blockwatch theme structure
+! test with 3 different data sources (sol, cathy, amy, blockwatch)
+! geoJSON submodule
+! Polymaps?
+! button to turn off admin overlay
+! bot user profile
+##########################
+
+
+==================
+June 10-ish, 2011
+by Chach
+
 Refactoring the features to make them more intuitively named & less buggy.
 
 This requires moving all the old features into the new feature structure (mostly by hand.)
