@@ -26,26 +26,26 @@ function datawiki_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'datawiki_blocks-datawiki_facebook_like' => array(
-          'module' => 'datawiki_blocks',
+        'datawiki-datawiki_facebook_like' => array(
+          'module' => 'datawiki',
           'delta' => 'datawiki_facebook_like',
           'region' => 'sidebar_first',
           'weight' => '-10',
         ),
-        'datawiki_blocks-datawiki_welcome' => array(
-          'module' => 'datawiki_blocks',
+        'datawiki-datawiki_welcome' => array(
+          'module' => 'datawiki',
           'delta' => 'datawiki_welcome',
           'region' => 'content_bottom',
           'weight' => '-10',
         ),
-        'datawiki_blocks-datawiki_home_menu' => array(
-          'module' => 'datawiki_blocks',
+        'datawiki-datawiki_home_menu' => array(
+          'module' => 'datawiki',
           'delta' => 'datawiki_home_menu',
           'region' => 'content_bottom',
           'weight' => '-9',
         ),
-        'datawiki_blocks-datawiki_add_data' => array(
-          'module' => 'datawiki_blocks',
+        'datawiki-datawiki_add_data' => array(
+          'module' => 'datawiki',
           'delta' => 'datawiki_add_data',
           'region' => 'content_bottom',
           'weight' => '-7',
@@ -76,8 +76,8 @@ function datawiki_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'datawiki_blocks-datawiki_header_menu' => array(
-          'module' => 'datawiki_blocks',
+        'datawiki-datawiki_header_menu' => array(
+          'module' => 'datawiki',
           'delta' => 'datawiki_header_menu',
           'region' => 'header_menu',
           'weight' => '-10',
@@ -94,14 +94,14 @@ function datawiki_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
-        'datawiki_blocks-datawiki_navigation_menu' => array(
-          'module' => 'datawiki_blocks',
+        'datawiki-datawiki_navigation_menu' => array(
+          'module' => 'datawiki',
           'delta' => 'datawiki_navigation_menu',
           'region' => 'footer_top',
           'weight' => '-10',
         ),
-        'datawiki_blocks-datawiki_branding_footer' => array(
-          'module' => 'datawiki_blocks',
+        'datawiki-datawiki_branding_footer' => array(
+          'module' => 'datawiki',
           'delta' => 'datawiki_branding_footer',
           'region' => 'footer_bottom',
           'weight' => '-10',

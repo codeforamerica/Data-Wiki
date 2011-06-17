@@ -89,13 +89,9 @@ function seattle_blockwatch_block_view($delta = '') {
       break;     
       
     case 'seattle_blockwatch_facebook_like':
-      $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
-      $url .= '://';
-      $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
-      $url .= $_SERVER['REQUEST_URI'];
       $block['subject'] = '';
-      $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
-      break;
+      $block['content'] = seattle_blockwatch_contents('facebook_like');
+     break;
 
     case 'seattle_blockwatch_new_group_search':
       $block['subject'] = '';
@@ -160,14 +156,14 @@ function seattle_blockwatch_block_view($delta = '') {
  */
 function seattle_blockwatch_contents($type) {
   $output = '';
-  
+
   switch ($type) {
     case 'welcome':
-/*       $output .= '<h2>' . t('Find groups by location or topic.') . '</h2>'; */
+/*       $output .= t('Welcome Message'); */
       break;
 
     case 'site_tagline':
-/*       $output .= '<h2>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h2>'; */
+/*       $output .= '<h2>' . t('A public directory of community groups.') . '</h2>'; */
       break;
       
     case 'branding_header':
@@ -177,33 +173,47 @@ function seattle_blockwatch_contents($type) {
     case 'branding_footer':
 /*       $output .= '<div id="branding-footer"></div>'; */
       break;
+      
+     case 'facebook_like':
+
+/*
+      $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
+      $url .= '://';
+      $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
+      $url .= $_SERVER['REQUEST_URI'];
+      $output .= '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
+  
+*/    break;     
 
     case 'new_group_search':
+/*
       global $base_url;
       $output .= '<div id="new-group-search">' 
         . '<div class="form-submit">'
         . l('New Search', $base_url)
         . '</div>'
         . '</div>';
+*/
       break;
       
     case 'add_data':
-        $output .= "<div class=\"add\">Are you a block watch captain? <a href=\"#\">Add</a></div>";
+/*         $output .= "<div class=\"add-group\">Are you a block watch captain? <a href=\"#\">Add</a></div>"; */
       break;
       
       case 'map':
-        $output .= "<div id=\"map\">Map</div>";
+/*         $output .= "<div id=\"map\">Map</div>"; */
       break;
       
       case 'categories':
-        $output .= "<div id=\"topics\">Topics</div>";
+/*         $output .= "<div id=\"topics\">Topics</div>"; */
       break;
       
       case 'list':
-        $output .= "<div id=\"list\">List</div>";
+/*         $output .= "<div id=\"list\">List</div>"; */
       break;
       
       case 'home_menu':
+/*
         $output .= '<div id="search-links">';
         $output .= '<div id="search-places" class="form-input">' . t('Find your block watch captain');
         $output .= '<input placeholder="Enter your address here." />';
@@ -217,22 +227,24 @@ function seattle_blockwatch_contents($type) {
         $output .= '<li><a href="blockwatch/add">' . t('Add Block Watch') . '</a></li>';
         $output .= '<li><a href="blockwatch/upload">' . t('Upload Data') . '</a></li>';
         $output .= '</ul>';
-        $output .= '</div>';                
+        $output .= '</div>';     
+*/           
       break;
       
       case 'map_menu':
-        $output .= '';
+/*         $output .= ''; */
       break;
       
       case 'list_menu':
-        $output .= "list menu block";
+/*         $output .= "list menu block"; */
       break;
       
       case 'categories_menu':
-        $output .= "categories menu block";
+/*         $output .= "categories menu block"; */
       break;
       
       case 'about_block':
+/*
         $output .= "<h3>What is a Block Watch Captain?</h3>";
         $output .= "<p>Block Watch is a national program that is based
         on the principle that neighbors working together are the 
@@ -242,8 +254,9 @@ function seattle_blockwatch_contents($type) {
         to organize block parties, street clean-ups and other 
         events and initiatives.</p>";
         $output .= "<p>Click <a href=\"/blockwatch/about\">here</a> to learn more</p>";
+*/
       break;
   }
-  
+  $output = 'test';
   return $output;
 }

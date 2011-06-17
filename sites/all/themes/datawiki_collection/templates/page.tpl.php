@@ -17,11 +17,7 @@
         <?php print $logo; ?>
         <?php print $prealpha; ?>
       </div>
-      <?php if ($section['section_name']): ?>
-        <div class="header-section-name grid_4">
-          <?php print $section['section_name']; ?>
-        </div>
-      <?php endif; ?>
+
       <div class="header-menu-container grid_2">
         <?php print render($page['header_menu']); ?>
       </div>

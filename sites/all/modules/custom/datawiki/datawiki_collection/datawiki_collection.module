@@ -10,7 +10,7 @@
  */
 function datawiki_collection_help($path, $arg) {
   switch ($path) {
-    case 'datawiki_collection':
+    case 'datawiki_collection_collection':
       $explanation = t(
         'Custom features for Data Wiki Group Map.');
       return "<p>$explanation</p>";
@@ -95,59 +95,59 @@ datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
  * Implements hook_block_info().
  */
 function datawiki_collection_block_info() {
-  $blocks['datawiki_welcome'] = array(
+  $blocks['datawiki_collection_welcome'] = array(
     'info' => t('Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_branding_header'] = array(
+  $blocks['datawiki_collection_branding_header'] = array(
     'info' => t('Branding Header'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_branding_footer'] = array(
+  $blocks['datawiki_collection_branding_footer'] = array(
     'info' => t('Branding Footer'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_facebook_like'] = array(
+  $blocks['datawiki_collection_facebook_like'] = array(
     'info' => t('Facebook Like'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_add_data'] = array(
+  $blocks['datawiki_collection_add_data'] = array(
     'info' => t('Add Data'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_new_group_search'] = array(
+  $blocks['datawiki_collection_new_group_search'] = array(
     'info' => t('New Group Search'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_site_tagline'] = array(
+  $blocks['datawiki_collection_site_tagline'] = array(
     'info' => t('Site Tagline'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_map'] = array(
+  $blocks['datawiki_collection_map'] = array(
     'info' => t('Map'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_categories'] = array(
+  $blocks['datawiki_collection_categories'] = array(
     'info' => t('Categories'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_list'] = array(
+  $blocks['datawiki_collection_list'] = array(
     'info' => t('List'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_home_menu'] = array(
+  $blocks['datawiki_collection_home_menu'] = array(
     'info' => t('Home Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_categories_menu'] = array(
+  $blocks['datawiki_collection_categories_menu'] = array(
     'info' => t('Categories Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_map_menu'] = array(
+  $blocks['datawiki_collection_map_menu'] = array(
     'info' => t('Map Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['datawiki_list_menu'] = array(
+  $blocks['datawiki_collection_list_menu'] = array(
     'info' => t('List Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
@@ -159,22 +159,22 @@ function datawiki_collection_block_info() {
  */
 function datawiki_collection_block_view($delta = '') {
   switch ($delta) {
-    case 'datawiki_welcome':
+    case 'datawiki_collection_welcome':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('welcome');
       break;
       
-    case 'datawiki_branding_header':
+    case 'datawiki_collection_branding_header':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('branding_header');
       break;
       
-    case 'datawiki_branding_footer':
+    case 'datawiki_collection_branding_footer':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('branding_footer');
       break;     
       
-    case 'datawiki_facebook_like':
+    case 'datawiki_collection_facebook_like':
       $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
       $url .= '://';
       $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
@@ -183,52 +183,52 @@ function datawiki_collection_block_view($delta = '') {
       $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
       break;
 
-    case 'datawiki_new_group_search':
+    case 'datawiki_collection_new_group_search':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('new_group_search');
       break;
 
-    case 'datawiki_add_data':
+    case 'datawiki_collection_add_data':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('add_data');
       break;
 
-    case 'datawiki_site_tagline':
+    case 'datawiki_collection_site_tagline':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('site_tagline');
       break;
       
-    case 'datawiki_map':
+    case 'datawiki_collection_map':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('map');
       break;
     
-    case 'datawiki_categories':
+    case 'datawiki_collection_categories':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('categories');
       break;
     
-    case 'datawiki_list':
+    case 'datawiki_collection_list':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('list');
       break;
       
-    case 'datawiki_home_menu':
+    case 'datawiki_collection_home_menu':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('home_menu');
       break;
     
-    case 'datawiki_categories_menu':
+    case 'datawiki_collection_categories_menu':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('categories_menu');
       break;
       
-    case 'datawiki_list_menu':
+    case 'datawiki_collection_list_menu':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('list_menu');
       break; 
 
-    case 'datawiki_map_menu':
+    case 'datawiki_collection_map_menu':
       $block['subject'] = '';
       $block['content'] = datawiki_collection_contents('map_menu');
       break; 

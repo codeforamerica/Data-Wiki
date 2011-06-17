@@ -210,4 +210,4 @@ datawiki.map.settings.customMarkerStyle = ' . $vars['section']['map_markers'] .'
   // return datawiki_group_map_render($vars);
 }
 
-/* include('seattle_blockwatch_blocks.inc.php'); */
+include('seattle_blockwatch.blocks.inc.php');
