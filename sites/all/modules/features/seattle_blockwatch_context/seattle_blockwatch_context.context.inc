@@ -19,18 +19,56 @@ function seattle_blockwatch_context_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'blockwatch-finder*' => 'blockwatch-finder*',
-        'blockwatch-finder/*' => 'blockwatch-finder/*',
+        'blockwatch-finder' => 'blockwatch-finder',
       ),
     ),
   );
   $context->reactions = array(
-    'theme' => array(
-      'title' => 'Blockwatch Finder',
-      'subtitle' => 'A public directory of blockwatches in Seattle.',
-    ),
-    'theme_html' => array(
-      'class' => 'blockwatch-finder',
+    'block' => array(
+      'blocks' => array(
+        'seattle_blockwatch-seattle_blockwatch_new_group_search' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_new_group_search',
+          'region' => 'sidebar_first',
+          'weight' => '-32',
+        ),
+        'seattle_blockwatch-seattle_blockwatch_about_block' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_about_block',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
+        'datawiki_collection-datawiki_facebook_like' => array(
+          'module' => 'datawiki_collection',
+          'delta' => 'datawiki_facebook_like',
+          'region' => 'sidebar_first',
+          'weight' => '-30',
+        ),
+        'seattle_blockwatch-seattle_blockwatch_home_menu' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_home_menu',
+          'region' => 'content_top',
+          'weight' => '-10',
+        ),
+        'seattle_blockwatch-seattle_blockwatch_welcome' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_welcome',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'seattle_blockwatch-seattle_blockwatch_map' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_map',
+          'region' => 'content',
+          'weight' => '-9',
+        ),
+        'seattle_blockwatch-seattle_blockwatch_add_data' => array(
+          'module' => 'seattle_blockwatch',
+          'delta' => 'seattle_blockwatch_add_data',
+          'region' => 'content_bottom',
+          'weight' => '-10',
+        ),
+      ),
     ),
   );
   $context->condition_mode = 0;

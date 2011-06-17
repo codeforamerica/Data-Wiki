@@ -229,6 +229,10 @@ function seattle_blockwatch_block_info() {
     'info' => t('Seattle Blockwatch List Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+  $blocks['seattle_blockwatch_about_block'] = array(
+    'info' => t('Seattle Blockwatch About Block'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
   return $blocks;
 }
 
@@ -309,7 +313,12 @@ function seattle_blockwatch_block_view($delta = '') {
     case 'seattle_blockwatch_map_menu':
       $block['subject'] = '';
       $block['content'] = seattle_blockwatch_contents('map_menu');
-      break; 
+      break;
+       
+    case 'seattle_blockwatch_about_block':
+      $block['subject'] = '';
+      $block['content'] = seattle_blockwatch_contents('about_block');
+      break;
   }
   return $block;
 }
@@ -414,6 +423,17 @@ function seattle_blockwatch_contents($type) {
       
       case 'categories_menu':
         $output .= "categories menu block";
+      break;
+      
+      case 'about_block':
+        $output .= "<h3>What is a Block Watch Captain?</h3>";
+        $output .= "<p>Block Watch is a national program that is based
+        on the principle that neighbors working together are the 
+        first and best line of defense against crime.</p>";
+        $output .= "<p>Block Watch Captains lead the program at the block level,
+        serving as the eyes and ears for the police department and help
+        to organize block parties, street clean-ups and other 
+        events and initiatives.</p>";
       break;
   }
   
