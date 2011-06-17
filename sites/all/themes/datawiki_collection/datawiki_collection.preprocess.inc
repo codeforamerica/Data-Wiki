@@ -46,7 +46,7 @@ function datawiki_collection_slogan_count() {
  * Page preprocessing
  */
 function datawiki_collection_preprocess_page(&$vars) {
-
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
   // Create variables from theme settings (set in .info file)
   $vars['sitename'] = theme_get_setting('sitename');
   

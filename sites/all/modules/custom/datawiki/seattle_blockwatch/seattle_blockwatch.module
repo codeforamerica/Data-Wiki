@@ -59,6 +59,12 @@ function seattle_blockwatch_menu() {
     'page arguments' => array(t('Blockwatch Contact Page')),
     'access callback' => TRUE,
   );
+  $items['blockwatch-finder/upload'] = array(
+    'title' => 'Upload',
+    'page callback' => 'seattle_blockwatch_upload_render',
+    'page arguments' => array(t('Blockwatch Upload Page')),
+    'access callback' => TRUE,
+  );
   return $items;
 }
 
@@ -106,25 +112,49 @@ function seattle_blockwatch_add_render() {
   return $output;
 }
 
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_upload_render() {
+  $output = "upload";
+  return $output;
+}
+
+/**
+ * Render custom page for blockwatch-finder.
+ */
+function seattle_blockwatch_contact_render() {
+  $output = "contact";
+  return $output;
+}
+
+/**
+ * Create variables for theme.
+ */
 function seattle_blockwatch_preprocess_page(&$vars) {
-  // Generate settings and return them to the theme.
-  seattle_blockwatch_page_variables(&$vars);
+  switch ($vars['page_path']) {
+    case 'blockwatch-finder':
+    case 'blockwatch-finder/map':
+    case 'blockwatch-finder/list':
+    case 'blockwatch-finder/add': 
+    case 'blockwatch-finder/about':
+    case 'blockwatch-finder/contact':
+    case 'blockwatch-finder/topics':
+    case 'blockwatch-finder/upload':
+         seattle_blockwatch_page_variables(&$vars);
+    break;
+  }
 }
 
-
-/*
-
-function seattle_blockwatch_termname_list_render() {
-  return "list here";
-}
-*/
-
+/** 
+ * Generate settings and return them to the theme.
+ */
 function seattle_blockwatch_page_variables(&$vars) {
   // Override existing page variables.
   $vars['site_slogan'] = "A public directory of block watch captains in Seattle.";
 
   // Custom object of special settings to be integrated with the main theme.
-  $vars['section'] = array();
+  $vars['section'] = (array) array();
   $vars['section']['section_name'] = "Block Watch Captain Finder";
   $vars['section']['html_root_custom'] = drupal_get_path('module', 'seattle_blockwatch');
   $vars['section']['place'] = "Seattle";
@@ -166,7 +196,7 @@ datawiki.map.settings.customMarkerStyle = ' . $vars['section']['map_markers'] .'
 </script> 
   
   ';
-  //return datawiki_group_map_render($vars);
+  // return datawiki_group_map_render($vars);
 }
 
 /**
@@ -331,30 +361,23 @@ function seattle_blockwatch_contents($type) {
   
   switch ($type) {
     case 'welcome':
-      $output .= '<h2>' . t('Find groups by location or topic.') . '</h2>';
+/*       $output .= '<h2>' . t('Find groups by location or topic.') . '</h2>'; */
       break;
 
     case 'site_tagline':
-      $output .= '<h2>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h2>';
+/*       $output .= '<h2>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h2>'; */
       break;
       
     case 'branding_header':
-      $output .= '<div id="branding-header"></div>';
+/*       $output .= '<div id="branding-header"></div>'; */
       break;
       
     case 'branding_footer':
-      $code_for_america = '';
-      $output .= '<div id="branding-footer alpha omega grid_16">' 
-      . '<div class="about grid_6">' 
-      . t('Maintained by the City and Community Groups.') . '<br />'
-      . t('Created as Open Source by <a href="http://codeforamerica.org">Code for America</a>') 
-      . '<div class="tagline">' .  t('"For a more transparent, efficient and participatory future."') . '</div>' . '</div>'
-      . '<div class="logo grid_10"><a href="http://codeforamerica.org">' . '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" width="150" />' . '</a></div>'
-      . '</div>';
+/*       $output .= '<div id="branding-footer"></div>'; */
       break;
 
     case 'new_group_search':
-  global $base_url;
+      global $base_url;
       $output .= '<div id="new-group-search">' 
         . '<div class="form-submit">'
         . l('New Search', $base_url)
@@ -363,52 +386,34 @@ function seattle_blockwatch_contents($type) {
       break;
       
     case 'add_data':
-
-      $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_facebook.png" title="Facebook" alt="Facebook" />';
-      $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_yahoo_groups.png" title="Yahoo Groups" alt="Yahoo Groups" />';
-      $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_google_groups.png" title="Google Groups" alt="Google Groups" />';
-      $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_meetup.png" title="Meetup Groups" alt="Meetup Groups" />';
-      $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_email.png" title="Email" alt="Email" />';
-      $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_twitter.png" title="Twitter" alt="Twitter" />';
-      $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_blogs.png" title="Community Blogs" alt="Community Blogs" />';
-      $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_mail.png" title="Personal Email" alt="Personal Email" />';
-/*       $ning = '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" />'; */
-
-      $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $yahoo . $mail /*. $ning */;
-      $output .= '
-        <div class="add-data">' .
-        '<h3>' . t('We make it easy to find and share all kinds of groups in your city.') . '</h3>'
-        . '<div class="groups-icons">' . $links . '</div>'
-/*           . t('Know a cool group? Why not <a href="/node/add/online-community">Add</a> it?') */
-        . '</div>';
+        $output .= "<div class=\"add\">Are you a block watch captain? <a href=\"#\">Add</a></div>";
       break;
       
       case 'map':
-        $output .= "map block";
+        $output .= "<div id=\"map\">Map</div>";
       break;
       
       case 'categories':
-        $output .= "categories block";
+        $output .= "<div id=\"topics\">Topics</div>";
       break;
       
       case 'list':
-        $output .= "list block";
+        $output .= "<div id=\"list\">List</div>";
       break;
       
       case 'home_menu':
         $output .= '<div id="search-links">';
-        $output .= '<div id="search-places" class="form-input">' . t('Search Places');
-        $output .= '<input placeholder="Enter address, zipcode or neighborhood name" />';
-        $output .= '</div>';
-        $output .= '<div id="search-topics  class="form-input">' . t('Search Topics');
-        $output .= '<input placeholder="Enter topic." />';
+        $output .= '<div id="search-places" class="form-input">' . t('Find your block watch captain');
+        $output .= '<input placeholder="Enter your address here." />';
         $output .= '</div>';
         $output .= '</div>';
         $output .= '<div id="map-links">';
         $output .= '<ul>';
-        $output .= '<li><a href="map/collection/termname">' . t('Map') . '</a></li>';
-        $output .= '<li><a href="list/collection/termname">' . t('View as List') . '</a></li>';
-        $output .= '<li><a href="categories/collection/termname">' . t('All Topics') . '</a></li>';
+        $output .= '<li><a href="blockwatch-finder/about">' . t('About') . '</a></li>';
+        $output .= '<li><a href="blockwatch-finder/map">' . t('Map') . '</a></li>';
+        $output .= '<li><a href="blockwatch-finder/list">' . t('List') . '</a></li>';
+        $output .= '<li><a href="blockwatch-finder/add">' . t('Add Block Watch') . '</a></li>';
+        $output .= '<li><a href="blockwatch-finder/upload">' . t('Upload Data') . '</a></li>';
         $output .= '</ul>';
         $output .= '</div>';                
       break;
@@ -430,10 +435,11 @@ function seattle_blockwatch_contents($type) {
         $output .= "<p>Block Watch is a national program that is based
         on the principle that neighbors working together are the 
         first and best line of defense against crime.</p>";
-        $output .= "<p>Block Watch Captains lead the program at the block level,
+        $output .= "<p>Block Watch Captains lead the program at the block-level,
         serving as the eyes and ears for the police department and help
         to organize block parties, street clean-ups and other 
         events and initiatives.</p>";
+        $output .= "<p>Click <a href=\"/blockwatch-finder/about\">here</a> to learn more</p>";
       break;
   }
   
