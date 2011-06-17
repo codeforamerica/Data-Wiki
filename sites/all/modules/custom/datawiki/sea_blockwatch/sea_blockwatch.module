@@ -72,7 +72,7 @@ function sea_blockwatch_menu() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_home_render() {
-  $output = "home";
+  $output = "";
   return $output;
 }
 

@@ -26,9 +26,9 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'sea_blockwatch-sea_blockwatch_new_group_search' => array(
+        'sea_blockwatch-sea_blockwatch_search' => array(
           'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_new_group_search',
+          'delta' => 'sea_blockwatch_search',
           'region' => 'sidebar_first',
           'weight' => '-10',
         ),
