@@ -1,4 +1,5 @@
 core = "7.x"
+dependencies[] = "citygroups_sub"
 dependencies[] = "context"
 dependencies[] = "logintoboggan"
 dependencies[] = "search"

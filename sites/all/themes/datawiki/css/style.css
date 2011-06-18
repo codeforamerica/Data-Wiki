@@ -877,3 +877,14 @@ div.styleguide {
   padding: 10px;
   margin: 0 20px 0 0;
 }
+
+#block-datawiki-datawiki_header_menu li {
+  list-style: none;
+  float: left;
+  padding-right: 20px;
+}
+
+
+.preface .block{
+  margin-bottom: 5px;
+}

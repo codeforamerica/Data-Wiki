@@ -30,24 +30,24 @@ function sea_blockwatch_context_context_default_contexts() {
           'module' => 'sea_blockwatch',
           'delta' => 'sea_blockwatch_search',
           'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-        'sea_blockwatch-sea_blockwatch_facebook_like' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_facebook_like',
-          'region' => 'sidebar_first',
-          'weight' => '-9',
+          'weight' => '-32',
         ),
         'sea_blockwatch-sea_blockwatch_about_block' => array(
           'module' => 'sea_blockwatch',
           'delta' => 'sea_blockwatch_about_block',
           'region' => 'sidebar_first',
-          'weight' => '-8',
+          'weight' => '-31',
+        ),
+        'sea_blockwatch-sea_blockwatch_facebook_like' => array(
+          'module' => 'sea_blockwatch',
+          'delta' => 'sea_blockwatch_facebook_like',
+          'region' => 'sidebar_first',
+          'weight' => '-30',
         ),
         'sea_blockwatch-sea_blockwatch_home_menu' => array(
           'module' => 'sea_blockwatch',
           'delta' => 'sea_blockwatch_home_menu',
-          'region' => 'content',
+          'region' => 'preface',
           'weight' => '-10',
         ),
         'sea_blockwatch-sea_blockwatch_map' => array(

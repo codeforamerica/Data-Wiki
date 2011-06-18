@@ -46,16 +46,15 @@
     </div>
     <?php endif; ?>
   <div class="clear"></div>
-  <div id="main" role="main" class="grid_16 alpha">
-    <div class="preface-container">
-      <?php print render($page['preface']); ?>
-    </div>
-    <div class="clear"></div>
+  <div id="main" role="main" class="grid_16 alpha omega">
     <div class="messages-container">
       <?php print $messages; ?>
     </div>
     <div class="clear"></div>
-    
+    <div class="preface-container grid_8 push_8 alpha omega">
+      <?php print render($page['preface']); ?>
+    </div>
+    <div class="clear"></div>
     <div class="title-container">
       <?php print render($title_prefix); ?>
       <?php if ($title): ?>

@@ -212,11 +212,13 @@ function datawiki_contents($type) {
         break;
 
       case 'header_menu':
-/*
         $output .= "<ul class=\"menu\">";
+        $output .= "<li><a href=\"/\">Home</a></li>";
+        $output .= "<li><a href=\"/map\">Map</a></li>";
+        $output .= "<li><a href=\"/list\">List</a></li>";
+        $output .= "<li><a href=\"/topics\">Topics</a></li>";
         $output .= "<li><a href=\"/node/add/community-group\">Add A Group</a></li>";
         $output .= "</ul>";
-*/
         break;
         
       case 'dashboard_add_content':
