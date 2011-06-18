@@ -17,3 +17,62 @@
 #popular-terms {
    background-color: #F77E11;
 }
+
+ul.menu {
+  list-style: none;
+
+}
+
+#home-menu ul.menu li {
+  float: left;
+  padding-left: 10px;
+
+}
+#home-menu ul.menu li,
+#home-menu ul.menu li a {
+  color: #aaa;
+  font-weight: bold;
+}
+
+.header-bottom .block{
+  margin-bottom: 5px;
+}
+
+#search-links {
+
+}
+
+#sidebar-first {
+  padding: 10px;
+  margin: 0 20px 0 0;
+}
+
+#search-links input {
+/*   margin: 5px; */
+  background-color: #e7e7e7;
+/*   padding: 5px; */
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+
+}
+
+#search-links input.form-submit {
+  background-color: #96a141;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: normal;
+  padding: 0;
+    margin: 0px;
+  border:none;
+  cursor:pointer;
+  line-height: 24px;
+  padding: 4px;
+  margin-left: 10px;
+}
+
+#block-sea_blockwatch-sea_blockwatch_about_block h3{
+  color: #2796F2;
+}

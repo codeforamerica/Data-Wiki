@@ -184,8 +184,9 @@ function sea_blockwatch_contents($type) {
 
     case 'search':
         $output .= '<div id="search-links">';
-        $output .= '<div id="search-places" class="form-input">' . t('Find your block watch captain');
-        $output .= '<input placeholder="Enter your address here." />';
+        $output .= '<div id="search-places" class="form-input"><h3>' . t('Find your block watch captain') . '</h3>';
+        $output .= '<input placeholder="Enter your address here." size=30 class="form-item" />';
+        $output .= '<input type="submit" id="search-links-submit"  value="Find" class="form-submit">';
         $output .= '</div>';
         $output .= '</div>';
       break;
@@ -207,8 +208,8 @@ function sea_blockwatch_contents($type) {
       break;
       
       case 'home_menu':
-        $output .= '<div id="map-links">';
-        $output .= '<ul>';
+        $output .= '<div id="home-menu" class="grid_6 push_10">';
+        $output .= '<ul class="menu">';
         $output .= '<li><a href="blockwatch/about">' . t('About') . '</a></li>';
         $output .= '<li><a href="blockwatch/map">' . t('Map') . '</a></li>';
         $output .= '<li><a href="blockwatch/list">' . t('List') . '</a></li>';

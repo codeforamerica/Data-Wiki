@@ -19,7 +19,7 @@
       </div>
       <?php if($section['section_name']): ?>
       <div class="header-subsection-container grid_4 alpha">
-       test <?php print render($section['section_name']); ?>
+        <?php print render($section['section_name']); ?>
       </div>
       <?php endif; ?>
       <div class="header-menu-container grid_2">
@@ -64,55 +64,59 @@
       <?php print render($title_suffix); ?>
     </div>
     <div class="clear"></div> 
-
-    <div class="main-content-region <?php print $main_region_width; ?> alpha">
-      <div class="tabs-container">
-        <?php print render($tabs); ?>
-      </div>
-      <div class="clear"></div>      
-      <div class="help-container">
-        <?php print render($page['help']); ?>
-      </div>
-      <div class="clear"></div>       
-      <div class="action-links-container">
-        <?php if ($action_links): ?>
-          <ul class="action-links"><?php print render($action_links); ?></ul>
-        <?php endif; ?>
-      </div>
-
-      <div class="clear"></div>
-      <div id="content-container" class="<?php print $main_region_width; ?> alpha">
-        <?php if ($page['content_top']): ?>
-          <div id="content-content-top" class="content-content-top">
-            <?php print render($page['content_top']); ?>
-          </div>
-        <?php endif; ?>
-        
-        <div class="clear"></div>                      
-        <?php if ($page['content']): ?>
-          <div id="content-content" class="content-content">
-            <?php print render($page['content']); ?>
-          </div>
-        <?php endif; ?>
-  
-        <div class="clear"></div>                      
-        <?php if ($page['content_bottom']): ?>
-          <div id="content-content-bottom" class="content-content-bottom">
-            <?php print render($page['content_bottom']); ?>
-          </div>
-        <?php endif; ?>
-      </div>
-    </div>
-
-    <div class="sidebar-container grid_4 push_1 omega">
-      <div class="sidebar-first-container">
+    <div id="main-content-container">
+      <?php if(!empty($page['sidebar_first'])): ?>
+      <div class="sidebar-first-container grid_5 omega">
         <?php print render($page['sidebar_first']); ?>
       </div>
+      <?php endif; ?>
+      <div class="main-content-region <?php print $main_region_width; ?> alpha">
+        <div class="tabs-container">
+          <?php print render($tabs); ?>
+        </div>
+        <div class="clear"></div>      
+        <div class="help-container">
+          <?php print render($page['help']); ?>
+        </div>
+        <div class="clear"></div>       
+        <div class="action-links-container">
+          <?php if ($action_links): ?>
+            <ul class="action-links"><?php print render($action_links); ?></ul>
+          <?php endif; ?>
+        </div>
   
-      <div class="sidebar-second-container">
+        <div class="clear"></div>
+        <div id="content-container">
+          <?php if ($page['content_top']): ?>
+            <div id="content-content-top" class="content-content-top">
+              <?php print render($page['content_top']); ?>
+            </div>
+          <?php endif; ?>
+          
+          <div class="clear"></div>                      
+          <?php if ($page['content']): ?>
+            <div id="content-content" class="content-content">
+              <?php print render($page['content']); ?>
+            </div>
+          <?php endif; ?>
+    
+          <div class="clear"></div>                      
+          <?php if ($page['content_bottom']): ?>
+            <div id="content-content-bottom" class="content-content-bottom">
+              <?php print render($page['content_bottom']); ?>
+            </div>
+          <?php endif; ?>
+        </div>
+      </div>
+
+<!--     <div class="sidebar-container grid_4 push_1 omega"> -->
+      <?php if(!empty($page['sidebar_second'])): ?>
+      <div class="sidebar-second-container grid_5">
         <?php print render($page['sidebar_second']); ?>
       </div>
-    </div>
+      <?php endif; ?>
+    </div> 
+<!--     </div> -->
     <div class="clear"></div>
     <div class="postscript-container grid_16 alpha">
       <?php print render($page['postscript']); ?>
