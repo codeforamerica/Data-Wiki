@@ -17,7 +17,11 @@
         <?php print $logo; ?>
         <?php print $prealpha; ?>
       </div>
-
+      <?php if($section['section_name']): ?>
+      <div class="header-subsection-container grid_4 alpha">
+       test <?php print render($section['section_name']); ?>
+      </div>
+      <?php endif; ?>
       <div class="header-menu-container grid_2">
         <?php print render($page['header_menu']); ?>
       </div>

@@ -132,19 +132,18 @@ function sea_blockwatch_contact_render() {
  * Create variables for theme.
  */
 function sea_blockwatch_preprocess_page(&$vars) {
-  if(!empty($vars['page_path'])) {
-    switch ($vars['page_path']) {
-      case 'blockwatch':
-      case 'blockwatch/map':
-      case 'blockwatch/list':
-      case 'blockwatch/add': 
-      case 'blockwatch/about':
-      case 'blockwatch/contact':
-      case 'blockwatch/topics':
-      case 'blockwatch/upload':
-        sea_blockwatch_page_variables(&$vars);
-      break;
-    }
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  switch ($vars['page_path']) {
+    case 'blockwatch':
+    case 'blockwatch/map':
+    case 'blockwatch/list':
+    case 'blockwatch/add': 
+    case 'blockwatch/about':
+    case 'blockwatch/contact':
+    case 'blockwatch/topics':
+    case 'blockwatch/upload':
+      sea_blockwatch_page_variables($vars);
+    break;
   }
 }
 

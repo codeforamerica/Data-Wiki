@@ -46,25 +46,26 @@ function citygroups_slogan_count() {
  * Page preprocessing
  */
 function citygroups_preprocess_page(&$vars) {
-  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+/*   $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>'; */
+  
   // @TODO Temp declaration of section here to prevent some bugs.
-  $vars['section'] = array();
-  $vars['section']['section_name'] = '';
+  //$vars['section'] = array();
+  //$vars['section']['section_name'] = '';
 
   // Create variables from theme settings (set in .info file)
-  $vars['sitename'] = theme_get_setting('sitename');
-  
-  $vars['site_slogan'] = theme_get_setting('site_slogan');
-  if(empty($vars['site_slogan'])) {
-    $vars['site_slogan'] = variable_get('site_slogan');
+  if(empty($vars['sitename'])) {
+    $vars['sitename'] = theme_get_setting('sitename');
   }
-  
+  if(empty($vars['site_slogan'])) {
+    $vars['site_slogan'] = theme_get_setting('site_slogan');
   // Completely override slogan with count of number of groups.
-  $vars['site_slogan'] = citygroups_slogan_count();
-  
-  $vars['logo_image_link'] = theme_get_setting('logo_image_link');
-  $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'citygroups') . '/' . $vars['logo_image_link'] . '" /></a>';
+  //$vars['site_slogan'] = citygroups_slogan_count();
+  }
 
+  if(empty($vars['logo'])) {
+    $vars['logo_image_link'] = theme_get_setting('logo_image_link');
+    $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'citygroups') . '/' . $vars['logo_image_link'] . '" /></a>';
+  }
 
   $vars['prealpha'] = '<div class="prealpha">PRE-ALPHA</div>';
   
@@ -77,14 +78,7 @@ function citygroups_preprocess_page(&$vars) {
   }
 
   // Create some resource variables
-/*
-  $vars['logo_image'] = theme('image', array(
-    'path' => drupal_get_path('theme', 'datawiki') . '/images/city-groups-logo.png', 
-    )
-  );
-  $vars['logo_image_link'] = l($vars['logo_image'], '<front>', array('html' => TRUE));
-*/
-  
+
   // Create login link
   $account_text = t('Sign in');
   global $user;
@@ -97,9 +91,6 @@ function citygroups_preprocess_page(&$vars) {
       'id' => 'signin',
     )
   ));
-  
-  // Temp for wireframing or MVP
-  $vars['submit_btn'] = url(drupal_get_path('theme', 'et') . '/images/submit-large-overlay.gif');
   
   // Hardcoded site names
   switch ($_SERVER['HTTP_HOST']) {
