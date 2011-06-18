@@ -107,17 +107,22 @@
             </div>
           <?php endif; ?>
         </div>
+        
       </div>
 
-<!--     <div class="sidebar-container grid_4 push_1 omega"> -->
+      
+<!--     <div class="clear"></div> -->
+
+      <!--     <div class="sidebar-container grid_4 push_1 omega"> -->
+
+    </div> 
+<!--     </div> -->
+
       <?php if(!empty($page['sidebar_second'])): ?>
-      <div class="sidebar-second-container grid_5">
+      <div class="sidebar-second-container grid_5 omega">
         <?php print render($page['sidebar_second']); ?>
       </div>
       <?php endif; ?>
-    </div> 
-<!--     </div> -->
-    <div class="clear"></div>
     <div class="postscript-container grid_16 alpha">
       <?php print render($page['postscript']); ?>
     </div>

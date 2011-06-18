@@ -871,3 +871,9 @@ div.styleguide {
 .view-community-groups-list table tr.odd td.active {
   background-color: #bbffdd;
 }
+
+
+#sidebar-first, #sidebar-second {
+  padding: 10px;
+  margin: 0 20px 0 0;
+}
