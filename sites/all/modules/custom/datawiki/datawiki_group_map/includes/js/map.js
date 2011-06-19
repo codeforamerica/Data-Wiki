@@ -15,9 +15,9 @@ cityGroups.paths = {
         
 $(document).ready(function() {
   cityGroups.map.polygonOptions = Drupal.settings.datawiki.mapColors;
-/*   cityGroups.data.popularLoad(); */
+  cityGroups.data.popularLoad();
   cityGroups.loadData(cityGroups.paths['defaultPath']);
- /* cityGroups.mapPageInteractions(); */
+  cityGroups.mapPageInteractions();
 });
 
 
@@ -77,9 +77,9 @@ cityGroups.map.loadMap = function() {
   cityGroups.map.settings.zoom = 11;
   cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
   // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
-  
-  cityGroups.map.rendered = new L.Map('map', cityGroups.map.settings.center);
-
+  if(cityGroups.map.rendered === undefined) {
+    cityGroups.map.rendered = new L.Map('map', cityGroups.map.settings.center);
+  }
   // create a CloudMade tile layer
   cityGroups.map.cloudmadeUrl = 'http://{s}.tile.cloudmade.com/b59bc8b09cd84af58fcef3019d84e662/997/256/{z}/{x}/{y}.png',
   cityGroups.map.cloudmade = new L.TileLayer(cityGroups.map.cloudmadeUrl, {maxZoom: 18});
@@ -105,12 +105,10 @@ cityGroups.geoJSON = function(nodes) {
           cityGroups.map.popupPoints(nodes);
         break;
         case "Polygon":
-        console.log("polygon")
           var polygonPoints = Array();
-  
           for (p in locationGeoObj.coordinates[0]) {
             polygonPoint = p;
-            polygonPoint = new L.LatLng(locationGeoObj.coordinates[0][p][1], locationGeoObj.coordinates[0][p][0]);
+            polygonPoint = new L.LatLng(parseFloat(locationGeoObj.coordinates[0][p][1]),  parseFloat(locationGeoObj.coordinates[0][p][0]));
             polygonPoints.push(polygonPoint); 
           }
           cityGroups.map.popupPolygons(polygonPoints, nodes);
@@ -163,13 +161,17 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   var node = nodes[i]["node"];
   var marker = "";
   var polygon = new L.Polygon(polygonPoints, cityGroups.map.polygonOptions);
-  console.log(node.latitude);
-  console.log(node.longitude);
-	var markerLocation = new L.LatLng(node.latitude, node.longitude);
-
-  var customMarker = new datawiki.map.settings.customMarkerStyle(),
-  marker = new L.Marker(markerLocation, {icon: customMarker});
-  cityGroups.map.rendered.removeLayer(marker);
+	var markerLocation = new L.LatLng(-1*parseFloat(node.latitude), -1*parseFloat(node.longitude));
+  var customMarkerStyle = {
+      iconUrl: Drupal.settings.datawiki.mapMarkerIconUrl,
+      iconSize: new L.Point(Drupal.settings.datawiki.mapMarkerIconPointSize[0], Drupal.settings.datawiki.mapMarkerIconPointSize[1]),
+      iconAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerIconAnchor[0], Drupal.settings.datawiki.mapMarkerIconAnchor[1]),
+      popupAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerPopupAnchor[0], Drupal.settings.datawiki.mapMarkerPopupAnchor[1])
+    };
+  var CustomMarker = L.Icon.extend(customMarkerStyle);
+  var customIcon = new CustomMarker(),
+  marker = new L.Marker(markerLocation, {icon: customIcon});
+  /*   cityGroups.map.rendered.removeLayer(marker); */
   cityGroups.map.rendered.addLayer(marker);
   marker.on('click', onMapClick);
 
