@@ -193,18 +193,21 @@ function sea_blockwatch_page_variables(&$vars) {
         
   $vars['section']['javascript_settings'] = array(); 
   $vars['section']['javascript_settings'] = array(); 
-  $vars['section']['javascript_settings']['mapColors'] = 'color: "#2796F2",
-    fillColor: "white",
-    fillOpacity: 0.5,
-    weight: 1,
-    opacity: 1';
+  $vars['section']['javascript_settings']['mapColors'] = array();
+  $vars['section']['javascript_settings']['mapColors']['color'] = "#2796F2";
+  $vars['section']['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";
+  $vars['section']['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
+  $vars['section']['javascript_settings']['mapColors']['weight'] = 1;
+  $vars['section']['javascript_settings']['mapColors']['opacity'] = 1;
     
+/*
   $vars['section']['javascript_settings']['mapMarkerStyle'] = '{
         iconUrl: "/' . $vars['section']['html_root_custom'] . '/includes/images/placeholder_marker.png",
         iconSize: new L.Point(15, 40),
         iconAnchor: new L.Point(10, 40),
         popupAnchor: new L.Point(0, 0)
     }';
+*/
   $vars['section']['javascript_settings']['mapMarkerIconUrl'] =  "/" . $vars['section']['html_root_custom'] . "/images/noun_project_659_man.svg";
   $vars['section']['javascript_settings']['mapMarkerIconPointSize'] = array(10,25);
   $vars['section']['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);

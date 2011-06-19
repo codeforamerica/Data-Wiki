@@ -86,10 +86,9 @@ function datawiki_group_map_page_variables(&$vars) {
   else {
     $settings = $vars['section'];
   }
-  drupal_add_css($settings['html_root'] . '/includes/style/style.css', array('type' => 'file', 'group' => CSS_DEFAULT));
-  drupal_add_css($settings['html_root_custom'] . '/css/style.css', array('type' => 'file', 'group' => CSS_DEFAULT));
-  drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/js/leaflet/leaflet.css', array('type' => 'file', 'group' => CSS_DEFAULT));
 
+  drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/js/leaflet/leaflet.css', array('type' => 'file', 'group' => CSS_DEFAULT));
+  drupal_add_css($settings['html_root'] . '/includes/css/map.css', array('type' => 'file', 'group' => CSS_THEME));
   /*
     @TODO Add this in.  
     <!--[if lte IE 8]><link rel="stylesheet" href="/<?php print $html_root; ?>/includes/style/leaflet/leaflet.ie.css" /><![endif]-->
@@ -139,14 +138,6 @@ function datawiki_group_map_settings() {
   $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
   $settings['javascript_settings']['mapColors']['weight'] = 1;
   $settings['javascript_settings']['mapColors']['opacity'] = 1;
-    
-  $settings['javascript_settings']['mapMarkerStyle'] = '{
-        iconUrl: "/' . $settings['html_root_custom'] . '/includes/images/placeholder_marker.png",
-        iconSize: new L.Point(15, 40),
-        iconAnchor: new L.Point(10, 40),
-        popupAnchor: new L.Point(0, 0)
-    }';
-
   $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/includes/images/placeholder_marker.png";
   $settings['javascript_settings']['mapMarkerIconPointSize'] = array(10,10);
   $settings['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);

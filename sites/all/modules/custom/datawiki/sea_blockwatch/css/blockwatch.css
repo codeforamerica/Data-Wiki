@@ -5,6 +5,45 @@
   display: none;
 }
 
+#popup-content {
+  width: 300px;
+  background: #bbb;
+  position: fixed;
+  top: 130px;
+  right: 30px;
+  padding: 20px 10px;
+  z-index: 1000;
+}
+#content #popup-content .block {
+  background: #bbb;
+  padding: 20px 10px;
+  margin: 0 0 20px 0;
+}
+
+#tagline {
+  padding: 10px 0;
+}
+
+#content #popup-content a {
+  color: #fff;
+}
+
+#content #popup-content .categories {
+  font-size: 80%;
+  padding: 20px 0 0 0;
+}
+
+.block li a {
+  color: #fff;
+}
+.block ul {
+  margin: 0;
+}
+.block li {
+  list-style: none;
+  padding: 0 0 4px 0;
+}
+
 
 .loading {
    background-color: #2796F2;
