@@ -132,12 +132,13 @@ function datawiki_group_map_settings() {
   // Set the theme.
   $settings['theme'] = "datawiki";
   $settings['term'] = "all";         
-  $settings['javascript_settings'] = array(); 
-  $settings['javascript_settings']['mapColors'] = 'color: "#2796F2",
-    fillColor: "white",
-    fillOpacity: 0.5,
-    weight: 1,
-    opacity: 1';
+  $settings['javascript_settings'] = array();
+  $settings['javascript_settings']['mapColors'] = array();
+  $settings['javascript_settings']['mapColors']['color'] = "#2796F2";
+  $settings['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";
+  $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
+  $settings['javascript_settings']['mapColors']['weight'] = 1;
+  $settings['javascript_settings']['mapColors']['opacity'] = 1;
     
   $settings['javascript_settings']['mapMarkerStyle'] = '{
         iconUrl: "/' . $settings['html_root_custom'] . '/includes/images/placeholder_marker.png",
