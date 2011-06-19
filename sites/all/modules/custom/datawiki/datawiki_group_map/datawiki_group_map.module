@@ -66,25 +66,22 @@ function datawiki_group_map_import($job) {
   dsm("saving json");
 }
 
-
-function datawiki_group_map_render($settings) {
-
-  $html_root = drupal_get_path('module', 'datawiki_group_map');
-  $html_root_custom = $settings['html_root_custom'];
-  $sitename = $settings['sitename'];
-  $tagline = $settings['tagline'];
-  $page_title = $settings['page_title'];
-
+function datawiki_group_map_render() {
+  $settings = datawiki_group_map_settings();
+  
   // Add special stylesheets.
   drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/style/fluid_grid.css', array('group' => CSS_THEME));
   drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/style/boilerplate.css', array('group' => CSS_THEME));
   drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/js/leaflet/leaflet', array('group' => CSS_THEME));
-  drupal_add_css($html_root . '/includes/style/style.css"', array('group' => CSS_THEME));
-  drupal_add_css($html_root_custom . '/css/style.css"', array('group' => CSS_THEME));
+  drupal_add_css($settings['html_root'] . '/includes/style/style.css"', array('group' => CSS_THEME));
+  drupal_add_css($settings['html_root_custom'] . '/css/style.css"', array('group' => CSS_THEME));
   
   // Add javascript.
-  drupal_add_js($html_root . '/includes/js/jquery-1.5.min.js');
-  drupal_add_js($html_root . '/includes/js/leaflet/leaflet.js');
+  drupal_add_js($settings['html_root'] . '/includes/js/jquery-1.5.min.js');
+  drupal_add_js($settings['html_root'] . '/includes/js/leaflet/leaflet.js');
+  drupal_add_js($settings['html_root'] . '/includes/js/map.js');
+  drupal_add_js($settings, 'setting');
+  
   // @TODO Check jquery conflicts mode.
 
   /*
@@ -101,4 +98,70 @@ function datawiki_group_map_render($settings) {
       <div class="content">Click map to see where the groups are</div>
   </div>';
   return $output;
+}
+
+function datawiki_group_map_settings() {
+  $settings = array();
+  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_group_map');
+  
+/*
+  $html_root = drupal_get_path('module', 'datawiki_group_map');
+  $html_root_custom = $settings['html_root_custom'];
+  $sitename = $settings['sitename'];
+  $tagline = $settings['tagline'];
+  $page_title = $settings['page_title'];
+*/
+
+  $settings['html_root'] = drupal_get_path('module', 'datawiki_group_map');
+  // Get current theme
+  $settings['html_root_custom'] = 'sites/all/themes/datawiki';
+  $settings['sitename'] = 'CG';
+  $settings['tagline'] = 'CGtagline';
+  $settings['page_title'] = 'CGMap';
+
+/*
+  $settings['sitename'] = "CityGroups";
+  $settings['page_title'] = "Map";
+  $settings['place'] = "Seattle";
+  $settings['tagline'] = "A public directory of Community Groups in " . $settings['place'] . ".";
+*/
+  $settings['theme'] = "citygroups_sub";
+  $settings['term'] = "all";
+  $settings['popular_searches'] = '<ul>
+            <li><a href="#defaultPath">See All</a></li>' .
+            '<li><a href="#block-watch">Block Watch</a></li>
+            <li><a href="#public-safety">Public Safety</a></li>' .
+         ' </ul><br />
+          <a href="/categories">All Categories</a>';
+          
+  $settings['map_colors'] = '
+    color: "#2796F2",
+    fillColor: "white",
+    fillOpacity: 0.5,
+    weight: 1,
+    opacity: 1';
+    
+  $settings['map_markers'] = '
+     L.Icon.extend({
+        iconUrl: "/' . $settings['html_root_custom'] . '/images/noun_project_659_man.svg",
+        iconSize: new L.Point(15, 40),
+        iconAnchor: new L.Point(10, 40),
+        popupAnchor: new L.Point(0, 0)
+    });
+';  
+    
+  $settings['javascript_settings'] = '
+  
+  <script type="text/javascript"> 
+<!--//--><![CDATA[//><!--
+var datawiki = {};
+datawiki.map = {};
+datawiki.map.settings = {};
+datawiki.map.settings.mapColors = {' . $settings['map_colors'] . '};
+datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
+//--><!]]>
+</script> 
+  
+  ';
+  return $settings;
 }

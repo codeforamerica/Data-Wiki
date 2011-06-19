@@ -1,3 +1,4 @@
+console.log("map");
 var cityGroups = {};
 cityGroups.map = {};
 cityGroups.geoJSON = {};
