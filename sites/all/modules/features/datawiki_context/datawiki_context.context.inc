@@ -30,7 +30,13 @@ function datawiki_context_context_default_contexts() {
           'module' => 'citygroups_sub',
           'delta' => 'citygroups_sub_facebook_like',
           'region' => 'sidebar_second',
-          'weight' => '-10',
+          'weight' => '-33',
+        ),
+        'citygroups_sub-citygroups_sub_projects' => array(
+          'module' => 'citygroups_sub',
+          'delta' => 'citygroups_sub_projects',
+          'region' => 'sidebar_second',
+          'weight' => '-32',
         ),
         'datawiki-datawiki_welcome' => array(
           'module' => 'datawiki',
@@ -69,7 +75,15 @@ function datawiki_context_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        '*' => '*',
+        '<front>' => '<front>',
+        'map' => 'map',
+        'list' => 'list',
+        'about' => 'about',
+        'contact' => 'contact',
+        'topics' => 'topics',
+        'get-involved' => 'get-involved',
+        'community-data-api' => 'community-data-api',
+        'node/add/community-group' => 'node/add/community-group',
       ),
     ),
   );

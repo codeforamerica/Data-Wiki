@@ -31,7 +31,7 @@ dependencies[] = update
 
 ; Contrib
 dependencies[] = admin_menu
-; dependencies[] = admin_menu_toolbar
+dependencies[] = admin_menu_toolbar
 dependencies[] = cck
 dependencies[] = colorbox
 dependencies[] = context

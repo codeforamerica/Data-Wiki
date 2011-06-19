@@ -17,7 +17,6 @@ function datawiki_group_map_help($path, $arg) {
   }
 }
 
-
 /**
  * Implementatation of hook_menu().
  */
@@ -32,7 +31,6 @@ function datawiki_group_map_menu() {
   );
   return $items;
 }
-
 
 /**
  * Implements hook_cron_job_scheduler_info().
@@ -63,36 +61,56 @@ function datawiki_group_map_cron_queue_info() {
  * Scheduler callback for importing from a source.
  */
 function datawiki_group_map_import($job) {
-  dsm("saving json");
+  // dsm("saving json");
 }
 
-function datawiki_group_map_render() {
-  $settings = datawiki_group_map_settings();
-  
-  // Add special stylesheets.
-  drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/style/fluid_grid.css', array('group' => CSS_THEME));
-  drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/style/boilerplate.css', array('group' => CSS_THEME));
-  drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/js/leaflet/leaflet', array('group' => CSS_THEME));
-  drupal_add_css($settings['html_root'] . '/includes/style/style.css"', array('group' => CSS_THEME));
-  drupal_add_css($settings['html_root_custom'] . '/css/style.css"', array('group' => CSS_THEME));
-  
-  // Add javascript.
-/*   drupal_add_js($settings['html_root'] . '/includes/js/jquery.noconflict.js'); */
-  drupal_add_js($settings['html_root'] . '/includes/js/jquery-1.5.min.js');
-  drupal_add_js($settings['html_root'] . '/includes/js/leaflet/leaflet.js');
-  drupal_add_js($settings['html_root'] . '/includes/js/map.js');
-/*   drupal_add_js($settings['html_root'] . '/includes/js/jquery.postconflict.js'); */
-  drupal_add_js($settings, 'setting');
-  
-  // @TODO Check jquery conflicts mode.
+/**
+ * Create variables for theme.
+ */
+function datawiki_group_map_preprocess_page(&$vars) {
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  switch ($vars['page_path']) {
+    case 'map':
+      datawiki_group_map_page_variables($vars);
+    break;
+  }
+}
+
+/** 
+ * Generate settings and return them to the theme.
+ */
+function datawiki_group_map_page_variables(&$vars) {
+  if(empty($vars['section'])) {
+    $settings = datawiki_group_map_settings();
+  }
+  else {
+    $settings = $vars['section'];
+  }
+  drupal_add_css($settings['html_root'] . '/includes/style/style.css', array('type' => 'file', 'group' => CSS_DEFAULT));
+  drupal_add_css($settings['html_root_custom'] . '/css/style.css', array('type' => 'file', 'group' => CSS_DEFAULT));
+  drupal_add_css(drupal_get_path('module', 'datawiki_group_map') . '/includes/js/leaflet/leaflet.css', array('type' => 'file', 'group' => CSS_DEFAULT));
 
   /*
     @TODO Add this in.  
     <!--[if lte IE 8]><link rel="stylesheet" href="/<?php print $html_root; ?>/includes/style/leaflet/leaflet.ie.css" /><![endif]-->
   */
+  
+  // Add javascript.
+  drupal_add_js($settings['html_root'] . '/includes/js/jquery-1.5.min.js', array('type' => 'file', 'group' => JS_DEFAULT));
+  drupal_add_js($settings['html_root'] . '/includes/js/leaflet/leaflet.js', array('type' => 'file', 'group' => JS_DEFAULT));
+  drupal_add_js($settings['html_root'] . '/includes/js/map.js', array('type' => 'file', 'group' => JS_DEFAULT));
 
-  $output = '<div id="map-area" class="grid_11">
-    <div id="map" style="height: 400px; width: 600px"><div class="loading">Loading Map</div></div>
+  // Pass javascript settings into container variable.
+  $datawiki_js_settings = array();
+  $datawiki_js_settings['datawiki'] = $settings['javascript_settings'];
+  drupal_add_js($datawiki_js_settings, 'setting');
+}
+
+
+function datawiki_group_map_render() {
+  $output = '<div>
+    <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
+    
     <div id="data"></div>
   </div>
 
@@ -102,59 +120,33 @@ function datawiki_group_map_render() {
   return $output;
 }
 
+/**
+ * Generate settings that will be used in javascript.
+ * Can be overriden in submodules.
+ */
 function datawiki_group_map_settings() {
   $settings = array();
-  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_group_map');
-  
-/*
-  $html_root = drupal_get_path('module', 'datawiki_group_map');
-  $html_root_custom = $settings['html_root_custom'];
-  $sitename = $settings['sitename'];
-  $tagline = $settings['tagline'];
-  $page_title = $settings['page_title'];
-*/
-
   $settings['html_root'] = drupal_get_path('module', 'datawiki_group_map');
+  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_group_map');
   // Get current theme
-  $settings['html_root_custom'] = 'sites/all/themes/datawiki';
-  $settings['sitename'] = 'CG';
-  $settings['tagline'] = 'CGtagline';
-  $settings['page_title'] = 'CGMap';
-
-/*
-  $settings['sitename'] = "CityGroups";
-  $settings['page_title'] = "Map";
-  $settings['place'] = "Seattle";
-  $settings['tagline'] = "A public directory of Community Groups in " . $settings['place'] . ".";
-*/
-  $settings['theme'] = "citygroups_sub";
-  $settings['term'] = "all";
-  $settings['popular_searches'] = '<ul>
-            <li><a href="#defaultPath">See All</a></li>' .
-            '<li><a href="#block-watch">Block Watch</a></li>
-            <li><a href="#public-safety">Public Safety</a></li>' .
-         ' </ul><br />
-          <a href="/categories">All Categories</a>';
-          
-  $settings['map_colors'] = '
-    color: "#2796F2",
+  // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
+  // Set the theme.
+  $settings['theme'] = "datawiki";
+  $settings['term'] = "all";          
+  $settings['map_colors'] = 'color: "#2796F2",
     fillColor: "white",
     fillOpacity: 0.5,
     weight: 1,
     opacity: 1';
     
-  $settings['map_markers'] = '
-     L.Icon.extend({
+  $settings['map_markers'] = 'L.Icon.extend({
         iconUrl: "/' . $settings['html_root_custom'] . '/images/noun_project_659_man.svg",
         iconSize: new L.Point(15, 40),
         iconAnchor: new L.Point(10, 40),
         popupAnchor: new L.Point(0, 0)
-    });
-';  
+    });';  
     
-  $settings['javascript_settings'] = '
-  
-  <script type="text/javascript"> 
+  $settings['javascript_settings'] = '<script type="text/javascript"> 
 <!--//--><![CDATA[//><!--
 var datawiki = {};
 datawiki.map = {};
@@ -162,8 +154,7 @@ datawiki.map.settings = {};
 datawiki.map.settings.mapColors = {' . $settings['map_colors'] . '};
 datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
 //--><!]]>
-</script> 
-  
-  ';
-  return $settings['datawiki'] = $settings;
+</script> ';
+
+  return $settings;
 }

@@ -134,8 +134,6 @@ function sea_blockwatch_contact_render() {
 function sea_blockwatch_preprocess_page(&$vars) {
   $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
   switch ($vars['page_path']) {
-    case 'blockwatch':
-    case 'blockwatch/map':
     case 'blockwatch/list':
     case 'blockwatch/add': 
     case 'blockwatch/about':
@@ -143,8 +141,24 @@ function sea_blockwatch_preprocess_page(&$vars) {
     case 'blockwatch/topics':
     case 'blockwatch/upload':
       sea_blockwatch_page_variables($vars);
+      break;
+    case 'blockwatch':
+    case 'blockwatch/map':  
+      sea_blockwatch_page_variables($vars);
+      datawiki_group_map_page_variables($vars['section']);
     break;
   }
+}
+function sea_blockwatch_map_render_output() {
+  $output = '<div>
+    <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
+    <div id="data"></div>
+  </div>
+
+  <div id="popup-content" class="block">
+      <div class="content">Click map to see where the groups are</div>
+  </div>';
+  return $output;
 }
 
 /** 
@@ -156,41 +170,40 @@ function sea_blockwatch_page_variables(&$vars) {
   $vars['logo_image_link'] = drupal_get_path('module', 'sea_blockwatch') . '/images/citygroups-logo.png';
   $vars['logo'] = '<a href="/"><img src="/' . $vars['logo_image_link'] . '" /></a>';
 
-
   // Custom object of special settings to be integrated with the main theme.
   $vars['section'] = array();
-
-  $vars['section']['section_name'] = "Block Watch Captain Finder";
+  $vars['section']['html_root'] = drupal_get_path('module', 'datawiki_group_map');
   $vars['section']['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
+  $vars['section']['page_title'] = t('CityGroups Map');
+  $vars['section']['section_name'] = "Block Watch Captain Finder";
   $vars['section']['place'] = "Seattle";
   $vars['section']['theme'] = "citygroups_blockwatch";
   $vars['section']['term'] = "block-watch";
+/*
   $vars['section']['popular_searches'] = '<ul>
             <li><a href="#defaultPath">See All</a></li>
             <li><a href="#block-watch">Block Watch</a></li>
             <li><a href="#public-safety">Public Safety</a></li>
           </ul><br />
           <a href="/categories">All Categories</a>';
-          
-  $vars['section']['map_colors'] = '
-    color: "#2796F2",
+*/
+        
+  $vars['section']['map_colors'] = 'color: "#2796F2",
     fillColor: "white",
     fillOpacity: 0.5,
     weight: 1,
     opacity: 1';
     
-  $vars['section']['map_markers'] = '
-     L.Icon.extend({
+  $vars['section']['map_markers'] = 'L.Icon.extend({
         iconUrl: "/' . $vars['section']['html_root_custom'] . '/images/noun_project_659_man.svg",
         iconSize: new L.Point(15, 40),
         iconAnchor: new L.Point(10, 40),
         popupAnchor: new L.Point(0, 0)
-    });
-';  
-    
-  $vars['section']['javascript_settings'] = '
-  
-  <script type="text/javascript"> 
+    });';  
+   
+  $vars['section']['javascript_settings'] = '<script type="text/javascript"> 
 <!--//--><![CDATA[//><!--
 var datawiki = {};
 datawiki.map = {};
@@ -198,15 +211,13 @@ datawiki.map.settings = {};
 datawiki.map.settings.mapColors = {' . $vars['section']['map_colors'] . '};
 datawiki.map.settings.customMarkerStyle = ' . $vars['section']['map_markers'] .'
 //--><!]]>
-</script> 
-  
-  ';
+</script> ';
   
   // Add special stylesheet.
   drupal_add_css(drupal_get_path('module', 'sea_blockwatch') . '/css/blockwatch.css', array('group' => CSS_THEME));
+//  datawiki_group_map_render($vars['section']);
+  // @TODO test this.
 
-
-  // return datawiki_group_map_render($vars);
 }
 
 include('sea_blockwatch.blocks.inc.php');

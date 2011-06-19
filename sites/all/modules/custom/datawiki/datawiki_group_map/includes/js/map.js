@@ -12,22 +12,17 @@ cityGroups.paths = {
     "defaultPath": "/data/community-group/map",
     "#defaultPath": "/data/community-group/map",
 };
-
-//cityGroups.map.polygonOptions = datawiki.map.settings.mapColors;
         
 $(document).ready(function() {
-console.log(Drupal.settings.datawiki);
-
-cityGroups.map.polygonOptions = Drupal.settings.datawiki.map_colors;
-  cityGroups.data.popularLoad();
+  cityGroups.map.polygonOptions = Drupal.settings.datawiki.mapColors;
+/*   cityGroups.data.popularLoad(); */
   cityGroups.loadData(cityGroups.paths['defaultPath']);
-  cityGroups.mapPageInteractions();
+ /* cityGroups.mapPageInteractions(); */
 });
 
 
 cityGroups.mapPageInteractions = function () {
   cityGroups.map.geocodeAddress();
-  
   $('ul.menu a#popular-search').click(function() {
 /*     $('div#popular-terms').css('backgroundColor', '#bb4433'); */
   });
@@ -39,7 +34,6 @@ cityGroups.data.popularLoad = function () {
     // Dynamically load the path.
     var path = cityGroups.paths.defaultPath + '/' + $(this).attr('href');
     path = path.replace("#", '');
-    console.log(path);
     if( $(this).attr('href') == '#defaultPath') {
      path = cityGroups.paths['defaultPath'];
     }
@@ -78,11 +72,9 @@ cityGroups.loadDataSuccess = function(data) {
 /*   if(cityGroups.map.rendered === undefined) { */
     cityGroups.map.loadMap();
 /*   } */
-  cityGroups.geoJSON(cityGroups.data.nodes);
+/*   cityGroups.geoJSON(cityGroups.data.nodes); */
   return false;
 };
-
-
 
 cityGroups.map.loadMap = function() {
   // initialize the map on the "map" div with a given center and zoom
@@ -307,26 +299,54 @@ cityGroups.map.form.mapGeocodedData = function(geocodedData) {
   console.log(geocodedData);
   var formObject = {};
   formObject.field_address = "";
-/*
-  for (i in geocodedData.results.address_components) {
-    switch(geocodedData.results.address_components[i]["types"][0]) {
-      case 'street_number':
-        formObject.field_address += geocodedData.results.address_components[i]["long_name"] + " ";
-        break;
-      case 'route':
-        formObject.field_address += geocodedData.results.address_components[i]["long_name"];
-        break;
-      case 'locality':
-        formObject.field_city = geocodedData.results.address_components[i]["long_name"];
-        break;  
-      case 'administrative_area_level_1':
-        formObject.field_state = geocodedData.results.address_components[i]["short_name"];
-        break;  
-      case 'postal_code':
-        formObject.field_zipcode = geocodedData.results.address_components[i]["long_name"];
-        break;  
+  /*
+    for (i in geocodedData.results.address_components) {
+      switch(geocodedData.results.address_components[i]["types"][0]) {
+        case 'street_number':
+          formObject.field_address += geocodedData.results.address_components[i]["long_name"] + " ";
+          break;
+        case 'route':
+          formObject.field_address += geocodedData.results.address_components[i]["long_name"];
+          break;
+        case 'locality':
+          formObject.field_city = geocodedData.results.address_components[i]["long_name"];
+          break;  
+        case 'administrative_area_level_1':
+          formObject.field_state = geocodedData.results.address_components[i]["short_name"];
+          break;  
+        case 'postal_code':
+          formObject.field_zipcode = geocodedData.results.address_components[i]["long_name"];
+          break;  
+      }
     }
-  }
-*/
-console.log(formObject);
+  */
+  console.log(formObject);
+};
+
+/**
+ * Load sample leaflet map.
+ */
+cityGroups.map.loadTestMap = function () {
+	var map = new L.Map('map');
+	
+	var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
+		cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
+		cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
+	
+	map.setView(new L.LatLng(51.505, -0.09), 13).addLayer(cloudmade);
+	
+	
+	var markerLocation = new L.LatLng(51.5, -0.09),
+		marker = new L.Marker(markerLocation);
+	
+	map.addLayer(marker);
+	marker.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+	
+
+	var circleLocation = new L.LatLng(51.508, -0.11),
+		circleOptions = {color: '#f03', opacity: 0.7},
+		circle = new L.Circle(circleLocation, 500, circleOptions);
+	
+	circle.bindPopup("I am a circle.");
+	map.addLayer(circle);
 };

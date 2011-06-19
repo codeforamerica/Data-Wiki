@@ -19,7 +19,7 @@ engine = phptemplate
 
 
 ; Scripts
-scripts[] = js/script.js
+; scripts[] = js/script.js
 
 ; Regions
 regions[page_top] = "Page top"
