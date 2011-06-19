@@ -3,34 +3,6 @@
  * Stub functions, orginally taken from Fusion Core.
  */
 
-/**
- * HTML preprocessing
- */
-function citygroups_preprocess_html(&$vars) {
-  global $theme_key, $user;
-
-  // Add to array of helpful body classes
-  if (isset($vars['node'])) {
-    $vars['classes_array'][] = ($vars['node']) ? 'full-node' : '';                                            // Full node
-    $vars['classes_array'][] = (($vars['node']->type == 'forum') || (arg(0) == 'forum')) ? 'forum' : '';      // Forum page
-  }
-  else {
-    $vars['classes_array'][] = (arg(0) == 'forum') ? 'forum' : '';                                            // Forum page
-  }
-
-  // Add a unique page id
-  $vars['body_id'] = 'pid-' . strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', drupal_get_path_alias($_GET['q'])));
-}
-
-/**
- * Maintenance page preprocessing
- */
-function  citygroups_preprocess_maintenance_page(&$vars) {
-  if (class_exists('Database', FALSE)) {
-    citygroups_preprocess_html($vars);  // set html vars (html.tpl.php is in maintenance-page.tpl.php)
-    citygroups_preprocess_page($vars);  // set page vars
-  }
-}
 
 /**
  * Generate count of groups and use it in the slogan.
