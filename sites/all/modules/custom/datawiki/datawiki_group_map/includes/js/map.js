@@ -67,12 +67,8 @@ cityGroups.loadDataSuccess = function(data) {
   console.log("success!");
   $('div.loading').hide();
   cityGroups.data = data;
-  
-  // Only load the map once.
-/*   if(cityGroups.map.rendered === undefined) { */
-    cityGroups.map.loadMap();
-/*   } */
-/*   cityGroups.geoJSON(cityGroups.data.nodes); */
+  cityGroups.map.loadMap();
+  cityGroups.geoJSON(cityGroups.data.nodes);
   return false;
 };
 
@@ -140,12 +136,18 @@ cityGroups.map.popupPoints = function (nodes){
 
   if(node.latitude !== undefined){
     var markerLocation = new L.LatLng(parseFloat(node.latitude), parseFloat(node.longitude));
-/*
-    var customMarker = new datawiki.map.settings.customMarkerStyle(),
-    marker = new L.Marker(markerLocation, {icon: customMarker});
+    // @TODO escape these.
+    var customMarkerStyle = {
+      iconUrl: Drupal.settings.datawiki.mapMarkerIconUrl,
+      iconSize: new L.Point(Drupal.settings.datawiki.mapMarkerIconPointSize[0], Drupal.settings.datawiki.mapMarkerIconPointSize[1]),
+      iconAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerIconAnchor[0], Drupal.settings.datawiki.mapMarkerIconAnchor[1]),
+      popupAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerPopupAnchor[0], Drupal.settings.datawiki.mapMarkerPopupAnchor[1])
+    };
+    var CustomMarker = L.Icon.extend(customMarkerStyle);
+    var customIcon = new CustomMarker(),
+    marker = new L.Marker(markerLocation, {icon: customIcon});
     cityGroups.map.rendered.addLayer(marker);
     marker.on('click', onMapClick);
-*/
     
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));

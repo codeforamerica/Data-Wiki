@@ -33,52 +33,8 @@ function citygroups_sub_termname_list_render() {
 }
 */
 
-/**
- * Pass special variables to the map render function (which is in the main datawiki_group_map module.)
- */
 function citygroups_sub_map_render() {
-  $settings = array();
-  $settings['html_root'] = drupal_get_path('module', 'datawiki_group_map');
-  $settings['html_root_custom'] = drupal_get_path('module', 'datawiki_group_map');
-  // Get current theme
-  // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
-  $settings['page_title'] = t('CityGroups Map');
-  // Set the theme.
-  $settings['theme'] = "citygroups";
-  $settings['term'] = "all";
-/*
-  $settings['popular_searches'] = '<ul>
-            <li><a href="#defaultPath">See All</a></li>' .
-            '<li><a href="#block-watch">Block Watch</a></li>
-            <li><a href="#food">Food</a></li>' .
-         ' </ul><br />
-          <a href="/categories">All Categories</a>';
-*/
-          
-  $settings['map_colors'] = 'color: "#2796F2",
-    fillColor: "white",
-    fillOpacity: 0.5,
-    weight: 1,
-    opacity: 1';
-    
-  $settings['map_markers'] = 'L.Icon.extend({
-        iconUrl: "/' . $settings['html_root_custom'] . '/images/noun_project_659_man.svg",
-        iconSize: new L.Point(15, 40),
-        iconAnchor: new L.Point(10, 40),
-        popupAnchor: new L.Point(0, 0)
-    });';  
-    
-  $settings['javascript_settings'] = '<script type="text/javascript"> 
-<!--//--><![CDATA[//><!--
-var datawiki = {};
-datawiki.map = {};
-datawiki.map.settings = {};
-datawiki.map.settings.mapColors = {' . $settings['map_colors'] . '};
-datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
-//--><!]]>
-</script> ';
-
-  return datawiki_group_map_render($settings);
+  return datawiki_group_map_render();
 }
 
 /**

@@ -133,6 +133,7 @@ function sea_blockwatch_contact_render() {
  */
 function sea_blockwatch_preprocess_page(&$vars) {
   $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  
   switch ($vars['page_path']) {
     case 'blockwatch/list':
     case 'blockwatch/add': 
@@ -145,7 +146,7 @@ function sea_blockwatch_preprocess_page(&$vars) {
     case 'blockwatch':
     case 'blockwatch/map':  
       sea_blockwatch_page_variables($vars);
-      datawiki_group_map_page_variables($vars['section']);
+      datawiki_group_map_page_variables($vars);
     break;
   }
 }
@@ -190,34 +191,26 @@ function sea_blockwatch_page_variables(&$vars) {
           <a href="/categories">All Categories</a>';
 */
         
-  $vars['section']['map_colors'] = 'color: "#2796F2",
+  $vars['section']['javascript_settings'] = array(); 
+  $vars['section']['javascript_settings'] = array(); 
+  $vars['section']['javascript_settings']['mapColors'] = 'color: "#2796F2",
     fillColor: "white",
     fillOpacity: 0.5,
     weight: 1,
     opacity: 1';
     
-  $vars['section']['map_markers'] = 'L.Icon.extend({
-        iconUrl: "/' . $vars['section']['html_root_custom'] . '/images/noun_project_659_man.svg",
+  $vars['section']['javascript_settings']['mapMarkerStyle'] = '{
+        iconUrl: "/' . $vars['section']['html_root_custom'] . '/includes/images/placeholder_marker.png",
         iconSize: new L.Point(15, 40),
         iconAnchor: new L.Point(10, 40),
         popupAnchor: new L.Point(0, 0)
-    });';  
-   
-  $vars['section']['javascript_settings'] = '<script type="text/javascript"> 
-<!--//--><![CDATA[//><!--
-var datawiki = {};
-datawiki.map = {};
-datawiki.map.settings = {};
-datawiki.map.settings.mapColors = {' . $vars['section']['map_colors'] . '};
-datawiki.map.settings.customMarkerStyle = ' . $vars['section']['map_markers'] .'
-//--><!]]>
-</script> ';
-  
+    }';
+  $vars['section']['javascript_settings']['mapMarkerIconUrl'] =  "/" . $vars['section']['html_root_custom'] . "/images/noun_project_659_man.svg";
+  $vars['section']['javascript_settings']['mapMarkerIconPointSize'] = array(10,25);
+  $vars['section']['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);
+  $vars['section']['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
   // Add special stylesheet.
   drupal_add_css(drupal_get_path('module', 'sea_blockwatch') . '/css/blockwatch.css', array('group' => CSS_THEME));
-//  datawiki_group_map_render($vars['section']);
-  // @TODO test this.
-
 }
 
 include('sea_blockwatch.blocks.inc.php');

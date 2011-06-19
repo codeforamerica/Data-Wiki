@@ -81,7 +81,7 @@ function datawiki_group_map_preprocess_page(&$vars) {
  */
 function datawiki_group_map_page_variables(&$vars) {
   if(empty($vars['section'])) {
-    $settings = datawiki_group_map_settings();
+    $settings = datawiki_group_map_settings($vars);
   }
   else {
     $settings = $vars['section'];
@@ -110,7 +110,6 @@ function datawiki_group_map_page_variables(&$vars) {
 function datawiki_group_map_render() {
   $output = '<div>
     <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
-    
     <div id="data"></div>
   </div>
 
@@ -132,29 +131,24 @@ function datawiki_group_map_settings() {
   // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
   // Set the theme.
   $settings['theme'] = "datawiki";
-  $settings['term'] = "all";          
-  $settings['map_colors'] = 'color: "#2796F2",
+  $settings['term'] = "all";         
+  $settings['javascript_settings'] = array(); 
+  $settings['javascript_settings']['mapColors'] = 'color: "#2796F2",
     fillColor: "white",
     fillOpacity: 0.5,
     weight: 1,
     opacity: 1';
     
-  $settings['map_markers'] = 'L.Icon.extend({
-        iconUrl: "/' . $settings['html_root_custom'] . '/images/noun_project_659_man.svg",
+  $settings['javascript_settings']['mapMarkerStyle'] = '{
+        iconUrl: "/' . $settings['html_root_custom'] . '/includes/images/placeholder_marker.png",
         iconSize: new L.Point(15, 40),
         iconAnchor: new L.Point(10, 40),
         popupAnchor: new L.Point(0, 0)
-    });';  
-    
-  $settings['javascript_settings'] = '<script type="text/javascript"> 
-<!--//--><![CDATA[//><!--
-var datawiki = {};
-datawiki.map = {};
-datawiki.map.settings = {};
-datawiki.map.settings.mapColors = {' . $settings['map_colors'] . '};
-datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
-//--><!]]>
-</script> ';
+    }';
 
+  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/includes/images/placeholder_marker.png";
+  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(10,10);
+  $settings['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);
+  $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
   return $settings;
 }
