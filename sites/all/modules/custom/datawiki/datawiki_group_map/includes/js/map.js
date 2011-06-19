@@ -6,16 +6,19 @@ cityGroups.map.settings = {};
 cityGroups.map.rendered;
 cityGroups.data = {};
 cityGroups.map.form = {};
-
+var datawiki;
 // Custom search paths.
 cityGroups.paths = {
     "defaultPath": "/data/community-group/map",
     "#defaultPath": "/data/community-group/map",
 };
 
-cityGroups.map.polygonOptions = datawiki.map.settings.mapColors;
+//cityGroups.map.polygonOptions = datawiki.map.settings.mapColors;
         
 $(document).ready(function() {
+console.log(Drupal.settings.datawiki);
+
+cityGroups.map.polygonOptions = Drupal.settings.datawiki.map_colors;
   cityGroups.data.popularLoad();
   cityGroups.loadData(cityGroups.paths['defaultPath']);
   cityGroups.mapPageInteractions();
@@ -145,10 +148,12 @@ cityGroups.map.popupPoints = function (nodes){
 
   if(node.latitude !== undefined){
     var markerLocation = new L.LatLng(parseFloat(node.latitude), parseFloat(node.longitude));
+/*
     var customMarker = new datawiki.map.settings.customMarkerStyle(),
     marker = new L.Marker(markerLocation, {icon: customMarker});
     cityGroups.map.rendered.addLayer(marker);
     marker.on('click', onMapClick);
+*/
     
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));

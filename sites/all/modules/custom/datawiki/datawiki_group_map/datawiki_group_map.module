@@ -77,9 +77,11 @@ function datawiki_group_map_render() {
   drupal_add_css($settings['html_root_custom'] . '/css/style.css"', array('group' => CSS_THEME));
   
   // Add javascript.
+/*   drupal_add_js($settings['html_root'] . '/includes/js/jquery.noconflict.js'); */
   drupal_add_js($settings['html_root'] . '/includes/js/jquery-1.5.min.js');
   drupal_add_js($settings['html_root'] . '/includes/js/leaflet/leaflet.js');
   drupal_add_js($settings['html_root'] . '/includes/js/map.js');
+/*   drupal_add_js($settings['html_root'] . '/includes/js/jquery.postconflict.js'); */
   drupal_add_js($settings, 'setting');
   
   // @TODO Check jquery conflicts mode.
@@ -89,8 +91,8 @@ function datawiki_group_map_render() {
     <!--[if lte IE 8]><link rel="stylesheet" href="/<?php print $html_root; ?>/includes/style/leaflet/leaflet.ie.css" /><![endif]-->
   */
 
-  $output = '<div id="map-area" class="grid_9 omega">
-    <div id="map" style="height: 600px"><div class="loading">Loading Map</div></div>
+  $output = '<div id="map-area" class="grid_11">
+    <div id="map" style="height: 400px; width: 600px"><div class="loading">Loading Map</div></div>
     <div id="data"></div>
   </div>
 
@@ -163,5 +165,5 @@ datawiki.map.settings.customMarkerStyle = ' . $settings['map_markers'] .'
 </script> 
   
   ';
-  return $settings;
+  return $settings['datawiki'] = $settings;
 }
