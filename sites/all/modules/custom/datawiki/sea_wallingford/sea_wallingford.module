@@ -1,0 +1,219 @@
+<?php
+
+/**
+ * @file
+ * Custom module that renders and caches a json+leaflet map.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function sea_wallingford_help($path, $arg) {
+  switch ($path) {
+    case 'sea_wallingford':
+      $explanation = t(
+        'Custom features for Seattle Wallingford Community Groups.');
+      return "<p>$explanation</p>";
+  }
+}
+function sea_wallingford_menu() {
+  $items['wallingford'] = array(
+    'title' => 'Home',
+    'page callback' => 'sea_wallingford_home_render',
+    'page arguments' => array(t('wallingford Home Page')),
+    'access callback' => TRUE,
+  );
+  $items['wallingford/map'] = array(
+    'title' => 'Map',
+    'page callback' => 'sea_wallingford_map_render',
+    'page arguments' => array(t('wallingford Map Page')),
+    'access callback' => TRUE,
+  );
+  $items['wallingford/list'] = array(
+    'title' => 'List',
+    'page callback' => 'sea_wallingford_list_render',
+    'page arguments' => array(t('wallingford List Page')),
+    'access callback' => TRUE,
+  );
+  $items['wallingford/topics'] = array(
+    'title' => 'Topics',
+    'page callback' => 'sea_wallingford_topics_render',
+    'page arguments' => array(t('wallingford Topics Page')),
+    'access callback' => TRUE,
+  );
+  $items['wallingford/about'] = array(
+    'title' => 'About',
+    'page callback' => 'sea_wallingford_about_render',
+    'page arguments' => array(t('wallingford About Page')),
+    'access callback' => TRUE,
+  );
+  $items['wallingford/add'] = array(
+    'title' => 'Add',
+    'page callback' => 'sea_wallingford_add_render',
+    'page arguments' => array(t('wallingford Add Page')),
+    'access callback' => TRUE,
+  );
+  $items['wallingford/contact'] = array(
+    'title' => 'Contact',
+    'page callback' => 'sea_wallingford_contact_render',
+    'page arguments' => array(t('wallingford Contact Page')),
+    'access callback' => TRUE,
+  );
+  $items['wallingford/upload'] = array(
+    'title' => 'Upload',
+    'page callback' => 'sea_wallingford_upload_render',
+    'page arguments' => array(t('wallingford Upload Page')),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_home_render() {
+  $output = "";
+  return $output;
+}
+
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_map_render() {
+  $output = "map";
+  return $output;
+}
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_list_render() {
+  $output = "list";
+  return $output;
+}
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_topics_render() {
+  $output = "topics";
+  return $output;
+}
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_about_render() {
+  $output = "about";
+  return $output;
+}
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_add_render() {
+  $output = "add";
+  return $output;
+}
+
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_upload_render() {
+  $output = "upload";
+  return $output;
+}
+
+/**
+ * Render custom page for wallingford.
+ */
+function sea_wallingford_contact_render() {
+  $output = "contact";
+  return $output;
+}
+
+/**
+ * Create variables for theme.
+ */
+function sea_wallingford_preprocess_page(&$vars) {
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  
+  switch ($vars['page_path']) {
+    case 'wallingford/list':
+    case 'wallingford/add': 
+    case 'wallingford/about':
+    case 'wallingford/contact':
+    case 'wallingford/topics':
+    case 'wallingford/upload':
+      sea_wallingford_page_variables($vars);
+      break;
+    case 'wallingford':
+    case 'wallingford/map':  
+      sea_wallingford_page_variables($vars);
+      datawiki_group_map_page_variables($vars);
+    break;
+  }
+}
+function sea_wallingford_map_render_output() {
+  $output = '<div>
+    <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
+    <div id="data"></div>
+  </div>
+
+  <div id="popup-content" class="block">
+      <div class="content">Click map to see where the groups are</div>
+  </div>';
+  return $output;
+}
+
+/** 
+ * Generate settings and return them to the theme.
+ */
+function sea_wallingford_page_variables(&$vars) {
+  // Override existing page variables.
+  $vars['site_slogan'] = "A public directory of groups in Wallingford.";
+  $vars['logo_image_link'] = drupal_get_path('module', 'sea_wallingford') . '/images/citygroups-logo.png';
+  $vars['logo'] = '<a href="/"><img src="/' . $vars['logo_image_link'] . '" /></a>';
+
+  // Custom object of special settings to be integrated with the main theme.
+  $vars['section'] = array();
+  $vars['section']['html_root'] = drupal_get_path('module', 'datawiki_group_map');
+  $vars['section']['html_root_custom'] = drupal_get_path('module', 'sea_wallingford');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sea_wallingford.)
+  $vars['section']['page_title'] = t('CityGroups Map');
+  $vars['section']['section_name'] = "Wallingford Groups";
+  $vars['section']['place'] = "Seattle";
+  $vars['section']['theme'] = "citygroups";
+  $vars['section']['term'] = "wallingford";
+/*
+  $vars['section']['popular_searches'] = '<ul>
+            <li><a href="#defaultPath">See All</a></li>
+            <li><a href="#block-watch">Block Watch</a></li>
+            <li><a href="#public-safety">Public Safety</a></li>
+          </ul><br />
+          <a href="/categories">All Categories</a>';
+*/
+        
+  $vars['section']['javascript_settings'] = array(); 
+  $vars['section']['javascript_settings'] = array(); 
+  $vars['section']['javascript_settings']['mapColors'] = array();
+  $vars['section']['javascript_settings']['mapColors']['color'] = "#2796F2";
+  $vars['section']['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";
+  $vars['section']['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
+  $vars['section']['javascript_settings']['mapColors']['weight'] = 1;
+  $vars['section']['javascript_settings']['mapColors']['opacity'] = 1;
+    
+/*
+  $vars['section']['javascript_settings']['mapMarkerStyle'] = '{
+        iconUrl: "/' . $vars['section']['html_root_custom'] . '/includes/images/placeholder_marker.png",
+        iconSize: new L.Point(15, 40),
+        iconAnchor: new L.Point(10, 40),
+        popupAnchor: new L.Point(0, 0)
+    }';
+*/
+  $vars['section']['javascript_settings']['mapMarkerIconUrl'] =  "/" . $vars['section']['html_root_custom'] . "/images/noun_project_659_man.svg";
+  $vars['section']['javascript_settings']['mapMarkerIconPointSize'] = array(10,25);
+  $vars['section']['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);
+  $vars['section']['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
+  // Add special stylesheet.
+  drupal_add_css(drupal_get_path('module', 'sea_wallingford') . '/css/sea_groups.css', array('group' => CSS_THEME));
+}
+
+include('sea_wallingford.blocks.inc.php');

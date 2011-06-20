@@ -1,3 +1,8 @@
+.form-item, .form-actions {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
 /* Hide excessive markup tips */
 .filter-wrapper, .filter-wrapper .filter-guidelines, .filter-wrapper .filter-help {
   display: none;
@@ -6,10 +11,10 @@
 .node-form .description {
   font-size: 100%;
 /*   font-weight: bold; */
-  margin: 10px;
-  padding: 20px;
+  margin: 0px;
+  padding: 4px;
   background-color: #ddd;
-  width: 400px;
+  width: 300px;
 }
 
 
@@ -18,8 +23,8 @@ fieldset a.fieldset-title {
   text-transform: uppercase;
   color: #fff;
   background-color: #66ACBF;
-  padding: 5px 10px;
-  margin: 20px 20px 10px 0;
+  padding: 0px 4px;
+  margin: 0px 0px 5px 0;
   font-weight: bold;
 }
 
@@ -34,7 +39,7 @@ fieldset a.fieldset-title {
 
 /*   font-size: 130%; */
   font-weight: bold;
-  margin: 20px 20px 10px 0;
+  margin: 0px 0px 5px 0;
 }
 
 .node-form .form-item textarea,
@@ -51,7 +56,7 @@ fieldset a.fieldset-title {
 }
 .node-form  .form-actions {
   font-size: 100%;
-  padding: 10px;  
+  padding: 4px;  
 }
 /* Change unpublished and preview colors for dark background themes */
 .node-unpublished {
@@ -89,11 +94,14 @@ fieldset a.fieldset-title {
   border: 1px solid #aa1144;
 }
 
-fieldset.group-geographic {
-  background-color: #CBE8EF;
-  border: none;
+fieldset.group-geographic,
+fieldset.group-categories {
+  width: 45%;
 }
 
+fieldset.group-categories {
+/* float: left; */
+}
 
 /* "New" text and required form field asterisk (default = red) */
 .marker,
@@ -123,8 +131,15 @@ form input.form-submit:hover {
 }
 
 fieldset {
-  margin: 15px 0;
+  margin: 0;
+  padding: 4px 4px 20px 0px;
+  border: none;
+}
+
+fieldset fieldset {
+  margin: 10px 10px 20px 40px;
   padding: 10px;
+  background-color: #ddd;
 }
 
 html.js fieldset.collapsed {
@@ -149,7 +164,7 @@ fieldset.collapsible .resizable-textarea textarea {
 }
 
 fieldset.collapsible .resizable-textarea .grippie {
-  width: 101%;
+  width: 400px;
 }
 
 /* keep theme switcher visible */

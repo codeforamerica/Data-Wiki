@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Implementatation of hook_menu().
+ */
+function datawiki_community_group_menu() {
+  $items['add/community-group'] = array(
+    'title' => 'Add Community Group',
+    'description' => 'Add a community group.',
+    'page callback' => 'datawiki_community_group_form_render',
+    'page arguments' => array(t('Add Community Group')),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
+  return $items;
+}
+
+function datawiki_community_group_form_render_map() {
+
+}
+
+function datawiki_community_group_form_render_categories() {
+
+}
+/**
+ * Alter the community group form (a content type.)
+ */
+function datawiki_community_group_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'community_group_node_form') { 
+    drupal_set_message(t('Editing a community group!'));
+    dpm($form);
+  }
+  
+  
+  
+    $output = '';
+  
+  $basic = '';
+  $map = '';
+  $categories = '';
+
+}

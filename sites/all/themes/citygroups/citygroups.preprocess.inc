@@ -165,5 +165,4 @@ function citygroups_preprocess_node_community_group(&$vars) {
     $vars['content']['links']['share']['#links']['share']['title'] = datawiki_node_share($vars);
     $vars['content']['links']['share']['#links']['share']['html'] = TRUE;
   }
-
 }

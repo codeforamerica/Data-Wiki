@@ -141,8 +141,8 @@ function community_group_content_type_field_default_fields() {
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '30',
+        'type' => 'options_buttons',
+        'weight' => '0',
       ),
     ),
   );
@@ -214,7 +214,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '2',
         ),
         'type' => 'text_textarea',
-        'weight' => '19',
+        'weight' => '15',
       ),
     ),
   );
@@ -293,7 +293,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '26',
+        'weight' => '22',
       ),
     ),
   );
@@ -368,8 +368,8 @@ function community_group_content_type_field_default_fields() {
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '31',
+        'type' => 'options_buttons',
+        'weight' => '6',
       ),
     ),
   );
@@ -529,7 +529,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '23',
+        'weight' => '20',
       ),
     ),
   );
@@ -675,7 +675,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '2',
+        'weight' => '4',
       ),
     ),
   );
@@ -754,7 +754,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '21',
+        'weight' => '17',
       ),
     ),
   );
@@ -878,7 +878,7 @@ function community_group_content_type_field_default_fields() {
           'openlayers_preset' => 'citygroups_form',
         ),
         'type' => 'geofield_openlayers',
-        'weight' => '13',
+        'weight' => '15',
       ),
     ),
   );
@@ -950,7 +950,71 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '18',
+        'weight' => '14',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_location_geocode'
+  $fields['node-community_group-field_location_geocode'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_location_geocode',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'geofield',
+          'settings' => array(
+            'data' => '',
+            'format' => '',
+          ),
+          'type' => 'geofield_latlon',
+          'weight' => '33',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_location_geocode',
+      'label' => 'Geocode',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geocode',
+        'settings' => array(
+          'geocode_field' => 'field_location_description',
+          'geocode_handler' => 'google',
+        ),
+        'type' => 'geocode',
+        'weight' => '23',
       ),
     ),
   );
@@ -1030,7 +1094,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '20',
+        'weight' => '16',
       ),
     ),
   );
@@ -1175,13 +1239,13 @@ function community_group_content_type_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'options',
         'settings' => array(
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => '32',
+        'type' => 'options_buttons',
+        'weight' => '7',
       ),
     ),
   );
@@ -1260,7 +1324,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '22',
+        'weight' => '18',
       ),
     ),
   );
@@ -1334,7 +1398,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '29',
+        'weight' => '5',
       ),
     ),
   );
@@ -1414,7 +1478,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '24',
+        'weight' => '21',
       ),
     ),
   );
@@ -1459,7 +1523,7 @@ function community_group_content_type_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
@@ -1493,7 +1557,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '27',
+        'weight' => '3',
       ),
     ),
   );
@@ -1570,7 +1634,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '28',
+        'weight' => '4',
       ),
     ),
   );
@@ -1799,7 +1863,7 @@ function community_group_content_type_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_url_image',
-      'label' => 'Image',
+      'label' => 'Link to Image for this Group',
       'required' => 0,
       'settings' => array(
         'attributes' => array(
@@ -1821,7 +1885,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '33',
+        'weight' => '8',
       ),
     ),
   );
@@ -1900,7 +1964,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '25',
+        'weight' => '19',
       ),
     ),
   );
@@ -1943,11 +2007,11 @@ function community_group_content_type_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'geofield',
+        'module' => 'geocode',
         'settings' => array(
           'openlayers_preset' => 'geofield_widget_map',
         ),
-        'type' => 'geofield_openlayers',
+        'type' => 'geocode',
         'weight' => '2',
       ),
     ),
@@ -1991,11 +2055,11 @@ function community_group_content_type_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'geofield',
+        'module' => 'geocode',
         'settings' => array(
           'openlayers_preset' => 'geofield_widget_map',
         ),
-        'type' => 'geofield_openlayers',
+        'type' => 'geocode',
         'weight' => '2',
       ),
     ),
@@ -2224,11 +2288,12 @@ function community_group_content_type_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'geofield',
+        'module' => 'geocode',
         'settings' => array(
-          'openlayers_preset' => 'geofield_widget_map',
+          'geocode_field' => 'name',
+          'geocode_handler' => 'google',
         ),
-        'type' => 'geofield_openlayers',
+        'type' => 'geocode',
         'weight' => '4',
       ),
     ),
@@ -2320,11 +2385,11 @@ function community_group_content_type_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'geofield',
+        'module' => 'geocode',
         'settings' => array(
           'openlayers_preset' => 'geofield_widget_map',
         ),
-        'type' => 'geofield_openlayers',
+        'type' => 'geocode',
         'weight' => '2',
       ),
     ),
@@ -2368,9 +2433,9 @@ function community_group_content_type_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'geofield',
+        'module' => 'geocode',
         'settings' => array(),
-        'type' => 'geofield_openlayers',
+        'type' => 'geocode',
         'weight' => '1',
       ),
     ),
@@ -2406,9 +2471,10 @@ function community_group_content_type_field_default_fields() {
   t('Description');
   t('District');
   t('Email');
-  t('Image');
+  t('Geocode');
   t('Image File');
   t('Image URL');
+  t('Link to Image for this Group');
   t('Location');
   t('Location Description');
   t('Neighborhood');

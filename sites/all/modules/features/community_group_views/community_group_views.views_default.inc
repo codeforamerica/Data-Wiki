@@ -2405,6 +2405,32 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'community_group' => 'community_group',
   );
+  /* Filter criterion: Content: Categories (field_categories) */
+  $handler->display->display_options['filters']['field_categories_tid']['id'] = 'field_categories_tid';
+  $handler->display->display_options['filters']['field_categories_tid']['table'] = 'field_data_field_categories';
+  $handler->display->display_options['filters']['field_categories_tid']['field'] = 'field_categories_tid';
+  $handler->display->display_options['filters']['field_categories_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_categories_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_categories_tid']['expose']['operator_id'] = 'field_categories_tid_op';
+  $handler->display->display_options['filters']['field_categories_tid']['expose']['label'] = 'Categories';
+  $handler->display->display_options['filters']['field_categories_tid']['expose']['operator'] = 'field_categories_tid_op';
+  $handler->display->display_options['filters']['field_categories_tid']['expose']['identifier'] = 'field_categories_tid';
+  $handler->display->display_options['filters']['field_categories_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_categories_tid']['vocabulary'] = 'categories';
+  $handler->display->display_options['filters']['field_categories_tid']['error_message'] = 1;
+  /* Filter criterion: Content: Neighborhood (field_neighborhood) */
+  $handler->display->display_options['filters']['field_neighborhood_tid']['id'] = 'field_neighborhood_tid';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['table'] = 'field_data_field_neighborhood';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['field'] = 'field_neighborhood_tid';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['operator_id'] = 'field_neighborhood_tid_op';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['label'] = 'Neighborhood';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['operator'] = 'field_neighborhood_tid_op';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['identifier'] = 'field_neighborhood_tid';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_neighborhood_tid']['vocabulary'] = 'neighborhood';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['error_message'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
