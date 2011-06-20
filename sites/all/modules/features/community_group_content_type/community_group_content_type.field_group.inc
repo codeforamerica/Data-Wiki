@@ -19,7 +19,7 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Add a Community Group',
+    'label' => 'Basic Information',
     'weight' => '0',
     'children' => array(
       0 => 'field_activity',

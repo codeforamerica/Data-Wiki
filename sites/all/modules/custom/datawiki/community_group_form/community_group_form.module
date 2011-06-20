@@ -28,7 +28,10 @@ function community_group_form_form_render_categories() {
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') { 
     drupal_set_message(t('Editing a community group!'));
-    dpm($form);
+/*     dpm($form); */
+    
+  //  drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/jquery-1.5.min.js', array('type' => 'file', 'group' => JS_DEFAULT));
+    drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
   }
   
   
