@@ -1,0 +1,6 @@
+name = Data Wiki Community Group Form Alter
+description = "Datawiki Community Group Form"
+core = 7.x
+package = DataWiki
+
+files[] = community_group_form.module
