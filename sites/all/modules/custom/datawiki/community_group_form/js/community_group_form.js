@@ -4,28 +4,37 @@ document.namespaces;
 Drupal.settings.community_group_form = {};
 Drupal.behaviors.community_group_form = {};
 
-  var fields = [
-    'div.field-name-field-url',
-    'div.field-name-field-url-calendar',
-    'div.field-name-field-email',
-    'div.field-name-field-contact',
-    'div.field-name-field-activity',
-    'div.field-name-field-notes',
-    'div.field-name-field-description',
-    'div.field-name-field-source',
-    'div.field-name-field-ownership',
-    'div.field-name-field-description',
-    'div.field-name-field-categories',
-  ];
+  var fields = {
+    'div.field-name-field-url': true,
+    'div.field-name-field-url-calendar': true,
+    'div.field-name-field-email': true,
+    'div.field-name-field-contact': true,
+    'div.field-name-field-activity': false,
+    'div.field-name-field-notes': true,
+    'div.field-name-field-description': true,
+    'div.field-name-field-source': true,
+    'div.field-name-field-ownership': true,
+    'div.field-name-field-description': true,
+    'div.field-name-field-categories': false
+  };
   var description;
-  for (var i in fields) {
+  var label;
+  for (var field in fields) {
     // Move the description markup to an interactive element.
     // @TODO a focus css might be a better approach in the long term.
-    description = $(fields[i] + ' div.description').html();
+    console.log(field);
+    description = $(field + ' div.description').html();
+    label =  $(field + ' label').html();
     if(description !== null) {
-      $(fields[i] + ' div.description').remove();
-      $(fields[i] + ' input').after('<div class="description"><div class="close-btn">X</div>' + description + '</div>');
-      $(fields[i] + ' div.description').hide();
+      $(field + ' div.description').remove();
+      $(field + ' input').after('<div class="description"><div class="close-btn">X</div>' + description + '</div>');
+      $(field + ' div.description').hide();
+      
+      if(fields[field]){
+        $(field + ' label').remove();
+        $(field + ' input').before('<label>' +label + '</label>');
+      }
+
     }
   }
   // When input is selected, show the tooltip.

@@ -44,19 +44,9 @@ function community_group_content_type_openlayers_presets() {
         'zoomWheelEnabled' => 1,
       ),
       'openlayers_behavior_panzoombar' => array(),
-      'openlayers_behavior_scaleline' => array(),
       'openlayers_behavior_zoomtolayer' => array(
         'zoomtolayer' => 'geofield_formatter',
         'point_zoom_level' => '5',
-      ),
-      'openlayers_behavior_drawfeatures' => array(
-        'feature_types' => array(
-          'point' => 'point',
-          'path' => 'path',
-          'polygon' => 'polygon',
-        ),
-        'feature_limit' => '1',
-        'element_id' => '',
       ),
     ),
     'default_layer' => 'osm_tah',
