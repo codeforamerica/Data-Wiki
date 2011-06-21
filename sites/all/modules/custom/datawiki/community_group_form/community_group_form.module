@@ -28,9 +28,11 @@ function community_group_form_form_render_categories() {
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') { 
 
-/*     dpm($form); */
-
-
+    dpm($form);
+     $access = user_access('administer nodes');
+    if(!$access) {
+      $form['additional_settings']['#access'] = FALSE;
+    }
 
     $form['#prefix'] = "You can submit community groups here.";
 

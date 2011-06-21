@@ -4,18 +4,19 @@ document.namespaces;
 Drupal.settings.community_group_form = {};
 Drupal.behaviors.community_group_form = {};
 
+  // true/false indication if the label should be moved.
   var fields = {
     'div.field-name-field-url': true,
     'div.field-name-field-url-calendar': true,
     'div.field-name-field-email': true,
     'div.field-name-field-contact': true,
     'div.field-name-field-activity': false,
-    'div.field-name-field-notes': true,
-    'div.field-name-field-description': true,
+    'div.field-name-field-notes': false,
+    'div.field-name-field-description': false,
     'div.field-name-field-source': true,
     'div.field-name-field-ownership': true,
     'div.field-name-field-description': true,
-    'div.field-name-field-categories': false
+/*     'div.field-name-field-categories': false */
   };
   var description;
   var label;

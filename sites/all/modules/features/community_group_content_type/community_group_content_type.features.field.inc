@@ -1633,7 +1633,7 @@ function community_group_content_type_field_default_fields() {
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
-        'type' => 'options_select',
+        'type' => 'options_buttons',
         'weight' => '4',
       ),
     ),
@@ -1755,7 +1755,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter the best page that points to the calendar listing for this group.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2471,6 +2471,7 @@ function community_group_content_type_field_default_fields() {
   t('Description');
   t('District');
   t('Email');
+  t('Enter the best page that points to the calendar listing for this group.');
   t('Geocode');
   t('Image File');
   t('Image URL');

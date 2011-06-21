@@ -188,7 +188,7 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_geographic';
   $field_group->data = array(
-    'label' => 'Location',
+    'label' => 'Advanced',
     'weight' => '16',
     'children' => array(
       0 => 'field_address',
@@ -204,11 +204,13 @@ function community_group_content_type_field_group_info() {
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Advanced',
       'instance_settings' => array(
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_location|node|community_group|form'] = $field_group;
