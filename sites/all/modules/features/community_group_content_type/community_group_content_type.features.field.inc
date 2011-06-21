@@ -184,7 +184,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '19',
+          'weight' => '6',
         ),
         'search_result' => array(
           'label' => 'hidden',
@@ -263,7 +263,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '26',
+          'weight' => '13',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -498,7 +498,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '23',
+          'weight' => '10',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -573,7 +573,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '25',
+          'weight' => '26',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -724,7 +724,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '22',
+          'weight' => '9',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -849,7 +849,7 @@ function community_group_content_type_field_default_fields() {
             'map_preset' => 'citygroups_form',
           ),
           'type' => 'geofield_openlayers',
-          'weight' => '15',
+          'weight' => '3',
         ),
         'search_result' => array(
           'label' => 'hidden',
@@ -920,7 +920,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '18',
+          'weight' => '5',
         ),
         'search_result' => array(
           'label' => 'hidden',
@@ -978,13 +978,9 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'hidden',
-          'module' => 'geofield',
-          'settings' => array(
-            'data' => '',
-            'format' => '',
-          ),
-          'type' => 'geofield_latlon',
-          'weight' => '33',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1063,7 +1059,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '20',
+          'weight' => '7',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1294,7 +1290,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '21',
+          'weight' => '8',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1447,7 +1443,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '24',
+          'weight' => '11',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1527,7 +1523,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '32',
+          'weight' => '25',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1934,7 +1930,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '25',
+          'weight' => '12',
         ),
         'search_result' => array(
           'label' => 'inline',
