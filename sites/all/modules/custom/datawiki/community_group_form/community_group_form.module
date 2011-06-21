@@ -88,32 +88,30 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     $form['field_location']['#prefix'] .= '</div>';
     
     $form['field_location']['#suffix'] = '<div class="map-draw-controls">
-    
-        
-        <ul id="controlToggle"> 
-            <li> 
-                <input type="radio" name="type" value="none" id="noneToggle"
-                       onclick="Drupal.settings.community_group_form.toggleControl(this);" checked="checked" /> 
-                <label for="noneToggle">navigate</label> 
-            </li> 
-            <li> 
-                <input type="radio" name="type" value="point" id="pointToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
-                <label for="pointToggle">draw point</label> 
-            </li> 
-            <li> 
-                <input type="radio" name="type" value="line" id="lineToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
-                <label for="lineToggle">draw line</label> 
-            </li> 
-            <li> 
-                <input type="radio" name="type" value="polygon" id="polygonToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
-                <label for="polygonToggle">draw polygon</label> 
-            </li> 
-            <li> 
-                <input type="checkbox" name="allow-pan" value="allow-pan" id="allowPanCheckbox" checked=true onclick="Drupal.settings.community_group_form.allowPan(this);" /> 
-                <label for="allowPanCheckbox">allow pan while drawing</label> 
-            </li> 
-        </ul> 
-    
+    <ul id="controlToggle"> 
+      <li> 
+        <input type="radio" name="type" value="none" id="noneToggle"
+               onclick="Drupal.settings.community_group_form.toggleControl(this);" checked="checked" /> 
+        <label for="noneToggle">Navigate</label> 
+        <p>Explore the map.</p>
+      </li> 
+      <li> 
+        <input type="radio" name="type" value="point" id="pointToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
+        <label for="pointToggle">Draw point</label>
+        <p>Put a marker on the map.</p>
+      </li> 
+      <li> 
+        <input type="radio" name="type" value="polygon" id="polygonToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
+        <label for="polygonToggle">Draw polygon</label> 
+        <p>Locate the area this group services.</p>
+      </li> 
+      <li> 
+        <input type="checkbox" name="allow-pan" value="allow-pan" id="allowPanCheckbox" checked=true onclick="Drupal.settings.community_group_form.allowPan(this);" /> 
+        <label for="allowPanCheckbox">Be able to move map around while drawing.</label> 
+      </li> 
+    </ul> 
+    <h3>Tips</h3>
+    <p>Double-click on your shape to finish it.</p>
     
     </div>';
     $form['field_location']['#suffix'] .= '</div>';

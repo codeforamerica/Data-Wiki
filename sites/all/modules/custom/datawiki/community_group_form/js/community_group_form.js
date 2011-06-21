@@ -178,7 +178,9 @@ Drupal.settings.community_group_form.openLayersDrawPoint = function(){
   
   drawControls = {
     point: new OpenLayers.Control.DrawFeature(pointLayer,
-                OpenLayers.Handler.Point),
+                OpenLayers.Handler.Point, {
+                  featureAdded: Drupal.settings.community_group_form.setPoint
+                }),
     line: new OpenLayers.Control.DrawFeature(lineLayer,
                 OpenLayers.Handler.Path),
     polygon: new OpenLayers.Control.DrawFeature(polygonLayer,
@@ -191,6 +193,20 @@ Drupal.settings.community_group_form.openLayersDrawPoint = function(){
   document.getElementById('noneToggle').checked = true; 
 };
 
+
+/*
+ * Helper methods called on addFeature
+ */
+ 
+// Draw only one point at a time.
+Drupal.settings.community_group_form.setPoint = function(feature) {
+  for (var i = 0; i < feature.layer.features.length; i++) {
+    if (feature.layer.features[i] != feature) {
+      feature.layer.features[i].destroy();
+    }
+  }
+};
+    
 
 Drupal.settings.community_group_form.toggleControl = function(element) {
   for(key in drawControls) {
