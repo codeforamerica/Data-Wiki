@@ -245,6 +245,12 @@ Drupal.settings.community_group_form.clearFeatures = function() {
   }
 }; 
 
+
+        
+
+      
+      
+      
 Drupal.settings.community_group_form.toggleControl = function(element) {
   for(key in drawControls) {
     var control = drawControls[key];
