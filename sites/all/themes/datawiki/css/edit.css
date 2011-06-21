@@ -103,6 +103,9 @@ fieldset.group-geographic {
 /*   width: 400px;   */
 }
 
+.help-map {
+  display: none;
+}
 
 fieldset {
   clear: both;

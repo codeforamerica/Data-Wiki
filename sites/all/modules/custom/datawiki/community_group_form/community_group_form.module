@@ -27,21 +27,32 @@ function community_group_form_form_render_categories() {
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') { 
-dpm($form);
 
-     $access = user_access('administer nodes');
+    // Hide content type settings except for admins.
+    // defaultcontent and revisions are showing and they are distracting.
+    // @TODO fix those modules to have better permission control.
+    $access = user_access('administer nodes');
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
     }
 
     $form['#prefix'] = "You can submit community groups here.";
 
-/* $form['additional_settings'] */
-
-    $form['group_geographic']['field_location'][0]['und']['#prefix'] = '<div id="field-location-add-more-wrapper">asddfasdf ';
+    $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
+    $form['field_location']['#prefix'] .= '<div class="instructions-container">';
+    $form['field_location']['#prefix'] .= '<div class="instructions-1">';
+    $form['field_location']['#prefix'] .= t('Enter your address or intersection to map your group.');
+    $form['field_location']['#prefix'] .= '</div>';
+    $form['field_location']['#prefix'] .= '<div class="instructions-2">';
+    $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
+    $form['field_location']['#prefix'] .= '</div>';
+    $form['field_location']['#prefix'] .= '<div class="address-ajax"></div>';
+    $form['field_location']['#prefix'] .= '</div>';
     
-        drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
-
+    $form['field_location']['#suffix'] = '<div class="map-draw-controls"><div class="draw">draw</div><div class="shape">shape</div></div>';
+    $form['field_location']['#suffix'] .= '</div>';
+    
+    drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
   }
 }
 
