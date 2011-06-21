@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/BaseTypes
+END
+Class.js
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/BaseTypes/Class.js
+END
+Element.js
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/BaseTypes/Element.js
+END
+LonLat.js
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/BaseTypes/LonLat.js
+END
+Bounds.js
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/BaseTypes/Bounds.js
+END
+Size.js
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/BaseTypes/Size.js
+END
+Pixel.js
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/BaseTypes/Pixel.js
+END

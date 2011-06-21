@@ -6,7 +6,7 @@ Drupal.settings.community_group_form = {};
 Drupal.behaviors.community_group_form = {
   'attach': function(context, settings) {
     Drupal.settings.community_group_form.data = $('div.openlayers-map').data('openlayers');
-    Drupal.settings.community_group_form.openLayersDrawPoint();
+    //Drupal.settings.community_group_form.openLayersDrawPoint();
 //     Drupal.settings.community_group_form.data.map.width = 400;
     }
   };
@@ -68,14 +68,14 @@ Drupal.behaviors.community_group_form = {
   var geocodedAddressResults;
 
  $('div.map-instructions-container div.address-ajax div.submit').click(function () {
-   Drupal.settings.community_group_form.geocodeAddress();
+   //Drupal.settings.community_group_form.geocodeAddress();
    return false;
  });
 
 
 
 var geocoder;
-geocoder = new google.maps.Geocoder();
+//geocoder = new google.maps.Geocoder();
 
 Drupal.settings.community_group_form.geocodeAddress = function (){
   //  var inputValue = $('div.map-instructions-container div.address-ajax input#search-map-input').val();
@@ -130,8 +130,8 @@ Drupal.settings.community_group_form.mapGeocodedData = function(results) {
    result.longitude = results[0]["geometry"]["location"]["Ia"];  
   }
 
-  Drupal.settings.community_group_form.insertGeocodedFieldData(result);
-  Drupal.settings.community_group_form.openLayersDropPoint(result);
+ // Drupal.settings.community_group_form.insertGeocodedFieldData(result);
+ // Drupal.settings.community_group_form.openLayersDropPoint(result);
 };
     
 Drupal.settings.community_group_form.insertGeocodedFieldData = function(result) {
@@ -163,112 +163,6 @@ Drupal.settings.community_group_form.openLayersDropPoint = function(result){
   if(result.longitude !== undefined && result.latitude !== undefined) {
     data.openlayers.setCenter(new OpenLayers.LonLat(parseFloat(result.longitude), parseFloat(result.latitude)), 3, false, false);
     //data.openlayers.setCenter(new OpenLayers.LonLat(-122,  37), 3, false, false);
-  }
-};
-
-Drupal.settings.community_group_form.openLayersDrawPoint = function(){
-  // Get map data.
-  var data = Drupal.settings.community_group_form.data;
-  
-  var pointLayer = new OpenLayers.Layer.Vector("Point Layer");
-  var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
-  var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
-
-  data.openlayers.addLayers([pointLayer, lineLayer, polygonLayer]);
-  
-  drawControls = {
-    point: new OpenLayers.Control.DrawFeature(pointLayer,
-                OpenLayers.Handler.Point, {
-                  featureAdded: Drupal.settings.community_group_form.setPoint
-                }),
-    line: new OpenLayers.Control.DrawFeature(lineLayer,
-                OpenLayers.Handler.Path),
-    polygon: new OpenLayers.Control.DrawFeature(polygonLayer,
-                OpenLayers.Handler.Polygon,{
-                  featureAdded: Drupal.settings.community_group_form.setPolygon,
-                  handlerOptions: Drupal.settings.community_group_form.setPolygonOptions
-                })
-  };
-
-  for(var key in drawControls) {
-    data.openlayers.addControl(drawControls[key]);
-  }
-  document.getElementById('noneToggle').checked = true; 
-};
-
-
-/*
- * Helper methods called on addFeature
- */
- 
-// Draw only one point at a time.
-Drupal.settings.community_group_form.setPoint = function(feature) {
-  for (var i = 0; i < feature.layer.features.length; i++) {
-    if (feature.layer.features[i] != feature) {
-      feature.layer.features[i].destroy();
-    }
-  }
-};
-
-Drupal.settings.community_group_form.setPolygon = function(feature) {
-  for (var i = 0; i < feature.layer.features.length; i++) {
-    if (feature.layer.features[i] != feature) {
-      feature.layer.features[i].destroy();
-    }
-  }
-  
-  // Update geofield.
-  // @TODO when/if we move this into geofield this will need to be modified.
-  // Actually...we should move this to geofield.
-  // Need to read the values & display them on map.
-  // Need to set values so they can be stored.
-};
-
-Drupal.settings.community_group_form.clearFeatures = function() {
-  // Get map data.
-  var data = Drupal.settings.community_group_form.data;
-  data.openlayers.layers.name = "Point Layer";
-
-  for (var j in data.openlayers.layers) {
-    var layer = data.openlayers.layers[j];
-    
-    switch(layer["name"]) {
-      case 'Point Layer':
-      case 'Polygon Layer':
-        if(layer.features.length > 0) {
-          for (var i = 0; i < layer.features.length; i++) {
-            layer.features[i].destroy();
-          }
-        }
-        break;
-    }
-  }
-}; 
-
-
-        
-
-      
-      
-      
-Drupal.settings.community_group_form.toggleControl = function(element) {
-  for(key in drawControls) {
-    var control = drawControls[key];
-    if(element.value == key && element.checked) {
-      control.activate();
-      Drupal.settings.community_group_form.clearFeatures();
-      
-    } else {
-      control.deactivate();
-    }
-  }
-};
- 
-Drupal.settings.community_group_form.allowPan = function(element) {
-  var stop = !element.checked;
-  for(var key in drawControls) {
-    drawControls[key].handler.stopDown = stop;
-    drawControls[key].handler.stopUp = stop;
   }
 };
 

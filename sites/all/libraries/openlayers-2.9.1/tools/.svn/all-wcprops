@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools
+END
+exampleparser.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/exampleparser.py
+END
+toposort.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/toposort.py
+END
+jsmin.c
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/jsmin.c
+END
+mergejs.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/mergejs.py
+END
+shrinksafe.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/shrinksafe.py
+END
+jsmin.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/jsmin.py
+END
+update_dev_dir.sh
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/update_dev_dir.sh
+END
+minimize.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/minimize.py
+END
+oldot.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/oldot.py
+END
+release.sh
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/release.sh
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/README.txt
+END
+BeautifulSoup.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/tools/BeautifulSoup.py
+END

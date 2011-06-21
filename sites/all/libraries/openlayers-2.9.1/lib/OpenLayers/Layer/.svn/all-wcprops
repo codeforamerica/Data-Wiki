@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer
+END
+Markers.js
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Markers.js
+END
+MapServer.js
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/MapServer.js
+END
+WMS.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/WMS.js
+END
+SphericalMercator.js
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/SphericalMercator.js
+END
+WorldWind.js
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/WorldWind.js
+END
+VirtualEarth.js
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/VirtualEarth.js
+END
+Google.js
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Google.js
+END
+KaMapCache.js
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/KaMapCache.js
+END
+ArcIMS.js
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/ArcIMS.js
+END
+PointTrack.js
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/PointTrack.js
+END
+GML.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/GML.js
+END
+Yahoo.js
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Yahoo.js
+END
+FixedZoomLevels.js
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/FixedZoomLevels.js
+END
+Boxes.js
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Boxes.js
+END
+TileCache.js
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/TileCache.js
+END
+Image.js
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Image.js
+END
+ArcGIS93Rest.js
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/ArcGIS93Rest.js
+END
+Text.js
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Text.js
+END
+Grid.js
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Grid.js
+END
+EventPane.js
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/EventPane.js
+END
+HTTPRequest.js
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/HTTPRequest.js
+END
+MultiMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/MultiMap.js
+END
+KaMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/KaMap.js
+END
+XYZ.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/XYZ.js
+END
+MapGuide.js
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/MapGuide.js
+END
+Zoomify.js
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Zoomify.js
+END
+WFS.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/WFS.js
+END
+GeoRSS.js
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/GeoRSS.js
+END
+Vector.js
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/Vector.js
+END
+TMS.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/acespace/!svn/ver/554/trunk/sites/all/libraries/openlayers-uncompressed/lib/OpenLayers/Layer/TMS.js
+END
