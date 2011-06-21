@@ -12,6 +12,14 @@ function community_group_form_menu() {
     'access callback' => TRUE,
     'expanded' => TRUE,
   );
+  $items['add/community-group/geocode'] = array(
+    'title' => 'Add Community Group',
+    'description' => 'Add a community group.',
+    'page callback' => 'community_group_form_geocode',
+    'page arguments' => array(t('Add Community Group')),
+    'access callback' => TRUE,
+    'expanded' => TRUE,
+  );
   return $items;
 }
 
@@ -36,17 +44,47 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
       $form['additional_settings']['#access'] = FALSE;
     }
 
+
+  $form['location_geocode_item'] = array(
+    '#type' => 'textfield',
+    '#title' => t("Enter your address"),
+/*
+    '#options' => array(
+      'one' => 'one',
+      'two' => 'two',
+      'three' => 'three',
+    ),
+*/
+    '#ajax' => array(
+      'callback' => 'community_group_form_geocode',
+      'wrapper' => 'location-geocode-response',
+     ),
+  );
+
+  // This entire form element will be replaced with an updated value.
+  $form['location_geocode_response'] = array(
+    '#title' => t("The default value will be changed"),
+    '#markup' => t("You entered:") . "'" .
+      (!empty($form_state['values']['location_geocode_item'])
+      ? $form_state['values']['location_geocode_item'] : t("")) . "'",
+    '#prefix' => '<div id="location-geocode-response">',
+    '#suffix' => '</div>',
+  );
+  
+  
+
+
     $form['#prefix'] = "You can submit community groups here.";
 
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
-    $form['field_location']['#prefix'] .= '<div class="instructions-container">';
+    $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
     $form['field_location']['#prefix'] .= '<div class="instructions-1">';
     $form['field_location']['#prefix'] .= t('Enter your address or intersection to map your group.');
     $form['field_location']['#prefix'] .= '</div>';
     $form['field_location']['#prefix'] .= '<div class="instructions-2">';
     $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
     $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '<div class="address-ajax"></div>';
+/*     $form['field_location']['#prefix'] .= '<div class="address-ajax"><div class="form-item"><input type="text" id="search-map-input" placeholder="Enter your address or intersection" /><div class="submit">Locate</div></div>'; */
     $form['field_location']['#prefix'] .= '</div>';
     
     $form['field_location']['#suffix'] = '<div class="map-draw-controls"><div class="draw">draw</div><div class="shape">shape</div></div>';
@@ -56,6 +94,61 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+
+function community_group_form_geocode($form, $form_state) {
+  // The form has already been submitted and updated. We can return the replaced
+  // item as it is.
+
+  $geocode_results = geocode_google($form_state['values']['location_geocode_item'], 'json');
+  //dpm($geocode_results); 
+  
+  //dpm($geocode_results->result);
+  $result = $geocode_results->result->results[0];
+
+  
+  dpm($result);
+   
+  $address_components = $result->address_components;
+  $formatted_address = $result->formatted_address;
+  $geometry = $result->geometry;
+  
+  $formatted = array();
+  
+  foreach ($address_components as $key => $value) {
+    switch($value->types[0]) {
+      case 'locality':
+        $formatted['city'] = $value->long_name;
+        break;
+      case 'administrative_area_level_2':
+        $formatted['county'] = $value->long_name;
+        break;
+      case 'administrative_area_level_1':
+        $formatted['state'] = $value->short_name;
+        break;
+      case 'postal_code':
+        $formatted['zipcode'] = $value->short_name;   
+        break;
+    }
+  }
+  $formatted['latitude'] = $geometry->location->lat;
+  $formatted['longitude'] = $geometry->location->lng;
+
+  dsm($formatted);
+  dsm($formatted_address);
+  $form['location_geocode_response'] = 'test';
+  return $form['location_geocode_response'];
+}
+
+
+/*
+function community_group_form_geocode($address) {
+dsm($address);
+
+  $geocoded = geocode('google', $address);
+dsm( $geocoded );
+ return $geocoded;
+}
+*/
 /**
  * Implementation of hook_theme().
  */

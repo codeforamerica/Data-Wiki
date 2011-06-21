@@ -58,4 +58,85 @@ Drupal.behaviors.community_group_form = {};
     $(this).parent().hide();
   });
 
+ $('div.map-instructions-container div.address-ajax div.submit').click(function () {
+   Drupal.settings.community_group_form.geocodeAddress();
+ });
+ 
+//32 perry st. stoughton, ma
+
+
+Drupal.settings.community_group_form.geocodeAddress = function (){
+  //http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
+
+    var inputValue = $('div.map-instructions-container div.address-ajax input#search-map-input').val();
+/*     inputValue = Drupal.settings.community_group_form.spaceToPlus(inputValue); */
+    var googleGeocode = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
+    var geocodeRequest = googleGeocode + inputValue;
+
+    var data = inputValue;
+    
+    $.ajax({
+      url: '/add/community-group/geocode',
+      dataType: 'json',
+      type: 'put',
+      data: data,
+      success: Drupal.settings.community_group_form.loadGeocodeSuccess,
+      error: Drupal.settings.community_group_form.loadDataError
+    });    
+};
+
+Drupal.settings.community_group_form.loadDataError = function(e) {
+  console.log("error");
+};
+/**
+ * Convert spaces in a string to pluses.
+ */
+Drupal.settings.community_group_form.spaceToPlus = function(val) {
+  // @TODO convert spaces to +
+  
+/*   val = val.replace('/ /g', '\+'); */
+  console.log("test");
+  console.log(val);
+  return val;
+};
+
+Drupal.settings.community_group_form.loadGeocodeSuccess = function(data) {
+console.log("success");
+  console.log(data);
+
+};
+
+Drupal.settings.community_group_form.mapGeocodedData = function(geocodedData) {
+  console.log(geocodedData);
+  var formObject = {};
+  formObject.field_address = "";
+  /*
+    for (i in geocodedData.results.address_components) {
+      switch(geocodedData.results.address_components[i]["types"][0]) {
+        case 'street_number':
+          formObject.field_address += geocodedData.results.address_components[i]["long_name"] + " ";
+          break;
+        case 'route':
+          formObject.field_address += geocodedData.results.address_components[i]["long_name"];
+          break;
+        case 'locality':
+          formObject.field_city = geocodedData.results.address_components[i]["long_name"];
+          break;  
+        case 'administrative_area_level_1':
+          formObject.field_state = geocodedData.results.address_components[i]["short_name"];
+          break;  
+        case 'postal_code':
+          formObject.field_zipcode = geocodedData.results.address_components[i]["long_name"];
+          break;  
+      }
+    }
+  */
+  console.log(formObject);
+};
+    
+
+
+
+
 })(jQuery);
+

@@ -263,3 +263,6 @@ padding-left: 0px;
 margin-left: 10px;
 }
 
+#location-geocode-response {
+  padding: 10px;
+}
