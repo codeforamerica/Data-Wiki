@@ -84,13 +84,25 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     $form['field_location']['#prefix'] .= '<div class="instructions-2">';
     $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
     $form['field_location']['#prefix'] .= '</div>';
-/*     $form['field_location']['#prefix'] .= '<div class="address-ajax"><div class="form-item"><input type="text" id="search-map-input" placeholder="Enter your address or intersection" /><div class="submit">Locate</div></div>'; */
+    $form['field_location']['#prefix'] .= '<div class="address-ajax"><div class="form-item"><input type="text" id="search-map-input" placeholder="Enter your address or intersection" /><div class="submit">Locate</div></div>';
     $form['field_location']['#prefix'] .= '</div>';
     
     $form['field_location']['#suffix'] = '<div class="map-draw-controls"><div class="draw">draw</div><div class="shape">shape</div></div>';
     $form['field_location']['#suffix'] .= '</div>';
+// @TODO In progress.
+$form['field_location']['und'][0]['lat']['#type'] = 'markup';
+
+    // Add Google API (uses openlayers API key)
+    // @TODO require openlayers.
     
+    drupal_add_js(
+        'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+        variable_get('openlayers_layers_google_api', 
+          variable_get('googlemap_api_key', '')
+        ), 'external');
+
     drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
+  
   }
 }
 
@@ -100,20 +112,20 @@ function community_group_form_geocode($form, $form_state) {
   // item as it is.
 
   $geocode_results = geocode_google($form_state['values']['location_geocode_item'], 'json');
-  //dpm($geocode_results); 
+  // dpm($geocode_results); 
   
   //dpm($geocode_results->result);
   $result = $geocode_results->result->results[0];
 
   
-  dpm($result);
+ // dpm($result);
    
   $address_components = $result->address_components;
   $formatted_address = $result->formatted_address;
   $geometry = $result->geometry;
   
   $formatted = array();
-  
+
   foreach ($address_components as $key => $value) {
     switch($value->types[0]) {
       case 'locality':
@@ -126,16 +138,17 @@ function community_group_form_geocode($form, $form_state) {
         $formatted['state'] = $value->short_name;
         break;
       case 'postal_code':
-        $formatted['zipcode'] = $value->short_name;   
+        $formatted['zipcode'] = $value->long_name;   
         break;
     }
   }
   $formatted['latitude'] = $geometry->location->lat;
   $formatted['longitude'] = $geometry->location->lng;
 
-  dsm($formatted);
-  dsm($formatted_address);
-  $form['location_geocode_response'] = 'test';
+ // dsm($formatted);
+//  dsm($formatted_address);
+
+  $form['location_geocode_response'] =  "test: a response";
   return $form['location_geocode_response'];
 }
 

@@ -58,85 +58,96 @@ Drupal.behaviors.community_group_form = {};
     $(this).parent().hide();
   });
 
+  var geocodedAddressResults;
+
  $('div.map-instructions-container div.address-ajax div.submit').click(function () {
    Drupal.settings.community_group_form.geocodeAddress();
  });
- 
-//32 perry st. stoughton, ma
+
+
+
+  var geocoder;
+  geocoder = new google.maps.Geocoder();
+  console.log(geocoder);
 
 
 Drupal.settings.community_group_form.geocodeAddress = function (){
-  //http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
-
-    var inputValue = $('div.map-instructions-container div.address-ajax input#search-map-input').val();
-/*     inputValue = Drupal.settings.community_group_form.spaceToPlus(inputValue); */
-    var googleGeocode = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
-    var geocodeRequest = googleGeocode + inputValue;
-
-    var data = inputValue;
-    
-    $.ajax({
-      url: '/add/community-group/geocode',
-      dataType: 'json',
-      type: 'put',
-      data: data,
-      success: Drupal.settings.community_group_form.loadGeocodeSuccess,
-      error: Drupal.settings.community_group_form.loadDataError
-    });    
+  //  var inputValue = $('div.map-instructions-container div.address-ajax input#search-map-input').val();
+    var inputValue = "2025 McGee Ave, Berkeley CA";
+    // var googleGeocode = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
+    // var geocodeRequest = googleGeocode + inputValue;
+    var address = inputValue;
+    Drupal.settings.community_group_form.codeAddress(address);
 };
 
-Drupal.settings.community_group_form.loadDataError = function(e) {
-  console.log("error");
-};
-/**
- * Convert spaces in a string to pluses.
- */
-Drupal.settings.community_group_form.spaceToPlus = function(val) {
-  // @TODO convert spaces to +
-  
-/*   val = val.replace('/ /g', '\+'); */
-  console.log("test");
-  console.log(val);
-  return val;
-};
 
-Drupal.settings.community_group_form.loadGeocodeSuccess = function(data) {
-console.log("success");
-  console.log(data);
-
-};
-
-Drupal.settings.community_group_form.mapGeocodedData = function(geocodedData) {
-  console.log(geocodedData);
-  var formObject = {};
-  formObject.field_address = "";
-  /*
-    for (i in geocodedData.results.address_components) {
-      switch(geocodedData.results.address_components[i]["types"][0]) {
-        case 'street_number':
-          formObject.field_address += geocodedData.results.address_components[i]["long_name"] + " ";
-          break;
-        case 'route':
-          formObject.field_address += geocodedData.results.address_components[i]["long_name"];
-          break;
-        case 'locality':
-          formObject.field_city = geocodedData.results.address_components[i]["long_name"];
-          break;  
-        case 'administrative_area_level_1':
-          formObject.field_state = geocodedData.results.address_components[i]["short_name"];
-          break;  
-        case 'postal_code':
-          formObject.field_zipcode = geocodedData.results.address_components[i]["long_name"];
-          break;  
-      }
+Drupal.settings.community_group_form.codeAddress = function(address) {
+ var result =  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+       Drupal.settings.community_group_form.mapGeocodedData(results);
+    } 
+    else {
+      alert("Geocode was not successful for the following reason: " + status);
     }
-  */
-  console.log(formObject);
+  });
+  return result;
+}
+
+Drupal.settings.community_group_form.mapGeocodedData = function(results) {
+
+  var result = {};
+  result.field_address = '';
+  console.log(results);
+  var item = results[0]['address_components'];
+  //console.log(item);
+  for (i in item) {     
+    switch(item[i]["types"][0]) {
+      case 'street_number':
+        result.field_address += item[i]["long_name"] + " ";
+        break;
+      case 'route':
+        result.field_address += item[i]["long_name"];
+        break;
+      case 'locality':
+        result.field_city = item[i]["long_name"];
+        break;  
+      case 'administrative_area_level_1':
+        result.field_state = item[i]["short_name"];
+        break;  
+      case 'postal_code':
+        result.field_zipcode = item[i]["long_name"];
+        break;
+    }
+    
+   // map geometry
+   result.latitude = results[0]["geometry"]["location"]["Ha"];
+   result.longitude = results[0]["geometry"]["location"]["Ia"];  
+  }
+  console.log(result);
+  Drupal.settings.community_group_form.insertGeocodedFieldData(result);
 };
     
-
-
-
+Drupal.settings.community_group_form.insertGeocodedFieldData = function(result) {
+  if((result.field_address !== undefined) && (result.field_address !== '')) {
+    $('textarea#edit-field-address-und-0-value').val(result.field_address);
+  }
+  if(result.field_zipcode !== undefined) {
+    $('input#edit-field-zipcode-und').val(result.field_zipcode);
+  }
+  if(result.field_city !== undefined) {
+    $('input#edit-field-city-und').val(result.field_city);
+  }
+  if(result.field_state !== undefined) {
+    $('input#edit-field-state-und').val(result.field_state);
+  }
+  if(result.latitude !== undefined) {
+    $('input#geofield_lat').val(result.latitude);
+  } 
+  if(result.longitude !== undefined) {
+    $('input#geofield_lon').val(result.longitude);
+  } 
+  
+};
 
 })(jQuery);
 
