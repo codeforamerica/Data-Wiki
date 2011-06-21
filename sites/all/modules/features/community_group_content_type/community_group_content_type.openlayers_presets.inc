@@ -19,7 +19,7 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->data = array(
     'width' => 'auto',
     'height' => '400px',
-    'image_path' => '',
+    'image_path' => 'sites/all/themes/datawiki/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
@@ -49,9 +49,9 @@ function community_group_content_type_openlayers_presets() {
         'point_zoom_level' => '5',
       ),
     ),
-    'default_layer' => 'osm_tah',
+    'default_layer' => 'Cloudmade',
     'layers' => array(
-      'osm_tah' => 'osm_tah',
+      'Cloudmade' => 'Cloudmade',
       'geofield_formatter' => 'geofield_formatter',
       'community_groups_map_openlayers_1' => 0,
     ),

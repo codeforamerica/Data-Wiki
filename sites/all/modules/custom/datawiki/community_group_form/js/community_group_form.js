@@ -15,8 +15,18 @@ Drupal.behaviors.community_group_form = {};
     'div.field-name-field-description': false,
     'div.field-name-field-source': true,
     'div.field-name-field-ownership': true,
-    'div.field-name-field-description': true,
-/*     'div.field-name-field-categories': false */
+    'div.field-name-field-url-image': true,
+    'div.field-name-field-location-description': false,
+    'div.field-name-field-location': true,
+    'div.field-name-field-location-address': false,
+    'div.field-name-field-location-neighborhood': true,
+    'div.field-name-field-location-district': true,
+    'div.field-name-field-location-city': true,
+    'div.field-name-field-location-state': true,
+    'div.field-name-field-location-region': true,
+    'div.field-name-field-location-zipcode': true,
+    'div.field-name-field-location-area-code': true
+    /*     'div.field-name-field-categories': false */
   };
   var description;
   var label;

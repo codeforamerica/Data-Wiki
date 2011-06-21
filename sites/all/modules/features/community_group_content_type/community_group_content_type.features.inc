@@ -13,6 +13,10 @@ function community_group_content_type_ctools_plugin_api() {
     return array("version" => 1);
   }
   list($module, $api) = func_get_args();
+  if ($module == "openlayers" && $api == "openlayers_layers") {
+    return array("version" => 1);
+  }
+  list($module, $api) = func_get_args();
   if ($module == "openlayers" && $api == "openlayers_maps") {
     return array("version" => 1);
   }

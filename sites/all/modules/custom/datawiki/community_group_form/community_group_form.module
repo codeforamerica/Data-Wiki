@@ -27,8 +27,8 @@ function community_group_form_form_render_categories() {
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') { 
+dpm($form);
 
-    dpm($form);
      $access = user_access('administer nodes');
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
@@ -36,11 +36,11 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
 
     $form['#prefix'] = "You can submit community groups here.";
 
+/* $form['additional_settings'] */
 
-
+    $form['group_geographic']['field_location'][0]['und']['#prefix'] = '<div id="field-location-add-more-wrapper">asddfasdf ';
     
-
-    drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
+        drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
 
   }
 }

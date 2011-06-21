@@ -10,11 +10,10 @@
 
 .node-form .description {
   font-size: 100%;
-/*   font-weight: bold; */
-  margin: 0px;
+  margin: 0 0 5px 0px;
   padding: 4px;
   background-color: #ddd;
-  width: 300px;
+  width: 200px;
 }
 
 
@@ -43,20 +42,24 @@ fieldset a.fieldset-title {
 }
 
 .node-form .form-item textarea,
-.node-form .form-item input {
-  font-size: 100%;
-  width: 400px;
+.node-form .form-item.form-type-textfield input {
+/*   font-size: 100%; */
+/*   width: 400px; */
+}
+.node-form .form-item .form-type-radio label {
+  background: none;
+  color: #666;
 }
 
 .node-form .form-item input.form-checkbox {
   width: auto;
 }
 .grippie {
-  width: 400px;
+/*   width: 400px; */
 }
 .node-form  .form-actions {
-  font-size: 100%;
-  padding: 4px;  
+/*   font-size: 100%; */
+/*   padding: 4px;   */
 }
 /* Change unpublished and preview colors for dark background themes */
 .node-unpublished {
@@ -84,7 +87,9 @@ fieldset a.fieldset-title {
   color: #fff;
 }
 
-
+.form-textarea-wrapper {
+  width: 50%;
+}
 
 
 /* Error that appears when a required form field is not filled out */
@@ -94,13 +99,26 @@ fieldset a.fieldset-title {
   border: 1px solid #aa1144;
 }
 
+fieldset.group-geographic {
+/*   width: 400px;   */
+}
+
+
+fieldset {
+  clear: both;
+}
 fieldset.group-geographic,
 fieldset.group-categories {
-  width: 45%;
+
 }
 
 fieldset.group-categories {
 /* float: left; */
+  clear: right;
+}
+
+div#main-content-container {
+  width: 1000px;
 }
 
 /* "New" text and required form field asterisk (default = red) */
@@ -137,9 +155,28 @@ fieldset {
 }
 
 fieldset fieldset {
-  margin: 10px 10px 20px 40px;
+  margin: 10px 10px 20px 0px;
   padding: 10px;
-  background-color: #ddd;
+/*   background-color: #ddd; */
+}
+
+fieldset fieldset a.fieldset-title {
+   background: none;
+   color: #666;
+   font-size: 14px;
+   text-decoration: underline;
+}
+
+.form-item .description {
+  float: right;
+}
+
+.form-item .description .close-btn {
+  background: black;
+  width: 15px;
+  height: 15px;
+  color: #fff;
+  float: right;
 }
 
 html.js fieldset.collapsed {
@@ -164,7 +201,7 @@ fieldset.collapsible .resizable-textarea textarea {
 }
 
 fieldset.collapsible .resizable-textarea .grippie {
-  width: 400px;
+/*   width: 400px; */
 }
 
 /* keep theme switcher visible */
@@ -196,3 +233,30 @@ fieldset.collapsible .resizable-textarea .grippie {
   border-width: 0;
   padding: 0;
 }
+
+html.js fieldset.collapsible .fieldset-legend {
+background: none;
+padding-left: 0px;
+}
+
+.form-item label{
+  float: left;
+}
+
+.form-type-radios label.option {
+  float: inherit;
+}
+
+.form-item {
+  clear: both;
+}
+
+.form-type-radios .form-item {
+  clear: right;
+}
+
+.form-item input{
+
+margin-left: 10px;
+}
+
