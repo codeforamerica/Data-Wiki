@@ -142,7 +142,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -603,7 +603,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '-1',
+        'weight' => '0',
       ),
     ),
   );
@@ -815,7 +815,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '-2',
+        'weight' => '-1',
       ),
     ),
   );
@@ -846,7 +846,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'geofield',
           'settings' => array(
             'data' => 'full',
-            'map_preset' => 'citygroups_form',
+            'map_preset' => 'citygroups_group_display',
           ),
           'type' => 'geofield_openlayers',
           'weight' => '3',
@@ -980,7 +980,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '4',
+          'weight' => '3',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1241,7 +1241,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'options_buttons',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -1798,7 +1798,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '-3',
+        'weight' => '-2',
       ),
     ),
   );
@@ -1881,7 +1881,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );

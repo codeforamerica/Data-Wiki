@@ -42,11 +42,7 @@ function community_group_content_type_openlayers_presets() {
           'line' => 0,
         ),
       ),
-      'openlayers_behavior_attribution' => array(),
       'openlayers_behavior_keyboarddefaults' => array(),
-      'openlayers_behavior_layerswitcher' => array(
-        'ascending' => 1,
-      ),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
       ),

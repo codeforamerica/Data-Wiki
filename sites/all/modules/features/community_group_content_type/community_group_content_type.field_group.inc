@@ -50,7 +50,7 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_categories';
   $field_group->data = array(
-    'label' => 'Advanced',
+    'label' => 'More',
     'weight' => '2',
     'children' => array(
       0 => 'field_term_civic_taxonomy',
@@ -58,7 +58,7 @@ function community_group_content_type_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Advanced',
+      'label' => 'More',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
@@ -79,14 +79,16 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '34',
-    'children' => array(),
-    'format_type' => 'div',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_categories',
+      1 => 'field_term_civic_taxonomy',
+      2 => 'field_type_group',
+    ),
+    'format_type' => 'fieldset',
     'format_settings' => array(
       'formatter' => 'collapsible',
       'instance_settings' => array(
-        'effect' => 'none',
-        'speed' => 'fast',
         'classes' => '',
       ),
     ),
@@ -103,7 +105,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_categories',
       1 => 'group_categories_advanced',
@@ -129,7 +131,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Map this Group',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_location',
       1 => 'group_location',
@@ -154,7 +156,7 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = 'group_location';
   $field_group->data = array(
-    'label' => 'Advanced',
+    'label' => 'More',
     'weight' => '4',
     'children' => array(
       0 => 'field_address',
@@ -169,7 +171,7 @@ function community_group_content_type_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Advanced',
+      'label' => 'More',
       'instance_settings' => array(
         'classes' => '',
         'description' => '',
@@ -188,20 +190,20 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Where is this group?',
-    'weight' => '1',
+    'label' => 'Location',
+    'weight' => '2',
     'children' => array(
       0 => 'field_location',
       1 => 'group_group',
     ),
-    'format_type' => 'div',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Location',
       'instance_settings' => array(
-        'effect' => 'none',
-        'speed' => 'fast',
         'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_location|node|community_group|default'] = $field_group;
@@ -215,7 +217,7 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_geographic';
   $field_group->data = array(
-    'label' => 'Advanced',
+    'label' => 'More',
     'weight' => '16',
     'children' => array(
       0 => 'field_address',
@@ -231,7 +233,7 @@ function community_group_content_type_field_group_info() {
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'label' => 'Advanced',
+      'label' => 'More',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
@@ -251,7 +253,7 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = 'group_overview';
   $field_group->data = array(
-    'label' => 'Advanced',
+    'label' => 'More',
     'weight' => '27',
     'children' => array(
       0 => 'field_activity',
@@ -259,15 +261,16 @@ function community_group_content_type_field_group_info() {
       2 => 'field_notes',
       3 => 'field_ownership',
       4 => 'field_source',
-      5 => 'field_type_group',
-      6 => 'field_url_image',
+      5 => 'field_url_image',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'More',
       'instance_settings' => array(
         'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_metadata|node|community_group|default'] = $field_group;
@@ -281,8 +284,8 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_basic';
   $field_group->data = array(
-    'label' => 'Advanced',
-    'weight' => '1',
+    'label' => 'More',
+    'weight' => '2',
     'children' => array(
       0 => 'field_audience_size',
       1 => 'field_description',
@@ -293,7 +296,7 @@ function community_group_content_type_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Advanced',
+      'label' => 'More',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
@@ -316,21 +319,17 @@ function community_group_content_type_field_group_info() {
     'label' => 'Basic Information',
     'weight' => '0',
     'children' => array(
-      0 => 'field_categories',
-      1 => 'field_contact',
-      2 => 'field_description',
-      3 => 'field_email',
-      4 => 'field_term_civic_taxonomy',
-      5 => 'field_url',
-      6 => 'field_url_calendar',
-      7 => 'group_metadata',
+      0 => 'field_contact',
+      1 => 'field_description',
+      2 => 'field_email',
+      3 => 'field_url',
+      4 => 'field_url_calendar',
+      5 => 'group_metadata',
     ),
-    'format_type' => 'div',
+    'format_type' => 'fieldset',
     'format_settings' => array(
       'formatter' => 'collapsible',
       'instance_settings' => array(
-        'effect' => 'none',
-        'speed' => 'fast',
         'classes' => '',
       ),
     ),
