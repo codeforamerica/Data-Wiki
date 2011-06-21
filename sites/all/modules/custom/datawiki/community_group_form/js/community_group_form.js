@@ -2,7 +2,14 @@ document.namespaces;
 (function($) {
 
 Drupal.settings.community_group_form = {};
-Drupal.behaviors.community_group_form = {};
+
+Drupal.behaviors.community_group_form = {
+  'attach': function(context, settings) {
+    Drupal.settings.community_group_form.data = $('div.openlayers-map').data('openlayers');
+    Drupal.settings.community_group_form.openLayersDrawPoint();
+//     Drupal.settings.community_group_form.data.map.width = 400;
+    }
+  };
 
   // true/false indication if the label should be moved.
   var fields = {
@@ -62,14 +69,13 @@ Drupal.behaviors.community_group_form = {};
 
  $('div.map-instructions-container div.address-ajax div.submit').click(function () {
    Drupal.settings.community_group_form.geocodeAddress();
+   return false;
  });
 
 
 
-  var geocoder;
-  geocoder = new google.maps.Geocoder();
-  console.log(geocoder);
-
+var geocoder;
+geocoder = new google.maps.Geocoder();
 
 Drupal.settings.community_group_form.geocodeAddress = function (){
   //  var inputValue = $('div.map-instructions-container div.address-ajax input#search-map-input').val();
@@ -123,8 +129,9 @@ Drupal.settings.community_group_form.mapGeocodedData = function(results) {
    result.latitude = results[0]["geometry"]["location"]["Ha"];
    result.longitude = results[0]["geometry"]["location"]["Ia"];  
   }
-  console.log(result);
+
   Drupal.settings.community_group_form.insertGeocodedFieldData(result);
+  Drupal.settings.community_group_form.openLayersDropPoint(result);
 };
     
 Drupal.settings.community_group_form.insertGeocodedFieldData = function(result) {
@@ -147,6 +154,61 @@ Drupal.settings.community_group_form.insertGeocodedFieldData = function(result) 
     $('input#geofield_lon').val(result.longitude);
   } 
   
+};
+
+Drupal.settings.community_group_form.openLayersDropPoint = function(result){
+  // Get map data.
+  var data = Drupal.settings.community_group_form.data;
+  
+  if(result.longitude !== undefined && result.latitude !== undefined) {
+    data.openlayers.setCenter(new OpenLayers.LonLat(parseFloat(result.longitude), parseFloat(result.latitude)), 3, false, false);
+    //data.openlayers.setCenter(new OpenLayers.LonLat(-122,  37), 3, false, false);
+  }
+};
+
+Drupal.settings.community_group_form.openLayersDrawPoint = function(){
+  // Get map data.
+  var data = Drupal.settings.community_group_form.data;
+  
+  var pointLayer = new OpenLayers.Layer.Vector("Point Layer");
+  var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+  var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
+
+  data.openlayers.addLayers([pointLayer, lineLayer, polygonLayer]);
+  
+  drawControls = {
+    point: new OpenLayers.Control.DrawFeature(pointLayer,
+                OpenLayers.Handler.Point),
+    line: new OpenLayers.Control.DrawFeature(lineLayer,
+                OpenLayers.Handler.Path),
+    polygon: new OpenLayers.Control.DrawFeature(polygonLayer,
+                OpenLayers.Handler.Polygon)
+  };
+
+  for(var key in drawControls) {
+    data.openlayers.addControl(drawControls[key]);
+  }
+  document.getElementById('noneToggle').checked = true; 
+};
+
+
+Drupal.settings.community_group_form.toggleControl = function(element) {
+  for(key in drawControls) {
+    var control = drawControls[key];
+    if(element.value == key && element.checked) {
+      control.activate();
+    } else {
+      control.deactivate();
+    }
+  }
+};
+ 
+Drupal.settings.community_group_form.allowPan = function(element) {
+  var stop = !element.checked;
+  for(var key in drawControls) {
+    drawControls[key].handler.stopDown = stop;
+    drawControls[key].handler.stopUp = stop;
+  }
 };
 
 })(jQuery);

@@ -46,6 +46,7 @@ fieldset a.fieldset-title {
 /*   font-size: 100%; */
 /*   width: 400px; */
 }
+
 .node-form .form-item .form-type-radio label {
   background: none;
   color: #666;
@@ -140,12 +141,14 @@ div#main-content-container {
 }
 
 /* defaults for all form buttons */
+.address-ajax .submit,
 form input.form-submit {
   cursor: pointer;
   font-weight: bold;
   margin: 2px;
   padding: 3px 5px;
 }
+
 
 form input.form-submit:hover {
   cursor: pointer;
@@ -265,4 +268,31 @@ margin-left: 10px;
 
 #location-geocode-response {
   padding: 10px;
+}
+.map-draw-controls ul {
+  margin: 0 0 0 10px;
+  padding: 0;
+}
+.map-draw-controls li {
+  list-style: none;
+  padding: 0;
+}
+
+.map-draw-controls label {
+  display: inline;
+}
+
+.map-instructions-container {
+  padding: 10px;
+}
+
+.address-ajax .form-text {
+  float: left;
+  margin-right: 10px;
+}
+
+.address-ajax .submit a {
+  background-color: #666;
+  padding: 4px;
+  color: #fff;
 }

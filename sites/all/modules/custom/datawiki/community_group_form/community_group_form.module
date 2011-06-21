@@ -84,10 +84,38 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     $form['field_location']['#prefix'] .= '<div class="instructions-2">';
     $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
     $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '<div class="address-ajax"><div class="form-item"><input type="text" id="search-map-input" placeholder="Enter your address or intersection" /><div class="submit">Locate</div></div>';
+    $form['field_location']['#prefix'] .= '<div class="address-ajax"><div class="form-item"><input type="text" id="search-map-input" placeholder="Enter your address or intersection" class="form-text" size=60 /><div class="submit"><a href="#">Locate</a></div></div>';
     $form['field_location']['#prefix'] .= '</div>';
     
-    $form['field_location']['#suffix'] = '<div class="map-draw-controls"><div class="draw">draw</div><div class="shape">shape</div></div>';
+    $form['field_location']['#suffix'] = '<div class="map-draw-controls">
+    
+        
+        <ul id="controlToggle"> 
+            <li> 
+                <input type="radio" name="type" value="none" id="noneToggle"
+                       onclick="Drupal.settings.community_group_form.toggleControl(this);" checked="checked" /> 
+                <label for="noneToggle">navigate</label> 
+            </li> 
+            <li> 
+                <input type="radio" name="type" value="point" id="pointToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
+                <label for="pointToggle">draw point</label> 
+            </li> 
+            <li> 
+                <input type="radio" name="type" value="line" id="lineToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
+                <label for="lineToggle">draw line</label> 
+            </li> 
+            <li> 
+                <input type="radio" name="type" value="polygon" id="polygonToggle" onclick="Drupal.settings.community_group_form.toggleControl(this);" /> 
+                <label for="polygonToggle">draw polygon</label> 
+            </li> 
+            <li> 
+                <input type="checkbox" name="allow-pan" value="allow-pan" id="allowPanCheckbox" checked=true onclick="Drupal.settings.community_group_form.allowPan(this);" /> 
+                <label for="allowPanCheckbox">allow pan while drawing</label> 
+            </li> 
+        </ul> 
+    
+    
+    </div>';
     $form['field_location']['#suffix'] .= '</div>';
 // @TODO In progress.
 $form['field_location']['und'][0]['lat']['#type'] = 'markup';
