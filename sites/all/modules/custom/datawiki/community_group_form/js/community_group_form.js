@@ -216,10 +216,15 @@ Drupal.settings.community_group_form.setPolygon = function(feature) {
       feature.layer.features[i].destroy();
     }
   }
-};   
+  
+  // Update geofield.
+  // @TODO when/if we move this into geofield this will need to be modified.
+  // Actually...we should move this to geofield.
+  // Need to read the values & display them on map.
+  // Need to set values so they can be stored.
+};
 
 Drupal.settings.community_group_form.clearFeatures = function() {
-          console.log("clear");
   // Get map data.
   var data = Drupal.settings.community_group_form.data;
   data.openlayers.layers.name = "Point Layer";
@@ -232,14 +237,12 @@ Drupal.settings.community_group_form.clearFeatures = function() {
       case 'Polygon Layer':
         if(layer.features.length > 0) {
           for (var i = 0; i < layer.features.length; i++) {
-  //          if (layer.features[i] != feature) {
-              layer.features[i].destroy();
-//            }
+            layer.features[i].destroy();
           }
         }
         break;
-      }
     }
+  }
 }; 
 
 Drupal.settings.community_group_form.toggleControl = function(element) {

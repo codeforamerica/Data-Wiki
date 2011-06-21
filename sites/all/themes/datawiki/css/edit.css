@@ -296,3 +296,17 @@ margin-left: 10px;
   padding: 4px;
   color: #fff;
 }
+
+ul#controlToggle {
+width: 100%;
+}
+ul#controlToggle li {
+  float: left;
+  padding: 10px;
+}
+
+.address-ajax .tips{
+  clear: both;
+  width: 100%;
+  float: none;
+}
