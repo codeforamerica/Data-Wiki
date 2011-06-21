@@ -184,7 +184,10 @@ Drupal.settings.community_group_form.openLayersDrawPoint = function(){
     line: new OpenLayers.Control.DrawFeature(lineLayer,
                 OpenLayers.Handler.Path),
     polygon: new OpenLayers.Control.DrawFeature(polygonLayer,
-                OpenLayers.Handler.Polygon)
+                OpenLayers.Handler.Polygon,{
+                  featureAdded: Drupal.settings.community_group_form.setPolygon,
+                  handlerOptions: Drupal.settings.community_group_form.setPolygonOptions
+                })
   };
 
   for(var key in drawControls) {
@@ -206,13 +209,46 @@ Drupal.settings.community_group_form.setPoint = function(feature) {
     }
   }
 };
+
+Drupal.settings.community_group_form.setPolygon = function(feature) {
+  for (var i = 0; i < feature.layer.features.length; i++) {
+    if (feature.layer.features[i] != feature) {
+      feature.layer.features[i].destroy();
+    }
+  }
+};   
+
+Drupal.settings.community_group_form.clearFeatures = function() {
+          console.log("clear");
+  // Get map data.
+  var data = Drupal.settings.community_group_form.data;
+  data.openlayers.layers.name = "Point Layer";
+
+  for (var j in data.openlayers.layers) {
+    var layer = data.openlayers.layers[j];
     
+    switch(layer["name"]) {
+      case 'Point Layer':
+      case 'Polygon Layer':
+        if(layer.features.length > 0) {
+          for (var i = 0; i < layer.features.length; i++) {
+  //          if (layer.features[i] != feature) {
+              layer.features[i].destroy();
+//            }
+          }
+        }
+        break;
+      }
+    }
+}; 
 
 Drupal.settings.community_group_form.toggleControl = function(element) {
   for(key in drawControls) {
     var control = drawControls[key];
     if(element.value == key && element.checked) {
       control.activate();
+      Drupal.settings.community_group_form.clearFeatures();
+      
     } else {
       control.deactivate();
     }
