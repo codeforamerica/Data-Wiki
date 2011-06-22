@@ -214,6 +214,7 @@ function datawiki_contents($type) {
         $output .= "<li><a href=\"/node/add/community-group\">Add Group</a></li>";
         $output .= "<li><a href=\"/community-data-api\">Community Data & API</a></li>";
         $output .= "<li><a href=\"/contact\">Contact</a></li>";
+        $output .= "<li><a href=\"/projects\">Projects</a></li>";
         $output .= "</ul>";
         break;
 

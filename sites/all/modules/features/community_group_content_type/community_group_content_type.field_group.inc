@@ -87,10 +87,12 @@ function community_group_content_type_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Categories',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => 'sidebar_box',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_categories|node|community_group|default'] = $field_group;
@@ -270,7 +272,7 @@ function community_group_content_type_field_group_info() {
         'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_metadata|node|community_group|default'] = $field_group;

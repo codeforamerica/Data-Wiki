@@ -268,7 +268,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_email']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_email']['type'] = 'email_default';
   $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
-  /* Field: Content: Image */
+  /* Field: Content: Link to Image for this Group */
   $handler->display->display_options['fields']['field_url_image']['id'] = 'field_url_image';
   $handler->display->display_options['fields']['field_url_image']['table'] = 'field_data_field_url_image';
   $handler->display->display_options['fields']['field_url_image']['field'] = 'field_url_image';
@@ -930,7 +930,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_source']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_source']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_source']['field_api_classes'] = 0;
-  /* Field: Content: Image */
+  /* Field: Content: Link to Image for this Group */
   $handler->display->display_options['fields']['field_url_image']['id'] = 'field_url_image';
   $handler->display->display_options['fields']['field_url_image']['table'] = 'field_data_field_url_image';
   $handler->display->display_options['fields']['field_url_image']['field'] = 'field_url_image';
@@ -2159,7 +2159,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_location_description']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_location_description']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_location_description']['field_api_classes'] = 0;
-  /* Field: Content: Image */
+  /* Field: Content: Link to Image for this Group */
   $handler->display->display_options['fields']['field_url_image']['id'] = 'field_url_image';
   $handler->display->display_options['fields']['field_url_image']['table'] = 'field_data_field_url_image';
   $handler->display->display_options['fields']['field_url_image']['field'] = 'field_url_image';
@@ -2422,15 +2422,16 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['filters']['field_neighborhood_tid']['id'] = 'field_neighborhood_tid';
   $handler->display->display_options['filters']['field_neighborhood_tid']['table'] = 'field_data_field_neighborhood';
   $handler->display->display_options['filters']['field_neighborhood_tid']['field'] = 'field_neighborhood_tid';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['value'] = '';
   $handler->display->display_options['filters']['field_neighborhood_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['operator_id'] = 'field_neighborhood_tid_op';
   $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['label'] = 'Neighborhood';
   $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['operator'] = 'field_neighborhood_tid_op';
   $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['identifier'] = 'field_neighborhood_tid';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['reduce'] = 0;
   $handler->display->display_options['filters']['field_neighborhood_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_neighborhood_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_neighborhood_tid']['vocabulary'] = 'neighborhood';
-  $handler->display->display_options['filters']['field_neighborhood_tid']['error_message'] = 1;
+  $handler->display->display_options['filters']['field_neighborhood_tid']['error_message'] = 0;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -2933,7 +2934,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_email']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_email']['type'] = 'email_default';
   $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
-  /* Field: Content: Image */
+  /* Field: Content: Link to Image for this Group */
   $handler->display->display_options['fields']['field_url_image']['id'] = 'field_url_image';
   $handler->display->display_options['fields']['field_url_image']['table'] = 'field_data_field_url_image';
   $handler->display->display_options['fields']['field_url_image']['field'] = 'field_url_image';

@@ -119,15 +119,23 @@ function datawiki_context_context_default_contexts() {
         'about' => 'about',
         'contact' => 'contact',
         'topics' => 'topics',
+        'categories' => 'categories',
         'get-involved' => 'get-involved',
         'community-data-api' => 'community-data-api',
         'node/add/community-group' => 'node/add/community-group',
+        'projects' => 'projects',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'citygroups_sub-citygroups_sub_home_menu' => array(
+          'module' => 'citygroups_sub',
+          'delta' => 'citygroups_sub_home_menu',
+          'region' => 'content_top',
+          'weight' => '-10',
+        ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
