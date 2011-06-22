@@ -4,6 +4,7 @@
  * Implements hook_block_info().
  */
 function datawiki_block_info() {
+/*
   $blocks['datawiki_welcome'] = array(
     'info' => t('Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
@@ -12,10 +13,12 @@ function datawiki_block_info() {
     'info' => t('Branding Header'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+*/
   $blocks['datawiki_branding_footer'] = array(
     'info' => t('Branding Footer'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+/*
   $blocks['datawiki_facebook_like'] = array(
     'info' => t('Facebook Like'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
@@ -40,6 +43,7 @@ function datawiki_block_info() {
     'info' => t('Header Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+*/
   $blocks['datawiki_dashboard_add_content'] = array(
     'info' => t('Dashboard Add Content'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
