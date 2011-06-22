@@ -70,6 +70,7 @@ function datawiki_group_map_import($job) {
 function datawiki_group_map_preprocess_page(&$vars) {
   $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
   switch ($vars['page_path']) {
+    case 'node':
     case 'map':
       datawiki_group_map_page_variables($vars);
     break;

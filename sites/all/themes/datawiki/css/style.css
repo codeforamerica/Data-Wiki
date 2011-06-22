@@ -67,6 +67,9 @@ strong {
   -moz-box-shadow: 0px 2px 5px #666;
   box-shadow: 0px 2px 5px #666;
 }
+#header a {
+  color: #ffffff;
+}
 
 .header-logo-container {
   font-weight: bold;
@@ -170,7 +173,7 @@ body.front span.submitted {
 }
 .add-group:hover, .add-group:active {
   text-decoration: none;
-  margin-top:2px;
+  margin-top: 2px;
 	-moz-box-shadow: 0px 1px 2px #666;
 	-webkit-box-shadow: 0px 1px 2px #666;
 	box-shadow: 0px 1px 2px #666;
@@ -178,4 +181,82 @@ body.front span.submitted {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=90, Color='#666666')";
 	/* For IE 5.5 - 7 */
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=90, Color='#666666');
+}
+
+
+
+
+/* Map */
+#popup-content {
+  width: 300px;
+  background: #bbb;
+/*   position: fixed; */
+  top: 130px;
+  right: 30px;
+  padding: 20px 10px;
+/*   z-index: 1000; */
+}
+
+#popup-content a {
+  color: #fff;
+}
+
+#popup-content .categories {
+  font-size: 80%;
+  padding: 20px 0 0 0;
+}
+
+
+
+
+/**
+ * Footer 
+ */
+
+#branding-footer .logo {
+  margin: 10px;
+  padding: 10px;
+  float: right;
+  clear: right;
+}
+
+#footer {
+  margin: 10px 0;
+}
+
+#footer ul li {
+  list-style: none;
+  display: block;
+  float: left;
+  border-right: 1px solid #666;
+  padding: 0 10px;
+}
+
+#footer ul li:last-child {
+  border:none;
+}
+
+#footer ul li a {
+  color: #533549;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#footer ul, #footer p {
+  float: left;
+  display: block;
+}
+
+#footer .footer-logo img {
+  float: right;
+  margin-top: 1em;
+  display: block;
+}
+
+#footer span {
+  color: #333333;
+}
+
+#footer p {
+  color: #999999;
 }

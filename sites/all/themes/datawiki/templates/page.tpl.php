@@ -22,17 +22,19 @@
         <?php print render($section['section_name']); ?>
       </div>
       <?php endif; ?>
+<!--
       <div class="header-menu-container grid_2">
         <?php print render($page['header_menu']); ?>
       </div>
-  
-      <div class="header-signin-container grid_2">
+-->
+<!--
+      <div class="header-gap-container grid_4">
+        <?php print render($page['header_gap']); ?>
+      </div>
+-->
+      <div class="header-signin-container grid_4 push_6 omega">
         <?php print render($page['header_signin']); ?>
         <?php print $account_link; ?>
-      </div>
-  
-      <div class="header-gap-container grid_4 omega">
-        <?php print render($page['header_gap']); ?>
       </div>
     </div>
     <?php if ($page['header_bottom']): ?>

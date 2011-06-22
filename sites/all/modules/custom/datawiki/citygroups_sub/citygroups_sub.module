@@ -271,7 +271,7 @@ function citygroups_sub_contents($type) {
       break;
       
       case 'map':
-        $output .= " k";
+        $output .= datawiki_group_map_render();
       break;
       
       case 'categories':
