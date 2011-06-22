@@ -170,30 +170,55 @@ Drupal.settings.community_group_form.openLayersDropPoint = function(result){
 Drupal.settings.community_group_form.centerOnFeature = function() {
   var data = Drupal.settings.community_group_form.data;
 
-
   // On load, center on the feature and zoom.
   // @TODO this is ignoring the openlayers preset for some reason. 
   var zoomBlockLevel = 15;
   var zoomMultiBlock = 13;
   
-/*
-  var lat = $('input#geofield_lat').val();
-  var lon = $('input#geofield_lat').val();
-  
-  console.log(lat);
-*/
+  /*
+    var lat = $('input#geofield_lat').val();
+    var lon = $('input#geofield_lon').val();
+  */
 
-  var  geom = feature.clone().geometry.transform(
-  feature.layer.map.projection,
-  new OpenLayers.Projection('EPSG:4326'));
+  try {
+    // Redraw feature with style.
+    var myStyles = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style({
+                    pointRadius: "10", // sized according to type attribute
+                    fillColor: "#ffffff",
+                    strokeColor: "#000000",
+                    strokeWidth: 2
+                }),
+                "select": new OpenLayers.Style({
+                    fillColor: "#ffffff",
+                    strokeColor: "#000000"
+                })
+            });
+    var edit_feature_layer = new OpenLayers.Layer.Vector("edit-feature", {
+          styleMap: myStyles
+      });
+    edit_feature_layer.addFeatures(feature);
+    data.openlayers.addLayers([edit_feature_layer]);
 
-  centroid = geom.getCentroid();
-
-  var center = new OpenLayers.LonLat(centroid.x, centroid.y).transform(
-          new OpenLayers.Projection('EPSG:4326'),
-          new OpenLayers.Projection(data.openlayers.projection.projCode));
-  data.openlayers.setCenter(center, zoomBlockLevel, false, false);
+    // Center the map on the feature.
+    var  geom = feature.clone().geometry.transform(
+    feature.layer.map.projection,
+    new OpenLayers.Projection('EPSG:4326'));
+    console.log(feature);
+        feature.styleMap = myStyles;  
         
+    
+    centroid = geom.getCentroid();
+    var center = new OpenLayers.LonLat(centroid.x, centroid.y).transform(
+            new OpenLayers.Projection('EPSG:4326'),
+            new OpenLayers.Projection(data.openlayers.projection.projCode));
+    data.openlayers.setCenter(center, false, false, false);
+    
+
+  }
+  catch(e) {
+    console.log(e);
+  }  
 };
 
 })(jQuery);

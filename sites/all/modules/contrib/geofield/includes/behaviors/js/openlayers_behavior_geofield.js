@@ -12,7 +12,6 @@
 Drupal.behaviors.openlayers_behavior_geofield = {
   'attach': function(context, settings) {
     var data = $(context).data('openlayers');
-
     /*
      * Helper method called on addFeature
      */
@@ -62,8 +61,25 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         'right':$(data.map.behaviors['openlayers_behavior_geofield']['right']),
         'bottom':$(data.map.behaviors['openlayers_behavior_geofield']['bottom'])
       };
+      
+      /*
+       * Style
+       */
 
-      selection_layer = new OpenLayers.Layer.Vector('Selection Layer');      
+    // Redraw feature with style.
+    var geofieldStyleMap = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style({
+                    pointRadius: "10", // sized according to type attribute
+                    fillColor: "#ffffff",
+                    strokeColor: "#000000",
+                    strokeWidth: 2
+                }),
+                "select": new OpenLayers.Style({
+                    fillColor: "#ffffff",
+                    strokeColor: "#000000"
+                })
+            });
+      selection_layer = new OpenLayers.Layer.Vector('Selection Layer', {styleMap: geofieldStyleMap});
       
       /*
        * Point Drawing
@@ -249,17 +265,14 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       /*
        * Draw features if the form has values
        */
-      if (data.openlayers.data_form.wkt.val()) {
 
+      if (data.openlayers.data_form.wkt.val()) {
         geometry = new OpenLayers.Geometry.fromWKT(data.openlayers.data_form.wkt.val());
         geometry.transform(
             new OpenLayers.Projection('EPSG:4326'),
             data.openlayers.projection);
-        
         feature = new OpenLayers.Feature.Vector(geometry);
         selection_layer.addFeatures([feature]);
-
-
       }
       
     }
