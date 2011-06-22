@@ -1,9 +1,15 @@
 #header {
   background-color: #2796F2;
 }
+
+#block-sea_blockwatch-sea_blockwatch_about_block h3{
+  color: #2796F2;
+}
+
 .page-blockwatch .title-container {
   display: none;
 }
+/*
 
 #popup-content {
   width: 300px;
@@ -14,6 +20,8 @@
   padding: 20px 10px;
   z-index: 1000;
 }
+*/
+
 #content #popup-content .block {
   background: #bbb;
   padding: 20px 10px;
@@ -105,9 +113,6 @@ ul.menu {
   margin-left: 10px;
 }
 
-#block-sea_blockwatch-sea_blockwatch_about_block h3{
-  color: #2796F2;
-}
 
 #map {
 

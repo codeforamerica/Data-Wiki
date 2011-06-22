@@ -262,8 +262,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         }
       });
       */
-
-console.log(data);      
+      
       /*
        * Draw features if the form has values
        */

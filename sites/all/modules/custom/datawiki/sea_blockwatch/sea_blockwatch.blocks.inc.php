@@ -192,20 +192,19 @@ function sea_blockwatch_contents($type) {
       break;
       
     case 'add_data':
-        $output .= "<div class=\"add-group\">Are you a block watch captain? <a href=\"#\">Add</a></div>";
+        $output .= "<div class=\"add-container\">Are you a block watch captain? <div  class=\"add-group\"><a href=\"#\">Add</a></div></div>";
       break;
       
       case 'map':
-        
         $output .= datawiki_group_map_render();
       break;
       
       case 'categories':
-        $output .= "<div id=\"topics\">Topics</div>";
+        $output .= "";
       break;
       
       case 'list':
-        $output .= "<div id=\"list\">List</div>";
+        $output .= "";
       break;
       
       case 'home_menu':

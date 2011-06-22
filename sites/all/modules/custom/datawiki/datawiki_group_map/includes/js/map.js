@@ -140,6 +140,15 @@ cityGroups.map.popupPoints = function (nodes){
   if(node.latitude !== undefined){
     var markerLocation = new L.LatLng(parseFloat(node.latitude), parseFloat(node.longitude));
     // @TODO escape these.
+    var customMarkerStyle = Array();
+    customMarkerStyle["iconUrl"] = Drupal.settings.datawiki.mapMarkerIconUrl;
+    customMarkerStyle["shadowUrl"] = Drupal.settings.datawiki.mapMarkerIconShadowUrl;
+    customMarkerStyle["iconSize"] = new L.Point(Drupal.settings.datawiki.mapMarkerIconPointSize[0], Drupal.settings.datawiki.mapMarkerIconPointSize[1]);
+    customMarkerStyle["shadowSize"] = new L.Point(Drupal.settings.datawiki.mapMarkerIconShadowSize[0], Drupal.settings.datawiki.mapMarkerIconShadowSize[1]);
+    customMarkerStyle["iconAnchor"] = new L.Point(Drupal.settings.datawiki.mapMarkerIconAnchor[0], Drupal.settings.datawiki.mapMarkerIconAnchor[1]);   
+    customMarkerStyle["popupAnchor"] = new L.Point(Drupal.settings.datawiki.mapMarkerPopupAnchor[0], Drupal.settings.datawiki.mapMarkerPopupAnchor[1]);
+
+/*
     var customMarkerStyle = {
       iconUrl: Drupal.settings.datawiki.mapMarkerIconUrl,
       shadowUrl: Drupal.settings.datawiki.mapMarkerIconShadowUrl,
@@ -148,6 +157,7 @@ cityGroups.map.popupPoints = function (nodes){
       iconAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerIconAnchor[0], Drupal.settings.datawiki.mapMarkerIconAnchor[1]),
       popupAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerPopupAnchor[0], Drupal.settings.datawiki.mapMarkerPopupAnchor[1])
     };
+*/
     var CustomMarker = L.Icon.extend(customMarkerStyle);
     var customIcon = new CustomMarker(),
     marker = new L.Marker(markerLocation, {icon: customIcon});
