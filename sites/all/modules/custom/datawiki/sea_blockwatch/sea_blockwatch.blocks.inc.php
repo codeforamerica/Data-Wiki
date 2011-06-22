@@ -192,7 +192,8 @@ function sea_blockwatch_contents($type) {
       break;
       
     case 'add_data':
-        $output .= "<div class=\"add-container\">Are you a block watch captain? <div  class=\"add-group\"><a href=\"#\">Add</a></div></div>";
+        $add_variables = "category=Block Watch, Crime Prevention";
+        $output .= "<div class=\"add-container\">Are you a block watch captain? <div class=\"add-group\"><a href=\"/node/add/community-group?" . $add_variables . "\">Add</a></div></div>";
       break;
       
       case 'map':

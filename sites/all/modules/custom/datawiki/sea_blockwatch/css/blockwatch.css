@@ -9,18 +9,10 @@
 .page-blockwatch .title-container {
   display: none;
 }
-/*
 
 #popup-content {
-  width: 300px;
-  background: #bbb;
-  position: fixed;
-  top: 130px;
-  right: 30px;
-  padding: 20px 10px;
-  z-index: 1000;
+  top: 0px;
 }
-*/
 
 #content #popup-content .block {
   background: #bbb;

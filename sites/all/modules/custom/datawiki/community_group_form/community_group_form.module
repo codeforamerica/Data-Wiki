@@ -35,6 +35,11 @@ function community_group_form_form_render_categories() {
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') { 
+  
+    $category = $_GET["category"];
+    if(!empty($category)) {
+      $form['field_categories']["und"]["#default_value"] = $category;
+    }
 
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.
