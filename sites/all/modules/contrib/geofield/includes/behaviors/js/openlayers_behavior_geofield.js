@@ -12,6 +12,7 @@
 Drupal.behaviors.openlayers_behavior_geofield = {
   'attach': function(context, settings) {
     var data = $(context).data('openlayers');
+
     /*
      * Helper method called on addFeature
      */
@@ -260,23 +261,23 @@ Drupal.behaviors.openlayers_behavior_geofield = {
           point_control.activate();
         }
       });
-*/
-      
+      */
+
+console.log(data);      
       /*
        * Draw features if the form has values
        */
-
       if (data.openlayers.data_form.wkt.val()) {
         geometry = new OpenLayers.Geometry.fromWKT(data.openlayers.data_form.wkt.val());
         geometry.transform(
             new OpenLayers.Projection('EPSG:4326'),
             data.openlayers.projection);
-        feature = new OpenLayers.Feature.Vector(geometry);
+        feature = new OpenLayers.Feature.Vector(geometry, {styleMap: geofieldStyleMap});
         selection_layer.addFeatures([feature]);
-      }
-      
+      }      
     }
   }
+  
 };
 
 })(jQuery);

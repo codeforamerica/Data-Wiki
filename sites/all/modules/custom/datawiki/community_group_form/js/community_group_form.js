@@ -203,10 +203,7 @@ Drupal.settings.community_group_form.centerOnFeature = function() {
     // Center the map on the feature.
     var  geom = feature.clone().geometry.transform(
     feature.layer.map.projection,
-    new OpenLayers.Projection('EPSG:4326'));
-    console.log(feature);
-        feature.styleMap = myStyles;  
-        
+    new OpenLayers.Projection('EPSG:4326'));        
     
     centroid = geom.getCentroid();
     var center = new OpenLayers.LonLat(centroid.x, centroid.y).transform(
