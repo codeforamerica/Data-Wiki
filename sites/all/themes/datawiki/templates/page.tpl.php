@@ -35,10 +35,6 @@
         <?php print render($page['header_gap']); ?>
       </div>
     </div>
-    <div id="slogan">
-      <?php print $site_slogan; ?>
-    </div>
-    <div class="clear"></div>
     <?php if ($page['header_bottom']): ?>
     <div class="clear"></div>
     <div class="header-bottom grid_16 omega">
@@ -47,6 +43,10 @@
     <?php endif; ?>
   <div class="clear"></div>
   <div id="main" role="main" class="grid_16 alpha omega">
+    <div id="slogan">
+      <?php print $site_slogan; ?>
+    </div>
+    <div class="clear"></div>
     <div class="messages-container">
       <?php print $messages; ?>
     </div>

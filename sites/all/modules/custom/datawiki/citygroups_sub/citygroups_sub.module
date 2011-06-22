@@ -111,6 +111,10 @@ function citygroups_sub_block_info() {
     'info' => t('Projects'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+  $blocks['citygroups_sub_add_group'] = array(
+    'info' => t('Add Group'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
   return $blocks;
 }
 
@@ -197,6 +201,11 @@ function citygroups_sub_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = citygroups_sub_contents('projects');
       break;
+
+    case 'citygroups_sub_add_group':
+      $block['subject'] = '';
+      $block['content'] = citygroups_sub_contents('add_group');
+      break;
   }
   return $block;
 }
@@ -209,7 +218,7 @@ function citygroups_sub_contents($type) {
   
   switch ($type) {
     case 'welcome':
-      $output .= '<h2>' . t('Find groups by location or topic.') . '</h2>';
+      $output .= '<p>' . t('Find groups by location or topic.') .'</p>';
       break;
 
     case 'site_tagline':
@@ -301,6 +310,10 @@ function citygroups_sub_contents($type) {
       
       case 'categories_menu':
         $output .= " ";
+      break;
+
+      case 'add_group':
+        $output .= "<div class=\"add-group\"><a href=\"/node/add/community-group\">Add Group</a></div> ";
       break;
       
       case 'projects':
