@@ -99,6 +99,14 @@ function datawiki_group_map_page_variables(&$vars) {
   drupal_add_js($settings['html_root'] . '/includes/js/leaflet/leaflet.js', array('type' => 'file', 'group' => JS_DEFAULT));
   drupal_add_js($settings['html_root'] . '/includes/js/map.js', array('type' => 'file', 'group' => JS_DEFAULT));
 
+  // Add Google API (uses openlayers API key)
+  // @TODO require openlayers.
+  drupal_add_js(
+      'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+      variable_get('openlayers_layers_google_api', 
+        variable_get('googlemap_api_key', '')
+      ), 'external');
+
   // Pass javascript settings into container variable.
   $datawiki_js_settings = array();
   $datawiki_js_settings['datawiki'] = $settings['javascript_settings'];

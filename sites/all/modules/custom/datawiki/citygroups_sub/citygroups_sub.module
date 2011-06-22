@@ -23,6 +23,12 @@ function citygroups_sub_menu() {
     'page arguments' => array(t('Render Map Page.')),
     'access callback' => TRUE,
   );
+  $items['projects'] = array(
+    'title' => 'CityGroups Data Collection Projects',
+    'page callback' => 'citygroups_sub_projects_render',
+    'page arguments' => array(t('Render Projects Page.')),
+    'access callback' => TRUE,
+  );
   return $items;
 }
 
@@ -35,6 +41,10 @@ function citygroups_sub_termname_list_render() {
 
 function citygroups_sub_map_render() {
   return datawiki_group_map_render();
+}
+
+function citygroups_sub_projects_render() {
+  return t('These are some data collection projects we are doing.');
 }
 
 /**

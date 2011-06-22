@@ -1,4 +1,3 @@
-console.log("map");
 var cityGroups = {};
 cityGroups.map = {};
 cityGroups.geoJSON = {};
@@ -7,6 +6,11 @@ cityGroups.map.rendered;
 cityGroups.data = {};
 cityGroups.map.form = {};
 var datawiki;
+
+var geocodedAddressResults;
+var geocoder;
+
+
 // Custom search paths.
 cityGroups.paths = {
     "defaultPath": "/data/community-group/map",
@@ -14,15 +18,18 @@ cityGroups.paths = {
 };
         
 $(document).ready(function() {
+  geocoder = new google.maps.Geocoder();
   cityGroups.map.polygonOptions = Drupal.settings.datawiki.mapColors;
   cityGroups.data.popularLoad();
   cityGroups.loadData(cityGroups.paths['defaultPath']);
   cityGroups.mapPageInteractions();
+  $('input#search-links-submit').click(function() {
+    cityGroups.map.geocodeAddress();
+    return false;
+  });
 });
 
-
 cityGroups.mapPageInteractions = function () {
-  cityGroups.map.geocodeAddress();
   $('ul.menu a#popular-search').click(function() {
 /*     $('div#popular-terms').css('backgroundColor', '#bb4433'); */
   });
@@ -64,7 +71,6 @@ cityGroups.loadDataError = function(data) {
 };
 
 cityGroups.loadDataSuccess = function(data) {
-  console.log("success!");
   $('div.loading').hide();
   cityGroups.data = data;
   cityGroups.map.loadMap();
@@ -96,12 +102,12 @@ cityGroups.geoJSON = function(nodes) {
   var polygonPoint;
   var features = {};
 
+
   for (i in nodes) {
     var locationGeoObj = $.parseJSON(nodes[i]["node"]["location_geo"]);
     if(locationGeoObj.type !== undefined) {
       switch(locationGeoObj.type) {
         case "Point":
-        console.log("point");
           cityGroups.map.popupPoints(nodes);
         break;
         case "Polygon":
@@ -121,7 +127,6 @@ cityGroups.geoJSON = function(nodes) {
     }
     else {
       if(nodes[i]["node"]["latitude"] !== undefined) {
-      console.log("lat/lon");
         cityGroups.map.popupPoints(nodes);    
       }
     }
@@ -145,15 +150,18 @@ cityGroups.map.popupPoints = function (nodes){
     var customIcon = new CustomMarker(),
     marker = new L.Marker(markerLocation, {icon: customIcon});
     cityGroups.map.rendered.addLayer(marker);
-    marker.on('click', onMapClick);
+
     
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
+  	  console.log("test");
   	}
   	
   	function offMapClick(e) {
       $('div#popup-content div.content').html('Click map to see where the groups are');
   	}
+  	
+    marker.on('click', onMapClick);
 	}
 };
 
@@ -174,7 +182,6 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   /*   cityGroups.map.rendered.removeLayer(marker); */
   cityGroups.map.rendered.addLayer(marker);
   marker.on('click', onMapClick);
-
 	function onMapClick(e) {
 	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
     cityGroups.map.rendered.addLayer(polygon);
@@ -204,153 +211,53 @@ cityGroups.map.popupTemplate = function(node) {
   return output;
 };
 
-
-/**
- * Use Google's Geocode API to return a geocoded address.
- */
 cityGroups.map.geocodeAddress = function (){
-  //http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
-  $('div#search-map input#search-map-submit').click(function() {
-    var inputValue = $('input#search-map-input').val();
-
-    inputValue = cityGroups.spaceToPlus(inputValue);
-    var googleGeocode = 'http://maps.googleapis.com/maps/api/geocode/json?address=';
-    var geocodeRequest = googleGeocode + inputValue;
-    cityGroups.map.loadGeocodeSuccess();
-    
-    $.ajax({
-      url: geocodeRequest,
-      dataType: 'json',
-      data: data,
-      success: cityGroups.map.loadGeocodeSuccess,
-      error: cityGroups.loadDataError
-    });    
-    
-    // console.log(inputValue);
-  });
-
+  var inputValue = $('div#search-places input.form-item').val();
+  cityGroups.map.codeAddress(inputValue);
 };
 
-/**
- * Convert spaces in a string to pluses.
- */
-cityGroups.spaceToPlus = function(val) {
-  // @TODO convert spaces to +
-/*   val = val.replace(' ', '+'); */
-  console.log(val);
-  return val;
-};
-
-cityGroups.map.loadGeocodeSuccess = function(/* data */) {
-/*   console.log(data); */
-  // http://code.google.com/apis/maps/documentation/geocoding/
-
-  var testGeoCodedData =
-    {
-    "status": "OK",
-    "results": [ {
-      "types": [ "street_address" ],
-      "formatted_address": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
-      "address_components": [ {
-        "long_name": "1600",
-        "short_name": "1600",
-        "types": [ "street_number" ]
-      }, {
-        "long_name": "Amphitheatre Pkwy",
-        "short_name": "Amphitheatre Pkwy",
-        "types": [ "route" ]
-      }, {
-        "long_name": "Mountain View",
-        "short_name": "Mountain View",
-        "types": [ "locality", "political" ]
-      }, {
-        "long_name": "California",
-        "short_name": "CA",
-        "types": [ "administrative_area_level_1", "political" ]
-      }, {
-        "long_name": "United States",
-        "short_name": "US",
-        "types": [ "country", "political" ]
-      }, {
-        "long_name": "94043",
-        "short_name": "94043",
-        "types": [ "postal_code" ]
-      } ],
-      "geometry": {
-        "location": {
-          "lat": 37.4219720,
-          "lng": -122.0841430
-        },
-        "location_type": "ROOFTOP",
-        "viewport": {
-          "southwest": {
-            "lat": 37.4188244,
-            "lng": -122.0872906
-          },
-          "northeast": {
-            "lat": 37.4251196,
-            "lng": -122.0809954
-          }
-        }
-      }
-    } ]
-  };
-    
-/*   cityGroups.map.form.mapGeocodedData(testGeoCodedData); */
-};
-
-cityGroups.map.form.mapGeocodedData = function(geocodedData) {
-  console.log(geocodedData);
-  var formObject = {};
-  formObject.field_address = "";
-  /*
-    for (i in geocodedData.results.address_components) {
-      switch(geocodedData.results.address_components[i]["types"][0]) {
-        case 'street_number':
-          formObject.field_address += geocodedData.results.address_components[i]["long_name"] + " ";
-          break;
-        case 'route':
-          formObject.field_address += geocodedData.results.address_components[i]["long_name"];
-          break;
-        case 'locality':
-          formObject.field_city = geocodedData.results.address_components[i]["long_name"];
-          break;  
-        case 'administrative_area_level_1':
-          formObject.field_state = geocodedData.results.address_components[i]["short_name"];
-          break;  
-        case 'postal_code':
-          formObject.field_zipcode = geocodedData.results.address_components[i]["long_name"];
-          break;  
-      }
+cityGroups.map.codeAddress = function(address) {
+  var result =  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+       cityGroups.map.mapGeocodedData(results);
+    } 
+    else {
+      alert("Geocode was not successful for the following reason: " + status);
     }
-  */
-  console.log(formObject);
-};
+  });
+  return result;
+}
 
-/**
- * Load sample leaflet map.
- */
-cityGroups.map.loadTestMap = function () {
-	var map = new L.Map('map');
-	
-	var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
-		cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
-		cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
-	
-	map.setView(new L.LatLng(51.505, -0.09), 13).addLayer(cloudmade);
-	
-	
-	var markerLocation = new L.LatLng(51.5, -0.09),
-		marker = new L.Marker(markerLocation);
-	
-	map.addLayer(marker);
-	marker.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-	
+cityGroups.map.mapGeocodedData = function(results) {
+  var result = {};
+  result.field_address = '';
+  var item = results[0]['address_components'];
 
-	var circleLocation = new L.LatLng(51.508, -0.11),
-		circleOptions = {color: '#f03', opacity: 0.7},
-		circle = new L.Circle(circleLocation, 500, circleOptions);
-	
-	circle.bindPopup("I am a circle.");
-	map.addLayer(circle);
+  for (i in item) {     
+    switch(item[i]["types"][0]) {
+      case 'street_number':
+        result.field_address += item[i]["long_name"] + " ";
+        break;
+      case 'route':
+        result.field_address += item[i]["long_name"];
+        break;
+      case 'locality':
+        result.field_city = item[i]["long_name"];
+        break;  
+      case 'administrative_area_level_1':
+        result.field_state = item[i]["short_name"];
+        break;  
+      case 'postal_code':
+        result.field_zipcode = item[i]["long_name"];
+        break;
+    }
+    
+   // map geometry
+   result.latitude = results[0]["geometry"]["location"]["Ha"];
+   result.longitude = results[0]["geometry"]["location"]["Ia"];  
+  }
+  if (result.longitude !== undefined && result.latitude !== undefined) {
+    var center = new L.LatLng(result.latitude, result.longitude);
+    cityGroups.map.rendered.setView(center, cityGroups.map.settings.zoom);
+  }
 };

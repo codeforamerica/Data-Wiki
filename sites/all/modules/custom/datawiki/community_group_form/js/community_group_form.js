@@ -67,10 +67,6 @@ Drupal.behaviors.community_group_form = {
   
   // Autoload existing address.
   $('div.map-instructions-container div.address-ajax input#search-map-input').val($('textarea#edit-field-address-und-0-value').val());
-
-
-
-  
   $('div.map-instructions-container div.address-ajax div.submit').click(function () {
   Drupal.settings.community_group_form.geocodeAddress();
   return false;

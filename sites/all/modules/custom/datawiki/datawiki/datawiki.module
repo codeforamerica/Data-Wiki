@@ -195,7 +195,13 @@ function datawiki_contents($type) {
           .  "<div id=\"home-menu-locations\" class=\"item\">"
           . "<h3>Topic</h3>"
           . "<div class=\"menu-item topics\"><a href=\"/categories\"><img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_blog.gif\" title=\"Topics\" alt=\"Topics\" /><div class=\"label\">Topics</div></a></div>"
+          . "</div>"
+          .  "<div id=\"home-menu-projects\" class=\"item\">"          
+          . "<h3>Projects</h3>"
+          . "<div class=\"menu-item projects\"><a href=\"/projects\"><img src=\"" . base_path() . path_to_theme() . "/images/icons/icon_blog.gif\" title=\"Projects\" alt=\"Projects\" /><div class=\"label\">Projects</div></a></div>"
+  
           . "</div>";
+
         break;
         
       case 'navigation_menu':

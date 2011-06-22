@@ -32,12 +32,6 @@ function datawiki_context_context_default_contexts() {
           'region' => 'sidebar_second',
           'weight' => '-33',
         ),
-        'citygroups_sub-citygroups_sub_projects' => array(
-          'module' => 'citygroups_sub',
-          'delta' => 'citygroups_sub_projects',
-          'region' => 'sidebar_second',
-          'weight' => '-32',
-        ),
         'datawiki-datawiki_welcome' => array(
           'module' => 'datawiki',
           'delta' => 'datawiki_welcome',
@@ -65,6 +59,38 @@ function datawiki_context_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('datawiki');
   $export['citygroups_home'] = $context;
+
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'collection_projects';
+  $context->description = '';
+  $context->tag = 'datawiki';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'projects' => 'projects',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'citygroups_sub-citygroups_sub_projects' => array(
+          'module' => 'citygroups_sub',
+          'delta' => 'citygroups_sub_projects',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('datawiki');
+  $export['collection_projects'] = $context;
 
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
