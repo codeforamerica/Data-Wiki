@@ -29,7 +29,7 @@ function views_data_export_drush_command() {
     'drupal dependencies' => array (
       'views_data_export',
     ),
-    'core' => array('6'),
+    'core' => array('7'),
   );
 
   return $items;

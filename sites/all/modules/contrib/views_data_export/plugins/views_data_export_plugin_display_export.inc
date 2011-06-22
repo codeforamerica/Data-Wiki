@@ -81,7 +81,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     // It is very important to call the parent function here:
     parent::options_summary($categories, $options);
 
-    $categories['page']['title'] = t('Export settings');
+    $categories['page']['title'] = t('Data export settings');
 
     $options['use_batch'] = array(
       'category' => 'page',

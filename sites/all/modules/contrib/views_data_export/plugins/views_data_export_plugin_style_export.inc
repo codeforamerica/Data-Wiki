@@ -329,6 +329,9 @@ class views_data_export_plugin_style_export extends views_plugin_style {
       if (!empty($exposed)) {
         $tokens['%exposed'] = implode('-', $exposed);
       }
+      else {
+        $tokens['%exposed'] = 'default' ;
+      }
 
       // Timestamp token.
       $time = REQUEST_TIME;
