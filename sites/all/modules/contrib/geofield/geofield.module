@@ -1,0 +1,456 @@
+<?php
+
+require_once('geofield.widgets.inc');
+require_once('geofield.formatters.inc');
+require_once('geofield.feeds.inc');
+
+/**
+ * Implements hook_field_info().
+ */
+function geofield_field_info() {
+  return array(
+    'geofield' => array(
+      'label' => 'Geofield',
+      'description' => t('This field stores geo information.'),
+      'default_widget' => 'text_textfield',
+      'default_formatter' => 'default',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_presave().
+ * PDO throws an error when attempting to insert an empty string into a float
+ * field. Go through all values and convert empty strings to NULL.
+ */
+function geofield_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  if ($field['type'] === 'geofield') {
+    foreach ($items as $delta => $item) {
+      if (!empty($item)) {
+        foreach ($item as $k => $v) {
+          if ($v === '') {
+            $items[$delta][$k] = NULL;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements of hook_content_is_empty().
+ * 
+ * TODO: lat lon are optional, so this is broken.
+ */
+function geofield_field_is_empty($item, $field) {
+  return (empty($item['wkt']));
+}
+
+/**
+ * Implementation of hook_view_api().
+ */
+function geofield_views_api() {
+  return array(
+    'api' => '3.0-alpha1',
+    'path' => drupal_get_path('module', 'geofield') . '/views', 
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_type
+ */
+function geofield_ctools_plugin_type() {
+  return array(
+    'behaviors' => array(
+      'use hooks' => TRUE,
+    )
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function geofield_ctools_plugin_api($module, $api) {
+  return array('version' => 1);
+}
+
+/**
+ * Implementation of hook_openlayers_presets().
+ */
+function geofield_openlayers_presets() {
+  // Create full preset array
+  $widget = new stdClass();
+  $widget->api_version = 1;
+  $widget->name = 'geofield_widget_map';
+  $widget->title = t('Geofield Widget Map');
+  $widget->description = t('A Map Used for Geofield Input');
+  $widget->data = array(
+    'projection' => '900913',
+    'width' => '600px',
+    'default_layer' => 'osm_mapnik',
+    'height' => '400px',
+    'center' => array(
+      'initial' => array(
+        'centerpoint' => '0,0',
+        'zoom' => '2'
+      )
+    ),
+    'options' => array(
+      'maxExtent' => openlayers_get_extent('900913'),
+    ),
+    'behaviors' => array(
+      'openlayers_behavior_panzoombar' => array(),
+      'openlayers_behavior_attribution' => array(),
+      'openlayers_behavior_geofield' => array(),
+      'openlayers_behavior_keyboarddefaults' => array()
+    ),
+    'layers' => array(
+      'osm_mapnik',
+    )
+  );
+  
+  $formatter = new stdClass();
+  $formatter->api_version = 1;
+  $formatter->name = 'geofield_formatter_map';
+  $formatter->title = t('Geofield Formatter Map');
+  $formatter->description = t('A Map Used for Geofield Output');
+  $formatter->data = array(
+    'projection' => '900913',
+    'width' => '600px',
+    'default_layer' => 'osm_mapnik',
+    'height' => '400px',
+    'center' => array(
+      'initial' => array(
+        'centerpoint' => '0,0',
+        'zoom' => '2'
+      )
+    ),
+    'options' => array(
+      'maxExtent' => openlayers_get_extent('900913'),
+    ),
+    'behaviors' => array(
+      'openlayers_behavior_panzoombar' => array(),
+      'openlayers_behavior_attribution' => array(),
+      'openlayers_behavior_keyboarddefaults' => array()
+    ),
+    'layers' => array(
+      'geofield_formatter',
+      'osm_mapnik',
+    )
+  );
+  
+  return array(
+    'geofield_widget_map' => $widget, 
+    'geofield_formatter_map' => $formatter, 
+  );
+}
+
+/**
+ * Implements hook_openlayers_behaviors().
+ */
+function geofield_openlayers_behaviors() {
+  return array(
+    'openlayers_behavior_geofield' => array(
+      'title' => t('Geofield'),
+      'description' => t('Fuels the geofield map-input form.'),
+      'type' => 'layer',
+      'path' => drupal_get_path('module', 'geofield') .'/includes/behaviors',
+      'file' => 'openlayers_behavior_geofield.inc',
+      'behavior' => array(
+        'class' => 'openlayers_behavior_geofield',
+        'parent' => 'openlayers_behavior',
+      ),
+    ),
+  );
+}
+
+/**
+ * Formatter layers
+ */
+function geofield_openlayers_layers() {
+  $layers = array();
+  $layer = new stdClass();
+  $layer->api_version = 1;
+  $layer->name = 'geofield_formatter';
+  $layer->title = 'Placeholder for Geofield Formatter';
+  $layer->description = '';
+  $layer->data = array(
+    'layer_type' => 'openlayers_layer_type_raw',
+    'projection' => array('900913'),
+    'features' => array()
+  );
+  $layers[$layer->name] = $layer;
+  return $layers;
+}
+
+/**
+* Implementation of hook_requirements().
+*/
+function geofield_requirements($phase) {
+  $requirements = array();
+  
+  $geophp = geofield_load_geophp();
+  
+  // Report geoPHP library status
+  if ($geophp) {
+  	if (geoPHP::version() >= 0.3) {
+      $requirements['geofield_geophp'] = array(
+        'title' => t('GeoPHP Library Installed'),
+        'severity' => REQUIREMENT_OK,
+        'value' => t('GeoPHP '.geoPHP::version().' library installed at %path', array('%path' => $geophp)),
+      );
+  	}
+  	else {
+	    $requirements['geofield_geophp'] = array(
+	      'title' => t('Old GeoPHP Library'),
+	      'severity' => REQUIREMENT_ERROR,
+	      'value' => t('GeoPHP library was found, but you are running an old version. This could lead to problems when working with geofield. Please download from %link and place in your libraries diectory as per the geofield installation instructions.',array('%link' => 'https://github.com/downloads/phayes/geoPHP/geoPHP.tar.gz')),
+	    );
+  	}
+  }
+  else {
+    $requirements['geofield_geophp'] = array(
+      'title' => t('GeoPHP Library Not Found'),
+      'severity' => REQUIREMENT_ERROR,
+      'value' => t('GeoPHP library was not found. This could lead to problems when working with geofield. Please download from %link and place in your libraries diectory as per the geofield installation instructions.',array('%link' => 'https://github.com/downloads/phayes/geoPHP/geoPHP.tar.gz')),
+    );
+  }
+  return $requirements;
+}
+
+/**
+* Loads the geoPHP library.
+*
+* @return
+*   Returns the filename of the included geoPHP library when successful, FALSE
+*   otherwise.
+*/
+function geofield_load_geophp() {
+  static $static_cache = FALSE;
+  
+  if (!$static_cache) {
+    $path = libraries_get_path('geoPHP');
+    $file = $path.'/geoPHP.inc';
+    if (file_exists($file)) {
+      if (include_once($file)) {
+        $static_cache = $file;
+      }
+    }
+  }
+  
+  return $static_cache;
+}
+
+/**
+* Geofield Compute Values
+*
+*  Compute all dependant values. We compute all other values from whichever
+ * column is specified in the master_column value
+ *
+ * Steps:
+ * 1. Load the geoPHP library
+ * 2. Load the Geometry object from the master-column
+ * 3. Get out all the computer values from the Geometry object
+ * 4. Set all the values 
+ *
+ * Allowed values for master_column are wkt, latlon, bounds
+*/
+function geofield_compute_values(&$values, $master_column = 'wkt') {
+  
+  // If only a wkt string has been passed in, then format it correctly by wrapping it in an array
+  if ($master_column == 'wkt' && !is_array($values)) {
+    $values = array($values);
+  }
+	
+  // Load up geoPHP to do the conversions
+  $geophp = geofield_load_geophp();
+  if (!$geophp) {
+    drupal_set_message("Unable to load geoPHP library. Not all values will be computer correctly",'error');
+    return;
+  }
+  
+  // Load up the geometry object from the master-column data
+  if ($master_column == 'wkt') {
+    $wkt = $values['wkt'];
+    if ($wkt) {
+      $geometry = geoPHP::load($wkt,'wkt');
+    }
+  }
+
+  if ($master_column == 'latlon') {
+    $lat = $values['lat']; 
+    $lon = $values['lon']; 
+    if (is_numeric($lat) && is_numeric($lon)) {
+      $geometry = new Point(floatval($lon), floatval($lat));
+    }
+  }
+
+  if ($master_column == 'bounds') {
+    $top = $values['top'];
+    $bottom = $values['bottom'];
+    $right = $values['right'];
+    $left = $values['left'];
+    
+    
+    if (is_numeric($top) && is_numeric($bottom) && is_numeric($right) && is_numeric($left)) {
+      $wkt_bounds_format = 'POLYGON((left bottom,right bottom,right top,left top,left bottom))';
+      $wkt = strtr($wkt_bounds_format, array('top' => $top, 'bottom' => $bottom, 'right' => $right, 'left' => $left));
+      $geometry = geoPHP::load($wkt,'wkt');
+    }
+  }
+  
+  // Get values from geometry
+  if (isset($geometry)) {
+    $values = geofield_get_values_from_geometry($geometry);
+  }
+  else {
+    $values = array();
+  }
+    
+  return $values;
+}
+
+/**
+* Given a geometry object from geoPHP, return a values array
+*/
+function geofield_get_values_from_geometry($geometry) {
+  $centroid = $geometry->getCentroid();
+  $bounding = $geometry->getBBox();
+ 
+  $values['wkt'] = $geometry->out('wkt');
+  $values['geo_type'] = strtolower($geometry->getGeomType());
+  
+  $values['lat'] = $centroid->getY();
+  $values['lon'] = $centroid->getX();
+  
+  $values['top'] = $bounding['maxy'];
+  $values['bottom'] = $bounding['miny'];
+  $values['right'] = $bounding['maxx'];
+  $values['left'] = $bounding['minx'];	
+  
+  return $values;
+}
+
+
+// Latitude and Longitude string conversion
+// ----------------------------------------
+
+/**
+* Decimal-Degrees-Seconds to Decimal Degrees
+*
+* Converts string to decimal degrees. Has some error correction for messy strings
+*/
+function geofield_latlon_DMStoDEC($dms) {
+  if (is_numeric($dms)) {
+    // It's already decimal degrees, just return it
+    return $dms;
+  }
+
+   // If it contains both an H and M, then it's an angular hours
+   if (stripos($dms, 'H') !== FALSE && stripos($dms, 'M') !== FALSE) {
+     $dms = strtr($dms, "'\"HOURSMINTECNDAhoursmintecnda", "  ");
+     $dms = preg_replace('/\s\s+/', ' ', $dms);
+  
+     $dms = explode(" ",$dms);
+     $deg = $dms[0];
+     $min = $dms[1];
+     $sec = $dms[2];
+  
+     $dec = floatval(($deg*15)+($min/4)+($sec/240));
+  
+     return $dec;
+   }
+
+  // If it contains an S or a W, then it's a negative
+  if (stripos($dms, 'S') !== FALSE || stripos($dms, 'W') !== FALSE) {
+    $direction = -1;
+  }
+  else {
+    $direction = 1;
+  }
+  
+  // Strip all characters and replace them with empty space
+  $dms = strtr($dms, "°'\"NORTHSEAWnorthseaw'", " ");
+  $dms = preg_replace('/\s\s+/', ' ', $dms);
+  
+  $dms = explode(" ",$dms);
+  $deg = $dms[0];
+  $min = $dms[1];
+  $sec = $dms[2];
+  
+  // Direction should be checked only for nonnegative coordinates
+  $dec = floatval($deg+((($min*60)+($sec))/3600));
+  if ($dec > 0) {
+    $dec = $direction * $dec;
+  }
+  return $dec;
+}
+
+
+/**
+* Decimal Degrees to Decimal-Degrees-Seconds
+*
+* Converts decimal longitude / latitude to DMS ( Degrees / minutes / seconds )
+*/
+function geofield_latlon_DECtoDMS($dec, $axis) {
+  if ($axis == 'lat') {
+    if ($dec > 0) $direction = 'S';
+    else $direction = 'N';
+  }
+  if ($axis == 'lon') {
+    if ($dec > 0) $direction = 'W';
+    else $direction = 'E';
+  }
+  
+  $vars = explode(".",$dec);
+  $deg = abs($vars[0]);
+  if (isset($vars[1])) $tempma = "0.".$vars[1];
+  else $tempma = "0";
+  
+  $tempma = $tempma * 3600;
+  $min = floor($tempma / 60);
+  $sec = $tempma - ($min*60);
+
+  return $deg."&deg; ".$min."' ".round($sec,3)."\" ".$direction;
+}
+
+/**
+* Decimal Degrees to Celestial coordinate system (CCS) units
+*
+* Converts decimal latitude to DMS ( Degrees / minutes / seconds ) and decimal longitude to Angular Hours / Minutes / Seconds
+*/
+function geofield_latlon_DECtoCCS($dec, $axis) {
+
+  // Declination (celestial latitude) should be representeted in Degrees / minutes / seconds
+  if ($axis == 'lat') {
+    $vars = explode(".",$dec);
+    $deg = $vars[0];
+    if (isset($vars[1])) $tempma = "0.".$vars[1];
+    else $tempma = "0";
+
+    $tempma = $tempma * 3600;
+    $min = floor($tempma / 60);
+    $sec = $tempma - ($min*60);
+
+    return $deg."&deg; ".$min."' ".round($sec,3)."\"";
+  }
+
+  // Right ascension (celestial longitude) should be representeted in Hours / Minutes / Seconds
+  if ($axis == 'lon') {
+    $tempma = $dec / 15;
+    $vars = explode(".",$tempma);
+    $hrs = $vars[0];
+    if (isset($vars[1])) $tempma = "0.".$vars[1];
+    else $tempma = "0";
+
+    $tempma = $tempma * 60;
+    $vars = explode(".",$tempma);
+    $min = $vars[0];
+    if (isset($vars[1])) $tempma = "0.".$vars[1];
+    else $tempma = "0";
+    $sec = $tempma * 60;
+
+    return $hrs."h ".$min."m ".round($sec,3)."s";
+  }
+
+}

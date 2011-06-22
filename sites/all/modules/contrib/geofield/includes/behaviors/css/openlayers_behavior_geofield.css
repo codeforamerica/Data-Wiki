@@ -1,0 +1,51 @@
+.openlayers_behavior_geofield_button_panel {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  }
+
+.openlayers_behavior_geofield_buttonItemInactive {
+/*  background:url(openlayers_behavior_fullscreen.png);*/
+  background: #b44;
+  width:20px;
+  height:20px;
+  float: left;
+  margin: 2px;
+  }
+ 
+.openlayers_map_geofield .openlayers_behavior_geofield_buttonItemInactive {
+  background-position:20px 0;
+  }
+
+.openlayers_behavior_geofield_button_pointItemInactive {
+background-color: #ff0000;
+  width:20px;
+  height:20px;
+  float: left;
+  margin: 2px;
+
+}
+.openlayers_behavior_geofield_button_lineItemInactive {
+background-color: #666;
+  width:20px;
+  height:20px;
+  float: left;
+  margin: 2px;
+
+}
+.openlayers_behavior_geofield_button_boundsItemInactive {
+background-color: #666;
+  width:20px;
+  height:20px;
+  float: left;
+  margin: 2px;
+
+}
+.openlayers_behavior_geofield_button_polygonItemInactive {
+background-color: #00ff00;
+  width:20px;
+  height:20px;
+  float: left;
+  margin: 2px;
+
+}
