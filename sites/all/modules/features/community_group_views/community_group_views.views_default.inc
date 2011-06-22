@@ -809,17 +809,19 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_email']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_email']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_email']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['trim_whitespace'] = 0;
   $handler->display->display_options['fields']['field_email']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_email']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_email']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_email']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['strip_tags'] = 1;
   $handler->display->display_options['fields']['field_email']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_email']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_email']['element_label_colon'] = 0;
   $handler->display->display_options['fields']['field_email']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_email']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_email']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_email']['type'] = 'email_default';
+  $handler->display->display_options['fields']['field_email']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_email']['type'] = 'email_plain';
   $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
   /* Field: Content: Calendar URL */
   $handler->display->display_options['fields']['field_url_calendar']['id'] = 'field_url_calendar';
@@ -853,6 +855,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_contact']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_contact']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_contact']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_contact']['alter']['trim_whitespace'] = 0;
   $handler->display->display_options['fields']['field_contact']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_contact']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_contact']['alter']['ellipsis'] = 1;
@@ -863,6 +866,8 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_contact']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_contact']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_contact']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_contact']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_contact']['type'] = 'text_plain';
   $handler->display->display_options['fields']['field_contact']['field_api_classes'] = 0;
   /* Field: Content: Categories */
   $handler->display->display_options['fields']['field_categories']['id'] = 'field_categories';
@@ -874,6 +879,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_categories']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_categories']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_categories']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_categories']['alter']['trim_whitespace'] = 0;
   $handler->display->display_options['fields']['field_categories']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_categories']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_categories']['alter']['ellipsis'] = 1;
@@ -884,6 +890,8 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_categories']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_categories']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_categories']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_categories']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_categories']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_categories']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_categories']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_categories']['delta_reversed'] = 0;
@@ -1582,14 +1590,17 @@ function community_group_views_views_default_views() {
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
-  $handler->display->display_options['style_options']['provide_file'] = 0;
+  $handler->display->display_options['style_options']['provide_file'] = 1;
+  $handler->display->display_options['style_options']['filename'] = 'citygroups_data_export_%timestamp-full.csv';
   $handler->display->display_options['style_options']['parent_sort'] = 0;
   $handler->display->display_options['style_options']['quote'] = 1;
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['path'] = 'data/community-group/csv';
+  $handler->display->display_options['use_batch'] = '1';
   $export['community_groups_data_csv'] = $view;
 
   $view = new view;
