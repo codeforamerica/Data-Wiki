@@ -147,8 +147,10 @@ function datawiki_group_map_settings() {
   $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
   $settings['javascript_settings']['mapColors']['weight'] = 1;
   $settings['javascript_settings']['mapColors']['opacity'] = 1;
-  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/includes/images/placeholder_marker.png";
-  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(10,10);
+  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/includes/images/map-icon.png";
+  $settings['javascript_settings']['mapMarkerIconShadowUrl'] =  "/" . $settings['html_root_custom'] . "/includes/images/map-shadow-icon.png";
+  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(16,25);
+  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(30,25);
   $settings['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);
   $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
   return $settings;
