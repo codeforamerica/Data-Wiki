@@ -29,12 +29,20 @@ function sea_blockwatch_menu() {
     'page arguments' => array(t('Blockwatch Map Page')),
     'access callback' => TRUE,
   );
+/*
   $items['blockwatch/list'] = array(
     'title' => 'List',
     'page callback' => 'sea_blockwatch_list_render',
     'page arguments' => array(t('Blockwatch List Page')),
     'access callback' => TRUE,
   );
+  $items['blockwatch-list'] = array(
+    'title' => 'List',
+    'page callback' => 'sea_blockwatch_list_render',
+    'page arguments' => array(t('Blockwatch List Page')),
+    'access callback' => TRUE,
+  );
+*/
   $items['blockwatch/topics'] = array(
     'title' => 'Topics',
     'page callback' => 'sea_blockwatch_topics_render',
@@ -80,35 +88,35 @@ function sea_blockwatch_home_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_map_render() {
-  $output = "map";
+  $output = "";
   return $output;
 }
 /**
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_list_render() {
-  $output = "list";
+  $output = "";
   return $output;
 }
 /**
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_topics_render() {
-  $output = "topics";
+  $output = "";
   return $output;
 }
 /**
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_about_render() {
-  $output = "about";
+  $output = "";
   return $output;
 }
 /**
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_add_render() {
-  $output = "add";
+  $output = "";
   return $output;
 }
 
@@ -116,7 +124,7 @@ function sea_blockwatch_add_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_upload_render() {
-  $output = "upload";
+  $output = "";
   return $output;
 }
 
@@ -124,7 +132,7 @@ function sea_blockwatch_upload_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_contact_render() {
-  $output = "contact";
+  $output = "";
   return $output;
 }
 
@@ -135,16 +143,25 @@ function sea_blockwatch_preprocess_page(&$vars) {
   $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
   
   switch ($vars['page_path']) {
-    case 'blockwatch/list':
     case 'blockwatch/add': 
     case 'blockwatch/about':
     case 'blockwatch/contact':
     case 'blockwatch/topics':
     case 'blockwatch/upload':
+    case 'list/all/block-watch':
       sea_blockwatch_page_variables($vars);
       break;
+    case 'node/add/community-group':
+      if(!empty($_GET['section'])) {
+        $section = $_GET['section'];
+        if($section == 'blockwatch') {
+          sea_blockwatch_page_variables($vars);
+          $vars['title'] = t('Add Block Watch Group');
+        }
+      }
+      break;
     case 'blockwatch':
-    case 'blockwatch/map':  
+    case 'blockwatch/map':
       sea_blockwatch_page_variables($vars);
       datawiki_group_map_page_variables($vars);
     break;
@@ -160,6 +177,38 @@ function sea_blockwatch_map_render_output() {
       <div class="content">Click map to see where the groups are</div>
   </div>';
   return $output;
+}
+
+/**
+ * Alter the community group form (a content type.)
+ */
+function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'community_group_node_form') {
+    if(!empty($_GET['section'])) {
+      $section = $_GET['section'];
+      if($section == 'blockwatch') {
+        // Section overrides.
+        //$add_variables = "?category=Block Watch, Crime Prevention&title=Add a Block Watch Captain&instructions=List Block Watch Captain or Block Watch Group.&map_instructions=Where is this Block Watch?";
+        $add_variables_array = array(
+          'category' => 'Block Watch, Crime Prevention',
+          'title' => 'Add a Block Watch Captain',
+          'instructions' => 'List Block Watch Captain or Block Watch Group.',
+          'map_instructions' => 'Where is this Block Watch?',
+        );
+        if(!empty($add_variables_array['category'])) {
+          $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
+        }
+    
+        if(!empty($add_variables_array['instructions'])) {
+          $form['#prefix'] = '<h3>' .  $add_variables_array['instructions'] . '</h3>';
+        }
+    
+        if(!empty($add_variables_array['map_instructions'])) {
+          $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
+        }
+      }   
+    }
+  }
 }
 
 /** 
@@ -195,11 +244,6 @@ function sea_blockwatch_page_variables(&$vars) {
   $vars['section']['javascript_settings'] = $settings['javascript_settings'];
 
   // Add javascript.
-/*
-  drupal_add_js($vars['section']['html_root'] . '/includes/js/jquery-1.5.min.js', array('type' => 'file', 'group' => JS_THEME));
-  drupal_add_js($vars['section']['html_root'] . '/includes/js/leaflet/leaflet.js', array('type' => 'file', 'group' => JS_THEME));
-  drupal_add_js($vars['section']['html_root'] . '/includes/js/map.js', array('type' => 'file', 'group' => JS_THEME));
-*/
 
   // Add Google API (uses openlayers API key)
   // @TODO require openlayers.
@@ -228,7 +272,7 @@ function sea_blockwatch_settings() {
   $settings['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
   // Get current theme
   // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
-  // Set the theme.
+  // Set the theme.  
   $settings['theme'] = "datawiki";
   $settings['term'] = "all";         
   $settings['javascript_settings'] = array();

@@ -38,12 +38,6 @@ function sea_blockwatch_context_context_default_contexts() {
           'region' => 'sidebar_second',
           'weight' => '-28',
         ),
-        'sea_blockwatch-sea_blockwatch_home_menu' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_home_menu',
-          'region' => 'content_top',
-          'weight' => '-10',
-        ),
         'sea_blockwatch-sea_blockwatch_search' => array(
           'module' => 'sea_blockwatch',
           'delta' => 'sea_blockwatch_search',
@@ -81,7 +75,7 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'blockwatch/list' => 'blockwatch/list',
+        'list/all/block-watch' => 'list/all/block-watch',
       ),
     ),
   );
@@ -104,7 +98,7 @@ function sea_blockwatch_context_context_default_contexts() {
       'values' => array(
         'blockwatch' => 'blockwatch',
         'blockwatch/map' => 'blockwatch/map',
-        'blockwatch/list' => 'blockwatch/list',
+        'list/all/block-watch' => 'list/all/block-watch',
         'blockwatch/topics' => 'blockwatch/topics',
         'blockwatch/about' => 'blockwatch/about',
         'blockwatch/contact' => 'blockwatch/contact',
@@ -112,7 +106,18 @@ function sea_blockwatch_context_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array();
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'menu-menu-block-watch-menu' => array(
+          'module' => 'menu',
+          'delta' => 'menu-block-watch-menu',
+          'region' => 'content_top',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
   $context->condition_mode = 0;
 
   // Translatables

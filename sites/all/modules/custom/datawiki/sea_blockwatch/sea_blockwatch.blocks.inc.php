@@ -156,7 +156,8 @@ function sea_blockwatch_block_view($delta = '') {
  */
 function sea_blockwatch_contents($type) {
   $output = '';
-  $add_variables = "?category=Block Watch, Crime Prevention&title=Add a Block Watch Captain&instructions=List Block Watch Captain or Block Watch Group.&map_instructions=Where is this Block Watch?";
+  $add_variables = '';
+  // $add_variables = "?category=Block Watch, Crime Prevention&title=Add a Block Watch Captain&instructions=List Block Watch Captain or Block Watch Group.&map_instructions=Where is this Block Watch?";
   
   switch ($type) {
     case 'welcome':
@@ -183,16 +184,7 @@ function sea_blockwatch_contents($type) {
       $output .= '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
       break;     
 
-    case 'search':
-/*
-        $output .= '<div id="search-links">';
-        $output .= '<div id="search-places" class="form-input"><h3>' . t('Find your block watch captain') . '</h3>';
-        $output .= '<input placeholder="Enter your address here." size=30 class="form-item" />';
-        $output .= '<input type="submit" id="search-links-submit"  value="Find" class="form-submit">';
-        $output .= '</div>';
-        $output .= '</div>';
-*/
-        
+    case 'search':        
         global $base_url;
         $output .= '<div id="search-links" style="width:420px">';
         $output .= '<div id="search-places" class="form-input">';
@@ -204,7 +196,6 @@ function sea_blockwatch_contents($type) {
       break;
       
     case 'add_data':
-
         $output .= "<div class=\"add-container\"><div class=\"message\">Are you a block watch captain?</div><div class=\"add-group\"><a href=\"/node/add/community-group" . $add_variables . "\">Add</a></div></div>";
       break;
       
@@ -221,13 +212,15 @@ function sea_blockwatch_contents($type) {
       break;
       
       case 'home_menu':
+/*
         $output .= '<div id="home-menu" class="grid_6 push_10">';
         $output .= '<ul class="menu">';
         $output .= '<li><a href="blockwatch">' . t('Home/Map') . '</a></li>';
-        $output .= '<li><a href="blockwatch/list">' . t('List') . '</a></li>';
+        $output .= '<li><a href="list/all/block-watch">' . t('List') . '</a></li>';
         $output .= '<li><a href="/node/add/community-group' . $add_variables . '">' . t('Add') . '</a></li>';
         $output .= '</ul>';
-        $output .= '</div>';                
+        $output .= '</div>';          
+*/      
       break;
       
       case 'map_menu':
@@ -251,7 +244,7 @@ function sea_blockwatch_contents($type) {
         serving as the eyes and ears for the police department and help
         to organize block parties, street clean-ups and other 
         events and initiatives.</p>";
-        $output .= "<p>Click <a href=\"/blockwatch/about\">here</a> to learn more</p>";
+/*         $output .= "<p>Click <a href=\"/blockwatch/about\">here</a> to learn more</p>"; */
       break;
   }
   return $output;

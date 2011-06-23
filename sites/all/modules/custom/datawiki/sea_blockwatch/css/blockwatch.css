@@ -71,23 +71,32 @@ p {
    background-color: #F77E11;
 }
 
+#block-menu-menu-block-watch-menu ul.menu li,
 ul.menu {
   list-style: none;
-
 }
 
+#block-menu-menu-block-watch-menu ul.menu {
+  float: right;
+}
+
+#block-menu-menu-block-watch-menu li,
 #home-menu ul.menu li {
   float: left;
   padding-left: 10px;
 
 }
+#block-menu-menu-block-watch-menu ul.menu li,
+#block-menu-menu-block-watch-menu ul.menu li a,
 #home-menu ul.menu li,
 #home-menu ul.menu li a {
   color: #aaa;
   font-weight: bold;
 }
 
-
+#block-menu-menu-block-watch-menu ul.menu li a.active {
+  color: #000;
+}
 #search-links {
 
 }

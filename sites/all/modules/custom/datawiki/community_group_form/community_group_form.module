@@ -34,25 +34,8 @@ function community_group_form_form_render_categories() {
  * Alter the community group form (a content type.)
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'community_group_node_form') { 
-    if(!empty($_GET["category"])) {
-      $category = $_GET["category"];
-      $form['field_categories']["und"]["#default_value"] = $category;
-    }
-
-    if(!empty($_GET["instructions"])) {
-      $prefix = $_GET["instructions"];
-      $form['#prefix'] = '<h3>' . $prefix . '</h3>';
-    }
-    else {
-      $form['#prefix'] = '<h3>' .t("You can submit community groups here.") . '</h3>';    
-    }
-
-    if(!empty($_GET["map_instructions"])) {
-      $map_instructions = $_GET["map_instructions"];
-      $form['#groups']['group_geographic']->label = $map_instructions;
-    }
-
+  if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {
+    $form['#prefix'] = '<h3>' .t("You can submit community groups here.") . '</h3>';
 
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.
@@ -61,8 +44,6 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
     }
-
-
 
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
     $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
@@ -73,21 +54,12 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
     $form['field_location']['#prefix'] .= '</div>';
     $form['field_location']['#prefix'] .= '<div class="address-ajax">';
-/*
-    <div class="form-item">
-    <input type="text" id="search-map-input" placeholder="Enter your address or intersection" class="form-text" size=60 />
-    <div class="submit"><a href="#">Locate</a></div>
-    </div>';
-*/
-    
     $form['field_location']['#prefix'] .= '<div id="search-links">';
     $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
     $form['field_location']['#prefix'] .= '<input placeholder="Enter address or zipcode." size=50 class="form-item" id="search-map-input" />';
     $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_icon-50.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
     $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';
-    
-    
+    $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
     $form['field_location']['#prefix'] .= '</div>';
 
     // Add Google API (uses openlayers API key)
