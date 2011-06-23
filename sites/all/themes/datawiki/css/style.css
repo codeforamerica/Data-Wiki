@@ -1064,3 +1064,10 @@ div.openlayers-map .map-draw-tip {
   height: 40px;
   background: fuchsia;
 }
+
+.views-number-results .label {
+  font-weight: normal;
+  font-size: 10px;
+  text-transform: uppercase;
+  
+}
