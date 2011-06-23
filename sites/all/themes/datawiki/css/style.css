@@ -612,9 +612,9 @@ li.flag-like span.flag-like a.unflag-action{
 
 .sidebar_box {
     border-width: 8px 4px 9px 4px;
-    border-image: url(/images/widget-border.png) 8 4 9 4 stretch;
-    -moz-border-image: url(/images/widget-border.png) 8 4 9 4 stretch;
-    -webkit-border-image: url(/images/widget-border.png) 8 4 9 4 stretch;
+    border-image: url(../images/widget-border.png) 8 4 9 4 stretch;
+    -moz-border-image: url(../images/widget-border.png) 8 4 9 4 stretch;
+    -webkit-border-image: url(../images/widget-border.png) 8 4 9 4 stretch;
 }
 
 .sidebar_box .sidebar_box_image{
@@ -868,34 +868,6 @@ select option {
 }
 
 
-
-fieldset .fieldset {
-  margin: 5px 0;
-}
-
-
-fieldset.group-categories span.fieldset-legend a.fieldset-title {
-  text-transform: uppercase;
-  background-color: #E89A41;
-  padding: 0px 0px 8px 16px;
-  color: white;
-  font-size: 1.5em;
-  margin: 0;
-  font-weight: bold;
-}
-
-
-fieldset.group-geographic,
-fieldset.group-categories  {
-  padding: 10px 10px 30px 20px;
-  background-color: #ffffff;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  position: relative;
-  margin: 40px 0 60px 0;
-  width: 420px;
-}
-
 /*
 .field-type-geofield {
   min-height: 480px;
@@ -940,4 +912,150 @@ form fieldset.group-categories input.form-text,
 form fieldset.group-categories input.form-text:hover, 
 form fieldset.group-categories input.form-text:focus {
   width: 340px;
+}
+
+
+
+
+fieldset .fieldset {
+
+}
+
+fieldset.group-categories legend {
+  background-color: none;
+}
+fieldset.group-categories span.fieldset-legend a.fieldset-title {
+  text-transform: uppercase;
+  background-color: #E89A41;
+  color: white;
+  margin: 5px 0 0px 0;
+  padding: 15px 0 5px 0;
+  font-weight: bold;
+  display: block;
+  line-height: 10px;
+}
+.page-node .fieldset-legend span.summary {
+  display: none;
+}
+.page-node .field-name-field-categories .field-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 0 20px;
+  display: none;
+}
+
+.page-node .field-name-field-categories .field-items {
+  padding: 40px 0 10px 0;
+}
+.page-node .field-name-field-categories a {
+  color: #999;
+  padding: 4px 10px;
+  background-color: #eee;
+  line-height: 2em;
+}
+
+fieldset.group-geographic,
+fieldset.group-categories  {
+/*
+  padding: 10px 10px 30px 20px;
+  background-color: #ffffff;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  position: relative;
+  margin: 40px 0 60px 0;
+  width: 420px;
+*/
+}
+
+.page-node fieldset.group-categories {
+  padding: 20px;
+}
+
+.page-node fieldset.group-location {
+  background: none;
+  border-width: 29px 4px 9px 15px;
+  display: block;
+  width: 480px;
+  margin-top: 50px;
+}
+
+
+.page-node fieldset.group-categories {
+  border-width: 8px 4px 9px 4px;
+  border-image: url(..//images/widget-border.png) 8 4 9 4 stretch;
+  -moz-border-image: url(..//images/widget-border.png) 8 4 9 4 stretch;
+  -webkit-border-image: url(../images/widget-border.png) 8 4 9 4 stretch;
+  position: absolute;
+  display: block;
+  top: 200px;
+  margin-left: 600px;
+  width: 320px;
+  background: none;
+  border-width: 29px 4px 9px 15px;
+}
+
+.wizard-field-tip {
+    border-image: url(../images/wizard-field-tip-border.png) 29 4 9 15 stretch;
+    -moz-border-image: url(../images/wizard-field-tip-border.png) 29 4 9 15 stretch;
+    -webkit-border-image: url(../images/wizard-field-tip-border.png) 29 4 9 15 stretch;
+}
+
+.wizard-general-tip-border,
+.wizard-general-tip {
+    border-width: 29px 4px 9px 15px;
+    border-image: url(../images/wizard-general-tip-border.png) 29 4 9 15 stretch;
+    -moz-border-image: url(../images/wizard-general-tip-border.png) 29 4 9 15 stretch;
+    -webkit-border-image: url(../images/wizard-general-tip-border.png) 29 4 9 15 stretch;
+}
+
+.wizard-general-tip-border > h1,
+.wizard-tip > h1,
+.in-place-wizard-tip > h1 {
+    margin: 0px;
+    margin-top: -29px;
+    line-height: 29px;
+    padding: 0px 10px;
+    
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    background-color: #992739;
+}
+
+.in-place-wizard-tip > h2,
+.wizard-tip > h2 {
+    margin: 15px;
+    
+    font-size: 1.2em;
+    font-weight: bold;
+    
+    border-bottom: 1px solid #888;
+}
+
+.in-place-wizard-tip > p,
+.in-place-wizard-tip > ul,
+.in-place-wizard-tip > ol,
+.wizard-tip > p,
+.wizard-tip > ul,
+.wizard-tip > ol {
+    margin: 10px 15px;
+    line-height: 1.5em;
+    font-size: 1.1em;
+}
+
+.wizard-tip > ul {
+    list-style: square;
+}
+
+.wizard-tip > ol {
+    list-style: decimal;
+}
+
+.wizard-tip > ul > li,
+.wizard-tip > ol > li {
+    margin-left: 1.5em;
+}
+
+.page-node .node .field-label {
+  font-weight: bold;
 }

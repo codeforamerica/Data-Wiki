@@ -89,7 +89,7 @@ function community_group_content_type_field_group_info() {
     'format_settings' => array(
       'label' => 'Categories',
       'instance_settings' => array(
-        'classes' => 'sidebar_box',
+        'classes' => '',
         'description' => '',
       ),
       'formatter' => 'collapsible',
