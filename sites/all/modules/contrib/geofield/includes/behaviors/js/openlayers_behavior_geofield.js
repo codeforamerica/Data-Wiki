@@ -175,6 +175,14 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         $('div.openlayers_behavior_geofield_button_pointItemInactive').html('Polygon');
       }
 
+      buttonToggleNavigate = function() {
+        point_control.deactivate();
+        bounds_control.deactivate();
+        line_control.deactivate();
+        polygon_control.dectivate();
+        $('div.openlayers_behavior_geofield_button_navigateItemInactive').html('Clear');
+      }
+
       // Add buttons to control_panel for each control type
       // @TODO add graphic icons.
       point_button = new OpenLayers.Control.Button({
@@ -200,6 +208,12 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         title: Drupal.t('Set bounds'),
         trigger: buttonToggleBounds
       });
+ 
+      navigate_button = new OpenLayers.Control.Button({
+        displayClass: "openlayers_behavior_geofield_button_navigate", 
+        title: Drupal.t('Navigate'),
+        trigger: buttonToggleNavigate
+      });
       
       // Create a panel to hold control buttons
       button_panel = new OpenLayers.Control.Panel({
@@ -218,6 +232,9 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       }
       if (draw_features_settings['bounds'] == 'bounds') {
         buttons.push(bounds_button); 
+      }
+      if(buttons.length > 0) {
+        buttons.push(navigate_button);
       }
       button_panel.addControls(buttons);
       data.openlayers.addControl(button_panel);
