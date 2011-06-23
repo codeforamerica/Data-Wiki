@@ -139,6 +139,22 @@ Drupal.behaviors.openlayers_behavior_geofield = {
 
       data.openlayers.addControl(bounds_control);
 
+      /*
+       * Navigate Control
+       */      
+/*
+      navigate_control = new OpenLayers.Control.DrawFeature(
+        selection_layer,
+        OpenLayers.Handler.Polygon,
+        {
+          featureAdded: setItem
+        }
+      );
+      data.openlayers.addLayer(selection_layer);
+      data.openlayers.addControl(polygon_control);
+*/
+
+
       // Button controls.
       var draw_features_settings = data.map.behaviors['openlayers_behavior_geofield']['geofield_draw_features'];  
        
@@ -179,7 +195,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         point_control.deactivate();
         bounds_control.deactivate();
         line_control.deactivate();
-        polygon_control.dectivate();
+        polygon_control.deactivate();
         $('div.openlayers_behavior_geofield_button_navigateItemInactive').html('Clear');
       }
 
