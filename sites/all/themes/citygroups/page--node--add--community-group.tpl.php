@@ -12,13 +12,13 @@
     </div>
     <?php endif; ?>
     <div id="header" class="grid_16">
-      <div class="header-logo-container grid_4 alpha">
+      <div class="header-logo-container grid_5 alpha">
         <?php print render($page['header_logo']); ?>
         <?php print $logo; ?>
         <?php print $prealpha; ?>
       </div>
       <?php if($section['section_name']): ?>
-      <div class="header-subsection-container grid_4 alpha">
+      <div class="header-subsection-container  grid_6 alpha">
         <?php print render($section['section_name']); ?>
       </div>
       <?php endif; ?>
@@ -32,7 +32,7 @@
         <?php print render($page['header_gap']); ?>
       </div>
 -->
-      <div class="header-signin-container grid_4 push_6 omega">
+      <div class="header-signin-container grid_3 push_2 omega">
         <?php print render($page['header_signin']); ?>
         <?php print $account_link; ?>
       </div>

@@ -103,8 +103,8 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 }
 
 #block-citygroups_sub-citygroups_sub_home_menu.block {
-  width: 40%;
-  display: inline;
+  width: 60%;
+  float: right;
 }
 
 #map-links ul li {
@@ -878,13 +878,16 @@ fieldset .group-location {
 */
 fieldset fieldset fieldset a.fieldset-title,
 fieldset fieldset a.fieldset-title {
-  background: #666;
+  background: #eee;
   color: #fff;
   padding: 10px;
   text-decoration: none;
   display: block;
 }
 
+fieldset.collapsed a.fieldset-title {
+  background: #666;  
+}
 
 /* defaults for all form buttons */
 .address-ajax .submit,
@@ -907,13 +910,6 @@ html.js input.form-autocomplete {
   font-size: 125%;
   padding-bottom: 10px;
 }
-
-form fieldset.group-categories input.form-text,
-form fieldset.group-categories input.form-text:hover, 
-form fieldset.group-categories input.form-text:focus {
-  width: 340px;
-}
-
 
 
 
@@ -976,7 +972,7 @@ fieldset.group-categories  {
   border-width: 29px 4px 9px 15px;
   display: block;
   width: 480px;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 

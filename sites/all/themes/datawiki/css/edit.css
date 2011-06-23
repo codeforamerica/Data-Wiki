@@ -185,3 +185,26 @@ form .form-item .description {
 .filter-wrapper {
   display: none;
 }
+
+
+form fieldset.group-categories input.form-text,
+form fieldset.group-categories input.form-text:hover, 
+form fieldset.group-categories input.form-text:focus {
+  width: 240px;
+}
+
+.page-node-edit .field-name-field-categories a {
+  color: inherit;
+  padding: 4px 10px;
+  background: none;
+  line-height: 2em;
+}
+
+.page-node fieldset.group-geographic {
+  background: none;
+  border-width: 29px 4px 9px 15px;
+  display: block;
+  width: 480px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
