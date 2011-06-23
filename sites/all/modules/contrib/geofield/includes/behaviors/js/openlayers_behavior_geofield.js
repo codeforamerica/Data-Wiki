@@ -159,11 +159,11 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       var draw_features_settings = data.map.behaviors['openlayers_behavior_geofield']['geofield_draw_features'];  
 
       function deactivateButtons() {
-         $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '0.8');
-         $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '0.8');
-         $('div.openlayers_behavior_geofield_button_boundsItemInactive').css('opacity', '0.8');
-         $('div.openlayers_behavior_geofield_button_lineItemInactive').css('opacity', '0.8');
-         $('div.openlayers_behavior_geofield_button_navigateItemInactive').css('opacity', '0.8');
+         $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '0.7');
+         $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '0.7');
+         $('div.openlayers_behavior_geofield_button_boundsItemInactive').css('opacity', '0.7');
+         $('div.openlayers_behavior_geofield_button_lineItemInactive').css('opacity', '0.7');
+         $('div.openlayers_behavior_geofield_button_navigateItemInactive').css('opacity', '0.7');
       }
 
       // Functions when buttons are clicked 
@@ -182,7 +182,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         bounds_control.deactivate(); 
         line_control.activate();
         deactivateButtons();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '1');
+        $('div.openlayers_behavior_geofield_button_lineItemInactive').css('opacity', '1');
       }
 
       buttonToggleBounds = function() {
@@ -191,7 +191,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         polygon_control.deactivate();
         bounds_control.activate();
         deactivateButtons();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '1');
+        $('div.openlayers_behavior_geofield_button_boundsItemInactive').css('opacity', '1');
       }
 
       buttonTogglePolygon = function() {
@@ -200,7 +200,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.deactivate();
         polygon_control.activate();
         deactivateButtons();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '1');
+        $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '1');
       }
 
       buttonToggleNavigate = function() {
