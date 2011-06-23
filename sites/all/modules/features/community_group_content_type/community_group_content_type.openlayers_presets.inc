@@ -120,7 +120,7 @@ function community_group_content_type_openlayers_presets() {
       'openlayers_behavior_panzoombar' => array(),
       'openlayers_behavior_zoomtolayer' => array(
         'zoomtolayer' => 'geofield_formatter',
-        'point_zoom_level' => '5',
+        'point_zoom_level' => '14',
       ),
     ),
     'default_layer' => 'Cloudmade',
