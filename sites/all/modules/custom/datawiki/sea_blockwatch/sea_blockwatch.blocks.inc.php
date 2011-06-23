@@ -211,11 +211,9 @@ function sea_blockwatch_contents($type) {
       case 'home_menu':
         $output .= '<div id="home-menu" class="grid_6 push_10">';
         $output .= '<ul class="menu">';
-        $output .= '<li><a href="blockwatch/about">' . t('About') . '</a></li>';
-        $output .= '<li><a href="blockwatch/map">' . t('Map') . '</a></li>';
+        $output .= '<li><a href="blockwatch">' . t('Home') . '</a></li>';
         $output .= '<li><a href="blockwatch/list">' . t('List') . '</a></li>';
-        $output .= '<li><a href="blockwatch/add">' . t('Add Block Watch') . '</a></li>';
-        $output .= '<li><a href="blockwatch/upload">' . t('Upload Data') . '</a></li>';
+        $output .= '<li><a href="blockwatch/add">' . t('Add') . '</a></li>';
         $output .= '</ul>';
         $output .= '</div>';                
       break;
