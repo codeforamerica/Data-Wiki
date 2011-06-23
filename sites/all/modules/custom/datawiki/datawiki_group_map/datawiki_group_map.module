@@ -119,11 +119,8 @@ function datawiki_group_map_render() {
   $output = '<div>
     <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
     <div id="data"></div>
-  </div>
-
-  <div id="popup-content" class="block">
-      <div class="content">Click map to see where the groups are</div>
   </div>';
+
   return $output;
 }
 

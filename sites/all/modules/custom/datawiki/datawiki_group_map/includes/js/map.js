@@ -148,22 +148,14 @@ cityGroups.map.popupPoints = function (nodes){
     customMarkerStyle["iconAnchor"] = new L.Point(Drupal.settings.datawiki.mapMarkerIconAnchor[0], Drupal.settings.datawiki.mapMarkerIconAnchor[1]);   
     customMarkerStyle["popupAnchor"] = new L.Point(Drupal.settings.datawiki.mapMarkerPopupAnchor[0], Drupal.settings.datawiki.mapMarkerPopupAnchor[1]);
 
-/*
-    var customMarkerStyle = {
-      iconUrl: Drupal.settings.datawiki.mapMarkerIconUrl,
-      shadowUrl: Drupal.settings.datawiki.mapMarkerIconShadowUrl,
-      iconSize: new L.Point(Drupal.settings.datawiki.mapMarkerIconPointSize[0], Drupal.settings.datawiki.mapMarkerIconPointSize[1]),
-      shadowSize: new L.Point(Drupal.settings.datawiki.mapMarkerIconShadowSize[0], Drupal.settings.datawiki.mapMarkerIconShadowSize[1]),
-      iconAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerIconAnchor[0], Drupal.settings.datawiki.mapMarkerIconAnchor[1]),
-      popupAnchor: new L.Point(Drupal.settings.datawiki.mapMarkerPopupAnchor[0], Drupal.settings.datawiki.mapMarkerPopupAnchor[1])
-    };
-*/
     var CustomMarker = L.Icon.extend(customMarkerStyle);
     var customIcon = new CustomMarker(),
     marker = new L.Marker(markerLocation, {icon: customIcon});
     cityGroups.map.rendered.addLayer(marker);
 
+    marker.bindPopup(cityGroups.map.popupTemplate(node));
     
+/*
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
   	  console.log("test");
@@ -174,6 +166,7 @@ cityGroups.map.popupPoints = function (nodes){
   	}
   	
     marker.on('click', onMapClick);
+*/
 	}
 };
 
@@ -195,8 +188,13 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   marker = new L.Marker(markerLocation, {icon: customIcon});
   /*   cityGroups.map.rendered.removeLayer(marker); */
   cityGroups.map.rendered.addLayer(marker);
+  
+  marker.bindPopup(cityGroups.map.popupTemplate(node));
+  
+/*
   marker.on('click', onMapClick);
 	function onMapClick(e) {
+	
 	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
     cityGroups.map.rendered.addLayer(polygon);
     polygon.on('click', offMapClick);
@@ -206,6 +204,7 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
     cityGroups.map.rendered.removeLayer(polygon);	
     $('div#popup-content div.content').html('Click map to see where the groups are');
 	}
+*/
 };
 
 cityGroups.map.popupTemplate = function(node) {
@@ -217,8 +216,6 @@ cityGroups.map.popupTemplate = function(node) {
   if(node.categories !== undefined) {
     output += '<div class="categories">' + node.categories + '</div>';
   }
-  
-/*   output += "sign in to edit"; */
   output += '<a href="node/' + node.citygroups_nid + '"  >more</a> ';
   output += '<a href="node/' + node.citygroups_nid + '/edit" >edit</a>';
   output += '</div>';
