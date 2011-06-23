@@ -725,16 +725,14 @@ li.flag-like span.flag-like a.unflag-action{
 
 /* Views */
 
+/*
 .views-exposed-widgets input,
 .autocomplete,
+*/
 select {
-/*   margin: 5px; */
-  background-color: #e7e7e7;
-/*   padding: 5px; */
-  line-height: 14px;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: capitalize;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 125%;
+  width: 320px;
 }
 .views-exposed-widgets input {
 /*   margin: 0; */

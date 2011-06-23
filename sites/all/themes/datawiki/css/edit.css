@@ -164,3 +164,24 @@ form .address-ajax input.form-text {
   margin-bottom: 15px;
   background-color: #eee;
 }
+
+form .description .close-btn {
+  float: left;
+  width: 10px;
+  height: 10px;
+  padding: 2px;
+  margin-right: 4px;
+  background-color: #666;
+  color: #fff;
+  font-size: 100%;
+}
+
+form .form-item .description {
+  font-size: 125%;
+  margin: 0 0 5px 0px;
+  padding: 4px;
+  position: relative;
+}
+.filter-wrapper {
+  display: none;
+}

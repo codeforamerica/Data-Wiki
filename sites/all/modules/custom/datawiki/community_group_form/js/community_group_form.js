@@ -42,15 +42,15 @@ Drupal.behaviors.community_group_form = {
     description = $(field + ' div.description').html();
     label =  $(field + ' label').html();
     if(description !== null) {
-      $(field + ' div.description').remove();
-      $(field + ' input').after('<div class="description"><div class="close-btn">X</div>' + description + '</div>');
-      $(field + ' div.description').hide();
-      
+    
       if(fields[field]){
         $(field + ' label').remove();
         $(field + ' input').before('<label>' + label + '</label>');
       }
-
+    
+      $(field + ' div.description').remove();
+      $(field + ' input').after('<div class="description"><div class="close-btn"></div>' + description + '</div>');
+      $(field + ' div.description').hide();
     }
   }
   // When input is selected, show the tooltip.
