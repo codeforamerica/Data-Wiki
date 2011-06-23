@@ -106,17 +106,14 @@ function community_group_content_type_openlayers_presets() {
     'behaviors' => array(
       'openlayers_behavior_geofield' => array(
         'geofield_draw_features' => array(
-          0 => '0',
-          1 => '1',
-          2 => 0,
-          3 => 0,
+          'point' => 0,
+          'polygon' => 0,
+          'bounds' => 0,
+          'line' => 0,
         ),
       ),
       'openlayers_behavior_attribution' => array(),
       'openlayers_behavior_keyboarddefaults' => array(),
-      'openlayers_behavior_layerswitcher' => array(
-        'ascending' => 1,
-      ),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
       ),

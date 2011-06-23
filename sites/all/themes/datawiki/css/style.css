@@ -432,6 +432,7 @@ body.logged-in #block-system-user-menu ul.menu li.first,
   clear: right;
 }
 
+.node .links .flag-throbber,
 .views-row .links .flag-throbber {
   width: 20px;
 }
@@ -445,13 +446,30 @@ body.logged-in #block-system-user-menu ul.menu li.first,
   width: 200px;
   color: #fff;
 }
-
+.node .links li {
+  margin: 5px 0 10px 0;
+  padding: 5px 10px;
+  display: inline-block;
+  text-transform: uppercase;
+  width: 200px;
+  color: #fff;
+  background-color: none;
+}
+li.flag-group_inactive,
+li.flag-like {
+  background-color: #eee;
+}
 li.flag-group_inactive span.flag-wrapper,
 li.flag-like span.flag-like {
   padding: 5px;
+  background-color: #eee;
 }
+
 li.flag-group_inactive span.flag-wrapper {
   background: url(../images/ghost.png) no-repeat 0 0px;
+}
+li.flag-like span.flag-like {
+  background: url(../images/approve.png) no-repeat 0 0px;
 }
 li.flag-like span.flag-like a,
 li.flag-group_inactive span.flag-wrapper a {

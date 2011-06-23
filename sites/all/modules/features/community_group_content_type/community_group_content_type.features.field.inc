@@ -1171,7 +1171,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_ownership'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_ownership',
@@ -1234,13 +1234,10 @@ function community_group_content_type_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
+        'active' => 1,
         'module' => 'options',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'options_buttons',
+        'settings' => array(),
+        'type' => 'options_select',
         'weight' => '8',
       ),
     ),

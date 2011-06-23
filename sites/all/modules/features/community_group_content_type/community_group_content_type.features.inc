@@ -57,7 +57,7 @@ function community_group_content_type_flag_default_flags() {
     'types' => array(
       0 => 'community_group',
     ),
-    'flag_short' => 'Seems defunct',
+    'flag_short' => 'Seems Dead',
     'flag_long' => 'This group appears to be inactive.',
     'flag_message' => '',
     'unflag_short' => 'Actually, no, this group is active.',
