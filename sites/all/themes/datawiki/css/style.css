@@ -540,13 +540,22 @@ li.flag-like span.flag-like a.unflag-action{
   padding-bottom: 10px;
   padding-top: 0.5em;
   width: 25%;
-  height: 1.5em;
-  overflow-y: visible;
+  height: 4em;
+  overflow-y: hidden;
   float: left;
   background-color: #eee;
   text-align: center;
 }
-
+#view-id-categories-page .views-row:hover {
+  background-color: #ccc;
+  overflow-y: visible;
+  height: 4em;
+}
+#view-id-categories-page .views-row a {
+  font-size: 150%;
+  color: #333;
+  
+}
 
 /**
  * Footer 
@@ -759,6 +768,8 @@ select {
 #content-container .views-exposed-widget .views-widget input {
   width: 200px;
   color: #666;
+  background-color: #eee;
+  padding: 0 5px;
 }
 
 #content-container .views-exposed-form label {
