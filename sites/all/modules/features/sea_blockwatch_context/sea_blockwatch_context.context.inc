@@ -102,7 +102,7 @@ function sea_blockwatch_context_context_default_contexts() {
         'blockwatch/topics' => 'blockwatch/topics',
         'blockwatch/about' => 'blockwatch/about',
         'blockwatch/contact' => 'blockwatch/contact',
-        'blockwatch/add' => 'blockwatch/add',
+        'node/add/community-group?section=blockwatch' => 'node/add/community-group?section=blockwatch',
       ),
     ),
   );

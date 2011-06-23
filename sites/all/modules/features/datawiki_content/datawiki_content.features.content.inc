@@ -48,12 +48,12 @@ We want this directory to be useful to everyone in the city, so we are working w
 <ul><li>To make it easy to find groups. <a href="/contact">Not easy? Please contact us to give us your feedback.</a></li>
 <li>To keep our service simple. We just list groups by geography &amp; topic. We aim to do that well. We provide an API for everything else.</li>
 <li>To be technology agnostic with respect to the technology used by a community group. We aim to list groups from any technology that provides a URL or Email address. These could be Meetup, Facebook pages, or just simply a personal email address for someone who reaches out to communities that are not online.</li>
-<li>To make it easy to add data you already have. <a href="/user">Join</a> our community to import <a href="/help/import-csv">CSV</a> data.</li>
-<li>To provide structure for describing groups. <a href="/data-standard">See our data standard.</a></li>
+<li>To make it easy to add data you already have. <a href="/user">Join</a> our community to import CSV data.</li>
+<li>To provide structure for describing groups. <a href="/data-standard-community-groups">See our data standard.</a></li>
 <li>To make it easy for community organizers and city employees to keep the information up to date.</li>
 <li>To make it easy for community members to add new groups and update out-of-date groups</li>
 <li>To make it easy to add helpful information about the groups, like geographic service area (location) and metadata (tags)</li>
-<li>To make it easy to get information out of the directory, using a public API (<a href="/groups/all/csv/export">CSV</a> &amp; <a href="/groups/all/export/json">JSON</a>). (Then developers can build new services on top of the group listings, such as a cool map, or an text-message service, or group-to-group notification system.</li>
+<li>To make it easy to get information out of the directory, using a public API (<a href="/data/community-group/csv">CSV</a> &amp; <a href="/data/community-group">JSON</a>). (Then developers can build new services on top of the group listings, such as a cool map, or an text-message service, or group-to-group notification system.</li>
 </ul>',
         'safe_summary' => '',
       ),
@@ -79,7 +79,9 @@ $content['datawiki_page_about'] = (object)array(
 <p>CityGroups is a searchable public directory which allows community organizers and residents to find community groups so that they can work together. Like a wiki, city staffers and community members can contribute and retrieve the data in the system. The goal is to promote and assist smaller, less-visible groups who do important work but require modern tools to publicize it. CityGroups will help them work together and work better.</p>',
         'summary' => '',
         'format' => 'filtered_html',
-        'safe_value' => '<p>This is the about page.</p>
+        'safe_value' => '<h3>Connecting community organizers with community groups to improve cities.</h3>
+<p>In cities across the country, there is amazing work being done by community organizers to mobilize their neighbors and take on community problems.<br />
+CityGroups is a searchable public directory which allows community organizers and residents to find community groups so that they can work together. Like a wiki, city staffers and community members can contribute and retrieve the data in the system. The goal is to promote and assist smaller, less-visible groups who do important work but require modern tools to publicize it. CityGroups will help them work together and work better.</p>
 ',
         'safe_summary' => '',
       ),

@@ -122,9 +122,10 @@ function datawiki_context_context_default_contexts() {
         'categories' => 'categories',
         'get-involved' => 'get-involved',
         'community-data-api' => 'community-data-api',
-        'node/add/community-group' => 'node/add/community-group',
         'projects' => 'projects',
         'node/*' => 'node/*',
+        '~node/add/*' => '~node/add/*',
+        '~node/*/edit' => '~node/*/edit',
       ),
     ),
   );

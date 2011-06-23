@@ -21,10 +21,6 @@ p {
   display: none;
 }
 
-#popup-content {
-  top: 0px;
-}
-
 
 /* Page Titling */
 .page-blockwatch #slogan h3 {
@@ -33,10 +29,24 @@ p {
   margin-bottom: 0;
 }
 
+form .form-item, .form-actions {
+  margin: 0;
+}
 
+.page-node .field-name-field-categories a {
+color: inherit;
+padding: 4px 10px;
+background-color:transparent;
+line-height: 2em;
+}
+
+.field-type-taxonomy-term-reference {
+  margin: 20px 0;
+}
 .add-container .message {
   float: left;
 }
+/*
 
 #content #popup-content a {
   color: #fff;
@@ -46,6 +56,7 @@ p {
   font-size: 80%;
   padding: 20px 0 0 0;
 }
+*/
 
 .block li a {
   color: #fff;
@@ -57,7 +68,6 @@ p {
   list-style: none;
   padding: 0 0 4px 0;
 }
-
 
 .loading {
    background-color: #2796F2;
@@ -84,8 +94,8 @@ ul.menu {
 #home-menu ul.menu li {
   float: left;
   padding-left: 10px;
-
 }
+
 #block-menu-menu-block-watch-menu ul.menu li,
 #block-menu-menu-block-watch-menu ul.menu li a,
 #home-menu ul.menu li,
@@ -97,10 +107,6 @@ ul.menu {
 #block-menu-menu-block-watch-menu ul.menu li a.active {
   color: #000;
 }
-#search-links {
-
-}
-
 
 #search-links input {
   background-color: #e7e7e7;
@@ -123,9 +129,4 @@ ul.menu {
   line-height: 24px;
   padding: 4px;
   margin-left: 10px;
-}
-
-
-#map {
-
 }
