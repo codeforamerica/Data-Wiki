@@ -156,7 +156,8 @@ function sea_blockwatch_block_view($delta = '') {
  */
 function sea_blockwatch_contents($type) {
   $output = '';
-
+  $add_variables = "?category=Block Watch, Crime Prevention&title=Add a Block Watch Captain&instructions=List Block Watch Captain or Block Watch Group.&map_instructions=Where is this Block Watch?";
+  
   switch ($type) {
     case 'welcome':
       $output .= t('Welcome Message');
@@ -203,8 +204,8 @@ function sea_blockwatch_contents($type) {
       break;
       
     case 'add_data':
-        $add_variables = "category=Block Watch, Crime Prevention";
-        $output .= "<div class=\"add-container\"><div class=\"message\">Are you a block watch captain?</div><div class=\"add-group\"><a href=\"/node/add/community-group?" . $add_variables . "\">Add</a></div></div>";
+
+        $output .= "<div class=\"add-container\"><div class=\"message\">Are you a block watch captain?</div><div class=\"add-group\"><a href=\"/node/add/community-group" . $add_variables . "\">Add</a></div></div>";
       break;
       
       case 'map':
@@ -224,7 +225,7 @@ function sea_blockwatch_contents($type) {
         $output .= '<ul class="menu">';
         $output .= '<li><a href="blockwatch">' . t('Home/Map') . '</a></li>';
         $output .= '<li><a href="blockwatch/list">' . t('List') . '</a></li>';
-        $output .= '<li><a href="blockwatch/add">' . t('Add') . '</a></li>';
+        $output .= '<li><a href="/node/add/community-group' . $add_variables . '">' . t('Add') . '</a></li>';
         $output .= '</ul>';
         $output .= '</div>';                
       break;

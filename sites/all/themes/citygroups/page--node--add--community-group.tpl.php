@@ -59,6 +59,13 @@
     <div class="clear"></div>
     <div class="title-container">
       <?php print render($title_prefix); ?>
+      
+      <?php 
+      if(!empty($_GET["title"])) {
+        $title = $_GET["title"];
+      }
+      ?>
+ 
       <?php if ($title): ?>
         <h1 class="title"><?php print $title; ?></h1>
       <?php endif; ?>

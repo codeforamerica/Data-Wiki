@@ -35,11 +35,24 @@ function community_group_form_form_render_categories() {
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') { 
-    
     if(!empty($_GET["category"])) {
       $category = $_GET["category"];
       $form['field_categories']["und"]["#default_value"] = $category;
     }
+
+    if(!empty($_GET["instructions"])) {
+      $prefix = $_GET["instructions"];
+      $form['#prefix'] = '<h3>' . $prefix . '</h3>';
+    }
+    else {
+      $form['#prefix'] = '<h3>' .t("You can submit community groups here.") . '</h3>';    
+    }
+
+    if(!empty($_GET["map_instructions"])) {
+      $map_instructions = $_GET["map_instructions"];
+      $form['#groups']['group_geographic']->label = $map_instructions;
+    }
+
 
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.
@@ -49,7 +62,7 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
       $form['additional_settings']['#access'] = FALSE;
     }
 
-    $form['#prefix'] = '<h3>' .t("You can submit community groups here.") . '</h3>';
+
 
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
     $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
