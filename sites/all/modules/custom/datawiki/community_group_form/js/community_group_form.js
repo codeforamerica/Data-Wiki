@@ -16,11 +16,11 @@ Drupal.behaviors.community_group_form = {
     'div.field-name-field-url-calendar': true,
     'div.field-name-field-email': true,
     'div.field-name-field-contact': true,
-    'div.field-name-field-activity': false,
+/*     'div.field-name-field-activity': false, */
     'div.field-name-field-notes': false,
     'div.field-name-field-description': false,
     'div.field-name-field-source': true,
-    'div.field-name-field-ownership': true,
+    'div.field-name-field-ownership': false,
     'div.field-name-field-url-image': true,
     'div.field-name-field-location-description': false,
     'div.field-name-field-location': true,

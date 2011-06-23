@@ -156,7 +156,7 @@ function sea_blockwatch_block_view($delta = '') {
  */
 function sea_blockwatch_contents($type) {
   $output = '';
-  $add_variables = '';
+  $add_variables = '?section=blockwatch';
   // $add_variables = "?category=Block Watch, Crime Prevention&title=Add a Block Watch Captain&instructions=List Block Watch Captain or Block Watch Group.&map_instructions=Where is this Block Watch?";
   
   switch ($type) {
