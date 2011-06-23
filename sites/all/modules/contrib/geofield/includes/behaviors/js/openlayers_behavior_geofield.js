@@ -164,6 +164,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
          $('div.openlayers_behavior_geofield_button_boundsItemInactive').css('opacity', '0.7');
          $('div.openlayers_behavior_geofield_button_lineItemInactive').css('opacity', '0.7');
          $('div.openlayers_behavior_geofield_button_navigateItemInactive').css('opacity', '0.7');
+        // $('div.map-draw-tip').remove();
       }
 
       // Functions when buttons are clicked 
@@ -200,7 +201,9 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.deactivate();
         polygon_control.activate();
         deactivateButtons();
+        //$('div.openlayers_behavior_geofield_button_polygonItemInactive').after('<div class="map-draw-tip">Single click on the last point to set the polygon.</div>');
         $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '1');
+        
       }
 
       buttonToggleNavigate = function() {

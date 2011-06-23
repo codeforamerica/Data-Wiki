@@ -87,23 +87,23 @@
         </div>
   
         <div class="clear"></div>
-        <div id="content-container" class="<?php print $main_region_width; ?>  alpha omega">
+        <div id="content-container">
           <?php if ($page['content_top']): ?>
-            <div id="content-content-top" class="content-content-top <?php print $main_region_width; ?>  alpha omega">
+            <div id="content-content-top" class="content-content-top">
               <?php print render($page['content_top']); ?>
             </div>
           <?php endif; ?>
           
           <div class="clear"></div>                      
           <?php if ($page['content']): ?>
-            <div id="content-content" class="content-content <?php print $main_region_width; ?>  alpha omega">
+            <div id="content-content" class="content-content">
               <?php print render($page['content']); ?>
             </div>
           <?php endif; ?>
     
           <div class="clear"></div>                      
           <?php if ($page['content_bottom']): ?>
-            <div id="content-content-bottom" class="content-content-bottom <?php print $main_region_width; ?>  alpha omega">
+            <div id="content-content-bottom" class="content-content-bottom">
               <?php print render($page['content_bottom']); ?>
             </div>
           <?php endif; ?>

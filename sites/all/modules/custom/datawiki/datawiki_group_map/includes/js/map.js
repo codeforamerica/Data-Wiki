@@ -23,7 +23,8 @@ $(document).ready(function() {
   cityGroups.data.popularLoad();
   cityGroups.loadData(cityGroups.paths['defaultPath']);
   cityGroups.mapPageInteractions();
-  $('input#search-links-submit').click(function() {
+  
+  $('#search-places input#search-links-submit').click(function() {
     cityGroups.map.geocodeAddress();
     return false;
   });
@@ -245,7 +246,7 @@ cityGroups.map.codeAddress = function(address) {
        cityGroups.map.mapGeocodedData(results);
     } 
     else {
-      alert("Geocode was not successful for the following reason: " + status);
+      // alert("Geocode was not successful for the following reason: " + status);
     }
   });
   return result;

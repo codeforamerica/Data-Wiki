@@ -1055,3 +1055,12 @@ fieldset.group-categories  {
 .page-node .node .field-label {
   font-weight: bold;
 }
+
+div.openlayers-map .map-draw-tip {
+  position: fixed;
+  top: 0;
+  left: 10px;
+  width: 300px;
+  height: 40px;
+  background: fuchsia;
+}
