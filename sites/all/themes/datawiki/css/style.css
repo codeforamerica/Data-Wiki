@@ -200,7 +200,7 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 }
 
 /* Page Titling */
-.front #slogan h3 {
+.front #slogan h3{
   font-size: 4em;
   margin-top: 0;
   margin-bottom: 0;
@@ -314,6 +314,39 @@ body.logged-in #block-system-user-menu ul.menu li.first,
   padding: 20px 0 0 0;
 }
 
+/* Leaflet popup */
+.popup-item {
+  font-size: 150%;
+}
+
+.popup-item a.title {
+  font-weight: bold;
+  color: #533549;
+  text-transform: uppercase;
+  overflow-x: hidden;
+}
+
+.popup-item .description {
+  margin: 5px 0 10px 0;
+  color: #666;
+}
+
+.popup-item a.link {
+  background: #666;
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 12px;
+  text-decoration: none;
+}
+.popup-item a:hover {
+  background: #999;
+}
+
+.popup-item .categories {
+  font-size: 12px;
+  margin: 5px 0 10px 0;
+  color: #999;
+}
 
 /* Page Elements */
 

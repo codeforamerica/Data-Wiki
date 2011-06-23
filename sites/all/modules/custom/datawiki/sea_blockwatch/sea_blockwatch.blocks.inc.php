@@ -183,17 +183,28 @@ function sea_blockwatch_contents($type) {
       break;     
 
     case 'search':
+/*
         $output .= '<div id="search-links">';
         $output .= '<div id="search-places" class="form-input"><h3>' . t('Find your block watch captain') . '</h3>';
         $output .= '<input placeholder="Enter your address here." size=30 class="form-item" />';
         $output .= '<input type="submit" id="search-links-submit"  value="Find" class="form-submit">';
         $output .= '</div>';
         $output .= '</div>';
+*/
+        
+        global $base_url;
+        $output .= '<div id="search-links" style="width:420px">';
+        $output .= '<div id="search-places" class="form-input">';
+        $output .= '<h3>' . t('Find your block watch captain') . '</h3>';
+        $output .= '<input placeholder="Enter your address or zipcode here." size=50 class="form-item" />';
+        $output .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_icon-50.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
+        $output .= '</div>';
+        $output .= '</div>';
       break;
       
     case 'add_data':
         $add_variables = "category=Block Watch, Crime Prevention";
-        $output .= "<div class=\"add-container\">Are you a block watch captain? <div class=\"add-group\"><a href=\"/node/add/community-group?" . $add_variables . "\">Add</a></div></div>";
+        $output .= "<div class=\"add-container\"><div class=\"message\">Are you a block watch captain?</div><div class=\"add-group\"><a href=\"/node/add/community-group?" . $add_variables . "\">Add</a></div></div>";
       break;
       
       case 'map':
@@ -211,7 +222,7 @@ function sea_blockwatch_contents($type) {
       case 'home_menu':
         $output .= '<div id="home-menu" class="grid_6 push_10">';
         $output .= '<ul class="menu">';
-        $output .= '<li><a href="blockwatch">' . t('Home') . '</a></li>';
+        $output .= '<li><a href="blockwatch">' . t('Home/Map') . '</a></li>';
         $output .= '<li><a href="blockwatch/list">' . t('List') . '</a></li>';
         $output .= '<li><a href="blockwatch/add">' . t('Add') . '</a></li>';
         $output .= '</ul>';

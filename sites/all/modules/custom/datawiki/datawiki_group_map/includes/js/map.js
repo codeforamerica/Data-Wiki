@@ -189,22 +189,32 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   /*   cityGroups.map.rendered.removeLayer(marker); */
   cityGroups.map.rendered.addLayer(marker);
   
-  marker.bindPopup(cityGroups.map.popupTemplate(node));
-  
+/*   marker.bindPopup(cityGroups.map.popupTemplate(node)); */
+
+  var popup = new L.Popup();
+        
+  function onMapClick(e) {   
+    popup.setLatLng(markerLocation);
+    popup.setContent(cityGroups.map.popupTemplate(node));
+    cityGroups.map.rendered.openPopup(popup);
+    cityGroups.map.rendered.addLayer(polygon);
+    polygon.on('click', offMapClick);
+  }
+
 /*
-  marker.on('click', onMapClick);
-	function onMapClick(e) {
-	
-	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
+	function onMapClick(e) {    
+    map.openPopup(popup);
     cityGroups.map.rendered.addLayer(polygon);
     polygon.on('click', offMapClick);
 	}
+*/
 	
 	function offMapClick(e) {
     cityGroups.map.rendered.removeLayer(polygon);	
-    $('div#popup-content div.content').html('Click map to see where the groups are');
 	}
-*/
+	
+	 marker.on('click', onMapClick);
+	
 };
 
 cityGroups.map.popupTemplate = function(node) {
@@ -216,8 +226,10 @@ cityGroups.map.popupTemplate = function(node) {
   if(node.categories !== undefined) {
     output += '<div class="categories">' + node.categories + '</div>';
   }
-  output += '<a href="node/' + node.citygroups_nid + '"  >more</a> ';
-  output += '<a href="node/' + node.citygroups_nid + '/edit" >edit</a>';
+  output += '<a href="node/' + node.citygroups_nid + '" class="link">More</a> ';
+  // if() {
+    output += '<a href="node/' + node.citygroups_nid + '/edit" class="link">Edit</a>';
+  // }
   output += '</div>';
   return output;
 };

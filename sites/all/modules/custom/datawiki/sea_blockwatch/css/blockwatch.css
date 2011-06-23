@@ -1,3 +1,15 @@
+h3 {
+  font-size: 150%;
+}
+.header-subsection-container {
+  padding-left: 20px;
+  font-size: 150%;
+}
+.message,
+p {
+  font-size: 125%;
+}
+
 #header {
   background-color: #2796F2;
 }
@@ -14,14 +26,17 @@
   top: 0px;
 }
 
-#content #popup-content .block {
-  background: #bbb;
-  padding: 20px 10px;
-  margin: 0 0 20px 0;
+
+/* Page Titling */
+.page-blockwatch #slogan h3 {
+  font-size: 4em;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-#tagline {
-  padding: 10px 0;
+
+.add-container .message {
+  float: left;
 }
 
 #content #popup-content a {

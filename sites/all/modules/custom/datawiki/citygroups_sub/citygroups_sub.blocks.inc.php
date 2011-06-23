@@ -175,7 +175,7 @@ function citygroups_sub_contents($type) {
       break;
 
     case 'site_tagline':
-      $output .= '<h2>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h2>';
+      $output .= '<h3>' . t('A public directory of over 300 community groups in the Seattle area.') . '</h3>';
       break;
       
     case 'branding_header':
