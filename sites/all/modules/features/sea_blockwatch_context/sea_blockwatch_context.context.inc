@@ -38,6 +38,12 @@ function sea_blockwatch_context_context_default_contexts() {
           'region' => 'sidebar_second',
           'weight' => '-28',
         ),
+        'sea_blockwatch-sea_blockwatch_home_menu' => array(
+          'module' => 'sea_blockwatch',
+          'delta' => 'sea_blockwatch_home_menu',
+          'region' => 'content_top',
+          'weight' => '-10',
+        ),
         'sea_blockwatch-sea_blockwatch_search' => array(
           'module' => 'sea_blockwatch',
           'delta' => 'sea_blockwatch_search',
