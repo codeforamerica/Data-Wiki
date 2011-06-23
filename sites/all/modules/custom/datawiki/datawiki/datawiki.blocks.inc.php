@@ -34,11 +34,12 @@ function datawiki_block_info() {
   $blocks['datawiki_home_menu'] = array(
     'info' => t('Home Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
+  );*/
   $blocks['datawiki_navigation_menu'] = array(
     'info' => t('Navigation Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+/*
   $blocks['datawiki_header_menu'] = array(
     'info' => t('Header Menu'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default

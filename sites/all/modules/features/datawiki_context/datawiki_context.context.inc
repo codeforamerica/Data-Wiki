@@ -143,6 +143,12 @@ function datawiki_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
+        'datawiki-datawiki_navigation_menu' => array(
+          'module' => 'datawiki',
+          'delta' => 'datawiki_navigation_menu',
+          'region' => 'footer',
+          'weight' => '-10',
+        ),
         'datawiki-datawiki_branding_footer' => array(
           'module' => 'datawiki',
           'delta' => 'datawiki_branding_footer',
