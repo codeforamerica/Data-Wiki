@@ -45,8 +45,7 @@ form .form-type-radios label.option {
   float: inherit;
 }
 form .text-full,
-form .form-text,
-form .form-type-password {
+form .form-text {
   border: none;
   background-color: #AAAAAA;
   color: #FFFFFF;
@@ -57,10 +56,8 @@ form .form-type-password {
 
 form .text-full:hover,
 form input.form-text:hover,
-form .form-type-password:hover,
 form .text-full:focus,
-form input.form-text:focus,
-form .form-type-password:focus {
+form input.form-text:focus {
   background-color: #666666;
 }
 form .text-full {

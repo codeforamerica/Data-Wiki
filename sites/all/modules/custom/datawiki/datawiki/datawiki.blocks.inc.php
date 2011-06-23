@@ -216,17 +216,19 @@ function datawiki_contents($type) {
         break;
         
       case 'dashboard_add_content':
+        $output .= '<div class="grid_11 dashboard">';
         $output .= "<h3>Initial Setup</h3>";
-        $output .= "<ol class=\"menu\">";
+        $output .= "<ul class=\"menu\">";
         $output .= "<li>Import a CSV file: <a href=\"/node/add/community-group-feed-upload-csv\">Upload CSV</a></li>";
         $output .= "<li>Edit site information: <a href=\"#\">Site</a></li>";
-        $output .= "</ol>";
+        $output .= "</ul>";
 
         $output .= "<h3>Add Content</h3>";
         $output .= "<ul class=\"menu\">";
         $output .= "<li><a href=\"/node/add/community-group\">Add A Group</a></li>";
         $output .= "<li><a href=\"/node/add/community-group-feed-upload-csv\">Upload CSV</a></li>";
         $output .= "</ul>";
+        $output .= "</div>";
         break;
       
   }

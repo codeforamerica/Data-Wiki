@@ -107,6 +107,44 @@ function datawiki_context_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'dashboard';
+  $context->description = '';
+  $context->tag = 'datawiki';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'users/admin' => 'users/admin',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'citygroups_sub-citygroups_sub_home_menu' => array(
+          'module' => 'citygroups_sub',
+          'delta' => 'citygroups_sub_home_menu',
+          'region' => 'content_top',
+          'weight' => '-10',
+        ),
+        'datawiki-datawiki_dashboard_add_content' => array(
+          'module' => 'datawiki',
+          'delta' => 'datawiki_dashboard_add_content',
+          'region' => 'content_top',
+          'weight' => '-9',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('datawiki');
+  $export['dashboard'] = $context;
+
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'datawiki_main';
   $context->description = '';
   $context->tag = 'datawiki';

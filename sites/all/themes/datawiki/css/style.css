@@ -800,6 +800,10 @@ select {
   line-height: 24px;
 }
 
+#content-container .form-actions input.form-submit {
+  width: auto;
+}
+
 #content-container .views-reset-button input.form-submit {
   background-color: none;
   background: none;
@@ -1070,5 +1074,40 @@ div.openlayers-map .map-draw-tip {
   font-weight: normal;
   font-size: 10px;
   text-transform: uppercase;
-  
+}
+
+ul.primary {
+  padding-top: 20px;
+}
+
+ul.primary li a{
+  padding: 10px 10px 0px 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #9f3647;
+}
+
+.profile dl,
+.profile dd,
+.profile dt {
+  margin: 1em 0 1.5em 0;
+  display: block;
+}
+
+.dashboard h3 {
+  font-size: 150%;
+  text-transform: uppercase;
+}
+
+.dashboard ul.menu {
+  padding-bottom: 10px;
+}
+
+.dashboard ul.menu li {
+  padding: 3px 0 10px 0;
+  font-size: 125%;
+}
+
+.initial-page {
+  padding: 40px;
 }
