@@ -49,7 +49,7 @@ function datawiki_preprocess_page(&$vars) {
   $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'datawiki') . '/' . $vars['logo_image_link'] . '" /></a>';
  
   $vars['prealpha'] = '<div class="prealpha">PRE-ALPHA</div>';
- 
+
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {
     $vars['main_region_width'] = 'grid_16';

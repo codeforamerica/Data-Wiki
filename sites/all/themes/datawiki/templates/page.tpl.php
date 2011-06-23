@@ -71,39 +71,39 @@
         <?php print render($page['sidebar_first']); ?>
       </div>
       <?php endif; ?>
-      <div class="main-content-region <?php print $main_region_width; ?> alpha">
-        <div class="tabs-container">
+      <div class="main-content-region <?php print $main_region_width; ?>  alpha omega">
+        <div class="tabs-container grid_8 alpha omega">
           <?php print render($tabs); ?>
         </div>
         <div class="clear"></div>      
-        <div class="help-container">
+        <div class="help-container grid_8 alpha omega">
           <?php print render($page['help']); ?>
         </div>
         <div class="clear"></div>       
-        <div class="action-links-container">
+        <div class="action-links-container grid_8 alpha omega">
           <?php if ($action_links): ?>
             <ul class="action-links"><?php print render($action_links); ?></ul>
           <?php endif; ?>
         </div>
   
         <div class="clear"></div>
-        <div id="content-container">
+        <div id="content-container" class="<?php print $main_region_width; ?>  alpha omega">
           <?php if ($page['content_top']): ?>
-            <div id="content-content-top" class="content-content-top">
+            <div id="content-content-top" class="content-content-top <?php print $main_region_width; ?>  alpha omega">
               <?php print render($page['content_top']); ?>
             </div>
           <?php endif; ?>
           
           <div class="clear"></div>                      
           <?php if ($page['content']): ?>
-            <div id="content-content" class="content-content">
+            <div id="content-content" class="content-content <?php print $main_region_width; ?>  alpha omega">
               <?php print render($page['content']); ?>
             </div>
           <?php endif; ?>
     
           <div class="clear"></div>                      
           <?php if ($page['content_bottom']): ?>
-            <div id="content-content-bottom" class="content-content-bottom">
+            <div id="content-content-bottom" class="content-content-bottom <?php print $main_region_width; ?>  alpha omega">
               <?php print render($page['content_bottom']); ?>
             </div>
           <?php endif; ?>
