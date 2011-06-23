@@ -164,7 +164,8 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.deactivate();
         polygon_control.deactivate();
         point_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive');
+        $('body').removeClass('draw-active');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive').addClass('draw-active');
       }
 
       buttonToggleLine = function() {
@@ -172,7 +173,8 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         polygon_control.deactivate();
         bounds_control.deactivate(); 
         line_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive');
+        $('body').removeClass('draw-active');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive').addClass('draw-active');
       }
 
       buttonToggleBounds = function() {
@@ -180,7 +182,8 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.deactivate();
         polygon_control.deactivate();
         bounds_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive');
+        $('body').removeClass('draw-active');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive').addClass('draw-active');
       }
 
       buttonTogglePolygon = function() {
@@ -188,15 +191,16 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         bounds_control.deactivate();
         line_control.deactivate();
         polygon_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive');
+                $('body').removeClass('draw-active');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive').addClass('draw-active');
       }
 
       buttonToggleNavigate = function() {
         point_control.deactivate();
         bounds_control.deactivate();
         line_control.deactivate();
-        polygon_control.deactivate();
-        $('div.openlayers_behavior_geofield_button_navigateItemInactive');
+        polygon_control.deactivate();        $('body').removeClass('draw-active');
+        $('div.openlayers_behavior_geofield_button_navigateItemInactive').addClass('draw-active');
       }
 
       // Add buttons to control_panel for each control type

@@ -26,23 +26,29 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'sea_blockwatch-sea_blockwatch_search' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_search',
-          'region' => 'sidebar_first',
-          'weight' => '-32',
-        ),
         'sea_blockwatch-sea_blockwatch_about_block' => array(
           'module' => 'sea_blockwatch',
           'delta' => 'sea_blockwatch_about_block',
-          'region' => 'sidebar_first',
-          'weight' => '-31',
+          'region' => 'sidebar_second',
+          'weight' => '-29',
+        ),
+        'sea_blockwatch-sea_blockwatch_facebook_like' => array(
+          'module' => 'sea_blockwatch',
+          'delta' => 'sea_blockwatch_facebook_like',
+          'region' => 'sidebar_second',
+          'weight' => '-28',
+        ),
+        'sea_blockwatch-sea_blockwatch_search' => array(
+          'module' => 'sea_blockwatch',
+          'delta' => 'sea_blockwatch_search',
+          'region' => 'content',
+          'weight' => '-10',
         ),
         'sea_blockwatch-sea_blockwatch_map' => array(
           'module' => 'sea_blockwatch',
           'delta' => 'sea_blockwatch_map',
           'region' => 'content',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
         'sea_blockwatch-sea_blockwatch_add_data' => array(
           'module' => 'sea_blockwatch',
@@ -100,24 +106,7 @@ function sea_blockwatch_context_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'sea_blockwatch-sea_blockwatch_facebook_like' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_facebook_like',
-          'region' => 'sidebar_first',
-          'weight' => '-30',
-        ),
-        'sea_blockwatch-sea_blockwatch_home_menu' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_home_menu',
-          'region' => 'preface',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 0;
 
   // Translatables
