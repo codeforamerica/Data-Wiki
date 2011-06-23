@@ -16,33 +16,40 @@ cityGroups.paths = {
     "defaultPath": "/data/community-group/map",
     "#defaultPath": "/data/community-group/map",
 };
-        
+
 $(document).ready(function() {
+  // Set up geocoder.
   geocoder = new google.maps.Geocoder();
-  cityGroups.map.polygonOptions = Drupal.settings.datawiki.mapColors;
-  cityGroups.data.popularLoad();
-  cityGroups.loadData(cityGroups.paths['defaultPath']);
-  cityGroups.mapPageInteractions();
   
+  // Get Map Colors.
+  cityGroups.map.polygonOptions = Drupal.settings.datawiki.mapColors;
+
+  // Override default datapath from submodule.
+  if (Drupal.settings.datawiki.customMapDataPath !== undefined) {
+    cityGroups.paths["defaultPath"] = Drupal.settings.datawiki.customMapDataPath;
+  }
+
+  // Load map data.
+  cityGroups.data.mapTopicLoad();
+  cityGroups.loadData(cityGroups.paths['defaultPath']);
+  
+  // When input button is clicked, get geocoded data for the string.
   $('#search-places input#search-links-submit').click(function() {
     cityGroups.map.geocodeAddress();
     return false;
   });
 });
 
-cityGroups.mapPageInteractions = function () {
-  $('ul.menu a#popular-search').click(function() {
-/*     $('div#popular-terms').css('backgroundColor', '#bb4433'); */
-  });
-};
-
-cityGroups.data.popularLoad = function () {
+/**
+ * Extra function that can be used to toggle map layers by topic.
+ */
+cityGroups.data.mapTopicLoad = function () {
   $('div#popular-terms ul li a').click(function(){ 
-/*     var path = cityGroups.paths[$(this).attr('href')]; */
     // Dynamically load the path.
     var path = cityGroups.paths.defaultPath + '/' + $(this).attr('href');
     path = path.replace("#", '');
-    if( $(this).attr('href') == '#defaultPath') {
+
+    if(($(this).attr('href')) == '#defaultPath' || (path == '/')) {
      path = cityGroups.paths['defaultPath'];
     }
     cityGroups.loadData(path);
