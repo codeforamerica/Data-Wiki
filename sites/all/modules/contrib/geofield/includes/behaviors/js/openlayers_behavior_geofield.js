@@ -164,7 +164,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.deactivate();
         polygon_control.deactivate();
         point_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive').html('Point');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive');
       }
 
       buttonToggleLine = function() {
@@ -172,7 +172,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         polygon_control.deactivate();
         bounds_control.deactivate(); 
         line_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive').html('Line');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive');
       }
 
       buttonToggleBounds = function() {
@@ -180,7 +180,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.deactivate();
         polygon_control.deactivate();
         bounds_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive').html('Bounds');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive');
       }
 
       buttonTogglePolygon = function() {
@@ -188,7 +188,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         bounds_control.deactivate();
         line_control.deactivate();
         polygon_control.activate();
-        $('div.openlayers_behavior_geofield_button_pointItemInactive').html('Polygon');
+        $('div.openlayers_behavior_geofield_button_pointItemInactive');
       }
 
       buttonToggleNavigate = function() {
@@ -196,7 +196,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         bounds_control.deactivate();
         line_control.deactivate();
         polygon_control.deactivate();
-        $('div.openlayers_behavior_geofield_button_navigateItemInactive').html('Clear');
+        $('div.openlayers_behavior_geofield_button_navigateItemInactive');
       }
 
       // Add buttons to control_panel for each control type
