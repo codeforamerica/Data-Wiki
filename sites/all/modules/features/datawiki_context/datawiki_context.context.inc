@@ -124,6 +124,7 @@ function datawiki_context_context_default_contexts() {
         'community-data-api' => 'community-data-api',
         'node/add/community-group' => 'node/add/community-group',
         'projects' => 'projects',
+        'node/*' => 'node/*',
       ),
     ),
   );
@@ -140,12 +141,6 @@ function datawiki_context_context_default_contexts() {
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-10',
-        ),
-        'datawiki-datawiki_navigation_menu' => array(
-          'module' => 'datawiki',
-          'delta' => 'datawiki_navigation_menu',
-          'region' => 'footer_top',
           'weight' => '-10',
         ),
         'datawiki-datawiki_branding_footer' => array(

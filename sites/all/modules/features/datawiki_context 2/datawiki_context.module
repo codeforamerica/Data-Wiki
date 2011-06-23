@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Datawiki Context feature.
- */
-
-include_once('datawiki_context.features.inc');
