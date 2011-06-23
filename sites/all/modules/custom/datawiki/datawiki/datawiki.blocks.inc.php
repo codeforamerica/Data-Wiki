@@ -217,11 +217,13 @@ function datawiki_contents($type) {
         
       case 'dashboard_add_content':
         $output .= '<div class="grid_11 dashboard">';
+/*
         $output .= "<h3>Initial Setup</h3>";
         $output .= "<ul class=\"menu\">";
         $output .= "<li>Import a CSV file: <a href=\"/node/add/community-group-feed-upload-csv\">Upload CSV</a></li>";
         $output .= "<li>Edit site information: <a href=\"#\">Site</a></li>";
         $output .= "</ul>";
+*/
 
         $output .= "<h3>Add Content</h3>";
         $output .= "<ul class=\"menu\">";
