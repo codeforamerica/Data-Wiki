@@ -7,7 +7,8 @@ body {
   background:#fff;
   font-family:Helvetica, Arial, sans-serif;
   color:#333;
-  font-size:12px;
+  font-size:14px;
+  line-height: 16px;
   padding:0;
   margin:0;
 }
@@ -21,7 +22,15 @@ body {
 -------------------------------------------------------------- */
 h1 { font-size:24px; line-height:150%; margin-bottom:15px;}
 h2 { font-size:18px; line-height:150%; margin-bottom:15px;}
-h3 { font-size:16px; line-height:150%; margin-bottom:15px;}
+h3, h4, h5, dt { font-size:16px; line-height:150%; margin-bottom:15px;}
+
+
+dl,
+dd,
+dt {
+  margin: 1em 0 1.5em 0;
+  display: block;
+}
 
 a:link, a:visited {
     color:#96a044;
@@ -207,7 +216,7 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 
 .title-container h1 {
   font-weight: bold;
-  font-size: 4.2em;
+  font-size: 4em;
   text-transform: uppercase;
   color: #992739;
   line-height: 100%;
@@ -291,28 +300,6 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 
 
 /* Map */
-
-#popup-content {
-  width: 300px;
-  background: #bbb;
-  position: absolute;
-  margin-left: 620px;
-  top: 200px;
-  padding: 20px 10px;
-/*   z-index: 1000; */
-  font-size: 125%;
-  line-height: 150%;
-}
-
-#popup-content a {
-  color: #fff;
-}
-
-#popup-content .categories {
-  font-size: 80%;
-  padding: 20px 0 0 0;
-}
-
 /* Leaflet popup */
 .popup-item {
   font-size: 150%;
@@ -569,7 +556,7 @@ li.flag-like span.flag-like a.unflag-action{
 }
 
 #footer {
-  margin: 10px 0;
+  margin: 40px 0 40px 0;
   line-height: 125%;
 }
 
@@ -591,8 +578,9 @@ li.flag-like span.flag-like a.unflag-action{
   font-weight: bold;
 }
 
-#footer ul, #footer p {
+#footer ul {
   float: left;
+  margin: 0;
   display: block;
 }
 
@@ -610,6 +598,10 @@ li.flag-like span.flag-like a.unflag-action{
   color: #999999;
 }
 
+#block-system-powered-by {
+  font-size: 10px;
+  padding-left: 10px;
+}
 
 .sidebar_box {
     border-width: 8px 4px 9px 4px;
@@ -671,13 +663,12 @@ li.flag-like span.flag-like a.unflag-action{
 
 .sidebar_box p { font-size: 1.3em; }
 
-
 .view .views-number-results {
   padding: 20px;
   float: left;
   margin: 10px 20px 0 0;
   background-color: #ddd;
-  font-size: 325%;
+  font-size: 4em;
   font-weight: bold;
 }
 
@@ -759,7 +750,7 @@ li.flag-like span.flag-like a.unflag-action{
 */
 select {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 125%;
+  font-size: 1.25em;
   width: 320px;
 }
 .views-exposed-widgets input {
@@ -789,7 +780,7 @@ select {
   background-color: #96a141;
   color: #ffffff;
   text-transform: uppercase;
-  font-size: 24px;
+  font-size: 1.25em;
   font-weight: normal;
   padding: 10px 30px;
   margin: 0px 5px 0 0;
@@ -865,11 +856,11 @@ select option {
 
 /* New */
 .loading {
-   background-color: #eeeeee;
-   color: #fff;
-   font-size: 400%;
-   height: 400px;
-   padding: 50px;
+  background-color: #eeeeee;
+  color: #fff;
+  font-size: 4em;
+  height: 400px;
+  padding: 50px;
 }
 
 
@@ -995,68 +986,6 @@ fieldset.group-categories  {
   border-width: 29px 4px 9px 15px;
 }
 
-.wizard-field-tip {
-    border-image: url(../images/wizard-field-tip-border.png) 29 4 9 15 stretch;
-    -moz-border-image: url(../images/wizard-field-tip-border.png) 29 4 9 15 stretch;
-    -webkit-border-image: url(../images/wizard-field-tip-border.png) 29 4 9 15 stretch;
-}
-
-.wizard-general-tip-border,
-.wizard-general-tip {
-    border-width: 29px 4px 9px 15px;
-    border-image: url(../images/wizard-general-tip-border.png) 29 4 9 15 stretch;
-    -moz-border-image: url(../images/wizard-general-tip-border.png) 29 4 9 15 stretch;
-    -webkit-border-image: url(../images/wizard-general-tip-border.png) 29 4 9 15 stretch;
-}
-
-.wizard-general-tip-border > h1,
-.wizard-tip > h1,
-.in-place-wizard-tip > h1 {
-    margin: 0px;
-    margin-top: -29px;
-    line-height: 29px;
-    padding: 0px 10px;
-    
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-    background-color: #992739;
-}
-
-.in-place-wizard-tip > h2,
-.wizard-tip > h2 {
-    margin: 15px;
-    
-    font-size: 1.2em;
-    font-weight: bold;
-    
-    border-bottom: 1px solid #888;
-}
-
-.in-place-wizard-tip > p,
-.in-place-wizard-tip > ul,
-.in-place-wizard-tip > ol,
-.wizard-tip > p,
-.wizard-tip > ul,
-.wizard-tip > ol {
-    margin: 10px 15px;
-    line-height: 1.5em;
-    font-size: 1.1em;
-}
-
-.wizard-tip > ul {
-    list-style: square;
-}
-
-.wizard-tip > ol {
-    list-style: decimal;
-}
-
-.wizard-tip > ul > li,
-.wizard-tip > ol > li {
-    margin-left: 1.5em;
-}
-
 .page-node .node .field-label {
   font-weight: bold;
 }
@@ -1072,7 +1001,7 @@ div.openlayers-map .map-draw-tip {
 
 .views-number-results .label {
   font-weight: normal;
-  font-size: 10px;
+  font-size: 75%;
   text-transform: uppercase;
 }
 
@@ -1087,15 +1016,7 @@ ul.primary li a{
   color: #9f3647;
 }
 
-.profile dl,
-.profile dd,
-.profile dt {
-  margin: 1em 0 1.5em 0;
-  display: block;
-}
-
 .dashboard h3 {
-  font-size: 150%;
   text-transform: uppercase;
 }
 
@@ -1110,4 +1031,8 @@ ul.primary li a{
 
 .initial-page {
   padding: 40px;
+}
+
+.citygroups-projects a {
+  font-size: 1.25em;
 }

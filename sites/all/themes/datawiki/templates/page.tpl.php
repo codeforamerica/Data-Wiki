@@ -39,7 +39,7 @@
     </div>
     <?php if ($page['header_bottom']): ?>
     <div class="clear"></div>
-    <div class="header-bottom grid_16 omega">
+    <div class="header-bottom grid_16 alpha omega">
       <?php print render($page['header_bottom']); ?>
     </div>
     <?php endif; ?>
@@ -72,22 +72,22 @@
       </div>
       <?php endif; ?>
       <div class="main-content-region <?php print $main_region_width; ?>  alpha omega">
-        <div class="tabs-container grid_8 alpha omega">
+        <div class="tabs-container grid_11 alpha omega">
           <?php print render($tabs); ?>
         </div>
         <div class="clear"></div>      
-        <div class="help-container grid_8 alpha omega">
+        <div class="help-container grid_11 alpha omega">
           <?php print render($page['help']); ?>
         </div>
         <div class="clear"></div>       
-        <div class="action-links-container grid_8 alpha omega">
+        <div class="action-links-container grid_11 alpha omega">
           <?php if ($action_links): ?>
             <ul class="action-links"><?php print render($action_links); ?></ul>
           <?php endif; ?>
         </div>
   
         <div class="clear"></div>
-        <div id="content-container">
+        <div id="content-container" class="grid_11 alpha omega">
           <?php if ($page['content_top']): ?>
             <div id="content-content-top" class="content-content-top">
               <?php print render($page['content_top']); ?>
@@ -116,13 +116,13 @@
     </div>
     <?php endif; ?>
     <div class="clear"></div>
-    <div class="postscript-container grid_16 alpha">
+    <div class="postscript-container grid_16 alpha omega">
       <?php print render($page['postscript']); ?>
     </div>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>
-  <div id="footer" class="grid_16 alpha">
+  <div id="footer-container" class="grid_16 alpha omega">
       <?php print render($page['footer_top']); ?> 
       <div class="clear"></div> 
       <?php print render($page['footer']); ?>
