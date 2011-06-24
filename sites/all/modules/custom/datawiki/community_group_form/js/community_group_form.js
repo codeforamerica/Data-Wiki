@@ -184,14 +184,15 @@ Drupal.settings.community_group_form.centerOnFeature = function() {
     // Redraw feature with style.
     var myStyles = new OpenLayers.StyleMap({
                 "default": new OpenLayers.Style({
-                    pointRadius: "10", // sized according to type attribute
-                    fillColor: "#ffffff",
-                    strokeColor: "#000000",
-                    strokeWidth: 2
+                    pointRadius: "5", // sized according to type attribute
+                    strokeColor: "#333333",
+                    fillColor: "#666666",
+                    strokeWidth: 2,
+                    fillOpacity: 0.6
                 }),
                 "select": new OpenLayers.Style({
-                    fillColor: "#ffffff",
-                    strokeColor: "#000000"
+                    strokeColor: "#333333",
+                    fillColor: "#666666",
                 })
             });
     var edit_feature_layer = new OpenLayers.Layer.Vector("edit-feature", {
