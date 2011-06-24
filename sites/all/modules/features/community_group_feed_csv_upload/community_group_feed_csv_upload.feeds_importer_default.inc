@@ -65,7 +65,7 @@ function community_group_feed_csv_upload_feeds_importer_default() {
           ),
           5 => array(
             'source' => 'type_group',
-            'target' => 'field_type_web_resource',
+            'target' => 'field_type_group',
             'unique' => FALSE,
           ),
           6 => array(
@@ -134,63 +134,73 @@ function community_group_feed_csv_upload_feeds_importer_default() {
             'unique' => FALSE,
           ),
           19 => array(
+            'source' => 'county',
+            'target' => 'field_county',
+            'unique' => FALSE,
+          ),
+          20 => array(
             'source' => 'zipcode',
             'target' => 'field_zipcode',
             'unique' => FALSE,
           ),
-          20 => array(
+          21 => array(
             'source' => 'state',
             'target' => 'field_state',
             'unique' => FALSE,
           ),
-          21 => array(
+          22 => array(
             'source' => 'region',
             'target' => 'field_region',
             'unique' => FALSE,
           ),
-          22 => array(
+          23 => array(
             'source' => 'area_code',
             'target' => 'field_area_code',
             'unique' => FALSE,
           ),
-          23 => array(
+          24 => array(
             'source' => 'latitude',
             'target' => 'field_location:lat',
             'unique' => FALSE,
           ),
-          24 => array(
+          25 => array(
             'source' => 'longitude',
             'target' => 'field_location:lon',
             'unique' => FALSE,
           ),
-          25 => array(
+          26 => array(
             'source' => 'location_geo_type',
             'target' => 'field_location:geo_type',
             'unique' => FALSE,
           ),
-          26 => array(
+          27 => array(
             'source' => 'location_wkt',
             'target' => 'field_location:wkt',
             'unique' => FALSE,
           ),
-          27 => array(
+          28 => array(
             'source' => 'location_geo_right',
             'target' => 'field_location:right',
             'unique' => FALSE,
           ),
-          28 => array(
+          29 => array(
             'source' => 'location_geo_top',
             'target' => 'field_location:top',
             'unique' => FALSE,
           ),
-          29 => array(
+          30 => array(
             'source' => 'location_geo_bottom',
             'target' => 'field_location:bottom',
             'unique' => FALSE,
           ),
-          30 => array(
+          31 => array(
             'source' => 'location_geo_left',
             'target' => 'field_location:left',
+            'unique' => FALSE,
+          ),
+          32 => array(
+            'source' => 'type_community',
+            'target' => 'field_type_community',
             'unique' => FALSE,
           ),
         ),
