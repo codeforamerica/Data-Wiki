@@ -22,13 +22,16 @@ function community_group_content_type_field_group_info() {
     'label' => 'Basic Information',
     'weight' => '0',
     'children' => array(
-      0 => 'field_activity',
-      1 => 'field_contact',
+      0 => 'field_contact',
+      1 => 'field_description',
       2 => 'field_email',
-      3 => 'field_url',
-      4 => 'field_url_calendar',
-      5 => 'title',
-      6 => 'group_metadata',
+      3 => 'field_notes',
+      4 => 'field_source',
+      5 => 'field_url',
+      6 => 'field_url_calendar',
+      7 => 'field_url_image',
+      8 => 'title',
+      9 => 'group_metadata',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -53,8 +56,12 @@ function community_group_content_type_field_group_info() {
     'label' => 'More',
     'weight' => '2',
     'children' => array(
-      0 => 'field_term_civic_taxonomy',
-      1 => 'field_type_group',
+      0 => 'field_activity',
+      1 => 'field_audience_size',
+      2 => 'field_ownership',
+      3 => 'field_term_civic_taxonomy',
+      4 => 'field_type_group',
+      5 => 'field_type_community',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -288,15 +295,8 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = 'group_basic';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '2',
-    'children' => array(
-      0 => 'field_audience_size',
-      1 => 'field_description',
-      2 => 'field_notes',
-      3 => 'field_ownership',
-      4 => 'field_source',
-      5 => 'field_url_image',
-    ),
+    'weight' => '4',
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'label' => 'More',
