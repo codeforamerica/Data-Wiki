@@ -1,0 +1,7 @@
+core = "7.x"
+dependencies[] = "strongarm"
+description = "Site Settings for CityGroups"
+features[ctools][] = "strongarm:strongarm:1"
+features[variable][] = "error_level"
+name = "CityGroups Site Settings"
+package = "Features"

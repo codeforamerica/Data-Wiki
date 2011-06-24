@@ -232,6 +232,7 @@ function community_group_content_type_field_group_info() {
       7 => 'field_region',
       8 => 'field_state',
       9 => 'field_zipcode',
+      10 => 'field_county',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

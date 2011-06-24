@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CityGroups Site Settings feature.
+ */
+
+include_once('citygroups_site_settings.features.inc');

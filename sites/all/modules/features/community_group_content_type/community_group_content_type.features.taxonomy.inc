@@ -147,6 +147,29 @@ function community_group_content_type_taxonomy_default_vocabularies() {
         ),
       ),
     ),
+    'county' => array(
+      'name' => 'County',
+      'machine_name' => 'county',
+      'description' => '',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
     'district' => array(
       'name' => 'District',
       'machine_name' => 'district',
@@ -285,6 +308,29 @@ function community_group_content_type_taxonomy_default_vocabularies() {
         ),
       ),
     ),
+    'type_community' => array(
+      'name' => 'Type of Community',
+      'machine_name' => 'type_community',
+      'description' => '',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
     'type_dataset' => array(
       'name' => 'Type of Dataset',
       'machine_name' => 'type_dataset',
@@ -309,32 +355,9 @@ function community_group_content_type_taxonomy_default_vocabularies() {
       ),
     ),
     'type_group' => array(
-      'name' => 'Type of Community Group',
-      'machine_name' => 'type_group',
-      'description' => '',
-      'hierarchy' => '0',
-      'module' => 'taxonomy',
-      'weight' => '0',
-      'rdf_mapping' => array(
-        'rdftype' => array(
-          0 => 'skos:ConceptScheme',
-        ),
-        'name' => array(
-          'predicates' => array(
-            0 => 'dc:title',
-          ),
-        ),
-        'description' => array(
-          'predicates' => array(
-            0 => 'rdfs:comment',
-          ),
-        ),
-      ),
-    ),
-    'type_of_group' => array(
       'name' => 'Type of Group',
-      'machine_name' => 'type_of_group',
-      'description' => '',
+      'machine_name' => 'type_group',
+      'description' => 'What kind of groups is this (technology)',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',

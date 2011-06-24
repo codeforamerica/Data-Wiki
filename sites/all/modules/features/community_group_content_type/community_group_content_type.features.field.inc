@@ -223,7 +223,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_area_code'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_area_code',
@@ -293,7 +293,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '22',
+        'weight' => '23',
       ),
     ),
   );
@@ -458,7 +458,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_city'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_city',
@@ -608,6 +608,79 @@ function community_group_content_type_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-community_group-field_county'
+  $fields['node-community_group-field_county'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_county',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'parent' => '0',
+            'vocabulary' => 'county',
+          ),
+        ),
+      ),
+      'translatable' => '1',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 32,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_county',
+      'label' => 'County',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '22',
+      ),
+    ),
+  );
+
   // Exported field: 'node-community_group-field_description'
   $fields['node-community_group-field_description'] = array(
     'field_config' => array(
@@ -684,7 +757,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_district'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_district',
@@ -1010,7 +1083,7 @@ function community_group_content_type_field_default_fields() {
           'geocode_handler' => 'google',
         ),
         'type' => 'geocode',
-        'weight' => '23',
+        'weight' => '24',
       ),
     ),
   );
@@ -1400,7 +1473,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_state'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_state',
@@ -1551,6 +1624,78 @@ function community_group_content_type_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_type_community'
+  $fields['node-community_group-field_type_community'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_type_community',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'parent' => '0',
+            'vocabulary' => 'type_community',
+          ),
+        ),
+      ),
+      'translatable' => '1',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 33,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_type_community',
+      'label' => 'Type of Community',
+      'required' => FALSE,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '25',
       ),
     ),
   );
@@ -1887,7 +2032,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_zipcode'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_zipcode',
@@ -2461,6 +2606,7 @@ function community_group_content_type_field_default_fields() {
   t('Civic Taxonomy');
   t('Comment');
   t('Contact');
+  t('County');
   t('Description');
   t('District');
   t('Email');
@@ -2477,6 +2623,7 @@ function community_group_content_type_field_default_fields() {
   t('Region');
   t('Source');
   t('State');
+  t('Type of Community');
   t('Type of Group');
   t('URL');
   t('Who owns the group? Example: Personal, Community, Commercial.');
