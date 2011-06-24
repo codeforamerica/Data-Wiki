@@ -31,7 +31,6 @@ function community_group_content_type_field_group_info() {
       6 => 'field_url_calendar',
       7 => 'field_url_image',
       8 => 'title',
-      9 => 'group_metadata',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -114,7 +113,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_categories',
       1 => 'group_categories_advanced',
@@ -140,7 +139,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Map this Group',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_location',
       1 => 'group_location',
@@ -284,31 +283,6 @@ function community_group_content_type_field_group_info() {
     ),
   );
   $export['group_metadata|node|community_group|default'] = $field_group;
-
-  $field_group = new stdClass;
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_metadata|node|community_group|form';
-  $field_group->group_name = 'group_metadata';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'community_group';
-  $field_group->mode = 'form';
-  $field_group->parent_name = 'group_basic';
-  $field_group->data = array(
-    'label' => 'More',
-    'weight' => '4',
-    'children' => array(),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'More',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => '',
-        'description' => '',
-      ),
-      'formatter' => 'collapsed',
-    ),
-  );
-  $export['group_metadata|node|community_group|form'] = $field_group;
 
   $field_group = new stdClass;
   $field_group->api_version = 1;
