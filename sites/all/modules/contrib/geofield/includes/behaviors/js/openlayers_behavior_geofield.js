@@ -71,13 +71,16 @@ Drupal.behaviors.openlayers_behavior_geofield = {
     var geofieldStyleMap = new OpenLayers.StyleMap({
                 "default": new OpenLayers.Style({
                     pointRadius: "10", // sized according to type attribute
-                    fillColor: "#ffffff",
-                    strokeColor: "#000000",
-                    strokeWidth: 2
+                    strokeColor: "#333333",
+                    fillColor: "#666666",
+                    strokeWidth: 2,
+                    fillOpacity: 0.6
                 }),
                 "select": new OpenLayers.Style({
-                    fillColor: "#ffffff",
-                    strokeColor: "#000000"
+                    strokeColor: "#333333",
+                    fillColor: "#666666",
+                    strokeWidth: 2,
+                    fillOpacity: 0.6
                 })
             });
       selection_layer = new OpenLayers.Layer.Vector('Selection Layer', {styleMap: geofieldStyleMap});

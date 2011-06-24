@@ -71,7 +71,7 @@
         <?php print render($page['sidebar_first']); ?>
       </div>
       <?php endif; ?>
-      <div class="main-content-region <?php print $main_region_width; ?>  alpha omega">
+      <div class="main-content-region <?php print $main_region_width; ?> alpha omega">
         <div class="tabs-container grid_11 alpha omega">
           <?php print render($tabs); ?>
         </div>
@@ -87,7 +87,7 @@
         </div>
   
         <div class="clear"></div>
-        <div id="content-container" class="grid_11 alpha omega">
+        <div id="content-container">
           <?php if ($page['content_top']): ?>
             <div id="content-content-top" class="content-content-top">
               <?php print render($page['content_top']); ?>
@@ -116,13 +116,13 @@
     </div>
     <?php endif; ?>
     <div class="clear"></div>
-    <div class="postscript-container grid_16 alpha omega">
+    <div class="postscript-container grid_16 alpha">
       <?php print render($page['postscript']); ?>
     </div>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>
-  <div id="footer-container" class="grid_16 alpha omega">
+  <div id="footer" class="grid_16 alpha">
       <?php print render($page['footer_top']); ?> 
       <div class="clear"></div> 
       <?php print render($page['footer']); ?>

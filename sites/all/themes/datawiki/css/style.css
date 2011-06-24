@@ -7,7 +7,7 @@ body {
   background:#fff;
   font-family:Helvetica, Arial, sans-serif;
   color:#333;
-  font-size:14px;
+  font-size:12px;
   line-height: 16px;
   padding:0;
   margin:0;
@@ -668,8 +668,9 @@ li.flag-like span.flag-like a.unflag-action{
   float: left;
   margin: 10px 20px 0 0;
   background-color: #ddd;
-  font-size: 4em;
+  font-size: 400%;
   font-weight: bold;
+  text-align: center;
 }
 
 
@@ -1001,8 +1002,9 @@ div.openlayers-map .map-draw-tip {
 
 .views-number-results .label {
   font-weight: normal;
-  font-size: 75%;
+  font-size: 10px;
   text-transform: uppercase;
+  padding-top: 10px;
 }
 
 ul.primary {
