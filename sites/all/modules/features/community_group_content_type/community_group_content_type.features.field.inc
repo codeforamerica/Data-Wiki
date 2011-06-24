@@ -177,7 +177,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Optional) Enter the address of this group.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -335,7 +335,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Optional) Approximately how many people are actively involved in this group?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -411,7 +411,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended) List categories, separated by commas, describing this group. <a href="/categories">See all the categories</a>',
+      'description' => '<div class="prompt">(Recommended)</div> List categories, separated by commas, describing this group. <br /><a href="/categories" class="more">See all the categories</a>',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -645,7 +645,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Recommended, if you know it) What county is this group in?',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -745,10 +745,10 @@ function community_group_content_type_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '5',
+          'rows' => '10',
         ),
         'type' => 'text_textarea',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -790,7 +790,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended, if you know it.) What district is this group in?',
+      'description' => '(Recommended, if you know it.) What district does this group serve?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -876,7 +876,7 @@ function community_group_content_type_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_email',
-      'label' => 'Email',
+      'label' => 'Mailing List E-mail',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -986,7 +986,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Optional) Enter a description for the location of this group.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1047,7 +1047,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Computed field)',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -1125,7 +1125,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended, if you know it.) Select the neighborhood',
+      'description' => '(Recommended, if you know it.) Select the neighborhood(s) that this group serves.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1156,12 +1156,9 @@ function community_group_content_type_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
+        'active' => 1,
         'module' => 'options',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
+        'settings' => array(),
         'type' => 'options_select',
         'weight' => '16',
       ),
@@ -1198,7 +1195,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Optional) Describe the group in a way that might help a general audience to understand what the group is about.',
+      'description' => '(Optional) Enter any notes or special information about this group.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1277,7 +1274,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Who owns the group? Example: Personal, Community, Commercial.',
+      'description' => '(Optional) Who owns the group? Example: Personal, Community, Commercial, Government, Non-profit.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1353,7 +1350,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended, if you know it.) What region of the city is this group in?',
+      'description' => '(Recommended, if you know it.) What region does this group serve?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1586,7 +1583,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Future Feature!) Add special categories to make this group easier for others to find.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1616,7 +1613,7 @@ function community_group_content_type_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
+        'active' => 0,
         'module' => 'taxonomy',
         'settings' => array(
           'autocomplete_path' => 'taxonomy/autocomplete',
@@ -1665,7 +1662,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Optional) What type of community is this?',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -1684,11 +1681,12 @@ function community_group_content_type_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_type_community',
       'label' => 'Type of Community',
-      'required' => FALSE,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 0,
         'module' => 'taxonomy',
         'settings' => array(
           'autocomplete_path' => 'taxonomy/autocomplete',
@@ -1726,7 +1724,7 @@ function community_group_content_type_field_default_fields() {
         'allowed_values' => array(
           0 => array(
             'parent' => '0',
-            'vocabulary' => 'type_of_group',
+            'vocabulary' => 'type_group',
           ),
         ),
       ),
@@ -1737,7 +1735,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Optional) What type of group is this?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1893,7 +1891,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Enter the best page that points to the calendar listing for this group.',
+      'description' => '(Optional) Enter the best page that points to the calendar listing for this group.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1977,7 +1975,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => '(Optional) Enter the URL that points to an image that represents this group.',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -2065,7 +2063,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended, if you know it.) What zipcode is this group in?',
+      'description' => '(Recommended, if you know it.) What zipcode does this group serve?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2581,21 +2579,33 @@ function community_group_content_type_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('(Computed field)');
+  t('(Future Feature!) Add special categories to make this group easier for others to find.');
+  t('(Optional) Approximately how many people are actively involved in this group?');
   t('(Optional) Describe the group in a way that might help a general audience to understand what the group is about.');
+  t('(Optional) Enter a description for the location of this group.');
+  t('(Optional) Enter any notes or special information about this group.');
+  t('(Optional) Enter the URL that points to an image that represents this group.');
+  t('(Optional) Enter the address of this group.');
+  t('(Optional) Enter the best page that points to the calendar listing for this group.');
   t('(Optional) How active is this group?');
   t('(Optional) Provide contact information for getting in touch with the group. Could be a name, or a phone number, or an email address.');
   t('(Optional) What geographic information can you provide for this group?');
+  t('(Optional) What type of community is this?');
+  t('(Optional) What type of group is this?');
+  t('(Optional) Who owns the group? Example: Personal, Community, Commercial, Government, Non-profit.');
   t('(Optional) Who provided information about the existence of this group?');
-  t('(Recommended) List categories, separated by commas, describing this group. <a href="/categories">See all the categories</a>');
   t('(Recommended) Point to the best page that explains the group and how to join the group.');
   t('(Recommended) Provide an email address (if appropriate) for the best way to join the group by email.');
-  t('(Recommended, if you know it.) Select the neighborhood');
+  t('(Recommended, if you know it) What county is this group in?');
+  t('(Recommended, if you know it.) Select the neighborhood(s) that this group serves.');
   t('(Recommended, if you know it.) What area code is this group in?');
   t('(Recommended, if you know it.) What city is this group in?');
-  t('(Recommended, if you know it.) What district is this group in?');
-  t('(Recommended, if you know it.) What region of the city is this group in?');
+  t('(Recommended, if you know it.) What district does this group serve?');
+  t('(Recommended, if you know it.) What region does this group serve?');
   t('(Recommended, if you know it.) What state is this group in?');
-  t('(Recommended, if you know it.) What zipcode is this group in?');
+  t('(Recommended, if you know it.) What zipcode does this group serve?');
+  t('<div class="prompt">(Recommended)</div> List categories, separated by commas, describing this group. <br /><a href="/categories" class="more">See all the categories</a>');
   t('Activity Level');
   t('Address');
   t('Area Code');
@@ -2609,14 +2619,13 @@ function community_group_content_type_field_default_fields() {
   t('County');
   t('Description');
   t('District');
-  t('Email');
-  t('Enter the best page that points to the calendar listing for this group.');
   t('Geocode');
   t('Image File');
   t('Image URL');
   t('Link to Image for this Group');
   t('Location');
   t('Location Description');
+  t('Mailing List E-mail');
   t('Neighborhood');
   t('Notes');
   t('Ownership');
@@ -2626,7 +2635,6 @@ function community_group_content_type_field_default_fields() {
   t('Type of Community');
   t('Type of Group');
   t('URL');
-  t('Who owns the group? Example: Personal, Community, Commercial.');
   t('Zipcode');
 
   return $fields;
