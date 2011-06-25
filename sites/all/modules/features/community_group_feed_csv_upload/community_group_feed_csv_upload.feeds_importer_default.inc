@@ -139,68 +139,83 @@ function community_group_feed_csv_upload_feeds_importer_default() {
             'unique' => FALSE,
           ),
           20 => array(
-            'source' => 'zipcode',
-            'target' => 'field_zipcode',
-            'unique' => FALSE,
-          ),
-          21 => array(
             'source' => 'state',
             'target' => 'field_state',
             'unique' => FALSE,
           ),
-          22 => array(
+          21 => array(
             'source' => 'region',
             'target' => 'field_region',
             'unique' => FALSE,
           ),
-          23 => array(
+          22 => array(
             'source' => 'area_code',
             'target' => 'field_area_code',
             'unique' => FALSE,
           ),
-          24 => array(
-            'source' => 'latitude',
-            'target' => 'field_location:lat',
-            'unique' => FALSE,
-          ),
-          25 => array(
+          23 => array(
             'source' => 'longitude',
             'target' => 'field_location:lon',
             'unique' => FALSE,
           ),
-          26 => array(
+          24 => array(
             'source' => 'location_geo_type',
             'target' => 'field_location:geo_type',
             'unique' => FALSE,
           ),
-          27 => array(
+          25 => array(
             'source' => 'location_wkt',
             'target' => 'field_location:wkt',
             'unique' => FALSE,
           ),
-          28 => array(
+          26 => array(
             'source' => 'location_geo_right',
             'target' => 'field_location:right',
             'unique' => FALSE,
           ),
-          29 => array(
+          27 => array(
             'source' => 'location_geo_top',
             'target' => 'field_location:top',
             'unique' => FALSE,
           ),
-          30 => array(
+          28 => array(
             'source' => 'location_geo_bottom',
             'target' => 'field_location:bottom',
             'unique' => FALSE,
           ),
-          31 => array(
+          29 => array(
             'source' => 'location_geo_left',
             'target' => 'field_location:left',
             'unique' => FALSE,
           ),
-          32 => array(
+          30 => array(
             'source' => 'type_community',
             'target' => 'field_type_community',
+            'unique' => FALSE,
+          ),
+          31 => array(
+            'source' => 'zipcode',
+            'target' => 'field_zipcode',
+            'unique' => FALSE,
+          ),
+          32 => array(
+            'source' => 'area_code',
+            'target' => 'field_area_code',
+            'unique' => FALSE,
+          ),
+          33 => array(
+            'source' => 'latitude',
+            'target' => 'field_location:lat',
+            'unique' => FALSE,
+          ),
+          34 => array(
+            'source' => 'type_community',
+            'target' => 'field_type_community',
+            'unique' => FALSE,
+          ),
+          35 => array(
+            'source' => 'demographic',
+            'target' => 'field_demographic',
             'unique' => FALSE,
           ),
         ),

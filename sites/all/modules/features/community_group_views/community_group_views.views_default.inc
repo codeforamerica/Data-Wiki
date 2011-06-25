@@ -246,7 +246,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_district']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_district']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_district']['field_api_classes'] = 0;
-  /* Field: Content: Email */
+  /* Field: Content: Mailing List E-mail */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -799,7 +799,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: Email */
+  /* Field: Content: Mailing List E-mail */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -1757,7 +1757,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_url']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_url']['type'] = 'url';
   $handler->display->display_options['fields']['field_url']['field_api_classes'] = 0;
-  /* Field: Content: Email */
+  /* Field: Content: Mailing List E-mail */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -2948,7 +2948,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_district']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_district']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_district']['field_api_classes'] = 0;
-  /* Field: Content: Email */
+  /* Field: Content: Mailing List E-mail */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';

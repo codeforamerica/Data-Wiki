@@ -89,7 +89,7 @@ Drupal.settings.community_group_form.codeAddress = function(address) {
        Drupal.settings.community_group_form.mapGeocodedData(results);
     } 
     else {
-      alert("Geocode was not successful for the following reason: " + status);
+      alert("Unable to find that location. Be sure to enter the City, State or Zipcode along with your address.");
     }
   });
   return result;
@@ -163,7 +163,56 @@ Drupal.settings.community_group_form.openLayersDropPoint = function(result){
             new OpenLayers.Projection(data.openlayers.projection.projCode));
     var zoomBlockLevel = 15;
     var zoomMultiBlock = 13;
-    data.openlayers.setCenter(center, zoomBlockLevel, false, false);
+    
+    
+    var myStyles = new OpenLayers.StyleMap({
+              "default": new OpenLayers.Style({
+                  pointRadius: "5", // sized according to type attribute
+                  strokeColor: "#333333",
+                  fillColor: "#FF9900",
+                  strokeWidth: 2,
+                  fillOpacity: 0.6
+              }),
+              "select": new OpenLayers.Style({
+                  strokeColor: "#333333",
+                  fillColor: "#FF9900",
+              })
+          });
+
+  var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(result.longitude, result.latitude).transform(
+            new OpenLayers.Projection('EPSG:4326'),
+            new OpenLayers.Projection(data.openlayers.projection.projCode)));
+  var edit_feature_layer = data.openlayers.getLayersByName('Selection Layer')[0];  
+  for (var i = 0; i < edit_feature_layer.features.length; i++) {
+    if (edit_feature_layer.features[i] != feature) {
+      edit_feature_layer.features[i].destroy();
+    }
+  } 
+  edit_feature_layer.addFeatures(feature);
+
+  // Store the drawn feature in format compatible with geofield.
+  Drupal.settings.community_group_form.setItem(feature);
+    
+  data.openlayers.setCenter(center, zoomBlockLevel, false, false);
+  }
+};
+
+Drupal.settings.community_group_form.setItem = function(feature) {
+  var data = Drupal.settings.community_group_form.data;
+  if (data && data.map.behaviors['openlayers_behavior_geofield']) {
+    geom = feature.clone().geometry.transform(
+      feature.layer.map.projection,
+      new OpenLayers.Projection('EPSG:4326'));
+      
+    centroid = geom.getCentroid();
+    bounds = geom.getBounds();
+    feature.layer.map.data_form.wkt.val(geom.toString());
+    feature.layer.map.data_form.lat.val(centroid.x);      
+    feature.layer.map.data_form.lon.val(centroid.y);
+    feature.layer.map.data_form.left.val(bounds.left);
+    feature.layer.map.data_form.top.val(bounds.top);
+    feature.layer.map.data_form.bottom.val(bounds.bottom);
+    feature.layer.map.data_form.right.val(bounds.right);
   }
 };
 

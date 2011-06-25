@@ -61,6 +61,22 @@ function community_group_feed_csv_upload_feeds_tamper_default() {
   $feeds_tamper = new stdClass;
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'demographic_explode';
+  $feeds_tamper->importer = 'community_group_feed_csv_upload';
+  $feeds_tamper->source = 'demographic';
+  $feeds_tamper->plugin_id = 'explode';
+  $feeds_tamper->settings = array(
+    'separator' => ',',
+    'limit' => '100',
+    'real_separator' => ',',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Break text into items at every ",". Limit to 100 items.';
+  $export['demographic_explode'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass;
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'district_explode';
   $feeds_tamper->importer = 'community_group_feed_csv_upload';
   $feeds_tamper->source = 'district';
@@ -122,7 +138,37 @@ function community_group_feed_csv_upload_feeds_tamper_default() {
   $feeds_tamper->description = 'Break text into items at every ",". Limit to 100 items.';
   $export['state_explode'] = $feeds_tamper;
 
+  $feeds_tamper = new stdClass;
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'type_community';
+  $feeds_tamper->importer = 'community_group_feed_csv_upload';
+  $feeds_tamper->source = 'type_community';
+  $feeds_tamper->plugin_id = 'explode';
+  $feeds_tamper->settings = array(
+    'separator' => ',',
+    'limit' => '100',
+    'real_separator' => ',',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Break text into items at every ",". Limit to 100 items.';
+  $export['type_community'] = $feeds_tamper;
 
+  $feeds_tamper = new stdClass;
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'zipcode_explode';
+  $feeds_tamper->importer = 'community_group_feed_csv_upload';
+  $feeds_tamper->source = 'zipcode';
+  $feeds_tamper->plugin_id = 'explode';
+  $feeds_tamper->settings = array(
+    'separator' => ',',
+    'limit' => '100',
+    'real_separator' => ',',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Break text into items at every ",". Limit to 100 items.';
+  $export['zipcode_explode'] = $feeds_tamper;
 
   return $export;
 }

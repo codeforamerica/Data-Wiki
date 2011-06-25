@@ -115,7 +115,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '28',
+          'weight' => '27',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -263,7 +263,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '13',
+          'weight' => '16',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -293,7 +293,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '23',
+        'weight' => '24',
       ),
     ),
   );
@@ -342,7 +342,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '29',
+          'weight' => '28',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -498,7 +498,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '10',
+          'weight' => '12',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -529,7 +529,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '20',
+        'weight' => '21',
       ),
     ),
   );
@@ -573,7 +573,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '26',
+          'weight' => '24',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -652,7 +652,14 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 32,
+          'weight' => '13',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '32',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -676,7 +683,83 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '22',
+        'weight' => '23',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_demographic'
+  $fields['node-community_group-field_demographic'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_demographic',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'parent' => '0',
+            'vocabulary' => 'demographics',
+          ),
+        ),
+      ),
+      'translatable' => '1',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '31',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_demographic',
+      'label' => 'Demographic',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '13',
       ),
     ),
   );
@@ -748,7 +831,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '10',
         ),
         'type' => 'text_textarea',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
@@ -797,7 +880,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '9',
+          'weight' => '11',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -827,7 +910,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '17',
+        'weight' => '18',
       ),
     ),
   );
@@ -876,7 +959,7 @@ function community_group_content_type_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_email',
-      'label' => 'Mailing List E-mail',
+      'label' => 'E-mail',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -1083,7 +1166,7 @@ function community_group_content_type_field_default_fields() {
           'geocode_handler' => 'google',
         ),
         'type' => 'geocode',
-        'weight' => '24',
+        'weight' => '25',
       ),
     ),
   );
@@ -1202,7 +1285,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '27',
+          'weight' => '26',
         ),
         'search_result' => array(
           'label' => 'hidden',
@@ -1281,7 +1364,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '31',
+          'weight' => '30',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1308,7 +1391,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '13',
+        'weight' => '14',
       ),
     ),
   );
@@ -1357,7 +1440,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '8',
+          'weight' => '10',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1387,7 +1470,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '18',
+        'weight' => '19',
       ),
     ),
   );
@@ -1431,7 +1514,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '30',
+          'weight' => '27',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1510,7 +1593,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '11',
+          'weight' => '14',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1541,7 +1624,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '21',
+        'weight' => '22',
       ),
     ),
   );
@@ -1669,7 +1752,14 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 33,
+          'weight' => '29',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '33',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2070,7 +2160,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '12',
+          'weight' => '15',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -2100,7 +2190,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '19',
+        'weight' => '20',
       ),
     ),
   );
@@ -2617,15 +2707,16 @@ function community_group_content_type_field_default_fields() {
   t('Comment');
   t('Contact');
   t('County');
+  t('Demographic');
   t('Description');
   t('District');
+  t('E-mail');
   t('Geocode');
   t('Image File');
   t('Image URL');
   t('Link to Image for this Group');
   t('Location');
   t('Location Description');
-  t('Mailing List E-mail');
   t('Neighborhood');
   t('Notes');
   t('Ownership');

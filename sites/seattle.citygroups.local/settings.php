@@ -183,7 +183,7 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'sea_citygroups_local_db',
+      'database' => 'citygroups_sea_local',
       'username' => 'root',
       'password' => 'root',
       'host' => 'localhost',

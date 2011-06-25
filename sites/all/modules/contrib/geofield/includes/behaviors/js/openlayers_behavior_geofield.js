@@ -83,6 +83,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
                     fillOpacity: 0.6
                 })
             });
+
       selection_layer = new OpenLayers.Layer.Vector('Selection Layer', {styleMap: geofieldStyleMap});
       
       /*
