@@ -18,10 +18,10 @@ function community_group_content_type_openlayers_styles() {
   $openlayers_styles->description = '';
   $openlayers_styles->data = array(
     'pointRadius' => 6,
-    'fillColor' => '#FFF',
-    'strokeColor' => '#000',
-    'strokeWidth' => 4,
-    'fillOpacity' => 0.8,
+    'fillColor' => '#666',
+    'strokeColor' => '#333',
+    'strokeWidth' => 2,
+    'fillOpacity' => 0.5,
     'strokeOpacity' => 1,
     'strokeLinecap' => 'round',
     'strokeDashstyle' => 'solid',
