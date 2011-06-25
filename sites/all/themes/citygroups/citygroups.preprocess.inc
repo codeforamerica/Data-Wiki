@@ -160,9 +160,26 @@ function citygroups_preprocess_node(&$vars) {
  */
 function citygroups_preprocess_node_community_group(&$vars) {
   // Create content variables for this node type.
-  $vars['edit'] = l("Is this information incorrect? Sign in to edit it.", 'node/' . $vars['node']->nid . '/edit');
-  if(($vars['teaser'] == FALSE) && ($vars['view_mode'] != 'search_result')) {
+  
+  // Set the author to the last editor of the last revision.
+  
+  // @TODO Hide submitted on everything except node page, or else maybe shorten it.
+
+  if($vars['logged_in']) {
+    // @TODO set to be more Drupally.
+    
+    $vars['edit'] .=  t("Is this information incorrect? ") . '<a href="/node/' . $vars['node']->nid . '/edit' . '">' . t("Edit it.") . '</a>';
+  }
+  else {
+
+    $vars['edit'] .=  t("Is this information incorrect? ") . '<a href="/user?destination=' . 'node/' . $vars['node']->nid . '/edit' . '">' . t("Sign in to edit.") . '</a>';
+  }
+
+
+/*  if(($vars['teaser'] == FALSE) && ($vars['view_mode'] != 'search_result')) {
     $vars['content']['links']['share']['#links']['share']['title'] = datawiki_node_share($vars);
     $vars['content']['links']['share']['#links']['share']['html'] = TRUE;
-  }
+  }*/
+  
+  
 }

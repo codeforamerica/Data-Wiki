@@ -1042,3 +1042,7 @@ ul.primary li a{
 .page-node fieldset {
   margin-top: 10px;
 }
+
+.edit {
+  font-size: 125%;
+}

@@ -7,23 +7,6 @@
       <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
     <?php endif; ?>
     <?php print render($title_suffix); ?>
-
-    <?php if ($display_submitted || !empty($content['links']['terms'])): ?>
-      <div class="meta">
-        <?php if ($display_submitted): ?>
-          <span class="submitted">
-            <?php print t('Added by !username on !date', array('!username' => $name, '!date' => $date)); ?>
-          </span>
-      <?php endif; ?>
-
-        <?php if (!empty($content['links']['terms'])): ?>
-          <div class="terms terms-inline">
-            <?php print render($content['links']['terms']); ?>
-          </div>
-        <?php endif; ?>
-      </div>
-    <?php endif; ?>
-
     <?php if ($node_top && !$teaser): ?>
     <div id="node-top" class="node-top row nested">
       <div id="node-top-inner" class="node-top-inner inner">
@@ -41,19 +24,29 @@
         <?php if(!empty($share)): print $share; endif; ?>
       </div>
 
-      <?php if($node->type == 'project'): ?>
-        <?php hide($content['body']); ?>
-        <div class="about">
-          <?php print render($content['body']); ?>
-        </div>
-      <?php endif; ?>
-
       <?php
         // We hide the comments and links now so that we can render them later.
         hide($content['comments']);
         hide($content['links']);
         print render($content);
       ?>
+
+      <?php if ($display_submitted || !empty($content['links']['terms'])): ?>
+      <div class="meta">
+        <?php if ($display_submitted): ?>
+          <span class="submitted">
+            <?php print t('Added by !username on !date', array('!username' => $name, '!date' => $date)); ?>
+          </span>
+      <?php endif; ?>
+    
+        <?php if (!empty($content['links']['terms'])): ?>
+          <div class="terms terms-inline">
+            <?php print render($content['links']['terms']); ?>
+          </div>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
+    
     </div>
 
 
@@ -61,7 +54,15 @@
     <div class="links grid_4 omega">
       <?php print render($content['links']); ?>
     </div>
+  <?php endif; ?>  
+  
+  <?php if(!empty($edit)) : ?>
+    <div class="edit grid_4 omega">
+      <?php print $edit; ?>
+    </div>
   <?php endif; ?>
+
+
 
   <?php if ($node_sidebar && !$teaser): ?>
     <div id="node-sidebar" class="node-sidebar row nested grid_4 omega">
@@ -84,5 +85,6 @@
       <?php print $node_bottom; ?>
     </div><!-- /node-bottom-inner -->
   </div><!-- /node-bottom -->
+    
   <?php endif; ?>
 </div>
