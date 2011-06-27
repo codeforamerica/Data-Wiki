@@ -978,11 +978,11 @@ fieldset.group-categories  {
   border-image: url(..//images/widget-border.png) 8 4 9 4 stretch;
   -moz-border-image: url(..//images/widget-border.png) 8 4 9 4 stretch;
   -webkit-border-image: url(../images/widget-border.png) 8 4 9 4 stretch;
-  position: absolute;
+/*   position: absolute; */
   display: block;
-  top: 200px;
-  margin-left: 600px;
-  width: 320px;
+/*   top: 200px; */
+/*   margin-left: 600px; */
+/*   width: 320px; */
   background: none;
   border-width: 29px 4px 9px 15px;
 }
@@ -1044,5 +1044,9 @@ ul.primary li a{
 }
 
 .edit {
+  padding: 10px;
+  background-color: #eee;
   font-size: 125%;
+  min-height: 4em;
+  line-height: 4em;
 }

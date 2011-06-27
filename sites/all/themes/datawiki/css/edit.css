@@ -67,10 +67,14 @@ form .grippie {
   width: 400px;
 }
 
-form .text-full,
+
 form input.form-text {
   width: 400px;
   height: 40px;
+}
+
+form .text-full {
+  width: 400px;
 }
 
 form .form-item-help {
