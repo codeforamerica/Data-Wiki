@@ -58,6 +58,7 @@ function sea_blockwatch_context_menu_default_menu_links() {
       ),
       'query' => array(
         'section' => 'blockwatch',
+        'destination' => 'blockwatch',
       ),
     ),
     'module' => 'menu',

@@ -30,31 +30,19 @@ function datawiki_context_context_default_contexts() {
           'module' => 'citygroups_sub',
           'delta' => 'citygroups_sub_welcome',
           'region' => 'content_top',
-          'weight' => '-33',
+          'weight' => '-30',
         ),
         'citygroups_sub-citygroups_sub_new_group_search' => array(
           'module' => 'citygroups_sub',
           'delta' => 'citygroups_sub_new_group_search',
           'region' => 'content',
-          'weight' => '-33',
-        ),
-        'citygroups_sub-citygroups_sub_home_menu' => array(
-          'module' => 'citygroups_sub',
-          'delta' => 'citygroups_sub_home_menu',
-          'region' => 'content',
-          'weight' => '-32',
+          'weight' => '-30',
         ),
         'citygroups_sub-citygroups_sub_map' => array(
           'module' => 'citygroups_sub',
           'delta' => 'citygroups_sub_map',
           'region' => 'content',
-          'weight' => '-31',
-        ),
-        'datawiki-datawiki_add_data' => array(
-          'module' => 'datawiki',
-          'delta' => 'datawiki_add_data',
-          'region' => 'content_bottom',
-          'weight' => '-10',
+          'weight' => '-30',
         ),
         'citygroups_sub-citygroups_sub_add_group' => array(
           'module' => 'citygroups_sub',
@@ -170,12 +158,6 @@ function datawiki_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'citygroups_sub-citygroups_sub_home_menu' => array(
-          'module' => 'citygroups_sub',
-          'delta' => 'citygroups_sub_home_menu',
-          'region' => 'content_top',
-          'weight' => '-10',
-        ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
