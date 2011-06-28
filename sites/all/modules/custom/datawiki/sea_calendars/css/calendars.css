@@ -1,0 +1,106 @@
+h3 {
+  font-size: 150%;
+}
+.header-subsection-container {
+  font-size: 150%;
+}
+.message,
+p {
+  font-size: 125%;
+}
+
+#header {
+  background-color: olive;
+}
+
+#block-sea_blockwatch-sea_calendars_about_block h3{
+  color: #2796F2;
+}
+
+.page-blockwatch .title-container {
+  display: none;
+}
+
+
+/* Page Titling */
+.page-blockwatch #slogan h3 {
+  font-size: 4em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+form .form-item, .form-actions {
+  margin: 0;
+}
+
+.page-node .field-name-field-categories a {
+color: inherit;
+padding: 4px 10px;
+background-color:transparent;
+line-height: 2em;
+}
+
+.field-type-taxonomy-term-reference {
+  margin: 20px 0;
+}
+.add-container .message {
+  float: left;
+}
+/*
+
+#content #popup-content a {
+  color: #fff;
+}
+
+#content #popup-content .categories {
+  font-size: 80%;
+  padding: 20px 0 0 0;
+}
+*/
+
+.block li a {
+  color: #fff;
+}
+.block ul {
+  margin: 0;
+}
+.block li {
+  list-style: none;
+  padding: 0 0 4px 0;
+}
+
+.loading {
+   background-color: #2796F2;
+   color: #fff;
+   font-size: 400%;
+   height: 400px;
+   padding: 50px;
+}
+
+#popular-terms {
+   background-color: #F77E11;
+}
+
+
+#search-links input {
+  background-color: #e7e7e7;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+#search-links input.form-submit {
+  background-color: #96a141;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: normal;
+  padding: 0;
+    margin: 0px;
+  border:none;
+  cursor:pointer;
+  line-height: 24px;
+  padding: 4px;
+  margin-left: 10px;
+}

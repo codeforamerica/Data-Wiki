@@ -1,0 +1,235 @@
+<?php
+
+
+function sea_calendars_menu() {
+  $items['calendars'] = array(
+    'title' => 'Home',
+    'page callback' => 'sea_calendars_render',
+    'page arguments' => array(t('Calendar Home Page')),
+    'access callback' => TRUE,
+  );
+  $items['calendars/map'] = array(
+    'title' => 'Map',
+    'page callback' => 'sea_calendars_render',
+    'page arguments' => array(t('Calendars Map Page')),
+    'access callback' => TRUE,
+  );
+  $items['calendars/topics'] = array(
+    'title' => 'Topics',
+    'page callback' => 'sea_calendars_render',
+    'page arguments' => array(t('Calendars Topics Page')),
+    'access callback' => TRUE,
+  );
+  $items['calendars/about'] = array(
+    'title' => 'About',
+    'page callback' => 'sea_calendars_render',
+    'page arguments' => array(t('Calendars About Page')),
+    'access callback' => TRUE,
+  );
+  $items['calendars/contact'] = array(
+    'title' => 'Contact',
+    'page callback' => 'sea_calendars_render',
+    'page arguments' => array(t('Calendars Contact Page')),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+function sea_calendars_render() {
+  return "";
+}
+
+
+/**
+ * Create variables for theme.
+ */
+function sea_calendars_preprocess_page(&$vars) {
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  
+  switch ($vars['page_path']) {
+    case 'calendars/add': 
+    case 'calendars/about':
+    case 'calendars/contact':
+    case 'calendars/topics':
+    case 'calendars/upload':
+    case 'list/all/calendars':
+      sea_calendars_page_variables($vars);
+      break;
+    case 'node/add/community-group':
+      if(!empty($_GET['section'])) {
+        $section = $_GET['section'];
+        if($section == 'calendars') {
+          sea_calendars_page_variables($vars);
+          $vars['title'] = t('Add Calendar');
+        }
+      }
+      break;
+    case 'calendars':
+    case 'calendars/map':
+      sea_calendars_page_variables($vars);
+      datawiki_group_map_page_variables($vars);
+    break;
+  }
+}
+function sea_calendars_map_render_output() {
+  $output = '<div>
+    <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
+    <div id="data"></div>
+  </div>
+
+  <div id="popup-content" class="block">
+      <div class="content">Click map to see where the groups are</div>
+  </div>';
+  return $output;
+}
+
+/**
+ * Alter the community group form (a content type.)
+ */
+function sea_calendars_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'community_group_node_form') {
+    if(!empty($_GET['section'])) {
+      $section = $_GET['section'];
+      if($section == 'calendars') {
+      
+        $menu =  menu_tree('menu-block-watch-menu');
+        $menu_rendered = drupal_render($menu);
+    
+        $form['#prefix'] .= '<div class="add-home-menu">' . $menu_rendered . '</div>';
+      
+        // Section overrides.
+        $add_variables_array = array(
+          'category' => 'Calendar, Events',
+          'title' => 'Add a Calendar',
+          'instructions' => 'List Calendars.',
+          'map_instructions' => 'Where is this Calendar?',
+        );
+        
+        if(!empty($add_variables_array['instructions'])) {
+          $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
+        }
+        
+        if(!empty($add_variables_array['category'])) {
+          $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
+        }
+    
+        if(!empty($add_variables_array['map_instructions'])) {
+          $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
+        }
+        
+        $access = user_access('administer nodes');
+        if(!$access) {
+          $form['additional_settings']['#access'] = FALSE;
+        }
+    
+        $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
+        $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
+        $form['field_location']['#prefix'] .= '<div class="instructions-1">';
+        $form['field_location']['#prefix'] .= t('Enter address or intersection to map the group.');
+        $form['field_location']['#prefix'] .= '</div>';
+        $form['field_location']['#prefix'] .= '<div class="instructions-2">';
+        $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
+        $form['field_location']['#prefix'] .= '</div>';
+        $form['field_location']['#prefix'] .= '<div class="address-ajax">';
+        $form['field_location']['#prefix'] .= '<div id="search-links">';
+        $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
+        $form['field_location']['#prefix'] .= '<input placeholder="Enter address or zipcode." size=50 class="form-item" id="search-map-input" />';
+        $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_icon-50.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
+        $form['field_location']['#prefix'] .= '</div>';
+        $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
+        $form['field_location']['#prefix'] .= '</div>';
+    
+        // Add Google API (uses openlayers API key)
+        // @TODO require openlayers.
+        drupal_add_js(
+            'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+            variable_get('openlayers_layers_google_api', 
+              variable_get('googlemap_api_key', '')
+            ), 'external');
+    
+        drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));          
+      }   
+    }
+  }
+}
+
+/** 
+ * Generate settings and return them to the theme.
+ */
+/** 
+ * Generate settings and return them to the theme.
+ */
+function sea_calendars_page_variables(&$vars) {
+  if(empty($vars['section'])) {
+    $settings = sea_calendars_settings($vars);
+  }
+  else {
+    $settings = $vars['section'];
+  }
+
+  // Override existing page variables.
+  $vars['site_slogan'] = '<h3>' .t("Public directory of Seattle Calendars.") . '</h3>';
+  $vars['logo_image_link'] = drupal_get_path('module', 'sea_calendars') . '/images/citygroups-logo.png';
+  $vars['logo'] = '<a href="/"><img src="/' . $vars['logo_image_link'] . '" /></a>';
+
+  // Custom object of special settings to be integrated with the main theme.
+  $vars['section'] = array();
+  $vars['section']['html_root'] = drupal_get_path('module', 'datawiki_group_map');
+  $vars['section']['html_root_custom'] = drupal_get_path('module', 'sea_calendars');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sea_calendars.)
+  $vars['section']['page_title'] = t('CityGroups Map');
+  $vars['section']['section_name'] = "Seattle Calendars";
+  $vars['section']['place'] = "Seattle";
+//  $vars['section']['theme'] = "citygroups_calendars";
+  $vars['section']['term'] = "calendar";
+  $vars['section']['javascript_settings'] = $settings['javascript_settings'];
+
+  // Add javascript.
+
+  // Add Google API (uses openlayers API key)
+  // @TODO require openlayers.
+  drupal_add_js(
+      'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+      variable_get('openlayers_layers_google_api', 
+        variable_get('googlemap_api_key', '')
+      ), 'external');
+
+  // Pass javascript settings into container variable.
+  $datawiki_js_settings = array();
+  $datawiki_js_settings['datawiki'] = $settings['javascript_settings'];
+  drupal_add_js($datawiki_js_settings, 'setting');
+  
+  // Add special stylesheet.
+  drupal_add_css(drupal_get_path('module', 'sea_calendars') . '/css/calendars.css', array('group' => CSS_THEME));
+}
+
+/**
+ * Generate settings that will be used in javascript.
+ * Can be overriden in submodules.
+ */
+function sea_calendars_settings() {
+  $settings = array();
+  $settings['html_root'] = drupal_get_path('module', 'datawiki_group_map');
+  $settings['html_root_custom'] = drupal_get_path('module', 'sea_calendars');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sea_calendars.)
+  // Set the theme.  
+  $settings['theme'] = "datawiki";
+  $settings['term'] = "all";         
+  $settings['javascript_settings'] = array();
+  $settings['javascript_settings']['customMapDataPath'] = 'data/community-group/map/calendar';
+  $settings['javascript_settings']['mapColors'] = array();
+  $settings['javascript_settings']['mapColors']['color'] = "#2796F2";
+  $settings['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";
+  $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
+  $settings['javascript_settings']['mapColors']['weight'] = 1;
+  $settings['javascript_settings']['mapColors']['opacity'] = 1;
+  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/images/noun_project_659_man.svg";
+  $settings['javascript_settings']['mapMarkerIconShadowUrl'] =  "";
+  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(10,20);
+  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(10,20);
+  $settings['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);
+  $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
+  return $settings;
+}

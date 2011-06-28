@@ -1,0 +1,9 @@
+name = Seattle Calendars
+description = "Citygroups Calendar Collector for Seattle."
+core = 7.x
+package = DataWiki
+
+files[] = sea_calendars.module
+
+dependencies[] = datawiki_group_categories
+dependencies[] = datawiki_group_map
