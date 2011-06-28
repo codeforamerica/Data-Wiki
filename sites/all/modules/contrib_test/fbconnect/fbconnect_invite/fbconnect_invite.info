@@ -1,0 +1,12 @@
+; $Id$
+name = Facebook Friends Invite
+dependencies[] = fbconnect
+package = "Facebook Social"
+core = 7.x
+
+; Information added by drupal.org packaging script on 2011-03-17
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "fbconnect"
+datestamp = "1300320371"
+

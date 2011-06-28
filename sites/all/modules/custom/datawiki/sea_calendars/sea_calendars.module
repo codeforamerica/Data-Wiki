@@ -233,3 +233,5 @@ function sea_calendars_settings() {
   $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
   return $settings;
 }
+
+include('sea_calendars.blocks.inc.php');

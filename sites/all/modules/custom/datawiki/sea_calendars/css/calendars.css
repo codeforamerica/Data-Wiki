@@ -13,17 +13,17 @@ p {
   background-color: olive;
 }
 
-#block-sea_blockwatch-sea_calendars_about_block h3{
+#block-sea_calendars-sea_calendars_about_block h3{
   color: #2796F2;
 }
 
-.page-blockwatch .title-container {
+.page-calendars .title-container {
   display: none;
 }
 
 
 /* Page Titling */
-.page-blockwatch #slogan h3 {
+.page-calendars #slogan h3 {
   font-size: 4em;
   margin-top: 0;
   margin-bottom: 0;
