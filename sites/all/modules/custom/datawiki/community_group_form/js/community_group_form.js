@@ -124,16 +124,16 @@ Drupal.settings.community_group_form.mapGeocodedData = function(results) {
     }
     
    // map geometry
-   result.latitude = results[0]["geometry"]["location"]["Ha"];
-   result.longitude = results[0]["geometry"]["location"]["Ia"];  
+   console.log(results[0]);
+   result.latitude = results[0]["geometry"]["location"]["Ia"];
+   result.longitude = results[0]["geometry"]["location"]["Ja"];  
   }
-
   Drupal.settings.community_group_form.updateMapForm(result);
 };
     
 Drupal.settings.community_group_form.updateMapForm = function(result) {
   // @TODO use values from geofield instead (data_form)
-  
+
   if((result.field_address !== undefined) && (result.field_address !== '')) {
     $('textarea#edit-field-address-und-0-value').val(result.field_address);
   }
@@ -159,7 +159,7 @@ Drupal.settings.community_group_form.updateMapForm = function(result) {
 Drupal.settings.community_group_form.openLayersDropPoint = function(result){
   // Get map data.
   var data = Drupal.settings.community_group_form.data;
-
+console.log(result);
   if(result.longitude !== undefined && result.latitude !== undefined) {    
     var center = new OpenLayers.LonLat(result.longitude, result.latitude).transform(
             new OpenLayers.Projection('EPSG:4326'),
@@ -185,7 +185,8 @@ Drupal.settings.community_group_form.openLayersDropPoint = function(result){
   var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(result.longitude, result.latitude).transform(
             new OpenLayers.Projection('EPSG:4326'),
             new OpenLayers.Projection(data.openlayers.projection.projCode)));
-  var edit_feature_layer = data.openlayers.getLayersByName('Selection Layer')[0];  
+  var edit_feature_layer = data.openlayers.getLayersByName('Selection Layer')[0];
+
   for (var i = 0; i < edit_feature_layer.features.length; i++) {
     if (edit_feature_layer.features[i] != feature) {
       edit_feature_layer.features[i].destroy();
