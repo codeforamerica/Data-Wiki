@@ -197,8 +197,6 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         );
         
         if(!empty($add_variables_array['instructions'])) {
-          $form['#prefix'] = '<a href="/blockwatch">Home</a>';
-          
           $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
         }
         

@@ -1092,12 +1092,36 @@ ul.primary li a{
   color: #533549;
 }
 
-#block-citygroups_sub-citygroups_sub_home_menu {
+#preface ul.menu {
   font-size: 125%;
 }
 
-#block-citygroups_sub-citygroups_sub_home_menu li {
-  background-color: #eee;
+#preface ul.menu li{
   margin-right: 10px;
-  margin-bottom: 20px;
+  list-style: none;
+  float: left;
+}
+
+#preface  ul.menu li,
+ul.menu {
+  list-style: none;
+}
+
+#preface ul.menu {
+  float: right;
+}
+
+#preface  li {
+  float: left;
+  padding-left: 10px;
+}
+
+#preface  ul.menu li,
+#preface  ul.menu li a  {
+  color: #aaa;
+  font-weight: bold;
+}
+
+#preface  ul.menu li a.active {
+  color: #000;
 }
