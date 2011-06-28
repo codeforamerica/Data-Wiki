@@ -30,13 +30,15 @@ function citygroups_splash_menu() {
  * Implementation of hook_init().
  */
 function citygroups_splash_init() {
+  // Admin splash screen.
+/*
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
       && !variable_get('citygroups_splash_welcome_seen', FALSE)) {
       $url = url('splash/site_welcome');
         
     $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
-    $js .= 'href: "'.$url.'",';
+    $js .= 'href: "' . $url . '",';
     $js .= 'width: 600,';
     $js .= 'height: 400,';
     $js .= 'opacity: .6,';
@@ -48,6 +50,22 @@ function citygroups_splash_init() {
     // this variable is set back to FALSE.
     variable_set('citygroups_splash_welcome_seen', TRUE);
   }
+*/
+  
+  
+  if(drupal_is_front_page()) {
+    $url = url('splash/site_welcome');
+        
+    $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
+    $js .= 'href: "' . $url . '",';
+    $js .= 'width: 600,';
+    $js .= 'height: 400,';
+    $js .= 'opacity: .6,';
+    $js .= '});});';
+    drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
+    drupal_add_js($js, array('scope' => 'inline')); 
+  }
+  
   
   $mod_uri = drupal_get_path('module', 'citygroups_splash');
   drupal_add_css( $mod_uri . '/citygroups_splash.css');

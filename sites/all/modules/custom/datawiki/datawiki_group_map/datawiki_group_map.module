@@ -96,7 +96,7 @@ function datawiki_group_map_page_variables(&$vars) {
   */
   
   // Add javascript.
-  drupal_add_js($settings['html_root'] . '/includes/js/jquery-1.5.min.js', array('type' => 'file', 'group' => JS_DEFAULT));
+/*   drupal_add_js($settings['html_root'] . '/includes/js/jquery-1.5.min.js', array('type' => 'file', 'group' => JS_DEFAULT)); */
   drupal_add_js($settings['html_root'] . '/includes/js/leaflet/leaflet.js', array('type' => 'file', 'group' => JS_DEFAULT));
   drupal_add_js($settings['html_root'] . '/includes/js/map.js', array('type' => 'file', 'group' => JS_DEFAULT));
 

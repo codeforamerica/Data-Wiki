@@ -1,3 +1,5 @@
+document.namespaces;
+
 var cityGroups = {};
 cityGroups.map = {};
 cityGroups.geoJSON = {};
@@ -17,28 +19,37 @@ cityGroups.paths = {
     "#defaultPath": "/data/community-group/map",
 };
 
-$(document).ready(function() {
-  // Set up geocoder.
-  geocoder = new google.maps.Geocoder();
-  
-  // Get Map Colors.
-  cityGroups.map.polygonOptions = Drupal.settings.datawiki.mapColors;
+(function($) {
 
-  // Override default datapath from submodule.
-  if (Drupal.settings.datawiki.customMapDataPath !== undefined) {
-    cityGroups.paths["defaultPath"] = Drupal.settings.datawiki.customMapDataPath;
-  }
+Drupal.behaviors.datawiki_group_map = {
+  'attach': function(context, settings) {
+    
+      // Set up geocoder.
+      geocoder = new google.maps.Geocoder();
+      
+      // Get Map Colors.
+      cityGroups.map.polygonOptions = Drupal.settings.datawiki.mapColors;
+    
+      // Override default datapath from submodule.
+      if (Drupal.settings.datawiki.customMapDataPath !== undefined) {
+        cityGroups.paths["defaultPath"] = Drupal.settings.datawiki.customMapDataPath;
+      }
+    
+      // Load map data.
+      cityGroups.data.mapTopicLoad();
+      cityGroups.loadData(cityGroups.paths['defaultPath']);
+      
+      // When input button is clicked, get geocoded data for the string.
+      $('#search-places input#search-links-submit').click(function() {
+        cityGroups.map.geocodeAddress();
+        return false;
+      });
+    }   
+  };
 
-  // Load map data.
-  cityGroups.data.mapTopicLoad();
-  cityGroups.loadData(cityGroups.paths['defaultPath']);
-  
-  // When input button is clicked, get geocoded data for the string.
-  $('#search-places input#search-links-submit').click(function() {
-    cityGroups.map.geocodeAddress();
-    return false;
-  });
-});
+
+ 
+    
 
 /**
  * Extra function that can be used to toggle map layers by topic.
@@ -284,11 +295,15 @@ cityGroups.map.mapGeocodedData = function(results) {
     }
     
    // map geometry
-   result.latitude = results[0]["geometry"]["location"]["Ha"];
-   result.longitude = results[0]["geometry"]["location"]["Ia"];  
+   result.latitude = results[0]["geometry"]["location"]["Ia"];
+   result.longitude = results[0]["geometry"]["location"]["Ja"];  
   }
   if (result.longitude !== undefined && result.latitude !== undefined) {
     var center = new L.LatLng(result.latitude, result.longitude);
     cityGroups.map.rendered.setView(center, cityGroups.map.settings.zoom);
   }
-};
+};    
+
+
+
+})(jQuery);    
