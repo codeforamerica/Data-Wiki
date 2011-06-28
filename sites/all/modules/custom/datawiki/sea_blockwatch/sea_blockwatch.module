@@ -16,6 +16,7 @@ function sea_blockwatch_help($path, $arg) {
       return "<p>$explanation</p>";
   }
 }
+
 function sea_blockwatch_menu() {
   $items['blockwatch'] = array(
     'title' => 'Home',
