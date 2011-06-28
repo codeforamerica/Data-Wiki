@@ -7,6 +7,9 @@ Drupal.behaviors.community_group_form = {
   'attach': function(context, settings) {
       Drupal.settings.community_group_form.data = $('div.openlayers-map').data('openlayers');
       Drupal.settings.community_group_form.centerOnFeature();
+      
+      // @TODO this is a hack.
+      $('div.preface-container').append($('div.add-home-menu'));
     }
   };
 

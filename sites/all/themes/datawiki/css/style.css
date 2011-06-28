@@ -1092,36 +1092,36 @@ ul.primary li a{
   color: #533549;
 }
 
-#preface ul.menu {
+.preface-container ul.menu {
   font-size: 125%;
 }
 
-#preface ul.menu li{
+.preface-container ul.menu li{
   margin-right: 10px;
   list-style: none;
   float: left;
 }
 
-#preface  ul.menu li,
+.preface-container  ul.menu li,
 ul.menu {
   list-style: none;
 }
 
-#preface ul.menu {
+.preface-container ul.menu {
   float: right;
 }
 
-#preface  li {
+.preface-container li {
   float: left;
   padding-left: 10px;
 }
 
-#preface  ul.menu li,
-#preface  ul.menu li a  {
+.preface-container ul.menu li,
+.preface-container ul.menu li a  {
   color: #aaa;
   font-weight: bold;
 }
 
-#preface  ul.menu li a.active {
+.preface-container ul.menu li a.active {
   color: #000;
 }

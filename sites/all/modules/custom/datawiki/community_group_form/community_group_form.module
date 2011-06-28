@@ -23,19 +23,17 @@ function community_group_form_menu() {
   return $items;
 }
 
-function community_group_form_form_render_map() {
-
-}
-
-function community_group_form_form_render_categories() {
-
-}
 /**
  * Alter the community group form (a content type.)
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {
-    $form['#prefix'] = '<h3>' .t("You can submit community groups here.") . '</h3>';
+  if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {  
+
+    $menu =  menu_tree('menu-citygroups-menu');
+    $menu_rendered = drupal_render($menu);
+
+    $form['#prefix'] .= '<div class="add-home-menu">' . $menu_rendered . '</div>';
+    $form['#prefix'] .= '<h3>' .t("You can submit community groups here.") . '</h3>';
 
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.

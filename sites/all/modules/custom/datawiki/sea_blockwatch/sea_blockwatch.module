@@ -187,8 +187,13 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
     if(!empty($_GET['section'])) {
       $section = $_GET['section'];
       if($section == 'blockwatch') {
+      
+        $menu =  menu_tree('menu-block-watch-menu');
+        $menu_rendered = drupal_render($menu);
+    
+        $form['#prefix'] .= '<div class="add-home-menu">' . $menu_rendered . '</div>';
+      
         // Section overrides.
-        //$add_variables = "?category=Block Watch, Crime Prevention&title=Add a Block Watch Captain&instructions=List Block Watch Captain or Block Watch Group.&map_instructions=Where is this Block Watch?";
         $add_variables_array = array(
           'category' => 'Block Watch, Crime Prevention',
           'title' => 'Add a Block Watch Captain',

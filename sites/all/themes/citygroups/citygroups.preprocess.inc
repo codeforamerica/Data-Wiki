@@ -159,10 +159,13 @@ function citygroups_preprocess_node(&$vars) {
  * Preprocessing function for node types.
  */
 function citygroups_preprocess_node_community_group(&$vars) {
+  // Load the menu and put it in the preface area.
+  // We need to do this here because context does not work with GET paramaters 
+  // and we are setting the theme with ?section=blockwatch for sub-sections.
+
   // Create content variables for this node type.
   
   // Set the author to the last editor of the last revision.
-  
   // @TODO Hide submitted on everything except node page, or else maybe shorten it.
 
   if($vars['logged_in']) {
