@@ -131,18 +131,6 @@ textarea.project-edit-form {
   font-size: 1em;
 }
 
-fieldset a.fieldset-title {
-  font-size: 150%;
-  text-transform: uppercase;
-  color: #9f3647;
-  display: block;
-}
-
-html.js fieldset.collapsible .fieldset-legend {
-  background: none;
-  padding: 0;
-}
-
 .form-required {
   font-size: 150%;
   line-height: 90%;
@@ -151,10 +139,6 @@ html.js fieldset.collapsible .fieldset-legend {
   float: right;
   padding: 0;
   margin: 0;
-}
-
-.fieldset-legend .form-required {
-  display: none;
 }
 
 form .address-ajax input.form-text {
