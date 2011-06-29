@@ -52,7 +52,7 @@ function citygroups_splash_init() {
   }
   
   if(drupal_is_front_page() 
-/*       && !isset($_COOKIE['prealpha_seen']) */
+      && !isset($_COOKIE['prealpha_seen'])
       && !user_is_logged_in()) {
 
     setcookie('prealpha_seen', "seen", time + 3600 * 24 * 180);
