@@ -31,6 +31,7 @@ function citygroups_splash_menu() {
  */
 function citygroups_splash_init() {
   // Admin splash screen.
+/*
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
       && !variable_get('citygroups_splash_welcome_seen', FALSE)) {
@@ -50,10 +51,12 @@ function citygroups_splash_init() {
     // this variable is set back to FALSE.
     variable_set('citygroups_splash_welcome_seen', TRUE);
   }
+*/
   
   if(drupal_is_front_page() 
-/*       && !isset($_COOKIE['prealpha_seen']) */
-/*       && !user_is_logged_in()  */
+      && !user_access('administer site configuration')
+      && !isset($_COOKIE['prealpha_seen'])
+      && !user_is_logged_in() 
       ){
 
     setcookie('prealpha_seen', "seen", time + 3600 * 24 * 180);
