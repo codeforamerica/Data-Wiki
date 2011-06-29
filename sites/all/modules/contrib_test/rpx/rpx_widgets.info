@@ -1,0 +1,14 @@
+name = Janrain Engage Widgets
+description = Engage sign-in and social widgets integration.
+dependencies[] = rpx_core
+package = Janrain Engage
+core = 7.x
+files[] = rpx_widgets.module
+stylesheets[all][] = rpx_widgets.css
+
+; Information added by drupal.org packaging script on 2011-06-24
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "rpx"
+datestamp = "1308875859"
+

@@ -24,7 +24,10 @@ function fbconnect_prompt_page() {
       'onclick' => 'Drupal.fbconnect.DoFastRegistration(this); return false;'
     ));
   }
-  $items = array(/*'title' => 'Facebook Connection Options',*/'items' => array(l($reg_msg, 'fbconnect/register/create',$reg_attr),l($link_msg,'user',array('query' => array('destination' => 'fbconnect/link')))));
+  $items = array(/*'title' => 'Facebook Connection Options',*/'items' => array(
+    l($reg_msg, 'fbconnect/register/create',$reg_attr),
+/*     l($link_msg,'user',array('query' => array('destination' => 'fbconnect/link'))) */
+    ));
   /*$links = array(
     array(
       'title' => $reg_msg,

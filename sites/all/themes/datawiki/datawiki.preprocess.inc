@@ -37,6 +37,9 @@ function  datawiki_preprocess_maintenance_page(&$vars) {
  */
 function datawiki_preprocess_page(&$vars) {
 
+  //$fbconnect = theme_fbconnect_login_button($vars);
+  //dpm($fbconnect);
+
   // Create variables from theme settings (set in .info file)
   $vars['sitename'] = theme_get_setting('sitename');
   
