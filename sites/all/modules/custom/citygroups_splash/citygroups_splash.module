@@ -139,7 +139,7 @@ function citygroups_splash_block_site_prealpha() {
   $output .= l('Contact Us', 'contact') . '</p>';
   
   $output .= '<p class="sign-in-link">' . l('Sign in', 'user') . ' to use all the features.</p>';
-  $output .= '<p class="sign-in-link">' . l('Sign in with Facebook', '  fbconnect/register/prompt') . '.</p>';  
+  $output .= '<p class="sign-in-link">' . l('Sign in with Facebook', 'fbconnect/register/prompt') . '.</p>';  
 
   // $output .= l('Sign in with Facebook', 'fbconnect') . '</p>';
   
