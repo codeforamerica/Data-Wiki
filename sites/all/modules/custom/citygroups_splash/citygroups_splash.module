@@ -52,8 +52,9 @@ function citygroups_splash_init() {
   }
   
   if(drupal_is_front_page() 
-      && !isset($_COOKIE['prealpha_seen'])
-      && !user_is_logged_in()) {
+/*       && !isset($_COOKIE['prealpha_seen']) */
+/*       && !user_is_logged_in()  */
+      ){
 
     setcookie('prealpha_seen', "seen", time + 3600 * 24 * 180);
   
@@ -136,7 +137,12 @@ function citygroups_splash_block_site_prealpha() {
   $output .= '<p>' . t('This is a brand new site, and as such, may have some bugs.') . '</p>';
   $output .= '<p>' . t('We are inviting folks to test the site and add information to it. If you have any questions or thoughts, please ');
   $output .= l('Contact Us', 'contact') . '</p>';
+  
+  $output .= '<p class="sign-in-link">' . l('Sign in', 'user') . ' to use all the features.</p>';
+  $output .= '<p class="sign-in-link">' . l('Sign in with Facebook', '  fbconnect/register/prompt') . '.</p>';  
 
+  // $output .= l('Sign in with Facebook', 'fbconnect') . '</p>';
+  
   $block = array(
     '#markup' => $output,
   );

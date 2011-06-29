@@ -42,6 +42,7 @@ dependencies[] = dashboard
 dependencies[] = date
 dependencies[] = defaultcontent
 dependencies[] = date_api
+dependencies[] = fbconnect
 dependencies[] = features
 dependencies[] = feeds
 dependencies[] = feeds_import
