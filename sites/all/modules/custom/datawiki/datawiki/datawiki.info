@@ -11,6 +11,7 @@ core = 7.x
 dependencies[] = block
 dependencies[] = color
 dependencies[] = comment
+dependencies[] = contact
 dependencies[] = dblog
 dependencies[] = email
 dependencies[] = field_ui

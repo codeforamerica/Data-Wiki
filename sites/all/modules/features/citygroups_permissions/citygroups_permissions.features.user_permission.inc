@@ -95,6 +95,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: access dashboard
+  $permissions['access dashboard'] = array(
+    'name' => 'access dashboard',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'dashboard',
+  );
+
   // Exported permission: access devel information
   $permissions['access devel information'] = array(
     'name' => 'access devel information',
@@ -121,6 +130,28 @@ function citygroups_permissions_user_default_permissions() {
       1 => 'moderator',
     ),
     'module' => 'system',
+  );
+
+  // Exported permission: access site-wide contact form
+  $permissions['access site-wide contact form'] = array(
+    'name' => 'access site-wide contact form',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+    ),
+    'module' => 'contact',
+  );
+
+  // Exported permission: access user contact forms
+  $permissions['access user contact forms'] = array(
+    'name' => 'access user contact forms',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+    ),
+    'module' => 'contact',
   );
 
   // Exported permission: access user profiles
@@ -168,6 +199,15 @@ function citygroups_permissions_user_default_permissions() {
       1 => 'moderator',
     ),
     'module' => 'comment',
+  );
+
+  // Exported permission: administer contact forms
+  $permissions['administer contact forms'] = array(
+    'name' => 'administer contact forms',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'contact',
   );
 
   // Exported permission: administer content types
@@ -638,6 +678,18 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(),
   );
 
+  // Exported permission: delete terms in 17
+  $permissions['delete terms in 17'] = array(
+    'name' => 'delete terms in 17',
+    'roles' => array(),
+  );
+
+  // Exported permission: delete terms in 18
+  $permissions['delete terms in 18'] = array(
+    'name' => 'delete terms in 18',
+    'roles' => array(),
+  );
+
   // Exported permission: delete terms in 2
   $permissions['delete terms in 2'] = array(
     'name' => 'delete terms in 2',
@@ -838,6 +890,18 @@ function citygroups_permissions_user_default_permissions() {
   // Exported permission: edit terms in 16
   $permissions['edit terms in 16'] = array(
     'name' => 'edit terms in 16',
+    'roles' => array(),
+  );
+
+  // Exported permission: edit terms in 17
+  $permissions['edit terms in 17'] = array(
+    'name' => 'edit terms in 17',
+    'roles' => array(),
+  );
+
+  // Exported permission: edit terms in 18
+  $permissions['edit terms in 18'] = array(
+    'name' => 'edit terms in 18',
     'roles' => array(),
   );
 
