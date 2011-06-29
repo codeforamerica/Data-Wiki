@@ -131,3 +131,4 @@
   </div>
   <div class="clear"></div>
 </div>
+<?php print $closure ?> 
