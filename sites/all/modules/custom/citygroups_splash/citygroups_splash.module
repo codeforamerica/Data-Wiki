@@ -54,7 +54,7 @@ function citygroups_splash_init() {
   
   
   if(drupal_is_front_page()) {
-    $url = url('splash/site_welcome');
+    $url = url('splash/site_prealpha');
         
     $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
     $js .= 'href: "' . $url . '",';
@@ -62,8 +62,9 @@ function citygroups_splash_init() {
     $js .= 'height: 400,';
     $js .= 'opacity: .6,';
     $js .= '});});';
+    
     drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
-    drupal_add_js($js, array('scope' => 'inline')); 
+    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME)); 
   }
   
   
@@ -86,7 +87,12 @@ function citygroups_splash_block_info() {
     'region' => 'dashboard_main', // Not usually provided. 
     'visibility' => 1, // Not usually provided. 
   );
-
+  $blocks['site_prealpha'] = array(
+    'info' => t('PreAlpha Site'),
+    'status' => TRUE,
+    'region' => 'dashboard_main', // Not usually provided. 
+    'visibility' => 1, // Not usually provided. 
+  );
   return $blocks;
 }
 
@@ -105,6 +111,10 @@ function citygroups_splash_block_view($delta = '') {
       $block['subject'] = t('Get Started');
       $block['content'] = citygroups_splash_block_site_config();
       break;
+    case 'site_prealpha':
+      $block['subject'] = t('Pre Alpha Hey!');
+      $block['content'] = citygroups_splash_block_site_prealpha();
+      break;
   }
   return $block;
 }
@@ -119,24 +129,20 @@ function citygroups_splash_block_load($delta) {
 /**
  * Helper function to assemble the initial site configuration block.
  */
-function citygroups_splash_block_site_welcome() {
-  /* DEPRECATED
-  $links = array();
-  if (module_exists('recaptcha') && user_access('administer recaptcha')) {
-    $links[] = l('Configure reCAPTCHA spam protection', 'admin/config/people/captcha/recaptcha', array('attributes' => array('class' => array('citygroups-splash-link'), 'title' => 'Protect your site from spammers by enabling reCAPTCHA with your own API keys.')));
-  }
-  if (module_exists('googleanalytics') && user_access('administer google analytics')) {
-    $links[] = l('Configure Google Analytics', 'admin/config/system/googleanalytics', array('attributes' => array('class' => array('citygroups-splash-link'), 'title' => 'Track how users are using your site.')));
-  }
-  $links[] = l('Set site settings', 'admin/config/system/site-information', array('attributes' => array('class' => array('citygroups-splash-link'), 'title' => 'Set the settings for your site, such as the site name and administrative email address.')));
-  $links[] = l('Set your site\'s theme', 'admin/appearance', array('attributes' => array('class' => array('citygroups-splash-link'), 'title' => 'Enable and set the default theme for your site.')));
+function citygroups_splash_block_site_prealpha() {
 
-  $markup = '';
-  $markup .= '<p>Welcome to your CityGroups site. To complete the configuration of your site, please respond to the following items.</p>';
-  $markup .= theme('item_list', array('items' => $links, 'type' => 'ul'));
-  $markup .= '<p>You will be able to get back to these items by opening your Dashboard, found in the links at the top of this page.</p>';
-  */
-  
+  $markup .= '<p>' . t('Hi lo.') . '</p>';
+
+  $block = array(
+    '#markup' => $markup,
+  );
+  return $block;
+
+}
+/**
+ * Helper function to assemble the initial site configuration block.
+ */
+function citygroups_splash_block_site_welcome() {
   $markup = '';
   $markup .= '<p>' . t('Ready to create a Drupal site?') . '</p>';
   $markup .= '<p>' . t('To get started with your site, go straight to the !dashboard. From there, you\'ll be able to choose your theme, personalize your site, and configure all the bells and whistles.', array('!dashboard' => l(t('Dashboard'), 'admin/dashboard', array('attributes' => array('class' => array('citygroups-splash-link')))))) . '</p>';
@@ -155,33 +161,6 @@ function citygroups_splash_block_site_config() {
   $items = array();
 
   $markup = '';
-/*
-
-  $items[] = array (
-    'title' => 'Watch an Introductory Video',
-    'href' => 'http://p2te.ch/CityGroupsvideo',
-    'localized_options' => array('attributes' => array('class' => array('CityGroupsvideo'))),
-    'description' => t('New to CityGroups? Take a video tour through the features and learn the basics before you get started.'),
-  );
-*/
-
-/*
-  $items[] = array (
-    'title' => 'Change or Add a New Design',
-    'href' => 'admin/appearance',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-design'))),    
-    'description' => t('Switch easily to any of CityGroups\'s preloaded themes, or add a new one of your own to customize your site\'s design.'),
-  );
-*/
-/*
-
-  $items[] = array (
-    'title' => 'Configure Contexts, Layouts and Blocks',
-    'href' => 'admin/structure/context',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-context'))),    
-    'description' => t('Configure various contexts (sections) of your website, layouts used in those contexts and block placement in each context.'),
-  );
-*/
 
   $items[] = array (
     'title' => 'Upload CSV of Community Groups',
@@ -217,27 +196,7 @@ function citygroups_splash_block_site_config() {
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Get a CSV file of all your groups.'),
   );  
-  
-/*
-  if (!module_exists('CityGroups_demo_content')) {
-    $demotitle = t('Enable demo content.');
-    $demohref =  'admin/content/demo-toggle';
-  }
-  else {
-    $demotitle = t('Remove demo content and start fresh');
-    $demohref = 'admin/content/demo-toggle';
-  }
-*/
-
-/*
-  $items[] = array (
-    'title' => $demotitle,
-    'href' => $demohref,
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-demo-content'))),        
-    'description' => t('Demo content pre-loads sample content to show examples of the content types and features in this distribution.'),
-  );
-*/
-  
+    
   $items[] = array (
     'title' => 'Manage Groups',
     'href' => 'list/manage',
@@ -258,15 +217,6 @@ function citygroups_splash_block_site_config() {
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-roles'))),            
     'description' => t('Set up accounts for your users, contributors, and site administrators.'),
   );
-/*
-
-  $items[] = array (
-    'title' => 'Set User Permissions',
-    'href' => 'admin/people/permissions',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-permissions'))),            
-    'description' => t('Fine tune the permissions for each of your site\'s roles.'),
-  );
-*/
   
   $content = array ('content' => $items);
   $markup = theme('admin_block_content', $content);
@@ -291,22 +241,6 @@ function citygroups_splash_block_display($block) {
 }
 
 /**
- * Implementation of hook_block_list_alter().
- * Adds the CityGroups Splash block to the Dashboard, provived all the 
- * tasks in the block haven't been completed or dismissed.
- */
-/* DEPRECATED
-function citygroups_splash_block_list_alter(&$blocks) {
-  if (citygroups_splash_site_welcome_check()) {
-    $site_welcome_block = block_load('citygroups_splash', 'site_welcome');
-    $site_welcome_block->theme = variable_get('admin_theme', 'bartik');
-    $site_welcome_block->region = 'dashboard_main';
-    $blocks[$site_welcome_block->bid] = $site_welcome_block;
-  }
-}
-*/
-
-/**
  * Helper function to determine if all the tasks related to initial site configuration
  * have either been completed or dismissed.
  * TODO: Create a checklist of completed/dismissed tasks.
@@ -320,17 +254,5 @@ function citygroups_splash_site_welcome_check() {
  * Menu callback function to help toggle the demo content module's status.
  */
 function citygroups_splash_toggle_demo_content() {
-  //module_load_include('inc', 'system', 'system.admin');
-/*
-  if (module_exists('CityGroups_demo_content')) {
-    module_disable(array('CityGroups_demo_content'));
-    drupal_set_message(t('Demo content has been disabled. !link', array('!link' => l(t('Reenable demo content'), 'admin/content/demo-toggle'))));
-  }
-  else {
-    module_enable(array('CityGroups_demo_content'));
-    drupal_set_message(t('Demo content has been enabled.'));
-  }
-*/
-  //drupal_cron_run();
   drupal_goto('admin/dashboard');
 }
