@@ -31,12 +31,12 @@ function citygroups_splash_menu() {
  */
 function citygroups_splash_init() {
   // Admin splash screen.
-/*
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
       && !variable_get('citygroups_splash_welcome_seen', FALSE)) {
-      $url = url('splash/site_welcome');
-        
+    
+    $url = url('splash/site_welcome');
+      
     $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
     $js .= 'href: "' . $url . '",';
     $js .= 'width: 600,';
@@ -50,10 +50,13 @@ function citygroups_splash_init() {
     // this variable is set back to FALSE.
     variable_set('citygroups_splash_welcome_seen', TRUE);
   }
-*/
   
+  if(drupal_is_front_page() 
+/*       && !isset($_COOKIE['prealpha_seen']) */
+      && !user_is_logged_in()) {
+
+    setcookie('prealpha_seen', "seen", time + 3600 * 24 * 180);
   
-  if(drupal_is_front_page()) {
     $url = url('splash/site_prealpha');
         
     $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
@@ -64,7 +67,7 @@ function citygroups_splash_init() {
     $js .= '});});';
     
     drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
-    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME)); 
+    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
   }
   
   
@@ -72,7 +75,6 @@ function citygroups_splash_init() {
   drupal_add_css( $mod_uri . '/citygroups_splash.css');
 
 }
-
 
 /**
  * Implementation of hook_block_info().
@@ -112,7 +114,7 @@ function citygroups_splash_block_view($delta = '') {
       $block['content'] = citygroups_splash_block_site_config();
       break;
     case 'site_prealpha':
-      $block['subject'] = t('Pre Alpha Hey!');
+      $block['subject'] = t('This site is Pre-Alpha');
       $block['content'] = citygroups_splash_block_site_prealpha();
       break;
   }
@@ -131,10 +133,12 @@ function citygroups_splash_block_load($delta) {
  */
 function citygroups_splash_block_site_prealpha() {
 
-  $markup .= '<p>' . t('Hi lo.') . '</p>';
+  $output .= '<p>' . t('This is a brand new site, and as such, may have some bugs.') . '</p>';
+  $output .= '<p>' . t('We are inviting folks to test the site and add information to it. If you have any questions or thoughts, please ');
+  $output .= l('Contact Us', 'contact') . '</p>';
 
   $block = array(
-    '#markup' => $markup,
+    '#markup' => $output,
   );
   return $block;
 
