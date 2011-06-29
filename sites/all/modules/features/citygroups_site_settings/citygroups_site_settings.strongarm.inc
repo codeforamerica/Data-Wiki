@@ -330,10 +330,11 @@ function citygroups_site_settings_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'rpx_enabled_providers';
   $strongarm->value = array(
-    0 => 'aol',
-    1 => 'google',
-    2 => 'yahoo',
+    0 => 'facebook',
+    1 => 'twitter',
+    2 => 'google',
     3 => 'openid',
+    4 => 'yahoo',
   );
   $export['rpx_enabled_providers'] = $strongarm;
 
@@ -369,7 +370,7 @@ function citygroups_site_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'rpx_login_icons_size';
-  $strongarm->value = 'small';
+  $strongarm->value = 'medium';
   $export['rpx_login_icons_size'] = $strongarm;
 
   $strongarm = new stdClass;
