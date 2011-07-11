@@ -125,8 +125,8 @@ Drupal.settings.community_group_form.mapGeocodedData = function(results) {
     
    // map geometry
    console.log(results[0]);
-   result.latitude = results[0]["geometry"]["location"]["Ia"];
-   result.longitude = results[0]["geometry"]["location"]["Ja"];  
+   result.latitude = results[0]["geometry"]["location"].lat();
+   result.longitude = results[0]["geometry"]["location"].lng();  
   }
   Drupal.settings.community_group_form.updateMapForm(result);
 };
