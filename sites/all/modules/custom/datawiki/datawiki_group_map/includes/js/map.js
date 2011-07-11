@@ -296,8 +296,10 @@ console.log(results);
     }
     
    // map geometry
-   result.latitude = results[0]["geometry"]["location"]["Ja"];
-   result.longitude = results[0]["geometry"]["location"]["Ka"];  
+   // http://stackoverflow.com/questions/6506038/how-would-i-go-about-permanently-referencing-google-geocoding-results-when-the-pr
+   result.latitude = results[0]["geometry"]["location"].lat();
+   result.longitude = results[0]["geometry"]["location"].lng();
+    
   }
   if (result.longitude !== undefined && result.latitude !== undefined) {
     var center = new L.LatLng(result.latitude, result.longitude);
