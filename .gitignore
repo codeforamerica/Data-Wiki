@@ -3,6 +3,9 @@ sites/default/files
 sites/sites.php
 sea.citygroups.local
 phl.citygroups.local
+sites/seattle.citygroups.local
+sites/philly.citygroups.local
+sites/bayarea.citygroups.local
 sites/seattle.citygroups.org
 sites/philly.citygroups.org
 sites/bayarea.citygroups.org
