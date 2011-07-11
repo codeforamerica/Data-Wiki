@@ -271,6 +271,7 @@ cityGroups.map.codeAddress = function(address) {
 }
 
 cityGroups.map.mapGeocodedData = function(results) {
+console.log(results);
   var result = {};
   result.field_address = '';
   var item = results[0]['address_components'];
@@ -295,8 +296,8 @@ cityGroups.map.mapGeocodedData = function(results) {
     }
     
    // map geometry
-   result.latitude = results[0]["geometry"]["location"]["Ia"];
-   result.longitude = results[0]["geometry"]["location"]["Ja"];  
+   result.latitude = results[0]["geometry"]["location"]["Ja"];
+   result.longitude = results[0]["geometry"]["location"]["Ka"];  
   }
   if (result.longitude !== undefined && result.latitude !== undefined) {
     var center = new L.LatLng(result.latitude, result.longitude);
