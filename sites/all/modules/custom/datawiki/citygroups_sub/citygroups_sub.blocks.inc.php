@@ -68,6 +68,10 @@ function citygroups_sub_block_info() {
     'info' => t('Add Group'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+  $blocks['citygroups_sub_group_stats'] = array(
+    'info' => t('Group Stats'),
+    'cache' => DRUPAL_CACHE_PER_ROLE, // default
+  );
   return $blocks;
 }
 
@@ -158,6 +162,11 @@ function citygroups_sub_block_view($delta = '') {
     case 'citygroups_sub_add_group':
       $block['subject'] = '';
       $block['content'] = citygroups_sub_contents('add_group');
+      break;
+
+    case 'citygroups_sub_group_stats':
+      $block['subject'] = '';
+      $block['content'] = citygroups_sub_contents('group_stats');
       break;
   }
   return $block;
@@ -270,6 +279,10 @@ function citygroups_sub_contents($type) {
         <li><a href=\"calendars\">Calendars</a></li>
         */
       break;
+            
+      case 'group_stats':
+        $output .= "Over 1100 groups.";
+      break;      
   }
   
   return $output;
