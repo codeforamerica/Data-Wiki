@@ -281,7 +281,7 @@ function citygroups_sub_contents($type) {
       break;
             
       case 'group_stats':
-        $output .= "Over 1100 groups.";
+        $output .= "<h3>Listing over 1000 groups in Seattle.</h3>";
       break;      
   }
   
