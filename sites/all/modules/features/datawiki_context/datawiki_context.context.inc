@@ -44,6 +44,12 @@ function datawiki_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '-30',
         ),
+        'citygroups_sub-citygroups_sub_add_data' => array(
+          'module' => 'citygroups_sub',
+          'delta' => 'citygroups_sub_add_data',
+          'region' => 'content_bottom',
+          'weight' => '-10',
+        ),
         'citygroups_sub-citygroups_sub_add_group' => array(
           'module' => 'citygroups_sub',
           'delta' => 'citygroups_sub_add_group',
