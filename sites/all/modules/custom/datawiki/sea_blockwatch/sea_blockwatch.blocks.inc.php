@@ -240,10 +240,15 @@ function sea_blockwatch_contents($type) {
         $output .= "<p>Block Watch is a national program that is based
         on the principle that neighbors working together are the 
         first and best line of defense against crime.</p>";
-        $output .= "<p>Block Watch Captains lead the program at the block-level,
-        serving as the eyes and ears for the police department and help
-        to organize block parties, street clean-ups and other 
-        events and initiatives.</p>";
+        $output .= "<p>Block Watch Captains take the lead among their neighbors
+        by partnering with the police department and other city departments to
+        alert them to suspicious activity and creating a better sense of community.
+        Block parties, street cleanups and other creative initiatives at the block
+        or neighborhood level makes this work. 
+       </p>";
+        
+        
+ 
 /*         $output .= "<p>Click <a href=\"/blockwatch/about\">here</a> to learn more</p>"; */
       break;
   }
