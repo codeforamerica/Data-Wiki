@@ -44,6 +44,68 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['label'] = 'watch';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'bookmarks';
+  /* Relationship: Flags: inappropriate */
+  $handler->display->display_options['relationships']['flag_content_rel_1']['id'] = 'flag_content_rel_1';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['label'] = 'inappropriate';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel_1']['flag'] = 'inappropriate';
+  /* Relationship: Flags: like */
+  $handler->display->display_options['relationships']['flag_content_rel_2']['id'] = 'flag_content_rel_2';
+  $handler->display->display_options['relationships']['flag_content_rel_2']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_content_rel_2']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel_2']['label'] = 'recommended';
+  $handler->display->display_options['relationships']['flag_content_rel_2']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel_2']['flag'] = 'like';
+  /* Relationship: Flags: group_inactive */
+  $handler->display->display_options['relationships']['flag_content_rel_3']['id'] = 'flag_content_rel_3';
+  $handler->display->display_options['relationships']['flag_content_rel_3']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_content_rel_3']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel_3']['label'] = 'inactive';
+  $handler->display->display_options['relationships']['flag_content_rel_3']['flag'] = 'group_inactive';
+  /* Relationship: Flags: duplicate */
+  $handler->display->display_options['relationships']['flag_content_rel_4']['id'] = 'flag_content_rel_4';
+  $handler->display->display_options['relationships']['flag_content_rel_4']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_content_rel_4']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel_4']['label'] = 'duplicate';
+  $handler->display->display_options['relationships']['flag_content_rel_4']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel_4']['flag'] = 'duplicate';
+  /* Relationship: Flags: bookmarks counter */
+  $handler->display->display_options['relationships']['flag_count_rel']['id'] = 'flag_count_rel';
+  $handler->display->display_options['relationships']['flag_count_rel']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_count_rel']['field'] = 'flag_count_rel';
+  $handler->display->display_options['relationships']['flag_count_rel']['label'] = 'watch_count';
+  $handler->display->display_options['relationships']['flag_count_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'bookmarks';
+  /* Relationship: Flags: duplicate counter */
+  $handler->display->display_options['relationships']['flag_count_rel_1']['id'] = 'flag_count_rel_1';
+  $handler->display->display_options['relationships']['flag_count_rel_1']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_count_rel_1']['field'] = 'flag_count_rel';
+  $handler->display->display_options['relationships']['flag_count_rel_1']['label'] = 'duplicate_count';
+  $handler->display->display_options['relationships']['flag_count_rel_1']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_count_rel_1']['flag'] = 'duplicate';
+  /* Relationship: Flags: group_inactive counter */
+  $handler->display->display_options['relationships']['flag_count_rel_2']['id'] = 'flag_count_rel_2';
+  $handler->display->display_options['relationships']['flag_count_rel_2']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_count_rel_2']['field'] = 'flag_count_rel';
+  $handler->display->display_options['relationships']['flag_count_rel_2']['label'] = 'inactive_count';
+  $handler->display->display_options['relationships']['flag_count_rel_2']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_count_rel_2']['flag'] = 'group_inactive';
+  /* Relationship: Flags: inappropriate counter */
+  $handler->display->display_options['relationships']['flag_count_rel_3']['id'] = 'flag_count_rel_3';
+  $handler->display->display_options['relationships']['flag_count_rel_3']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_count_rel_3']['field'] = 'flag_count_rel';
+  $handler->display->display_options['relationships']['flag_count_rel_3']['label'] = 'inappropriate_count';
+  $handler->display->display_options['relationships']['flag_count_rel_3']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_count_rel_3']['flag'] = 'inappropriate';
+  /* Relationship: Flags: like counter */
+  $handler->display->display_options['relationships']['flag_count_rel_4']['id'] = 'flag_count_rel_4';
+  $handler->display->display_options['relationships']['flag_count_rel_4']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_count_rel_4']['field'] = 'flag_count_rel';
+  $handler->display->display_options['relationships']['flag_count_rel_4']['label'] = 'recommended_count';
+  $handler->display->display_options['relationships']['flag_count_rel_4']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_count_rel_4']['flag'] = 'like';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -649,7 +711,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['uuid']['id'] = 'uuid';
   $handler->display->display_options['fields']['uuid']['table'] = 'node';
   $handler->display->display_options['fields']['uuid']['field'] = 'uuid';
-  $handler->display->display_options['fields']['uuid']['label'] = 'uuid';
+  $handler->display->display_options['fields']['uuid']['label'] = 'guid';
   $handler->display->display_options['fields']['uuid']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['uuid']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['uuid']['alter']['absolute'] = 0;
@@ -713,6 +775,131 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['field_external_id']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_external_id']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_external_id']['field_api_classes'] = 0;
+  /* Field: Flags: Flagged time */
+  $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['table'] = 'flag_content';
+  $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['timestamp']['label'] = 'citygroups_flag_date_watch';
+  $handler->display->display_options['fields']['timestamp']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['timestamp']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['timestamp']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['timestamp']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['timestamp']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['timestamp']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['timestamp']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['timestamp']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'm/d/Y';
+  /* Field: Flags: Flagged time */
+  $handler->display->display_options['fields']['timestamp_1']['id'] = 'timestamp_1';
+  $handler->display->display_options['fields']['timestamp_1']['table'] = 'flag_content';
+  $handler->display->display_options['fields']['timestamp_1']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp_1']['relationship'] = 'flag_content_rel_1';
+  $handler->display->display_options['fields']['timestamp_1']['label'] = 'citygroups_flag_date_inappropriate';
+  $handler->display->display_options['fields']['timestamp_1']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['timestamp_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_1']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp_1']['custom_date_format'] = 'm/d/Y';
+  /* Field: Flags: Flagged time */
+  $handler->display->display_options['fields']['timestamp_2']['id'] = 'timestamp_2';
+  $handler->display->display_options['fields']['timestamp_2']['table'] = 'flag_content';
+  $handler->display->display_options['fields']['timestamp_2']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp_2']['relationship'] = 'flag_content_rel_2';
+  $handler->display->display_options['fields']['timestamp_2']['label'] = 'citygroups_flag_date_recommended';
+  $handler->display->display_options['fields']['timestamp_2']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['timestamp_2']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_2']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp_2']['custom_date_format'] = 'm/d/Y';
+  /* Field: Flags: Flagged time */
+  $handler->display->display_options['fields']['timestamp_3']['id'] = 'timestamp_3';
+  $handler->display->display_options['fields']['timestamp_3']['table'] = 'flag_content';
+  $handler->display->display_options['fields']['timestamp_3']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp_3']['relationship'] = 'flag_content_rel_3';
+  $handler->display->display_options['fields']['timestamp_3']['label'] = 'citygroups_flag_date_inactive';
+  $handler->display->display_options['fields']['timestamp_3']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['timestamp_3']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_3']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp_3']['custom_date_format'] = 'm/d/Y';
+  /* Field: Flags: Flagged time */
+  $handler->display->display_options['fields']['timestamp_4']['id'] = 'timestamp_4';
+  $handler->display->display_options['fields']['timestamp_4']['table'] = 'flag_content';
+  $handler->display->display_options['fields']['timestamp_4']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp_4']['relationship'] = 'flag_content_rel_4';
+  $handler->display->display_options['fields']['timestamp_4']['label'] = 'citygroups_flag_date_duplicate';
+  $handler->display->display_options['fields']['timestamp_4']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['timestamp_4']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['timestamp_4']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp_4']['custom_date_format'] = 'm/d/Y';
   /* Sort criterion: Content: Updated date */
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
@@ -769,12 +956,12 @@ function community_group_views_views_default_views() {
     'community_group' => 'community_group',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Data JSON */
+  $handler = $view->new_display('page', 'Data JSON', 'page');
   $handler->display->display_options['path'] = 'data/community-group';
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  /* Display: Data JSON Map */
+  $handler = $view->new_display('page', 'Data JSON Map', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Community Groups Data Map';
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -799,16 +986,16 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['filters']['field_location_lat']['operator'] = 'not empty';
   $handler->display->display_options['path'] = 'data/community-group/map';
 
-  /* Display: Data export */
-  $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
+  /* Display: Data CSV */
+  $handler = $view->new_display('views_data_export', 'Data CSV', 'views_data_export_1');
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['path'] = 'csv/community-group';
 
-  /* Display: Page 2 */
-  $handler = $view->new_display('page', 'Page 2', 'page_2');
+  /* Display: Data JSON Watch */
+  $handler = $view->new_display('page', 'Data JSON Watch', 'page_2');
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -832,8 +1019,8 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['filters']['flagged']['value'] = '1';
   $handler->display->display_options['path'] = 'data/watch/community-group';
 
-  /* Display: Data export 2 */
-  $handler = $view->new_display('views_data_export', 'Data export 2', 'views_data_export_2');
+  /* Display: Data CSV Watch */
+  $handler = $view->new_display('views_data_export', 'Data CSV Watch', 'views_data_export_2');
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['defaults']['filters'] = FALSE;
