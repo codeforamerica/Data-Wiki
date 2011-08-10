@@ -919,7 +919,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_email'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '5',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_email',

@@ -75,13 +75,65 @@ $content['datawiki_page_about'] = (object)array(
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<h3>Connecting community organizers with community groups to improve cities.</h3><p>In cities across the country, there is amazing work being done by community organizers to mobilize their neighbors and take on community problems.</p>
-<p>CityGroups is a searchable public directory which allows community organizers and residents to find community groups so that they can work together. Like a wiki, city staffers and community members can contribute and retrieve the data in the system. The goal is to promote and assist smaller, less-visible groups who do important work but require modern tools to publicize it. CityGroups will help them work together and work better.</p>',
+        'value' => '<h1>CityGroups</h1>
+<h3><strong>A public directory of community groups in your city.</strong></h3>
+<p>CityGroups is a searchable public directory that allows community organizers and residents to find community groups by location and topic. In cities across the country, there is amazing work being done by community organizers to mobilize their neighbors and take on community problems. CityGroups helps connect and publicize these less-visible groups by working with local community groups, governments and local technologists to make an open platform for finding &amp; recommending groups working to make your city better.</p>
+<p>&nbsp;</p>
+<h3>Main Features</h3>
+<ul>
+	<li><strong>Searchable.</strong> Search by location or topic. Generate lists of community groups in your neighborhood.</li>
+	<li><strong>Community Editable.</strong> Like a wiki, anyone can add or update information about local groups.</li>
+	<li><strong>Social Directory. </strong>Groups can be categorized, mapped &amp; shared.</li>
+	<li><strong>Any and all groups included.</strong> We make it easier to find the little groups, be they &ldquo;over the fence&rdquo;, e-mail lists or any group with a link to a web page.</li>
+	<li><strong>Quality control. </strong>CityGroups provides simple tools for reporting if a group is recommended, or &ldquo;dead.&rdquo; Imagine if email lists and blog sites from 3 years ago had Yelp and Meetup-like features.</li>
+	<li><strong>Standardized, open data.</strong> Using a simple data standard, humans and computers can import and export data from the system. Supports CSV import and JSON export (API).</li>
+	<li><strong>Supports Data Collection Projects.</strong> We support reaching out to collect community groups by neighborhood, by topic, or in partnership with local community focused non-profits. Provides customizable front-end for data collection efforts.</li>
+</ul>
+<h4>&nbsp;</h4>
+<h4>Goals</h4>
+<ul>
+	<li>Help neighborhoods promote their many little working groups to facilitate collaboration.</li>
+	<li>Increase participation in local initiatives through better visibility.</li>
+	<li>Support data collection projects: For example, Block Watch Captains in Seattle are finding each other by building upon the CityGroups platform.</li>
+	<li>Help people find new groups that make their lives better.</li>
+	<li>Improve group data. People update, correct and mark as &ldquo;dead&rdquo; out-dated group information.</li>
+</ul>
+<h4>&nbsp;</h4>
+<h4>Find out more &amp; get CityGroups in your city</h4>
+<p>On the web: <a href="http://citygroups.org">http://citygroups.org</a><br />
+	Check out CityGroups in Seattle: <a href="http://seattle.citygroups.org">http://seattle.citygroups.org</a><br />
+	Email: citygroups@codeforamerica.org or Chach Sikes, chacha@codeforamerica.org<br />
+	Twitter: <a href="http://twitter.com/AllCityGroups">@AllCityGroups</a></p>
+<p>Created as Open Source by <a href="http://codeforamerica.org">Code for America.</a></p>
+',
         'summary' => '',
         'format' => 'filtered_html',
-        'safe_value' => '<h3>Connecting community organizers with community groups to improve cities.</h3>
-<p>In cities across the country, there is amazing work being done by community organizers to mobilize their neighbors and take on community problems.<br />
-CityGroups is a searchable public directory which allows community organizers and residents to find community groups so that they can work together. Like a wiki, city staffers and community members can contribute and retrieve the data in the system. The goal is to promote and assist smaller, less-visible groups who do important work but require modern tools to publicize it. CityGroups will help them work together and work better.</p>
+        'safe_value' => '<p>CityGroups</p>
+<h3><strong>A public directory of community groups in your city.</strong></h3>
+<p>CityGroups is a searchable public directory that allows community organizers and residents to find community groups by location and topic. In cities across the country, there is amazing work being done by community organizers to mobilize their neighbors and take on community problems. CityGroups helps connect and publicize these less-visible groups by working with local community groups, governments and local technologists to make an open platform for finding &amp; recommending groups working to make your city better.<br />
+ </p>
+<h3>Main Features</h3>
+<ul><li><strong>Searchable.</strong> Search by location or topic. Generate lists of community groups in your neighborhood.</li>
+<li><strong>Community Editable.</strong> Like a wiki, anyone can add or update information about local groups.</li>
+<li><strong>Social Directory. </strong>Groups can be categorized, mapped &amp; shared.</li>
+<li><strong>Any and all groups included.</strong> We make it easier to find the little groups, be they “over the fence”, e-mail lists or any group with a link to a web page.</li>
+<li><strong>Quality control. </strong>CityGroups provides simple tools for reporting if a group is recommended, or “dead.” Imagine if email lists and blog sites from 3 years ago had Yelp and Meetup-like features.</li>
+<li><strong>Standardized, open data.</strong> Using a simple data standard, humans and computers can import and export data from the system. Supports CSV import and JSON export (API).</li>
+<li><strong>Supports Data Collection Projects.</strong> We support reaching out to collect community groups by neighborhood, by topic, or in partnership with local community focused non-profits. Provides customizable front-end for data collection efforts.</li>
+</ul><h4> </h4>
+<h4>Goals</h4>
+<ul><li>Help neighborhoods promote their many little working groups to facilitate collaboration.</li>
+<li>Increase participation in local initiatives through better visibility.</li>
+<li>Support data collection projects: For example, Block Watch Captains in Seattle are finding each other by building upon the CityGroups platform.</li>
+<li>Help people find new groups that make their lives better.</li>
+<li>Improve group data. People update, correct and mark as “dead” out-dated group information.</li>
+</ul><h4> </h4>
+<h4>Find out more &amp; get CityGroups in your city</h4>
+<p>On the web: <a href="http://citygroups.org">http://citygroups.org</a><br />
+	Check out CityGroups in Seattle: <a href="http://seattle.citygroups.org">http://seattle.citygroups.org</a><br />
+	Email: <a href="mailto:citygroups@codeforamerica.org">citygroups@codeforamerica.org</a> or Chach Sikes, <a href="mailto:chacha@codeforamerica.org">chacha@codeforamerica.org</a><br />
+	Twitter: <a href="http://twitter.com/AllCityGroups">@AllCityGroups</a><br />
+Created as Open Source by <a href="http://codeforamerica.org">Code for America.</a></p>
 ',
         'safe_summary' => '',
       ),

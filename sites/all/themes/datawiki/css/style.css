@@ -1125,3 +1125,13 @@ ul.menu {
 .preface-container ul.menu li a.active {
   color: #000;
 }
+
+
+.node .field-item li,
+ol, ul,
+iframe ol, iframe ul,
+ol li, ul li {
+  list-style: disc;
+  list-style-type: disc;
+  list-style-position: inside;
+}

@@ -42,7 +42,13 @@ function community_group_content_type_openlayers_presets() {
           'line' => 0,
         ),
       ),
+      'openlayers_behavior_fullscreen' => array(
+        'activated' => 0,
+      ),
       'openlayers_behavior_keyboarddefaults' => array(),
+      'openlayers_behavior_layerswitcher' => array(
+        'ascending' => 1,
+      ),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
       ),
@@ -50,6 +56,15 @@ function community_group_content_type_openlayers_presets() {
       'openlayers_behavior_zoomtolayer' => array(
         'zoomtolayer' => 'geofield_formatter',
         'point_zoom_level' => '5',
+      ),
+      'openlayers_behavior_drawfeatures' => array(
+        'feature_types' => array(
+          'point' => 'point',
+          'polygon' => 'polygon',
+          'path' => 0,
+        ),
+        'feature_limit' => '0',
+        'element_id' => '',
       ),
     ),
     'default_layer' => 'Cloudmade',

@@ -251,9 +251,51 @@ function citygroups_site_settings_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_attach_share_link_to_comments_community_group';
+  $strongarm->value = 0;
+  $export['rpx_attach_share_link_to_comments_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_attach_share_link_to_nodecont_community_group';
+  $strongarm->value = 0;
+  $export['rpx_attach_share_link_to_nodecont_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_attach_share_link_to_nodecont_weight_community_group';
+  $strongarm->value = '40';
+  $export['rpx_attach_share_link_to_nodecont_weight_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_attach_share_link_to_nodelink_community_group';
+  $strongarm->value = 0;
+  $export['rpx_attach_share_link_to_nodelink_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_attach_share_link_to_teasers_community_group';
+  $strongarm->value = 0;
+  $export['rpx_attach_share_link_to_teasers_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'rpx_bypass_email_verification';
   $strongarm->value = 0;
   $export['rpx_bypass_email_verification'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_comment_popup_social_at_once_community_group';
+  $strongarm->value = 0;
+  $export['rpx_comment_popup_social_at_once_community_group'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -333,8 +375,6 @@ function citygroups_site_settings_strongarm() {
     0 => 'facebook',
     1 => 'twitter',
     2 => 'google',
-    3 => 'openid',
-    4 => 'yahoo',
   );
   $export['rpx_enabled_providers'] = $strongarm;
 
@@ -365,6 +405,34 @@ function citygroups_site_settings_strongarm() {
   $strongarm->name = 'rpx_javascript_global';
   $strongarm->value = 0;
   $export['rpx_javascript_global'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_label_comments_community_group';
+  $strongarm->value = 'Share your comment:';
+  $export['rpx_label_comments_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_label_nodes_community_group';
+  $strongarm->value = 'Comment:';
+  $export['rpx_label_nodes_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_linktext_comments_community_group';
+  $strongarm->value = '[comment:subject]';
+  $export['rpx_linktext_comments_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_linktext_nodes_community_group';
+  $strongarm->value = '[node:title]';
+  $export['rpx_linktext_nodes_community_group'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -414,6 +482,20 @@ After confirming your email address, you will be able to log in to [site:name] u
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_message_comments_community_group';
+  $strongarm->value = 'Commented on [site:name].';
+  $export['rpx_message_comments_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_message_nodes_community_group';
+  $strongarm->value = 'Shared [node:title] on [site:name].';
+  $export['rpx_message_nodes_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'rpx_realm';
   $strongarm->value = 'citygroups.rpxnow.com';
   $export['rpx_realm'] = $strongarm;
@@ -445,6 +527,34 @@ After confirming your email address, you will be able to log in to [site:name] u
   $strongarm->name = 'rpx_social_pub';
   $strongarm->value = '';
   $export['rpx_social_pub'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_summary_comments_community_group';
+  $strongarm->value = '[comment:body]';
+  $export['rpx_summary_comments_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_summary_nodes_community_group';
+  $strongarm->value = '[node:body]';
+  $export['rpx_summary_nodes_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_title_comments_community_group';
+  $strongarm->value = '[node:title] | [site:name]';
+  $export['rpx_title_comments_community_group'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rpx_title_nodes_community_group';
+  $strongarm->value = '[node:title] | [site:name]';
+  $export['rpx_title_nodes_community_group'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -637,7 +747,7 @@ password: Your password
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_mail_status_activated_notify';
-  $strongarm->value = 1;
+  $strongarm->value = '1';
   $export['user_mail_status_activated_notify'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -759,6 +869,13 @@ Your account on [site:name] has been canceled.
   $strongarm->name = 'user_signatures';
   $strongarm->value = 0;
   $export['user_signatures'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'uuid_generator';
+  $strongarm->value = 'php';
+  $export['uuid_generator'] = $strongarm;
 
   return $export;
 }

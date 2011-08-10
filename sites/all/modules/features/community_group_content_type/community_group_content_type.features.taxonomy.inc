@@ -82,7 +82,7 @@ function community_group_content_type_taxonomy_default_vocabularies() {
       'name' => 'Categories',
       'machine_name' => 'categories',
       'description' => '',
-      'hierarchy' => '1',
+      'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(

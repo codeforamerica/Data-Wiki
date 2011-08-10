@@ -49,28 +49,28 @@ function community_group_content_type_views_api() {
  */
 function community_group_content_type_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Bookmarks".
+  // Exported flag: "Watch".
   $flags['bookmarks'] = array(
     'content_type' => 'node',
-    'title' => 'Bookmarks',
+    'title' => 'Watch',
     'global' => '0',
     'types' => array(
-      0 => 'article',
+      0 => 'community_group',
     ),
-    'flag_short' => 'Bookmark this',
-    'flag_long' => 'Add this post to your bookmarks',
-    'flag_message' => 'This post has been added to your bookmarks',
-    'unflag_short' => 'Unbookmark this',
-    'unflag_long' => 'Remove this post from your bookmarks',
-    'unflag_message' => 'This post has been removed from your bookmarks',
+    'flag_short' => 'Watch',
+    'flag_long' => 'Watch this group',
+    'flag_message' => 'You are now watching this group.',
+    'unflag_short' => 'Stop Watching',
+    'unflag_long' => 'Stop watching this group.',
+    'unflag_message' => 'You are no longer watching this group.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
     'roles' => array(
       'flag' => array(
-        0 => 2,
+        0 => '2',
       ),
       'unflag' => array(
-        0 => 2,
+        0 => '2',
       ),
     ),
     'show_on_page' => 1,
