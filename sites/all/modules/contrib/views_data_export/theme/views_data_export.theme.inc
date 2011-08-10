@@ -109,13 +109,23 @@ function template_preprocess_views_data_export_csv_header(&$vars) {
     if (!empty($vars['options']['trim'])) {
       $output = trim($output);
     }
+    if (!empty($vars['options']['encoding']) && function_exists('iconv')) {
+        switch($vars['options']['encoding']) {
+          case 'ASCII':
+            $converted = iconv("UTF-8", "ASCII//TRANSLIT", $output);
+            if ($converted !== FALSE) {
+              $output = $converted;
+            }
+            break;
+        }
+      }
+      
     $vars['header'][$key] = $wrap . str_replace('"', $replace_value, $output) . $wrap;
   }
 }
 
 function template_preprocess_views_data_export_csv_body(&$vars) {
   _views_data_export_body_shared_preprocess($vars);
-
   // Make sure we catch saved options that are misspelled. LEGACY
   if (isset($vars['options']['seperator'])) {
     $vars['options']['separator'] = $vars['options']['seperator'];
@@ -140,6 +150,20 @@ function template_preprocess_views_data_export_csv_body(&$vars) {
       $output = decode_entities(strip_tags($value));
       if (!empty($vars['options']['trim'])) {
         $output = trim($output);
+      }
+
+      if (!empty($vars['options']['encoding']) && function_exists('iconv')) {
+        switch($vars['options']['encoding']) {
+          case 'ASCII':
+            $converted = iconv("UTF-8", "ASCII//TRANSLIT", $output);
+            if ($converted !== FALSE) {
+              $output = $converted;
+            }
+            break;
+        }
+      }
+      if (!empty($vars['options']['replace_newlines'])) {
+        $output = str_replace("\n", $vars['options']['newline_replacement'], $output);
       }
       $vars['themed_rows'][$i][$j] = $wrap . str_replace('"', $replace_value, $output) . $wrap;
     }
@@ -177,6 +201,16 @@ function template_preprocess_views_data_export_csv(&$vars) {
     if ($vars['options']['trim']) {
       $output = trim($output);
     }
+    if (!empty($vars['options']['encoding']) && function_exists('iconv')) {
+      switch($vars['options']['encoding']) {
+        case 'ASCII':
+          $converted = iconv("UTF-8", "ASCII//TRANSLIT", $output);
+          if ($converted !== FALSE) {
+            $output = $converted;
+          }
+          break;
+      }
+    }
     $vars['header'][$key] = $wrap . str_replace('"', $replace_value, $output) . $wrap;
   }
 
@@ -186,6 +220,16 @@ function template_preprocess_views_data_export_csv(&$vars) {
       $output = decode_entities(strip_tags($value));
       if ($vars['options']['trim']) {
         $output = trim($output);
+      }
+      if (!empty($vars['options']['encoding']) && function_exists('iconv')) {
+        switch($vars['options']['encoding']) {
+          case 'ASCII':
+            $converted = iconv("UTF-8", "ASCII//TRANSLIT", $output);
+            if ($converted !== FALSE) {
+              $output = $converted;
+            }
+            break;
+        }
       }
       $vars['themed_rows'][$i][$j] = $wrap . str_replace('"', $replace_value, $output) . $wrap;
     }
@@ -402,7 +446,6 @@ function _views_data_export_xml_tag_clean($tag) {
 function _views_data_export_header_shared_preprocess(&$vars) {
   $view     = $vars['view'];
   $fields   = &$view->field;
-
   $vars['header'] = array();
   foreach ($fields as $key => $field) {
     if (empty($field->options['exclude'])) {

@@ -1,5 +1,4 @@
 <?php
-// $Id: feeds_ui.module,v 1.16.2.1 2010/10/22 04:07:38 alexb Exp $
 /**
  * @file
  */
@@ -10,7 +9,7 @@
 function feeds_ui_help($path, $arg) {
   switch ($path) {
     case 'admin/structure/feeds':
-      $output = '<p>'. t('Create one or more Feed importers for pulling content into Drupal. You can use these importers from the !import page or - if you attach them to a content type - simply by creating a node from that content type.', array('!import' => l(t('Import'), 'import'))) .'</p>';
+      $output = '<p>' . t('Create one or more Feed importers for pulling content into Drupal. You can use these importers from the <a href="@import">Import</a> page or - if you attach them to a content type - simply by creating a node from that content type.', array('@import' => url('import'))) . '</p>';
       return $output;
   }
 }
@@ -29,11 +28,11 @@ function feeds_ui_menu() {
     'file' => 'feeds_ui.admin.inc',
   );
   $items['admin/structure/feeds/list'] = array(
-    'title' => t('List'),
+    'title' => 'List',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
   $items['admin/structure/feeds/create'] = array(
-    'title' => t('New importer'),
+    'title' => 'New importer',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_ui_create_form'),
     'access arguments' => array('administer feeds'),
@@ -69,7 +68,7 @@ function feeds_ui_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['admin/structure/feeds/delete/%feeds_importer'] = array(
-    'title' => t('Delete configuration'),
+    'title' => 'Delete configuration',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_ui_delete_form', 4),
     'access arguments' => array('administer feeds'),

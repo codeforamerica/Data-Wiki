@@ -1,22 +1,13 @@
-/* $Id: colorbox_stockholmsyndrome.css,v 1.1.4.3 2010/12/02 08:41:26 frjo Exp $  */
-
-/*
-    ColorBox Core Style
-    The following rules are the styles that are consistant between themes.
-    Avoid changing this area to maintain compatability with future versions of ColorBox.
-*/
+/**
+ * ColorBox Core Style:
+ * The following CSS is consistent between example themes and should not be altered.
+ */
 #colorbox, #cboxOverlay, #cboxWrapper {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 9999;
   overflow: hidden;
-}
-#colorbox {
-  background: url(images/bg_tab.png) -49px -50px repeat-x #000;
-}
-#colorbox, #colorbox div {
-  overflow: visible; /* Required by the close button. */
 }
 #cboxOverlay {
   position: fixed;
@@ -28,14 +19,9 @@
 }
 #cboxContent {
   position: relative;
-  overflow: hidden;
 }
 #cboxLoadedContent {
   overflow: auto;
-}
-#cboxLoadedContent iframe {
-  display: block;
-  border: 0;
 }
 #cboxTitle {
   margin: 0;
@@ -49,12 +35,24 @@
 #cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow {
   cursor: pointer;
 }
+.cboxPhoto {
+  float: left;
+  margin: auto;
+  border: 0;
+  display: block;
+}
+.cboxIframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
 
-/*
-    ColorBox example user style
-    The following rules are ordered and tabbed in a way that represents the
-    order/nesting of the generated HTML, so that the structure easier to understand.
-*/
+/**
+ * Colorbox module Stockholm syndrome style:
+ * The styles are ordered & tabbed in a way that represents
+ * the nesting of the generated HTML.
+ */
 #cboxOverlay {
   background: #000;
   opacity: 0.4 !important;
@@ -71,6 +69,9 @@
   -moz-border-radius-bottomright: 9px;
   -webkit-border-bottom-left-radius: 9px;
   -webkit-border-bottom-right-radius: 9px;
+}
+#colorbox, #colorbox div {
+  overflow: visible; /* Required by the close button. */
 }
   #cboxWrapper {
     border-bottom-left-radius: 9px;
@@ -110,9 +111,14 @@
     }
     #cboxContent {
       background: #fff;
+      overflow: hidden;
       font: 11px Arial, sans-serif;
       margin-bottom: 28px;
     }
+      #cboxError {
+        padding: 50px;
+        border: 1px solid #ccc;
+      }
       #cboxLoadedContent {
       }
       #cboxTitle {
@@ -187,6 +193,6 @@
       }
 
 /* The following are fixes for IE. */
-.cboxIE #cboxTitle {
+.cboxIE6 #cboxTitle {
   background: #fff;
 }

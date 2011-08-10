@@ -117,17 +117,14 @@ function views_ui_preview($view, $display_id, $args = array()) {
 
     // AJAX happens via $_POST but everything expects exposed data to
     // be in GET. Copy stuff but remove ajax-framework specific keys.
-    $exposed_input = $_POST;
-    foreach (array('view_name', 'view_display_id', 'view_args', 'view_path', 'view_dom_id', 'pager_element', 'view_base_path', 'ajax_html_ids', 'ajax_page_state') as $key) {
+    // If we're clicking on links in a preview, though, we could actually
+    // still have some in $_GET, so we use $_REQUEST to ensure we get it all.
+    $exposed_input = $_REQUEST;
+    foreach (array('view_name', 'view_display_id', 'view_args', 'view_path', 'view_dom_id', 'pager_element', 'view_base_path', 'ajax_html_ids', 'ajax_page_state', 'form_id', 'form_build_id', 'form_token') as $key) {
       if (isset($exposed_input[$key])) {
         unset($exposed_input[$key]);
       }
     }
-    // @todo Remove this hack after fixing Views UI to display the preview
-    //   outside of the edit form, so that the edit form doesn't conflict with
-    //   the exposed widget form.
-    $exposed_input['form_id'] = 'views_exposed_form';
-    unset($exposed_input['form_build_id'], $exposed_input['form_token']);
 
     $view->set_exposed_input($exposed_input);
 
@@ -1076,9 +1073,11 @@ function views_ui_edit_form($form, &$form_state, $view, $display_id = NULL) {
     // Add a handle for the ctools collapsible-div. The handle is the title of the display
     $form['displays']['settings']['tab_title']['#markup'] = '<h2 id="edit-display-settings-title" class="ctools-collapsible-handle">' . t('@display_title details', array('@display_title' => ucwords($display_title))) . '</h2>';
     // Add a text that the display is disabled.
-    $enabled = $view->display[$display_id]->handler->get_option('enabled');
-    if (empty($enabled)) {
-      $form['displays']['settings']['disabled']['#markup'] = t('This display is disabled.');
+    if (!empty($view->display[$display_id]->handler)) {
+      $enabled = $view->display[$display_id]->handler->get_option('enabled');
+      if (empty($enabled)) {
+        $form['displays']['settings']['disabled']['#markup'] = t('This display is disabled.');
+      }
     }
     // The ctools collapsible-div content
     $form['displays']['settings']['settings_content']= array(
@@ -1117,13 +1116,6 @@ function views_ui_edit_form($form, &$form_state, $view, $display_id = NULL) {
       '#id' => 'views-ajax-body',
       '#markup' => views_ui_get_default_ajax_message(),
     );
-
-    // WYSIWYG does not yet work on AJAX returned content unless the editor
-    // libraries are loaded on the base page (http://drupal.org/node/356480).
-    // @todo Remove this when that issue is resolved.
-    if (module_exists('wysiwyg')) {
-      $form['dummy_text_format'] = array('#type' => 'text_format', '#prefix' => '<div style="display:none">', '#suffix' => '</div>');
-    }
   }
 
   // If relationships had to be fixed, we want to get that into the cache
@@ -1474,10 +1466,10 @@ function views_ui_get_display_tab($view, $display_id) {
   $plugin = $display->handler->definition;
   // If the plugin doesn't exist, display an error message instead of an edit
   // page.
-  if (empty($plugin)) {
+  if (empty($display->handler)) {
     $title = isset($display->display_title) ? $display->display_title : t('Invalid');
     // @TODO: Improved UX for the case where a plugin is missing.
-    $build['#markup'] = t("Error: Display @display refers to a plugin named '@plugin', but that plugin is missing.", array('@display' => $display->id, '@plugin' => $display->display_plugin));
+    $build['#markup'] = t("Error: Display @display refers to a plugin named '@plugin', but that plugin is not available.", array('@display' => $display->id, '@plugin' => $display->display_plugin));
   }
   // Build the content of the edit page.
   else {
@@ -1972,6 +1964,9 @@ function views_ui_import_validate($form, &$form_state) {
     form_set_error('', t('A view by that name already exists; please choose a different name'));
   }
 
+  // Make sure base table gets set properly if it got moved.
+  $view->update();
+
   $view->init_display();
 
   $broken = FALSE;
@@ -2249,8 +2244,8 @@ function views_ui_edit_form_get_bucket($type, $view, $display) {
       $build['fields'][$id]['#changed'] = TRUE;
     }
 
-    if ($display->handler->use_group_by()) {
-      $build['fields'][$id]['#settings_links'][] = l('<span class="label">' . t('Group settings') . '</span>', "admin/structure/views/nojs/config-item-group/$view->name/$display->id/$type/$id", array('attributes' => array('class' => 'views-button-configure views-ajax-link', 'title' => t('Group settings')), 'html' => true));
+    if ($display->handler->use_group_by() && $handler->use_group_by()) {
+      $build['fields'][$id]['#settings_links'][] = l('<span class="label">' . t('Aggregation settings') . '</span>', "admin/structure/views/nojs/config-item-group/$view->name/$display->id/$type/$id", array('attributes' => array('class' => 'views-button-configure views-ajax-link', 'title' => t('Aggregation settings')), 'html' => true));
     }
 
     if ($handler->has_extra_options()) {
@@ -2485,20 +2480,13 @@ function views_ui_standard_submit($form, &$form_state) {
   if ($was_defaulted === $is_defaulted) {
     // We're not changing which display these form values apply to.
     // Run the regular submit handler for this form.
-    $submit_handler = $form['#form_id'] . '_submit';
-    if (function_exists($submit_handler)) {
-      $submit_handler($form, $form_state);
-    }
   }
   elseif ($was_defaulted && !$is_defaulted) {
     // We were using the default display's values, but we're now overriding
     // the default display and saving values specific to this display.
-    // TODO: Document why the regular form submit handler isn't necessary in
-    // this case.
     $display = &$form_state['view']->display[$form_state['display_id']];
     $display->handler->options_override($form, $form_state);
     $display->handler->options_submit($form, $form_state);
-    views_ui_cache_set($form_state['view']);
   }
   elseif (!$was_defaulted && $is_defaulted) {
     // We used to have an override for this display, but the user now wants
@@ -2508,14 +2496,11 @@ function views_ui_standard_submit($form, &$form_state) {
     $display = &$form_state['view']->display[$form_state['display_id']];
     $display->handler->options_override($form, $form_state);
     $display->handler->options_submit($form, $form_state);
+  }
 
-    // TODO: This is copy/paste code. Refactor.
-    $submit_handler = $form['#form_id'] . '_submit';
-    if (function_exists($submit_handler)) {
-      $submit_handler($form, $form_state);
-    }
-
-    views_ui_cache_set($form_state['view']);
+  $submit_handler = $form['#form_id'] . '_submit';
+  if (function_exists($submit_handler)) {
+    $submit_handler($form, $form_state);
   }
 }
 
@@ -3910,6 +3895,22 @@ function views_ui_add_item_form($form, &$form_state) {
       $group = preg_replace('/[^a-z0-9]/', '-', strtolower($option['group']));
       $groups[$group] = $option['group'];
       $grouped_options[$group][$key] = $option;
+      if (!empty($option['aliases']) && is_array(empty($option['aliases']))) {
+        foreach ($option['aliases'] as $id => $alias) {
+          if (empty($alias['base']) || !empty($base_tables[$alias['base']])) {
+            $copy = $option;
+            $copy['group'] = $alias['group'];
+            $copy['title'] = $alias['title'];
+            if (isset($alias['help'])) {
+              $copy['help'] = $alias['help'];
+            }
+
+            $group = preg_replace('/[^a-z0-9]/', '-', strtolower($copy['group']));
+            $groups[$group] = $copy['group'];
+            $grouped_options[$group][$key . '$' . $id] = $copy;
+          }
+        }
+      }
     }
 
     foreach ($grouped_options as $group => $group_options) {
@@ -3962,6 +3963,10 @@ function views_ui_add_item_form_submit($form, &$form_state) {
     // Loop through each of the items that were checked and add them to the view.
     foreach (array_keys(array_filter($form_state['values']['name'])) as $field) {
       list($table, $field) = explode('.', $field, 2);
+
+      if ($cut = strpos($field, '$')) {
+        $field = substr($field, 0, $cut);
+      }
       $id = $form_state['view']->add_item($form_state['display_id'], $type, $table, $field);
 
       // check to see if we have group by settings
@@ -4855,7 +4860,7 @@ function views_fetch_fields($base, $type, $grouping = FALSE) {
             if (isset($info[$key]['moved to'])) {
               continue;
             }
-            foreach (array('title', 'group', 'help', 'base') as $string) {
+            foreach (array('title', 'group', 'help', 'base', 'aliases') as $string) {
               // First, try the lowest possible level
               if (!empty($info[$key][$string])) {
                 $strings[$field][$key][$string] = $info[$key][$string];
@@ -4869,7 +4874,7 @@ function views_fetch_fields($base, $type, $grouping = FALSE) {
                 $strings[$field][$key][$string] = $table_data['table'][$string];
               }
               else {
-                if ($string != 'base') {
+                if ($string != 'base' && $string != 'base') {
                   $strings[$field][$key][$string] = t("Error: missing @component", array('@component' => $string));
                 }
               }

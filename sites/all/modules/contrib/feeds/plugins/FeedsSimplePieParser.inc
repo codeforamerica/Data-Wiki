@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsSimplePieParser.inc,v 1.18.2.2 2010/10/25 23:59:31 alexb Exp $
 
 /**
  * Adapter to present SimplePie_Enclosure as FeedsEnclosure object.

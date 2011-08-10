@@ -1,5 +1,4 @@
 <?php
-// $Id: colorbox.api.php,v 1.1.4.3 2011/01/04 10:02:44 frjo Exp $
 
 /**
  * @file
@@ -9,7 +8,7 @@
 /**
  * Allows to override Colorbox settings and style.
  *
- * Implementation of hook_colorbox_settings_alter().
+ * Implements hook_colorbox_settings_alter().
  *
  * @param $settings
  *   An associative array of Colorbox settings. See the
@@ -32,7 +31,7 @@ function hook_colorbox_settings_alter(&$settings, &$style) {
 /**
  * Allow other modules to control access to forms opening in Colorbox.
  *
- * Implementation of hook_colorbox_form_access().
+ * Implements hook_colorbox_form_access().
  *
  * @param $form_id
  *   The unique string identifying the current form.

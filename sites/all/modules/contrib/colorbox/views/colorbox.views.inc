@@ -1,5 +1,4 @@
 <?php
-// $Id: colorbox.views.inc,v 1.2.2.1 2011/01/05 17:43:41 frjo Exp $
 
 /**
  * @file

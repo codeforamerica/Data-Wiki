@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsUserProcessor.inc,v 1.22.2.11 2010/12/16 17:21:02 alexb Exp $
 
 /**
  * @file
@@ -61,7 +60,7 @@ class FeedsUserProcessor extends FeedsProcessor {
       $account->mail = $account->mail . '_test';
     }
     user_save($account, (array) $account);
-    if ($account->uid && $account->openid) {
+    if ($account->uid && !empty($account->openid)) {
       $authmap = array(
         'uid' => $account->uid,
         'module' => 'openid',
@@ -167,6 +166,10 @@ class FeedsUserProcessor extends FeedsProcessor {
         'name' => t('Created date'),
         'description' => t('The created (e. g. joined) data of the user.'),
        ),
+      'pass' => array(
+        'name' => t('Unencrypted Password'),
+        'description' => t('The unencrypted user password.'),
+      ),
     );
     if (module_exists('openid')) {
       $targets['openid'] = array(

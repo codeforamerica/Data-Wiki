@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsProcessor.inc,v 1.20.2.11 2010/12/22 01:46:46 alexb Exp $
 
 
 // Update mode for existing items.
@@ -120,11 +119,10 @@ abstract class FeedsProcessor extends FeedsPlugin {
           }
           else {
             $entity = $this->entityLoad($source, $entity_id);
-            // If an existing item info can't be loaded, create one.
-            if (!$this->loadItemInfo($entity)) {
-              $this->newItemInfo($entity, $source->feed_nid, $hash);
-              $entity->feeds_item->entity_id = $entity_id;
-            }
+            // The feeds_item table is always updated with the info for the most recently processed entity.
+            // The only carryover is the entity_id.
+            $this->newItemInfo($entity, $source->feed_nid, $hash);
+            $entity->feeds_item->entity_id = $entity_id;
           }
           $this->map($source, $parser_result, $entity);
           $this->entityValidate($entity);
@@ -143,9 +141,9 @@ abstract class FeedsProcessor extends FeedsPlugin {
           drupal_set_message($e->getMessage(), 'warning');
           $message = $e->getMessage();
           $message .= '<h3>Original item</h3>';
-          $message .= '<pre>' . var_export($item, true) . '</pre>';
+          $message .= '<pre>' . var_export($item, TRUE) . '</pre>';
           $message .= '<h3>Entity</h3>';
-          $message .= '<pre>' . var_export($entity, true) . '</pre>';
+          $message .= '<pre>' . var_export($entity, TRUE) . '</pre>';
           $source->log('import', $message, array(), WATCHDOG_ERROR);
         }
       }
@@ -165,8 +163,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
       $messages[] = array(
        'message' => format_plural(
           $state->created,
-          'Created @number @entity',
-          'Created @number @entities',
+          'Created @number @entity.',
+          'Created @number @entities.',
           array('@number' => $state->created) + $tokens
         ),
       );
@@ -175,8 +173,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
       $messages[] = array(
        'message' => format_plural(
           $state->updated,
-          'Updated @number @entity',
-          'Updated @number @entities',
+          'Updated @number @entity.',
+          'Updated @number @entities.',
           array('@number' => $state->updated) + $tokens
         ),
       );
@@ -185,8 +183,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
       $messages[] = array(
        'message' => format_plural(
           $state->failed,
-          'Failed importing @number @entity',
-          'Failed importing @number @entities',
+          'Failed importing @number @entity.',
+          'Failed importing @number @entities.',
           array('@number' => $state->failed) + $tokens
         ),
         'level' => WATCHDOG_ERROR,
@@ -199,7 +197,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
     }
     foreach ($messages as $message) {
       drupal_set_message($message['message']);
-      $source->log('import', $message, array(), isset($message['level']) ? $message['level'] : WATCHDOG_INFO);
+      $source->log('import', $message['message'], array(), isset($message['level']) ? $message['level'] : WATCHDOG_INFO);
     }
   }
 
@@ -445,9 +443,9 @@ abstract class FeedsProcessor extends FeedsPlugin {
     );
     global $user;
     $formats = filter_formats($user);
-      foreach ($formats as $format) {
-        $format_options[$format->format] = check_plain($format->name);
-      }
+    foreach ($formats as $format) {
+      $format_options[$format->format] = check_plain($format->name);
+    }
     $form['input_format'] = array(
       '#type' => 'select',
       '#title' => t('Text format'),

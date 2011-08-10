@@ -1,5 +1,4 @@
 <?php
-// $Id: feeds_processor_user.test,v 1.4.2.2 2010/10/06 14:12:43 alexb Exp $
 
 /**
  * @file
@@ -10,34 +9,18 @@
  * Test aggregating a feed as data records.
  */
 class FeedsCSVtoUsersTest extends FeedsWebTestCase {
-
-  /**
-   * Describe this test.
-   */
-  public function getInfo() {
+  public static function getInfo() {
     return array(
-      'name' => t('CSV import to users'),
-      'description' => t('Tests a standalone import configuration that uses file fetcher and CSV parser to import users from a CSV file.'),
-      'group' => t('Feeds'),
+      'name' => 'CSV import to users',
+      'description' => 'Tests a standalone import configuration that uses file fetcher and CSV parser to import users from a CSV file.',
+      'group' => 'Feeds',
     );
-  }
-
-  /**
-   * Set up test.
-   */
-  public function setUp() {
-    parent::setUp();
-    $this->drupalLogin($this->drupalCreateUser(array(
-      'administer feeds',
-      'administer users',
-    )));
   }
 
   /**
    * Test node creation, refreshing/deleting feeds and feed items.
    */
   public function test() {
-
     // Create an importer.
     $this->createImporterConfiguration('User import', 'user_import');
 
@@ -63,6 +46,11 @@ class FeedsCSVtoUsersTest extends FeedsWebTestCase {
         'target' => 'created',
         'unique' => FALSE,
       ),
+      '3' => array(
+        'source' => 'password',
+        'target' => 'pass',
+        'unique' => 0,
+      ),
     );
     $this->addMappings('user_import', $mappings);
 
@@ -82,7 +70,7 @@ class FeedsCSVtoUsersTest extends FeedsWebTestCase {
     $this->setSettings('user_import', 'FeedsUserProcessor', $edit);
 
     // Import CSV file.
-    $this->importFile('user_import', $this->absolutePath() .'/tests/feeds/users.csv');
+    $this->importFile('user_import', $this->absolutePath() . '/tests/feeds/users.csv');
 
     // Assert result.
     $this->assertText('Created 4 users');
@@ -100,5 +88,11 @@ class FeedsCSVtoUsersTest extends FeedsWebTestCase {
     $this->assertEqual($count, 0, t('No imported user was assigned the administrator role.'));
 
     // @todo Test status setting, update existing and role settings.
+
+    // Attempt to log in as one of the imported users.
+    $account = user_load_by_name('Morticia');
+    $this->assertTrue($account, 'Imported user account loaded.');
+    $account->pass_raw = 'mort';
+    $this->drupalLogin($account);
   }
 }

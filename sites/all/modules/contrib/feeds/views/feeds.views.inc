@@ -1,5 +1,4 @@
 <?php
-// $Id: feeds.views.inc,v 1.4.2.3 2010/10/26 03:05:58 alexb Exp $
 
 /**
  * @file

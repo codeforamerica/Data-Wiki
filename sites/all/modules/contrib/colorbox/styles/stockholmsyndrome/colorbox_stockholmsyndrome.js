@@ -1,4 +1,3 @@
-// $Id: colorbox_stockholmsyndrome.js,v 1.1.4.3 2010/12/02 09:12:36 frjo Exp $
 (function ($) {
 
 Drupal.behaviors.initColorboxStockholmsyndromeStyle = {

@@ -1,5 +1,4 @@
 <?php
-// $Id: taxonomy.inc,v 1.13.2.4 2010/12/06 20:57:00 alexb Exp $
 
 /**
  * @file
@@ -14,7 +13,7 @@
 function taxonomy_feeds_parser_sources_alter(&$sources, $content_type) {
   if (!empty($content_type)) {
     foreach (taxonomy_get_vocabularies($content_type) as $vocabulary) {
-      $sources['parent:taxonomy:'. $vocabulary->machine_name] = array(
+      $sources['parent:taxonomy:' . $vocabulary->machine_name] = array(
         'name' => t('Feed node: Taxonomy: @vocabulary', array('@vocabulary' => $vocabulary->name)),
         'description' => t('Taxonomy terms from feed node in given vocabulary.'),
         'callback' => 'taxonomy_feeds_get_source',
@@ -49,7 +48,7 @@ function taxonomy_feeds_processor_targets_alter(&$targets, $entity_type, $bundle
     $info = field_info_field($name);
     if ($info['type'] == 'taxonomy_term_reference') {
       $targets[$name] = array(
-        'name' => $instance['label'],
+        'name' => check_plain($instance['label']),
         'callback' => 'taxonomy_feeds_set_target',
         'description' => t('The @label field of the node.', array('@label' => $instance['label'])),
       );

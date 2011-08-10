@@ -21,6 +21,10 @@ function token_token_info_alter(&$info) {
   // Add a 'dynamic' key to any tokens that have chained but dynamic tokens.
   $info['tokens']['date']['custom']['dynamic'] = TRUE;
 
+  // The [file:size] may not always return in kilobytes.
+  // @todo Remove when http://drupal.org/node/1193044 is fixed.
+  $info['tokens']['file']['size']['description'] = t('The size of the file.');
+
   // Remove deprecated tokens from being listed.
   unset($info['tokens']['node']['tnid']);
   unset($info['tokens']['node']['type']);
@@ -52,6 +56,19 @@ function token_token_info_alter(&$info) {
   $info['tokens']['term']['url']['type'] = 'url';
   $info['tokens']['user']['url']['type'] = 'url';
   // @todo Support other tokens not named 'url'
+
+  // Add support for custom date formats.
+  // @todo Remove when http://drupal.org/node/1173706 is fixed.
+  $date_format_types = system_get_date_types();
+  foreach ($date_format_types as $date_format_type => $date_format_type_info) {
+    if (!isset($info['tokens']['date'][$date_format_type])) {
+      $info['tokens']['date'][$date_format_type] = array(
+        'name' => $date_format_type_info['title'],
+        'description' => t("A date in '@type' format. (%date)", array('@type' => $date_format_type, '%date' => format_date(REQUEST_TIME, $date_format_type))),
+        'module' => 'token',
+      );
+    }
+  }
 }
 
 /**
@@ -78,7 +95,7 @@ function token_token_info() {
   $info['types']['content-type'] = array(
     'name' => t('Content types'),
     'description' => t('Tokens related to content types.'),
-    'needs-data' => 'content-type',
+    'needs-data' => 'node_type',
   );
   $info['tokens']['content-type']['name'] = array(
     'name' => t('Name'),
@@ -109,6 +126,11 @@ function token_token_info() {
       'description' => t("The URL of the taxonomy term's edit page."),
       //'type' => 'url',
     );
+    $info['tokens']['term']['root'] = array(
+      'name' => t('Root term'),
+      'description' => t("The root term of the taxonomy term."),
+      'type' => 'term',
+    );
 
     $info['tokens']['vocabulary']['machine-name'] = array(
       'name' => t('Machine-readable name'),
@@ -125,6 +147,10 @@ function token_token_info() {
   $info['tokens']['file']['extension'] = array(
     'name' => t('Extension'),
     'description' => t('The extension of the file.'),
+  );
+  $info['tokens']['file']['size-raw'] = array(
+    'name' => t('File byte size'),
+    'description' => t('The size of the file, in bytes.'),
   );
 
   // User tokens.
@@ -213,12 +239,17 @@ function token_token_info() {
     'description' => t("The specific argument of the current page (e.g. 'arg:1' on the page 'node/1' returns '1')."),
     'dynamic' => TRUE,
   );
+  $info['tokens']['current-page']['query'] = array(
+    'name' => t('Query string value'),
+    'description' => t('The value of a specific query string field of the current page.'),
+    'dynamic' => TRUE,
+  );
 
   // URL tokens.
   $info['types']['url'] = array(
     'name' => t('URL'),
     'description' => t('Tokens related to URLs.'),
-    'needs-data' => 'url',
+    'needs-data' => 'path',
   );
   $info['tokens']['url']['path'] = array(
     'name' => t('Internal path'),
@@ -275,6 +306,21 @@ function token_token_info() {
     'dynamic' => TRUE,
   );
 
+  // Random tokens.
+  $info['types']['random'] = array(
+    'name' => t('Random'),
+    'description' => ('Tokens related to random data.'),
+  );
+  $info['tokens']['random']['number'] = array(
+    'name' => t('Number'),
+    'description' => t('A random number from 0 to @max.', array('@max' => mt_getrandmax())),
+  );
+  $info['tokens']['random']['hash'] = array(
+    'name' => t('Hash'),
+    'description' => t('A random hash. The possible hashing algorithms are: @hash-algos.', array('@hash-algos' => implode(', ', hash_algos()))),
+    'dynamic' => TRUE,
+  );
+
   return $info;
 }
 
@@ -294,6 +340,19 @@ function token_tokens($type, $tokens, array $data = array(), array $options = ar
   }
 
   $sanitize = !empty($options['sanitize']);
+
+  // Date tokens.
+  if ($type == 'date') {
+    $date = !empty($data['date']) ? $data['date'] : REQUEST_TIME;
+
+    // @todo Remove when http://drupal.org/node/1173706 is fixed.
+    $date_format_types = system_get_date_types();
+    foreach ($tokens as $name => $original) {
+      if (isset($date_format_types[$name]) && _token_module('date', $name) == 'token') {
+        $replacements[$original] = format_date($date, $name, '', NULL, $language_code);
+      }
+    }
+  }
 
   // Current date tokens.
   // @todo Remove when http://drupal.org/node/943028 is fixed.
@@ -384,12 +443,27 @@ function token_tokens($type, $tokens, array $data = array(), array $options = ar
         case 'edit-url':
           $replacements[$original] = url("taxonomy/term/{$term->tid}/edit", $url_options);
           break;
+
+        case 'root':
+          $parents = taxonomy_get_parents_all($term->tid);
+          $root_term = end($parents);
+          if ($root_term->tid != $term->tid) {
+            $replacements[$original] = $sanitize ? check_plain($root_term->name) : $root_term->name;
+          }
+          break;
       }
     }
 
     // Chained token relationships.
     if (($url_tokens = token_find_with_prefix($tokens, 'url'))) {
       $replacements += token_generate('url', $url_tokens, entity_uri('taxonomy_term', $term), $options);
+    }
+    if ($root_tokens = token_find_with_prefix($tokens, 'root')) {
+      $parents = taxonomy_get_parents_all($term->tid);
+      $root_term = end($parents);
+      if ($root_term->tid != $term->tid) {
+        $replacements += token_generate('term', $root_tokens, array('term' => $root_term), $options);
+      }
     }
   }
 
@@ -419,6 +493,9 @@ function token_tokens($type, $tokens, array $data = array(), array $options = ar
         case 'extension':
           $extension = pathinfo($file->filename, PATHINFO_EXTENSION);
           $replacements[$original] = $sanitize ? check_plain($extension) : $extension;
+          break;
+        case 'size-raw':
+          $replacements[$original] = (int) $file->filesize;
           break;
       }
     }
@@ -535,11 +612,21 @@ function token_tokens($type, $tokens, array $data = array(), array $options = ar
       }
     }
 
-    // Argument tokens.
+    // [current-page:arg] dynamic tokens.
     if ($arg_tokens = token_find_with_prefix($tokens, 'arg')) {
       foreach ($arg_tokens as $name => $original) {
         if (is_numeric($name) && ($arg = arg($name)) && isset($arg)) {
           $replacements[$original] = $sanitize ? check_plain($arg) : $arg;
+        }
+      }
+    }
+
+    // [current-page:query] dynamic tokens.
+    if ($query_tokens = token_find_with_prefix($tokens, 'query')) {
+      foreach ($query_tokens as $name => $original) {
+        // @todo Should this use filter_input()?
+        if (isset($_GET[$name])) {
+          $replacements[$original] = $sanitize ? check_plain($_GET[$name]) : $_GET[$name];
         }
       }
     }
@@ -605,6 +692,9 @@ function token_tokens($type, $tokens, array $data = array(), array $options = ar
     if (($url_tokens = token_find_with_prefix($tokens, 'url')) && _token_module($type, 'url') == 'token') {
       $replacements += token_generate('url', $url_tokens, entity_uri($entity_type, $entity), $options);
     }
+
+    // @todo Pass through to an 'entity' token type generation?
+    // $replacements += token_generate('entity', $tokens, array('entity_type' => $entity_type, 'entity' => $entity), $options);
   }
 
   // Array tokens.
@@ -665,6 +755,27 @@ function token_tokens($type, $tokens, array $data = array(), array $options = ar
     // @todo Handle if the array values are not strings and could be chained.
   }
 
+  // Random tokens.
+  if ($type == 'random') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'number':
+          $replacements[$original] = mt_rand();
+          break;
+      }
+    }
+
+    // [custom:hash:*] dynamic token.
+    if ($hash_tokens = token_find_with_prefix($tokens, 'hash')) {
+      $algos = hash_algos();
+      foreach ($hash_tokens as $name => $original) {
+        if (in_array($name, $algos)) {
+          $replacements[$original] = hash($name, drupal_random_bytes(55));
+        }
+      }
+    }
+  }
+
   // If $type is a token type, $data[$type] is empty but $data[$entity_type] is
   // not, re-run token replacements.
   if (empty($data[$type]) && ($entity_type = token_get_entity_mapping('token', $type)) && $entity_type != $type && !empty($data[$entity_type]) && empty($options['recursive'])) {
@@ -673,7 +784,87 @@ function token_tokens($type, $tokens, array $data = array(), array $options = ar
     $replacements += module_invoke_all('tokens', $type, $tokens, $data, $options);
   }
 
+  // If the token type specifics a 'needs-data' value, and the value is not
+  // present in $data, then throw an error.
+  $type_info = token_get_info($type);
+  if (!empty($type_info['needs-data']) && !isset($data[$type_info['needs-data']])) {
+    trigger_error(t('Attempting to perform token replacement for token type %type without required data', array('%type' => $type)), E_USER_WARNING);
+  }
+
   return $replacements;
+}
+
+/**
+ * Implements hook_tokens_alter().
+ *
+ * Fix existing core tokens that do not work correctly.
+ */
+function token_tokens_alter(array &$replacements, array $context) {
+  $options = $context['options'];
+
+  if (isset($options['language'])) {
+    $url_options['language'] = $options['language'];
+    $language_code = $options['language']->language;
+  }
+  else {
+    $language_code = NULL;
+  }
+  $sanitize = !empty($options['sanitize']);
+
+  // Comment token fixes.
+  if ($context['type'] == 'comment' && !empty($context['data']['comment'])) {
+    $comment = $context['data']['comment'];
+
+    foreach ($context['tokens'] as $name => $original) {
+      switch ($name) {
+        case 'name':
+        case 'author':
+          // @todo Remove when http://drupal.org/node/920056 is fixed.
+          if (!empty($comment->uid)) {
+            $account = user_load($comment->uid);
+          }
+          else {
+            $account = drupal_anonymous_user();
+            $account->name = $comment->name;
+          }
+          $name = format_username($account);
+          $replacements[$original] = $sanitize ? check_plain($name) : $name;
+          break;
+      }
+    }
+  }
+
+  // Node token fixes.
+  if ($context['type'] == 'node' && !empty($context['data']['node'])) {
+    $node = $context['data']['node'];
+
+    foreach ($context['tokens'] as $name => $original) {
+      switch ($name) {
+        case 'author':
+          // @todo Remove when http://drupal.org/node/1185842 is fixed.
+          $account = user_load($node->uid);
+          $name = format_username($account);
+          $replacements[$original] = $sanitize ? check_plain($name) : $name;
+          break;
+      }
+    }
+  }
+
+  // File token fixes.
+  if ($context['type'] == 'file' && !empty($context['data']['file'])) {
+    $file = $context['data']['file'];
+
+    foreach ($context['tokens'] as $name => $original) {
+      switch ($name) {
+        case 'owner':
+          // @todo Remove when http://drupal.org/node/978028 is fixed.
+          $account = user_load($file->uid);
+          $name = format_username($account);
+          $replacements[$original] = $sanitize ? check_plain($name) : $name;
+          break;
+      }
+    }
+  }
 }
 
 /**

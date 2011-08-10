@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsHTTPFetcher.inc,v 1.29.2.2 2010/10/26 19:03:14 yhahn Exp $
 
 /**
  * @file
@@ -79,12 +78,12 @@ class FeedsHTTPFetcher extends FeedsFetcher {
       }
       catch (Exception $e) {
         // In case of an error, respond with a 503 Service (temporary) unavailable.
-        header('HTTP/1.1 503 "Not Found"', null, 503);
+        header('HTTP/1.1 503 "Not Found"', NULL, 503);
         exit();
       }
     }
     // Will generate the default 200 response.
-    header('HTTP/1.1 200 "OK"', null, 200);
+    header('HTTP/1.1 200 "OK"', NULL, 200);
     exit();
   }
 
@@ -121,7 +120,6 @@ class FeedsHTTPFetcher extends FeedsFetcher {
       '#title' => t('Designated hub'),
       '#description' => t('Enter the URL of a designated PubSubHubbub hub (e. g. superfeedr.com). If given, this hub will be used instead of the hub specified in the actual feed.'),
       '#default_value' => $this->config['designated_hub'],
-//      '#process' => array('ctools_dependent_process'),
       '#dependency' => array(
         'edit-use-pubsubhubbub' => array(1),
       ),
@@ -149,7 +147,11 @@ class FeedsHTTPFetcher extends FeedsFetcher {
    * Override parent::sourceFormValidate().
    */
   public function sourceFormValidate(&$values) {
-    if ($this->config['auto_detect_feeds']) {
+    if (!feeds_valid_url($values['source'], TRUE)) {
+      $form_key = 'feeds][' . get_class($this) . '][source';
+      form_set_error($form_key, t('The URL %source is invalid.', array('%source' => $values['source'])));
+    }
+    elseif ($this->config['auto_detect_feeds']) {
       feeds_include_library('http_request.inc', 'http_request');
       if ($url = http_request_get_common_syndication($values['source'])) {
         $values['source'] = $url;

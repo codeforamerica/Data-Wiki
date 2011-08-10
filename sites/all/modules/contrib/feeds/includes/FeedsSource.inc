@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsSource.inc,v 1.26.2.9 2010/12/06 20:35:06 alexb Exp $
 
 /**
  * @file
@@ -183,7 +182,7 @@ class FeedsSource extends FeedsConfigurable {
    * Instantiate a unique object per class/id/feed_nid. Don't use
    * directly, use feeds_source() instead.
    */
-  public static function instance($importer_id, $feed_nid = 0) {
+  public static function instance($importer_id, $feed_nid) {
     $class = variable_get('feeds_source_class', 'FeedsSource');
     static $instances = array();
     if (!isset($instances[$class][$importer_id][$feed_nid])) {
@@ -349,7 +348,9 @@ class FeedsSource extends FeedsConfigurable {
       // Process.
       $this->importer->processor->process($this, $parser_result);
     }
-    catch (Exception $e) {}
+    catch (Exception $e) {
+      // Do nothing.
+    }
     $this->releaseLock();
 
     // Clean up.
@@ -388,7 +389,9 @@ class FeedsSource extends FeedsConfigurable {
       $this->importer->parser->clear($this);
       $this->importer->processor->clear($this);
     }
-    catch (Exception $e) {}
+    catch (Exception $e) {
+      // Do nothing.
+    }
     $this->releaseLock();
 
     // Clean up.
@@ -505,7 +508,7 @@ class FeedsSource extends FeedsConfigurable {
    * @todo Patch CTools to move constants from export.inc to ctools.module.
    */
   public function load() {
-    if ($record = db_query("SELECT imported, config, state, fetcher_result FROM {feeds_source} WHERE id = :id AND feed_nid = :nid", array(':id' => $this->id, ':nid' => $this->feed_nid))->fetch()) {
+    if ($record = db_query("SELECT imported, config, state, fetcher_result FROM {feeds_source} WHERE id = :id AND feed_nid = :nid", array(':id' => $this->id, ':nid' => $this->feed_nid))->fetchObject()) {
       // While FeedsSource cannot be exported, we still use CTool's export.inc
       // export definitions.
       ctools_include('export');

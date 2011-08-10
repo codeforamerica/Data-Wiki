@@ -65,7 +65,7 @@ class view extends views_db_object {
    * @var string
    */
   var $current_display;
-  
+
   /**
    * Where the $query object will reside:
    *
@@ -88,6 +88,13 @@ class view extends views_db_object {
    var $style_plugin;
 
   /**
+   * Allow to override the path used for generated urls.
+   *
+   * @var string
+   */
+  var $override_path = NULL;
+
+  /**
    * Constructor
    */
   function __construct() {
@@ -97,6 +104,20 @@ class view extends views_db_object {
       $this->$object = array();
     }
   }
+
+  /**
+   * Perform automatic updates when loading or importing a view.
+   *
+   * Over time, some things about Views or Drupal data has changed.
+   * this attempts to do some automatic updates that must happen
+   * to ensure older views will at least try to work.
+   */
+  function update() {
+    // When views are converted automatically the base_table should be renamed
+    // to have a working query.
+    $this->base_table = views_move_table($this->base_table);
+  }
+
 
   /**
    * Returns a list of the sub-object types used by this view. These types are
@@ -177,6 +198,15 @@ class view extends views_db_object {
     // If the pager is already initialized, pass it through to the pager.
     if (!empty($this->query->pager)) {
       $this->query->pager->set_offset($offset);
+    }
+  }
+
+  /**
+   * Determine if the pager actually uses a pager.
+   */
+  function use_pager() {
+    if (!empty($this->query->pager)) {
+      return $this->query->pager->use_pager();
     }
   }
 
@@ -391,8 +421,11 @@ class view extends views_db_object {
     // For each relationship we have, make sure we mark the base it provides as
     // available.
     foreach ($this->display_handler->get_option('relationships') as $id => $options) {
-      $data = views_fetch_data($options['table']);
-      $base_tables[$data[$options['field']]['relationship']['base']] = TRUE;
+      $options['table'] = views_move_table($options['table']);
+      $data = views_fetch_data($options['table'], FALSE);
+      if (isset($data[$options['field']])) {
+        $base_tables[$data[$options['field']]['relationship']['base']] = TRUE;
+      }
     }
 
     $base_tables = array_keys($base_tables);
@@ -401,7 +434,9 @@ class view extends views_db_object {
     $types = views_object_types();
     foreach ($types as $key => $info) {
       foreach ($this->display_handler->get_option($info['plural']) as $id => $options) {
-        $data = views_fetch_data($options['table']);
+        $options['table'] = views_move_table($options['table']);
+        $data = views_fetch_data($options['table'], FALSE);
+
         $valid_bases = array($options['table']);
         if (isset($data['table']['join'])) {
           $valid_bases = array_merge($valid_bases, array_keys($data['table']['join']));

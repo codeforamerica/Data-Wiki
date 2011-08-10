@@ -1,5 +1,4 @@
 <?php
-// $Id: field.inc,v 1.1.2.7 2010/10/28 18:49:47 alexb Exp $
 
 /**
  * @file
@@ -17,14 +16,15 @@
  */
 function field_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_name) {
   $numeric_types = array(
-    'list',
+    'list_integer',
+    'list_float',
     'list_boolean',
-    'list_number',
     'number_integer',
     'number_decimal',
     'number_float',
   );
   $string_types = array(
+    'list_text',
     'text',
     'text_long',
     'text_with_summary',
@@ -40,7 +40,7 @@ function field_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_na
     }
     if (isset($callback)) {
       $targets[$name] = array(
-        'name' => $instance['label'],
+        'name' => check_plain($instance['label']),
         'callback' => $callback,
         'description' => t('The @label field of the node.', array('@label' => $instance['label'])),
       );

@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.35.2.2 2010/10/28 20:45:44 alexb Exp $
 
 
 "It feeds"

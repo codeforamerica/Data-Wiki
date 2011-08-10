@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsParser.inc,v 1.25.2.8 2011/01/11 17:31:45 alexb Exp $
 
 /**
  * A result of a parsing stage.
@@ -321,7 +320,7 @@ class FeedsEnclosure extends FeedsElement {
       else {
         $filename = basename($this->getValue());
         if (module_exists('transliteration')) {
-          require_once (drupal_get_path('module', 'transliteration') . '/transliteration.inc');
+          require_once drupal_get_path('module', 'transliteration') . '/transliteration.inc';
           $filename = transliteration_clean_filename($filename);
         }
         $file = file_save_data($this->getContent(), "$destination/$filename");
@@ -510,7 +509,7 @@ class FeedsDateTime extends DateTime {
    *
    * Ref: http://bugs.php.net/41334, http://bugs.php.net/39821
    */
-  public function __sleep(){
+  public function __sleep() {
     $this->_serialized_time = $this->format('c');
     $this->_serialized_timezone = $this->getTimezone()->getName();
     return array('_serialized_time', '_serialized_timezone');
@@ -535,7 +534,7 @@ class FeedsDateTime extends DateTime {
   public function __construct($time = '', $tz = NULL) {
     // Assume UNIX timestamp if numeric.
     if (is_numeric($time)) {
-      $time = "@". $time;
+      $time = "@" . $time;
     }
 
     // PHP < 5.3 doesn't like the GMT- notation for parsing timezones.
@@ -598,7 +597,7 @@ class FeedsDateTime extends DateTime {
    * In order to set a timezone for a datetime that doesn't have such
    * granularity, merge() it with one that does.
    */
-  public function setTimezone(DateTimeZone $tz, $force = FALSE) {
+  public function setTimezone($tz, $force = FALSE) {
     // PHP 5.2.6 has a fatal error when setting a date's timezone to itself.
     // http://bugs.php.net/bug.php?id=45038
     if (version_compare(PHP_VERSION, '5.2.7', '<') && $tz == $this->getTimezone()) {

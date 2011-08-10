@@ -1,5 +1,4 @@
 <?php
-// $Id: feeds_tests.module,v 1.1.2.2 2010/10/27 22:33:32 alexb Exp $
 
 /**
  * Implements hook_menu().

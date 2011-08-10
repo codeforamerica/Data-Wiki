@@ -1,5 +1,4 @@
 <?php
-// $Id: colorbox.install,v 1.4.2.1 2010/07/25 17:49:19 frjo Exp $
 
 /**
  * @file
@@ -7,28 +6,29 @@
  */
 
 /**
- * Implementation of hook_requirements().
+ * Implements hook_requirements().
  */
 function colorbox_requirements($phase) {
   $requirements = array();
 
   if ($phase == 'runtime') {
     $t = get_t();
-    $status = _colorbox_status();
+    $library_path = colorbox_get_path();
+    $colorbox_version = colorbox_get_version();
 
-    if (!$status['colorbox_plugin']) {
+    if (version_compare($colorbox_version, COLORBOX_MIN_PLUGIN_VERSION, '>=')) {
       $requirements['colorbox_plugin'] = array(
         'title' => $t('Colorbox plugin'),
-        'value' => $t('At least @a', array('@a' => COLORBOX_MIN_PLUGIN_VERSION)),
-        'severity' => REQUIREMENT_ERROR,
-        'description' => $t('You need to download the !colorbox and extract the entire contents of the archive into the %path folder of your server.', array('!colorbox' => l(t('Colorbox plugin'), 'http://colorpowered.com/colorbox/'), '%path' => 'sites/all/libraries')),
+        'severity' => REQUIREMENT_OK,
+        'value' => $colorbox_version,
       );
     }
     else {
       $requirements['colorbox_plugin'] = array(
         'title' => $t('Colorbox plugin'),
-        'severity' => REQUIREMENT_OK,
-        'value' => colorbox_get_version(),
+        'value' => $t('At least @a', array('@a' => COLORBOX_MIN_PLUGIN_VERSION)),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => $t('You need to download the !colorbox and extract the entire contents of the archive into the %path folder of your server.', array('!colorbox' => l(t('Colorbox plugin'), 'http://colorpowered.com/colorbox/'), '%path' => $library_path)),
       );
     }
   }
@@ -37,34 +37,18 @@ function colorbox_requirements($phase) {
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function colorbox_uninstall() {
   db_query("DELETE FROM {variable} WHERE name LIKE 'colorbox_%'");
 }
 
 /**
- * Provides a upgrade path for Thickbox users.
- * Replaces "thickbox" with "colorbox" in
- * content_node_field_instance -> display_settings
+ * Delete the unused colorbox_login_form variabel.
  */
-// function colorbox_update_6001() {
-//   $ret = array();
-//
-//   $result = db_query("SELECT *  FROM {content_node_field_instance}");
-//   while ($type = db_fetch_array($result)) {
-//     $new_settings = array();
-//     $display_settings = unserialize($type['display_settings']);
-//     if (!empty($display_settings)) {
-//       foreach ($display_settings as $key => $val) {
-//         $new_settings[$key] = $val;
-//         if ($key == 'format' && is_array($val)) {
-//           $new_settings[$key]['exclude'] = 0;
-//         }
-//       }
-//     }
-//     db_query("UPDATE {content_node_field_instance} SET display_settings='%s' WHERE field_name='%s' AND type_name='%s'", serialize($new_settings), $type['field_name'], $type['type_name']);
-//   }
-//
-//   return $ret;
-// }
+function colorbox_update_7001() {
+  $ret = array();
+  variable_del('colorbox_login_form');
+
+  return $ret;
+}

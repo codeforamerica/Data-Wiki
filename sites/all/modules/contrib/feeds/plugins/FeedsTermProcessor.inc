@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsTermProcessor.inc,v 1.25.2.14 2010/10/29 21:19:06 yhahn Exp $
 
 /**
  * @file
@@ -127,7 +126,9 @@ class FeedsTermProcessor extends FeedsProcessor {
       self::loadMappers();
       feeds_alter('feeds_processor_targets', $targets, 'taxonomy_term', $this->vocabulary()->machine_name);
     }
-    catch (Exception $e) {}
+    catch (Exception $e) {
+      // Do nothing.
+    }
     return $targets;
   }
 

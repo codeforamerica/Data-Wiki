@@ -1,5 +1,4 @@
 <?php
-// $Id: colorbox.theme.inc,v 1.5.2.7 2011/01/14 15:14:37 frjo Exp $
 
 /**
  * @file
@@ -51,16 +50,16 @@ function theme_colorbox_image_formatter($variables) {
   $nid = !empty($node->nid) ? $node->nid : 'nid';
   switch (variable_get('colorbox_imagefield_gallery', 1)) {
     case 0:
-      $gallery_id = 'all';
+      $gallery_id = 'gallery-all';
       break;
     case 1:
-      $gallery_id = $nid;
+      $gallery_id = 'gallery-' . $nid;
       break;
     case 2:
-      $gallery_id = $nid . '-' . $field['field_name'];
+      $gallery_id = 'gallery-' . $nid . '-' . $field['field_name'];
       break;
     case 3:
-      $gallery_id = $nid . '-' . $field['fid'];
+      $gallery_id = '';
       break;
   }
 
@@ -106,7 +105,7 @@ function theme_colorbox_imagefield($variables) {
     'attributes' => array(
       'title' => $variables['title'],
       'class' => 'colorbox imagefield imagefield-imagelink',
-      'rel' => 'gallery-' . $variables['gid']
+      'rel' => $variables['gid'],
     )
   );
 
@@ -117,25 +116,28 @@ function theme_colorbox_imagefield($variables) {
  * Preprocess variables for the colorbox-insert-image.tpl.php file.
  */
 function template_preprocess_colorbox_insert_image(&$variables) {
-  $variables['file'] = file_load($variables['fid']);
-  $variables['image_path'] = image_style_url($variables['style_name'], $variables['file']->uri);
+  $file = file_load($variables['item']['fid']);
+
+  $variables['image_path'] = image_style_url($variables['item']['style_name'], $file->uri);
 
   if ($style_name = variable_get('colorbox_image_style', '')) {
-    $variables['link_path'] = image_style_url($style_name, $variables['file']->uri);
+    $variables['link_path'] = image_style_url($style_name, $file->uri);
   }
   else {
-    $variables['link_path'] = file_create_url($variables['file']->uri);
+    $variables['link_path'] = file_create_url($file->uri);
   }
+
+  $variables['class'] = $variables['widget']['settings']['insert_class'];
 
   $variables['gallery_id'] = '';
   switch (variable_get('colorbox_insert_gallery', 0)) {
     case 0:
     case 1:
     case 2:
-      $variables['gallery_id'] = 'insert-all';
+      $variables['gallery_id'] = 'gallery-all';
       break;
     case 3:
-      $variables['gallery_id'] = 'insert-' . $variables['item']['fid'];
+      $variables['gallery_id'] = '';
       break;
   }
 }

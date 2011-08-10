@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsImporter.inc,v 1.31.2.8 2010/12/20 20:03:07 alexb Exp $
 
 /**
  * @file

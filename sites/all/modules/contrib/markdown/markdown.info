@@ -5,9 +5,9 @@ core = 7.x
 files[] = markdown.module
 
 
-; Information added by drupal.org packaging script on 2011-02-25
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2011-07-20
+version = "7.x-1.0"
 core = "7.x"
 project = "markdown"
-datestamp = "1298619607"
+datestamp = "1311180423"
 

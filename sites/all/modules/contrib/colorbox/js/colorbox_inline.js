@@ -1,8 +1,10 @@
-// $Id: colorbox_inline.js,v 1.2.2.4 2011/01/05 17:43:41 frjo Exp $
 (function ($) {
 
 Drupal.behaviors.initColorboxInline = {
   attach: function (context, settings) {
+    if (!$.isFunction($.colorbox)) {
+      return;
+    }
     $.urlParam = function(name, url){
       if (name == 'fragment') {
         var results = new RegExp('(#[^&#]*)').exec(url);
@@ -10,13 +12,21 @@ Drupal.behaviors.initColorboxInline = {
       else {
         var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);
       }
-      if (!results) { return 0; }
-      return results[1] || 0;
+      if (!results) { return ''; }
+      return results[1] || '';
     };
     $('a, area, input', context).filter('.colorbox-inline').once('init-colorbox-inline-processed').colorbox({
       transition:settings.colorbox.transition,
       speed:settings.colorbox.speed,
       opacity:settings.colorbox.opacity,
+      slideshow:settings.colorbox.slideshow,
+      slideshowAuto:settings.colorbox.slideshowAuto,
+      slideshowSpeed:settings.colorbox.slideshowSpeed,
+      slideshowStart:settings.colorbox.slideshowStart,
+      slideshowStop:settings.colorbox.slideshowStop,
+      current:settings.colorbox.current,
+      previous:settings.colorbox.previous,
+      next:settings.colorbox.next,
       close:settings.colorbox.close,
       overlayClose:settings.colorbox.overlayClose,
       maxWidth:settings.colorbox.maxWidth,

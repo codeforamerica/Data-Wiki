@@ -1,8 +1,8 @@
 Drupal colorbox module:
 ------------------------
 Maintainers:
-  Joe Wheaton (http://drupal.org/user/298179)
   Fredrik Jonsson (http://drupal.org/user/5546)
+  Joe Wheaton (http://drupal.org/user/298179)
 Requires - Drupal 7
 License - GPL (see LICENSE)
 
@@ -52,14 +52,17 @@ Installation:
 1. Download and unpack the Colorbox plugin in "sites/all/libraries".
    Link: http://colorpowered.com/colorbox/colorbox.zip
    Drush users can use the command "drush colorbox-plugin".
-2. Place the Colorbox module directory in your modules folder (this will
-   usually be "sites/all/modules/").
-3. Go to "Administer" -> "Site building" -> "Modules" and enable the module.
+2. Download and unpack the Colorbox module directory in your modules folder
+   (this will usually be "sites/all/modules/").
+3. Go to "Administer" -> "Modules" and enable the module.
+
+If you want to use Colorbox with the Embedded Media Field module
+please check "Enable Colorbox load" in the settings.
 
 
 Configuration:
 -------------
-Go to "Administer" -> "Site configuration" -> "Colorbox" to find
+Go to "Configuration" -> "Media" -> "Colorbox" to find
 all the configuration options.
 
 
@@ -81,12 +84,32 @@ In the Colorbox settings select "None" as style. This will leave the
 styling of Colorbox up to your theme.
 
 
+Load content in a Colorbox:
+----------------------------------
+Check the "Enable Colorbox load" option in Colorbox settings.
+
+This enables custom links that can open content in a Colorbox. Add the class "colorbox-load" to the link and build the url like this "[path]?width=500&height=500&iframe=true" or "[path]?width=500&height=500" if you don't want an iframe.
+
+Other modules may activate this for easy Colorbox integration.
+
+
+Load inline content in a Colorbox:
+----------------------------------
+Check the "Enable Colorbox inline"  option in Colorbox settings.
+
+This enables custom links that can open inline content in a Colorbox. Inline in this context means some part/tag of the current page, e.g. a div. Replace "id-of-content" with the id of the tag you want to open.
+
+Add the class "colorbox-inline" to the link and build the url like this "?width=500&height=500&inline=true#id-of-content".
+
+Other modules may activate this for easy Colorbox integration.
+
+
 Load a selection of forms in a Colorbox:
 ----------------------------------------
 Check the "Enable Colorbox load" option in Colorbox settings.
 
 The following form_id can be used:
-* contact_mail_page
+* contact_site_form
 * user_login
 * user_login_block
 * user_register
@@ -94,12 +117,12 @@ The following form_id can be used:
 
 The links to open a form needs the class "colorbox-load". The URL should look like this.
 
-"/colorbox/form/[form_id]?width=[with_in_pixel]&height=[height_in_pixel]".
+"/colorbox/form/[form_id]?destination=[path_to_send_user_to_after_submit]&width=[with_in_pixel]&height=[height_in_pixel]".
 
 Here is an example where the user register form is opened in an
 500 by 250 pixel Colorbox.
 
-<a class="colorbox-load" href="/colorbox/form/user_register?width=500&height=250">Create new account</a>
+<a class="colorbox-load" href="/colorbox/form/user_register_form?destination=user&width=500&height=250">Create new account</a>
 
 
 Drush:
@@ -135,4 +158,3 @@ Contributions:
 
 Last updated:
 ------------
-$Id: README.txt,v 1.9.2.1 2011/01/04 10:02:44 frjo Exp $

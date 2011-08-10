@@ -1,4 +1,3 @@
-// $Id: colorbox_admin_settings.js,v 1.5 2010/05/23 10:38:57 frjo Exp $
 (function ($) {
 
 Drupal.behaviors.initColorboxAdminSettings = {

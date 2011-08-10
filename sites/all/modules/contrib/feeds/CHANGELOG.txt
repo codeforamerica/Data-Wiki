@@ -1,4 +1,8 @@
-// $Id: CHANGELOG.txt,v 1.176.2.42 2011/01/14 20:27:11 alexb Exp $
+- Issue #1011958 by David Goode: Allow hashes to be updated when content in a 
+  feed is updated.
+- Issue #1048642 by greg.harvey: Check for remove_flags in Feeds UI before using 
+  that variable.
+- #967018 jcarlson34, David Goode, alex_b: Mapping to String lists not supported
 
 Feeds 7.x 2.0 Alpha 3, 2011-01-14
 ---------------------------------

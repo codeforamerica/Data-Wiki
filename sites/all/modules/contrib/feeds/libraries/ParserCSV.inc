@@ -1,5 +1,4 @@
 <?php
-// $Id: ParserCSV.inc,v 1.4 2010/07/10 23:45:36 alexb Exp $
 
 /**
  * Contains CSV Parser.

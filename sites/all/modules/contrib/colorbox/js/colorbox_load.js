@@ -1,31 +1,42 @@
-// $Id: colorbox_load.js,v 1.2.2.3 2010/11/29 09:42:06 frjo Exp $
 (function ($) {
 
 Drupal.behaviors.initColorboxLoad = {
   attach: function (context, settings) {
-    $.urlParam = function(name, url){
-      var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);
-      if (!results) { return 0; }
-      return results[1] || 0;
-    };
-    $('a, area, input', context).filter('.colorbox-load').once('init-colorbox-load-processed').colorbox({
-      transition:settings.colorbox.transition,
-      speed:settings.colorbox.speed,
-      opacity:settings.colorbox.opacity,
-      close:settings.colorbox.close,
-      overlayClose:settings.colorbox.overlayClose,
-      maxWidth:settings.colorbox.maxWidth,
-      maxHeight:settings.colorbox.maxHeight,
-      innerWidth:function(){
-        return $.urlParam('width', $(this).attr('href'));
-      },
-      innerHeight:function(){
-        return $.urlParam('height', $(this).attr('href'));
-      },
-      iframe:function(){
-        return $.urlParam('iframe', $(this).attr('href'));
+    if (!$.isFunction($.colorbox)) {
+      return;
+    }
+    $.urlParams = function (url) {
+      var p = {},
+          e,
+          a = /\+/g,  // Regex for replacing addition symbol with a space
+          r = /([^&=]+)=?([^&]*)/g,
+          d = function (s) { return decodeURIComponent(s.replace(a, ' ')); },
+          q = url.split('?');
+      while (e = r.exec(q[1])) {
+        e[1] = d(e[1]);
+        e[2] = d(e[2]);
+        switch (e[2].toLowerCase()) {
+          case 'true':
+          case 'yes':
+            e[2] = true;
+            break;
+          case 'false':
+          case 'no':
+            e[2] = false;
+            break;
+        }
+        if (e[1] == 'width') { e[1] = 'innerWidth'; }
+        if (e[1] == 'height') { e[1] = 'innerHeight'; }
+        p[e[1]] = e[2];
       }
-    });
+      return p;
+    };
+    $('a, area, input', context)
+      .filter('.colorbox-load')
+      .once('init-colorbox-load-processed', function () {
+        var params = $.urlParams($(this).attr('href'));
+        $(this).colorbox($.extend({}, settings.colorbox, params));
+      });
   }
 };
 

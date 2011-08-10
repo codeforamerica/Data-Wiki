@@ -1,5 +1,4 @@
 <?php
-// $Id: colorbox-insert-image.tpl.php,v 1.1.4.2 2010/11/11 19:52:15 frjo Exp $
 
 /**
  * @file
@@ -9,7 +8,7 @@
  * - $item: The complete item being inserted.
  * - $image_path: The URL to the image.
  * - $link_path: The URL to the image that Colorbox should open.
- * - $style_name: The ImageCache preset being used.
+ * - $class: A set of classes assigned to this image (if any).
  * - $gallery_id: The ID of the Colorbox gallery.
  *
  * Note that ALT and Title fields should not be filled in here, instead they
@@ -22,4 +21,4 @@
  * - __description__: A description of the image, sometimes used as a caption.
  */
 ?>
-<a href="<?php print $link_path; ?>" title="__title__" class="colorbox colorbox-insert-image" rel="gallery-<?php print $gallery_id; ?>"><img src="<?php print $image_path; ?>" alt="__alt__" title="__title__" class="imagecache imagecache-<?php print $style_name; ?>" /></a>
+<a href="<?php print $link_path; ?>" title="__title__" class="colorbox colorbox-insert-image" rel="<?php print $gallery_id; ?>"><img typeof="foaf:Image" src="<?php print $image_path; ?>" alt="__alt__" title="__title__" class="<?php print $class; ?>" /></a>

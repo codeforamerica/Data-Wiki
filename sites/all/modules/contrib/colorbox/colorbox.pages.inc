@@ -1,5 +1,4 @@
 <?php
-// $Id: colorbox.pages.inc,v 1.2.4.4 2011/01/14 15:17:30 frjo Exp $
 
 /**
  * @file
@@ -10,8 +9,12 @@
  * Menu callback for colorbox_login.
  */
 function colorbox_login() {
-  $form_id = variable_get('colorbox_login_form', '');
-  colorbox_form_page($form_id);
+  // Redirect failed logins to the standard user login form.
+  if (isset($_POST['form_id']) && $_POST['form_id'] == 'user_login') {
+    return drupal_get_form('user_login');
+  }
+
+  colorbox_form_page('user_login');
 }
 
 /**

@@ -1,5 +1,4 @@
 <?php
-// $Id: feeds.module,v 1.74.2.12 2010/12/22 01:46:46 alexb Exp $
 
 /**
  * @file
@@ -22,6 +21,21 @@ define('FEEDS_BATCH_ACTIVE', 0.0);
  * @defgroup hooks Hook and callback implementations
  * @{
  */
+
+/**
+ * Implements hook_hook_info().
+ */
+function feeds_hook_info() {
+  $hooks = array(
+    'feeds_after_parse',
+    'feeds_after_import',
+    'feeds_after_clear',
+    'feeds_processor_targets_alter',
+    'feeds_parser_sources_alter',
+  );
+
+  return array_fill_keys($hooks, array('group' => 'feeds'));
+}
 
 /**
  * Implements hook_cron().
@@ -90,7 +104,9 @@ function feeds_source_import($job) {
   try {
     $source->existing()->import();
   }
-  catch (FeedsNotExistingException $e) {}
+  catch (FeedsNotExistingException $e) {
+    // Do nothing.
+  }
   catch (Exception $e) {
     $source->log('import', $e->getMessage(), array(), WATCHDOG_ERROR);
   }
@@ -105,7 +121,9 @@ function feeds_source_clear($job) {
   try {
     $source->existing()->clear();
   }
-  catch (FeedsNotExistingException $e) {}
+  catch (FeedsNotExistingException $e) {
+    // Do nothing.
+  }
   catch (Exception $e) {
     $source->log('clear', $e->getMessage(), array(), WATCHDOG_ERROR);
   }
@@ -120,7 +138,9 @@ function feeds_importer_expire($job) {
   try {
     $importer->existing()->expire();
   }
-  catch (FeedsNotExistingException $e) {}
+  catch (FeedsNotExistingException $e) {
+    // Do nothing.
+  }
   catch (Exception $e) {
     $importer->log('expire', $e->getMessage(), array(), WATCHDOG_ERROR);
   }
@@ -213,7 +233,7 @@ function feeds_forms() {
   $forms['FeedsImporter_feeds_form']['callback'] = 'feeds_form';
   $plugins = FeedsPlugin::all();
   foreach ($plugins as $plugin) {
-    $forms[$plugin['handler']['class'] .'_feeds_form']['callback'] = 'feeds_form';
+    $forms[$plugin['handler']['class'] . '_feeds_form']['callback'] = 'feeds_form';
   }
   return $forms;
 }
@@ -328,11 +348,18 @@ function feeds_theme() {
  * Menu access callback.
  *
  * @param $action
- *   One of 'import' or 'clear'.
+ *   The action to be performed. Possible values are:
+ *   - import
+ *   - clear
  * @param $param
  *   Node object or FeedsImporter id.
  */
 function feeds_access($action, $param) {
+  if (!in_array($action, array('import', 'clear'))) {
+    // If $action is not one of the supported actions, we return access denied.
+    return FALSE;
+  }
+
   if (is_string($param)) {
     $importer_id = $param;
   }
@@ -342,7 +369,7 @@ function feeds_access($action, $param) {
 
   // Check for permissions if feed id is present, otherwise return FALSE.
   if ($importer_id) {
-    if (user_access('administer feeds') || user_access($action .' '. $importer_id .' feeds')) {
+    if (user_access('administer feeds') || user_access("{$action} {$importer_id} feeds")) {
       return TRUE;
     }
   }
@@ -378,8 +405,8 @@ function feeds_exit() {
  */
 function feeds_views_api() {
   return array(
-    'api' => '2.0',
-    'path' => drupal_get_path('module', 'feeds') .'/views',
+    'api' => 3,
+    'path' => drupal_get_path('module', 'feeds') . '/views',
   );
 }
 
@@ -411,6 +438,51 @@ function feeds_ctools_plugin_type() {
 function feeds_feeds_plugins() {
   module_load_include('inc', 'feeds', 'feeds.plugins');
   return _feeds_feeds_plugins();
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function feeds_entity_load($entities, $type) {
+  try {
+    $feed_nids = db_query("SELECT entity_id, feed_nid FROM {feeds_item} WHERE entity_type = :type AND entity_id IN (:ids)", array(':type' => $type, ':ids' => array_keys($entities)))->fetchAllKeyed();
+    foreach ($feed_nids as $id => $feed_nid) {
+      $entities[$id]->feed_nid = $feed_nid;
+    }
+  }
+  catch (Exception $e) {
+    watchdog_exception('feeds', $e);
+    // Do not re-throw $e.
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function feeds_entity_insert($entity, $type) {
+  list($id) = entity_extract_ids($type, $entity);
+  feeds_item_info_insert($entity, $id);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function feeds_entity_update($entity, $type) {
+  list($id) = entity_extract_ids($type, $entity);
+  feeds_item_info_save($entity, $id);
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function feeds_entity_delete($entity, $type) {
+  list($id) = entity_extract_ids($type, $entity);
+
+  // Delete any imported items produced by the source.
+  db_delete('feeds_item')
+    ->condition('entity_type', $type)
+    ->condition('entity_id', $id)
+    ->execute();
 }
 
 /**
@@ -447,7 +519,7 @@ function feeds_node_validate($node, $form, &$form_state) {
     }
     catch (Exception $e) {
       drupal_set_message($e->getMessage(), 'error');
-      form_set_error('title', t('Could not retrieve title from feed.'), 'error');
+      form_set_error('title', t('Could not retrieve title from feed.'));
     }
   }
 }
@@ -473,9 +545,6 @@ function feeds_node_presave($node) {
  * Implements hook_node_insert().
  */
 function feeds_node_insert($node) {
-  // Node produced by source.
-  feeds_item_info_insert($node, $node->nid);
-
   // Source attached to node.
   feeds_node_update($node);
   if ($importer_id = feeds_get_importer_id($node->type)) {
@@ -494,9 +563,6 @@ function feeds_node_insert($node) {
  * Implements hook_node_update().
  */
 function feeds_node_update($node) {
-  // Node produced by source.
-  feeds_item_info_save($node, $node->nid);
-
   // Source attached to node.
   if ($importer_id = feeds_get_importer_id($node->type)) {
     $source = feeds_source($importer_id, $node->nid);
@@ -509,11 +575,6 @@ function feeds_node_update($node) {
  * Implements hook_node_delete().
  */
 function feeds_node_delete($node) {
-  // Node produced by source.
-  db_delete('feeds_item')
-    ->condition('entity_type', 'node')
-    ->condition('entity_id', $node->nid)
-    ->execute();
   // Source attached to node.
   // Make sure we don't leave any orphans behind: Do not use
   // feeds_get_importer_id() to determine importer id as the importer may have
@@ -524,75 +585,46 @@ function feeds_node_delete($node) {
 }
 
 /**
- * Implements hook_taxonomy_term_insert().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
-function feeds_taxonomy_term_insert($term) {
-  feeds_item_info_insert($term, $term->tid);
-}
-
-/**
- * Implements hook_taxonomy_term_update().
- */
-function feeds_taxonomy_term_update($term) {
-  feeds_item_info_save($term, $term->tid);
-}
-
-/**
- * Implements hook_taxonomy_delete().
- */
-function feeds_taxonomy_term_delete($term) {
-  db_delete('feeds_item')
-    ->condition('entity_type', 'taxonomy_term')
-    ->condition('entity_id', $term->tid)
-    ->execute();
-}
-
-/**
- * Implements hook_user_insert().
- */
-function feeds_user_insert(&$edit, $account, $category) {
-  feeds_item_info_insert($account, $account->uid);
-}
-
-/**
- * Implements hook_user_update().
- */
-function feeds_user_update(&$edit, $account, $category) {
-  feeds_item_info_save($account, $account->uid);
-}
-
-/**
- * Implements hook_user_delete().
- */
-function feeds_user_delete($account) {
-  db_delete('feeds_item')
-    ->condition('entity_type', 'user')
-    ->condition('entity_id', $account->uid)
-    ->execute();
-}
-
-/**
- * Implements hook_form_alter().
- */
-function feeds_form_alter(&$form, $form_state, $form_id) {
-  if (!empty($form['#node_edit_form'])) {
-    if ($importer_id = feeds_get_importer_id($form['type']['#value'])) {
-      // Set title to not required, try to retrieve it from feed.
+function feeds_form_node_form_alter(&$form, $form_state) {
+  if ($importer_id = feeds_get_importer_id($form['#node']->type)) {
+    // Set title to not required, try to retrieve it from feed.
+    if (isset($form['title'])) {
       $form['title']['#required'] = FALSE;
-      // Enable uploads.
-      $form['#attributes']['enctype'] = 'multipart/form-data';
+    }
 
-      // Build form.
-      $source = feeds_source($importer_id, empty($form['nid']['#value']) ? 0 : $form['nid']['#value']);
-      $form['feeds'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Feed'),
-        '#tree' => TRUE,
+    // Enable uploads.
+    $form['#attributes']['enctype'] = 'multipart/form-data';
+
+    // Build form.
+    $source = feeds_source($importer_id, empty($form['#node']->nid) ? 0 : $form['#node']->nid);
+    $form['feeds'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Feed'),
+      '#tree' => TRUE,
+      '#weight' => 0,
+    );
+    $form['feeds'] += $source->configForm($form_state);
+    $form['#feed_id'] = $importer_id;
+  }
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function feeds_field_extra_fields() {
+  $extras = array();
+  foreach (node_type_get_names() as $type => $name) {
+    if (feeds_get_importer_id($type)) {
+      $extras['node'][$type]['form']['feeds'] = array(
+        'label' => t('Feed'),
+        'description' => t('Feeds module form elements'),
+        'weight' => 0,
       );
-      $form['feeds'] += $source->configForm($form_state);
-      $form['#feed_id'] = $importer_id;
     }
   }
+  return $extras;
 }
 
 /**
@@ -701,16 +733,16 @@ function feeds_export($importer_id, $indent = '') {
 }
 
 /**
- * Logs to a file like /mytmp/feeds_my_domain_org.log in temporary directory.
+ * Logs to a file like /tmp/feeds_my_domain_org.log in temporary directory.
  */
 function feeds_dbg($msg) {
-  if (variable_get('feeds_debug', false)) {
+  if (variable_get('feeds_debug', FALSE)) {
     if (!is_string($msg)) {
-      $msg = var_export($msg, true);
+      $msg = var_export($msg, TRUE);
     }
     $filename = trim(str_replace('/', '_', $_SERVER['HTTP_HOST'] . base_path()), '_');
-    $handle = fopen(file_directory_temp() ."/feeds_$filename.log", 'a');
-    fwrite($handle, date('c') ."\t$msg\n");
+    $handle = fopen("temporary://feeds_$filename.log", 'a');
+    fwrite($handle, gmdate('c') . "\t$msg\n");
     fclose($handle);
   }
 }
@@ -750,7 +782,7 @@ function feeds_item_info_load($entity_type, $entity_id) {
     ->condition('entity_type', $entity_type)
     ->condition('entity_id', $entity_id)
     ->execute()
-    ->fetch();
+    ->fetchObject();
 }
 
 /**
@@ -764,7 +796,7 @@ function feeds_item_info_insert($entity, $entity_id) {
 }
 
 /**
- * Inserts or updates an item info object in he feeds_item table.
+ * Inserts or updates an item info object in the feeds_item table.
  */
 function feeds_item_info_save($entity, $entity_id) {
   if (isset($entity->feeds_item)) {
@@ -837,10 +869,10 @@ function feeds_plugin($plugin, $id) {
   if ($class = ctools_plugin_load_class('feeds', 'plugins', $plugin, 'handler')) {
     return FeedsConfigurable::instance($class, $id);
   }
-  $args = array( '%plugin' => $plugin);
+  $args = array('%plugin' => $plugin, '@id' => $id);
   if (user_access('administer feeds')) {
-    $args['!link'] = l($id, 'admin/structure/feeds/edit/' . $id);
-    drupal_set_message(t('Missing Feeds plugin %plugin. See !link. Check whether all required libraries and modules are installed properly.', $args), 'warning');
+    $args['@link'] = url('admin/structure/feeds/edit/' . $id);
+    drupal_set_message(t('Missing Feeds plugin %plugin. See <a href="@link">@id</a>. Check whether all required libraries and modules are installed properly.', $args), 'warning');
   }
   else {
     drupal_set_message(t('Missing Feeds plugin %plugin. Please contact your site administrator.', $args), 'warning');
@@ -874,7 +906,7 @@ function feeds_include_library($file, $library) {
     // Try first whether libraries module is present and load the file from
     // there. If this fails, require the library from the local path.
     if (module_exists('libraries') && file_exists(libraries_get_path($library) . "/$file")) {
-      require libraries_get_path($library) ."/$file";
+      require libraries_get_path($library) . "/$file";
     }
     else {
       // @todo: Throws "Deprecated function: Assigning the return value of new
@@ -919,9 +951,8 @@ function feeds_alter($type, &$data) {
   array_shift($additional_args);
   $args = array_merge($args, $additional_args);
 
-  $list = module_list();
   foreach (module_list() as $module) {
-    $function = $module .'_'. $type .'_alter';
+    $function = "{$module}_{$type}_alter";
     if (function_exists($function)) {
       call_user_func_array($function, $args);
     }
@@ -931,3 +962,34 @@ function feeds_alter($type, &$data) {
 /**
  * @}
  */
+
+/**
+ * Copy of valid_url() that supports the webcal scheme.
+ *
+ * @see valid_url().
+ *
+ * @todo Replace with valid_url() when http://drupal.org/node/1191252 is fixed.
+ */
+function feeds_valid_url($url, $absolute = FALSE) {
+  if ($absolute) {
+    return (bool) preg_match("
+      /^                                                      # Start at the beginning of the text
+      (?:ftp|https?|feed|webcal):\/\/                         # Look for ftp, http, https, feed or webcal schemes
+      (?:                                                     # Userinfo (optional) which is typically
+        (?:(?:[\w\.\-\+!$&'\(\)*\+,;=]|%[0-9a-f]{2})+:)*      # a username or a username and password
+        (?:[\w\.\-\+%!$&'\(\)*\+,;=]|%[0-9a-f]{2})+@          # combination
+      )?
+      (?:
+        (?:[a-z0-9\-\.]|%[0-9a-f]{2})+                        # A domain name or a IPv4 address
+        |(?:\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\])         # or a well formed IPv6 address
+      )
+      (?::[0-9]+)?                                            # Server port number (optional)
+      (?:[\/|\?]
+        (?:[\w#!:\.\?\+=&@$'~*,;\/\(\)\[\]\-]|%[0-9a-f]{2})   # The path and query (optional)
+      *)?
+    $/xi", $url);
+  }
+  else {
+    return (bool) preg_match("/^(?:[\w#!:\.\?\+=&@$'~*,;\/\(\)\[\]\-]|%[0-9a-f]{2})+$/i", $url);
+  }
+}

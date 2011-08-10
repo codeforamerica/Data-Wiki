@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsSitemapParser.inc,v 1.4.2.3 2010/10/25 23:59:31 alexb Exp $
 
 /**
  * A parser for the Sitemap specification http://www.sitemaps.org/protocol.php

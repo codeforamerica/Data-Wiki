@@ -1,5 +1,4 @@
 <?php
-// $Id: http_request.inc,v 1.10.2.2 2010/10/28 20:45:44 alexb Exp $
 
 /**
  * @file
@@ -33,10 +32,10 @@ class HRCurlException extends Exception {}
  *    no feeds.
  */
 function http_request_get_common_syndication($url, $settings = NULL) {
-  if (valid_url($url, TRUE)) {
+  $password = $username = NULL;
+  if (feeds_valid_url($url, TRUE)) {
     // Handle password protected feeds.
     $url_parts = parse_url($url);
-    $password = $username = NULL;
     if (!empty($url_parts['user'])) {
       $password = $url_parts['pass'];
       $username = $url_parts['user'];
@@ -96,14 +95,14 @@ function http_request_get($url, $username = NULL, $password = NULL, $accept_inva
   // Only download and parse data if really needs refresh.
   // Based on "Last-Modified" and "If-Modified-Since".
   $headers = array();
-  if ($cache = cache_get('feeds_http_download_'. md5($url))) {
+  if ($cache = cache_get('feeds_http_download_' . md5($url))) {
     $last_result = $cache->data;
     $last_headers = $last_result->headers;
 
     $has_etag = TRUE;
     if (!empty($last_headers['ETag'])) {
       if ($curl) {
-        $headers[] = 'If-None-Match: '. $last_headers['ETag'];
+        $headers[] = 'If-None-Match: ' . $last_headers['ETag'];
       }
       else {
         $headers['If-None-Match'] = $last_headers['ETag'];
@@ -111,31 +110,47 @@ function http_request_get($url, $username = NULL, $password = NULL, $accept_inva
     }
     if (!empty($last_headers['Last-Modified'])) {
       if ($curl) {
-        $headers[] = 'If-Modified-Since: '. $last_headers['Last-Modified'];
+        $headers[] = 'If-Modified-Since: ' . $last_headers['Last-Modified'];
       }
       else {
         $headers['If-Modified-Since'] = $last_headers['Last-Modified'];
       }
     }
     if (!empty($username) && !$curl) {
-      $headers['Authorization'] = 'Basic '. base64_encode("$username:$password");
+      $headers['Authorization'] = 'Basic ' . base64_encode("$username:$password");
     }
   }
+
+  // Support the 'feed' and 'webcal' schemes by converting them into 'http'.
+  $url = strtr($url, array('feed://' => 'http://', 'webcal://' => 'http://'));
 
   if ($curl) {
     $headers[] = 'User-Agent: Drupal (+http://drupal.org/)';
     $result = new stdClass();
 
-    // Only download via cURL if we can validate the scheme to be either http or
-    // https.
-    // Validate in PHP, CURLOPT_PROTOCOLS is only supported with cURL 7.19.4
+    // Parse the URL and make sure we can handle the schema.
+    // cURL can only support either http:// or https://.
+    // CURLOPT_PROTOCOLS is only supported with cURL 7.19.4
     $uri = parse_url($url);
-    if (isset($uri['scheme']) && $uri['scheme'] != 'http' && $uri['scheme'] != 'https') {
-      $result->error = 'invalid schema '. $uri['scheme'];
-      $result->code = -1003; // This corresponds to drupal_http_request()
+    if (!isset($uri['scheme'])) {
+      $result->error = 'missing schema';
+      $result->code = -1002;
     }
     else {
+      switch ($uri['scheme']) {
+        case 'http':
+        case 'https':
+          // Valid scheme.
+          break;
+        default:
+          $result->error = 'invalid schema ' . $uri['scheme'];
+          $result->code = -1003;
+          break;
+      }
+    }
 
+    // If the scheme was valid, continue to request the feed using cURL.
+    if (empty($result->error)) {
       $download = curl_init($url);
       curl_setopt($download, CURLOPT_FOLLOWLOCATION, TRUE);
       if (!empty($username)) {
@@ -166,7 +181,7 @@ function http_request_get($url, $username = NULL, $password = NULL, $accept_inva
         if (isset($result->headers[$header]) && $header == 'Set-Cookie') {
           // RFC 2109: the Set-Cookie response header comprises the token Set-
           // Cookie:, followed by a comma-separated list of one or more cookies.
-          $result->headers[$header] .= ','. trim($value);
+          $result->headers[$header] .= ',' . trim($value);
         }
         else {
           $result->headers[$header] = trim($value);
@@ -193,7 +208,7 @@ function http_request_get($url, $username = NULL, $password = NULL, $accept_inva
     else {
       // It's a tragedy, this file must exist and contain good data.
       // In this case, clear cache and repeat.
-      cache_clear_all('feeds_http_download_'. md5($url), 'cache');
+      cache_clear_all('feeds_http_download_' . md5($url), 'cache');
       return http_request_get($url, $username, $password);
     }
   }
@@ -205,7 +220,7 @@ function http_request_get($url, $username = NULL, $password = NULL, $accept_inva
   }
 
   // Set caches.
-  cache_set('feeds_http_download_'. md5($url), $result);
+  cache_set('feeds_http_download_' . md5($url), $result);
   $download_cache[$url] = $result;
 
   return $result;
@@ -232,7 +247,7 @@ function http_request_use_curl() {
  * Clear cache for a specific URL.
  */
 function http_request_clear_cache($url) {
-  cache_clear_all('feeds_http_download_'. md5($url), 'cache');
+  cache_clear_all('feeds_http_download_' . md5($url), 'cache');
 }
 
 /**
@@ -287,7 +302,7 @@ function http_request_find_feeds($html) {
     foreach ($attributes as $attribute) {
       // Find the key value pairs, attribute[1] is key and attribute[2] is the
       // value.
-      if(!empty($attribute[1]) && !empty($attribute[2])) {
+      if (!empty($attribute[1]) && !empty($attribute[2])) {
         $candidate[drupal_strtolower($attribute[1])] = drupal_strtolower(decode_entities($attribute[2]));
       }
     }
@@ -338,13 +353,13 @@ function http_request_create_absolute_url($url, $base_url) {
     else {
       // Backtracking from the existing path.
       $cparts = array_merge(array_filter(explode("/", $path)), array_filter(explode("/", $url)));
-      foreach($cparts as $i => $part) {
-        if($part == '.') {
-          $cparts[$i] = null;
+      foreach ($cparts as $i => $part) {
+        if ($part == '.') {
+          $cparts[$i] = NULL;
         }
-        if($part == '..') {
-          $cparts[$i - 1] = null;
-          $cparts[$i] = null;
+        if ($part == '..') {
+          $cparts[$i - 1] = NULL;
+          $cparts[$i] = NULL;
         }
       }
       $cparts = array_filter($cparts);

@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsFileFetcher.inc,v 1.22.2.8 2010/12/22 00:49:07 alexb Exp $
 
 /**
  * @file
@@ -200,13 +199,13 @@ class FeedsFileFetcher extends FeedsFetcher {
   public function configForm(&$form_state) {
     $form = array();
     $form['allowed_extensions'] = array(
-      '#type' =>'textfield',
+      '#type' => 'textfield',
       '#title' => t('Allowed file extensions'),
       '#description' => t('Allowed file extensions for upload.'),
       '#default_value' => $this->config['allowed_extensions'],
     );
     $form['direct'] = array(
-      '#type' =>'checkbox',
+      '#type' => 'checkbox',
       '#title' => t('Supply path to file or directory directly'),
       '#description' => t('For experts. Lets users specify a path to a file <em>or a directory of files</em> directly,
         instead of a file upload through the browser. This is useful when the files that need to be imported

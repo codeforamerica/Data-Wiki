@@ -1,5 +1,4 @@
 <?php
-// $Id: feeds_mapper_file.test,v 1.1.2.2 2010/10/27 22:33:32 alexb Exp $
 
 /**
  * @file
@@ -14,28 +13,19 @@
  *   b) needs to be copied from one location to another.
  */
 class FeedsMapperFileTestCase extends FeedsMapperTestCase {
-
   public static function getInfo() {
     return array(
-      'name' => t('Mapper: File field'),
-      'description' => t('Test Feeds Mapper support for file fields. <strong>Requires SimplePie library</strong>.'),
-      'group' => t('Feeds'),
+      'name' => 'Mapper: File field',
+      'description' => 'Test Feeds Mapper support for file fields. <strong>Requires SimplePie library</strong>.',
+      'group' => 'Feeds',
     );
-  }
-
-  /**
-   * Set up the
-   */
-  public function setUp() {
-    // Call parent setup with the required module
-    parent::setUp(array('file', 'feeds_tests'));
   }
 
   /**
    * Basic test loading a single entry CSV file.
    */
   public function test() {
-    $typename = $this->createContentType(NULL, array('files' => 'file'));
+    $typename = $this->createContentType(array(), array('files' => 'file'));
 
     // 1) Test mapping remote resources to file field.
 

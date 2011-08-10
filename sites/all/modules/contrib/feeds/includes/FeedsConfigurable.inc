@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsConfigurable.inc,v 1.19.2.2 2010/09/30 19:16:27 alexb Exp $
 
 /**
  * @file
@@ -212,7 +211,7 @@ abstract class FeedsConfigurable {
  */
 function feeds_get_form($configurable, $form_method) {
   if (method_exists($configurable, $form_method)) {
-    return drupal_get_form(get_class($configurable) .'_feeds_form', $configurable, $form_method);
+    return drupal_get_form(get_class($configurable) . '_feeds_form', $configurable, $form_method);
   }
 }
 
@@ -247,7 +246,7 @@ function feeds_form($form, &$form_state, $configurable, $form_method) {
  * Validation handler for feeds_form().
  */
 function feeds_form_validate($form, &$form_state) {
-  $validate_method = $form['#feeds_form_method'] .'Validate';
+  $validate_method = $form['#feeds_form_method'] . 'Validate';
   if (method_exists($form['#configurable'], $validate_method)) {
     $form['#configurable']->$validate_method($form_state['values']);
   }
@@ -257,7 +256,7 @@ function feeds_form_validate($form, &$form_state) {
  * Submit handler for feeds_config_form().
  */
 function feeds_form_submit($form, &$form_state) {
-  $submit_method = $form['#feeds_form_method'] .'Submit';
+  $submit_method = $form['#feeds_form_method'] . 'Submit';
   if (method_exists($form['#configurable'], $submit_method)) {
     $form['#configurable']->$submit_method($form_state['values']);
   }

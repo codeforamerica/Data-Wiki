@@ -1,5 +1,4 @@
 <?php
-// $Id: feeds.api.php,v 1.17.2.4 2010/11/16 23:14:35 alexb Exp $
 
 /**
  * @file

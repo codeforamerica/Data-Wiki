@@ -1,5 +1,4 @@
 <?php
-// $Id: FeedsCSVParser.inc,v 1.19.2.6 2010/10/29 18:56:48 developmentseed Exp $
 
 /**
  * Parses a given file as a CSV file.
@@ -124,7 +123,7 @@ class FeedsCSVParser extends FeedsParser {
       }
     }
 
-    $output = t('Import !csv_files with one or more of these columns: !columns.',array('!csv_files' => l(t('CSV files'), 'http://en.wikipedia.org/wiki/Comma-separated_values'), '!columns' => implode(', ', $sources)));
+    $output = t('Import !csv_files with one or more of these columns: !columns.', array('!csv_files' => l(t('CSV files'), 'http://en.wikipedia.org/wiki/Comma-separated_values'), '!columns' => implode(', ', $sources)));
     $items = array();
     $items[] = format_plural(count($uniques), t('Column <strong>!column</strong> is mandatory and considered unique: only one item per !column value will be created.', array('!column' => implode(', ', $uniques))), t('Columns <strong>!columns</strong> are mandatory and values in these columns are considered unique: only one entry per value in one of these column will be created.', array('!columns' => implode(', ', $uniques))));
     $items[] = l(t('Download a template'), 'import/' . $this->id . '/template');
@@ -204,7 +203,7 @@ class FeedsCSVParser extends FeedsParser {
       $columns[] = $col;
     }
     drupal_add_http_header('Cache-Control', 'max-age=60, must-revalidate');
-    drupal_add_http_header('Content-Disposition', 'attachment; filename="'. $this->id . '_template.csv"');
+    drupal_add_http_header('Content-Disposition', 'attachment; filename="' . $this->id . '_template.csv"');
     drupal_add_http_header('Content-type', 'text/csv; charset=utf-8');
     print implode($sep, $columns);
     return;

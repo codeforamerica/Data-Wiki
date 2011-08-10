@@ -1,5 +1,4 @@
 <?php
-// $Id: colorbox_handler_field_colorbox.inc,v 1.2.2.6 2011/01/18 10:14:20 frjo Exp $
 
 /**
  * @file
