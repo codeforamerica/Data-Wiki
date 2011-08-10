@@ -1,0 +1,25 @@
+Index: feeds.install
+===================================================================
+RCS file: /cvs/drupal-contrib/contributions/modules/feeds/feeds.install,v
+retrieving revision 1.11
+diff -u -p -r1.11 feeds.install
+--- feeds.install	9 Sep 2010 23:06:51 -0000	1.11
++++ feeds.install	14 Sep 2010 14:04:24 -0000
+@@ -337,7 +337,7 @@ function feeds_update_6004() {
+     'description' => t('Main source resource identifier. E. g. a path or a URL.'),
+   );
+   db_add_field($ret, 'feeds_source', 'source', $spec);
+-  db_add_index($ret, 'feeds_source', 'id_source', array('id', array('source', 255)));
++  db_add_index($ret, 'feeds_source', 'id_source', array(array('id', 128), array('source', 128)));
+ 
+   // Make feed_nid not null, default 0. It is part of the primary key.
+   $spec = array(
+@@ -379,7 +379,7 @@ function feeds_update_6005() {
+   );
+   db_add_field($ret, 'feeds_schedule', 'callback', $spec);
+ 
+-  db_add_index($ret, 'feeds_schedule', 'id_callback', array('id', 'callback'));
++  db_add_index($ret, 'feeds_schedule', 'id_callback', array(array('id', 128), array('callback', 128)));
+ 
+   return $ret;
+ }

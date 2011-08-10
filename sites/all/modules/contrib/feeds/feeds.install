@@ -396,8 +396,8 @@ function feeds_update_7202(&$sandbox) {
     'indexes' => array(
       'id' => array('id'),
       'feed_nid' => array('feed_nid'),
-      'lookup_url' => array('entity_type', 'id', 'feed_nid', array('url', 255)),
-      'lookup_guid' => array('entity_type', 'id', 'feed_nid', array('guid', 255)),
+      'lookup_url' => array('entity_type', 'id', 'feed_nid', array('url', 128)),
+      'lookup_guid' => array('entity_type', 'id', 'feed_nid', array('guid', 128)),
       'imported' => array('imported'),
     ),
   );
@@ -491,6 +491,6 @@ function feeds_update_7203(&$sandbox) {
  * Add index for looking up by entity_type + url/ guid to feeds_item table.
  */
 function feeds_update_7204(&$sandbox) {
-  db_add_index('feeds_item', 'global_lookup_url', array('entity_type', array('url', 255)));
-  db_add_index('feeds_item', 'global_lookup_guid', array('entity_type', array('guid', 255)));
+  db_add_index('feeds_item', 'global_lookup_url', array('entity_type', array('url', 128)));
+  db_add_index('feeds_item', 'global_lookup_guid', array('entity_type', array('guid', 128)));
 }
