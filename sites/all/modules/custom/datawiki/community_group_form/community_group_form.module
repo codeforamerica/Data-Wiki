@@ -113,6 +113,10 @@ function community_group_form_node_insert($node) {
       
       // @TODO We'll want to add $node->uid to the end of the flag statement, but it was causing an error.
       // Example:  $result = flag('flag', $flag, $node->nid, $node->uid); 
+      
+      
+      // @TODO: add a setting for the user, to automatically watch everything 
+      // they contribute & automatically recomment every node they make.
       if(($value != 0) && !empty($value)) {
         foreach($flags as $key => $flag) {
           $result = flag('flag', $flag, $node->nid); 
