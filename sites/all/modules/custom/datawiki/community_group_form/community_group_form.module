@@ -72,6 +72,73 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+ * On node presave, set the author of the feed item.
+ */
+function community_group_form_node_presave(&$node) {
+  if (!empty($node->feeds_item)) {
+    $feed_node = node_load($node->feeds_item->feed_nid);
+    $node->uid = $feed_node->uid;
+  }
+}  
+    
+function community_group_form_node_insert($node) {
+   // If flags are set in the feed, update them.
+  if (!empty($node->feeds_item)) {
+    $feed_node = node_load($node->feeds_item->feed_nid);
+    $node->uid = $feed_node->uid;
+        
+    // Field mapping for/from Feeds import.
+    $flag_import_fields = array(
+      'field_import_flag_watch',
+      'field_import_flag_inactive',
+      'field_import_flag_duplicate',
+      'field_import_flag_inappropriate',
+      'field_import_flag_recommended'
+      );    
+ 
+    // Names of flags in the system.
+    $flags = array(
+      'group_inactive',
+      'bookmarks',
+      'inappropriate',
+      'duplicate',
+      'like'
+      );
+      
+    foreach($flag_import_fields as $key => $field) {
+      $value = '';
+      $value = $node->{$field}['und'][0]['value'];
+      // Flag all feed nodes if a value is set.
+      
+      // @TODO We'll want to add $node->uid to the end of the flag statement, but it was causing an error.
+      // Example:  $result = flag('flag', $flag, $node->nid, $node->uid); 
+      if(($value != 0) && !empty($value)) {
+        foreach($flags as $key => $flag) {
+          $result = flag('flag', $flag, $node->nid); 
+          if (!$result) {
+            // drupal_set_message(t('Content not flagged, ' . $flag));
+          }    
+          else {
+            // drupal_set_message(t('Content is flagged, ' . $flag));          
+          }
+        }
+      }
+      // Unflag all feed nodes if value is not set.
+      else {
+        foreach($flags as $key => $flag) {
+          $result = flag('unflag', $flag, $node->nid);
+          if (!$result) {
+            // drupal_set_message(t('Content not unflagged, ' . $flag));
+          } 
+          else {
+            // drupal_set_message(t('Content is unflagged, ' . $flag));          
+          }
+        }
+      }
+    }
+  }
+}
 
 function community_group_form_geocode($form, $form_state) {
   // The form has already been submitted and updated. We can return the replaced
