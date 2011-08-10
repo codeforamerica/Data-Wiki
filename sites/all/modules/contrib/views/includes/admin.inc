@@ -166,7 +166,7 @@ function views_ui_preview($view, $display_id, $args = array()) {
           if (get_class($view->query) == 'views_plugin_query_default') {
             $quoted = $query->getArguments();
             $connection = Database::getConnection();
-            foreach ($query->arguments() as $key => $val) {
+            foreach ($quoted as $key => $val) {
               if (is_array($val)) {
                 $quoted[$key] = implode(', ', array_map(array($connection, 'quote'), $val));
               }
@@ -371,7 +371,7 @@ function views_ui_add_form($form, &$form_state) {
 }
 
 /**
- * Helper form element validator: integer > 0.
+ * Helper form element validator: integer.
  *
  * @see _element_validate_integer_positive
  *
@@ -379,9 +379,9 @@ function views_ui_add_form($form, &$form_state) {
  * that it might not be renamed/changed. In the future field.module or something else
  * should provide a public validate function.
  */
-function views_element_validate_integer_positive($element, &$form_state) {
+function views_element_validate_integer($element, &$form_state) {
   $value = $element['#value'];
-  if ($value !== '' && (!is_numeric($value) || intval($value) != $value || $value <= 0)) {
+  if ($value !== '' && (!is_numeric($value) || intval($value) != $value)) {
     form_error($element, t('%name must be a positive integer.', array('%name' => $element['#title'])));
   }
 }
@@ -1463,7 +1463,6 @@ function views_ui_show_default_display($view) {
 function views_ui_get_display_tab($view, $display_id) {
   $build = array();
   $display = $view->display[$display_id];
-  $plugin = $display->handler->definition;
   // If the plugin doesn't exist, display an error message instead of an edit
   // page.
   if (empty($display->handler)) {
@@ -1944,7 +1943,7 @@ function views_ui_import_validate($form, &$form_state) {
     form_error($form['view'], t('That view is not compatible with this version of Views.
       If you have a view from views1 you have to go to a drupal6 installation and import it there.'));
   }
-  elseif ($view->api_version > views_api_version()) {
+  elseif (version_compare($view->api_version, views_api_version(), '>')) {
     form_error($form['view'], t('That view is created for the version @import_version of views, but you only have @api_version', array(
       '@import_version' => $view->api_version,
       '@api_version' => views_api_version())));
@@ -3895,7 +3894,7 @@ function views_ui_add_item_form($form, &$form_state) {
       $group = preg_replace('/[^a-z0-9]/', '-', strtolower($option['group']));
       $groups[$group] = $option['group'];
       $grouped_options[$group][$key] = $option;
-      if (!empty($option['aliases']) && is_array(empty($option['aliases']))) {
+      if (!empty($option['aliases']) && is_array($option['aliases'])) {
         foreach ($option['aliases'] as $id => $alias) {
           if (empty($alias['base']) || !empty($base_tables[$alias['base']])) {
             $copy = $option;
@@ -3935,7 +3934,7 @@ function views_ui_add_item_form($form, &$form_state) {
   }
   else {
     $form['options']['markup'] = array(
-      '#markup' => '<div class="form-item">' . t('There are no @types available to add.', array('@types' =>  $types[$type]['ltitle'])) . '</div>',
+      '#markup' => '<div class="form-item">' . t('There are no @types available to add.', array('@types' =>  $ltitle)) . '</div>',
     );
   }
   // Add a div to show the selected items
@@ -3947,7 +3946,7 @@ function views_ui_add_item_form($form, &$form_state) {
     '#attributes' => array('class' => array('container-inline', 'views-add-form-selected')),
   );
   ctools_include('dependent');
-  views_ui_standard_form_buttons($form, $form_state, 'views_ui_add_item_form', t('Add and configure @types', array('@types' => $types[$type]['ltitle'])));
+  views_ui_standard_form_buttons($form, $form_state, 'views_ui_add_item_form', t('Add and configure @types', array('@types' => $ltitle)));
 
   return $form;
 }

@@ -713,7 +713,7 @@ class view extends views_db_object {
 
     // Create and initialize the query object.
     $views_data = views_fetch_data($this->base_table);
-    $this->base_field = $views_data['table']['base']['field'];
+    $this->base_field = !empty($views_data['table']['base']['field']) ? $views_data['table']['base']['field'] : '';
     if (!empty($views_data['table']['base']['database'])) {
       $this->base_database = $views_data['table']['base']['database'];
     }
@@ -835,6 +835,11 @@ class view extends views_db_object {
       // allow the plugin to build second sorts as well.
       $this->style_plugin->build_sort_post();
     }
+
+    // Allow area handlers to affect the query.
+    $this->_build('header');
+    $this->_build('footer');
+    $this->_build('empty');
 
     // Allow display handler to affect the query:
     $this->display_handler->query($this->display_handler->use_group_by());

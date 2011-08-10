@@ -134,6 +134,18 @@ class views_plugin_display extends views_plugin {
       // Clear the values
       $this->set_option('distinct', NULL);
     }
+
+    // Convert field language settings.
+    $query_options = $this->get_option('query');
+    if (isset($query_options['options']['field_language'])) {
+      $this->set_option('field_language', $query_options['options']['field_language']);
+      unset($query_options['options']['field_language']);
+    }
+    if (isset($query_options['options']['field_language_add_to_query'])) {
+      $this->set_option('field_language_add_to_query', $query_options['options']['field_language_add_to_query']);
+      unset($query_options['options']['field_language_add_to_query']);
+    }
+    $this->set_option('query', $query_options);
   }
 
   function construct() {
@@ -460,6 +472,12 @@ class views_plugin_display extends views_plugin {
         'default' => FALSE,
         'bool' => TRUE,
       ),
+      'field_language' => array(
+        'default' => '***CURRENT_LANGUAGE***',
+      ),
+      'field_language_add_to_query' => array(
+        'default' => 1,
+      ),
 
       // These types are all plugins that can have individual settings
       // and therefore need special handling.
@@ -616,6 +634,16 @@ class views_plugin_display extends views_plugin {
   function uses_link_display() { return !$this->has_path(); }
 
   /**
+   * Check to see if the display can put the exposed formin a block.
+   *
+   * By default, displays that do not have a path cannot disconnect
+   * the exposed form and put it in a block, because the form has no
+   * place to go and Views really wants the forms to go to a specific
+   * page.
+   */
+  function uses_exposed_form_in_block() { return $this->has_path(); }
+
+  /**
    * Check to see which display to use when creating links within
    * a view using this display.
    */
@@ -740,7 +768,7 @@ class views_plugin_display extends views_plugin {
 
         if (!isset($this->base_field)) {
           $views_data = views_fetch_data($this->view->base_table);
-          $this->view->base_field = $views_data['table']['base']['field'];
+          $this->view->base_field = !empty($views_data['table']['base']['field']) ? $views_data['table']['base']['field'] : '';
         }
         $plugin->init($this->view->base_table, $this->view->base_field, $options);
       }
@@ -1087,6 +1115,22 @@ class views_plugin_display extends views_plugin {
       'desc' => t('Allow to set some advanced settings for the query plugin'),
     );
 
+    $languages = array(
+        '***CURRENT_LANGUAGE***' => t("Current user's language"),
+        '***DEFAULT_LANGUAGE***' => t("Default site language"),
+        LANGUAGE_NONE => t('Language neutral'),
+    );
+    if (module_exists('locale')) {
+      $languages = array_merge($languages, locale_language_list());
+    }
+    $field_language = array();
+    $options['field_language'] = array(
+      'category' => 'other',
+      'title' => t('Field Language'),
+      'value' => $languages[$this->get_option('field_language')],
+      'desc' => t('All fields which support translations will be displayed in the selected language.'),
+    );
+
     $access_plugin = $this->get_plugin('access');
     if (!$access_plugin) {
       // default to the no access control plugin.
@@ -1155,7 +1199,7 @@ class views_plugin_display extends views_plugin {
       }
     }
 
-    if ($this->has_path()) {
+    if ($this->uses_exposed_form_in_block()) {
       $options['exposed_block'] = array(
         'category' => 'exposed',
         'title' => t('Exposed form in block'),
@@ -1445,6 +1489,48 @@ class views_plugin_display extends views_plugin {
           );
 
           $this->view->query->options_form($form['query']['options'], $form_state);
+        }
+        break;
+      case 'field_language':
+        $form['#title'] .= t('Field Language');
+
+        $entities = entity_get_info();
+        $entity_tables = array();
+        $has_translation_handlers = FALSE;
+        foreach ($entities as $type => $entity_info) {
+          $entity_tables[] = $entity_info['base table'];
+
+          if (!empty($entity_info['translation'])) {
+            $has_translation_handlers = TRUE;
+          }
+        }
+
+        // Doesn't make sense to show a field setting here if we aren't querying
+        // an entity base table. Also, we make sure that there's at least one
+        // entity type with a translation handler attached.
+        if (in_array($this->view->base_table, $entity_tables) && $has_translation_handlers) {
+          $languages = array(
+            '***CURRENT_LANGUAGE***' => t("Current user's language"),
+            '***DEFAULT_LANGUAGE***' => t("Default site language"),
+            LANGUAGE_NONE => t('Language neutral'),
+          );
+          $languages = array_merge($languages, views_language_list());
+
+          $form['field_language'] = array(
+            '#type' => 'select',
+            '#title' => t('Field Language'),
+            '#description' => t('All fields which support translations will be displayed in the selected language.'),
+            '#options' => $languages,
+            '#default_value' => $this->get_option('field_language'),
+          );
+          $form['field_language_add_to_query'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('When needed, add the field language condition to the query'),
+            '#default_value' => $this->get_option('field_language_add_to_query'),
+          );
+        }
+        else {
+          $form['field_language']['#markup'] = t("You don't have translatable entity types.");
         }
         break;
       case 'style_plugin':
@@ -2059,6 +2145,10 @@ class views_plugin_display extends views_plugin {
       case 'display_comment':
         $this->set_option($section, $form_state['values'][$section]);
         break;
+      case 'field_language':
+        $this->set_option('field_language', $form_state['values']['field_language']);
+        $this->set_option('field_language_add_to_query', $form_state['values']['field_language_add_to_query']);
+        break;
       case 'use_ajax':
       case 'hide_attachment_summary':
         $this->set_option($section, (bool)$form_state['values'][$section]);
@@ -2445,19 +2535,19 @@ class views_plugin_display extends views_plugin {
    * Provide the block system with any exposed widget blocks for this display.
    */
   function get_special_blocks() {
-    if (!$this->has_path()) {
-      return;
-    }
+    $blocks = array();
 
-    $delta = '-exp-' . $this->view->name . '-' . $this->display->id;
-    $desc = t('Exposed form: @view-@display_id', array('@view' => $this->view->name, '@display_id' => $this->display->id));
+    if ($this->uses_exposed_form_in_block()) {
+      $delta = '-exp-' . $this->view->name . '-' . $this->display->id;
+      $desc = t('Exposed form: @view-@display_id', array('@view' => $this->view->name, '@display_id' => $this->display->id));
 
-    return array(
-      $delta => array(
+      $blocks[$delta] = array(
         'info' => $desc,
         'cache' => DRUPAL_NO_CACHE,
-      )
-    );
+      );
+    }
+
+    return $blocks;
   }
 
   /**

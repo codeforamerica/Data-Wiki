@@ -192,7 +192,9 @@ class views_handler_field_field extends views_handler_field {
       $field = $this->field_info;
       if (field_is_translatable($entity_type, $field) && !empty($this->query->options['field_language_add_to_query'])) {
         $column = $this->table_alias . '.language';
-        $this->query->add_where(0, $column, $this->query->options['field_language']);
+        // By the same reason as field_language the field might be LANGUAGE_NONE in reality so allow it as well.
+        // @see this::field_language()
+        $this->query->add_where(0, $column, array($this->query->options['field_language'], LANGUAGE_NONE));
       }
     }
 
@@ -651,10 +653,10 @@ class views_handler_field_field extends views_handler_field {
       // 'safe_value' which doesn't appear anywhere in the field definition
       // so we can't affect it. Other side effects could happen similarly.
       $data = FALSE;
-      foreach ($this->group_fields as $field => $column) {
+      foreach ($this->group_fields as $field_name => $column) {
         if (property_exists($values, $this->aliases[$column])) {
-          $base_value[$field] = $values->{$this->aliases[$column]};
-          if (isset($base_value[$field])) {
+          $base_value[$field_name] = $values->{$this->aliases[$column]};
+          if (isset($base_value[$field_name])) {
             $data = TRUE;
           }
         }
@@ -788,6 +790,10 @@ class views_handler_field_field extends views_handler_field {
       if (isset($raw) && isset($raw[$id]) && is_scalar($raw[$id])) {
         $tokens['[' . $this->options['id'] . '-' . $id . ']'] = filter_xss_admin($raw[$id]);
       }
+      else {
+        // Take sure that empty values are replaced as well.
+        $tokens['[' . $this->options['id'] . '-' . $id . ']'] = '';
+      }
     }
   }
 
@@ -802,7 +808,7 @@ class views_handler_field_field extends views_handler_field {
       $default_language = language_default('language');
       $language = str_replace(array('***CURRENT_LANGUAGE***', '***DEFAULT_LANGUAGE***'),
                               array($language_content->language, $default_language),
-                              $this->query->options['field_language']);
+                              $this->view->display_handler->options['field_language']);
 
       // Give the Field Language API a chance to fallback to a different language
       // (or LANGUAGE_NONE), in case the field has no data for the selected language.

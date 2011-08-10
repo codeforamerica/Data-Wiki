@@ -1,4 +1,3 @@
-// $Id: README.txt,v 1.3.2.3 2007/08/20 14:41:10 mh86 Exp $
 
 README - TAXONOMY MANAGER 
 **************************

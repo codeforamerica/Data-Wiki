@@ -180,12 +180,6 @@ class views_plugin_query_default extends views_plugin_query {
       'default' => '',
       'bool' => FALSE,
     );
-    $options['field_language'] = array(
-      'default' => '***CURRENT_LANGUAGE***',
-    );
-    $options['field_language_add_to_query'] = array(
-      'default' => 1,
-    );
 
     return $options;
   }
@@ -194,6 +188,8 @@ class views_plugin_query_default extends views_plugin_query {
    * Add settings for the ui.
    */
   function options_form(&$form, &$form_state) {
+    parent::options_form($form, $form_state);
+
     $form['disable_sql_rewrite'] = array(
       '#title' => t('Disable SQL rewriting'),
       '#description' => t('Disabling SQL rewriting will disable node_access checks as well as other modules that implement hook_query_alter().'),
@@ -219,42 +215,6 @@ class views_plugin_query_default extends views_plugin_query {
       '#description' => t('If set, this comment will be embedded in the query and passed to the SQL server. This can be helpful for logging or debugging.'),
       '#default_value' => $this->options['query_comment'],
     );
-
-    $entities = entity_get_info();
-    $entity_tables = array();
-    $has_translation_handlers = FALSE;
-    foreach ($entities as $type => $entity_info) {
-      $entity_tables[] = $entity_info['base table'];
-
-      if (!empty($entity_info['translation'])) {
-        $has_translation_handlers = TRUE;
-      }
-    }
-
-    // Doesn't make sense to show a field setting here if we aren't querying
-    // an entity base table. Also, we make sure that there's at least one
-    // entity type with a translation handler attached.
-    if (in_array($this->base_table, $entity_tables) && $has_translation_handlers) {
-      $languages = array(
-        '***CURRENT_LANGUAGE***' => t("Current user's language"),
-        '***DEFAULT_LANGUAGE***' => t("Default site language"),
-        LANGUAGE_NONE => t('Language neutral'),
-      );
-      $languages = array_merge($languages, views_language_list());
-
-      $form['field_language'] = array(
-        '#type' => 'select',
-        '#title' => t('Field Language'),
-        '#description' => t('All fields which support translations will be displayed in the selected language.'),
-        '#options' => $languages,
-        '#default_value' => $this->options['field_language'],
-      );
-      $form['field_language_add_to_query'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('When needed, add the field language condition to the query'),
-        '#default_value' => $this->options['field_language_add_to_query'],
-      );
-    }
   }
 
   // ----------------------------------------------------------------
@@ -1045,6 +1005,12 @@ class views_plugin_query_default extends views_plugin_query {
       if (!empty($info['conditions'])) {
         $sub_group = $info['type'] == 'OR' ? db_or() : db_and();
         foreach ($info['conditions'] as $key => $clause) {
+          // DBTNG doesn't support to add the same subquery twice to the main
+          // query and the count query, so clone the subquery to have two instances
+          // of the same object. - http://drupal.org/node/1112854
+          if (is_object($clause['value']) && $clause['value'] instanceof SelectQuery) {
+            $clause['value'] = clone $clause['value'];
+          }
           if ($clause['operator'] == 'formula') {
             $has_condition = TRUE;
             $sub_group->where($clause['field'], $clause['value']);

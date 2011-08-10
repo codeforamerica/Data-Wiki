@@ -1,5 +1,4 @@
 <?php
-// $Id: taxonomy_manager.admin.inc,v 1.1.2.17.2.33.2.36 2011/01/19 18:08:28 mh86 Exp $
 
 /**
  * 
@@ -137,6 +136,9 @@ function taxonomy_manager_form($form, &$form_state, $voc, $tid = 0, $filter = NU
   if (isset($form_state['values']['double_tree_values']['left_tree_expand_terms']) && count($form_state['values']['double_tree_values']['left_tree_expand_terms'])) {
     $tids_to_expand = $form_state['values']['double_tree_values']['left_tree_expand_terms'];
   }
+  else if (isset($form_state['values']['searched_terms']) && count($form_state['values']['searched_terms'])) {
+    $tids_to_expand = $form_state['values']['searched_terms'];
+  }
   else {
     $tids_to_expand = $tid;
   }
@@ -148,6 +150,7 @@ function taxonomy_manager_form($form, &$form_state, $voc, $tid = 0, $filter = NU
     '#search_string' => ($tid) ? NULL : $filter,
     '#language' => isset($language) ? $language : '',
     '#terms_to_expand' => $tids_to_expand,
+    '#terms_to_highlight' => $tids_to_expand,
   );
   
   $form['toolbar'] = array( 
@@ -275,6 +278,7 @@ function taxonomy_manager_double_tree_form($form, &$form_state, $voc1, $voc2, $t
     '#search_string' => ($tid) ? NULL : $filter,
     '#language' => isset($language) ? $language : '',
     '#terms_to_expand' => $tids_to_expand, //@todo check if term coming through ajax
+    '#terms_to_highlight' => $tids_to_expand,
   );
   
   $form['double-tree']['operations'] = array(
@@ -1067,6 +1071,7 @@ function taxonomy_manager_form_submit($form, &$form_state) {
       $parent_text = count($parents) ? implode(' | ', $parents) ." › " : "";
       $matched_text_list[] = $parent_text ."". l($matched_term->name, $url_prefix .'/'. $matched_term->tid, array('attributes' => array('title' => taxonomy_manager_tree_term_extra_info($matched_term)))) ." (". $matched_term->tid . (!empty($matched_term->language) ? '-'. check_plain($matched_term->language) : '') . ")";
     }
+    form_set_value($form, array('searched_terms' => $terms), $form_state);
     drupal_set_message(t("Your search string matches !count terms:", array('!count' => count($terms))) ."". theme('item_list', array('items' => $matched_text_list)));
     $form_state['rebuild'] = TRUE;
   }

@@ -17,7 +17,7 @@ function datawiki_views_views_default_views() {
   $view->base_table = 'taxonomy_term_data';
   $view->human_name = 'Categories';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -443,7 +443,7 @@ function datawiki_views_views_default_views() {
   $view->base_table = 'taxonomy_term_data';
   $view->human_name = 'Categories v2';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -869,7 +869,7 @@ function datawiki_views_views_default_views() {
   $view->base_table = 'taxonomy_term_data';
   $view->human_name = 'Data Categories';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -1178,7 +1178,7 @@ function datawiki_views_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'Flagged Content';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
