@@ -115,7 +115,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '27',
+          'weight' => '26',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -142,7 +142,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '9',
+        'weight' => '3',
       ),
     ),
   );
@@ -263,7 +263,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '16',
+          'weight' => '12',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -342,7 +342,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '28',
+          'weight' => '27',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -369,7 +369,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '8',
+        'weight' => '2',
       ),
     ),
   );
@@ -498,7 +498,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '12',
+          'weight' => '8',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -573,7 +573,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '24',
+          'weight' => '22',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -603,7 +603,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '-1',
+        'weight' => '-2',
       ),
     ),
   );
@@ -652,7 +652,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '13',
+          'weight' => '9',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -732,7 +732,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '31',
+          'weight' => '26',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -880,7 +880,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '11',
+          'weight' => '7',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -940,7 +940,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -969,7 +969,80 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '-2',
+        'weight' => '-3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_external_id'
+  $fields['node-community_group-field_external_id'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_external_id',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '1',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_external_id',
+      'label' => 'External ID',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '31',
       ),
     ),
   );
@@ -1003,7 +1076,7 @@ function community_group_content_type_field_default_fields() {
             'map_preset' => 'citygroups_group_display',
           ),
           'type' => 'geofield_openlayers',
-          'weight' => '3',
+          'weight' => '6',
         ),
         'search_result' => array(
           'label' => 'hidden',
@@ -1032,7 +1105,7 @@ function community_group_content_type_field_default_fields() {
           'openlayers_preset' => 'citygroups_form',
         ),
         'type' => 'geofield_openlayers',
-        'weight' => '15',
+        'weight' => '17',
       ),
     ),
   );
@@ -1104,7 +1177,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '14',
+        'weight' => '16',
       ),
     ),
   );
@@ -1241,7 +1314,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '16',
+        'weight' => '18',
       ),
     ),
   );
@@ -1313,7 +1386,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -1362,7 +1435,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '30',
+          'weight' => '25',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1389,7 +1462,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '14',
+        'weight' => '4',
       ),
     ),
   );
@@ -1438,7 +1511,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '10',
+          'weight' => '11',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1542,7 +1615,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -1591,7 +1664,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '14',
+          'weight' => '10',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1750,7 +1823,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '29',
+          'weight' => '27',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1830,7 +1903,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '26',
+          'weight' => '28',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1858,7 +1931,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '11',
+        'weight' => '5',
       ),
     ),
   );
@@ -1986,7 +2059,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'default',
-          'weight' => '22',
+          'weight' => '23',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -2026,7 +2099,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '-3',
+        'weight' => '-1',
       ),
     ),
   );
@@ -2070,7 +2143,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'url',
-          'weight' => '25',
+          'weight' => '28',
         ),
         'search_result' => array(
           'label' => 'hidden',
@@ -2109,7 +2182,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -2158,7 +2231,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '15',
+          'weight' => '8',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -2188,7 +2261,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '20',
+        'weight' => '19',
       ),
     ),
   );
@@ -2709,6 +2782,7 @@ function community_group_content_type_field_default_fields() {
   t('Description');
   t('District');
   t('E-mail');
+  t('External ID');
   t('Geocode');
   t('Image File');
   t('Image URL');

@@ -10,27 +10,27 @@
 function community_group_content_type_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "field_group" && $api == "field_group") {
-    return array("version" => 1);
+    return array("version" => "1");
   }
   list($module, $api) = func_get_args();
   if ($module == "openlayers" && $api == "openlayers_layers") {
-    return array("version" => 1);
+    return array("version" => "1");
   }
   list($module, $api) = func_get_args();
   if ($module == "openlayers" && $api == "openlayers_maps") {
-    return array("version" => 1);
+    return array("version" => "1");
   }
   list($module, $api) = func_get_args();
   if ($module == "openlayers" && $api == "openlayers_presets") {
-    return array("version" => 1);
+    return array("version" => "1");
   }
   list($module, $api) = func_get_args();
   if ($module == "openlayers" && $api == "openlayers_styles") {
-    return array("version" => 1);
+    return array("version" => "1");
   }
   list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
-    return array("version" => 1);
+    return array("version" => "1");
   }
 }
 
@@ -40,7 +40,7 @@ function community_group_content_type_ctools_plugin_api() {
 function community_group_content_type_views_api() {
   list($module, $api) = func_get_args();
   if ($module == "views" && $api == "views_default") {
-    return array("version" => 3.0);
+    return array("version" => "3.0");
   }
 }
 
@@ -49,15 +49,15 @@ function community_group_content_type_views_api() {
  */
 function community_group_content_type_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Favorites".
+  // Exported flag: "Bookmarks".
   $flags['bookmarks'] = array(
     'content_type' => 'node',
-    'title' => 'Favorites',
+    'title' => 'Bookmarks',
     'global' => '0',
     'types' => array(
-      0 => 'community_group',
+      0 => 'article',
     ),
-    'flag_short' => 'Bookmark',
+    'flag_short' => 'Bookmark this',
     'flag_long' => 'Add this post to your bookmarks',
     'flag_message' => 'This post has been added to your bookmarks',
     'unflag_short' => 'Unbookmark this',
@@ -67,22 +67,22 @@ function community_group_content_type_flag_default_flags() {
     'link_type' => 'toggle',
     'roles' => array(
       'flag' => array(
-        0 => '2',
+        0 => 2,
       ),
       'unflag' => array(
-        0 => '2',
+        0 => 2,
       ),
     ),
     'show_on_page' => 1,
     'show_on_teaser' => 1,
-    'show_on_form' => 0,
+    'show_on_form' => 1,
     'access_author' => '',
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'community_group_content_type',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   // Exported flag: "Duplicate Content".
   $flags['duplicate'] = array(
@@ -113,11 +113,11 @@ function community_group_content_type_flag_default_flags() {
     'show_on_form' => 0,
     'access_author' => '',
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'community_group_content_type',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   // Exported flag: "Flag a group as inactive".
   $flags['group_inactive'] = array(
@@ -185,11 +185,11 @@ function community_group_content_type_flag_default_flags() {
     'i18n' => 0,
     'flag_confirmation' => 'Thanks. We will look at the inappropriate content as soon as possible.',
     'unflag_confirmation' => 'Thanks. We will ignore your message.',
-    'api_version' => 2,
     'module' => 'community_group_content_type',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   // Exported flag: "Recommend".
   $flags['like'] = array(
@@ -239,7 +239,7 @@ function community_group_content_type_node_info() {
       'base' => 'node_content',
       'description' => t('A community group.'),
       'has_title' => '1',
-      'title_label' => t('Name'),
+      'title_label' => t('Name of Group'),
       'help' => t('What is the name of the community group. Try to use the name that the group calls itself.'),
     ),
   );

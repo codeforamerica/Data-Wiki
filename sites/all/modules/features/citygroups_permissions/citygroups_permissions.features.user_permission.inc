@@ -113,6 +113,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'devel',
   );
 
+  // Exported permission: access overlay
+  $permissions['access overlay'] = array(
+    'name' => 'access overlay',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'overlay',
+  );
+
   // Exported permission: access site in maintenance mode
   $permissions['access site in maintenance mode'] = array(
     'name' => 'access site in maintenance mode',
@@ -747,15 +756,6 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'admin_menu',
   );
 
-  // Exported permission: display source code
-  $permissions['display source code'] = array(
-    'name' => 'display source code',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'devel',
-  );
-
   // Exported permission: edit any community_group content
   $permissions['edit any community_group content'] = array(
     'name' => 'edit any community_group content',
@@ -1111,6 +1111,30 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'devel',
+  );
+
+  // Exported permission: tamper community_group_feed_csv_upload
+  $permissions['tamper community_group_feed_csv_upload'] = array(
+    'name' => 'tamper community_group_feed_csv_upload',
+    'roles' => array(),
+  );
+
+  // Exported permission: tamper feed_categories
+  $permissions['tamper feed_categories'] = array(
+    'name' => 'tamper feed_categories',
+    'roles' => array(),
+  );
+
+  // Exported permission: tamper node
+  $permissions['tamper node'] = array(
+    'name' => 'tamper node',
+    'roles' => array(),
+  );
+
+  // Exported permission: tamper user
+  $permissions['tamper user'] = array(
+    'name' => 'tamper user',
+    'roles' => array(),
   );
 
   // Exported permission: use PHP for tracking visibility

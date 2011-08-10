@@ -218,6 +218,16 @@ function community_group_feed_csv_upload_feeds_importer_default() {
             'target' => 'field_demographic',
             'unique' => FALSE,
           ),
+          36 => array(
+            'source' => 'guid',
+            'target' => 'field_id_guid',
+            'unique' => FALSE,
+          ),
+          37 => array(
+            'source' => 'id_custom',
+            'target' => 'field_id_custom',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '2',
         'input_format' => 'plain_text',

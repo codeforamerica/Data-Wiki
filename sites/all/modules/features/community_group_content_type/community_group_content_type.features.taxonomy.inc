@@ -105,7 +105,7 @@ function community_group_content_type_taxonomy_default_vocabularies() {
       'name' => 'City',
       'machine_name' => 'city',
       'description' => '',
-      'hierarchy' => '0',
+      'hierarchy' => '1',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(
@@ -197,7 +197,7 @@ function community_group_content_type_taxonomy_default_vocabularies() {
       'name' => 'District',
       'machine_name' => 'district',
       'description' => '',
-      'hierarchy' => '0',
+      'hierarchy' => '1',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(
@@ -335,7 +335,7 @@ function community_group_content_type_taxonomy_default_vocabularies() {
       'name' => 'Type of Community',
       'machine_name' => 'type_community',
       'description' => '',
-      'hierarchy' => '0',
+      'hierarchy' => '1',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(
