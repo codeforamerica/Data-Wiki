@@ -145,8 +145,8 @@ function citygroups_sub_contents($type) {
       
     case 'branding_footer':
       $code_for_america = '';
-      $output .= '<div id="branding-footer alpha omega grid_16">' 
-      . '<div class="about grid_6">' 
+      $output .= '<div id="branding-footer alpha omega grid_16 alpha omega">' 
+      . '<div class="about grid_6 alpha">' 
       . t('Maintained by the City and Community Groups.') . '<br />'
       . t('Created as Open Source by <a href="http://codeforamerica.org">Code for America</a>') 
       . '<div class="tagline">' .  t('"For a more transparent, efficient and participatory future."') . '</div>' . '</div>'
@@ -154,22 +154,6 @@ function citygroups_sub_contents($type) {
       . '</div>';
       break;
 
-    case 'about_citygroups':
-      $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_facebook.png" title="Facebook" alt="Facebook" />';
-      $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_yahoo_groups.png" title="Yahoo Groups" alt="Yahoo Groups" />';
-      $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_google_groups.png" title="Google Groups" alt="Google Groups" />';
-      $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_meetup.png" title="Meetup Groups" alt="Meetup Groups" />';
-      $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_email.png" title="Email" alt="Email" />';
-      $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_twitter.png" title="Twitter" alt="Twitter" />';
-      $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_blogs.png" title="Community Blogs" alt="Community Blogs" />';
-      $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_mail.png" title="Personal Email" alt="Personal Email" />';
-
-      $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $yahoo . $mail /*. $ning */;
-      $output .= '<div class="add-data">' .
-        '<h3>' . t('We make it easy to find and share all kinds of groups in your city.') . '</h3>'
-        . '<div class="groups-icons">' . $links . '</div>'
-        . '</div>';
-      break;
       
       case 'map':
         $output .= datawiki_group_map_render();
@@ -192,12 +176,39 @@ function citygroups_sub_contents($type) {
       break;
       
       case 'about':
+      
+        $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_facebook.png" title="Facebook" alt="Facebook" />';
+        $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_yahoo_groups.png" title="Yahoo Groups" alt="Yahoo Groups" />';
+        $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_google_groups.png" title="Google Groups" alt="Google Groups" />';
+        $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_meetup.png" title="Meetup Groups" alt="Meetup Groups" />';
+        $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_email.png" title="Email" alt="Email" />';
+        $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_twitter.png" title="Twitter" alt="Twitter" />';
+        $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_blogs.png" title="Community Blogs" alt="Community Blogs" />';
+        $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_mail.png" title="Personal Email" alt="Personal Email" />';
+  
+        $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $yahoo . $mail /*. $ning */;
+
         $output .= "
-        <div class=\"grid_4 about\">
-        <h3>What is CityGroups?</h3>
-        <p>Banh mi vinyl vegan laboris magna, nihil hoodie portland homo cillum raw denim tempor. High life wayfarers you probably haven't heard of them, assumenda twee wes anderson ut dreamcatcher put a bird on it nulla echo park marfa master cleanse consequat quis. Dolor adipisicing accusamus hoodie chambray blog. Qui ullamco laboris whatever shoreditch voluptate. Brooklyn sartorial cliche, dolore whatever exercitation odio scenester. Chambray scenester esse magna locavore. Stumptown proident pariatur nesciunt.</p>
-        </div>
-        
+        <div class=\"grid_16 postscript-content alpha omega\">
+          <div class=\"grid_6 about alpha\">
+          <h3>What is CityGroups?</h3>
+          
+          We make it easy to find and share all kinds of groups in your city
+          <div class=\"groups-icons\">" . $links . "</div>
+          
+          <p>Banh mi vinyl vegan laboris magna, nihil hoodie portland homo cillum raw denim tempor. High life wayfarers you probably haven't heard of them, assumenda twee wes anderson ut dreamcatcher put a bird on it nulla echo park marfa master cleanse consequat quis. Dolor adipisicing accusamus hoodie chambray blog. Qui ullamco laboris whatever shoreditch voluptate. Brooklyn sartorial cliche, dolore whatever exercitation odio scenester. Chambray scenester esse magna locavore. Stumptown proident pariatur nesciunt.</p>
+          </div>
+  
+          <div class=\"grid_4 push_1 participate\">
+          <h3>Get on the map</h3>
+          <p>Banh mi vinyl vegan laboris magna, nihil hoodie portland homo cillum raw denim tempor. High life wayfarers you probably haven't heard of them, assumenda twee wes anderson ut dreamcatcher put a bird on it nulla echo park marfa master cleanse consequat quis. Dolor adipisicing accusamus hoodie chambray blog. Qui ullamco laboris whatever shoreditch voluptate. Brooklyn sartorial cliche, dolore whatever exercitation odio scenester. Chambray scenester esse magna locavore. Stumptown proident pariatur nesciunt.</p>
+          </div>
+    
+          <div class=\"grid_4 push_1 local omega\">
+          <h3>Local Community Groups</h3>
+          <p>Banh mi vinyl vegan laboris magna, nihil hoodie portland homo cillum raw denim tempor. High life wayfarers you probably haven't heard of them, assumenda twee wes anderson ut dreamcatcher put a bird on it nulla echo park marfa master cleanse consequat quis. Dolor adipisicing accusamus hoodie chambray blog. Qui ullamco laboris whatever shoreditch voluptate. Brooklyn sartorial cliche, dolore whatever exercitation odio scenester. Chambray scenester esse magna locavore. Stumptown proident pariatur nesciunt.</p>
+          </div>
+        </div>        
         ";
       break;      
 

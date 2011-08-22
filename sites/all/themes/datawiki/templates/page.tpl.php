@@ -119,7 +119,7 @@
 <div class="clear"></div>
 
 <?php if(!empty($page['postscript'])): ?>
-  <div id="postscript">
+  <div id="postscript-area">
     <div id="postscript-container" class="container_16">
       <?php print render($page['postscript']); ?>
     </div>
@@ -127,8 +127,8 @@
   <div class="clear"></div>
 <?php endif; ?>
  
-<div id="footer-container" class="grid_16 alpha omega">
-  <div id="footer" class="grid_16 alpha">
+<div id="footer-container" class="container_16">
+  <div id="footer-content" class="grid_16 alpha omega">
       <?php print render($page['footer_top']); ?> 
       <div class="clear"></div> 
       <?php print render($page['footer']); ?>
