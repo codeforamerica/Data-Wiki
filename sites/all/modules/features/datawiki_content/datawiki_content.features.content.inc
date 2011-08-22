@@ -9,6 +9,32 @@
  */
 function datawiki_content_content_defaults() {
 $content = array();
+$content['community_data'] = (object)array(
+  'exported_path' => 'community-data',
+  'title' => 'Community Data',
+  'status' => '1',
+  'promote' => '0',
+  'sticky' => '0',
+  'type' => 'page',
+  'language' => 'und',
+  'created' => '1314038655',
+  'comment' => '1',
+  'translate' => '0',
+  'machine_name' => 'community_data',
+  'body' => array(
+    'und' => array(
+      0 => array(
+        'value' => '<p>Community Data</p>
+',
+        'summary' => '',
+        'format' => 'filtered_html',
+        'safe_value' => '<p>Community Data</p>
+',
+        'safe_summary' => '',
+      ),
+    ),
+  ),
+);
 $content['data_page_community_data'] = (object)array(
   'exported_path' => 'community-data-api',
   'title' => 'Community Data & API',
@@ -523,6 +549,32 @@ $content['datawiki_page_welcome'] = (object)array(
         'summary' => '',
         'format' => 'filtered_html',
         'safe_value' => '<p>This is the welcome page.</p>
+',
+        'safe_summary' => '',
+      ),
+    ),
+  ),
+);
+$content['developers'] = (object)array(
+  'exported_path' => 'developers',
+  'title' => 'Developers',
+  'status' => '1',
+  'promote' => '0',
+  'sticky' => '0',
+  'type' => 'page',
+  'language' => 'und',
+  'created' => '1314038594',
+  'comment' => '1',
+  'translate' => '0',
+  'machine_name' => 'developers',
+  'body' => array(
+    'und' => array(
+      0 => array(
+        'value' => '<p>Developers...</p>
+',
+        'summary' => '',
+        'format' => 'filtered_html',
+        'safe_value' => '<p>Developers...</p>
 ',
         'safe_summary' => '',
       ),

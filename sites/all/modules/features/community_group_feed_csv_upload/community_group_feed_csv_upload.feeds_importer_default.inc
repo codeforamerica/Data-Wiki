@@ -228,6 +228,31 @@ function community_group_feed_csv_upload_feeds_importer_default() {
             'target' => 'field_email',
             'unique' => FALSE,
           ),
+          38 => array(
+            'source' => 'citygroups_flag_date_watch',
+            'target' => 'field_import_flag_watch',
+            'unique' => FALSE,
+          ),
+          39 => array(
+            'source' => 'citygroups_flag_date_recommended',
+            'target' => 'field_import_flag_recommended',
+            'unique' => FALSE,
+          ),
+          40 => array(
+            'source' => 'citygroups_flag_date_inactive',
+            'target' => 'field_import_flag_inactive',
+            'unique' => FALSE,
+          ),
+          41 => array(
+            'source' => 'citygroups_flag_date_duplicate',
+            'target' => 'field_import_flag_duplicate',
+            'unique' => FALSE,
+          ),
+          42 => array(
+            'source' => 'citygroups_flag_date_inappropriate',
+            'target' => 'field_import_flag_inappropriate',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '2',
         'input_format' => 'plain_text',

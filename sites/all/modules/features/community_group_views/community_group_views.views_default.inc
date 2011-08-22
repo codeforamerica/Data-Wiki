@@ -824,7 +824,7 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['uuid']['id'] = 'uuid';
   $handler->display->display_options['fields']['uuid']['table'] = 'node';
   $handler->display->display_options['fields']['uuid']['field'] = 'uuid';
-  $handler->display->display_options['fields']['uuid']['label'] = 'guid';
+  $handler->display->display_options['fields']['uuid']['label'] = 'uuid';
   $handler->display->display_options['fields']['uuid']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['uuid']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['uuid']['alter']['absolute'] = 0;
@@ -1234,6 +1234,28 @@ function community_group_views_views_default_views() {
   $handler->display->display_options['fields']['count_4']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['count_4']['separator'] = '';
   $handler->display->display_options['fields']['count_4']['format_plural'] = 0;
+  /* Field: Feeds item: Item GUID */
+  $handler->display->display_options['fields']['guid']['id'] = 'guid';
+  $handler->display->display_options['fields']['guid']['table'] = 'feeds_item';
+  $handler->display->display_options['fields']['guid']['field'] = 'guid';
+  $handler->display->display_options['fields']['guid']['label'] = 'guid';
+  $handler->display->display_options['fields']['guid']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['guid']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['guid']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['guid']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['guid']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['guid']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['guid']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['guid']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['guid']['hide_alter_empty'] = 0;
   /* Sort criterion: Content: Updated date */
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
