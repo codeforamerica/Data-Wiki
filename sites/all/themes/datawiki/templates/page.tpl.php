@@ -12,26 +12,21 @@
     </div>
     <?php endif; ?>
     <div id="header" class="grid_16">
-      <div class="header-logo-container grid_5 alpha">
-        <?php print render($page['header_logo']); ?>
-        <?php print $logo; ?>
-        <?php print $prealpha; ?>
+      <div class="header-logo-container grid_8 alpha">
+        <?php print render($logo); ?>
+          <div class="clear"></div>
+        <?php if($site_slogan): ?>
+          <div id="slogan">
+            <?php print $site_slogan; ?>
+          </div>
+        <?php endif; ?> 
       </div>
-      <?php if($section['section_name']): ?>
-      <div class="header-subsection-container grid_6 alpha">
-        <?php print render($section['section_name']); ?>
-      </div>
+
+      <?php if($page['header_search']): ?>       
+        <div class="header-search-container grid_3">
+          <?php print render($page['header_search']); ?>
+        </div>
       <?php endif; ?>
-<!--
-      <div class="header-menu-container grid_2">
-        <?php print render($page['header_menu']); ?>
-      </div>
--->
-<!--
-      <div class="header-gap-container grid_4">
-        <?php print render($page['header_gap']); ?>
-      </div>
--->
       <div class="header-signin-container grid_3 push_2 omega">
         <?php print render($page['header_signin']); ?>
         <?php print $account_link; ?>
@@ -40,14 +35,18 @@
     <?php if ($page['header_bottom']): ?>
     <div class="clear"></div>
     <div class="header-bottom grid_16 alpha omega">
+    
+      <div class="header-menu-container grid_2">
+        <?php print render($page['header_menu']); ?>
+      </div>
+
+    
       <?php print render($page['header_bottom']); ?>
     </div>
     <?php endif; ?>
   <div class="clear"></div>
   <div id="main" role="main" class="grid_16 alpha omega">
-    <div id="slogan" class="grid_8 alpha">
-      <?php print $site_slogan; ?>
-    </div>
+
     <div class="preface-container grid_8 omega">
       <?php print render($page['preface']); ?>
     </div>

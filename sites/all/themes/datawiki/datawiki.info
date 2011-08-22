@@ -5,8 +5,8 @@ core = 7.x
 engine = phptemplate
 
 ; Styles
-; 960 grid system (50 column 16 columns 10 gutter )
-stylesheets[all][] = css/960_50_16_10.css
+; 960 grid system (50 column 16 columns 10 gutter fluid)
+stylesheets[all][] = css/960_50_16_10_fluid.css
 ; Classes that override drupal core and module css
 stylesheets[all][] = css/drupal_reset.css
 ; Custom site styles - backgrounds, etc. Can be merged with layout as it makes sense.
@@ -25,7 +25,7 @@ regions[page_top] = "Page top"
 regions[header_top] = "Header top"
 regions[header_logo] = "Header logo"
 regions[header_menu] = "Header menu"
-regions[header_gap] = "Header gap"
+regions[header_search] = "Header search"
 regions[header_signin] = "Header signin"
 regions[header_bottom] = "Header bottom"
 regions[sidebar_first] = "Sidebar first"
@@ -55,6 +55,6 @@ features[] = slogan
 features[] = favicon
 
 ; Custom Theme Settings
-settings[sitename] = DataWiki
-settings[site_slogan] = A public directory
-; settings[logo_image_link] = images/logo.png
+settings[sitename] = CityGroups
+settings[site_slogan] = A public directory of community groups.
+settings[logo_image_link] = images/citygroups_logo.png
