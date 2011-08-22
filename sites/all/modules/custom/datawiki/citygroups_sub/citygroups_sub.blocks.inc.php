@@ -24,22 +24,11 @@ function citygroups_sub_block_info() {
     'info' => t('Facebook Like'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_sub_add_new_group'] = array(
-    'info' => t('Add New Group'),
+  $blocks['citygroups_sub_home_content'] = array(
+    'info' => t('Home Content'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_sub_view_data'] = array(
-    'info' => t('View Data'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['citygroups_sub_news'] = array(
-    'info' => t('News'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['citygroups_sub_promote'] = array(
-    'info' => t('Promote'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
+
   $blocks['citygroups_sub_about'] = array(
     'info' => t('About'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
@@ -90,25 +79,11 @@ function citygroups_sub_block_view($delta = '') {
       $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
       break;
 
-    case 'citygroups_sub_add_new_group':
+    case 'citygroups_sub_home_content':
       $block['subject'] = '';
-      $block['content'] = citygroups_sub_contents('add_new_group');
+      $block['content'] = citygroups_sub_contents('home_content');
       break;
 
-    case 'citygroups_sub_view_data':
-      $block['subject'] = '';
-      $block['content'] = citygroups_sub_contents('view_data');
-      break;
-
-    case 'citygroups_sub_news':
-      $block['subject'] = '';
-      $block['content'] = citygroups_sub_contents('news');
-      break;
-      
-    case 'citygroups_sub_promote':
-      $block['subject'] = '';
-      $block['content'] = citygroups_sub_contents('promote');
-      break;
 
     case 'citygroups_sub_about':
       $block['subject'] = '';
@@ -159,22 +134,44 @@ function citygroups_sub_contents($type) {
         $output .= datawiki_group_map_render();
       break;
       
-      case 'add_new_group':
-        $output .= "add group";
+      case 'home_content':
+        $output .= "
+          <div class=\"grid_16 sections\">
+
+            <div class=\"grid_6 view-data section alpha\">
+              <h3>See the groups</h3>
+              <p>asdfasdfasdf</p>
+              <div id=\"search-map\" class=\"form-input\">
+              <input placeholder=\"Enter your address or zipcode here.\" size=40 class=\"form-item\" />
+              <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
+              </div>
+        
+              <div class=\"button\"><a href=\"map\">Map view</a></div>
+              <div class=\"button\"><a href=\"list\">List view</a></div>
+            </div>
+
+           
+            <div class=\"grid_6  push_2  add-new-group section omega\">
+              <h3>Can you recommend any community groups?</h3>
+              <p>asdfasdfasdf</p>
+              <div class=\"button\"><a href=\"/node/add/community-group\">Add New</a></div>
+            </div>    
+
+          </div>
+          <div class=\"clear\"></div>
+          <div class=\"grid_16 sections\">
+            <div class=\"grid_6 news section alpha\">
+              <h3>We're mapping Block Watch Captains</h3>
+              <p>asdfasdfasdf</p>
+            </div>    
+            <div class=\"grid_6 push_2 promote section omega\">
+              <h3>Spread the word</h3>
+              <p>asdfasdfasdf</p>
+            </div>      
+          </div>
+        ";
       break;  
-      
-      case 'view_data':
-        $output .= 'view data';
-      break;    
-      
-      case 'news':
-        $output .= 'news';
-      break;       
-      
-      case 'promote':
-        $output .= 'promote';
-      break;
-      
+  
       case 'about':
       
         $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_facebook.png" title="Facebook" alt="Facebook" />';

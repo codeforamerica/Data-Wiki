@@ -118,7 +118,7 @@ function citygroups_splash_block_view($delta = '') {
       $block['content'] = citygroups_splash_block_site_config();
       break;
     case 'site_prealpha':
-      $block['subject'] = t('This site is Pre-Alpha');
+      $block['subject'] = t('This site is Alpha');
       $block['content'] = citygroups_splash_block_site_prealpha();
       break;
   }
@@ -137,7 +137,7 @@ function citygroups_splash_block_load($delta) {
  */
 function citygroups_splash_block_site_prealpha() {
 
-  $output .= '<p>' . t('This is a brand new site, and as such, may have some bugs.') . '</p>';
+  $output .= '<p>' . t('This is a new site, we are understanding how best to make the site useful to Seattleites.') . '</p>';
   $output .= '<p>' . t('We are inviting folks to test the site and add information to it. If you have any questions or thoughts, please ');
   $output .= l('Contact Us', 'contact') . '</p>';
   

@@ -9,6 +9,46 @@
  */
 function datawiki_content_content_defaults() {
 $content = array();
+$content['about_groups'] = (object)array(
+  'exported_path' => 'about/groups',
+  'title' => 'About the Groups',
+  'status' => '1',
+  'promote' => '0',
+  'sticky' => '0',
+  'type' => 'page',
+  'language' => 'und',
+  'created' => '1314045685',
+  'comment' => '1',
+  'translate' => '0',
+  'machine_name' => 'about_groups',
+  'body' => array(),
+);
+$content['api'] = (object)array(
+  'exported_path' => 'api',
+  'title' => 'API',
+  'status' => '1',
+  'promote' => '0',
+  'sticky' => '0',
+  'type' => 'page',
+  'language' => 'und',
+  'created' => '1314045618',
+  'comment' => '1',
+  'translate' => '0',
+  'machine_name' => 'api',
+  'body' => array(
+    'und' => array(
+      0 => array(
+        'value' => '<p>API page</p>
+',
+        'summary' => '',
+        'format' => 'filtered_html',
+        'safe_value' => '<p>API page</p>
+',
+        'safe_summary' => '',
+      ),
+    ),
+  ),
+);
 $content['community_data'] = (object)array(
   'exported_path' => 'community-data',
   'title' => 'Community Data',

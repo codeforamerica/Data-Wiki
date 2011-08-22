@@ -33,7 +33,25 @@ function datawiki_context_menu_default_menu_links() {
     'menu_name' => 'menu-citygroups-menu',
     'link_path' => 'categories',
     'router_path' => 'categories',
-    'link_title' => 'Topics',
+    'link_title' => 'Related Groups',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-46',
+  );
+  // Exported menu link: menu-citygroups-menu:list
+  $menu_links['menu-citygroups-menu:list'] = array(
+    'menu_name' => 'menu-citygroups-menu',
+    'link_path' => 'list',
+    'router_path' => 'list',
+    'link_title' => 'List View',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -46,30 +64,12 @@ function datawiki_context_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-48',
   );
-  // Exported menu link: menu-citygroups-menu:list
-  $menu_links['menu-citygroups-menu:list'] = array(
-    'menu_name' => 'menu-citygroups-menu',
-    'link_path' => 'list',
-    'router_path' => 'list',
-    'link_title' => 'List',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-49',
-  );
   // Exported menu link: menu-citygroups-menu:node/add/community-group
   $menu_links['menu-citygroups-menu:node/add/community-group'] = array(
     'menu_name' => 'menu-citygroups-menu',
     'link_path' => 'node/add/community-group',
     'router_path' => 'node/add/community-group',
-    'link_title' => 'Add',
+    'link_title' => 'Add New Group',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -84,10 +84,10 @@ function datawiki_context_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Add');
+  t('Add New Group');
   t('Home/Map');
-  t('List');
-  t('Topics');
+  t('List View');
+  t('Related Groups');
 
 
   return $menu_links;

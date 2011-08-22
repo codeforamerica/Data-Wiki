@@ -410,6 +410,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: administer uuid
+  $permissions['administer uuid'] = array(
+    'name' => 'administer uuid',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'uuid',
+  );
+
   // Exported permission: administer views
   $permissions['administer views'] = array(
     'name' => 'administer views',
@@ -506,6 +515,12 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: create community_group_feed_csv_reimpor content
+  $permissions['create community_group_feed_csv_reimpor content'] = array(
+    'name' => 'create community_group_feed_csv_reimpor content',
+    'roles' => array(),
+  );
+
   // Exported permission: create community_group_feed_upload_csv content
   $permissions['create community_group_feed_upload_csv content'] = array(
     'name' => 'create community_group_feed_upload_csv content',
@@ -556,6 +571,12 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: delete any community_group_feed_csv_reimpor content
+  $permissions['delete any community_group_feed_csv_reimpor content'] = array(
+    'name' => 'delete any community_group_feed_csv_reimpor content',
+    'roles' => array(),
+  );
+
   // Exported permission: delete any community_group_feed_upload_csv content
   $permissions['delete any community_group_feed_upload_csv content'] = array(
     'name' => 'delete any community_group_feed_upload_csv content',
@@ -600,6 +621,12 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: delete own community_group_feed_csv_reimpor content
+  $permissions['delete own community_group_feed_csv_reimpor content'] = array(
+    'name' => 'delete own community_group_feed_csv_reimpor content',
+    'roles' => array(),
   );
 
   // Exported permission: delete own community_group_feed_upload_csv content
@@ -766,6 +793,12 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: edit any community_group_feed_csv_reimpor content
+  $permissions['edit any community_group_feed_csv_reimpor content'] = array(
+    'name' => 'edit any community_group_feed_csv_reimpor content',
+    'roles' => array(),
+  );
+
   // Exported permission: edit any community_group_feed_upload_csv content
   $permissions['edit any community_group_feed_upload_csv content'] = array(
     'name' => 'edit any community_group_feed_upload_csv content',
@@ -813,6 +846,12 @@ function citygroups_permissions_user_default_permissions() {
       1 => 'authenticated user',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: edit own community_group_feed_csv_reimpor content
+  $permissions['edit own community_group_feed_csv_reimpor content'] = array(
+    'name' => 'edit own community_group_feed_csv_reimpor content',
+    'roles' => array(),
   );
 
   // Exported permission: edit own community_group_feed_upload_csv content

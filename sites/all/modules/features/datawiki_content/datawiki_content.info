@@ -1,5 +1,7 @@
 core = "7.x"
 description = "Default Content for DataWiki"
+features[content][] = "about_groups"
+features[content][] = "api"
 features[content][] = "community_data"
 features[content][] = "data_page_community_data"
 features[content][] = "datawiki_page_about"
