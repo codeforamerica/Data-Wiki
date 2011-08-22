@@ -4,14 +4,15 @@
  * Default theme implementation to display a single Drupal page.
  */
 ?>
-<div id="container" class="container_16">
+<div id="header">
+  <div id="header-container" class="container_16">
     <?php if ($page['header_top']): ?>
-    <div class="header-top grid_16">
+    <div class="header-top grid_16 alpha omega">
       <?php print render($page['header_top']); ?>
       <div class="clear"></div>
     </div>
     <?php endif; ?>
-    <div id="header" class="grid_16">
+    <div id="header-middle" class="grid_16 alpha omega">
       <div class="header-logo-container grid_8 alpha">
         <?php print render($logo); ?>
           <div class="clear"></div>
@@ -21,7 +22,6 @@
           </div>
         <?php endif; ?> 
       </div>
-
       <?php if($page['header_search']): ?>       
         <div class="header-search-container grid_3">
           <?php print render($page['header_search']); ?>
@@ -35,18 +35,18 @@
     <?php if ($page['header_bottom']): ?>
     <div class="clear"></div>
     <div class="header-bottom grid_16 alpha omega">
-    
-      <div class="header-menu-container grid_2">
+      <div class="header-menu-container">
         <?php print render($page['header_menu']); ?>
       </div>
-
-    
+      <div class="clear"></div>
       <?php print render($page['header_bottom']); ?>
     </div>
     <?php endif; ?>
-  <div class="clear"></div>
+  </div>
+</div>
+<div class="clear"></div>
+<div id="main-container" class="container_16">
   <div id="main" role="main" class="grid_16 alpha omega">
-
     <div class="preface-container grid_8 omega">
       <?php print render($page['preface']); ?>
     </div>
@@ -114,12 +114,20 @@
       <?php endif; ?>
     </div> 
     <div class="clear"></div>
-    <div class="postscript-container grid_16 alpha">
+  </div>
+</div>
+<div class="clear"></div>
+
+<?php if(!empty($page['postscript'])): ?>
+  <div id="postscript">
+    <div id="postscript-container" class="container_16">
       <?php print render($page['postscript']); ?>
     </div>
-    <div class="clear"></div>
   </div>
   <div class="clear"></div>
+<?php endif; ?>
+ 
+<div id="footer-container" class="grid_16 alpha omega">
   <div id="footer" class="grid_16 alpha">
       <?php print render($page['footer_top']); ?> 
       <div class="clear"></div> 
@@ -128,6 +136,6 @@
       <?php print render($page['footer_bottom']); ?>
       <div class="clear"></div>
   </div>
-  <div class="clear"></div>
 </div>
+<div class="clear"></div>
 <?php print $closure ?> 

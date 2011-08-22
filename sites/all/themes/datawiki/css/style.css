@@ -47,25 +47,101 @@ strong {
 }
 
 
-/* Links
-/-------------------------------------------------------------- */
-
-
-/* Quicktabs
-/-------------------------------------------------------------- */
-
-
 /*---- HEADER ----*/
 #header {
   background: #303030;
+  padding: 10px 0;
 }
+
+#header-container {
+  height: 60px;
+}
+
 #header a {
   color: #ffffff;
 }
 
-.header-logo-container {
-
+#block-search-form,
+.header-signin-container  {
+  padding: 10px 0;
 }
+
+#block-search-form input#edit-search-block-form--2{
+  width: 140px;
+}
+
+#block-search-form  .form-submit {
+  background-image: url(..//images/search_button.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 20px;
+  height: 20px;
+  text-indent: -999px;
+}
+
+.front #block-system-main {
+  display: none;
+}
+
+#slogan {
+  color: #ffffff;
+}
+
+#block-menu-menu-citygroups-menu .block-title {
+  display: none;
+}
+
+#block-menu-menu-citygroups-menu li {
+  list-style: none;
+  width: auto;
+  float: left;
+  margin: 20px 10px;
+}
+
+#block-menu-menu-citygroups-menu li a {
+  background-color: #9E9E9E;
+  padding: 10px 15px 10px 40px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+}
+#block-menu-menu-citygroups-menu li a:hover {
+  color: #ccc;
+  background-color: #BFBFBF;
+}
+
+
+
+
+#postscript {
+  background-color: #444546;
+  color: #fff;
+  height: auto;
+  min-height: 100px;
+  display: block;
+}
+
+
+#postscript-container {
+  margin: 10px;
+  display: block;
+  height: 100%;
+  min-height: 100px;
+}
+
+#postscript-container .block {
+  height: auto;
+  float: none;
+}
+
+
+
+
+
 
 
 /* Home page */

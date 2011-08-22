@@ -12,7 +12,7 @@ function datawiki_form_alter(&$form, &$form_state, $form_id) {
     $form['search_block_form']['#title'] = '';
     unset($form['search_block_form']['#title_display']);
     // HTML5 placeholder attribute
-    $form['search_block_form']['#attributes']['placeholder'] = t('SEARCH');
+    $form['search_block_form']['#attributes']['placeholder'] = t('Search');
   }
 }
 

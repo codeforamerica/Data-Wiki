@@ -19,10 +19,12 @@ stylesheets[all][] = css/edit.css
 
 ; Scripts
 ; scripts[] = js/script.js
+scripts[] = js/datawiki.js
 
 ; Regions
 regions[page_top] = "Page top"
 regions[header_top] = "Header top"
+regions[header_middle] = "Header middle"
 regions[header_logo] = "Header logo"
 regions[header_menu] = "Header menu"
 regions[header_search] = "Header search"
