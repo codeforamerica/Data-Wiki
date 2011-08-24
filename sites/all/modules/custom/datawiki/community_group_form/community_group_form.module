@@ -29,6 +29,8 @@ function community_group_form_menu() {
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {  
 
+/* dpm($form); */
+
     $form['#prefix'] .= '<div class="instructions grid_10 alpha omega">';
     $form['#prefix'] .= '<h2>' .t("Add a Community Group") . '</h2>';
     $form['#prefix'] .= '<h3>' .t("You can submit community groups here.") . '</h3>';
@@ -40,6 +42,8 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
     }
+    
+    $form['title']['#suffix'] = '<div class="description">' . t('What is the official name of this community group?') . '</div>';
     
     // Hide some fields.
 

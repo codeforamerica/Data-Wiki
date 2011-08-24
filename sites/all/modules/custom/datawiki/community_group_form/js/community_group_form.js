@@ -3,18 +3,32 @@ document.namespaces;
 
 Drupal.settings.community_group_form = {};
 
+
+
 Drupal.behaviors.community_group_form = {
   'attach': function(context, settings) {
       Drupal.settings.community_group_form.data = $('div.openlayers-map').data('openlayers');
       Drupal.settings.community_group_form.centerOnFeature();
-      
-      // @TODO this is a hack.
-      $('div.preface-container').append($('div.add-home-menu'));
     }
   };
 
+
+  // When going through prompts, click through to the next tab.
+  $('input#edit-field-prepare-und').click(function(){
+    $('ul.vertical-tabs-list li:eq(1) a').trigger('click');
+  });
+
+  $('input#edit-field-privacy-und').click(function(){
+    $('ul.vertical-tabs-list li:eq(2) a').trigger('click');
+  });
+
+
+
+
+
   // true/false indication if the label should be moved.
   var fields = {
+    'div.form-item-title': true,
     'div.field-name-field-url': true,
     'div.field-name-field-url-calendar': true,
     'div.field-name-field-email': true,
@@ -39,6 +53,7 @@ Drupal.behaviors.community_group_form = {
   };
   var description;
   var label;
+/*
   for (var field in fields) {
     // Move the description markup to an interactive element.
     // @TODO a focus css might be a better approach in the long term.
@@ -53,9 +68,10 @@ Drupal.behaviors.community_group_form = {
     
       $(field + ' div.description').remove();
       $(field + ' input').after('<div class="description"><div class="close-btn"></div>' + description + '</div>');
-/*       $(field + ' div.description').hide(); */
+      // $(field + ' div.description').hide();
     }
   }
+*/
   // When input is selected, show the tooltip.
   $('div.form-item input').click(function(){
     $(this).parent().find('div.description').show();
@@ -159,7 +175,6 @@ Drupal.settings.community_group_form.updateMapForm = function(result) {
 Drupal.settings.community_group_form.openLayersDropPoint = function(result){
   // Get map data.
   var data = Drupal.settings.community_group_form.data;
-console.log(result);
   if(result.longitude !== undefined && result.latitude !== undefined) {    
     var center = new OpenLayers.LonLat(result.longitude, result.latitude).transform(
             new OpenLayers.Projection('EPSG:4326'),
@@ -182,17 +197,17 @@ console.log(result);
               })
           });
 
-  var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(result.longitude, result.latitude).transform(
-            new OpenLayers.Projection('EPSG:4326'),
-            new OpenLayers.Projection(data.openlayers.projection.projCode)));
-  var edit_feature_layer = data.openlayers.getLayersByName('Selection Layer')[0];
+    var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(result.longitude, result.latitude).transform(
+              new OpenLayers.Projection('EPSG:4326'),
+              new OpenLayers.Projection(data.openlayers.projection.projCode)));
+    var edit_feature_layer = data.openlayers.getLayersByName('Selection Layer')[0];
 
-  for (var i = 0; i < edit_feature_layer.features.length; i++) {
-    if (edit_feature_layer.features[i] != feature) {
-      edit_feature_layer.features[i].destroy();
-    }
-  } 
-  edit_feature_layer.addFeatures(feature);
+    for (var i = 0; i < edit_feature_layer.features.length; i++) {
+      if (edit_feature_layer.features[i] != feature) {
+        edit_feature_layer.features[i].destroy();
+      }
+    } 
+    edit_feature_layer.addFeatures(feature);
 
   // Store the drawn feature in format compatible with geofield.
   Drupal.settings.community_group_form.setItem(feature);

@@ -17,26 +17,25 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_details';
   $field_group->data = array(
-    'label' => 'Basic Information',
-    'weight' => '0',
+    'label' => 'Details',
+    'weight' => '31',
     'children' => array(
-      0 => 'field_contact',
-      1 => 'field_description',
-      2 => 'field_email',
-      3 => 'field_url',
-      4 => 'field_url_calendar',
-      5 => 'title',
-      6 => 'group_information',
+      0 => 'field_description',
+      1 => 'field_notes',
+      2 => 'field_source',
+      3 => 'field_url_calendar',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Details',
       'instance_settings' => array(
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => 'Contact information here...',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_basic|node|community_group|form'] = $field_group;
@@ -48,15 +47,11 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'default';
-  $field_group->parent_name = 'group_categories';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '29',
-    'children' => array(
-      0 => 'field_demographic',
-      1 => 'field_term_civic_taxonomy',
-      2 => 'field_type_community',
-    ),
+    'weight' => '4',
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'formatter' => 'collapsible',
@@ -74,15 +69,11 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_categories';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '6',
-    'children' => array(
-      0 => 'field_demographic',
-      1 => 'field_term_civic_taxonomy',
-      2 => 'field_type_community',
-    ),
+    'weight' => '7',
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'label' => 'More',
@@ -106,21 +97,18 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
-      0 => 'field_activity',
-      1 => 'field_audience_size',
-      2 => 'field_categories',
-      3 => 'field_ownership',
-      4 => 'field_type_group',
-      5 => 'group_categories_advanced',
+      0 => 'field_categories',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Categories',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => 'grid_10',
         'description' => '',
+        'effect' => 'none',
+        'speed' => 'none',
       ),
       'formatter' => 'collapsible',
     ),
@@ -134,28 +122,86 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_details';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '2',
+    'weight' => '32',
     'children' => array(
       0 => 'field_activity',
       1 => 'field_audience_size',
       2 => 'field_categories',
       3 => 'field_ownership',
       4 => 'field_type_group',
-      5 => 'group_categories_advanced',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Categories',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => 'Categorize...',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_categories|node|community_group|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_contact|node|community_group|form';
+  $field_group->group_name = 'group_contact';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'community_group';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_details';
+  $field_group->data = array(
+    'label' => 'Contact Information',
+    'weight' => '30',
+    'children' => array(
+      0 => 'field_contact',
+      1 => 'field_email',
+      2 => 'field_url',
+      3 => 'title',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
       'instance_settings' => array(
         'classes' => '',
         'required_fields' => 1,
       ),
     ),
   );
-  $export['group_categories|node|community_group|form'] = $field_group;
+  $export['group_contact|node|community_group|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_details|node|community_group|form';
+  $field_group->group_name = 'group_details';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'community_group';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Community Group',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_basic',
+      1 => 'group_categories',
+      2 => 'group_geographic',
+      3 => 'group_prepare',
+      4 => 'group_privacy',
+      5 => 'group_contact',
+    ),
+    'format_type' => 'tabs',
+    'format_settings' => array(
+      'label' => 'Community Group',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_details|node|community_group|form'] = $field_group;
 
   $field_group = new stdClass;
   $field_group->api_version = 1;
@@ -164,24 +210,28 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_details';
   $field_group->data = array(
-    'label' => 'Map this Group',
-    'weight' => '3',
+    'label' => 'Map',
+    'weight' => '33',
     'children' => array(
-      0 => 'field_location',
-      1 => 'field_location_description',
-      2 => 'field_neighborhood',
-      3 => 'field_zipcode',
-      4 => 'group_location',
+      0 => 'field_address',
+      1 => 'field_city',
+      2 => 'field_location',
+      3 => 'field_location_description',
+      4 => 'field_neighborhood',
+      5 => 'field_state',
+      6 => 'field_zipcode',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Map',
       'instance_settings' => array(
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => 'Locate the group on the map...',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_geographic|node|community_group|form'] = $field_group;
@@ -193,19 +243,11 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'default';
-  $field_group->parent_name = 'group_location';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '9',
-    'children' => array(
-      0 => 'field_address',
-      1 => 'field_area_code',
-      2 => 'field_city',
-      3 => 'field_county',
-      4 => 'field_district',
-      5 => 'field_region',
-      6 => 'field_state',
-    ),
+    'weight' => '5',
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'label' => 'More',
@@ -225,15 +267,11 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_basic';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More Information',
-    'weight' => '1',
-    'children' => array(
-      0 => 'field_notes',
-      1 => 'field_source',
-      2 => 'field_url_image',
-    ),
+    'weight' => '6',
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'formatter' => 'collapsible',
@@ -255,22 +293,27 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_location',
-      1 => 'field_location_description',
-      2 => 'field_neighborhood',
-      3 => 'field_zipcode',
-      4 => 'group_group',
+      0 => 'field_address',
+      1 => 'field_city',
+      2 => 'field_county',
+      3 => 'field_location',
+      4 => 'field_location_description',
+      5 => 'field_neighborhood',
+      6 => 'field_state',
+      7 => 'field_zipcode',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Location',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => 'grid_6',
         'description' => '',
+        'effect' => 'none',
+        'speed' => 'none',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'open',
     ),
   );
   $export['group_location|node|community_group|default'] = $field_group;
@@ -282,19 +325,16 @@ function community_group_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_geographic';
+  $field_group->parent_name = 'group_machines';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '20',
+    'weight' => '7',
     'children' => array(
-      0 => 'field_address',
-      1 => 'field_area_code',
-      2 => 'field_city',
-      3 => 'field_county',
-      4 => 'field_district',
-      5 => 'field_location_geocode',
-      6 => 'field_region',
-      7 => 'field_state',
+      0 => 'field_area_code',
+      1 => 'field_county',
+      2 => 'field_district',
+      3 => 'field_location_geocode',
+      4 => 'field_region',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -311,20 +351,52 @@ function community_group_content_type_field_group_info() {
 
   $field_group = new stdClass;
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_machines|node|community_group|form';
+  $field_group->group_name = 'group_machines';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'community_group';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Machines',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_demographic',
+      1 => 'field_term_civic_taxonomy',
+      2 => 'field_type_community',
+      3 => 'field_url_image',
+      4 => 'field_external_id',
+      5 => 'field_import_flag_watch',
+      6 => 'field_import_flag_recommended',
+      7 => 'field_import_flag_inactive',
+      8 => 'field_import_flag_duplicate',
+      9 => 'field_import_flag_inappropriate',
+      10 => 'field_import_uuid',
+      11 => 'group_location',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_machines|node|community_group|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_metadata|node|community_group|default';
   $field_group->group_name = 'group_metadata';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'community_group';
   $field_group->mode = 'default';
-  $field_group->parent_name = 'group_overview';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '24',
-    'children' => array(
-      0 => 'field_notes',
-      1 => 'field_source',
-      2 => 'field_url_image',
-    ),
+    'weight' => '3',
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'label' => 'More',
@@ -349,21 +421,86 @@ function community_group_content_type_field_group_info() {
     'label' => 'Basic Information',
     'weight' => '0',
     'children' => array(
-      0 => 'field_contact',
-      1 => 'field_description',
-      2 => 'field_url',
-      3 => 'field_url_calendar',
-      4 => 'group_metadata',
+      0 => 'field_activity',
+      1 => 'field_audience_size',
+      2 => 'field_contact',
+      3 => 'field_description',
+      4 => 'field_notes',
+      5 => 'field_ownership',
+      6 => 'field_source',
+      7 => 'field_type_community',
+      8 => 'field_type_group',
+      9 => 'field_url',
+      10 => 'field_url_calendar',
+      11 => 'field_url_image',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Basic Information',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => 'grid_10 alpha',
+        'description' => '',
+        'effect' => 'none',
+        'speed' => 'none',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_overview|node|community_group|default'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_prepare|node|community_group|form';
+  $field_group->group_name = 'group_prepare';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'community_group';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_details';
+  $field_group->data = array(
+    'label' => 'Prepare',
+    'weight' => '28',
+    'children' => array(
+      0 => 'field_prepare',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'label' => 'Prepare',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => 'What you need before you begin...',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_prepare|node|community_group|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_privacy|node|community_group|form';
+  $field_group->group_name = 'group_privacy';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'community_group';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_details';
+  $field_group->data = array(
+    'label' => 'Privacy',
+    'weight' => '29',
+    'children' => array(
+      0 => 'field_privacy',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'label' => 'Privacy',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => 'Privacy notice here.',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_privacy|node|community_group|form'] = $field_group;
 
   return $export;
 }
