@@ -201,3 +201,23 @@ function datawiki_preprocess_comment(&$vars) {
   $vars['classes_array'][] = $comment_odd ? 'odd' : 'even';
   $comment_odd = !$comment_odd;
 }
+
+/**
+ * Returns HTML for an element's children fieldsets as vertical tabs.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties and children of the
+ *     fieldset. Properties used: #children.
+ *
+ * @ingroup themeable
+ */
+function datawiki_vertical_tabs($variables) {
+  $element = $variables['element'];
+  // Add required JavaScript and Stylesheet.
+  drupal_add_library('system', 'drupal.vertical-tabs');
+
+  $output = '<h2 class="element-invisible">' . t('Vertical Tabs') . '</h2>';
+  $output .= '<div class="vertical-tabs-panes grid_12">' . $element['#children'] . '</div>';
+  return $output;
+}

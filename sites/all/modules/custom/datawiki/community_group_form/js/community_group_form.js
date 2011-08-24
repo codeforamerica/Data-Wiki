@@ -53,7 +53,7 @@ Drupal.behaviors.community_group_form = {
     
       $(field + ' div.description').remove();
       $(field + ' input').after('<div class="description"><div class="close-btn"></div>' + description + '</div>');
-      $(field + ' div.description').hide();
+/*       $(field + ' div.description').hide(); */
     }
   }
   // When input is selected, show the tooltip.

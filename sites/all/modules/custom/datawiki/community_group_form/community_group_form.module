@@ -29,12 +29,10 @@ function community_group_form_menu() {
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {  
 
-    $menu =  menu_tree('menu-citygroups-menu');
-    $menu_rendered = drupal_render($menu);
-
-    $form['#prefix'] .= '<div class="add-home-menu">' . $menu_rendered . '</div>';
+    $form['#prefix'] .= '<div class="instructions grid_10 alpha omega">';
+    $form['#prefix'] .= '<h2>' .t("Add a Community Group") . '</h2>';
     $form['#prefix'] .= '<h3>' .t("You can submit community groups here.") . '</h3>';
-
+    $form['#prefix'] .= '</div><div class="clear"></div>';
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.
     // @TODO fix those modules to have better permission control.
@@ -42,6 +40,8 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
     }
+    
+    // Hide some fields.
 
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
     $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';

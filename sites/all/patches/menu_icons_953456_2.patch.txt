@@ -1,0 +1,35 @@
+diff --git menu_icons.module menu_icons.module
+index 056c814..5e04952 100644
+--- menu_icons.module
++++ menu_icons.module
+@@ -73,6 +73,12 @@ function menu_icons_form_alter(&$form, $form_state, $form_id) {
+     $form['#attributes']['enctype'] = 'multipart/form-data';
+     $form['#submit'][] = 'menu_icons_form_submit';
+   }
++  elseif (isset($form['#node']) && $form_id == $form['#node']->type .'_node_form') {
++    $form['menu_icon'] = array(
++      '#type' => 'value',
++      '#value' => $form['#node']->menu['options']['menu_icon'],
++    );
++  }
+ }
+ 
+ /**
+@@ -222,4 +228,16 @@ function menu_icons_theme() {
+       'template' => 'menu_icons_css_item',
+     ),
+   );
++}
++
++/**
++ * Implementation of hook_nodeapi().
++ */
++function menu_icons_nodeapi(&$node, $op, $a3, $a4) {
++  if ($op == 'validate') {
++    $node->menu_icon = $a3['menu_icon']['#value'];
++  }
++  elseif ($op == 'presave' && !empty($node->menu_icon)) {
++    $node->menu['options']['menu_icon'] = $node->menu_icon;
++  }
+ }
+\ No newline at end of file

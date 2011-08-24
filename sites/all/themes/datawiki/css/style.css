@@ -406,3 +406,203 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 #main .map-legend .map-label {
   margin-top: 0.5em;
 }
+
+
+
+/* Node */
+
+.group-overview {
+
+}
+
+.openlayers-container openlayers-container-preset-citygroups_group_display {
+ position: relative;
+}
+
+#main .field .field-label {
+  width: 180px;
+  text-transform: uppercase;
+  color: #666;
+  display: inline;
+  float: left;
+  font-weight: normal;
+/*   clear: none; */
+}
+
+#main .group_overview .field .field-items {
+  margin: 0 0 20px 0px;
+/*   float: left; */
+/*   display: inline; */
+  width: 420px;
+/*   clear: none; */
+}
+
+#main .field .field-items .field-item {
+  margin: 0 0 10px 0;
+}
+
+#main .field .field-items p {
+  margin: 0 0 10px 0;
+}
+
+#main .meta {
+  margin: 10px 0 20px 0;
+  font-size: 90%;
+}
+
+
+#main .links .flag-like a,
+#main .links .flag-bookmarks a,
+#main .links .flag-duplicate a,
+#main .links .flag-group_inactive a,
+#main .links .flag-inappropriate a{
+  background: #ddd;
+  margin: 10px 10px 30px 0;
+  padding: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 2em;
+  display: block;
+  float: left;
+}
+
+.group-machines,
+.group-location {
+  display: none;
+}
+
+
+
+
+.node-form .form-item label {
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.node-form .form-item input {
+  padding: 5px;
+}
+
+.node-form .form-item {
+  margin-bottom: 10px;
+}
+
+.page-node-add-community-group h1.title {
+  display: none;
+}
+
+html.js input.form-autocomplete {
+  background-image: url(../../misc/throbber.gif);
+  background-position: 100% 10px;
+  background-repeat: no-repeat;
+}
+
+.page-node-add-community-group .instructions {
+  padding: 20px;
+  background-color: #ddd;
+}
+
+/* Vertical Tabs */
+.vertical-tabs-list {
+  left: 0;
+}
+
+div.vertical-tabs {
+  margin: 20px 0; /* LTR */
+  border: none;
+  position: relative; /* IE6/7 */
+}
+.vertical-tabs ul.vertical-tabs-list {
+  width: 243px;
+  list-style: none;
+  list-style-image: none; /* IE6 */
+  border: none;
+  padding: 0;
+  position: relative; /* IE6 */
+  margin: 0; /* LTR */
+  float: left; /* LTR */
+  z-index: 1000;
+}
+.vertical-tabs fieldset.vertical-tabs-pane {
+  margin: 0 !important;
+  padding: 0 1em;
+  border: 0;
+}
+.vertical-tabs legend {
+  display: none;
+}
+
+.vertical-tabs-panes {
+  background: #E6ECF3;
+  margin: 0 0 0 -16px;
+  padding: 20px;
+}
+
+/* Layout of each tab */
+.vertical-tabs ul.vertical-tabs-list li {
+  background-color: #fff;
+  background: url(../images/vertical-tab.png) no-repeat;
+  border: 0;
+  height: 37px;
+  padding: 0;
+  margin: 0;
+  min-width: 0; /* IE7 */
+  text-transform: uppercase;
+  font-weight: normal;
+ 
+}
+
+.vertical-tabs ul.vertical-tabs-list li:focus {
+ outline: none;
+}
+
+.vertical-tabs .summary,
+.vertical-tabs #active-vertical-tab {
+  display: none;
+}
+
+.vertical-tabs ul.vertical-tabs-list li a {
+  display: block;
+  text-decoration: none;
+  padding: 10px;
+}
+.vertical-tabs ul.vertical-tabs-list li a:focus strong,
+.vertical-tabs ul.vertical-tabs-list li a:active strong,
+.vertical-tabs ul.vertical-tabs-list li a:hover strong {
+  text-decoration: none;
+}
+.vertical-tabs ul.vertical-tabs-list li a:hover {
+  outline: none;
+}
+.vertical-tabs ul.vertical-tabs-list li.selected {
+  background-color: #fff;
+  background: url(../images/vertical-tab-selected.png) no-repeat;
+  border: none;
+}
+.vertical-tabs ul.vertical-tabs-list .selected strong {
+  color: #000;
+}
+.vertical-tabs ul.vertical-tabs-list .summary {
+  display: block;
+}
+.vertical-tabs ul.vertical-tabs ul.vertical-tabs-list .summary {
+  line-height: normal;
+  margin-bottom: 0;
+}
+
+/**
+ * Prevent text inputs from overflowing when container is too narrow. "width" is
+ * applied to override hardcoded cols or size attributes and used in conjunction
+ * with "box-sizing" to prevent box model issues from occurring in most browsers.
+*/
+.vertical-tabs .form-type-textfield input {
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+* html .vertical-tabs .form-type-textfield,
+* html .vertical-tabs .form-textarea-wrapper {
+  width: 95%; /* IE6 */
+}
