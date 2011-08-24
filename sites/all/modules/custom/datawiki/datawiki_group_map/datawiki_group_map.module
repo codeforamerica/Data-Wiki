@@ -22,10 +22,10 @@ function datawiki_group_map_help($path, $arg) {
  */
 function datawiki_group_map_menu() {
   $items['map/render/community-group'] = array(
-    'title' => 'Map',
+    'title' => 'Map of Community Groups',
     'description' => 'Display a map of Community Groups.',
     'page callback' => 'datawiki_group_map_render',
-    'page arguments' => array(t('Map page.')),
+    'page arguments' => array(t('Map')),
     'access callback' => TRUE,
     'expanded' => TRUE,
   );

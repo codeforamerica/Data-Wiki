@@ -54,13 +54,19 @@ strong {
 /*---- HEADER ----*/
 #header {
   background: #303030;
-  padding: 10px 0;
+  padding: 10px 0 0px 0;
+  display: block;
 }
 
-#header-container {
-  height: 60px;
+#header-menu-container {
+  margin: 10px 0 0px 0;
 }
 
+#header-container .block {
+  width: auto;
+  height: auto;
+  float: none;
+}
 #header a {
   color: #ffffff;
 }
@@ -71,7 +77,7 @@ strong {
 }
 
 #block-search-form input.form-text{
-  width: 120px;
+  width: 80%;
   padding: 5px;
 }
 
@@ -134,25 +140,22 @@ strong {
 
 #block-menu-menu-citygroups-menu li a {
   background-color: #9E9E9E;
-  padding: 10px 15px 10px 40px;
+  padding: 10px 15px 10px 30px;
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
 }
-#block-menu-menu-citygroups-menu li a:hover {
+#block-menu-menu-citygroups-menu li a:hover,
+#block-menu-menu-citygroups-menu li a.active {
   color: #ccc;
-  background-color: #BFBFBF;
+  background-color: #444546;
 }
-
-
-
 
 #postscript-area {
   background-color: #444546;
   color: #fff;
   padding: 20px 0 40px 0;
 }
-
 
 #postscript-container {
 
@@ -176,6 +179,7 @@ strong {
 
 #search-map input.form-item {
   padding: 10px 0 10px 10px;
+  width: 80%;
 }
 
 #content-container .button a {
@@ -320,7 +324,7 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 
 /* Map */
 /* Leaflet popup */
-/*
+
 .popup-item {
   font-size: 150%;
 }
@@ -330,6 +334,8 @@ body.logged-in #block-system-user-menu ul.menu li.first,
   color: #533549;
   text-transform: uppercase;
   overflow-x: hidden;
+  display: block;
+  
 }
 
 .popup-item .description {
@@ -354,5 +360,13 @@ body.logged-in #block-system-user-menu ul.menu li.first,
   color: #999;
 }
 
-*/
 
+#main .fullscreen-map,
+#main .polygons-on,
+#main .polygons-off {
+  background-color: #bbb;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 160px;
+}

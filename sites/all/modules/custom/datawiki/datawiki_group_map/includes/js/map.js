@@ -100,6 +100,8 @@ cityGroups.loadDataSuccess = function(data) {
 cityGroups.map.loadMap = function() {
   // initialize the map on the "map" div with a given center and zoom
   cityGroups.map.settings.zoom = 11;
+  cityGroups.map.fullScreenMap();
+  cityGroups.map.polygonsOn(cityGroups.map.polygonPoints, cityGroups.map.nodes);
   cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
   // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
   if(cityGroups.map.rendered === undefined) {
@@ -117,6 +119,7 @@ cityGroups.clearMarkers = function(marker) {
 
 cityGroups.geoJSON = function(nodes) {
   var mapObject = [];
+  cityGroups.map.mapPolygons = [];
   var polygonPoints = [];
   var polygonPoint;
   var features = {};
@@ -136,7 +139,7 @@ cityGroups.geoJSON = function(nodes) {
             polygonPoint = new L.LatLng(parseFloat(locationGeoObj.coordinates[0][p][1]),  parseFloat(locationGeoObj.coordinates[0][p][0]));
             polygonPoints.push(polygonPoint); 
           }
-          cityGroups.map.popupPolygons(polygonPoints, nodes);
+          cityGroups.map.popupPolygons(polygonPoints, nodes, null);
           // Draw a marker in the center of the Polygon.
           if(nodes[i]["node"]["latitude"] !== undefined) {
             cityGroups.map.popupPoints(nodes);    
@@ -150,6 +153,8 @@ cityGroups.geoJSON = function(nodes) {
       }
     }
   }
+  cityGroups.map.polygonPoints = polygonPoints;
+  cityGroups.map.nodes = nodes;
 };
 
 cityGroups.map.popupPoints = function (nodes){
@@ -193,6 +198,7 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   var node = nodes[i]["node"];
   var marker = "";
   var polygon = new L.Polygon(polygonPoints, cityGroups.map.polygonOptions);
+
 	var markerLocation = new L.LatLng(-1*parseFloat(node.latitude), -1*parseFloat(node.longitude));
   var customMarkerStyle = {
       iconUrl: Drupal.settings.datawiki.mapMarkerIconUrl,
@@ -211,7 +217,9 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
 /*   marker.bindPopup(cityGroups.map.popupTemplate(node)); */
 
   var popup = new L.Popup();
-        
+          
+  cityGroups.map.mapPolygons.push(polygon);        
+
   function onMapClick(e) {   
     popup.setLatLng(markerLocation);
     popup.setContent(cityGroups.map.popupTemplate(node));
@@ -219,6 +227,7 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
     cityGroups.map.rendered.addLayer(polygon);
     polygon.on('click', offMapClick);
   }
+
 
 /*
 	function onMapClick(e) {    
@@ -238,19 +247,55 @@ cityGroups.map.popupPolygons = function (polygonPoints, nodes){
 
 cityGroups.map.popupTemplate = function(node) {
   var output = '<div class="popup-item">';
-  output += '<a href="' + node.permalink + '" class="title">' + node.title + '</a>';
+  output += '<a href="' + node.permalink + '" class="title">' + node.name + '</a>';
   if(node.description !== undefined) {
     output += '<div class="description">' + node.description + '</div>';
-  }
+  }  
   if(node.categories !== undefined) {
     output += '<div class="categories">' + node.categories + '</div>';
   }
   output += '<a href="node/' + node.citygroups_nid + '" class="link">More</a> ';
   // if() {
-    output += '<a href="node/' + node.citygroups_nid + '/edit" class="link">Edit</a>';
+    output += '<a href="node/' + node.citygroups_nid + '/edit" class="link">Edit</a> ';
   // }
+  if(node.url !== undefined) {
+    output += '<a href="' + node.url + '" class="link" target="_blank">Website</a>';
+  }
+  
   output += '</div>';
   return output;
+};
+
+cityGroups.map.fullScreenMap = function () {
+    $('div#map').before('<div class="fullscreen-map">Fullscreen Map</div>');
+    $('div.fullscreen-map').click(function(){
+      $('div#map').css("height", '600px');
+      $('div#map').css("width", '100%');
+      
+      // Resize the map tiles.
+      cityGroups.map.rendered.invalidateSize();
+      return false;
+    });
+  return false;
+};
+
+cityGroups.map.polygonsOn = function () {
+  $('div#map').before('<div class="polygons-on">Polygons On</div>');
+  $('div#map').before('<div class="polygons-off">Polygons Off</div>');
+  $('div.polygons-on').click(function(){
+      for (p in cityGroups.map.mapPolygons) {
+        cityGroups.map.rendered.addLayer(cityGroups.map.mapPolygons[p]);  
+      }
+      return false;
+    });
+     $('div.polygons-off').click(function(){
+      for (p in cityGroups.map.mapPolygons) {
+        cityGroups.map.rendered.removeLayer(cityGroups.map.mapPolygons[p]);  
+      }
+      return false;
+    }); 
+    
+  return false;
 };
 
 cityGroups.map.geocodeAddress = function (){

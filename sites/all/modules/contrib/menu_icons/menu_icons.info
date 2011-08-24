@@ -1,0 +1,18 @@
+; $Id: menu_icons.info,v 1.1 2008/10/27 22:08:16 grendzy Exp $
+name = Menu Icons
+description = Associates icons with menu items
+dependencies[] = menu
+core = 7.x
+
+configure = admin/config/user-interface/menu_icons
+
+files[] = menu_icons.install
+files[] = menu_icons.module
+files[] = menu_icons_css_item.tpl.php
+
+; Information added by drupal.org packaging script on 2011-06-07
+version = "7.x-3.0-alpha1"
+core = "7.x"
+project = "menu_icons"
+datestamp = "1307451118"
+

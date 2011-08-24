@@ -1,0 +1,17 @@
+<?php
+// $Id: menu_icons.install,v 1.2 2009/04/10 07:50:20 skilip Exp $
+
+/**
+ * @file
+ * Cleanup menu_icons variables
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function menu_icons_uninstall() {
+  variable_del('menu_icons_file_validate_image_resolution');
+  variable_del('menu_icons_default_icon');
+  variable_del('menu_icons_image_folder');
+  variable_del('menu_icons_position');
+}

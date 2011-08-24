@@ -142,7 +142,7 @@ function citygroups_sub_contents($type) {
               <h3>See the groups</h3>
               <p>asdfasdfasdf</p>
               <div id=\"search-map\" class=\"form-input\">
-              <input placeholder=\"Enter your address or zipcode here.\" size=40 class=\"form-item\" />
+              <input placeholder=\"Enter your address or zipcode here.\" class=\"form-item\" />
               <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
               </div>
         

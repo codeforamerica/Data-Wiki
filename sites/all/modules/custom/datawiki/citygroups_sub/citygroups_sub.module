@@ -19,7 +19,7 @@ function citygroups_sub_help($path, $arg) {
 
 function citygroups_sub_menu() {
   $items['map'] = array(
-    'title' => 'CityGroups Map',
+    'title' => 'Map',
     'page callback' => 'citygroups_sub_map_render',
     'page arguments' => array(t('Render Map Page.')),
     'access callback' => TRUE,
