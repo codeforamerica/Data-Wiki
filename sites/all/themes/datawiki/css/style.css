@@ -369,4 +369,40 @@ body.logged-in #block-system-user-menu ul.menu li.first,
   text-transform: uppercase;
   padding: 10px;
   width: 160px;
+  float: right;
+}
+#main .map-legend {
+  background-color: #bbb;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 580px;
+  color: #333;
+  font-size: 100%;
+}
+#main .map-legend .key {
+  float: left;
+  margin-right: 20px;
+  width: 35%;
+}
+#main .map-legend .key .icon {
+  float: left;
+  margin-right: 10px;  
+}
+#main .map-legend .count {
+  display: inline;
+  margin-right: 20px;
+  width: 45%;
+}
+#main .map-legend .value {
+  font-size: 150%;
+  font-weight: bold;
+  background-color: #ddd;
+  width: 3em;
+  margin-right: 10px;
+  float: left;
+  padding: 10px;
+  text-align: center;
+}
+#main .map-legend .map-label {
+  margin-top: 0.5em;
 }

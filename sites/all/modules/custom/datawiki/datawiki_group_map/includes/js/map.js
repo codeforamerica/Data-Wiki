@@ -94,14 +94,16 @@ cityGroups.loadDataSuccess = function(data) {
   cityGroups.data = data;
   cityGroups.map.loadMap();
   cityGroups.geoJSON(cityGroups.data.nodes);
+  cityGroups.map.fullScreenMap();
+  cityGroups.map.polygonsOn(cityGroups.map.polygonPoints, cityGroups.map.nodes);
+  cityGroups.map.addLegend();
+  
   return false;
 };
 
 cityGroups.map.loadMap = function() {
   // initialize the map on the "map" div with a given center and zoom
   cityGroups.map.settings.zoom = 11;
-  cityGroups.map.fullScreenMap();
-  cityGroups.map.polygonsOn(cityGroups.map.polygonPoints, cityGroups.map.nodes);
   cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
   // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
   if(cityGroups.map.rendered === undefined) {
@@ -123,7 +125,6 @@ cityGroups.geoJSON = function(nodes) {
   var polygonPoints = [];
   var polygonPoint;
   var features = {};
-
 
   for (i in nodes) {
     var locationGeoObj = $.parseJSON(nodes[i]["node"]["location_geo"]);
@@ -153,8 +154,8 @@ cityGroups.geoJSON = function(nodes) {
       }
     }
   }
-  cityGroups.map.polygonPoints = polygonPoints;
   cityGroups.map.nodes = nodes;
+  cityGroups.map.polygonPoints = polygonPoints;
 };
 
 cityGroups.map.popupPoints = function (nodes){
@@ -193,6 +194,7 @@ cityGroups.map.popupPoints = function (nodes){
 */
 	}
 };
+
 
 cityGroups.map.popupPolygons = function (polygonPoints, nodes){
   var node = nodes[i]["node"];
@@ -296,6 +298,25 @@ cityGroups.map.polygonsOn = function () {
     }); 
     
   return false;
+};
+
+
+cityGroups.map.addLegend = function() {
+
+  var legend = 
+  '<div class="map-legend">' + 
+    '<div class="key">' + 
+      '<div class="icon">' +
+        '<img src="/sites/all/modules/custom/datawiki/datawiki_group_map/includes/images/map-icon.png" alt="Community Group Symbol" />' + 
+      '</div>' + 
+      '<div class="map-label">Community Group</div>' + 
+    '</div>' + 
+    '<div class="count">' + 
+      '<div class="value">' + cityGroups.map.nodes.length + '</div>' + 
+      '<div class="map-label">Community Groups in this Area</div>' + 
+    '</div>' + 
+  '</div>';
+  $('div#map').after(legend);
 };
 
 cityGroups.map.geocodeAddress = function (){
