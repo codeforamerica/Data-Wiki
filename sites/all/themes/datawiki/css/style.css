@@ -621,7 +621,15 @@ fieldset.filter-wrapper {
   padding: 20px;
   -moz-box-shadow: 2px 2px #ccc;
   -webkit-box-shadow: 2px 2px #ccc;
-  box-shadow: 0px 2px #ccc;  
+  box-shadow: 0px 2px #ccc;
+  width: 45%;
+}
+
+.node-form .description .prompt {
+  font-size: 85%;
+  text-transform: uppercase;
+  color: #666;
+  display: block;
 }
 
 .group-geographic .form-item {
@@ -688,4 +696,21 @@ option {
   position: absolute;
   left: -9999px;
 
+}
+
+.node-form .fieldset-description {
+  font-size: 125%;
+}
+.node-form .description {
+ font-size: 125%;
+}
+
+.node-form .group-prepare .description,
+.node-form .group-privacy .description {
+  background: none;
+  padding: 0;
+  margin: 10px 0 30px 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
