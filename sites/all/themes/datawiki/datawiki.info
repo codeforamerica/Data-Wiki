@@ -9,6 +9,8 @@ engine = phptemplate
 stylesheets[all][] = css/960_50_16_10_fluid.css
 ; Classes that override drupal core and module css
 stylesheets[all][] = css/drupal_reset.css
+stylesheets[all][] = js/stylish-select/stylish-select.css
+
 ; Custom site styles - backgrounds, etc. Can be merged with layout as it makes sense.
 stylesheets[all][] = css/style.css
 ; Changes to admin interface.
@@ -20,6 +22,7 @@ stylesheets[all][] = css/edit.css
 ; Scripts
 ; scripts[] = js/script.js
 scripts[] = js/datawiki.js
+scripts[] = js/stylish-select/jquery.stylish-select.min.js
 
 ; Regions
 regions[page_top] = "Page top"

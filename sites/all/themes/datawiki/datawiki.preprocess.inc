@@ -221,3 +221,34 @@ function datawiki_vertical_tabs($variables) {
   $output .= '<div class="vertical-tabs-panes grid_12">' . $element['#children'] . '</div>';
   return $output;
 }
+
+
+
+function datawiki_menu_link($variables) {
+  $element = $variables['element'];
+  $sub_menu = '';
+
+  $section = 'blockwatch';
+
+  if ($element['#theme'] == 'menu_link__menu_citygroups_menu') {
+    switch ($element['#href']) {
+      case '<front>':
+      $element['#href'] = $element['#href'] . $section;
+        break;
+      case 'map':
+        break;
+      case 'list':
+        break;
+      case 'categories':
+        break;
+      case 'node/add/community-group':
+        break;
+    }
+  }
+  // menu_link__menu_postscript_menu
+  if ($element['#below']) {
+    $sub_menu = drupal_render($element['#below']);
+  }
+  $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+  return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
+}

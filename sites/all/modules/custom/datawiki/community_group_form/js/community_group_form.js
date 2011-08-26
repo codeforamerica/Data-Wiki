@@ -31,6 +31,7 @@ Drupal.behaviors.community_group_form = {
   
   $('fieldset.group-prepare div.fieldset-description').after($('div.field-name-field-prepare div.description'));
   $('fieldset.group-privacy div.fieldset-description').after($('div.field-name-field-privacy div.description'));
+
   
   // true/false indication if the label should be moved.
 /*

@@ -213,16 +213,3 @@ function citygroups_sub_contents($type) {
   
   return $output;
 }
-
-/*
-    case 'new_group_search':
-      global $base_url;
-        $output .= '<div id="search-links">';
-        $output .= '<div id="search-places" class="form-input">';
-        $output .= '<input placeholder="Enter your address or zipcode here." size=50 class="form-item" />';
-        $output .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_icon-50.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
-        $output .= '</div>';
-        $output .= '</div>';
-      break;
-*/
-    

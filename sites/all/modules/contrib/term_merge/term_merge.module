@@ -1,0 +1,587 @@
+<?php
+
+/**
+ *  Implementation of hook_permission().
+ *
+ *  Adds a permission to merge terms.
+ */
+function term_merge_permission() {
+  return array(
+    'merge terms' => array(
+      'title' => t('Merge terms'),
+      'description' => t('Gives the user the ability to merge terms.'),
+    )
+  );
+}
+
+/**
+ *  Implements hook_menu():
+ */
+function term_merge_menu() {
+  $items = array(
+    'admin/structure/taxonomy/%taxonomy_vocabulary_machine_name/merge' => array(
+      'title' => 'Merge terms',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('term_merge_term_merge_form', 3),
+      'access arguments' => array('term merge'),
+      'type' => MENU_CALLBACK,
+    )
+  );
+  return $items;
+}
+
+/**
+ *  Implements hook_help().
+ */
+function term_merge_help($path, $arg) {
+  switch ($path) {
+    // Main module help for the block module
+    case 'admin/help#term_merge':
+      return '<p>Allows you to merge multiple terms into one and and at the same time update all fields referencing to the old ones.</p>';
+
+
+    /*case 'admin/structure/taxonomy/%/merge':
+      return '<p>This form simply lets you merge multiple terms into one and at the same time update all fields referencing to the old ones.</p>';*/
+  }
+}
+
+/**
+ *  Implements hook_form_FORM_ID_alter().
+ *
+ *  Inserts the Merge button into the actions of the form.
+ */
+function term_merge_form_taxonomy_overview_terms_alter(&$form, &$form_state, $form_id) {
+  if ($form['#total_entries'] > 0) {
+    $form['actions'][] = array(
+      'merge' => array(
+        '#type' => 'submit',
+        '#value' => t('Merge'),
+        '#submit' => array('term_merge_form_taxonomy_overview_terms_merge_submit'),
+        '#weight' => 1,
+      )
+    );
+
+    $form['actions']['submit']['#weight'] = 0;
+    $form['actions']['reset_alphabetical']['#weight'] = 2;
+  }
+}
+
+/**
+ *  Submit function for the merge button in the alteration of form form_taxonomy_overview_terms (see above).
+ *  Redirects the user to the term merge form/page.
+ */
+function term_merge_form_taxonomy_overview_terms_merge_submit($form, &$form_state) {
+  unset($form_state['storage']);
+  $form_state['redirect'] = 'admin/structure/taxonomy/' . $form['#vocabulary']->machine_name . '/merge';
+}
+
+/**
+ *  Implements hook_form().
+ *
+ *  Menu callback; displays components to let user select one or more terms for merging and
+ *  let them be merged into another, specified term.
+ */
+function term_merge_term_merge_form($form, $form_state, $vocabulary) {
+
+  if (!isset($form_state['storage']['term_list'])) { // Create th merge form.
+
+    $form = array(
+      'term_list' => array(
+        '#type' => 'select',
+        '#title' => t('Merge terms'),
+        '#options' => _term_delete_form_replacement_term_options($vocabulary->vid, 0, FALSE),
+        '#multiple' => TRUE,
+        '#required' => TRUE,
+        '#attributes' => array('size' => 15),
+        '#prefix' => '<div class="merge-container clearfix"><div class="terms-selector">',
+      ),
+
+      'replacement_term' => array(
+        '#type' => 'select',
+        '#title' => t('Into'),
+        '#description' => t('Cannot be any of the terms selected in the list to the left.'),
+        '#options' => _term_delete_form_replacement_term_options($vocabulary->vid, 0, TRUE),
+        '#prefix' => '</div><div class="merge-selectors">',
+      ),
+
+      'replacement_term_new' => array(
+        '#type' => 'textfield',
+        '#title' => t('Name of new term'),
+        '#description' => t('A new term will be created with the specified name.'),
+        '#suffix' => '</div>',
+      ),
+
+      'keep_merged' => array(
+        '#type' => 'checkbox',
+        '#title' => t('Only merge occurrences'),
+        '#description' => t('Check this if you only want to merge occurrences of the merged terms leaving them as they are in the vocabulary.'),
+        '#prefix' => '</div>',
+      ),
+
+      '#vocabulary' => $vocabulary,
+
+      'merge_redirect_path' => array(
+        '#type' => 'value',
+        '#value' => 'admin/structure/taxonomy/' . $vocabulary->machine_name,
+      ),
+    );
+
+    // Adds the .js and .css used by form.
+    $form['#after_build'] = array('_term_merge_form_attach');
+  }
+  else {  // Let the user confirm the deletion.
+    $form = array(
+      'confirm_markup' => array(
+        '#markup' => _term_merge_get_confirm_merge_markup($form_state),
+        '#prefix' => '<div>',
+        '#suffix' => '</div>',
+      )
+    );
+  }
+
+  $form['actions'] = array (
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Merge'),
+    ),
+    'cancel' => array(
+      '#type' => 'link',
+      '#title' => t('Cancel'),
+      '#href' => 'admin/structure/taxonomy/' . $vocabulary->machine_name,
+    )
+  );
+
+  return $form;
+}
+
+/**
+ *  Validation handler for term_merge_term_merge_form().
+ */
+function term_merge_term_merge_form_validate($form, &$form_state) {
+  $form_values = $form_state['values'];
+
+  if (!isset($form_state['storage']['term_list'])) {
+    // Convert the array of terms to merge into a normally keyed array.
+    $form_values['term_list'] = array_values($form_values['term_list']);
+
+    if ($form_values['replacement_term'] == '0' &&
+        empty($form_values['replacement_term_new'])) {
+
+      form_set_error('replacement_term_new', t('You must enter a name for the new term.'));
+    }
+    elseif ($pos = array_search($form_values['replacement_term'], $form_values['term_list'])) {
+      array_splice($form_values['term_list'], $pos, 1);
+    }
+  }
+
+}
+
+/**
+ *  Submit handler for term_merge_term_merge_form().
+ *
+ *  Collects data about what terms to merge into what term and sends it to term_merge().
+ */
+function term_merge_term_merge_form_submit($form, &$form_state) {
+
+  if (!isset($form_state['storage']['term_list'])) {  // Store values and rebuild form for merge confirmation.
+    $form_values = $form_state['values'];
+
+    $form_state['storage']['term_list'] = $form_values['term_list'];
+    $form_state['storage']['replacement_term'] = $form_values['replacement_term'];
+    $form_state['storage']['replacement_term_new'] = $form_values['replacement_term_new'];
+    $form_state['storage']['merge_redirect_path'] = $form_values['merge_redirect_path'];
+    $form_state['storage']['keep_merged'] = $form_values['keep_merged'];
+    $form_state['storage']['working_vocabulary'] = $form['#vocabulary'];
+
+    $form_state['rebuild'] = TRUE;
+  }
+  else {  // Merge confirmed, do it!
+    $replacement_term = $form_state['storage']['replacement_term'];
+    $merged_terms = $form_state['storage']['term_list'];
+    $replacement_term_new = $form_state['storage']['replacement_term_new'];
+
+    // Create a new tid id the value of $replacement_term is equal to 0.
+    if ($replacement_term == '0') {
+      $new_term = _term_merge_term_create($replacement_term_new, $form_state['storage']['working_vocabulary'], $merged_terms);
+      $dest_tid = $new_term->tid;
+    }
+    else {  // Else, the value of $replacement_term contains the tid of the new term.
+      $dest_tid = $replacement_term;
+    }
+
+     // Redirect user after merge.
+    $form_state['redirect'] = $form_state['storage']['merge_redirect_path'];
+
+    // Now merge.
+    term_merge($merged_terms, $dest_tid, $form_state['storage']['keep_merged']);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add fields to allow term merging on the confirm deletion state of the form_taxonomy_form_term form.
+ */
+function term_merge_form_taxonomy_form_term_alter(&$form, &$form_state, $form_id) {
+  // Only modify the form if it is in the "Confirm Delete" states.
+  if (isset($form_state['confirm_delete']) && $form_state['confirm_delete'] === TRUE && user_access('term merge')) {
+
+    $form['description']['#markup'] .= '<br /><br />' . t('You can replace any occurrences of the deleted term with another term by specifying the replacement below. This is useful when correcting typos, or to consolidate multiple, synonymous terms.') . '<br /><br />';
+
+    $form['replacement_term_replace'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Replace deleted term with:'),
+      '#prefix' => '<div>',
+    );
+
+    $form['replacement_term'] = array(
+      '#type' => 'select',
+      '#options' => _term_delete_form_replacement_term_options($form['#vocabulary']->vid, $form['#term']->tid, TRUE),
+      '#suffix' => '</div>',
+    );
+
+    $form['replacement_term_new'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Name of new term'),
+    );
+
+    $form['#after_build'] = array('_term_merge_form_attach');
+
+    $form['#submit'] = array('term_merge_form_taxonomy_form_term_submit');
+    $form['#validate'] = array('term_merge_form_taxonomy_form_term_validate');
+  }
+}
+
+/**
+ * Validation function for override of form_taxonomy_form_term (see above).
+ *
+ * If the user want's to create a new term, check to see if he has entered a name for it.
+ */
+function term_merge_form_taxonomy_form_term_validate($form, &$form_state) {
+  $form_values = $form_state['values'];
+
+  if ($form_values['replacement_term'] == '0' &&
+      empty($form_state['values']['replacement_term_new'])) {
+
+    form_set_error('replacement_term_new', t('You must enter a name for the new term.'));
+  }
+}
+
+/**
+ * Submit function for alteration of form_taxonomy_form_term (see above).
+ *
+ * If the user choose to create a new term for merging, create and save a term with the entered name.
+ * Call the merge function to merge the replacement term into the deleted term.
+ */
+function term_merge_form_taxonomy_form_term_submit($form, &$form_state) {
+  if ($form_state['values']['replacement_term_replace']) {
+
+    $replacement_term = $form_state['values']['replacement_term'];
+    /// Create a new tid id the value of $replacement_term is equal to 0.
+    if ($replacement_term == '0') {
+      $new_term = _term_merge_term_create(check_plain($form_state['values']['replacement_term_new']), $form['#vocabulary'], $form['#term']->tid);
+      $dest_tid = $new_term->tid;
+    }
+    else {  // Else, the value of $replacement_term contains the tid of the new term.
+      $dest_tid = $replacement_term;
+    }
+
+    // Merge.
+    term_merge($form['#term']->tid, $dest_tid, TRUE);
+  }
+  else {
+    // Continue as the confirm deletion form would normally.
+    taxonomy_term_confirm_delete_submit($form, $form_state);
+  }
+}
+
+
+/**
+ *  Merge source terms into one destination term.
+ * @param $source
+ *    A single term tid or an array of term tids to be merged.
+ * @param $dest
+ *    The tid of the term to merge sources into.
+ */
+function term_merge($source, $dest, $keep_merged) {
+  // Create an array of source if it isn't already one.
+  if (!is_array($source)) {
+    $source = array($source);
+  }
+  $source = array_values($source);
+
+  // Create a skeleton for the merging batch.
+  $update_batch = array(
+    'title' => t('Merging terms'),
+    'operations' => array(
+      array('_term_merge_batch_store_merged_terms', array(
+        $keep_merged ? array() : $source,
+        count($source),
+      ))
+    ),
+    'finished' => '_term_merge_finished',
+  );
+
+  // For every field existing on the site.
+  foreach (field_info_fields() as $key => $field) {
+
+    if ($field['type'] == 'taxonomy_term_reference') {
+      $table_name = 'field_data_' . $key;
+      $tid_field = $key . '_tid';
+
+      $update_data = array();
+      foreach ($source as $source_tid) {
+
+        // Get data from fields previously containing a reference to the merged term.
+        $fields_result = db_select($table_name, 'df')
+          ->fields('df', array('entity_type', 'entity_id', 'delta'))
+          ->condition($tid_field, $source_tid)
+          ->execute();
+
+        // Collect update data form the batch process and group them by their entity.
+        foreach ($fields_result as $field_row) {
+          $batch_key = $field_row->entity_type . '_' . $field_row->entity_id;
+          $update_data[$batch_key][] = array(
+            'field_name' => $key,
+            'source_tid' => $source_tid,
+            'dest_tid' => $dest,
+          );
+        }
+      }
+
+      // Create a batch processing step for every entity that needs an update.
+      foreach ($update_data as $key => $batch_data) {
+        $delimiter_pos = strripos($key, '_');
+        $type = drupal_substr($key, 0, $delimiter_pos);
+        $id = drupal_substr($key, $delimiter_pos + 1);
+
+        $batch_data = array(
+          'entity_type' => $type,
+          'entity_id' => $id,
+          'data' => $batch_data
+        );
+        $update_batch['operations'][] = array(
+          '_term_merge_insert_field_values',
+          array($batch_data)
+        );
+      }
+    }
+  }
+
+  // Initialize the batch process.
+  batch_set($update_batch);
+}
+
+/**
+ *  Creates a new term with the specified name. The new term will have the same
+ *  parent as the merged terms as long as long as they all a common parent.
+ */
+function _term_merge_term_create($name, $vocabulary, $merged_terms) {
+  $new_term = new stdClass();
+
+  if (!is_array($merged_terms)) {
+    $merged_terms = array(0 => $merged_terms);
+  }
+
+  // Get parent of merged terms.
+  $merged_parent_query = db_select('taxonomy_term_hierarchy', 'tth')
+    ->fields('tth', array('parent'));
+  $conditions = db_or();
+  foreach ($merged_terms as $merged_tid) {
+    $conditions->condition('tid', $merged_tid);
+  }
+  $merged_parent_result = $merged_parent_query->condition($conditions)
+    ->execute()->fetchCol();
+
+  if (count($parent = array_unique($merged_parent_result)) == 1) {
+    $parent_tid = $parent[0];
+  }
+  else {
+    $parent_tid = 0;
+  }
+
+  $term = new stdClass();
+  $term->name = $name;
+  $term->vid = $vocabulary->vid;
+  $term->parent = $parent_tid;
+  $term->vocabulary_machine_name = $vocabulary->machine_name;
+  $term->description = '';
+
+  taxonomy_term_save((object) $term);
+  return $term;
+}
+
+/**
+ *  Stores the merged terms in the context of the batch operation,
+ *  I need them in the finish function of the batch operation.
+ */
+function _term_merge_batch_store_merged_terms($merged_terms_delete, $num_merged_terms, &$context) {
+  $context['results']['merged_terms_delete'] = $merged_terms_delete;
+  $context['results']['num_merged_terms'] = $num_merged_terms;
+}
+
+/**
+ *  Batch operation for adding field values into entities.
+ *
+ *  Loads the entity specified in $update_data and add the term reference
+ *  to all fields specified in $update_data['data'].
+ */
+function _term_merge_insert_field_values($update_data, &$context) {
+  // Extract entity information.
+  $entity_type = $update_data['entity_type'];
+  $entity_id = $update_data['entity_id'];
+
+  // Load the entity.
+  $entity = entity_load($entity_type, array($entity_id));
+  $entity = $entity[$entity_id];
+
+  $context['message'] = 'Merging terms in fields of ' . $entity_type . ' ' . $entity->title . '.';
+
+  $target_merged = FALSE;
+  foreach ($update_data['data'] as $i => &$update_data_arr) {
+    $update_data_arr = array_reverse($update_data_arr);
+
+    $field_values = &$entity->{$update_data_arr['field_name']}[LANGUAGE_NONE];
+    foreach ($field_values as $i => $value) {
+      if ($value['tid'] == $update_data_arr['source_tid']) {
+
+        if (!$target_merged) {
+          $field_values[$i]['tid'] = $update_data_arr['dest_tid'];
+          $target_merged = TRUE;
+        }
+        // Any more occurrences of the source tid will simply be removed.
+        // We don't want duplicates.
+        else {
+          array_splice($field_values, $i, 1);
+        }
+
+        // If target tid is one of the source tids, remove it from the array
+        // of terms that will be removed at the end of the process.
+        if($update_data_arr['source_tid']== $update_data_arr['dest_tid']) {
+          foreach ($context['results']['merged_terms_delete'] as $i => $merged_term) {
+            if ($merged_term == $update_data_arr['source_tid']) {
+              array_splice($context['results']['merged_terms_delete'], $i, 1);
+            }
+          }
+        }
+
+        $context['results'][] = 'Merged ' . $update_data_arr['source_tid'] . ' with '
+        . $update_data_arr['dest_tid'] . ' in ' . $update_data_arr['field_name']
+        . ' of ' . $entity_type . ' ' . $entity_id;
+
+        break;
+      }
+    }
+  }
+
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['progress'] = 0;
+  }
+
+  $context['sandbox']['progress']++;
+  $context['finished'] = $context['sandbox']['progress']/$context['results']['num_merged_terms'];
+
+  // Save the new field values if something has changed.
+  if ($target_merged) {
+    field_attach_update($entity_type, $entity);
+  }
+}
+
+/**
+ *  The merge batch operation was finished.
+ */
+function _term_merge_finished($success, $results, $operations) {
+  if ($success) {
+    $message = format_plural($results['num_merged_terms'], 'One term merged.', '@count terms merged.');
+    $message .= '<br />';
+    $message .= format_plural(count($results) - 2, 'One term occurrence merged.', '@count term occurrences merged.');
+    if (count($results['merged_terms_delete']) > 0) {
+      $message .= '<br />';
+      $message .= format_plural(count($results['merged_terms_delete']), 'One term deleted', '@count terms deleted.');
+    }
+  }
+  else {
+    $message = t('Finished with an error.');
+  }
+  drupal_set_message($message);
+
+  // Delete merged terms on success. We don't want to do this earlier if something went wrong during the batch process.
+  if ($success) {
+    foreach ($results['merged_terms_delete'] as $merged_term) {
+      taxonomy_term_delete($merged_term);
+    }
+  }
+}
+
+/**
+ * Returns the markup text for the confirmation message of term merging.
+ */
+function _term_merge_get_confirm_merge_markup($form_state) {
+  $form_values = $form_state['values'];
+
+  $terms = taxonomy_term_load_multiple($form_values['term_list']);
+  $dest_term_name = ($dest_term = taxonomy_term_load($form_values['replacement_term'])) ?
+    $dest_term->name : $form_values['replacement_term_new'];
+
+
+  $merged_names = '';
+  foreach (array_values($terms) as $i => $term) {
+    $merged_names .= $term->name;
+    if ($i < count($terms) - 2) {
+      $merged_names .= ', ';
+    }
+    else if ($i == count($terms) - 2) {
+      $merged_names .= ' & ';
+    }
+  }
+
+  $output = 'Are you sure you want to merge <b>%term_names</b> with <b>%destination_term</b>'
+    . (($form_state['storage']['replacement_term_new']) ? ' (new)' : '')
+    . ' ? ';
+
+  if ($form_values['keep_merged']) {
+    $output .= 'Due to your choice, the merged terms will not be deleted from their vocabulary.<br />&nbsp;';
+  }
+  else {
+    $output .= '<br /><u>All merged terms will be deleted</u>!<br />&nbsp;';
+  }
+
+  $output = t($output, array('%term_names' => $merged_names, '%destination_term' => $dest_term_name));
+  return $output;
+}
+
+/**
+ *  Returns values for the replacement_term select box in the form (see form builder at top).
+ *  Don't return the value for the term that will be merged.
+ */
+function _term_delete_form_replacement_term_options($vid, $merged_term_tid, $add_new_option) {
+  $tree = taxonomy_get_tree($vid);
+  foreach ($tree as $i => $term) {
+    if ($merged_term_tid != $term->tid) {
+      $options[$term->tid] = $term->name;
+    }
+  }
+
+  if ($add_new_option) {
+    $options['0'] = t('New term, specified below');
+  }
+
+  return $options;
+}
+
+
+/**
+ *  Add necessary JavaScript and css to the form.
+ */
+function _term_merge_form_attach($form_element) {
+  if ($form_element['#id'] == 'term-merge-term-merge-form') {
+    drupal_add_js(drupal_get_path('module', 'term_merge') . '/term_merge.js');
+  }
+  elseif ($form_element['#id'] == 'taxonomy-form-term') {
+    drupal_add_js(drupal_get_path('module', 'term_merge') . '/term_merge_deletion.js');
+  }
+
+  drupal_add_css(drupal_get_path('module', 'term_merge') . '/term_merge.css');
+
+  return $form_element;
+}

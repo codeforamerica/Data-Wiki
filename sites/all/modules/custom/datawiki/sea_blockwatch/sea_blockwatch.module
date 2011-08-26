@@ -265,9 +265,9 @@ function sea_blockwatch_page_variables(&$vars) {
   }
 
   // Override existing page variables.
-  $vars['site_slogan'] = '<h3>' .t("Public directory of Seattle Block Watch Captains.") . '</h3>';
-  $vars['logo_image_link'] = drupal_get_path('module', 'sea_blockwatch') . '/images/citygroups-logo.png';
-  $vars['logo'] = '<a href="/"><img src="/' . $vars['logo_image_link'] . '" /></a>';
+/*   $vars['site_slogan'] = '<h3>' .t("Public directory of Seattle Block Watch Captains.") . '</h3>'; */
+/*   $vars['logo_image_link'] = drupal_get_path('module', 'sea_blockwatch') . '/images/citygroups-logo.png'; */
+/*   $vars['logo'] = '<a href="/"><img src="/' . $vars['logo_image_link'] . '" /></a>'; */
 
   // Custom object of special settings to be integrated with the main theme.
   $vars['section'] = array();
@@ -275,8 +275,8 @@ function sea_blockwatch_page_variables(&$vars) {
   $vars['section']['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
   // Get current theme
   // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
-  $vars['section']['page_title'] = t('CityGroups Map');
-  $vars['section']['section_name'] = "Block Watch Captain Finder";
+  $vars['section']['page_title'] = t('Map');
+  $vars['section']['section_name'] = "Block Watch Captain Directory";
   $vars['section']['place'] = "Seattle";
   $vars['section']['theme'] = "citygroups_blockwatch";
   $vars['section']['term'] = "Block-watch";
@@ -322,7 +322,7 @@ function sea_blockwatch_settings() {
   $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
   $settings['javascript_settings']['mapColors']['weight'] = 1;
   $settings['javascript_settings']['mapColors']['opacity'] = 1;
-  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/images/noun_project_659_man.svg";
+  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/images/map-marker.png";
   $settings['javascript_settings']['mapMarkerIconShadowUrl'] =  "";
   $settings['javascript_settings']['mapMarkerIconPointSize'] = array(10,20);
   $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(10,20);
@@ -330,5 +330,6 @@ function sea_blockwatch_settings() {
   $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
   return $settings;
 }
+
 
 include('sea_blockwatch.blocks.inc.php');

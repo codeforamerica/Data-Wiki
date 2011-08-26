@@ -2,7 +2,9 @@
 
 Drupal.behaviors.citygroups = {
   attach: function (context, settings) {
-    //console.log("test");
+  
+    $('select.form-select').sSelect();
+
   }
 };
 
