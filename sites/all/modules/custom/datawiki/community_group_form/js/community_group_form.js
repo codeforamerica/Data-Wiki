@@ -12,28 +12,30 @@ Drupal.behaviors.community_group_form = {
     }
   };
 
-
   // When going through prompts, click through to the next tab.
   $('input#edit-field-prepare-und').click(function(){
     $('ul.vertical-tabs-list li:eq(1) a').trigger('click');
+    $(this).parent().toggleClass('checked');
   });
 
   $('input#edit-field-privacy-und').click(function(){
     $('ul.vertical-tabs-list li:eq(2) a').trigger('click');
+    $(this).parent().toggleClass('checked');
+  });
+  
+  
+  $('div.form-type-checkbox').click(function(){
+    $(this).toggleClass('checked');
   });
 
-
-
-
-
   // true/false indication if the label should be moved.
+/*
   var fields = {
     'div.form-item-title': true,
     'div.field-name-field-url': true,
     'div.field-name-field-url-calendar': true,
     'div.field-name-field-email': true,
     'div.field-name-field-contact': true,
-/*     'div.field-name-field-activity': false, */
     'div.field-name-field-notes': false,
     'div.field-name-field-description': false,
     'div.field-name-field-source': true,
@@ -50,9 +52,12 @@ Drupal.behaviors.community_group_form = {
     'div.field-name-field-location-zipcode': true,
     'div.field-name-field-location-area-code': true
     /*     'div.field-name-field-categories': false */
-  };
+/*   }; */
+/*
   var description;
   var label;
+*/
+
 /*
   for (var field in fields) {
     // Move the description markup to an interactive element.
@@ -72,6 +77,7 @@ Drupal.behaviors.community_group_form = {
     }
   }
 */
+/*
   // When input is selected, show the tooltip.
   $('div.form-item input').click(function(){
     $(this).parent().find('div.description').show();
@@ -81,6 +87,7 @@ Drupal.behaviors.community_group_form = {
   $('div.description div.close-btn').click(function() {
     $(this).parent().hide();
   });
+*/
 
   var geocodedAddressResults;
   
@@ -279,13 +286,89 @@ Drupal.settings.community_group_form.centerOnFeature = function() {
             new OpenLayers.Projection('EPSG:4326'),
             new OpenLayers.Projection(data.openlayers.projection.projCode));
     data.openlayers.setCenter(center, false, false, false);
-    
-
   }
   catch(e) {
     console.log(e);
   }  
 };
+
+
+
+
+Drupal.verticalTab.prototype = {
+  /**
+   * Displays the tab's content pane.
+   */
+  focus: function () {
+    this.fieldset
+      .siblings('fieldset.vertical-tabs-pane')
+        .each(function () {
+          var tab = $(this).data('verticalTab');
+          tab.fieldset.removeClass('selected-fieldset');
+          tab.fieldset.addClass('deselected-fieldset');
+/*           tab.fieldset.hide(); */
+          tab.item.removeClass('selected');
+        })
+        .end()
+/*       .show() */
+      .addClass('selected-fieldset')
+      .removeClass('deselected-fieldset')
+      .siblings(':hidden.vertical-tabs-active-tab')
+        .val(this.fieldset.attr('id'));
+    this.item.addClass('selected');
+    // Mark the active tab for screen readers.
+    $('#active-vertical-tab').remove();
+    this.link.append('<span id="active-vertical-tab" class="element-invisible">' + Drupal.t('(active tab)') + '</span>');
+  },
+
+  /**
+   * Updates the tab's summary.
+   */
+  updateSummary: function () {
+    this.summary.html(this.fieldset.drupalGetSummary());
+  },
+
+  /**
+   * Shows a vertical tab pane.
+   */
+  tabShow: function () {
+    // Display the tab.
+    this.item.show();
+    // Update .first marker for items. We need recurse from parent to retain the
+    // actual DOM element order as jQuery implements sortOrder, but not as public
+    // method.
+    this.item.parent().children('.vertical-tab-button').removeClass('first')
+      .filter(':visible:first').addClass('first');
+    // Display the fieldset.
+    this.fieldset.removeClass('vertical-tab-hidden').show();
+    // Focus this tab.
+    this.focus();
+    return this;
+  },
+
+  /**
+   * Hides a vertical tab pane.
+   */
+  tabHide: function () {
+    // Hide this tab.
+    this.item.hide();
+    // Update .first marker for items. We need recurse from parent to retain the
+    // actual DOM element order as jQuery implements sortOrder, but not as public
+    // method.
+    this.item.parent().children('.vertical-tab-button').removeClass('first')
+      .filter(':visible:first').addClass('first');
+    // Hide the fieldset.
+    this.fieldset.addClass('vertical-tab-hidden').hide();
+    // Focus the first visible tab (if there is one).
+    var $firstTab = this.fieldset.siblings('.vertical-tabs-pane:not(.vertical-tab-hidden):first');
+    if ($firstTab.length) {
+      $firstTab.data('verticalTab').focus();
+    }
+    return this;
+  }
+};
+
+
 
 })(jQuery);
 
