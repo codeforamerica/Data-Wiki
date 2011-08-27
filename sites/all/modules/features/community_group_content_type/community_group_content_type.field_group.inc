@@ -213,7 +213,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = 'group_details';
   $field_group->data = array(
     'label' => 'Map',
-    'weight' => '33',
+    'weight' => '34',
     'children' => array(
       0 => 'field_address',
       1 => 'field_city',
@@ -363,16 +363,15 @@ function community_group_content_type_field_group_info() {
     'children' => array(
       0 => 'field_demographic',
       1 => 'field_term_civic_taxonomy',
-      2 => 'field_type_community',
-      3 => 'field_url_image',
-      4 => 'field_external_id',
-      5 => 'field_import_flag_watch',
-      6 => 'field_import_flag_recommended',
-      7 => 'field_import_flag_inactive',
-      8 => 'field_import_flag_duplicate',
-      9 => 'field_import_flag_inappropriate',
-      10 => 'field_import_uuid',
-      11 => 'group_location',
+      2 => 'field_url_image',
+      3 => 'field_external_id',
+      4 => 'field_import_flag_watch',
+      5 => 'field_import_flag_recommended',
+      6 => 'field_import_flag_inactive',
+      7 => 'field_import_flag_duplicate',
+      8 => 'field_import_flag_inappropriate',
+      9 => 'field_import_uuid',
+      10 => 'group_location',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

@@ -28,24 +28,6 @@ function citygroups_content_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-49',
   );
-  // Exported menu link: menu-footer-menu:node/3635
-  $menu_links['menu-footer-menu:node/3635'] = array(
-    'menu_name' => 'menu-footer-menu',
-    'link_path' => 'node/3635',
-    'router_path' => 'node/%',
-    'link_title' => 'About CityGroups',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-50',
-  );
   // Exported menu link: menu-footer-menu:node/6042
   $menu_links['menu-footer-menu:node/6042'] = array(
     'menu_name' => 'menu-footer-menu',
@@ -82,24 +64,6 @@ function citygroups_content_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-47',
   );
-  // Exported menu link: menu-footer-menu:projects
-  $menu_links['menu-footer-menu:projects'] = array(
-    'menu_name' => 'menu-footer-menu',
-    'link_path' => 'projects',
-    'router_path' => 'projects',
-    'link_title' => 'Projects',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-49',
-  );
   // Exported menu link: menu-postscript-menu:contact
   $menu_links['menu-postscript-menu:contact'] = array(
     'menu_name' => 'menu-postscript-menu',
@@ -117,24 +81,6 @@ function citygroups_content_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-48',
-  );
-  // Exported menu link: menu-postscript-menu:node/2
-  $menu_links['menu-postscript-menu:node/2'] = array(
-    'menu_name' => 'menu-postscript-menu',
-    'link_path' => 'node/2',
-    'router_path' => 'node/%',
-    'link_title' => 'Get Involved',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-49',
   );
   // Exported menu link: menu-postscript-menu:node/6047
   $menu_links['menu-postscript-menu:node/6047'] = array(
@@ -175,14 +121,11 @@ function citygroups_content_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('API');
-  t('About CityGroups');
   t('About the Groups');
   t('Community Data');
   t('Contact');
   t('Developers');
-  t('Get Involved');
   t('Map View');
-  t('Projects');
 
 
   return $menu_links;

@@ -272,10 +272,10 @@ function community_group_content_type_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '2',
+          'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '18',
+        'weight' => '20',
       ),
     ),
   );
@@ -589,7 +589,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '21',
+        'weight' => '23',
       ),
     ),
   );
@@ -1601,7 +1601,7 @@ function community_group_content_type_field_default_fields() {
           'openlayers_preset' => 'citygroups_form',
         ),
         'type' => 'geofield_openlayers',
-        'weight' => '17',
+        'weight' => '19',
       ),
     ),
   );
@@ -1673,7 +1673,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '16',
+        'weight' => '18',
       ),
     ),
   );
@@ -1810,7 +1810,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '19',
+        'weight' => '21',
       ),
     ),
   );
@@ -2109,84 +2109,6 @@ function community_group_content_type_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-community_group-field_region'
-  $fields['node-community_group-field_region'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_region',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'parent' => '0',
-            'vocabulary' => 'region',
-          ),
-        ),
-      ),
-      'translatable' => '1',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'community_group',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '(Recommended, if you know it.) What region does this group serve?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '9',
-        ),
-        'search_result' => array(
-          'label' => 'inline',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '23',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_region',
-      'label' => 'Region',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'taxonomy',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => '19',
-      ),
-    ),
-  );
-
   // Exported field: 'node-community_group-field_source'
   $fields['node-community_group-field_source'] = array(
     'field_config' => array(
@@ -2336,7 +2258,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '22',
+        'weight' => '24',
       ),
     ),
   );
@@ -2415,86 +2337,6 @@ function community_group_content_type_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '8',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-community_group-field_type_community'
-  $fields['node-community_group-field_type_community'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_type_community',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'parent' => '0',
-            'vocabulary' => 'type_community',
-          ),
-        ),
-      ),
-      'translatable' => '1',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'community_group',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '(Optional) What type of community is this?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '31',
-        ),
-        'search_result' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '8',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_type_community',
-      'label' => 'Type of Community',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'options',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'options_buttons',
-        'weight' => '4',
       ),
     ),
   );
@@ -2608,7 +2450,7 @@ function community_group_content_type_field_default_fields() {
       'bundle' => 'community_group',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '(Recommended) Point to the best page that explains the group and how to join the group.',
+      'description' => '<span class="prompt">(Recommended)</span> Point to the best page that explains the group and how to join the group.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2901,7 +2743,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '20',
+        'weight' => '22',
       ),
     ),
   );
@@ -3308,54 +3150,6 @@ function community_group_content_type_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-region-field_term_location'
-  $fields['taxonomy_term-region-field_term_location'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_term_location',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'module' => 'geofield',
-      'settings' => array(),
-      'translatable' => '1',
-      'type' => 'geofield',
-    ),
-    'field_instance' => array(
-      'bundle' => 'region',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'link',
-          'settings' => array(),
-          'type' => 'default',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_term_location',
-      'label' => 'Location',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'geofield',
-        'settings' => array(
-          'openlayers_preset' => 'geofield_widget_map',
-        ),
-        'type' => 'geofield_openlayers',
-        'weight' => '2',
-      ),
-    ),
-  );
-
   // Exported field: 'taxonomy_term-state-field_term_location'
   $fields['taxonomy_term-state-field_term_location'] = array(
     'field_config' => array(
@@ -3464,21 +3258,19 @@ function community_group_content_type_field_default_fields() {
   t('(Optional) How active is this group?');
   t('(Optional) Provide contact information for getting in touch with the group. Could be a name, or a phone number, or an email address.');
   t('(Optional) What geographic information can you provide for this group?');
-  t('(Optional) What type of community is this?');
   t('(Optional) What type of group is this?');
   t('(Optional) Who owns the group? Example: Personal, Community, Commercial, Government, Non-profit.');
   t('(Optional) Who provided information about the existence of this group?');
-  t('(Recommended) Point to the best page that explains the group and how to join the group.');
   t('(Recommended) Provide an email address (if appropriate) for the best way to join the group by email.');
   t('(Recommended, if you know it) What county is this group in?');
   t('(Recommended, if you know it.) Select the neighborhood(s) that this group serves.');
   t('(Recommended, if you know it.) What area code is this group in?');
   t('(Recommended, if you know it.) What city is this group in?');
   t('(Recommended, if you know it.) What district does this group serve?');
-  t('(Recommended, if you know it.) What region does this group serve?');
   t('(Recommended, if you know it.) What state is this group in?');
   t('(Recommended, if you know it.) What zipcode does this group serve?');
   t('<div class="prompt">(Recommended)</div> List categories, separated by commas, describing this group.');
+  t('<span class="prompt">(Recommended)</span> Point to the best page that explains the group and how to join the group.');
   t('Activity Level');
   t('Address');
   t('Area Code');
@@ -3508,10 +3300,8 @@ function community_group_content_type_field_default_fields() {
   t('Prepare');
   t('Privacy');
   t('Privacy notices here....');
-  t('Region');
   t('Source');
   t('State');
-  t('Type of Community');
   t('Type of Group');
   t('URL');
   t('What you need to prepare,...');

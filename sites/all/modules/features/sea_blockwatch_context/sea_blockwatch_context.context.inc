@@ -26,40 +26,22 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'sea_blockwatch-sea_blockwatch_about_block' => array(
+        'sea_blockwatch-sea_blockwatch_welcome' => array(
           'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_about_block',
-          'region' => 'sidebar_second',
-          'weight' => '-29',
-        ),
-        'sea_blockwatch-sea_blockwatch_facebook_like' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_facebook_like',
-          'region' => 'sidebar_second',
-          'weight' => '-28',
-        ),
-        'menu-menu-block-watch-menu' => array(
-          'module' => 'menu',
-          'delta' => 'menu-block-watch-menu',
-          'region' => 'preface',
+          'delta' => 'sea_blockwatch_welcome',
+          'region' => 'content_top',
           'weight' => '-10',
         ),
-        'sea_blockwatch-sea_blockwatch_search' => array(
+        'sea_blockwatch-sea_blockwatch_home_content' => array(
           'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_search',
+          'delta' => 'sea_blockwatch_home_content',
           'region' => 'content',
           'weight' => '-10',
         ),
-        'sea_blockwatch-sea_blockwatch_map' => array(
+        'sea_blockwatch-sea_blockwatch_about' => array(
           'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_map',
-          'region' => 'content',
-          'weight' => '-9',
-        ),
-        'sea_blockwatch-sea_blockwatch_add_data' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_add_data',
-          'region' => 'content_bottom',
+          'delta' => 'sea_blockwatch_about',
+          'region' => 'postscript',
           'weight' => '-10',
         ),
       ),
@@ -71,103 +53,6 @@ function sea_blockwatch_context_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('citygroups');
   $export['sea_blockwatch_home'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'sea_blockwatch_list';
-  $context->description = '';
-  $context->tag = 'citygroups';
-  $context->conditions = array(
-    'path' => array(
-      'values' => array(
-        'list/all/block-watch' => 'list/all/block-watch',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'menu-menu-block-watch-menu' => array(
-          'module' => 'menu',
-          'delta' => 'menu-block-watch-menu',
-          'region' => 'preface',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('citygroups');
-  $export['sea_blockwatch_list'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'sea_blockwatch_main';
-  $context->description = '';
-  $context->tag = 'citygroups';
-  $context->conditions = array(
-    'path' => array(
-      'values' => array(
-        'blockwatch' => 'blockwatch',
-        'blockwatch/map' => 'blockwatch/map',
-        'list/all/block-watch' => 'list/all/block-watch',
-        'blockwatch/topics' => 'blockwatch/topics',
-        'blockwatch/about' => 'blockwatch/about',
-        'blockwatch/contact' => 'blockwatch/contact',
-        'node/add/community-group?section=blockwatch' => 'node/add/community-group?section=blockwatch',
-      ),
-    ),
-  );
-  $context->reactions = array();
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('citygroups');
-  $export['sea_blockwatch_main'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'sea_blockwatch_map';
-  $context->description = '';
-  $context->tag = 'citygroups';
-  $context->conditions = array(
-    'path' => array(
-      'values' => array(
-        'blockwatch/map' => 'blockwatch/map',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'menu-menu-block-watch-menu' => array(
-          'module' => 'menu',
-          'delta' => 'menu-block-watch-menu',
-          'region' => 'preface',
-          'weight' => '-10',
-        ),
-        'sea_blockwatch-sea_blockwatch_map' => array(
-          'module' => 'sea_blockwatch',
-          'delta' => 'sea_blockwatch_map',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('citygroups');
-  $export['sea_blockwatch_map'] = $context;
 
   return $export;
 }

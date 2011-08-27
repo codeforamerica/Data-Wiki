@@ -19,7 +19,7 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->data = array(
     'width' => '400px',
     'height' => '400px',
-    'image_path' => 'sites/all/themes/citygroups/openlayers/img/',
+    'image_path' => 'sites/all/themes/datawiki/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
@@ -56,6 +56,15 @@ function community_group_content_type_openlayers_presets() {
       'openlayers_behavior_zoomtolayer' => array(
         'zoomtolayer' => 'geofield_formatter',
         'point_zoom_level' => '5',
+      ),
+      'openlayers_behavior_drawfeatures' => array(
+        'feature_types' => array(
+          'point' => 'point',
+          'polygon' => 'polygon',
+          'path' => 0,
+        ),
+        'feature_limit' => '0',
+        'element_id' => '',
       ),
     ),
     'default_layer' => 'google_hybrid',
@@ -95,7 +104,7 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->data = array(
     'width' => '400px',
     'height' => '400px',
-    'image_path' => 'sites/all/themes/citygroups/openlayers/img/',
+    'image_path' => 'sites/all/themes/datawiki/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
