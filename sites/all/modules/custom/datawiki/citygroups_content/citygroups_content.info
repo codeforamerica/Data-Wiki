@@ -1,9 +1,0 @@
-name = CityGroups Content
-description = "Special Pages, Blocks, Content & Settings for CityGroups"
-core = 7.x
-package = citygroups
-
-files[] = citygroups_content.module
-
-dependencies[] = citygroups_group_categories
-dependencies[] = citygroups_group_map

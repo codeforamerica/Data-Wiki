@@ -1,6 +1,6 @@
 core = "7.x"
 description = "citygroups Community Install"
-name = "citygroups Community Group Installer"
+name = "CityGroups Community Group Installer"
 package = "Features"
 
 dependencies[] = community_group_content_type

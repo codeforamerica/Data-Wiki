@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * 
+ * This module just triggers loads CityGroups.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function citygroups_help($path, $arg) {
+  switch ($path) {
+    case 'citygroups_collection':
+      $explanation = t(
+        'Custom content for CityGroups site.');
+      return "<p>$explanation</p>";
+  }
+}
+
+function citygroups_menu() {
+  $items['map'] = array(
+    'title' => 'Map',
+    'page callback' => 'citygroups_map_render',
+    'page arguments' => array(t('Render Map Page.')),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+function citygroups_map_render() {
+  return citygroups_group_map_render();
+}
+
+function citygroups_form_alter(&$form, &$form_state, $form_id) {
+  drupal_add_js(drupal_get_path('module', 'citygroups') . '/js/stylish-select/jquery.stylish-select.min.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
+}
+
+include('citygroups.blocks.inc.php');
