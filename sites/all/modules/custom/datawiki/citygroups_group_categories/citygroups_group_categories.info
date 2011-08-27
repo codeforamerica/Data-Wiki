@@ -1,5 +1,5 @@
-name = Data Wiki Group Categories
-description = "Show Categories"
+name = CityGroups Categories
+description = "Categories functionality for CityGroups"
 core = 7.x
 package = citygroups
 

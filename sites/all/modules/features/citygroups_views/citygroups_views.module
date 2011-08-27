@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the citygroups Views feature.
+ */
+
+include_once('citygroups_views.features.inc');

@@ -1,7 +1,7 @@
 name = CityGroups Content
 description = "Special Pages, Blocks, Content & Settings for CityGroups"
 core = 7.x
-package = CityGroups
+package = citygroups
 
 files[] = citygroups_content.module
 

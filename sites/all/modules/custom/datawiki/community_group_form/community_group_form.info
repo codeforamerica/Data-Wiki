@@ -1,5 +1,5 @@
-name = Data Wiki Community Group Form Alter
-description = "citygroups Community Group Form"
+name = CityGroups Community Group Form
+description = "CityGroups community group form modifications"
 core = 7.x
 package = citygroups
 

@@ -1,0 +1,6 @@
+name = Citygroups Map
+description = "Mapping feature for CityGroups"
+core = 7.x
+package = citygroups
+
+files[] = citygroups_group_map.module

@@ -1,0 +1,7 @@
+name = CityGroups Admin
+description = A subtheme of Seven.
+base theme = seven
+core = 7.x
+engine = phptemplate
+
+stylesheets[all][] = css/datwiki_admin.css

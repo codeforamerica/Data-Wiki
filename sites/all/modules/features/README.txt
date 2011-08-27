@@ -1,9 +1,9 @@
 # About the Features
 
 
-## DataWiki Overview
+## citygroups Overview
 We are using a very simple Features-based framework to set up structured
-data types for the Data Wiki. The DataWiki is intended to be an open data
+data types for the Data Wiki. The citygroups is intended to be an open data
 workbook that allows for offline data collection (mobile apps & printable
  maps) & reconciling crowd-sourced data feeds.
 
@@ -16,7 +16,7 @@ This makes the features easier to debug.
 
 CityGroups is an installation profile that will theme your site, 
 add content pages, and turn on all of the Drupal settings that will 
-give you a datawiki for collecting information on community groups 
+give you a citygroups for collecting information on community groups 
 in your city.
 
 The install profile lives here: drupal/profiles/citygroups
@@ -36,7 +36,7 @@ modules. There are a few modules we have checked out from
 git.drupal.org because we are doing active devlopment (ex. geofield, geoPHP).
 
 Be sure you check out the correct branch: 
-currently: datawiki_prealpha_v1.0
+currently: citygroups_prealpha_v1.0
 
 You will need to download and install these. (Use the master branch.)
 
@@ -44,25 +44,25 @@ You will need to download and install these. (Use the master branch.)
 
 (Will try to keep this up to date.)
 
-DataWiki is the core feature that turns on the shared Drupal settings 
-common for other types of datawikis. For example, in addition to collecting
+citygroups is the core feature that turns on the shared Drupal settings 
+common for other types of citygroupss. For example, in addition to collecting
 crowd-sourced structured data for community groups, you can also collect 
 social services information, information about community gardens, 
 kitchens & farms.
 Lives here: 
 
-### DataWiki Install Feature
-drupal/sites/all/modules/features/datawiki_install
+### citygroups Install Feature
+drupal/sites/all/modules/features/citygroups_install
 
 Installs all dependent core & contrib modules.
 The idea: anything that is not a feature.
 
-This triggers the custom datawiki module, which sets
+This triggers the custom citygroups module, which sets
 off the chain of triggering everything else.
 
-### Datawiki Module
+### citygroups Module
 Provides blocks.
-Installs Datawiki related submodules.
+Installs citygroups related submodules.
 
 ### citygroups_sub
 
@@ -70,49 +70,49 @@ Dev: will be deprecated.
 The idea is to have a template demonstrate the implementation
 of themed subsections.
 
-requires: "datawiki_group_categories", "datawiki_group_map"
+requires: "citygroups_group_categories", "citygroups_group_map"
 
-### datawiki_group_categories
+### citygroups_group_categories
 Module that will handle special treatment of categories.
 
   @TODO For future dev.
   
-### Datawiki group map
+### citygroups group map
 Special map display using leaflet.
 
 
 ### Seattle Blockwatch
 Module does not belong here, but it is an active subsite.
-requires: "datawiki_group_categories", "datawiki_group_map"
+requires: "citygroups_group_categories", "citygroups_group_map"
 
-### DataWiki Features
+### citygroups Features
 
-#### datawiki_settings
+#### citygroups_settings
 Special site settings.
 
   @TODO Using this?
 
-#### datawiki_views
-Main views for datawiki site.
+#### citygroups_views
+Main views for citygroups site.
 
-#### datawiki_feed_taxonomy_categories
+#### citygroups_feed_taxonomy_categories
 Provides a feed importer for mapping imported taxonomy.
 
   @TODO This is dev. Needs more development and testing.
 
-#### datawiki_basic_page
+#### citygroups_basic_page
 Provides a basic page content type.
 
-#### datawiki_context
+#### citygroups_context
 Contexts: relates paths to the display of blocks.
 
-#### datawiki_content
+#### citygroups_content
 Custom page content. Uses defaultcontent module.
 
-#### datawiki_community_group_views
+#### citygroups_community_group_views
 Special views for community groups.
 
-#### datawiki_developer
+#### citygroups_developer
 Custom developer features.
 
 
@@ -135,60 +135,60 @@ The stuff below may be out of date.
 
 ## CityGroups
 
-### datawiki_citygroups_install
+### citygroups_citygroups_install
 A features that provides special handling for City Groups the site.
 
 ### CityGroups Views
 General Views across all CityGroups content.
-datawiki_citygroups_views
+citygroups_citygroups_views
 
-### DataWiki Community Group
-A collection of features that make up the DataWiki Community Group App.
+### citygroups Community Group
+A collection of features that make up the citygroups Community Group App.
 
-### DataWiki Community Group Content Type 
+### citygroups Community Group Content Type 
 community_group_content_type
 Contains all of the fields, taxonomies for the structured data.
 
-### DataWiki Community Group Feed CSV Upload
+### citygroups Community Group Feed CSV Upload
 Community Group Feed CSV Upload
 community_group_feed_csv_upload
 Feed that uploads CSVs into Community Group Content Type
 
-### DataWiki Community Group Feed CSV Link
+### citygroups Community Group Feed CSV Link
 Community Group Feed CSV Link
 community_group_feed_csv_link
 
-### DataWiki Community Group Feed RSS Link
+### citygroups Community Group Feed RSS Link
 Community Group Feed RSS Link
 community_group_feed_rss_link
 
-### DataWiki Community Group Feed JSON Link
+### citygroups Community Group Feed JSON Link
 Community Group Feed JSON Link
 community_group_feed_json_link
 
-### DataWiki Community Group Upload CSV (Content Type)
+### citygroups Community Group Upload CSV (Content Type)
 community_group_upload_csv
 
 A container content type & Feed that allow for importing CSVs in the same format as the content type.
 
-### DataWiki Community Group Views
-datawiki_community_group_views
+### citygroups Community Group Views
+citygroups_community_group_views
 
 Contains view of data & display.
 
 A view that displays the data as JSON and CSV (CSV is an export CSV button, and there is also a previewable table.)
 A view that displays the view to the user. Has search blocks.
 
-### DataWiki Community Group Site Settings
+### citygroups Community Group Site Settings
 Special Drupal site settings that pertain to the community group. Example: Permissions, Contexts.
-datawiki_community_group_settings
+citygroups_community_group_settings
 
 
 
 
 
 
-Themes: datawiki, datawiki_admin, citygroups, citygroups_admin
+Themes: citygroups, citygroups_admin, citygroups, citygroups_admin
 
   @TODO Themes needs some work.
 

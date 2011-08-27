@@ -4,6 +4,6 @@ description = Adds a splash page for admins to solicit additional configuration 
 dependencies[] = colorbox
 dependencies[] = features
 dependencies[] = context
-package = CityGroups
+package = citygroups
 core = 7.x
 files[] = citygroups_splash.module

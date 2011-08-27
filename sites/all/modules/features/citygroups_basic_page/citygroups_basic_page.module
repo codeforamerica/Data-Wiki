@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the citygroups Basic Page feature.
+ */
+
+include_once('citygroups_basic_page.features.inc');

@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Datawiki_Feed Taxonomy Categories feature.
- */
-
-include_once('datawiki_feed_taxonomy_categories.features.inc');

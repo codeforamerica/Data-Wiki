@@ -1,6 +1,0 @@
-name = Data Wiki Group Map
-description = "Custom blocks for a Data Wiki site."
-core = 7.x
-package = citygroups
-
-files[] = citygroups_group_map.module

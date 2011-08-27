@@ -15,7 +15,7 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'sea_blockwatch_home';
   $context->description = '';
-  $context->tag = 'datawiki';
+  $context->tag = 'citygroups';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -69,7 +69,7 @@ function sea_blockwatch_context_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('datawiki');
+  t('citygroups');
   $export['sea_blockwatch_home'] = $context;
 
   $context = new stdClass;
@@ -77,7 +77,7 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'sea_blockwatch_list';
   $context->description = '';
-  $context->tag = 'datawiki';
+  $context->tag = 'citygroups';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -101,7 +101,7 @@ function sea_blockwatch_context_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('datawiki');
+  t('citygroups');
   $export['sea_blockwatch_list'] = $context;
 
   $context = new stdClass;
@@ -109,7 +109,7 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'sea_blockwatch_main';
   $context->description = '';
-  $context->tag = 'datawiki';
+  $context->tag = 'citygroups';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -128,7 +128,7 @@ function sea_blockwatch_context_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('datawiki');
+  t('citygroups');
   $export['sea_blockwatch_main'] = $context;
 
   $context = new stdClass;
@@ -136,7 +136,7 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'sea_blockwatch_map';
   $context->description = '';
-  $context->tag = 'datawiki';
+  $context->tag = 'citygroups';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -166,7 +166,7 @@ function sea_blockwatch_context_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('datawiki');
+  t('citygroups');
   $export['sea_blockwatch_map'] = $context;
 
   return $export;

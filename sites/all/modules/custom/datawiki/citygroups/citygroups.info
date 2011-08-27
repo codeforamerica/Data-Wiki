@@ -2,9 +2,9 @@ name = CityGroups
 core = 7.x
 description = Install all the main modules of CityGroups.
 name = CityGroups
-package = CityGroups
+package = citygroups
 
-files[] = citygroupsmodule
+files[] = citygroups.module
 # configure = admin/config/citygroups/settings
 
 core = 7.x

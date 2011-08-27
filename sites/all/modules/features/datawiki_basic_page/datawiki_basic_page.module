@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Datawiki Basic Page feature.
- */
-
-include_once('datawiki_basic_page.features.inc');

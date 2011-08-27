@@ -1,4 +1,4 @@
-ROADMAP / DataWiki Dev Blog
+ROADMAP / citygroups Dev Blog
 
 What's going on June 16, 2011
 by Chach
@@ -20,7 +20,7 @@ architecture.
 ! * path http://citygroups.org/blockwatch
 ##########################
 
-Stuff for DataWiki
+Stuff for citygroups
 ##########################
 ! geocoding
 ! context-coding...
@@ -55,10 +55,10 @@ This requires moving all the old features into the new feature structure (mostly
 
 -- Profile installs the theme & as *few* settings as possible.
 
--- Installs datawiki_install which has the main Drupal features.
----- datawiki_install loads up special views & settings for all Datawikis.
----- Dev version installs datawiki developers.
--- Since we are starting with a CityGroups install profile (a flavor of a DataWiki), 
+-- Installs citygroups_install which has the main Drupal features.
+---- citygroups_install loads up special views & settings for all citygroupss.
+---- Dev version installs citygroups developers.
+-- Since we are starting with a CityGroups install profile (a flavor of a citygroups), 
    that installs the theme, and also triggers the loading of features special for CityGroups.
 -- The CityGroups installer loads up the citygroups_install feature.
 ---- CityGroups install loads the community group install feature, and special views and other tools for City Groups.
