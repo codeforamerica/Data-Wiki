@@ -222,29 +222,44 @@ function datawiki_vertical_tabs($variables) {
   return $output;
 }
 
-
-
 function datawiki_menu_link($variables) {
   $element = $variables['element'];
   $sub_menu = '';
 
-  $section = 'blockwatch';
 
-  if ($element['#theme'] == 'menu_link__menu_citygroups_menu') {
+  // Get section values if set.
+  global $section;
+  
+  if(empty($section)) {
+    $section = '';
+  }
+  if(!empty($_GET['section'])) {
+    $section = '/' . $_GET['section'];
+  }
+  
+  $section_path = $section . '/';
+
+  // Rewrite certain menu links to point to section.
+  if (($element['#theme'] == 'menu_link__menu_citygroups_menu') && ($section !== '')) {
     switch ($element['#href']) {
       case '<front>':
-      $element['#href'] = $element['#href'] . $section;
+        $element['#href'] = $section;
         break;
       case 'map':
+        $element['#href'] = $section_path . $element['#href'];
         break;
       case 'list':
+        $element['#href'] = $section_path . $element['#href'];
         break;
       case 'categories':
+        $element['#href'] = $section_path. $element['#href'];
         break;
       case 'node/add/community-group':
+        $element['#href'] = $element['#href'];
         break;
     }
   }
+  
   // menu_link__menu_postscript_menu
   if ($element['#below']) {
     $sub_menu = drupal_render($element['#below']);
