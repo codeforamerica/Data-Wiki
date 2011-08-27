@@ -267,11 +267,6 @@ function sea_blockwatch_page_variables(&$vars) {
     $settings = $vars['section'];
   }
 
-  // Override existing page variables.
-/*   $vars['site_slogan'] = '<h3>' .t("Public directory of Seattle Block Watch Captains.") . '</h3>'; */
-/*   $vars['logo_image_link'] = drupal_get_path('module', 'sea_blockwatch') . '/images/citygroups-logo.png'; */
-/*   $vars['logo'] = '<a href="/"><img src="/' . $vars['logo_image_link'] . '" /></a>'; */
-
   // Custom object of special settings to be integrated with the main theme.
   $vars['section'] = array();
   $vars['section']['html_root'] = drupal_get_path('module', 'datawiki_group_map');

@@ -237,31 +237,45 @@ function datawiki_menu_link($variables) {
   if(!empty($_GET['section'])) {
     $section = '/' . $_GET['section'];
   }
-
+  
+  $element['#attributes']['class'][] = '';
+  
   // Rewrite certain menu links to point to section.
   if (($element['#theme'] == 'menu_link__menu_citygroups_menu') && ($section !== '')) {
     switch ($element['#href']) {
       case '<front>':
         $element['#href'] = $section;
+        $element['#localized_options']['attributes']['title'] = t('Home');
+        $element['#attributes']['class'][] = 'home';
         break;
       case 'map':
         $element['#href'] = $section_path . $element['#href'];
+        $element['#localized_options']['attributes']['title'] = t('Map View');
+        $element['#attributes']['class'][] = 'map-view';
         break;
       case 'list':
         $element['#href'] = $section_path . $element['#href'];
+        $element['#localized_options']['attributes']['title'] = t('List View');
+        $element['#attributes']['class'][] = 'list-view';
         break;
       case 'categories':
         $element['#href'] = $section_path. $element['#href'];
+        $element['#localized_options']['attributes']['title'] = t('Categories');
+        $element['#attributes']['class'][] = 'categories';
         break;
       case 'node/add/community-group':
-        // $element['#href'] = $element['#href'] . urlencode('?') . "section=" . $section ;
-        //@TODO look up syntax here.
-        $element['#attributes']['section'] = $section;
+       // $element['#href'] = $element['#href'] . urlencode('?') . "section=" . $section ;
+      //@TODO look up syntax 
+       //$element['#attributes']['section'] = $section;
+        $element['#localized_options']['attributes']['title'] = t('Add New');
+        $element['#attributes']['class'][] = 'add-new';
         break;
     }
   }
   
-  // menu_link__menu_postscript_menu
+
+  $element['#attributes']['class'][] .= 'menu-' . $element['#original_link']['mlid'];
+
   if ($element['#below']) {
     $sub_menu = drupal_render($element['#below']);
   }
