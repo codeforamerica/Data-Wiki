@@ -224,11 +224,12 @@ function datawiki_vertical_tabs($variables) {
 
 function datawiki_menu_link($variables) {
   $element = $variables['element'];
+/*   dpm($element); */
   $sub_menu = '';
 
 
   // Get section values if set.
-  global $section;
+    global $section;
   
   if(empty($section)) {
     $section = '';
@@ -236,8 +237,6 @@ function datawiki_menu_link($variables) {
   if(!empty($_GET['section'])) {
     $section = '/' . $_GET['section'];
   }
-  
-  $section_path = $section . '/';
 
   // Rewrite certain menu links to point to section.
   if (($element['#theme'] == 'menu_link__menu_citygroups_menu') && ($section !== '')) {
@@ -255,7 +254,9 @@ function datawiki_menu_link($variables) {
         $element['#href'] = $section_path. $element['#href'];
         break;
       case 'node/add/community-group':
-        $element['#href'] = $element['#href'];
+        // $element['#href'] = $element['#href'] . urlencode('?') . "section=" . $section ;
+        //@TODO look up syntax here.
+        $element['#attributes']['section'] = $section;
         break;
     }
   }

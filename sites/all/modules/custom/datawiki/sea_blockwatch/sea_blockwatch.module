@@ -30,7 +30,7 @@ function sea_blockwatch_menu() {
     'page arguments' => array(t('Blockwatch Map Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch/topics'] = array(
+  $items['blockwatch/categories'] = array(
     'title' => 'Topics',
     'page callback' => 'sea_blockwatch_topics_render',
     'page arguments' => array(t('Blockwatch Topics Page')),
@@ -103,9 +103,28 @@ function sea_blockwatch_about_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_add_render() {
-  $output = "";
+  global $section;
+  $section = 'blockwatch';
+/*
+  // Load community group form.
+  
+  module_load_include('inc', 'node', 'node.pages');
+  
+  global $user;
+  $node->uid = $user->uid;
+  $node->name = (isset($user->name) ? $user->name : '');
+  $node->type = 'community_group';
+
+   // Invoke hook_nodapi and hook_node
+  node_object_prepare($node);
+*/
+
+  //  $output = drupal_get_form('community_group_node_form', $node);
+
+  $output = '';
   return $output;
 }
+
 
 /**
  * Render custom page for blockwatch.
@@ -130,20 +149,18 @@ function sea_blockwatch_preprocess_page(&$vars) {
   $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
   
   switch ($vars['page_path']) {
-    case 'blockwatch/add': 
     case 'blockwatch/about':
-    case 'blockwatch/contact':
-    case 'blockwatch/topics':
-    case 'blockwatch/upload':
-    case 'list/all/block-watch':
+    case 'blockwatch/categories':
+    case 'blockwatch/list':
       sea_blockwatch_page_variables($vars);
       break;
+    case 'blockwatch/add':   
     case 'node/add/community-group':
       if(!empty($_GET['section'])) {
         $section = $_GET['section'];
         if($section == 'blockwatch') {
           sea_blockwatch_page_variables($vars);
-          $vars['title'] = t('Add Block Watch Group');
+          $vars['title'] = t('Add Block Watch Community');
         }
       }
       break;
@@ -154,6 +171,7 @@ function sea_blockwatch_preprocess_page(&$vars) {
     break;
   }
 }
+
 function sea_blockwatch_map_render_output() {
   $output = '<div>
     <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
@@ -175,62 +193,63 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
     global $section;
     $section = 'blockwatch';
   
-    $menu =  menu_tree('menu-block-watch-menu');
-    $menu_rendered = drupal_render($menu);
+    if(!empty($_GET['section'])) {
+      $section = $_GET['section'];
+      if($section == 'blockwatch') {
 
-    $form['#prefix'] .= '<div class="add-home-menu">' . $menu_rendered . '</div>';
-  
-    // Section overrides.
-    $add_variables_array = array(
-      'category' => 'Block Watch, Crime Prevention',
-      'title' => 'Add a Block Watch Captain',
-      'instructions' => 'List Block Watch Captain or Block Watch Group.',
-      'map_instructions' => 'Where is this Block Watch?',
-    );
+        // Section overrides.
+        $add_variables_array = array(
+          'category' => 'Block Watch, Crime Prevention',
+          'title' => 'Add a Block Watch Captain',
+          'instructions' => 'List Block Watch Captain or Block Watch Group.',
+          'map_instructions' => 'Where is this Block Watch?',
+        );
+        
+        if(!empty($add_variables_array['instructions'])) {
+          $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
+        }
+        
+        if(!empty($add_variables_array['category'])) {
+          $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
+        }
     
-    if(!empty($add_variables_array['instructions'])) {
-      $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
-    }
+        if(!empty($add_variables_array['map_instructions'])) {
+          $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
+        }
+        
+        $access = user_access('administer nodes');
+        if(!$access) {
+          $form['additional_settings']['#access'] = FALSE;
+        }
     
-    if(!empty($add_variables_array['category'])) {
-      $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
-    }
-
-    if(!empty($add_variables_array['map_instructions'])) {
-      $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
-    }
+        $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
+        $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
+        $form['field_location']['#prefix'] .= '<div class="instructions-1">';
+        $form['field_location']['#prefix'] .= t('Enter address or intersection to map the group.');
+        $form['field_location']['#prefix'] .= '</div>';
+        $form['field_location']['#prefix'] .= '<div class="instructions-2">';
+        $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
+        $form['field_location']['#prefix'] .= '</div>';
+        $form['field_location']['#prefix'] .= '<div class="address-ajax">';
+        $form['field_location']['#prefix'] .= '<div id="search-links">';
+        $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
+        $form['field_location']['#prefix'] .= '<input placeholder="Enter address or zipcode." size=50 class="form-item" id="search-map-input" />';
+        $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_icon-50.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
+        $form['field_location']['#prefix'] .= '</div>';
+        $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
+        $form['field_location']['#prefix'] .= '</div>';
     
-    $access = user_access('administer nodes');
-    if(!$access) {
-      $form['additional_settings']['#access'] = FALSE;
+        // Add Google API (uses openlayers API key)
+        // @TODO require openlayers.
+        drupal_add_js(
+            'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+            variable_get('openlayers_layers_google_api', 
+              variable_get('googlemap_api_key', '')
+            ), 'external');
+    
+        drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));          
+      }   
     }
-
-    $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
-    $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
-    $form['field_location']['#prefix'] .= '<div class="instructions-1">';
-    $form['field_location']['#prefix'] .= t('Enter address or intersection to map the group.');
-    $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '<div class="instructions-2">';
-    $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
-    $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '<div class="address-ajax">';
-    $form['field_location']['#prefix'] .= '<div id="search-links">';
-    $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
-    $form['field_location']['#prefix'] .= '<input placeholder="Enter address or zipcode." size=50 class="form-item" id="search-map-input" />';
-    $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_icon-50.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
-    $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
-    $form['field_location']['#prefix'] .= '</div>';
-
-    // Add Google API (uses openlayers API key)
-    // @TODO require openlayers.
-    drupal_add_js(
-        'http://maps.google.com/maps/api/js?sensor=false&key=' . 
-        variable_get('openlayers_layers_google_api', 
-          variable_get('googlemap_api_key', '')
-        ), 'external');
-
-    drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));          
   }
 }
 

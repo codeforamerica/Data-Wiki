@@ -8,33 +8,12 @@ function sea_blockwatch_block_info() {
     'info' => t('Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['sea_blockwatch_branding_header'] = array(
-    'info' => t('Branding Header'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['sea_blockwatch_branding_footer'] = array(
-    'info' => t('Branding Footer'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['sea_blockwatch_site_slogan'] = array(
-    'info' => t('Site Slogan'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['sea_blockwatch_facebook_like'] = array(
-    'info' => t('Facebook Like'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
   $blocks['sea_blockwatch_home_content'] = array(
     'info' => t('Home Content'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-
   $blocks['sea_blockwatch_about'] = array(
     'info' => t('About'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-  $blocks['sea_blockwatch_map'] = array(
-    'info' => t('Map'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   return $blocks;
@@ -48,52 +27,18 @@ function sea_blockwatch_block_view($delta = '') {
     case 'sea_blockwatch_welcome':
       $block['subject'] = '';
       $block['content'] = sea_blockwatch_contents('welcome');
-      break;
-      
-    case 'sea_blockwatch_branding_header':
-      $block['subject'] = '';
-      $block['content'] = sea_blockwatch_contents('branding_header');
-      break;
-      
-    case 'sea_blockwatch_branding_footer':
-      $block['subject'] = '';
-      $block['content'] = sea_blockwatch_contents('branding_footer');
-      break;     
-
-    case 'sea_blockwatch_site_slogan':
-      $block['subject'] = '';
-      $block['content'] = sea_blockwatch_contents('site_slogan');
-      break;
-
-    case 'citygroups_about_citygroups':
-      $block['subject'] = '';
-      $block['content'] = sea_blockwatch_contents('about_citygroups');
-      break;         
-
-    case 'sea_blockwatch_facebook_like':
-      $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
-      $url .= '://';
-      $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
-      $url .= $_SERVER['REQUEST_URI'];
-      $block['subject'] = '';
-      $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
-      break;
+      break; 
 
     case 'sea_blockwatch_home_content':
       $block['subject'] = '';
       $block['content'] = sea_blockwatch_contents('home_content');
       break;
 
-
     case 'sea_blockwatch_about':
       $block['subject'] = '';
       $block['content'] = sea_blockwatch_contents('about');
       break; 
 
-    case 'sea_blockwatch_map':
-      $block['subject'] = '';
-      $block['content'] = sea_blockwatch_contents('map');
-      break;
   }
   return $block;
 }
@@ -111,25 +56,6 @@ function sea_blockwatch_contents($type) {
       $output .= '<h3>' . t('Find the nearest Block Watch Captain') . '</h3>';
       $output .= '<p>' . t('The Block Watch Captain Directory lists basic contact information for Block Watch Captains in Seattle.') .'</p>';
       break;
-
-    case 'site_slogan':
-      $output .= '<h3>' . t('A public directory of community groups in the Seattle area.') . '</h3>';
-      break;
-      
-    case 'branding_header':
-      $output .= '<div id="branding-header"></div>';
-      break;
-      
-    case 'branding_footer':
-      $code_for_america = '';
-      $output .= '<div id="branding-footer alpha omega grid_16 alpha omega">' 
-      . '<div class="about grid_6 alpha">' 
-      . t('Maintained by the City and Community Groups.') . '<br />'
-      . t('Created as Open Source by <a href="http://codeforamerica.org">Code for America</a>') 
-      . '<div class="tagline">' .  t('"For a more transparent, efficient and participatory future."') . '</div>' . '</div>'
-      . '<div class="logo grid_10"><a href="http://codeforamerica.org">' . '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" width="150" />' . '</a></div>'
-      . '</div>';
-      break;
       
       case 'map':
         $output .= datawiki_group_map_render();
@@ -138,10 +64,18 @@ function sea_blockwatch_contents($type) {
       case 'home_content':
         $output .= "
           <div class=\"grid_16 sections\">
+           
+            <div class=\"grid_6 add-new-group section alpha\">
+              <h3>Are you a Block Watch Captain?</h3>
+              <p>Help your neighbors and other Block Watch captains find you.
 
-            <div class=\"grid_6 view-data section alpha\">
-              <h3>See the groups</h3>
-              <p>asdfasdfasdf</p>
+              <a href=\"/node/add/community-group?$" . $add_variables . "\">Add</a> your contact information and map your Block Watch community.</p>
+              <div class=\"button\"><a href=\"/node/add/community-group?$" . $add_variables . "\">Add New</a></div>
+            </div>    
+
+            <div class=\"grid_6 push_2 view-data section omega\">
+              <h3>View Block Watch Captains</h3>
+              <p>Find a Block Watch Captain on the map.</p>
               <div id=\"search-map\" class=\"form-input\">
               <input placeholder=\"Enter your address or zipcode here.\" class=\"form-item\" />
               <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
@@ -151,23 +85,20 @@ function sea_blockwatch_contents($type) {
               <div class=\"button\"><a href=\"list\">List view</a></div>
             </div>
 
-           
-            <div class=\"grid_6  push_2  add-new-group section omega\">
-              <h3>Can you recommend any community groups?</h3>
-              <p>asdfasdfasdf</p>
-              <div class=\"button\"><a href=\"/node/add/community-group\">Add New</a></div>
-            </div>    
-
           </div>
           <div class=\"clear\"></div>
           <div class=\"grid_16 sections\">
             <div class=\"grid_6 news section alpha\">
-              <h3>We're mapping Block Watch Captains</h3>
-              <p>asdfasdfasdf</p>
+              <h3>Mapping in West Seattle.</h3>
+              <p>This fall we are reaching out to Block Watch Captains in West Seattle to build a public map of Block Watches.</p>
+              <p>As you can see, there are only a handful of Block Watch Captains listed.</p>
+              <p>We are working with the <a href=\"http://wsbwcn.com\">West Seattle Block Watch Captain’s Network</a> and the 
+              <a href=\"http://seattle.gov/police\">Seattle Police Department</a> to reach out to Block Watch Captains in Seattle and fill in this map.</p>
             </div>    
             <div class=\"grid_6 push_2 promote section omega\">
               <h3>Spread the word</h3>
-              <p>asdfasdfasdf</p>
+              <p>Tell your friends, neighbors & local community groups.</p>
+              <p>We’ve written emails, made <a href=\"blockwatch/get-involved\">printable flyers</a> to make it easy to explain to others.</p>
             </div>      
           </div>
         ";
