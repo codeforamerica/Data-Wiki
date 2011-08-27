@@ -3,8 +3,6 @@ document.namespaces;
 
 Drupal.settings.community_group_form = {};
 
-
-
 Drupal.behaviors.community_group_form = {
   'attach': function(context, settings) {
       Drupal.settings.community_group_form.data = $('div.openlayers-map').data('openlayers');

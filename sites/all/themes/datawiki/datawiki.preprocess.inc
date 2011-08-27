@@ -237,7 +237,7 @@ function datawiki_menu_link($variables) {
   if(!empty($_GET['section'])) {
     $section = '/' . $_GET['section'];
   }
-  
+
   $element['#attributes']['class'][] = '';
   
   // Rewrite certain menu links to point to section.
@@ -247,21 +247,25 @@ function datawiki_menu_link($variables) {
         $element['#href'] = $section;
         $element['#localized_options']['attributes']['title'] = t('Home');
         $element['#attributes']['class'][] = 'home';
+        $element['#localized_options']['query']['section'] = $section;
         break;
       case 'map':
         $element['#href'] = $section_path . $element['#href'];
         $element['#localized_options']['attributes']['title'] = t('Map View');
         $element['#attributes']['class'][] = 'map-view';
+        $element['#localized_options']['query']['section'] = $section;
         break;
       case 'list':
         $element['#href'] = $section_path . $element['#href'];
         $element['#localized_options']['attributes']['title'] = t('List View');
         $element['#attributes']['class'][] = 'list-view';
+        $element['#localized_options']['query']['section'] = $section;
         break;
       case 'categories':
         $element['#href'] = $section_path. $element['#href'];
         $element['#localized_options']['attributes']['title'] = t('Categories');
         $element['#attributes']['class'][] = 'categories';
+        $element['#localized_options']['query']['section'] = $section;
         break;
       case 'node/add/community-group':
        // $element['#href'] = $element['#href'] . urlencode('?') . "section=" . $section ;
@@ -269,6 +273,7 @@ function datawiki_menu_link($variables) {
        //$element['#attributes']['section'] = $section;
         $element['#localized_options']['attributes']['title'] = t('Add New');
         $element['#attributes']['class'][] = 'add-new';
+        $element['#localized_options']['query']['section'] = $section;
         break;
     }
   }

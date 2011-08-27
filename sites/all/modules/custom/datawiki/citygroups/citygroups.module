@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * 
+ * This module just triggers dependencies to load for CityGroups.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function citygroups_help($path, $arg) {
+  switch ($path) {
+    case 'citygroups':
+      $explanation = t(
+        'Custom features for Data Wiki.');
+      return "<p>$explanation</p>";
+  }
+}

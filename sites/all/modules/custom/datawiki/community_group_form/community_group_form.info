@@ -1,6 +1,6 @@
 name = Data Wiki Community Group Form Alter
-description = "Datawiki Community Group Form"
+description = "citygroups Community Group Form"
 core = 7.x
-package = DataWiki
+package = citygroups
 
 files[] = community_group_form.module

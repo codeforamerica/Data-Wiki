@@ -58,7 +58,7 @@ function sea_blockwatch_contents($type) {
       break;
       
       case 'map':
-        $output .= datawiki_group_map_render();
+        $output .= citygroups_group_map_render();
       break;
       
       case 'home_content':

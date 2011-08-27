@@ -42,12 +42,6 @@ function sea_blockwatch_menu() {
     'page arguments' => array(t('Blockwatch About Page')),
     'access callback' => TRUE,
   );
-  $items['blockwatch/add'] = array(
-    'title' => 'Add',
-    'page callback' => 'sea_blockwatch_add_render',
-    'page arguments' => array(t('Blockwatch Add Page')),
-    'access callback' => TRUE,
-  );
   $items['blockwatch/contact'] = array(
     'title' => 'Contact',
     'page callback' => 'sea_blockwatch_contact_render',
@@ -99,32 +93,6 @@ function sea_blockwatch_about_render() {
   $output = "";
   return $output;
 }
-/**
- * Render custom page for blockwatch.
- */
-function sea_blockwatch_add_render() {
-  global $section;
-  $section = 'blockwatch';
-/*
-  // Load community group form.
-  
-  module_load_include('inc', 'node', 'node.pages');
-  
-  global $user;
-  $node->uid = $user->uid;
-  $node->name = (isset($user->name) ? $user->name : '');
-  $node->type = 'community_group';
-
-   // Invoke hook_nodapi and hook_node
-  node_object_prepare($node);
-*/
-
-  //  $output = drupal_get_form('community_group_node_form', $node);
-
-  $output = '';
-  return $output;
-}
-
 
 /**
  * Render custom page for blockwatch.
@@ -167,7 +135,7 @@ function sea_blockwatch_preprocess_page(&$vars) {
     case 'blockwatch':
     case 'blockwatch/map':
       sea_blockwatch_page_variables($vars);
-      datawiki_group_map_page_variables($vars);
+      citygroups_group_map_page_variables($vars);
     break;
   }
 }
@@ -269,7 +237,7 @@ function sea_blockwatch_page_variables(&$vars) {
 
   // Custom object of special settings to be integrated with the main theme.
   $vars['section'] = array();
-  $vars['section']['html_root'] = drupal_get_path('module', 'datawiki_group_map');
+  $vars['section']['html_root'] = drupal_get_path('module', 'citygroups_group_map');
   $vars['section']['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
   // Get current theme
   // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
@@ -291,9 +259,9 @@ function sea_blockwatch_page_variables(&$vars) {
       ), 'external');
 
   // Pass javascript settings into container variable.
-  $datawiki_js_settings = array();
-  $datawiki_js_settings['datawiki'] = $settings['javascript_settings'];
-  drupal_add_js($datawiki_js_settings, 'setting');
+  $citygroups_js_settings = array();
+  $citygroups_js_settings['citygroups'] = $settings['javascript_settings'];
+  drupal_add_js($citygroups_js_settings, 'setting');
   
   // Add special stylesheet.
   drupal_add_css(drupal_get_path('module', 'sea_blockwatch') . '/css/blockwatch.css', array('group' => CSS_THEME));
@@ -308,12 +276,12 @@ function sea_blockwatch_settings() {
   $section = 'blockwatch';
 
   $settings = array();
-  $settings['html_root'] = drupal_get_path('module', 'datawiki_group_map');
+  $settings['html_root'] = drupal_get_path('module', 'citygroups_group_map');
   $settings['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
   // Get current theme
   // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
   // Set the theme.  
-  $settings['theme'] = "datawiki";
+  $settings['theme'] = "citygroups";
   $settings['term'] = "all";         
   $settings['javascript_settings'] = array();
   $settings['javascript_settings']['customMapDataPath'] = 'data/community-group/map/Block-watch';
