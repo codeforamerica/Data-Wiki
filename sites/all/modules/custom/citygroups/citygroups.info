@@ -89,3 +89,5 @@ dependencies[] = citygroups_developer
 ; Custom
 dependencies[] = citygroups_group_categories
 dependencies[] = citygroups_group_map
+dependencies[] = citygroups_splash
+dependencies[] = community_group_form

@@ -5,6 +5,6 @@ core = 7.x
 
 dependencies[] = features
 dependencies[] = citygroups
-dependencies[] = citygroups_install
+dependencies[] = citygroups_citygroups_install
 
-files[] = citygroups.profile
+files[] = citygroups_profile.profile
