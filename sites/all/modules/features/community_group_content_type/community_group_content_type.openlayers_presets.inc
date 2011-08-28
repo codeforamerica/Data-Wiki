@@ -19,7 +19,7 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->data = array(
     'width' => '400px',
     'height' => '400px',
-    'image_path' => 'sites/all/themes/datawiki/openlayers/img/',
+    'image_path' => 'sites/all/themes/citygroups/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
@@ -104,7 +104,7 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->data = array(
     'width' => '400px',
     'height' => '400px',
-    'image_path' => 'sites/all/themes/datawiki/openlayers/img/',
+    'image_path' => 'sites/all/themes/citygroups/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,

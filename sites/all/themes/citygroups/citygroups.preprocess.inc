@@ -222,24 +222,28 @@ function citygroups_vertical_tabs($variables) {
   return $output;
 }
 
+/**
+ * Theme menu links.
+ * @TODO This should go in module because it themes sections for data collection projects.
+ */
 function citygroups_menu_link($variables) {
   $element = $variables['element'];
-/*   dpm($element); */
+
   $sub_menu = '';
 
-
   // Get section values if set.
-    global $section;
+  global $section;
   
   if(empty($section)) {
     $section = '';
   }
-  if(!empty($_GET['section'])) {
-    $section = '/' . $_GET['section'];
+  if(!empty($_GET['section']) && ($section == '')) {
+    $section = $_GET['section'];
+    $section_path = '/' . $section;
   }
 
   $element['#attributes']['class'][] = '';
-  
+
   // Rewrite certain menu links to point to section.
   if (($element['#theme'] == 'menu_link__menu_citygroups_menu') && ($section !== '')) {
     switch ($element['#href']) {

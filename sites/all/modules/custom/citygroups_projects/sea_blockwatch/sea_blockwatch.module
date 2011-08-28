@@ -264,7 +264,7 @@ function sea_blockwatch_page_variables(&$vars) {
   drupal_add_js($citygroups_js_settings, 'setting');
   
   // Add special stylesheet.
-  drupal_add_css(drupal_get_path('module', 'sea_blockwatch') . '/css/blockwatch.css', array('group' => CSS_THEME));
+  drupal_add_css(drupal_get_path('module', 'sea_blockwatch') . '/css/sea_blockwatch.css', array('group' => CSS_THEME));
 }
 
 /**
