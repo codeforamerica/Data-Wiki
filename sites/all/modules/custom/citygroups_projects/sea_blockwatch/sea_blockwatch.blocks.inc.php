@@ -70,10 +70,6 @@ function sea_blockwatch_contents($type) {
             <div class=\"grid_6 push_2 view-data section omega\">
               <h3>View Block Watch Captains</h3>
               <p>Find a Block Watch Captain on the map.</p>
-              <div id=\"search-map\" class=\"form-input\">
-              <input placeholder=\"Enter your address or zipcode here.\" class=\"form-item\" />
-              <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
-              </div>
         
               <div class=\"button\"><a href=\"blockwatch/map\">Map view</a></div>
               <div class=\"button\"><a href=\"blockwatch/list\">List view</a></div>
