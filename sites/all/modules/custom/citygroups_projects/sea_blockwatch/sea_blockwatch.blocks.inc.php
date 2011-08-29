@@ -77,7 +77,7 @@ function sea_blockwatch_contents($type) {
 
           </div>
           <div class=\"clear\"></div>
-          <div class=\"grid_16 sections\">
+          <div class=\"grid_16 sections alpha omega\">
             <div class=\"grid_6 news section alpha\">
               <h3>Mapping in West Seattle.</h3>
               <p>This fall we are reaching out to Block Watch Captains in West Seattle to build a public map of Block Watches.</p>
