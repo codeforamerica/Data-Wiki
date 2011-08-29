@@ -15,7 +15,7 @@ function citygroups_context_menu_default_menu_links() {
     'menu_name' => 'menu-citygroups-menu',
     'link_path' => '<front>',
     'router_path' => '',
-    'link_title' => 'Home/Map',
+    'link_title' => 'Home',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -85,7 +85,7 @@ function citygroups_context_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Add New Group');
-  t('Home/Map');
+  t('Home');
   t('List View');
   t('Related Groups');
 

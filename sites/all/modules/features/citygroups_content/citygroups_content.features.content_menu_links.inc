@@ -15,7 +15,7 @@ function citygroups_content_content_menu_links_defaults() {
     'menu_name' => 'menu-citygroups-menu',
     'link_path' => '<front>',
     'router_path' => '',
-    'link_title' => 'Home/Map',
+    'link_title' => 'Home',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -236,7 +236,7 @@ function citygroups_content_content_menu_links_defaults() {
   t('Contact');
   t('Developers');
   t('Get Involved');
-  t('Home/Map');
+  t('Home');
   t('List View');
   t('Map View');
   t('Related Groups');

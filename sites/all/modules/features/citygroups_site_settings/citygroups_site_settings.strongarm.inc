@@ -767,7 +767,7 @@ After confirming your email address, you will be able to log in to [site:name] u
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'theme_default';
-  $strongarm->value = 'citygroups';
+  $strongarm->value = 'citygroups_base';
   $export['theme_default'] = $strongarm;
 
   $strongarm = new stdClass;

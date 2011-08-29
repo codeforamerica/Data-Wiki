@@ -74,8 +74,6 @@ function citygroups_context_context_default_contexts() {
         'community-data-api' => 'community-data-api',
         'projects' => 'projects',
         'node/*' => 'node/*',
-        '~node/add/*' => '~node/add/*',
-        '~node/*/edit' => '~node/*/edit',
         'blockwatch' => 'blockwatch',
         'blockwatch*' => 'blockwatch*',
       ),
