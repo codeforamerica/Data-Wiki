@@ -1,0 +1,653 @@
+
+/* Margin, Padding, Border Resets
+-------------------------------------------------------------- */
+html, body, div, span, p,
+dl, dt, dd, ul, ol, li,
+h1, h2, h3, h4, h5, h6,
+form, fieldset, input, textarea {
+  margin: 0;
+  padding: 0;
+}
+
+img, abbr, acronym {
+  border: 0;
+}
+
+
+/* HTML Elements
+-------------------------------------------------------------- */
+p {
+  margin: 1em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.5em 0;
+}
+
+ul, ol, dd {
+  margin-bottom: 1.5em;
+  margin-left: 2em; /* LTR */
+}
+
+li ul, li ol {
+  margin-bottom: 0;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+a {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: underline;
+}
+
+blockquote {
+}
+
+hr {
+  height: 1px;
+  border: 1px solid gray;
+}
+
+/* tables */
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+caption {
+  text-align: left;
+}
+
+th {
+  margin: 0;
+  padding: 0 10px 0 0;
+}
+
+th.active img {
+  display: inline;
+}
+
+thead th {
+  padding-right: 10px;
+}
+
+td {
+  margin: 0;
+  padding: 3px;
+}
+
+/* Remove grid block styles from Drupal's table ".block" class */
+td.block {
+  border: none;
+  float: none;
+  margin: 0;
+}
+
+/* Maintain light background/dark text on dragged table rows */
+tr.drag td,
+tr.drag-previous td {
+  background: #FFFFDD;
+  color: #000;
+}
+
+
+/* Accessibility
+/-------------------------------------------------------------- */
+/* skip-link to main content, hide offscreen */
+#skip-link a,
+#skip-link a:hover,
+#skip-link a:visited {
+  height: 1px;
+  left: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: -500px;
+  width: 1px;
+}
+
+/* make skip link visible when selected */
+#skip-link a:active,
+#skip-link a:focus {
+  background-color: #fff;
+  color: #000;
+  height: auto;
+  padding: 5px 10px;
+  position: absolute;
+  top: 0;
+  width: auto;
+  z-index: 99;
+}
+
+#skip-link a:hover {
+  text-decoration: none;
+}
+
+
+/* Helper Classes
+/-------------------------------------------------------------- */
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+/* clear floats after an element */
+/* (also in ie6-fixes.css, ie7-fixes.css) */
+.clearfix:after,
+.clearfix .inner:after {
+  clear: both;
+  content: ".";
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: auto;
+  visibility: hidden;
+}
+
+
+/* Grid Layout Basics (specifics in 'gridnn_x.css')
+-------------------------------------------------------------- */
+/* center page and full-width regions: override this for left-aligned page */
+.page,
+.region {
+  margin: 0 auto;
+}
+
+/* full-width region wrapper */
+div.full-width {
+  width: 100%;
+}
+
+/* float, un-center & expand nested regions */
+.nested {
+  float: left; /* LTR */
+  margin: 0;
+  width: 100%;
+}
+
+
+/* Regions
+-------------------------------------------------------------- */
+
+
+/* Content Regions (Main)
+-------------------------------------------------------------- */
+.node-bottom {
+  margin: 1.5em 0 0 0;
+}
+
+/* Drupal Core
+/-------------------------------------------------------------- */
+
+/* Lists
+/-------------------------------------------------------------- */
+.item-list ul li {
+  margin: 0;
+}
+
+.block ul,
+.block ol {
+  margin-left: 2em; /* LTR */
+  padding: 0;
+}
+
+.content-inner ul,
+.content-inner ol {
+  margin-bottom: 1.5em;
+}
+
+.content-inner li ul,
+.content-inner li ol {
+  margin-bottom: 0;
+}
+
+.block ul.links {
+  margin-left: 0; /* LTR */
+}
+
+/* Menus
+/-------------------------------------------------------------- */
+ul.menu li,
+ul.links li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Menu
+/-------------------------------------------------------------- */
+/* use ID to override overflow: hidden for .block, dropdowns should always be visible */
+/* OVERFLOW FIX DISABLED. REMOVE IF IT TURNS OUT IT'S NOT NEEDED FOR D7 FUSION
+#main-menu {
+  overflow: visible;
+}
+*/
+
+/* hide block titles in the main menu region, accessible to screen readers */
+#main-menu h2.block-title {
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+/* hide child menu items by default -- override with Superfish skin */
+.region-main-menu ul.menu ul {
+  display: none;
+}
+
+/* remove left margin from main menu list */
+.region-main-menu ul {
+  margin-left: 0; /* LTR */
+}
+
+/* remove bullets, float left */
+.region-main-menu ul li {
+  float: left; /* LTR */
+  list-style: none;
+  position: relative;
+}
+
+/* style links, and unlinked parent items (via Special Menu Items module) */
+.region-main-menu ul li a,
+.region-main-menu ul li .nolink {
+  display: block;
+  padding: 0.75em 1em;
+  text-decoration: none;
+}
+
+/* Add cursor style for unlinked parent menu items */
+.region-main-menu ul li .nolink {
+  cursor: default;
+}
+
+/* remove outline */
+.region-main-menu ul li:hover,
+.region-main-menu ul li.sfHover,
+.region-main-menu ul a:focus,
+.region-main-menu ul a:hover,
+.region-main-menu ul a:active {
+  outline: 0;
+}
+
+
+/* Pagers
+-------------------------------------------------------------- */
+ul.pager {
+  margin: 20px 0;
+}
+
+ul.pager li {
+  margin: 0;
+  white-space: nowrap;
+}
+
+ul.pager a,
+ul.pager li.pager-current {
+  border-style: solid;
+  border-width: 1px;
+  padding: 3px 6px 2px 6px;
+  text-decoration: none;
+}
+
+ul.pager a:link,
+ul.pager a:visited {
+  color: inherit;
+}
+
+ul.pager a:hover,
+ul.pager a:active,
+ul.pager a:focus {
+  border-style: solid;
+  border-width: 1px;
+}
+
+ul.pager span.pager-ellipsis {
+  padding: 0 4px;
+}
+
+.item-list .pager li {
+  padding: 0;
+}
+
+
+/* User Login Form
+/-------------------------------------------------------------- */
+/* remove centering on login form */
+#user-login-form {
+  text-align: left; /* LTR */
+}
+
+#user-login-form .item-list {
+  margin-top: 1em;
+}
+
+#user-login-form .item-list ul {
+  margin-left: 0; /* LTR */
+}
+
+/* remove list styling on login form */
+#user-login-form div.item-list ul li {
+  list-style-type: none;
+  margin: 0;
+}
+
+/* adjust openid link (display set in openid.js) */
+#user-login-form li.openid-link a,
+#user-login li.openid-link a {
+  background-position: 0 0;
+  padding: 0 0 0 20px;
+}
+
+/* Blocks
+/-------------------------------------------------------------- */
+.block {
+  float: left; /* LTR */
+  margin-bottom: 1.5em;
+  width: 100%;
+}
+
+/* no gutters for blocks in content region */
+#content-content .inner {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+/* Nodes
+/-------------------------------------------------------------- */
+div.node {
+  margin-bottom: 1.5em;
+}
+
+/* remove image borders and add margin for feed, node link, table sort images */
+a.feed-icon img,
+ul.links img,
+th img {
+  border: 0;
+  margin: 0 5px;
+}
+
+/* remove awkward link padding on login/register to comment links */
+#content-content .node ul.links li.comment_forbidden a {
+  padding-right: 0;
+}
+
+
+/* Comments
+/-------------------------------------------------------------- */
+div.comment {
+  margin: 15px 0;
+  padding: 10px;
+}
+
+div.comment h3.title {
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+div.comment div.links a,
+div.comment ul.links a {
+  text-align: right;
+}
+
+.comment-folded {
+  margin: 1em 0 1em 1em;
+}
+
+.comment-folded .subject {
+  font-weight: bold;
+  padding-right: 5px;
+  text-transform: uppercase;
+}
+
+.comment-folded .subject a {
+  font-style: normal;
+  text-transform: none;
+  font-weight: normal;
+}
+
+.signature {
+  border-top-style: solid;
+  border-top-width: 1px;
+  margin: 10px 0;
+  padding: 0;
+}
+
+
+/* Profiles
+/-------------------------------------------------------------- */
+.profile {
+  clear: none;
+  margin: 12px 0;
+}
+
+.profile h2.title {
+  margin-top: 15px;
+  border-bottom: 1px solid;
+}
+
+.profile dt {
+  float: left; /* LTR */
+  margin-bottom: -10px;
+  margin-right: 5px; /* LTR */
+  padding: 0 5px;
+  text-align: left; /* LTR */
+  width: 185px;
+}
+
+/* Drupal Messages
+/-------------------------------------------------------------- */
+div.content-messages div.messages,
+div.content-help div.help {
+  border-style: solid;
+  border-width: 6px;
+  font-weight: bold;
+  margin-bottom: 1.5em;
+  overflow: hidden;
+  padding: 14px;
+}
+
+div.content-messages-inner div.status {
+  background-color: #EAF8E4;
+  border-color: #8DC478;
+  color: #3E642F;
+}
+
+div.content-messages-inner div.warning {
+  background: #FFFFDD;
+  border-color: #EED300;
+  color: #745500;
+}
+
+div.content-messages-inner div.error {
+  background-color: #FFF2F2;
+  border-color: #CC0000;
+  color: #B20000;
+}
+
+.help,
+div.content-help-inner div.help {
+  background-color: #E4EEF8;
+  border-color: #57718A;
+  color: #292929;
+}
+
+div.messages ul,
+div.content-help .help ul {
+  list-style-position: inside;
+}
+
+div.messages a:link,
+div.messages a:visited,
+.help a:link,
+.help a:visited,
+.help .more-help-link a:link,
+.help .more-help-link a:visited {
+  color: #333;
+  text-decoration: underline;
+}
+
+div.messages a:hover,
+div.messages a:active,
+.help a:hover,
+.help a:active,
+.help .more-help-link a:hover,
+.help .more-help-link a:active,
+div.messages em {
+  color: #333;
+  text-decoration: none;
+}
+
+#content-region ul.tips li {
+  background: transparent;
+  list-style: disc;
+  list-style-image: none;
+  list-style-position: inside;
+}
+
+
+/* Maintenance Page
+/-------------------------------------------------------------- */
+/* let site name & slogan drop under logo */
+.in-maintenance .page #logo {
+  float: none;
+}
+
+/* default margins for logo and site name */
+.in-maintenance .page .header-site-info {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* default padding with no db */
+.db-offline .page .header-group-inner,
+.db-offline .page .main-inner {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+/* Views
+/-------------------------------------------------------------- */
+.view {
+  margin: 0;
+}
+
+/* views form field width limit */
+.views-edit-view input,
+.views-edit-view textarea {
+  max-width: 95%;
+}
+
+/* remove extra bottom margin from last node in view */
+.block-wrapper .block-views .views-row-last .node {
+  margin-bottom: 0;
+}
+
+
+/* Vertical tabs
+/-------------------------------------------------------------- */
+.vertical-tabs {
+  margin-left: 0;
+}
+
+.vertical-tabs-list {
+  border: none;
+  left: -1.5em;
+}
+
+.vertical-tabs ul li {
+  border-left: none;
+  list-style-image: none;
+}
+
+.vertical-tabs ul li.last {
+  border-bottom: none;
+}
+
+.vertical-tabs-list li a:link,
+.vertical-tabs-list li a:visited,
+.vertical-tabs-list li a:hover,
+.vertical-tabs-list li a:active {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+}
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

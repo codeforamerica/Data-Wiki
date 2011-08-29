@@ -1,0 +1,916 @@
+/* Typography
+-------------------------------------------------------------- */
+
+/* Base Settings
+-------------------------------------------------------------- */
+body {
+  background: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #141414;
+  font-size: 14px;
+  line-height: 18px;
+  padding:0;
+  margin:0;
+}
+
+/* HTML Elements
+-------------------------------------------------------------- */
+h1 { font-size: 175%; line-height:150%; margin-bottom:15px; font-weight: bold;}
+h2 { font-size: 150%; line-height:150%; margin-bottom:15px; font-weight: bold;}
+h3, h4, h5, dt { font-size:125%; line-height:150%; margin-bottom:15px;  font-weight: bold;}
+
+dl,
+dd,
+dt {
+  margin: 1em 0 1.5em 0;
+  display: block;
+}
+
+a:link, a:visited {
+    color:#196DFF;
+    text-decoration:none;
+}
+
+a:hover, a:active {
+    color:#196DFF;
+    text-decoration:none;
+}
+
+.form-item,
+.form-text {
+  font-size: 14px;
+}
+
+p {
+    margin-top: 1em;
+    line-height: 1.5em;
+}
+
+strong {
+    font-weight: bold;
+}
+
+
+/*---- HEADER ----*/
+#header {
+  background: #303030;
+  padding: 20px 0 0px 0;
+  display: block;
+}
+
+#header-menu-container {
+  margin: 10px 0 0px 0;
+}
+
+#header-container .block {
+  width: auto;
+  height: auto;
+  float: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-signin-container {
+  margin: 10px 0 0 0;
+}
+
+#header a {
+  color: #ffffff;
+}
+
+#block-search-form,
+.header-signin-container  {
+  padding: 10px 0;
+}
+.views-exposed-widgets input.form-text,
+#block-search-form input.form-text{
+  width: 80%;
+  padding: 5px;
+}
+
+#block-search-form  .form-submit {
+  background-image: url(../images/search_button.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0 0px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 30px;
+  height: 30px;
+  text-indent: -999px;
+}
+
+.front #block-system-main {
+  display: none;
+}
+
+#slogan {
+  color: #ffffff;
+}
+
+.front h1.title,
+#block-menu-menu-postscript-menu .block-title,
+#block-menu-menu-footer-menu .block-title,
+#block-menu-menu-citygroups-menu .block-title {
+  display: none;
+}
+#block-menu-menu-citygroups-menu ul,
+#block-menu-menu-postscript-menu ul,
+#block-menu-menu-footer-menu ul,
+#block-menu-menu-postscript-menu ul li,
+#block-menu-menu-footer-menu ul li {
+  margin: 20px 40px 10px 0;
+  padding: 0;
+}
+
+#block-menu-menu-postscript-menu li,
+#block-menu-menu-footer-menu li {
+  list-style: none;
+  width: auto;
+  float: left;
+  margin: 20px 10px;
+  font-size: 125%;
+  font-weight: bold;
+}
+
+#block-menu-menu-postscript-menu li a {
+  color: #fff;
+}
+
+#block-menu-menu-citygroups-menu li {
+  list-style: none;
+  width: auto;
+  float: left;
+  margin: 10px 10px 20px 0;
+}
+
+#block-menu-menu-citygroups-menu li a {
+  background-color: #9E9E9E;
+  padding: 10px 15px 10px 30px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+}
+#block-menu-menu-citygroups-menu li a:hover,
+#block-menu-menu-citygroups-menu li a.active {
+  color: #ccc;
+  background-color: #444546;
+}
+
+#block-menu-menu-citygroups-menu li.home a {
+  background: url(../images/home.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.map-view a {
+  background: url(../images/map.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.list-view a {
+  background: url(../images/list.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.add-new a {
+  background: url(../images/add.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.categories a {
+  background: url(../images/related_group.png) no-repeat #444546 0 3px;
+}
+
+#postscript-area {
+  background-color: #444546;
+  color: #fff;
+  padding: 20px 0 40px 0;
+}
+
+#postscript-container {
+
+}
+
+.front #content-container .section {
+  padding: 40px;
+  background: #ddd;
+  height: 100%;
+  margin: 10px 0 40px 0;
+}
+
+#content-container .block,
+#postscript .block {
+  width: auto;
+  height: auto;
+  float: none;
+}
+
+
+
+#search-map input.form-item {
+  padding: 10px 0 10px 10px;
+  width: 80%;
+}
+
+#content-container .button a {
+  margin: 10px;
+  padding: 10px;
+  color: #fff;
+  font-size: 125%;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #ACDD8C;
+  display: block;
+  width: 50%;
+  text-align: center;
+  
+}
+
+/* Home page */
+.groups-icons img {
+
+}
+
+#content-top #block-citygroups_sub-citygroups_sub_home_menu {
+
+}
+
+.front #content .node,
+#first-time,
+.page-map .error,
+.front.not-logged-in .messages-container .error,
+.front .title-container,
+body.front h1.title,
+body.front span.submitted,
+body.logged-in #block-system-user-menu ul.menu li.first,
+.front #content-top #block-citygroups_sub-citygroups_sub_home_menu {
+/*   display: none; */
+}
+
+#block-citygroups_sub-citygroups_sub_new_group_search.block {
+
+}
+
+#block-citygroups_sub-citygroups_sub_home_menu.block {
+
+}
+
+#map-links ul li {
+
+}
+
+#map-links ul li a {
+
+}
+
+#search-places input {
+
+}
+.address-ajax {
+
+}
+#search-places input:focus, 
+#search-places input.focused {
+
+}
+
+#search-places input.search_btn {
+
+}
+
+#search-places input.search_btn:hover {
+  background-color: #96A044;
+  padding: 10px;
+  font-size: 2.75em;
+  color: #FFFFFF;
+  border: none;
+  float: right;
+  height: 50px;
+  width: 50px;
+	margin-top:2px;
+}
+
+
+
+/**
+ * Main Content Section
+ */
+/* .front #main, */
+/* .not-front  */
+#content-container {
+
+}
+
+
+/* Page Titling */
+.front #slogan h3{
+
+}
+
+.title-container h1 {
+
+}
+
+.page-node .meta {
+
+}
+
+.header-sub-site-name {
+
+}
+
+
+/* Blocks */
+.block-menu h2 {
+
+}
+
+#block-citygroups_sub-citygroups_sub_welcome.block {
+
+}
+
+#block-citygroups_sub-citygroups_sub_welcome.block p {
+}
+
+#block-citygroups_sub-citygroups_sub_add_group {
+
+}
+
+/* Buttons */
+
+.add-group a {
+
+}
+
+.add-group {
+
+}
+
+.add-group:hover, .add-group:active {
+
+}
+
+
+
+/* Map */
+/* Leaflet popup */
+
+.popup-item {
+  font-size: 150%;
+}
+
+.popup-item a.title {
+  font-weight: bold;
+  color: #533549;
+  text-transform: uppercase;
+  overflow-x: hidden;
+  display: block;
+  
+}
+
+.popup-item .description {
+  margin: 5px 0 10px 0;
+  color: #666;
+}
+
+.popup-item a.link {
+  background: #666;
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 12px;
+  text-decoration: none;
+}
+.popup-item a:hover {
+  background: #999;
+}
+
+.popup-item .categories {
+  font-size: 12px;
+  margin: 5px 0 10px 0;
+  color: #999;
+}
+
+
+#main .fullscreen-map,
+#main .polygons-on,
+#main .polygons-off {
+  background-color: #bbb;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 160px;
+  float: right;
+}
+#main .map-legend {
+  background-color: #bbb;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 580px;
+  color: #333;
+  font-size: 100%;
+}
+#main .map-legend .key {
+  float: left;
+  margin-right: 20px;
+  width: 35%;
+}
+#main .map-legend .key .icon {
+  float: left;
+  margin-right: 10px;  
+}
+#main .map-legend .count {
+  display: inline;
+  margin-right: 20px;
+  width: 45%;
+}
+#main .map-legend .value {
+  font-size: 150%;
+  font-weight: bold;
+  background-color: #ddd;
+  width: 3em;
+  margin-right: 10px;
+  float: left;
+  padding: 10px;
+  text-align: center;
+}
+#main .map-legend .map-label {
+  margin-top: 0.5em;
+}
+
+
+
+/* Node */
+
+.group-overview {
+
+}
+
+.openlayers-container openlayers-container-preset-citygroups_group_display {
+ position: relative;
+}
+
+#main .field .field-label {
+  width: 180px;
+  text-transform: uppercase;
+  color: #666;
+  display: inline;
+  float: left;
+  font-weight: normal;
+/*   clear: none; */
+}
+
+#main .group_overview .field .field-items {
+  margin: 0 0 20px 0px;
+/*   float: left; */
+/*   display: inline; */
+  width: 420px;
+/*   clear: none; */
+}
+
+#main .field .field-items .field-item {
+  margin: 0 0 10px 0;
+}
+
+#main .field .field-items p {
+  margin: 0 0 10px 0;
+}
+
+#main .meta {
+  margin: 10px 0 20px 0;
+  font-size: 90%;
+}
+
+
+#main .links .flag-like a,
+#main .links .flag-bookmarks a,
+#main .links .flag-duplicate a,
+#main .links .flag-group_inactive a,
+#main .links .flag-inappropriate a{
+  background: #ddd;
+  margin: 10px 10px 30px 0;
+  padding: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 2em;
+  display: block;
+  float: left;
+}
+
+#main .view-content .links {
+  width: 200px;
+}
+
+#main .view-content .links .flag-like a,
+#main .view-content .links .flag-bookmarks a,
+#main .view-content .links .flag-duplicate a,
+#main .view-content .links .flag-group_inactive a,
+#main .view-content .links .flag-inappropriate a{
+  background: #ddd;
+  margin: 5px 5px 15px 0;
+  padding: 5px;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1em;
+  display: block;
+  float: none;
+}
+
+.group-machines,
+.group-location {
+  display: none;
+}
+
+
+
+
+.node-form .form-item label {
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.node-form .form-item input {
+  padding: 5px;
+}
+
+.node-form .form-item {
+  margin-bottom: 10px;
+}
+
+.page-node-add-community-group h1.title {
+  display: none;
+}
+
+html.js input.form-autocomplete {
+  background-image: url(../../misc/throbber.gif);
+  background-position: 100% 10px;
+  background-repeat: no-repeat;
+}
+
+.page-node-add-community-group .instructions {
+  padding: 20px;
+  background-color: #ddd;
+}
+
+/* Vertical Tabs */
+.vertical-tabs-list {
+  left: 0;
+}
+
+div.vertical-tabs {
+  margin: 20px 0; /* LTR */
+  border: none;
+  position: relative; /* IE6/7 */
+}
+.vertical-tabs ul.vertical-tabs-list {
+  width: 243px;
+  list-style: none;
+  list-style-image: none; /* IE6 */
+  border: none;
+  padding: 0;
+  position: relative; /* IE6 */
+  margin: 0; /* LTR */
+  float: left; /* LTR */
+  z-index: 1000;
+}
+.vertical-tabs fieldset.vertical-tabs-pane {
+  margin: 0 !important;
+  padding: 0 1em;
+  border: 0;
+}
+.vertical-tabs legend {
+  display: none;
+}
+
+.vertical-tabs-panes {
+  background: #E6ECF3;
+  margin: 0 0 0 -16px;
+  padding: 20px;
+}
+
+/* Layout of each tab */
+.vertical-tabs ul.vertical-tabs-list li {
+  background-color: #fff;
+  background: url(../images/vertical-tab.png) repeat-y;
+  border: 0;
+  padding: 0;
+  margin: 0 0 2px 0;
+  min-width: 0; /* IE7 */
+  text-transform: uppercase;
+  font-weight: normal;
+  line-height: 1em;
+}
+.vertical-tabs ul.vertical-tabs-list li.selected {
+  background-color: #fff;
+  background: url(../images/vertical-tab-selected.png) no-repeat;
+  border: none;
+  min-height: 37px;
+}
+.vertical-tabs ul.vertical-tabs-list li:focus {
+ outline: none;
+}
+
+.vertical-tabs .summary,
+.vertical-tabs #active-vertical-tab {
+  display: none;
+}
+
+.vertical-tabs ul.vertical-tabs-list li a {
+  display: block;
+  text-decoration: none;
+  padding: 10px;
+}
+.vertical-tabs ul.vertical-tabs-list li a:focus strong,
+.vertical-tabs ul.vertical-tabs-list li a:active strong,
+.vertical-tabs ul.vertical-tabs-list li a:hover strong {
+  text-decoration: none;
+}
+.vertical-tabs ul.vertical-tabs-list li a:hover {
+  outline: none;
+}
+
+.vertical-tabs ul.vertical-tabs-list .selected strong {
+  color: #000;
+}
+.vertical-tabs ul.vertical-tabs-list .summary {
+  display: block;
+}
+.vertical-tabs ul.vertical-tabs ul.vertical-tabs-list .summary {
+  line-height: normal;
+  margin-bottom: 0;
+}
+
+/**
+ * Prevent text inputs from overflowing when container is too narrow. "width" is
+ * applied to override hardcoded cols or size attributes and used in conjunction
+ * with "box-sizing" to prevent box model issues from occurring in most browsers.
+*/
+.vertical-tabs .form-type-textfield input {
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+* html .vertical-tabs .form-type-textfield,
+* html .vertical-tabs .form-textarea-wrapper {
+  width: 95%; /* IE6 */
+
+}
+
+
+fieldset.filter-wrapper {
+  display: none;
+  
+}
+
+
+.node-form .description {
+  background-color: #C4D9F1;
+  margin: 0 10px 10px 30px;
+  padding: 20px;
+  -moz-box-shadow: 2px 2px #ccc;
+  -webkit-box-shadow: 2px 2px #ccc;
+  box-shadow: 0px 2px #ccc;
+  width: 45%;
+  display: block;
+  clear: both;
+}
+
+.node-form .description .prompt {
+  font-size: 85%;
+  text-transform: uppercase;
+  color: #666;
+  display: block;
+}
+
+.group-geographic .form-item {
+  width: 50%;
+}
+
+.form-type-select select {
+  font-size: 125%;
+    -moz-border-radius: 4px;
+    -moz-box-shadow: 1px 1px 5px #ededed inset;
+    border: 1px solid #cfcfcf;
+    vertical-align: middle;
+    background-color: transparent;
+}
+option {
+    background-color: #dedede;
+    border-bottom: 1px solid #ebdac0;
+    border-right: 1px solid #d6bb86;
+    border-left: 1px solid #d6bb86;
+}
+
+#main .selected-fieldset {
+  display: block;
+}
+#main .deselected-fieldset {
+  display: none;
+}
+
+
+#main #edit-group_geographic.selected-fieldset {
+  display: block;
+  position: inherit;
+  left: auto;
+}
+
+#main #edit-group_geographic.deselected-fieldset {
+  display: block;
+  position: absolute;
+  left: -10000px;
+}
+
+
+
+
+#main .form-type-checkbox label {
+  padding: 0.5em;
+  padding-left: 32px;
+  background-position: 8px center;
+  background-repeat: no-repeat;
+  clear: both;
+  cursor: pointer;
+}
+
+#main .form-type-checkbox {
+  background: url(../images/checkbox.png) no-repeat;
+}
+
+#main .form-type-checkbox.checked {
+  background: url(../images/checkbox-checked.png) no-repeat;
+}
+
+#main .form-type-checkbox input {
+
+  position: absolute;
+  left: -9999px;
+
+}
+
+.node-form .fieldset-description {
+  font-size: 125%;
+}
+.node-form .description {
+ font-size: 125%;
+}
+
+.node-form .group-prepare .description,
+.node-form .group-privacy .description {
+  background: none;
+  padding: 0;
+  margin: 10px 0 30px 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+
+
+/**
+* Hide lists on page load
+---------------------------------------------------------*/
+
+.stylish-select .SSContainerDivWrapper {
+	left:-9999px;
+}
+
+/*
+* Red example
+---------------------------------------------------------*/
+.stylish-select .SSContainerDivWrapper {
+	margin:0;
+	padding:0;
+	width:250px;
+	position:absolute;
+	top:35px;
+	left:0;
+	z-index:2;
+}
+
+.stylish-select ul.newList {
+	margin:0;
+	padding:0;
+	list-style:none;
+	color:#000;
+	background:#fff;
+	border: none;
+	overflow:auto;
+	clear: both;
+	text-transform: uppercase;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.stylish-select ul.newList * {
+	margin:0;
+	padding:0;
+}
+
+
+.stylish-select ul.newList a {
+	color: #000;
+	text-decoration:none;
+	display:block;
+	padding:3px 5px;
+}
+
+.stylish-select .newListSelected {
+	width:250px;
+	color:#000;
+	height:35px;
+	padding:0;
+	float:left;
+	background:url(../images/select.png) no-repeat;
+}
+.stylish-select .newListSelected:hover {
+	background:url(../images/select-hover.png) no-repeat;
+}
+.stylish-select ul.newList li a:focus {
+	-moz-outline-style: none;
+}
+
+.stylish-select .selectedTxt {
+	width:220px;
+	overflow:hidden;
+	height:35px;
+	padding:8px 30px 0px 10px;
+		text-transform: uppercase;
+}
+
+.stylish-select .hiLite {
+	background:#666666!important;
+	color:#fff!important;
+	outline: none;
+}
+
+.stylish-select .newListHover {
+	background:#ccc!important;
+	color:#000!important;
+	cursor:default;
+  outline: none;
+}
+
+.stylish-select .newListSelHover,
+.stylish-select .newListSelFocus {
+	background-position:0 -35px;
+	cursor:default;
+  outline: none;
+}
+
+.stylish-select .newListOptionTitle {
+	font-weight:bold;
+		text-transform: uppercase;
+}
+
+.stylish-select .newListOptionTitle ul {
+	margin:0;
+}
+
+.stylish-select .newListOptionTitle li {
+	font-weight:normal;
+	border-left:none;
+}
+
+
+.form-actions input.form-submit {
+  border: 0;
+  padding: 20px 30px;
+  font-size: 200%;
+  background: #666;
+  color: #fff;
+  margin: 10px 10px 10px 0;
+}
+.views-exposed-widget input.form-submit:hover,
+.form-actions input.form-submit:hover {
+  background: #555;
+}
+
+.views-exposed-widget input.form-submit {
+  border: 0;
+  padding: 5px 10px;
+  font-size: 100%;
+  background: #666;
+  color: #fff;
+  margin: 0px 0px 0px 0;
+}
+
+.views-number-results {
+  font-size: 200%;
+  font-weight: bold;
+  text-align: center;
+  width: 3em;
+  background-color: #ddd;
+  padding: 10px 10px 5px 10px;
+}
+
+.views-number-results .label {
+  text-transform: uppercase;
+  color: #666;
+  font-size: 12px;
+  clear: both;
+  text-align: center;
+}
+
+.view-categories .views-row {
+  padding-bottom: 10px;
+}
+
+.view-categories .views-row .views-field-name {
+  font-size: 125%;
+  text-transform: capitalize;
+}

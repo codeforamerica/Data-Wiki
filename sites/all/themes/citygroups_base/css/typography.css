@@ -1,0 +1,224 @@
+
+
+
+/* Nodes
+/-------------------------------------------------------------- */
+/* bylines and taxonomy */
+.submitted,
+.terms {
+/*   font-size: 95%; */
+}
+
+.terms {
+/*   line-height: 130%; */
+}
+
+.node .read-more,
+.node .more-link,
+.node .links {
+/*   font-size: 95%; */
+}
+
+
+/* Comments
+/-------------------------------------------------------------- */
+div.comment div.links a,
+div.comment ul.links a {
+/*   font-size: 90%; */
+}
+
+.signature {
+/*   font-size: 91.6%; */
+}
+
+
+/* breadcrumbs */
+.breadcrumbs {
+/*
+  font-size: 90%;
+  line-height: 100%;
+*/
+}
+
+/* pagers */
+ul.pager {
+/*
+  font-size: 90%;
+  line-height: 150%;
+*/
+}
+
+ul.pager li {
+/*   line-height: 250%; */
+}
+
+
+/* Lists
+/-------------------------------------------------------------- */
+li,
+li.leaf,
+ul.menu li,
+.item-list ul li {
+/*   line-height: 150%; */
+}
+
+
+/* Forms
+/-------------------------------------------------------------- */
+/* form buttons */
+.form-submit {
+/*   font-size: 80%; */
+}
+
+.form-item .description {
+/*
+  font-size: 95%;
+  line-height: 130%;
+*/
+}
+
+/* region labels on block admin page */
+.block-region {
+/*   font-size: 130%; */
+}
+
+
+/* Tab Menus
+/-------------------------------------------------------------- */
+#content-tabs ul.primary li a:link,
+#content-tabs ul.primary li a:visited {
+/*
+  font-size: 110%;
+  line-height: 120%;
+*/
+}
+
+#content-tabs ul.secondary li a:link,
+#content-tabs ul.secondary li a:visited {
+/*
+  font-size: 100%;
+  line-height: 110%;
+*/
+}
+
+
+/* Poll
+/-------------------------------------------------------------- */
+/* increase default font size and spacing of poll titles */
+.block-poll .poll div.title {
+  font-size: 120%;
+}
+
+
+/* Forum
+/-------------------------------------------------------------- */
+#forum .description {
+/*   font-size: 90%; */
+}
+
+
+/* Grid Mask Overlay
+-------------------------------------------------------------- */
+#grid-mask-toggle {
+/*   font-size: 14px; */
+}
+
+
+
+/* Page titles
+/-------------------------------------------------------------- */
+/* Page and full node titles */
+h1.title {
+}
+
+
+/* Default node styles
+/-------------------------------------------------------------- */
+
+
+/* Typography for node titles */
+h2.title {
+}
+
+/* Colors and styles for linked node titles, ie. teaser listing at /node */
+h2.title a:link,
+h2.title a:visited {
+}
+
+h2.title a:hover,
+h2.title a:focus,
+h2.title a:active {
+}
+
+
+/* Author/date info */
+.meta {
+}
+
+.submitted {
+}
+
+
+/* Separators and padding for node teasers */
+.node-teaser {
+}
+
+
+/* Links for nodes (taxonomy, commenting, read more, etc) */
+.node ul.links li {
+}
+.node ul.links a {
+}
+
+/* Only more/read more links */
+div.node .read-more a,
+div.node .more-link a {
+}
+
+
+/* Default block title styles
+/-------------------------------------------------------------- */
+h2.block-title {
+}
+
+
+/* Breadcrumbs
+-------------------------------------------------------------- */
+.breadcrumbs {
+}
+
+.breadcrumbs a:link,
+.breadcrumbs a:visited {
+}
+
+
+/* Drupal Messages
+/-------------------------------------------------------------- */
+/* General style for all errors/messages (border, padding, etc.) */
+div.content-messages div.messages,
+div.content-help div.help {
+}
+
+/* Status messages: green */
+div.content-messages-inner div.status {
+}
+
+/* Warning messages: yellow */
+div.content-messages-inner div.warning {
+}
+
+/* Error messages: red */
+div.content-messages-inner div.error {
+}
+
+/* Help messages: blue */
+div.content-help-inner div.help {
+}
+
+
+#site-name a:link,
+#site-name a:visited,
+#site-name a:hover,
+#site-name a:active {
+/*   text-decoration: none; */
+}
