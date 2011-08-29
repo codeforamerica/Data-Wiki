@@ -37,7 +37,7 @@ function sea_blockwatch_menu() {
     'access callback' => TRUE,
   );
   $items['blockwatch/list'] = array(
-    'title' => 'Map',
+    'title' => 'List',
     'page callback' => 'sea_blockwatch_list_render',
     'page arguments' => array(t('Blockwatch List Page')),
     'access callback' => TRUE,
@@ -76,7 +76,7 @@ function sea_blockwatch_map_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_list_render() {
-  $output = "";
+  $output = views_embed_view('community_groups_list', 'default', 'Block-watch');
   return $output;
 }
 /**
@@ -260,17 +260,17 @@ function sea_blockwatch_page_variables(&$vars) {
 function sea_blockwatch_settings() {
   global $section;
   $section = 'blockwatch';
-
+  $section_term = 'Block-watch';
   $settings = array();
   $settings['html_root'] = drupal_get_path('module', 'citygroups_group_map');
   $settings['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
   // Get current theme
   // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
   // Set the theme.  
-  $settings['theme'] = "citygroups";
-  $settings['term'] = "all";         
+  $settings['theme'] = "citygroups_base";
+  $settings['term'] = $section_term;
   $settings['javascript_settings'] = array();
-  $settings['javascript_settings']['customMapDataPath'] = 'data/community-group/map/Block-watch';
+  $settings['javascript_settings']['customMapDataPath'] = 'data/community-group/map/' . $section_term;
   $settings['javascript_settings']['mapColors'] = array();
   $settings['javascript_settings']['mapColors']['color'] = "#2796F2";
   $settings['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";

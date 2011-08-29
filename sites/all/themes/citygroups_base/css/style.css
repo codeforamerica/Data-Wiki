@@ -499,13 +499,18 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 #main .view-content .links .flag-group_inactive a,
 #main .view-content .links .flag-inappropriate a{
   background: #ddd;
-  margin: 5px 5px 15px 0;
+  margin: 5px 5px 0px 0;
   padding: 5px;
   color: #fff;
   text-transform: uppercase;
   line-height: 1em;
   display: block;
   float: none;
+}
+#main .view-content .links span {
+  display: inline;
+  margin: 0;
+  padding: 0;
 }
 
 .group-machines,
