@@ -1,6 +1,6 @@
 ; Theme basics
-name = CityGroups Theme
-description = Theme for citygroups.
+name = CityGroups Base Theme
+description = Base Theme for citygroups.
 core = 7.x
 engine = phptemplate
 
@@ -9,6 +9,8 @@ engine = phptemplate
 stylesheets[all][] = css/960_50_16_10_fluid.css
 ; Classes that override drupal core and module css
 stylesheets[all][] = css/drupal_reset.css
+
+; @TODO Move this if this isn't the best place for it.
 stylesheets[all][] = js/stylish-select/stylish-select.css
 
 ; Custom site styles - backgrounds, etc. Can be merged with layout as it makes sense.
@@ -21,7 +23,7 @@ stylesheets[all][] = css/edit.css
 
 ; Scripts
 ; scripts[] = js/script.js
-scripts[] = js/citygroups.js
+scripts[] = js/citygroups_base.js
 
 ; Regions
 regions[page_top] = "Page top"

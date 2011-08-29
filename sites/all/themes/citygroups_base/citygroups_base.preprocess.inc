@@ -6,7 +6,7 @@
 /**
  * HTML preprocessing
  */
-function citygroups_preprocess_html(&$vars) {
+function citygroups_base_preprocess_html(&$vars) {
   global $theme_key, $user;
 
   // Add to array of helpful body classes
@@ -25,17 +25,17 @@ function citygroups_preprocess_html(&$vars) {
 /**
  * Maintenance page preprocessing
  */
-function  citygroups_preprocess_maintenance_page(&$vars) {
+function  citygroups_base_preprocess_maintenance_page(&$vars) {
   if (class_exists('Database', FALSE)) {
-    citygroups_preprocess_html($vars);  // set html vars (html.tpl.php is in maintenance-page.tpl.php)
-    citygroups_preprocess_page($vars);  // set page vars
+    citygroups_base_preprocess_html($vars);  // set html vars (html.tpl.php is in maintenance-page.tpl.php)
+    citygroups_base_preprocess_page($vars);  // set page vars
   }
 }
 
 /**
  * Page preprocessing
  */
-function citygroups_preprocess_page(&$vars) {
+function citygroups_base_preprocess_page(&$vars) {
 
   //$fbconnect = theme_fbconnect_login_button($vars);
   //dpm($fbconnect);
@@ -96,7 +96,7 @@ function citygroups_preprocess_page(&$vars) {
 /**
  * Region preprocessing
  */
-function citygroups_preprocess_region(&$vars) {
+function citygroups_base_preprocess_region(&$vars) {
   // Set region variables
   $vars['region_style'] = $vars['fluid_width'] = '';
   $vars['region_name'] = str_replace('_', '-', $vars['region']);
@@ -107,7 +107,7 @@ function citygroups_preprocess_region(&$vars) {
 /**
  * Block preprocessing
  */
-function citygroups_preprocess_block(&$vars) {
+function citygroups_base_preprocess_block(&$vars) {
   global $theme_info, $user;
 
   // Exit if block is outside a defined region
@@ -120,7 +120,7 @@ function citygroups_preprocess_block(&$vars) {
 /**
  * Node preprocessing
  */
-function citygroups_preprocess_node(&$vars) {
+function citygroups_base_preprocess_node(&$vars) {
   // dpm($vars); not working, use this krumo call instead to see the node object.
 /*   var_dump(krumo($vars)); */
 
@@ -149,7 +149,7 @@ function citygroups_preprocess_node(&$vars) {
 }
 
 /* Load location data for nodes */
-function citygroups_node_location(&$vars) {
+function citygroups_base_node_location(&$vars) {
   $output = '';
   if(!empty($vars['field_location_text']['und'][0]['value'])) {
     $output .=  t(', ') . $vars['field_location_text']['und'][0]['value'];
@@ -168,8 +168,8 @@ function citygroups_node_location(&$vars) {
   return $output;
 }
 
-function citygroups_node_share(&$vars) {
-  citygroups_fb_like($vars);
+function citygroups_base_node_share(&$vars) {
+  citygroups_base_fb_like($vars);
   $output = '';
   $output .= '<div class="node-share">';
   $output .= '<div class="facebook">' . $vars['fb_like'] . '</div>';
@@ -177,7 +177,7 @@ function citygroups_node_share(&$vars) {
   return $output;
 }
 
-function citygroups_fb_like(&$vars) {
+function citygroups_base_fb_like(&$vars) {
   
   // Facebook Like link (TODO: Use module)
   // Make URL, Facebook is not ok with a "localhost" URL.
@@ -193,7 +193,7 @@ function citygroups_fb_like(&$vars) {
 /**
  * Comment preprocessing
  */
-function citygroups_preprocess_comment(&$vars) {
+function citygroups_base_preprocess_comment(&$vars) {
   static $comment_odd = TRUE;
  // Comment is odd or even
 
@@ -212,7 +212,7 @@ function citygroups_preprocess_comment(&$vars) {
  *
  * @ingroup themeable
  */
-function citygroups_vertical_tabs($variables) {
+function citygroups_base_vertical_tabs($variables) {
   $element = $variables['element'];
   // Add required JavaScript and Stylesheet.
   drupal_add_library('system', 'drupal.vertical-tabs');
@@ -226,7 +226,7 @@ function citygroups_vertical_tabs($variables) {
  * Theme menu links.
  * @TODO This should go in module because it themes sections for data collection projects.
  */
-function citygroups_menu_link($variables) {
+function citygroups_base_menu_link($variables) {
   $element = $variables['element'];
     dpm("test");
 
@@ -246,7 +246,7 @@ function citygroups_menu_link($variables) {
   $element['#attributes']['class'][] = '';
 
   // Rewrite certain menu links to point to section.
-  if (($element['#theme'] == 'menu_link__menu_citygroups_menu') && ($section !== '')) {
+  if (($element['#theme'] == 'menu_link__menu_citygroups_base_menu') && ($section !== '')) {
   dpm($element);
   dpm("test");
   dpm($section);

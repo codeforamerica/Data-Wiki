@@ -1,7 +1,7 @@
 <?php
 
 // Include preprocessing functions
-include('citygroups.preprocess.inc');
+include('citygroups_base.preprocess.inc');
 
 /**
  * Implements hook_form_alter().
@@ -18,7 +18,7 @@ function citygroups_form_alter(&$form, &$form_state, $form_id) {
 }
 */
 
-function citygroups_form_system_theme_settings_alter(&$form, $form_state) {
+function citygroups_base_form_system_theme_settings_alter(&$form, $form_state) {
   $form['citygroups'] = array(
     '#type'          => 'textfield',
     '#title'         => t('Widget'),
