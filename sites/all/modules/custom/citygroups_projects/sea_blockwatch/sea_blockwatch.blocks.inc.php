@@ -67,7 +67,7 @@ function sea_blockwatch_contents($type) {
               <div class=\"button\"><a href=\"/node/add/community-group" . $add_variables . "\">Add New</a></div>
             </div>    
 
-            <div class=\"grid_6 push_2 view-data section omega\">
+            <div class=\"grid_6 push_1 view-data section omega\">
               <h3>View Block Watch Captains</h3>
               <p>Find a Block Watch Captain on the map.</p>
         
@@ -85,7 +85,7 @@ function sea_blockwatch_contents($type) {
               <p>We are working with the <a href=\"http://wsblockwatchnet.wordpress.com/\">West Seattle Block Watch Captain’s Network</a> and the 
               <a href=\"http://www.seattle.gov/spd/\">Seattle Police Department</a> to reach out to Block Watch Captains in Seattle and fill in this map.</p>
             </div>    
-            <div class=\"grid_6 push_2 promote section omega\">
+            <div class=\"grid_6 push_1 promote section omega\">
               <h3>Spread the word</h3>
               <p>Tell your friends, neighbors & local community groups.</p>
               <p>We’ve written emails, made <a href=\"blockwatch/get-involved\">printable flyers</a> to make it easy to explain to others.</p>
