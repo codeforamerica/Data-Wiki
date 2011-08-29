@@ -228,8 +228,6 @@ function citygroups_base_vertical_tabs($variables) {
  */
 function citygroups_base_menu_link($variables) {
   $element = $variables['element'];
-    dpm("test");
-
   $sub_menu = '';
 
   // Get section values if set.
