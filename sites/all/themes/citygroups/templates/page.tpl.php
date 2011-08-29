@@ -23,11 +23,11 @@
         <?php endif; ?> 
       </div>
       <?php if($page['header_search']): ?>       
-        <div class="header-search-container grid_3">
+        <div class="header-search-container grid_4">
           <?php print render($page['header_search']); ?>
         </div>
       <?php endif; ?>
-      <div class="header-signin-container grid_3 push_2 omega">
+      <div class="header-signin-container grid_3 push_1 omega">
         <?php print render($page['header_signin']); ?>
         <?php print $account_link; ?>
       </div>

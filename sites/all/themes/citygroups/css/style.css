@@ -82,15 +82,15 @@ strong {
 }
 
 #block-search-form  .form-submit {
-  background-image: url(..//images/search_button.png);
+  background-image: url(../images/search_button.png);
   background-color: transparent;
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: 0 0px;
   padding: 0;
   margin: 0;
   border: 0;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   text-indent: -999px;
 }
 
@@ -149,6 +149,22 @@ strong {
 #block-menu-menu-citygroups-menu li a.active {
   color: #ccc;
   background-color: #444546;
+}
+
+#block-menu-menu-citygroups-menu li.home a {
+  background: url(../images/home.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.map-view a {
+  background: url(../images/map.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.list-view a {
+  background: url(../images/list.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.add-new a {
+  background: url(../images/add.png) no-repeat #444546 0 3px;
+}
+#block-menu-menu-citygroups-menu li.categories a {
+  background: url(../images/related_group.png) no-repeat #444546 0 3px;
 }
 
 #postscript-area {
