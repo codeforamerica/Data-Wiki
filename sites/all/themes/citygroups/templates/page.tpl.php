@@ -32,7 +32,7 @@
         <?php print $account_link; ?>
       </div>
     </div>
-    <?php if ($page['header_bottom']): ?>
+    <?php if ($page['header_bottom'] || $page['header_menu'] ): ?>
     <div class="clear"></div>
     <div class="header-bottom grid_16 alpha omega">
       <div class="header-menu-container">

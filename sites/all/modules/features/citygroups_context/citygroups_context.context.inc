@@ -84,16 +84,16 @@ function citygroups_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'menu-menu-citygroups-menu' => array(
+          'module' => 'menu',
+          'delta' => 'menu-citygroups-menu',
+          'region' => 'header_menu',
+          'weight' => '-10',
+        ),
         'search-form' => array(
           'module' => 'search',
           'delta' => 'form',
           'region' => 'header_search',
-          'weight' => '-10',
-        ),
-        'menu-menu-citygroups-menu' => array(
-          'module' => 'menu',
-          'delta' => 'menu-citygroups-menu',
-          'region' => 'header_bottom',
           'weight' => '-10',
         ),
         'system-main' => array(

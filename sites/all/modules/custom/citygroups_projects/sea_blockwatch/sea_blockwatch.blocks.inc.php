@@ -53,7 +53,6 @@ function sea_blockwatch_contents($type) {
     
   switch ($type) {
     case 'welcome':
-      $output .= '<h3>' . t('Find the nearest Block Watch Captain') . '</h3>';
       $output .= '<p>' . t('The Block Watch Captain Directory lists basic contact information for Block Watch Captains in Seattle.') .'</p>';
       break;
       
@@ -63,14 +62,14 @@ function sea_blockwatch_contents($type) {
       
       case 'home_content':
         $output .= "
-          <div class=\"grid_16 sections\">
+          <div class=\"grid_16 sections alpha omega \">
            
             <div class=\"grid_6 add-new-group section alpha\">
               <h3>Are you a Block Watch Captain?</h3>
               <p>Help your neighbors and other Block Watch captains find you.
 
-              <a href=\"/node/add/community-group?$" . $add_variables . "\">Add</a> your contact information and map your Block Watch community.</p>
-              <div class=\"button\"><a href=\"/node/add/community-group?$" . $add_variables . "\">Add New</a></div>
+              <a href=\"/node/add/community-group?" . $add_variables . "\">Add</a> your contact information and map your Block Watch community.</p>
+              <div class=\"button\"><a href=\"/node/add/community-group?" . $add_variables . "\">Add New</a></div>
             </div>    
 
             <div class=\"grid_6 push_2 view-data section omega\">

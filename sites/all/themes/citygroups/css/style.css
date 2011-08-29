@@ -54,7 +54,7 @@ strong {
 /*---- HEADER ----*/
 #header {
   background: #303030;
-  padding: 10px 0 0px 0;
+  padding: 20px 0 0px 0;
   display: block;
 }
 
@@ -66,7 +66,14 @@ strong {
   width: auto;
   height: auto;
   float: none;
+  margin: 0;
+  padding: 0;
 }
+
+.header-signin-container {
+  margin: 10px 0 0 0;
+}
+
 #header a {
   color: #ffffff;
 }
@@ -108,7 +115,7 @@ strong {
 #block-menu-menu-citygroups-menu .block-title {
   display: none;
 }
-
+#block-menu-menu-citygroups-menu ul,
 #block-menu-menu-postscript-menu ul,
 #block-menu-menu-footer-menu ul,
 #block-menu-menu-postscript-menu ul li,
@@ -135,7 +142,7 @@ strong {
   list-style: none;
   width: auto;
   float: left;
-  margin: 20px 10px;
+  margin: 10px 10px 20px 0;
 }
 
 #block-menu-menu-citygroups-menu li a {

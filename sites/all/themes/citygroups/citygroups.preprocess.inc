@@ -53,10 +53,10 @@ function citygroups_preprocess_page(&$vars) {
 
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {
-    $vars['main_region_width'] = 'grid_16';
+    $vars['main_region_width'] = 'grid_16 alpha omega';
   }
   else {
-    $vars['main_region_width'] = 'grid_11';
+    $vars['main_region_width'] = 'grid_11 alpha';
   }
 
   // Create login link

@@ -19,7 +19,7 @@ function sea_blockwatch_help($path, $arg) {
 
 function sea_blockwatch_menu() {
   $items['blockwatch'] = array(
-    'title' => 'Home',
+    'title' => 'Find the nearest Block Watch Captain',
     'page callback' => 'sea_blockwatch_home_render',
     'page arguments' => array(t('Blockwatch Home Page')),
     'access callback' => TRUE,
