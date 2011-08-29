@@ -309,7 +309,7 @@ cityGroups.map.addLegend = function() {
     '</div>' + 
     '<div class="count">' + 
       '<div class="value">' + cityGroups.map.nodes.length + '</div>' + 
-      '<div class="map-label">Community Groups in this Area</div>' + 
+      '<div class="map-label">Community Groups</div>' + 
     '</div>' + 
   '</div>';
   $('div#map').after(legend);
