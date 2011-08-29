@@ -300,6 +300,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'image',
   );
 
+  // Exported permission: administer janrain engage
+  $permissions['administer janrain engage'] = array(
+    'name' => 'administer janrain engage',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'rpx_ui',
+  );
+
   // Exported permission: administer menu
   $permissions['administer menu'] = array(
     'name' => 'administer menu',
@@ -464,6 +473,15 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: clear community_group_feed_csv_reimport feeds
+  $permissions['clear community_group_feed_csv_reimport feeds'] = array(
+    'name' => 'clear community_group_feed_csv_reimport feeds',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'feeds',
   );
 
   // Exported permission: clear community_group_feed_csv_upload feeds
@@ -684,12 +702,6 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(),
   );
 
-  // Exported permission: delete terms in 12
-  $permissions['delete terms in 12'] = array(
-    'name' => 'delete terms in 12',
-    'roles' => array(),
-  );
-
   // Exported permission: delete terms in 13
   $permissions['delete terms in 13'] = array(
     'name' => 'delete terms in 13',
@@ -699,12 +711,6 @@ function citygroups_permissions_user_default_permissions() {
   // Exported permission: delete terms in 14
   $permissions['delete terms in 14'] = array(
     'name' => 'delete terms in 14',
-    'roles' => array(),
-  );
-
-  // Exported permission: delete terms in 15
-  $permissions['delete terms in 15'] = array(
-    'name' => 'delete terms in 15',
     'roles' => array(),
   );
 
@@ -902,12 +908,6 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(),
   );
 
-  // Exported permission: edit terms in 12
-  $permissions['edit terms in 12'] = array(
-    'name' => 'edit terms in 12',
-    'roles' => array(),
-  );
-
   // Exported permission: edit terms in 13
   $permissions['edit terms in 13'] = array(
     'name' => 'edit terms in 13',
@@ -917,12 +917,6 @@ function citygroups_permissions_user_default_permissions() {
   // Exported permission: edit terms in 14
   $permissions['edit terms in 14'] = array(
     'name' => 'edit terms in 14',
-    'roles' => array(),
-  );
-
-  // Exported permission: edit terms in 15
-  $permissions['edit terms in 15'] = array(
-    'name' => 'edit terms in 15',
     'roles' => array(),
   );
 
@@ -1010,6 +1004,12 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'admin_menu',
   );
 
+  // Exported permission: import community_group_feed_csv_reimport feeds
+  $permissions['import community_group_feed_csv_reimport feeds'] = array(
+    'name' => 'import community_group_feed_csv_reimport feeds',
+    'roles' => array(),
+  );
+
   // Exported permission: import community_group_feed_csv_upload feeds
   $permissions['import community_group_feed_csv_upload feeds'] = array(
     'name' => 'import community_group_feed_csv_upload feeds',
@@ -1054,6 +1054,15 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'features',
+  );
+
+  // Exported permission: manage own identities
+  $permissions['manage own identities'] = array(
+    'name' => 'manage own identities',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'rpx_ui',
   );
 
   // Exported permission: notify of path changes
@@ -1150,6 +1159,12 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'devel',
+  );
+
+  // Exported permission: tamper community_group_feed_csv_reimport
+  $permissions['tamper community_group_feed_csv_reimport'] = array(
+    'name' => 'tamper community_group_feed_csv_reimport',
+    'roles' => array(),
   );
 
   // Exported permission: tamper community_group_feed_csv_upload
