@@ -307,7 +307,7 @@ cityGroups.map.addLegend = function() {
   '<div class="map-legend">' + 
     '<div class="key">' + 
       '<div class="icon">' +
-        '<img src="/sites/all/modules/custom/citygroups/citygroups_group_map/includes/images/map-icon.png" alt="Community Group Symbol" />' + 
+        '<img src="' + Drupal.settings.citygroups.mapMarkerIconUrl + '" alt="Community Group Symbol" />' + 
       '</div>' + 
       '<div class="map-label">Community Group</div>' + 
     '</div>' + 
