@@ -49,7 +49,7 @@ function citygroups_base_preprocess_page(&$vars) {
   }
   
   $vars['logo_image_link'] = theme_get_setting('logo_image_link');
-  $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'citygroups') . '/' . $vars['logo_image_link'] . '" /></a>';
+  $vars['logo'] = '<a href="/"><img src="/' . drupal_get_path('theme', 'citygroups_base') . '/' . $vars['logo_image_link'] . '" /></a>';
 
   // If sidebars are empty, make main region full width.
   if(count($vars['page']['sidebar_first']) == 0 && count($vars['page']['sidebar_second']) == 0) {
@@ -73,7 +73,7 @@ function citygroups_base_preprocess_page(&$vars) {
   ));
   
   // Temp for wireframing or MVP
-  $vars['submit_btn'] = url(drupal_get_path('theme', 'citygroups') . '/images/submit-large-overlay.gif');
+  $vars['submit_btn'] = url(drupal_get_path('theme', 'citygroups_base') . '/images/submit-large-overlay.gif');
   
   // Hardcoded site names
   switch ($_SERVER['HTTP_HOST']) {
@@ -246,10 +246,7 @@ function citygroups_base_menu_link($variables) {
   $element['#attributes']['class'][] = '';
 
   // Rewrite certain menu links to point to section.
-  if (($element['#theme'] == 'menu_link__menu_citygroups_base_menu') && ($section !== '')) {
-  dpm($element);
-  dpm("test");
-  dpm($section);
+  if (($element['#theme'] == 'menu_link__menu_citygroups_menu') && ($section !== '')) {
     switch ($element['#href']) {
       case '<front>':
         $element['#href'] = $section;

@@ -1,6 +1,6 @@
 ; Theme basics
 name = CityGroups Base Theme
-description = Base Theme for citygroups.
+description = Base Theme for CityGroups.
 core = 7.x
 engine = phptemplate
 

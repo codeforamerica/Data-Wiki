@@ -7,7 +7,7 @@ include('citygroups_base.preprocess.inc');
  * Implements hook_form_alter().
  */
 /*
-function citygroups_form_alter(&$form, &$form_state, $form_id) {
+function citygroups_base_form_alter(&$form, &$form_state, $form_id) {
   // Add appropriate title for search form
   if ($form_id == 'search_block_form') {
     $form['search_block_form']['#title'] = '';
