@@ -5,6 +5,11 @@ package = citygroups
 
 files[] = citygroups.module
 
+; For reference:  Installed in the Profile Installer...
+; ---- dependencies[] = features
+; ---- dependencies[] = citygroups
+; ---- dependencies[] = citygroups_citygroups_install
+
 core = 7.x
 dependencies[] = block
 dependencies[] = color
@@ -12,14 +17,19 @@ dependencies[] = comment
 dependencies[] = contact
 dependencies[] = dblog
 dependencies[] = email
+dependencies[] = field
 dependencies[] = field_ui
+dependencies[] = field_sql_storage
 dependencies[] = file
+dependencies[] = filter
 dependencies[] = help
 dependencies[] = image
 dependencies[] = link
 dependencies[] = list
 dependencies[] = menu
+dependencies[] = node
 dependencies[] = number
+dependencies[] = options
 dependencies[] = overlay
 dependencies[] = path
 dependencies[] = rdf
@@ -73,10 +83,15 @@ dependencies[] = user_reference
 dependencies[] = uuid
 dependencies[] = uuid_node
 dependencies[] = views
-dependencies[] = views_data_export
+
 dependencies[] = views_json
-dependencies[] = views_number_results
 dependencies[] = views_ui
+dependencies[] = wysiwyg
+
+; Patched
+dependencies[] = views_data_export
+dependencies[] = feeds
+dependencies[] = geofield
 
 ; Features
 dependencies[] = citygroups_views
@@ -86,8 +101,133 @@ dependencies[] = citygroups_context
 dependencies[] = citygroups_content
 dependencies[] = citygroups_developer
 
-; Custom
+
+dependencies[] = citygroups_community_group_install 
+dependencies[] = community_group_content_type
+dependencies[] = citygroups_permissions
+dependencies[] = citygroups_site_settings
+dependencies[] = community_group_upload_csv
+dependencies[] = community_group_feed_csv_upload
+dependencies[] = community_group_views
+
+; Custom Modules for CityGroups
 dependencies[] = citygroups_group_categories
 dependencies[] = citygroups_group_map
 dependencies[] = citygroups_splash
 dependencies[] = community_group_form
+dependencies[] = views_number_results
+
+; Drush output of enabled modules.
+; -- Indicated installed locally, but not part of the core distribution.
+;
+; Administration    Administration menu (admin_menu)                             Module  Enabled        7.x-3.0-rc1    
+; Administration    Administration menu Toolbar style (admin_menu_toolbar)       Module  Enabled        7.x-3.0-rc1    
+; CCK               CCK (cck)                                                    Module  Enabled        7.x-2.x-dev    
+; Chaos tool suite  Chaos tools (ctools)                                         Module  Enabled        7.x-1.0-rc1    
+; citygroups        CityGroups Categories (citygroups_group_categories)          Module  Enabled                       
+; citygroups        CityGroups Community Group Form (community_group_form)       Module  Enabled                       
+; citygroups        Citygroups Map (citygroups_group_map)                        Module  Enabled                       
+; citygroups        CityGroups Splash Page (citygroups_splash)                   Module  Enabled                       
+; --  citygroups        Seattle Blockwatch Captain Directory (sea_blockwatch)        Module  Enabled                       
+; Context           Context (context)                                            Module  Enabled        7.x-3.0-beta1  
+; Context           Context UI (context_ui)                                      Module  Enabled        7.x-3.0-beta1  
+; Core              Block (block)                                                Module  Enabled        7.7            
+; Core              Color (color)                                                Module  Enabled        7.7            
+; Core              Comment (comment)                                            Module  Enabled        7.7            
+; Core              Contact (contact)                                            Module  Enabled        7.7            
+; Core              Dashboard (dashboard)                                        Module  Enabled        7.7            
+; Core              Database logging (dblog)                                     Module  Enabled        7.7            
+; Core              Field (field)                                                Module  Enabled        7.7            
+; Core              Field SQL storage (field_sql_storage)                        Module  Enabled        7.7            
+; Core              Field UI (field_ui)                                          Module  Enabled        7.7            
+; Core              File (file)                                                  Module  Enabled        7.7            
+; Core              Filter (filter)                                              Module  Enabled        7.7            
+; Core              Help (help)                                                  Module  Enabled        7.7            
+; Core              Image (image)                                                Module  Enabled        7.7            
+; Core              List (list)                                                  Module  Enabled        7.7            
+; Core              Menu (menu)                                                  Module  Enabled        7.7            
+; Core              Node (node)                                                  Module  Enabled        7.7            
+; Core              Number (number)                                              Module  Enabled        7.7            
+; Core              Options (options)                                            Module  Enabled        7.7            
+; Core              Overlay (overlay)                                            Module  Enabled        7.7            
+; Core              Path (path)                                                  Module  Enabled        7.7            
+; Core              RDF (rdf)                                                    Module  Enabled        7.7            
+; Core              Search (search)                                              Module  Enabled        7.7            
+; Core              System (system)                                              Module  Enabled        7.7            
+; Core              Taxonomy (taxonomy)                                          Module  Enabled        7.7            
+; Core              Text (text)                                                  Module  Enabled        7.7            
+; Core              Update manager (update)                                      Module  Enabled        7.7            
+; Core              User (user)                                                  Module  Enabled        7.7            
+; Date/Time         Date (date)                                                  Module  Enabled        7.x-2.0-alpha3 
+; Date/Time         Date API (date_api)                                          Module  Enabled        7.x-2.0-alpha3 
+; Development       Coder (coder)                                                Module  Enabled        7.x-1.0-beta6  
+; Development       Coder Review (coder_review)                                  Module  Enabled        7.x-1.0-beta6  
+; Development       Devel (devel)                                                Module  Enabled        7.x-1.2        
+; Development       Devel generate (devel_generate)                              Module  Enabled        7.x-1.2        
+; Features          CityGroups Basic Page (citygroups_basic_page)                Module  Enabled                       
+; Features          citygroups Community Group (community_group_content_type)    Module  Enabled                       
+; Features          CityGroups Community Group Installer                         Module  Enabled                       
+;                   (citygroups_community_group_install)                                                               
+; Features          citygroups Community Group Upload CSV                        Module  Enabled                       
+;                   (community_group_upload_csv)                                                                       
+; Features          CityGroups Content (citygroups_content)                      Module  Enabled                       
+; Features          CityGroups Context (citygroups_context)                      Module  Enabled                       
+; Features          CityGroups Developer (citygroups_developer)                  Module  Enabled                       
+; Features          CityGroups Feed Taxonomy Categories                          Module  Enabled                       
+;                   (citygroups_feed_taxonomy_categories)                                                              
+; Features          CityGroups Install (citygroups_citygroups_install)           Module  Enabled                       
+; Features          CityGroups Permissions (citygroups_permissions)              Module  Enabled                       
+; Features          CityGroups Site Settings (citygroups_site_settings)          Module  Enabled                       
+; Features          CityGroups Views (citygroups_views)                          Module  Enabled                       
+; Features          Community Group Feed CSV Upload                              Module  Enabled                       
+;                   (community_group_feed_csv_upload)                                                                  
+; Features          Community Group Views (community_group_views)                Module  Enabled                       
+; Features          Features (features)                                          Module  Enabled        7.x-1.0-beta3  
+; Features          Seattle Blockwatch Captain Directory Context                 Module  Enabled                       
+;                   (sea_blockwatch_context)                                                                           
+; Feeds             Feeds (feeds)                                                Module  Enabled        7.x-2.0-alpha4 
+; Feeds             Feeds Admin UI (feeds_ui)                                    Module  Enabled        7.x-2.0-alpha4 
+; Feeds             Feeds Import (feeds_import)                                  Module  Enabled        7.x-2.0-alpha4 
+; Feeds             Feeds JSONPath Parser (feeds_jsonpath_parser)                Module  Enabled        7.x-1.0-beta2  
+; Feeds             Feeds Tamper (feeds_tamper)                                  Module  Enabled        7.x-1.0-beta3  
+; Feeds             Feeds Tamper Admin UI (feeds_tamper_ui)                      Module  Enabled        7.x-1.0-beta3  
+; Fields            Email (email)                                                Module  Enabled        7.x-1.0-beta1  
+; Fields            Fieldgroup (field_group)                                     Module  Enabled        7.x-1.0        
+; Fields            Link (link)                                                  Module  Enabled        7.x-1.0-alpha3 
+; Fields            Node Reference (node_reference)                              Module  Enabled        7.x-2.0-beta3  
+; Fields            References (references)                                      Module  Enabled        7.x-2.0-beta3  
+; Fields            User Reference (user_reference)                              Module  Enabled        7.x-2.0-beta3  
+; Flags             Flag (flag)                                                  Module  Enabled        7.x-2.0-beta5  
+; Flags             Flag actions (flag_actions)                                  Module  Enabled        7.x-2.0-beta5  
+; Input filters     Markdown filter (markdown)                                   Module  Enabled        7.x-1.0        
+; Janrain Engage    Janrain Engage Core (rpx_core)                               Module  Enabled        7.x-2.x-dev    
+; Janrain Engage    Janrain Engage UI (rpx_ui)                                   Module  Enabled        7.x-2.x-dev    
+; Janrain Engage    Janrain Engage Widgets (rpx_widgets)                         Module  Enabled        7.x-2.x-dev    
+; OpenLayers        OpenLayers (openlayers)                                      Module  Enabled        7.x-2.0-alpha1 
+; OpenLayers        OpenLayers UI (openlayers_ui)                                Module  Enabled        7.x-2.0-alpha1 
+; OpenLayers        OpenLayers Views (openlayers_views)                          Module  Enabled        7.x-2.0-alpha1 
+; Other             Backup and Migrate (backup_migrate)                          Module  Enabled        7.x-2.2        
+; Other             Colorbox (colorbox)                                          Module  Enabled        7.x-1.1        
+; Other             Default Content (defaultcontent)                             Module  Enabled                       
+; Other             Geocode (geocode)                                            Module  Enabled                       
+; Other             Geofield (geofield)                                          Module  Enabled                       
+; Other             Job Scheduler (job_scheduler)                                Module  Enabled        7.x-2.0-alpha2 
+; Other             Libraries (libraries)                                        Module  Enabled        7.x-1.0        
+; Other             Login Destination (login_destination)                        Module  Enabled        7.x-1.0-beta2  
+; Other             LoginToboggan (logintoboggan)                                Module  Enabled        7.x-1.2        
+; Other             Pathauto (pathauto)                                          Module  Enabled        7.x-1.0-rc2    
+; Other             Strongarm (strongarm)                                        Module  Enabled        7.x-2.0-beta2  
+; Other             Token (token)                                                Module  Enabled        7.x-1.0-beta3  
+; Statistics        Google Analytics (googleanalytics)                           Module  Enabled        7.x-1.2        
+; -- Taxonomy          Taxonomy Manager (taxonomy_manager)                          Module  Enabled        7.x-1.0-beta2  
+; -- Taxonomy          Term merge (term_merge)                                      Module  Enabled        7.x-1.x-dev    
+; User interface    Wysiwyg (wysiwyg)                                            Module  Enabled        7.x-2.1        
+; uuid              Universally Unique IDentifier (UUID) (uuid)                  Module  Enabled        7.x-1.0-alpha1 
+; uuid              UUID Nodes (uuid_node)                                       Module  Enabled        7.x-1.0-alpha1 
+; Views             Views (views)                                                Module  Enabled        7.x-3.x-dev    
+; Views             Views Data Export (views_data_export)                        Module  Enabled        7.x-3.x-dev    
+; Views             Views JSON (views_json)                                      Module  Enabled        7.x-dev        
+; Views             Views Number Results (views_number_results)                  Module  Enabled                       
+; Views             Views UI (views_ui)                                          Module  Enabled        7.x-3.x-dev    
+; Core              Bartik (bartik)                                              Theme   Enabled        7.7                              
+; Other             CityGroups Theme (citygroups)                                Theme   Enabled      

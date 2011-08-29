@@ -5,6 +5,8 @@ core = 7.x
 
 dependencies[] = features
 dependencies[] = citygroups
-dependencies[] = citygroups_citygroups_install
+
+; Sample Installer for Seattle (is an example of a data collection project for a city.)
+dependencies[] = seattle_citygroups_install
 
 files[] = citygroups_profile.profile
