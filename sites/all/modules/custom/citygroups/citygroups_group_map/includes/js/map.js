@@ -39,7 +39,7 @@ Drupal.behaviors.citygroups_group_map = {
       cityGroups.loadData(cityGroups.paths['defaultPath']);
       
       // When input button is clicked, get geocoded data for the string.
-      $('#search-places input#search-links-submit').click(function() {
+      $('div#search-map input#search-links-submit').click(function() {
         cityGroups.map.geocodeAddress();
         return false;
       });
@@ -99,6 +99,7 @@ cityGroups.loadDataSuccess = function(data) {
 cityGroups.map.loadMap = function() {
   // initialize the map on the "map" div with a given center and zoom
   cityGroups.map.settings.zoom = 11;
+  cityGroups.map.settings.zoomNeighborhood = 14;
   cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
   // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
   if(cityGroups.map.rendered === undefined) {
@@ -315,7 +316,7 @@ cityGroups.map.addLegend = function() {
 };
 
 cityGroups.map.geocodeAddress = function (){
-  var inputValue = $('div#search-places input.form-item').val();
+  var inputValue = $('div#search-map input.form-item').val();
   cityGroups.map.codeAddress(inputValue);
 };
 
@@ -332,7 +333,7 @@ cityGroups.map.codeAddress = function(address) {
 }
 
 cityGroups.map.mapGeocodedData = function(results) {
-console.log(results);
+  // console.log(results);
   var result = {};
   result.field_address = '';
   var item = results[0]['address_components'];
@@ -364,7 +365,7 @@ console.log(results);
   }
   if (result.longitude !== undefined && result.latitude !== undefined) {
     var center = new L.LatLng(result.latitude, result.longitude);
-    cityGroups.map.rendered.setView(center, cityGroups.map.settings.zoom);
+    cityGroups.map.rendered.setView(center, cityGroups.map.settings.zoomNeighborhood);
   }
 };    
 
