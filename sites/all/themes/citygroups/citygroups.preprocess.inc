@@ -228,6 +228,7 @@ function citygroups_vertical_tabs($variables) {
  */
 function citygroups_menu_link($variables) {
   $element = $variables['element'];
+    dpm("test");
 
   $sub_menu = '';
 
@@ -246,6 +247,9 @@ function citygroups_menu_link($variables) {
 
   // Rewrite certain menu links to point to section.
   if (($element['#theme'] == 'menu_link__menu_citygroups_menu') && ($section !== '')) {
+  dpm($element);
+  dpm("test");
+  dpm($section);
     switch ($element['#href']) {
       case '<front>':
         $element['#href'] = $section;

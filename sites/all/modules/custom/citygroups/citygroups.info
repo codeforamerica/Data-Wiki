@@ -8,7 +8,6 @@ files[] = citygroups.module
 ; For reference:  Installed in the Profile Installer...
 ; ---- dependencies[] = features
 ; ---- dependencies[] = citygroups
-; ---- dependencies[] = citygroups_citygroups_install
 
 core = 7.x
 dependencies[] = block
@@ -175,7 +174,7 @@ dependencies[] = views_number_results
 ; Features          CityGroups Developer (citygroups_developer)                  Module  Enabled                       
 ; Features          CityGroups Feed Taxonomy Categories                          Module  Enabled                       
 ;                   (citygroups_feed_taxonomy_categories)                                                              
-; Features          CityGroups Install (citygroups_citygroups_install)           Module  Enabled                       
+; Features          CityGroups Install (citygroups_citygroups)           Module  Enabled                       
 ; Features          CityGroups Permissions (citygroups_permissions)              Module  Enabled                       
 ; Features          CityGroups Site Settings (citygroups_site_settings)          Module  Enabled                       
 ; Features          CityGroups Views (citygroups_views)                          Module  Enabled                       
