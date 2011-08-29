@@ -21,13 +21,11 @@ function citygroups_group_map_help($path, $arg) {
  * Implementatation of hook_menu().
  */
 function citygroups_group_map_menu() {
-  $items['map/render/community-group'] = array(
-    'title' => 'Map of Community Groups',
-    'description' => 'Display a map of Community Groups.',
+  $items['map'] = array(
+    'title' => 'Map',
     'page callback' => 'citygroups_group_map_render',
-    'page arguments' => array(t('Map')),
+    'page arguments' => array(t('Render Map Page.')),
     'access callback' => TRUE,
-    'expanded' => TRUE,
   );
   return $items;
 }

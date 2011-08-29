@@ -32,10 +32,12 @@ function citygroups_block_info() {
     'info' => t('About'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+/*
   $blocks['citygroups_map'] = array(
     'info' => t('Map'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
+*/
   return $blocks;
 }
 
@@ -88,10 +90,6 @@ function citygroups_block_view($delta = '') {
       $block['content'] = citygroups_contents('about');
       break; 
 
-    case 'citygroups_map':
-      $block['subject'] = '';
-      $block['content'] = citygroups_contents('map');
-      break;
   }
   return $block;
 }
@@ -128,9 +126,11 @@ function citygroups_contents($type) {
       break;
 
       
+/*
       case 'map':
         $output .= citygroups_group_map_render();
       break;
+*/
       
       case 'home_content':
         $output .= "

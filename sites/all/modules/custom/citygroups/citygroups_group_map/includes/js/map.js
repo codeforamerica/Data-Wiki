@@ -23,7 +23,6 @@ cityGroups.paths = {
 
 Drupal.behaviors.citygroups_group_map = {
   'attach': function(context, settings) {
-    
       // Set up geocoder.
       geocoder = new google.maps.Geocoder();
       
@@ -46,10 +45,6 @@ Drupal.behaviors.citygroups_group_map = {
       });
     }   
   };
-
-
- 
-    
 
 /**
  * Extra function that can be used to toggle map layers by topic.

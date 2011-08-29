@@ -55,10 +55,6 @@ function sea_blockwatch_contents($type) {
       $output .= '<p>' . t('The Block Watch Captain Directory lists basic contact information for Block Watch Captains in Seattle.') .'</p>';
       break;
       
-      case 'map':
-        $output .= citygroups_group_map_render();
-      break;
-      
       case 'home_content':
         $output .= "
           <div class=\"grid_16 sections alpha omega \">

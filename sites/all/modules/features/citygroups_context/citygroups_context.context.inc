@@ -76,6 +76,12 @@ function citygroups_context_context_default_contexts() {
         'node/*' => 'node/*',
         'blockwatch' => 'blockwatch',
         'blockwatch*' => 'blockwatch*',
+        'search' => 'search',
+        'search*' => 'search*',
+        'user' => 'user',
+        'user*' => 'user*',
+        'home' => 'home',
+        'admin/dashboard' => 'admin/dashboard',
       ),
     ),
   );
@@ -144,11 +150,22 @@ function citygroups_context_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'users/admin' => 'users/admin',
+        'admin/dashboard' => 'admin/dashboard',
       ),
     ),
   );
-  $context->reactions = array();
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-dashboard-block' => array(
+          'module' => 'views',
+          'delta' => 'dashboard-block',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
   $context->condition_mode = 0;
 
   // Translatables
