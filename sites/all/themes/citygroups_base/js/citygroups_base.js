@@ -8,7 +8,7 @@ Drupal.behaviors.citygroups_base = {
     });
     
 */
-    $('select.form-select').sSelect();
+  // $('select.form-select').sSelect();
   }
 };
 

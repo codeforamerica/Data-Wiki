@@ -901,6 +901,7 @@ option {
   width: 3em;
   background-color: #ddd;
   padding: 10px 10px 5px 10px;
+  margin-bottom: 10px;
 }
 
 .views-number-results .label {
@@ -918,4 +919,28 @@ option {
 .view-categories .views-row .views-field-name {
   font-size: 125%;
   text-transform: capitalize;
+}
+
+.related-categories ul {
+  padding: 0;
+  margin: 0;
+}
+
+.related-categories li {
+  padding: 10px;
+  font-size: 125%;
+}
+
+#content-top .block {
+  font-size: 125%;
+  padding: 0;
+  margin: 0;
+}
+#content-top .block p {
+  padding: 0;
+  margin: 0;
+}
+
+.title-container h1 {
+  margin: 20px 0 0 0;
 }

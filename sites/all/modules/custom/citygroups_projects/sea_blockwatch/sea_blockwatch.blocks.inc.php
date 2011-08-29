@@ -38,7 +38,6 @@ function sea_blockwatch_block_view($delta = '') {
       $block['subject'] = '';
       $block['content'] = sea_blockwatch_contents('about');
       break; 
-
   }
   return $block;
 }
@@ -68,8 +67,8 @@ function sea_blockwatch_contents($type) {
               <h3>Are you a Block Watch Captain?</h3>
               <p>Help your neighbors and other Block Watch captains find you.
 
-              <a href=\"/node/add/community-group?" . $add_variables . "\">Add</a> your contact information and map your Block Watch community.</p>
-              <div class=\"button\"><a href=\"/node/add/community-group?" . $add_variables . "\">Add New</a></div>
+              <a href=\"/node/add/community-group" . $add_variables . "\">Add</a> your contact information and map your Block Watch community.</p>
+              <div class=\"button\"><a href=\"/node/add/community-group" . $add_variables . "\">Add New</a></div>
             </div>    
 
             <div class=\"grid_6 push_2 view-data section omega\">
@@ -80,8 +79,8 @@ function sea_blockwatch_contents($type) {
               <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
               </div>
         
-              <div class=\"button\"><a href=\"map\">Map view</a></div>
-              <div class=\"button\"><a href=\"list\">List view</a></div>
+              <div class=\"button\"><a href=\"blockwatch/map\">Map view</a></div>
+              <div class=\"button\"><a href=\"blockwatch/list\">List view</a></div>
             </div>
 
           </div>
@@ -91,8 +90,8 @@ function sea_blockwatch_contents($type) {
               <h3>Mapping in West Seattle.</h3>
               <p>This fall we are reaching out to Block Watch Captains in West Seattle to build a public map of Block Watches.</p>
               <p>As you can see, there are only a handful of Block Watch Captains listed.</p>
-              <p>We are working with the <a href=\"http://wsbwcn.com\">West Seattle Block Watch Captain’s Network</a> and the 
-              <a href=\"http://seattle.gov/police\">Seattle Police Department</a> to reach out to Block Watch Captains in Seattle and fill in this map.</p>
+              <p>We are working with the <a href=\"http://wsblockwatchnet.wordpress.com/\">West Seattle Block Watch Captain’s Network</a> and the 
+              <a href=\"http://www.seattle.gov/spd/\">Seattle Police Department</a> to reach out to Block Watch Captains in Seattle and fill in this map.</p>
             </div>    
             <div class=\"grid_6 push_2 promote section omega\">
               <h3>Spread the word</h3>

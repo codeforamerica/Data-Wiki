@@ -70,7 +70,14 @@ function citygroups_base_preprocess_page(&$vars) {
     'attributes' => array(
       'id' => 'signin',
     )
+  ))
+  .
+  l('Logout', 'user/logout', array(
+    'attributes' => array(
+      'id' => 'logout',
+    )
   ));
+  
   
   // Temp for wireframing or MVP
   $vars['submit_btn'] = url(drupal_get_path('theme', 'citygroups_base') . '/images/submit-large-overlay.gif');
@@ -295,6 +302,71 @@ function citygroups_base_menu_link($variables) {
     }
   }
   
+  // Rewrite certain menu links to point to section.
+  if (($element['#theme'] == 'menu_link__menu_postscript_menu')) {
+    if ($section == '') {
+        $section_path = '';
+    }
+    else {
+        $section_path = $section . '/';
+    }
+    
+    /* 
+    
+    We are basing these off of the title because the defaultcontent
+    module can't store path aliases - and the node ids will be different on 
+    all systems. The admin will need to generate pages by hand anyways
+    when making this module, so we won't be too fancy about it.
+    
+    Basically, we can override the postscript menu - linking to 
+    specific content for this data collection project.
+    
+    */
+    switch ($element['#title']) {
+      case 'About the Groups':
+        $element['#localized_options']['attributes']['title'] = t('About the Groups');
+        $element['#attributes']['class'][] = 'about';
+        if($section != '') {
+          $element['#href'] =  $section_path . 'about';
+          $element['#localized_options']['query']['section'] = $section;
+        }
+        break;
+      case 'Get Involved':
+        $element['#localized_options']['attributes']['title'] = t('Get Involved');
+        $element['#attributes']['class'][] = 'get-involved';
+        if($section != '') {
+          $element['#href'] = $section_path .  'get-involved';
+          $element['#localized_options']['query']['section'] = $section;
+        }
+        break;
+      case 'Contact':
+        $element['#localized_options']['attributes']['title'] = t('Contact');
+        $element['#attributes']['class'][] = 'contact';
+        if($section != '') {
+          $element['#href'] = $section_path . $element['#href'];
+          $element['#localized_options']['query']['section'] = $section;
+        }
+        break;
+      case 'API':
+        $element['#localized_options']['attributes']['title'] = t('API');
+        $element['#attributes']['class'][] = 'api';
+        if($section != '') {
+          $element['#href'] = $section_path  . 'api';;
+          $element['#localized_options']['query']['section'] = $section;
+        }
+        break;
+    }
+  }
+ 
+
+
+
+
+
+
+
+
+
   $element['#attributes']['class'][] .= 'menu-' . $element['#original_link']['mlid'];
 
   if ($element['#below']) {

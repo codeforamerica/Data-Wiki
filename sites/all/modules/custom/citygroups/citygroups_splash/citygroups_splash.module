@@ -94,7 +94,7 @@ function citygroups_splash_block_info() {
     'visibility' => 1, // Not usually provided. 
   );
   $blocks['site_prealpha'] = array(
-    'info' => t('PreAlpha Site'),
+    'info' => t('Alpha Site'),
     'status' => TRUE,
     'region' => 'dashboard_main', // Not usually provided. 
     'visibility' => 1, // Not usually provided. 
@@ -118,7 +118,7 @@ function citygroups_splash_block_view($delta = '') {
       $block['content'] = citygroups_splash_block_site_config();
       break;
     case 'site_prealpha':
-      $block['subject'] = t('This site is Alpha');
+      $block['subject'] = t('Alpha: This is a new site under active development.');
       $block['content'] = citygroups_splash_block_site_prealpha();
       break;
   }
@@ -139,9 +139,9 @@ function citygroups_splash_block_site_prealpha() {
 
   $output .= '<p>' . t('This is a new site, we are understanding how best to make the site useful to Seattleites.') . '</p>';
   $output .= '<p>' . t('We are inviting folks to test the site and add information to it. If you have any questions or thoughts, please ');
-  $output .= l('Contact Us', 'contact') . '</p>';
+  $output .= l('contact us', 'contact') . '</p>';
   
-  $output .= '<p class="sign-in-link">' . l('Sign in', 'user') . ' to use all the features.</p>';
+/*   $output .= '<p class="sign-in-link">' . l('Sign in', 'user') . ' to use all the features.</p>'; */
   // $output .= '<p class="sign-in-link">' . l('Sign in with Facebook', 'fbconnect/register/prompt') . '.</p>';  
 
   // $output .= l('Sign in with Facebook', 'fbconnect') . '</p>';
@@ -175,12 +175,14 @@ function citygroups_splash_block_site_config() {
 
   $markup = '';
 
+/*
   $items[] = array (
     'title' => 'Upload CSV of Community Groups',
     'href' => 'node/add/community-group-feed-upload-csv',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Add properly formatted CSV files to bulk upload groups into the system.'),
   );
+*/
   
   $items[] = array (
     'title' => 'Add One Group',
@@ -196,19 +198,24 @@ function citygroups_splash_block_site_config() {
     'description' => t('Find out how to format your CSV file.'),
   );
 
+/*
   $items[] = array (
     'title' => 'Manage Categories',
     'href' => 'admin/structure/taxonomy/categories/list',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Once you\'ve imported groups, you can adjust the categories.'),
   );
+*/
   
+/*
   $items[] = array (
     'title' => 'Export all Groups as CSV',
     'href' => 'data/community-group/csv',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Get a CSV file of all your groups.'),
   );  
+*/
+/*
     
   $items[] = array (
     'title' => 'Manage Groups',
@@ -216,13 +223,17 @@ function citygroups_splash_block_site_config() {
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-site-settings'))),        
     'description' => t('See recently added groups.'),
   );
+*/
 
+/*
   $items[] = array (
     'title' => 'Personalize Site Settings',
     'href' => 'admin/config/system/site-information',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-site-settings'))),        
     'description' => t('Change the title, slogan, contact information, and default frontpage settings here.'),
   );
+*/
+/*
 
   $items[] = array (
     'title' => 'Manage Users',
@@ -231,6 +242,7 @@ function citygroups_splash_block_site_config() {
     'description' => t('Set up accounts for your users, contributors, and site administrators.'),
   );
   
+*/
   $content = array ('content' => $items);
   $markup = theme('admin_block_content', $content);
 

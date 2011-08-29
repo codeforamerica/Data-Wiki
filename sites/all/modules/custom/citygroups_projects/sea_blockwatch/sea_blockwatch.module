@@ -44,7 +44,7 @@ function sea_blockwatch_menu() {
   );
   $items['blockwatch/categories'] = array(
     'title' => 'Topics',
-    'page callback' => 'sea_blockwatch_categorie_render',
+    'page callback' => 'sea_blockwatch_categories_render',
     'page arguments' => array(t('Blockwatch Categories Page')),
     'access callback' => TRUE,
   );
@@ -83,9 +83,25 @@ function sea_blockwatch_list_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_categories_render() {
-  $output = "";
+  //@TODO This is where we would load related terms for civic taxonomy web service.
+  
+  $output = '';
+  
+  $output = '
+  <div class="related-categories">
+  <ul class="categories">
+    <li><a href="categories/emergency-preparedness">Emergency Preparedness</a></li>
+    <li><a href="categories/national-night-out">National Night Out</a></li>
+    <li><a href="categories/crime-prevention">Crime Prevention</a></li>
+    <li><a href="categories/public-safety">Public Safety</a></li>
+    <li><a href="categories/block-party">Block Party</a></li>
+  </ul>
+  </div>
+  ';
+  
   return $output;
 }
+
 /**
  * Render custom page for blockwatch.
  */
@@ -99,7 +115,6 @@ function sea_blockwatch_about_render() {
  */
 function sea_blockwatch_preprocess_page(&$vars) {
   $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
-  
   // Load custom page variables.
   // This has some ties into the main theme.
   switch ($vars['page_path']) {
@@ -119,11 +134,23 @@ function sea_blockwatch_preprocess_page(&$vars) {
       }
       break;
     case 'blockwatch':
-    case 'blockwatch/map':
+    case 'blockwatch/map': 
       sea_blockwatch_page_variables($vars);
       citygroups_group_map_page_variables($vars);
     break;
   }
+  // Because of the way nodes are saved, the node title is the only
+  // data that would remain generally consistent between sites.
+  // though you will have to reference the titles yourself if you change them.
+
+  switch ($vars['node']->title) {
+    case 'About':
+    case 'Get Involved':
+    case 'Contact':  // @TODO Contact not working right.
+    case 'Block Watch Captain Directory API':
+      sea_blockwatch_page_variables($vars);
+      break;  
+  }  
 }
 
 function sea_blockwatch_map_render_output() {

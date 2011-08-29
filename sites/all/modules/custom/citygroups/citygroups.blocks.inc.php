@@ -28,7 +28,6 @@ function citygroups_block_info() {
     'info' => t('Home Content'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-
   $blocks['citygroups_about'] = array(
     'info' => t('About'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
@@ -84,7 +83,6 @@ function citygroups_block_view($delta = '') {
       $block['content'] = citygroups_contents('home_content');
       break;
 
-
     case 'citygroups_about':
       $block['subject'] = '';
       $block['content'] = citygroups_contents('about');
@@ -99,7 +97,7 @@ function citygroups_block_view($delta = '') {
 }
 
 /**
- * Block placeholder content
+ * Block content for main CityGroups content.
  */
 function citygroups_contents($type) {
   $output = '';
@@ -107,7 +105,7 @@ function citygroups_contents($type) {
   switch ($type) {
     case 'welcome':
       $output .= '<h3>' . t('Find community groups by location or topic.') . '</h3>';
-      $output .= '<p>' . t('Welcome to the site.') .'</p>';
+      $output .= '<p>' . t('Making it easier to find those little local community groups.') .'</p>';
       break;
 
     case 'site_slogan':
@@ -122,7 +120,7 @@ function citygroups_contents($type) {
       $code_for_america = '';
       $output .= '<div id="branding-footer alpha omega grid_16 alpha omega">' 
       . '<div class="about grid_6 alpha">' 
-      . t('Maintained by the City and Community Groups.') . '<br />'
+      . t('This site is the product of a partnership between Community Organizations and City Governments.') . '<br />'
       . t('Created as Open Source by <a href="http://codeforamerica.org">Code for America</a>') 
       . '<div class="tagline">' .  t('"For a more transparent, efficient and participatory future."') . '</div>' . '</div>'
       . '<div class="logo grid_10"><a href="http://codeforamerica.org">' . '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" width="150" />' . '</a></div>'
@@ -139,34 +137,48 @@ function citygroups_contents($type) {
           <div class=\"grid_16 sections\">
 
             <div class=\"grid_6 view-data section alpha\">
-              <h3>See the groups</h3>
-              <p>asdfasdfasdf</p>
-              <div id=\"search-map\" class=\"form-input\">
+              <h3>Search for Groups</h3>
+              <p>Since starting the project, we have located about 1,000 community groups in Seattle.</p>" .
+              
+/*
+              "<div id=\"search-map\" class=\"form-input\">
               <input placeholder=\"Enter your address or zipcode here.\" class=\"form-item\" />
               <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
               </div>
-        
-              <div class=\"button\"><a href=\"map\">Map view</a></div>
+              " .
+*/
+              
+              "<div class=\"button\"><a href=\"map\">Map view</a></div>
               <div class=\"button\"><a href=\"list\">List view</a></div>
             </div>
 
            
             <div class=\"grid_6  push_2  add-new-group section omega\">
-              <h3>Can you recommend any community groups?</h3>
-              <p>asdfasdfasdf</p>
-              <div class=\"button\"><a href=\"/node/add/community-group\">Add New</a></div>
+              <h3>Know community groups that should be listed?</h3>
+              <p>Anyone can suggest a group. Groups should be based in Seattle, and do work to make Seattle better.</p>
+              <div class=\"button\"><a href=\"/node/add/community-group\">Add New Group</a></div>
             </div>    
 
           </div>
           <div class=\"clear\"></div>
           <div class=\"grid_16 sections\">
             <div class=\"grid_6 news section alpha\">
-              <h3>We're mapping Block Watch Captains</h3>
-              <p>asdfasdfasdf</p>
+              <h3>News</h3>
+              
+              <h5>We're mapping Block Watch Captains</h5>
+              <p>Our first project to find local community groups is a <a href=\"/blockwatch\">
+              Block Watch Captain Directory.</a></p>
+              
             </div>    
             <div class=\"grid_6 push_2 promote section omega\">
               <h3>Spread the word</h3>
-              <p>asdfasdfasdf</p>
+              <p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>
+              <ul>
+              <li>/Tweet/</li>
+              <li>/Facebook/</li>
+              <li>/Email/</li>
+              <li>/Print/</li>
+              </ul>
             </div>      
           </div>
         ";
@@ -174,16 +186,7 @@ function citygroups_contents($type) {
   
       case 'about':
       
-        $facebook = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_facebook.png" title="Facebook" alt="Facebook" />';
-        $yahoo = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_yahoo_groups.png" title="Yahoo Groups" alt="Yahoo Groups" />';
-        $google = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_google_groups.png" title="Google Groups" alt="Google Groups" />';
-        $meetup = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_meetup.png" title="Meetup Groups" alt="Meetup Groups" />';
-        $mailinglist = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_email.png" title="Email" alt="Email" />';
-        $twitter = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_twitter.png" title="Twitter" alt="Twitter" />';
-        $blog = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_blogs.png" title="Community Blogs" alt="Community Blogs" />';
-        $mail = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/icon_bw_mail.png" title="Personal Email" alt="Personal Email" />';
-  
-        $links = $facebook . $google . $meetup . $mailinglist . $twitter . $blog . $yahoo . $mail /*. $ning */;
+        $groups = '<img src="' . base_path() . path_to_theme() . '/images/groups_icons/group_icons_wide.png" title="Facebook, Yahoo Groups, Google Goups, Meetup Groups, Email, Twitter, Community Blogs, Personal Email" alt="Facebook, Yahoo Groups, Google Goups, Meetup Groups, Email, Twitter, Community Blogs, Personal Email" />';
 
         $output .= "
         <div class=\"grid_16 postscript-content alpha omega\">
@@ -191,19 +194,20 @@ function citygroups_contents($type) {
           <h3>What is CityGroups?</h3>
           
           We make it easy to find and share all kinds of groups in your city
-          <div class=\"groups-icons\">" . $links . "</div>
-          
-          <p>Banh mi vinyl vegan laboris magna, nihil hoodie portland homo cillum raw denim tempor. High life wayfarers you probably haven't heard of them, assumenda twee wes anderson ut dreamcatcher put a bird on it nulla echo park marfa master cleanse consequat quis. Dolor adipisicing accusamus hoodie chambray blog. Qui ullamco laboris whatever shoreditch voluptate. Brooklyn sartorial cliche, dolore whatever exercitation odio scenester. Chambray scenester esse magna locavore. Stumptown proident pariatur nesciunt.</p>
+          <div class=\"groups-icons\">" . $groups . "</div>
+          <p>Any group that has an e-mail, url or contact person can be listed. The idea is to list those little Facebook pages, twitter groups, mailing lists of people working to make your city better.</p>
+          <p>We made this tool because it was really hard to find these kinds of groups doing normal Internet searches. If you know of good resources, tell us and we'll work with those community directories.</p>
           </div>
   
           <div class=\"grid_4 push_1 participate\">
           <h3>Get on the map</h3>
-          <p>Banh mi vinyl vegan laboris magna, nihil hoodie portland homo cillum raw denim tempor. High life wayfarers you probably haven't heard of them, assumenda twee wes anderson ut dreamcatcher put a bird on it nulla echo park marfa master cleanse consequat quis. Dolor adipisicing accusamus hoodie chambray blog. Qui ullamco laboris whatever shoreditch voluptate. Brooklyn sartorial cliche, dolore whatever exercitation odio scenester. Chambray scenester esse magna locavore. Stumptown proident pariatur nesciunt.</p>
+          <p>Anyone can <a href=\"/node/add/community-group\">add</a> & <a href=\"/user\">edit</a> groups. Groups appear on the map - which makes it easy to find groups in your neighborhood.</p>
           </div>
     
           <div class=\"grid_4 push_1 local omega\">
           <h3>Local Community Groups</h3>
-          <p>Banh mi vinyl vegan laboris magna, nihil hoodie portland homo cillum raw denim tempor. High life wayfarers you probably haven't heard of them, assumenda twee wes anderson ut dreamcatcher put a bird on it nulla echo park marfa master cleanse consequat quis. Dolor adipisicing accusamus hoodie chambray blog. Qui ullamco laboris whatever shoreditch voluptate. Brooklyn sartorial cliche, dolore whatever exercitation odio scenester. Chambray scenester esse magna locavore. Stumptown proident pariatur nesciunt.</p>
+          <p>We have all kinds of groups listed. If you don't see the kinds groups that you are looking for, <a href=\"/contact\">let us know</a>.</p>
+          <p>We have worked to make it really easy for you too add groups. You can even share them with us <a href=\"/community-data\">using a spreadsheet.</a></p>
           </div>
         </div>        
         ";
