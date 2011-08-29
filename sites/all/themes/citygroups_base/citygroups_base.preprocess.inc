@@ -71,7 +71,7 @@ function citygroups_base_preprocess_page(&$vars) {
       'id' => 'signin',
     )
   ))
-  .
+  . ' | ' .
   l('Logout', 'user/logout', array(
     'attributes' => array(
       'id' => 'logout',
