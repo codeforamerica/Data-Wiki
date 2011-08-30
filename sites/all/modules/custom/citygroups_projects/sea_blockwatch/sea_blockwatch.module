@@ -154,7 +154,16 @@ function sea_blockwatch_preprocess_page(&$vars) {
 }
 
 function sea_blockwatch_map_render_output() {
-  $output = '<div>
+  $output =
+  '<div id="search-map" class="form-input">
+  <input placeholder="Enter your address or zipcode here." class="form-item" />
+  <input type="image" src="' . base_path() . path_to_theme() . '/images/search_button_large.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">
+  </div>
+  <div class="clear"></div>
+  ';
+
+  $output .= '  
+  <div>
     <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
     <div id="data"></div>
   </div>
@@ -182,13 +191,39 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         $add_variables_array = array(
           'category' => 'Block Watch, Crime Prevention',
           'title' => 'Add a Block Watch Captain',
-          'instructions' => 'List Block Watch Captain or Block Watch Group.',
-          'map_instructions' => 'Where is this Block Watch?',
+          'instructions' => 'Add Block Watch Captain or Block Watch Group.',
+          'map_instructions' => 'Map',
+          'prepare' => 'Preparation instructions here',
+          'privacy' => 'Privacy statement here',
+          'name_label' => 'Name Label',
         );
-        
+
         if(!empty($add_variables_array['instructions'])) {
           $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
         }
+  
+        if(!empty($add_variables_array['prepare'])) {
+          $form['field_prepare']['und']["#description"] = $add_variables_array['prepare'];
+        }
+
+        if(!empty($add_variables_array['privacy'])) {
+          $form['field_privacy']['und']["#description"] = $add_variables_array['privacy'];
+        }
+
+// Label overrides.
+        $form['title']['#title'] = t("Name of Block Watch");
+/*
+        $form['title']['#description'] = t("BW name description");
+        $form['field_url']['und'][0]['#title'] = t("Link to group");
+        $form['field_url']['und'][0]['#description'] = t("Group description");
+        $form['field_email']['und']['#title'] = t("Link to email");
+        $form['field_email']['und']['#description'] = t("Email description");
+        $form['field_contact']['und'][0]['value']['#title'] = t("Link to contact");
+        $form['field_contact']['und'][0]['value']['#description'] = t("Contact description");
+        $form['field_url_calendar']['und'][0]['#title'] = t("Link to calendar url");
+        $form['field_url_calendar']['und'][0]['#description'] = t("cal url");
+        $form['field_source']['und'][0]['value']['#description'] = t("source description");
+*/
         
         if(!empty($add_variables_array['category'])) {
           $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
@@ -203,6 +238,7 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
           $form['additional_settings']['#access'] = FALSE;
         }
     
+        // Custom map interface text.
         $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
         $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
         $form['field_location']['#prefix'] .= '<div class="instructions-1">';
@@ -306,10 +342,12 @@ function sea_blockwatch_settings() {
   $settings['javascript_settings']['mapColors']['opacity'] = 1;
   $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/images/map-marker.png";
   $settings['javascript_settings']['mapMarkerIconShadowUrl'] =  "";
-  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(10,20);
-  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(10,20);
-  $settings['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);
-  $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
+  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(30,30);
+  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(30,30);
+  $settings['javascript_settings']['mapMarkerIconAnchor'] = array(15,15);
+  $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(15,15);
+  $settings['javascript_settings']['legendLabelMarker'] = t('Block Watch Captain');
+  $settings['javascript_settings']['legendLabelData'] = t('Block Watch Communities');
   return $settings;
 }
 

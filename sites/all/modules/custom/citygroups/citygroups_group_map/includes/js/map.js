@@ -305,11 +305,11 @@ cityGroups.map.addLegend = function() {
       '<div class="icon">' +
         '<img src="' + Drupal.settings.citygroups.mapMarkerIconUrl + '" alt="Community Group Symbol" />' + 
       '</div>' + 
-      '<div class="map-label">Community Group</div>' + 
+      '<div class="map-label">' +  Drupal.settings.citygroups.legendLabelMarker + '</div>' + 
     '</div>' + 
     '<div class="count">' + 
       '<div class="value">' + cityGroups.map.nodes.length + '</div>' + 
-      '<div class="map-label">Community Groups</div>' + 
+      '<div class="map-label">' +  Drupal.settings.citygroups.legendLabelData + '</div>' + 
     '</div>' + 
   '</div>';
   $('div#map').after(legend);

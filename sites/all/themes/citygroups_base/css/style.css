@@ -944,3 +944,17 @@ option {
 .title-container h1 {
   margin: 20px 0 0 0;
 }
+
+#search-map input {
+/*   background: #666 10px; */
+
+  margin: 0;
+  padding: 0;
+display: inline;
+float: left;
+}
+
+#search-map .search_btn {
+  background: #666;
+  display: inline;
+}

@@ -117,8 +117,9 @@ function citygroups_group_map_render() {
   $output =
   '<div id="search-map" class="form-input">
   <input placeholder="Enter your address or zipcode here." class="form-item" />
-  <input type="image" src="' . base_path() . path_to_theme() . '/images/search_button.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">
+  <input type="image" src="' . base_path() . path_to_theme() . '/images/search_button_large.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">
   </div>
+  <div class="clear"></div>
   ';
 
   $output .=
@@ -152,9 +153,11 @@ function citygroups_group_map_settings() {
   $settings['javascript_settings']['mapColors']['opacity'] = 1;
   $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/includes/images/map-marker.png";
   $settings['javascript_settings']['mapMarkerIconShadowUrl'] =  "/" . $settings['html_root_custom'] . "/includes/images/map-marker-shadow.png";
-  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(16,25);
-  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(30,25);
+  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(30,30);
+  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(30,30);
   $settings['javascript_settings']['mapMarkerIconAnchor'] = array(0,0);
   $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(0,0);
+  $settings['javascript_settings']['legendLabelMarker'] = t('Community Group');
+  $settings['javascript_settings']['legendLabelData'] = t('Community Groups');
   return $settings;
 }
