@@ -27,3 +27,20 @@
   font-size: 80%;
   color: #666;
 }
+
+.map-interface-instructions {
+  background: #ddd;
+  padding: 20px;
+}
+
+.map-interface-instructions .element .icon {
+  float: left;
+  padding: 10px;
+  background-color: #fff;
+  text-transform: uppercase;
+  font-size: 80%;
+}
+
+.map-interface-instructions .element .label {
+  font-weight: bold;
+}

@@ -286,6 +286,17 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
         $form['field_location']['#prefix'] .= '</div>';
     
+        $form['field_location']['#suffix'] = '<div class="map-interface-instructions">
+        <h4>You can Draw Shapes on the Map</h4>
+        <div class="element"><div class="icon">Help Icon</div><div class="label">Help</div></div>
+        <div class="element"><div class="icon">Move Map Icon</div><div class="label">Move Map</div></div>
+        <div class="element"><div class="icon">Place marker Icon</div><div class="label">Place marker</div></div>
+        <div class="element"><div class="icon">Draw shape Icon</div><div class="label">Draw shape</div></div>
+        <div class="element"><div class="icon">Finish Drawing Icon</div><div class="label">Finish Drawing: Double-click</div></div>
+        <div class="element"><div class="icon">Delete drawing Icon</div><div class="label">Delete drawing</div></div>        
+        </div>';
+        
+        
         // Add Google API (uses openlayers API key)
         // @TODO require openlayers.
         drupal_add_js(
