@@ -86,8 +86,17 @@ strong {
 #block-search-form input.form-text{
   width: 80%;
   padding: 5px;
+  filter:alpha(opacity=50);
+  /* CSS3 standard */
+  opacity:0.5;
 }
 
+.views-exposed-widgets input.form-text:focus,
+#block-search-form input.form-text:focus{
+  filter:alpha(opacity=100);
+  /* CSS3 standard */
+  opacity:1;
+}
 #block-search-form  .form-submit {
   background-image: url(../images/search_button.png);
   background-color: transparent;
