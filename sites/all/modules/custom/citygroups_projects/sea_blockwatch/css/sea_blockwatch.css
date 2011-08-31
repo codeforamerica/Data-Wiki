@@ -13,3 +13,17 @@
   height: 100%;
   margin: 10px 0 40px 0;
 }
+
+#content-container .button a {
+  background-color: #204496;
+}
+
+.example {
+  margin: 10px 0;
+  font-style: italic;
+  font-size: 90%;
+}
+.verify {
+  font-size: 80%;
+  color: #666;
+}
