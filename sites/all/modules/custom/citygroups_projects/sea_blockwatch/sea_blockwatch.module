@@ -255,6 +255,11 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
           ';
         //$form['field_source']['und'][0]['value']['#description'] = t("source description");
         
+/*         dpm($form['field_city']['und']['#default_value']); */
+        $form['field_city']['und']['#default_value'] = t("Seattle");
+        $form['field_state']['und']['#default_value'] = t("WA");
+        //$form['field_city']['und'][0]['value']['#description'] = t("source description");
+        
         if(!empty($add_variables_array['category'])) {
           $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
         }
@@ -271,18 +276,6 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         // Custom map interface text.
         $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
         $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
-/*
-        $form['field_location']['#prefix'] .= '<div class="instructions-1">';
-        $form['field_location']['#prefix'] .= '
-
-        ';
-        $form['field_location']['#prefix'] .= '</div>';
-*/
-/*
-        $form['field_location']['#prefix'] .= '<div class="instructions-2">';
-        $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
-        $form['field_location']['#prefix'] .= '</div>';
-*/
         $form['field_location']['#prefix'] .= '<div class="address-ajax">';
         $form['field_location']['#prefix'] .= '<div id="search-links">';
         $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
