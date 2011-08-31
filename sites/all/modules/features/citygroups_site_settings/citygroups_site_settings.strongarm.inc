@@ -161,7 +161,7 @@ function citygroups_site_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_immediate_login_on_register';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['logintoboggan_immediate_login_on_register'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -217,7 +217,7 @@ function citygroups_site_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_redirect_on_register';
-  $strongarm->value = '';
+  $strongarm->value = 'dashboard';
   $export['logintoboggan_redirect_on_register'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -788,7 +788,7 @@ After confirming your email address, you will be able to log in to [site:name] u
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_email_verification';
-  $strongarm->value = TRUE;
+  $strongarm->value = FALSE;
   $export['user_email_verification'] = $strongarm;
 
   $strongarm = new stdClass;

@@ -100,6 +100,7 @@ function citygroups_permissions_user_default_permissions() {
     'name' => 'access dashboard',
     'roles' => array(
       0 => 'administrator',
+      1 => 'authenticated user',
     ),
     'module' => 'dashboard',
   );

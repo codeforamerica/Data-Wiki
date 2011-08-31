@@ -323,7 +323,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '10',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -791,7 +791,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '6',
+          'weight' => '8',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -938,7 +938,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '11',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -998,7 +998,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '20',
         ),
         'search_result' => array(
           'label' => 'inline',
@@ -1070,7 +1070,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '18',
+          'weight' => '19',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1143,7 +1143,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '15',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1216,7 +1216,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '14',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1289,7 +1289,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '16',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1362,7 +1362,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '13',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1435,7 +1435,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '12',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1508,7 +1508,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '17',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1703,7 +1703,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '18',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -1999,10 +1999,9 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 32,
+          'type' => 'hidden',
+          'weight' => '7',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -2075,7 +2074,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 33,
+          'weight' => '6',
         ),
         'search_result' => array(
           'label' => 'above',
@@ -2306,7 +2305,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '7',
+          'weight' => '9',
         ),
         'search_result' => array(
           'label' => 'above',

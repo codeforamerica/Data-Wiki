@@ -144,6 +144,42 @@ function citygroups_context_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'citygroups_sub';
+  $context->description = 'blocks for citygroups subpages';
+  $context->tag = 'citygroups';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'map' => 'map',
+        'list' => 'list',
+        'categories' => 'categories',
+        'node/add/community-groups' => 'node/add/community-groups',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'citygroups-citygroups_about' => array(
+          'module' => 'citygroups',
+          'delta' => 'citygroups_about',
+          'region' => 'postscript',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('blocks for citygroups subpages');
+  t('citygroups');
+  $export['citygroups_sub'] = $context;
+
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'dashboard';
   $context->description = '';
   $context->tag = 'admin';
