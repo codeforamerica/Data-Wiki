@@ -35,6 +35,7 @@
 
 .map-interface-instructions .element {
   clear: both;
+  padding: 10px;
 }
 
 .map-interface-instructions .element .icon {

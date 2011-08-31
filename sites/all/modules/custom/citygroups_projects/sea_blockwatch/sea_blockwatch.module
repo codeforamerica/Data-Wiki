@@ -271,12 +271,18 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         // Custom map interface text.
         $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
         $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
+/*
         $form['field_location']['#prefix'] .= '<div class="instructions-1">';
-        $form['field_location']['#prefix'] .= t('Enter address or intersection to map the group.');
+        $form['field_location']['#prefix'] .= '
+
+        ';
         $form['field_location']['#prefix'] .= '</div>';
+*/
+/*
         $form['field_location']['#prefix'] .= '<div class="instructions-2">';
         $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
         $form['field_location']['#prefix'] .= '</div>';
+*/
         $form['field_location']['#prefix'] .= '<div class="address-ajax">';
         $form['field_location']['#prefix'] .= '<div id="search-links">';
         $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
@@ -287,7 +293,20 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         $form['field_location']['#prefix'] .= '</div>';
     
         $form['field_location']['#suffix'] = '<div class="map-interface-instructions">
-        <h4>You can Draw Shapes on the Map</h4>
+        <h3>You can Draw Shapes on the Map</h3>    
+        <h4>Step 1</h4>
+        <p>Zoom in to your block.</p>
+        <p>Enter your address or intersection. Include your city name.</p>
+        <p>Example: 8400 Genesee Ave. Seattle</p>
+        
+        <p>[move tool] Use the Move tool to move the map around.</p>
+        <p>[point tool] To just draw 1 point instead of a shape, use the Point tool.</p>
+        
+        <h4>Step 2</h4>
+        <p>[shape tool] Use the Shape tool to draw a shape around your block watch.</p>
+        <p>DOUBLE-CLICK to finish drawing your shape.</p>
+        <p>[CLEAR] Click the Clear button to erase your shape and start over.</p>
+       
         <div class="element"><div class="icon">Help Icon</div><div class="label">Help</div></div>
         <div class="element"><div class="icon">Move Map Icon</div><div class="label">Move Map</div></div>
         <div class="element"><div class="icon">Place marker Icon</div><div class="label">Place marker</div></div>
