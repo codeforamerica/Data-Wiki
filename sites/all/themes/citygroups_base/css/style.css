@@ -480,8 +480,8 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 #main .links .flag-group_inactive a,
 #main .links .flag-inappropriate a{
   background: #bbb;
-  margin: 10px 10px 30px 0;
-  padding: 10px;
+  margin: 5px 5px 0px 0;
+  padding: 10px 10px 10px 35px;
   color: #fff;
   text-transform: uppercase;
   line-height: 2em;
@@ -489,28 +489,34 @@ body.logged-in #block-system-user-menu ul.menu li.first,
   float: left;
 }
 
-#main .links .flag-wrapper {
-/*   display: inline; */
-}
-
-#main .view-content .links {
-/*   width: 200px; */
-}
-
 #main .view-content .links .flag-like a,
 #main .view-content .links .flag-bookmarks a,
 #main .view-content .links .flag-duplicate a,
 #main .view-content .links .flag-group_inactive a,
 #main .view-content .links .flag-inappropriate a{
-  background: #bbb;
-  margin: 5px 5px 0px 0;
-  padding: 10px;
-  color: #fff;
-  text-transform: uppercase;
-  line-height: 2em;
   display: inline;
   float: none;
 }
+
+#main .links .flag-like a {
+  background: url(../images/icon_recommended.png) no-repeat 3px 3px #bbb;
+}
+#main .links .flag-bookmarks a {
+  background: url(../images/icon_watch.png) no-repeat 3px 3px #bbb;
+}
+#main .links .flag-duplicate a {
+  background: url(../images/icon_duplicate.png) no-repeat 3px 3px #bbb;
+}
+#main .links .flag-group_inactive a {
+  background: url(../images/icon_dead.png) no-repeat 3px 3px #bbb;
+}
+#main .links .flag-inappropriate a {
+  background: url(../images/icon_inappropriate.png) no-repeat 3px 3px #bbb;
+}
+
+
+
+
 #main .view-content .links span {
   display: inline;
   margin: 0;
