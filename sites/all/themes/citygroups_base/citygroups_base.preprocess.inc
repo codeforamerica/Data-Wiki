@@ -73,14 +73,15 @@ function citygroups_base_preprocess_page(&$vars) {
     )
   ));
   
-      /* . ' | ' . */
-/*
+  if ($user->uid > 0) {
+    // User is logged in
+  $vars['account_link'] .= ' | ' . 
     l('Logout', 'user/logout', array(
       'attributes' => array(
         'id' => 'logout',
       )
     ));
-*/
+  }
   
   // Temp for wireframing or MVP
   $vars['submit_btn'] = url(drupal_get_path('theme', 'citygroups_base') . '/images/submit-large-overlay.gif');
