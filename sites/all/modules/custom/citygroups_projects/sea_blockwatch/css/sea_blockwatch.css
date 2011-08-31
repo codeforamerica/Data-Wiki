@@ -33,6 +33,10 @@
   padding: 20px;
 }
 
+.map-interface-instructions .element {
+  clear: both;
+}
+
 .map-interface-instructions .element .icon {
   float: left;
   padding: 10px;
