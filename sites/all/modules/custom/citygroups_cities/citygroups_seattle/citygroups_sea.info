@@ -1,9 +1,0 @@
-core = 7.x
-description = Install all the main modules of CityGroups (Seattle).
-name = CityGroups City: Seattle
-package = citygroups
-
-files[] = citygroups_sea.module
-
-; dependencies[] = sea_blockwatch
-; dependencies[] = sea_blockwatch_context
