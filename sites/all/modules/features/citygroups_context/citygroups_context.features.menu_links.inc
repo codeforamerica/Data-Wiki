@@ -33,7 +33,7 @@ function citygroups_context_menu_default_menu_links() {
     'menu_name' => 'menu-citygroups-menu',
     'link_path' => 'categories',
     'router_path' => 'categories',
-    'link_title' => 'Related Groups',
+    'link_title' => 'Categories',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -85,9 +85,9 @@ function citygroups_context_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Add New Group');
+  t('Categories');
   t('Home');
   t('List View');
-  t('Related Groups');
 
 
   return $menu_links;

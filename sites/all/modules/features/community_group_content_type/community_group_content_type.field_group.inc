@@ -49,15 +49,21 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'More',
-    'weight' => '4',
-    'children' => array(),
-    'format_type' => 'fieldset',
+    'label' => 'Location',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_location',
+    ),
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Location',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => 'grid_4',
+        'description' => '',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_categories_advanced|node|community_group|default'] = $field_group;
@@ -97,7 +103,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_categories',
     ),
@@ -105,12 +111,12 @@ function community_group_content_type_field_group_info() {
     'format_settings' => array(
       'label' => 'Categories',
       'instance_settings' => array(
-        'classes' => 'grid_10',
+        'classes' => 'grid_8  push_8 omega',
         'description' => '',
         'effect' => 'none',
         'speed' => 'none',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'open',
     ),
   );
   $export['group_categories|node|community_group|default'] = $field_group;
@@ -248,14 +254,14 @@ function community_group_content_type_field_group_info() {
     'label' => 'More',
     'weight' => '5',
     'children' => array(),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'More',
+      'formatter' => 'collapsible',
       'instance_settings' => array(
+        'effect' => 'none',
+        'speed' => 'fast',
         'classes' => '',
-        'description' => '',
       ),
-      'formatter' => 'collapsed',
     ),
   );
   $export['group_group|node|community_group|default'] = $field_group;
@@ -293,22 +299,21 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_address',
       1 => 'field_city',
       2 => 'field_county',
-      3 => 'field_location',
-      4 => 'field_location_description',
-      5 => 'field_neighborhood',
-      6 => 'field_state',
-      7 => 'field_zipcode',
+      3 => 'field_location_description',
+      4 => 'field_neighborhood',
+      5 => 'field_state',
+      6 => 'field_zipcode',
     ),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Location',
       'instance_settings' => array(
-        'classes' => 'grid_6',
+        'classes' => 'grid_4 omega',
         'description' => '',
         'effect' => 'none',
         'speed' => 'none',
@@ -394,7 +399,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -436,7 +441,7 @@ function community_group_content_type_field_group_info() {
     'format_settings' => array(
       'label' => 'Basic Information',
       'instance_settings' => array(
-        'classes' => 'grid_10 alpha',
+        'classes' => 'grid_8 alpha',
         'description' => '',
         'effect' => 'none',
         'speed' => 'none',

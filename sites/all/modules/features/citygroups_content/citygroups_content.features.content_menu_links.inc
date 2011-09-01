@@ -33,7 +33,7 @@ function citygroups_content_content_menu_links_defaults() {
     'menu_name' => 'menu-citygroups-menu',
     'link_path' => 'categories',
     'router_path' => 'categories',
-    'link_title' => 'Related Groups',
+    'link_title' => 'Categories',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -232,6 +232,7 @@ function citygroups_content_content_menu_links_defaults() {
   t('About CityGroups');
   t('About the Groups');
   t('Add New Group');
+  t('Categories');
   t('Community Data');
   t('Contact');
   t('Developers');
@@ -239,7 +240,6 @@ function citygroups_content_content_menu_links_defaults() {
   t('Home');
   t('List View');
   t('Map View');
-  t('Related Groups');
 
 
   return $menu_links;

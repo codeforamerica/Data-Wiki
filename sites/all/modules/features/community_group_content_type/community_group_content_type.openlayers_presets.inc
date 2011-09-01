@@ -19,7 +19,7 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->data = array(
     'width' => '400px',
     'height' => '400px',
-    'image_path' => 'sites/all/themes/datawiki/openlayers/img/',
+    'image_path' => 'sites/all/themes/citygroups_base/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
@@ -102,9 +102,9 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->title = 'CityGroups Map Group Display';
   $openlayers_presets->description = 'Map for CityGroups community group display.';
   $openlayers_presets->data = array(
-    'width' => '400px',
-    'height' => '400px',
-    'image_path' => 'sites/all/themes/datawiki/openlayers/img/',
+    'width' => '200px',
+    'height' => '200px',
+    'image_path' => 'sites/all/themes/citygroups_base/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
