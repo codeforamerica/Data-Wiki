@@ -27,19 +27,15 @@ function citygroups_city_help($path, $arg) {
  */
 function citygroups_city_menu() {
   $items['citygroups/main'] = array(
-    'title' => 'Configure CityGroups',
-    'page callback' => 'citygroups_city_main_render',
-    'page arguments' => array(t('Configure CityGroups')),
-    'access callback' => TRUE,
+    'title' => 'CityGroups Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('citygroups_city_edit_form'),
+    'access arguments' => array('administer users'),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+    'file' => 'citygroups_city.admin.inc',
   );
   return $items;
 }
 
 include('citygroups_city.blocks.inc.php');
-
-/**
- * Main CityGroups Configuration Page.
- */
-function citygroups_city_main_render() {
-  return "Main";
-}
