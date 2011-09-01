@@ -1,6 +1,5 @@
 ;core = 7.x-dev
 
-
 ;projects[] = "drupal"
 ; Modules
 ;projects[admin][subdir] = "contrib"

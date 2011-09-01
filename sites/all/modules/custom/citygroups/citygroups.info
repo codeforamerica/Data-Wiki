@@ -82,7 +82,6 @@ dependencies[] = user_reference
 dependencies[] = uuid
 dependencies[] = uuid_node
 dependencies[] = views
-
 dependencies[] = views_json
 dependencies[] = views_ui
 dependencies[] = wysiwyg
@@ -92,29 +91,28 @@ dependencies[] = views_data_export
 dependencies[] = feeds
 dependencies[] = geofield
 
-; Features
-dependencies[] = citygroups_views
-dependencies[] = citygroups_feed_taxonomy_categories
-dependencies[] = citygroups_basic_page
-dependencies[] = citygroups_context
-dependencies[] = citygroups_content
-dependencies[] = citygroups_developer
-
-
-dependencies[] = citygroups_community_group_install 
-dependencies[] = community_group_content_type
-dependencies[] = citygroups_permissions
-dependencies[] = citygroups_site_settings
-dependencies[] = community_group_upload_csv
-dependencies[] = community_group_feed_csv_upload
-dependencies[] = community_group_views
-
 ; Custom Modules for CityGroups
 dependencies[] = citygroups_group_categories
 dependencies[] = citygroups_group_map
 dependencies[] = citygroups_splash
 dependencies[] = community_group_form
 dependencies[] = views_number_results
+
+; Features
+dependencies[] = citygroups_feed_taxonomy_categories
+dependencies[] = citygroups_basic_page
+dependencies[] = community_group_content_type
+dependencies[] = community_group_upload_csv
+dependencies[] = community_group_feed_csv_upload
+dependencies[] = citygroups_content
+dependencies[] = citygroups_views
+dependencies[] = citygroups_context
+dependencies[] = citygroups_developer
+
+dependencies[] = citygroups_site_settings
+;dependencies[] = citygroups_permissions
+
+; ##############################################################################
 
 ; Drush output of enabled modules.
 ; -- Indicated installed locally, but not part of the core distribution.
