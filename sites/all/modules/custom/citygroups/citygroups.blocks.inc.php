@@ -107,7 +107,7 @@ function citygroups_contents($type) {
       break;
 
     case 'site_slogan':
-      $output .= '<h3>' . t('A public directory of community groups in the Seattle area.') . '</h3>';
+      $output .= '<h3>' . t('A public directory of community groups in the your city.') . '</h3>';
       break;
       
     case 'branding_header':
@@ -138,7 +138,7 @@ function citygroups_contents($type) {
 
             <div class=\"grid_6 view-data section alpha\">
               <h3>Search for Groups</h3>
-              <p>Since starting the project, we have located about 1,000 community groups in Seattle.</p>" .
+              <p>[Project Status]</p>" .
               
 /*
               "<div id=\"search-map\" class=\"form-input\">
@@ -155,7 +155,7 @@ function citygroups_contents($type) {
            
             <div class=\"grid_6  push_2  add-new-group section omega\">
               <h3>Know community groups that should be listed?</h3>
-              <p>Anyone can suggest a group. Groups should be based in Seattle, and do work to make Seattle better.</p>
+              <p>Anyone can suggest a group. Groups should be based in {City}, and do work to make {City} better.</p>
               <div class=\"button\"><a href=\"/node/add/community-group\">Add New Group</a></div>
             </div>    
 
@@ -164,10 +164,7 @@ function citygroups_contents($type) {
           <div class=\"grid_16 sections\">
             <div class=\"grid_6 news section alpha\">
               <h3>News</h3>
-              
-              <h5>We're mapping Block Watch Captains</h5>
-              <p>Our first project to find local community groups is a <a href=\"/blockwatch\">
-              Block Watch Captain Directory.</a></p>
+              <p>{NEWS}</p>
               
             </div>    
             <div class=\"grid_6 push_2 promote section omega\">

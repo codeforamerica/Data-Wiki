@@ -3,37 +3,37 @@
 /**
  * Implements hook_block_info().
  */
-function citygroups_seattle_block_info() {
-  $blocks['citygroups_seattle_welcome'] = array(
+function citygroups_sea_block_info() {
+  $blocks['citygroups_sea_welcome'] = array(
     'info' => t('Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_seattle_branding_header'] = array(
+  $blocks['citygroups_sea_branding_header'] = array(
     'info' => t('Branding Header'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_seattle_branding_footer'] = array(
+  $blocks['citygroups_sea_branding_footer'] = array(
     'info' => t('Branding Footer'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_seattle_site_slogan'] = array(
+  $blocks['citygroups_sea_site_slogan'] = array(
     'info' => t('Site Slogan'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_seattle_facebook_like'] = array(
+  $blocks['citygroups_sea_facebook_like'] = array(
     'info' => t('Facebook Like'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_seattle_home_content'] = array(
+  $blocks['citygroups_sea_home_content'] = array(
     'info' => t('Home Content'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_seattle_about'] = array(
+  $blocks['citygroups_sea_about'] = array(
     'info' => t('About'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
 /*
-  $blocks['citygroups_seattle_map'] = array(
+  $blocks['citygroups_sea_map'] = array(
     'info' => t('Map'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
@@ -44,34 +44,34 @@ function citygroups_seattle_block_info() {
 /**
  * Implements hook_block_view().
  */
-function citygroups_seattle_block_view($delta = '') {
+function citygroups_sea_block_view($delta = '') {
   switch ($delta) {
-    case 'citygroups_seattle_welcome':
+    case 'citygroups_sea_welcome':
       $block['subject'] = '';
-      $block['content'] = citygroups_seattle_contents('welcome');
+      $block['content'] = citygroups_sea_contents('welcome');
       break;
       
-    case 'citygroups_seattle_branding_header':
+    case 'citygroups_sea_branding_header':
       $block['subject'] = '';
-      $block['content'] = citygroups_seattle_contents('branding_header');
+      $block['content'] = citygroups_sea_contents('branding_header');
       break;
       
-    case 'citygroups_seattle_branding_footer':
+    case 'citygroups_sea_branding_footer':
       $block['subject'] = '';
-      $block['content'] = citygroups_seattle_contents('branding_footer');
+      $block['content'] = citygroups_sea_contents('branding_footer');
       break;     
 
-    case 'citygroups_seattle_site_slogan':
+    case 'citygroups_sea_site_slogan':
       $block['subject'] = '';
-      $block['content'] = citygroups_seattle_contents('site_slogan');
+      $block['content'] = citygroups_sea_contents('site_slogan');
       break;
 
-    case 'citygroups_seattle_about_citygroups':
+    case 'citygroups_sea_about_citygroups':
       $block['subject'] = '';
-      $block['content'] = citygroups_seattle_contents('about_citygroups');
+      $block['content'] = citygroups_sea_contents('about_citygroups');
       break;         
 
-    case 'citygroups_seattle_facebook_like':
+    case 'citygroups_sea_facebook_like':
       $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
       $url .= '://';
       $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
@@ -80,14 +80,14 @@ function citygroups_seattle_block_view($delta = '') {
       $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
       break;
 
-    case 'citygroups_seattle_home_content':
+    case 'citygroups_sea_home_content':
       $block['subject'] = '';
-      $block['content'] = citygroups_seattle_contents('home_content');
+      $block['content'] = citygroups_sea_contents('home_content');
       break;
 
-    case 'citygroups_seattle_about':
+    case 'citygroups_sea_about':
       $block['subject'] = '';
-      $block['content'] = citygroups_seattle_contents('about');
+      $block['content'] = citygroups_sea_contents('about');
       break; 
 
   }
@@ -97,7 +97,7 @@ function citygroups_seattle_block_view($delta = '') {
 /**
  * Block content for main CityGroups content.
  */
-function citygroups_seattle_contents($type) {
+function citygroups_sea_contents($type) {
   $output = '';
   
   switch ($type) {
@@ -128,7 +128,7 @@ function citygroups_seattle_contents($type) {
       
 /*
       case 'map':
-        $output .= citygroups_seattle_group_map_render();
+        $output .= citygroups_sea_group_map_render();
       break;
 */
       

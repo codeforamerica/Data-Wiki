@@ -109,7 +109,9 @@ dependencies[] = citygroups_context
 dependencies[] = citygroups_developer
 
 dependencies[] = citygroups_site_settings
-;dependencies[] = citygroups_permissions
+; dependencies[] = citygroups_permissions
+
+; dependencies[] = citygroups_sea
 
 ; ##############################################################################
 

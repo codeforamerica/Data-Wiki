@@ -1,8 +1,0 @@
-core = "7.x"
-description = "Seattle CityGroups Installation (modules, dependent features)"
-name = "Seattle CityGroups Install (City Install Example)"
-package = "Features"
-
-; Seattle
-dependencies[] = sea_blockwatch
-dependencies[] = sea_blockwatch_context
