@@ -476,26 +476,6 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: clear community_group_feed_csv_reimport feeds
-  $permissions['clear community_group_feed_csv_reimport feeds'] = array(
-    'name' => 'clear community_group_feed_csv_reimport feeds',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'feeds',
-  );
-
-  // Exported permission: clear community_group_feed_csv_upload feeds
-  $permissions['clear community_group_feed_csv_upload feeds'] = array(
-    'name' => 'clear community_group_feed_csv_upload feeds',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'moderator',
-      2 => 'tester',
-    ),
-    'module' => 'feeds',
-  );
-
   // Exported permission: clear feed_categories feeds
   $permissions['clear feed_categories feeds'] = array(
     'name' => 'clear feed_categories feeds',

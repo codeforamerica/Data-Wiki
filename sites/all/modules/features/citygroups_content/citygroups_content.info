@@ -1,7 +1,7 @@
 core = "7.x"
 dependencies[] = "citygroups_context"
 dependencies[] = "defaultcontent"
-description = "Default Content for citygroups"
+description = "Default Content for CityGroups"
 features[content][] = "about_groups"
 features[content][] = "api"
 features[content][] = "citygroups_page_about"

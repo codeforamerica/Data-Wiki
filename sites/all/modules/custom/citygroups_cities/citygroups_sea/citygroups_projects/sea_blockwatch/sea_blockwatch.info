@@ -1,0 +1,8 @@
+name = Seattle Blockwatch Captain Directory
+description = "Citygroups Blockwatch Captain Directory for Seattle."
+core = 7.x
+package = citygroups
+
+files[] = sea_blockwatch.module
+
+dependencies[] = citygroups_group_map
