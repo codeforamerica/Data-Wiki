@@ -103,7 +103,7 @@ function community_group_content_type_openlayers_presets() {
   $openlayers_presets->description = 'Map for CityGroups community group display.';
   $openlayers_presets->data = array(
     'width' => '300px',
-    'height' => '300px',
+    'height' => '400px',
     'image_path' => 'sites/all/themes/citygroups_base/openlayers/img/',
     'css_path' => '',
     'proxy_host' => '',
