@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * 
+ * This module just triggers loads CityGroups.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function citygroups_seattle_help($path, $arg) {
+  switch ($path) {
+    case 'citygroups_collection':
+      $explanation = t(
+        'Custom content for CityGroups site.');
+      return "<p>$explanation</p>";
+  }
+}
+
+include('citygroups_seattle.blocks.inc.php');

@@ -1,0 +1,6 @@
+core = 7.x
+description = Install all the main modules of CityGroups.
+name = CityGroups City: Seattle
+package = citygroups
+
+files[] = citygroups_seattle.module

@@ -63,7 +63,10 @@ common for other types of citygroups.
 #### citygroups_splash
 #### citygroups_group_form
 
-### citygroups_projects
+### sites/all/custom/citygroups_cities
+#### citygroups_seattle
+
+### sites/all/custom/citygroups_projects
 #### sea_blockwatch
 
 ### views number results
