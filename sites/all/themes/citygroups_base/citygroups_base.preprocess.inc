@@ -58,6 +58,10 @@ function citygroups_base_preprocess_page(&$vars) {
   else {
     $vars['main_region_width'] = 'grid_11 alpha';
   }
+  
+  $vars['number_groups'] = views_embed_view('number_groups', 'default');
+
+
 
   // Create login link
   $account_text = t('Sign in');

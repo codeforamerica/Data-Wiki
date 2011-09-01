@@ -487,40 +487,55 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 #main .links .flag-bookmarks a,
 #main .links .flag-duplicate a,
 #main .links .flag-group_inactive a,
-#main .links .flag-inappropriate a{
-  background: #bbb;
+#main .links .flag-inappropriate a {
+  background: #ddd;
   margin: 5px 5px 0px 0;
   padding: 10px 10px 10px 35px;
-  color: #fff;
+  color: #666;
+  font-size: 80%;
   text-transform: uppercase;
   line-height: 2em;
   display: block;
   float: left;
+  background-repeat: no-repeat;
+  background-position-x: 3px;
+  background-position-y: 3px;
+  filter:alpha(opacity=30);
+  /* CSS3 standard */
+  opacity:0.3;
+}
+
+#main .links .flag-wrapper a:focus,
+#main .links .flag-wrapper a:active,
+#main .links .flag-wrapper a:hover  {
+  filter:alpha(opacity=100);
+  /* CSS3 standard */
+  opacity:1;
 }
 
 #main .view-content .links .flag-like a,
 #main .view-content .links .flag-bookmarks a,
 #main .view-content .links .flag-duplicate a,
 #main .view-content .links .flag-group_inactive a,
-#main .view-content .links .flag-inappropriate a{
+#main .view-content .links .flag-inappropriate a {
   display: inline;
   float: none;
 }
 
 #main .links .flag-like a {
-  background: url(../images/icon_recommended.png) no-repeat 3px 3px #bbb;
+  background-image: url(../images/icon_recommended.png);
 }
 #main .links .flag-bookmarks a {
-  background: url(../images/icon_watch.png) no-repeat 3px 3px #bbb;
+  background-image: url(../images/icon_watch.png);
 }
 #main .links .flag-duplicate a {
-  background: url(../images/icon_duplicate.png) no-repeat 3px 3px #bbb;
+  background-image: url(../images/icon_duplicate.png);
 }
 #main .links .flag-group_inactive a {
-  background: url(../images/icon_dead.png) no-repeat 3px 3px #bbb;
+  background-image: url(../images/icon_dead.png);
 }
 #main .links .flag-inappropriate a {
-  background: url(../images/icon_inappropriate.png) no-repeat 3px 3px #bbb;
+  background-image: url(../images/icon_inappropriate.png);
 }
 
 
@@ -559,8 +574,8 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 }
 
 html.js input.form-autocomplete {
-  background-image: url(../../misc/throbber.gif);
-  background-position: 100% 10px;
+  background: url(../images/throbber.png);
+  background-position: 100% 0;
   background-repeat: no-repeat;
 }
 
@@ -976,4 +991,16 @@ float: left;
 #search-map .search_btn {
   background: #666;
   display: inline;
+}
+
+.block ul, .block ol {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.view-number-groups .view-content,
+.view-number-groups .item-list {
+  display: none;
 }
