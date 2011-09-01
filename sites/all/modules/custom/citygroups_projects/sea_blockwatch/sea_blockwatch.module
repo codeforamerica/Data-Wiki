@@ -1,0 +1,415 @@
+<?php
+
+/**
+ * @file
+ * Custom module that renders and caches a json+leaflet map.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function sea_blockwatch_help($path, $arg) {
+  switch ($path) {
+    case 'sea_blockwatch':
+      $explanation = t(
+        'Custom features for Seattle Blockwatch Finder.');
+      return "<p>$explanation</p>";
+  }
+}
+
+/**
+ * Menu items for Blockwatch.
+ * 
+ * These are connected to the main menus, but the content & forms 
+ * are overwritten.
+ */
+function sea_blockwatch_menu() {
+  $items['blockwatch'] = array(
+    'title' => 'Find the nearest Block Watch Captain',
+    'page callback' => 'sea_blockwatch_home_render',
+    'page arguments' => array(t('Blockwatch Home Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch/map'] = array(
+    'title' => 'Map',
+    'page callback' => 'sea_blockwatch_map_render',
+    'page arguments' => array(t('Blockwatch Map Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch/list'] = array(
+    'title' => 'List',
+    'page callback' => 'sea_blockwatch_list_render',
+    'page arguments' => array(t('Blockwatch List Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch/categories'] = array(
+    'title' => 'Topics',
+    'page callback' => 'sea_blockwatch_categories_render',
+    'page arguments' => array(t('Blockwatch Categories Page')),
+    'access callback' => TRUE,
+  );
+  $items['blockwatch/about'] = array(
+    'title' => 'About',
+    'page callback' => 'sea_blockwatch_about_render',
+    'page arguments' => array(t('Blockwatch About Page')),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Render custom page for blockwatch.
+ */
+function sea_blockwatch_home_render() {
+  $output = "";
+  return $output;
+}
+
+/**
+ * Render custom page for blockwatch.
+ */
+function sea_blockwatch_map_render() {
+  $output = sea_blockwatch_map_render_output();
+  return $output;
+}
+/**
+ * Render custom page for blockwatch.
+ */
+function sea_blockwatch_list_render() {
+  $view = views_get_view('community_groups_list');
+  //dpm($view);
+  $args = array('Block-watch');
+  $view->override_path = 'blockwatch/list';
+  //$output = views_build_view('default', $view, $args);
+  $output = $view->execute_display('default', $args);
+  //$output = views_embed_view('community_groups_list', 'default', 'Block-watch');
+
+  return $output;
+}
+/**
+ * Render custom page for blockwatch.
+ */
+function sea_blockwatch_categories_render() {
+  //@TODO This is where we would load related terms for civic taxonomy web service.
+  
+  $output = '';
+  
+  $output = '
+  <div class="related-categories">
+  <ul class="categories">
+    <li><a href="categories/emergency-preparedness">Emergency Preparedness</a></li>
+    <li><a href="categories/national-night-out">National Night Out</a></li>
+    <li><a href="categories/crime-prevention">Crime Prevention</a></li>
+    <li><a href="categories/public-safety">Public Safety</a></li>
+    <li><a href="categories/block-party">Block Party</a></li>
+  </ul>
+  </div>
+  ';
+  
+  return $output;
+}
+
+/**
+ * Render custom page for blockwatch.
+ */
+function sea_blockwatch_about_render() {
+  $output = "";
+  return $output;
+}
+
+/**
+ * Create variables for theme.
+ */
+function sea_blockwatch_preprocess_page(&$vars) {
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  // Load custom page variables.
+  // This has some ties into the main theme.
+  switch ($vars['page_path']) {
+    case 'blockwatch/about':
+    case 'blockwatch/categories':
+    case 'blockwatch/list':
+    case 'blockwatch/list/Block-watch':
+      sea_blockwatch_page_variables($vars);
+      break;
+    case 'blockwatch/add':   
+    case 'node/add/community-group':
+      if(!empty($_GET['section'])) {
+        $section = $_GET['section'];
+        if($section == 'blockwatch') {
+          sea_blockwatch_page_variables($vars);
+          $vars['title'] = t('Add Block Watch Community');
+        }
+      }
+      break;
+    case 'blockwatch':
+    case 'blockwatch/map': 
+      sea_blockwatch_page_variables($vars);
+      citygroups_group_map_page_variables($vars);
+    break;
+  }
+  // Because of the way nodes are saved, the node title is the only
+  // data that would remain generally consistent between sites.
+  // though you will have to reference the titles yourself if you change them.
+
+  switch ($vars['node']->title) {
+    case 'About':
+    case 'Get Involved':
+    case 'Contact':  // @TODO Contact not working right.
+    case 'Block Watch Captain Directory API':
+      sea_blockwatch_page_variables($vars);
+      break;  
+  }  
+}
+
+function sea_blockwatch_map_render_output() {
+  $output =
+  '<div id="search-map" class="form-input">
+  <input placeholder="Enter your address or zipcode here." class="form-item" />
+  <input type="image" src="' . base_path() . path_to_theme() . '/images/search_button_large.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">
+  </div>
+  <div class="clear"></div>
+  ';
+
+  $output .= '  
+  <div>
+    <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
+    <div id="data"></div>
+  </div>
+
+  <div id="popup-content" class="block">
+      <div class="content">Click map to see where the groups are</div>
+  </div>';
+  return $output;
+}
+
+/**
+ * Alter the community group form (a content type.)
+ */
+function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'community_group_node_form') {
+  
+    global $section;
+    $section = 'blockwatch';
+  
+    if(!empty($_GET['section'])) {
+      $section = $_GET['section'];
+      if($section == 'blockwatch') {
+
+        // Section overrides.
+        $add_variables_array = array(
+          'category' => 'Block Watch, Crime Prevention',
+          'title' => 'Add a Block Watch Captain',
+          'instructions' => 'Add & Map a Block Watch Community or Block Watch Captain to the Block Watch Captain Directory',
+          'map_instructions' => 'Map',
+          'prepare' => 'Preparation instructions here',
+          'privacy' => '
+          
+          <p>The Block Watch Captain Directory is a public directory and map of Block Watches in Seattle.</p>
+          <p>You should use the same caution and Internet safety as you would use on other website. </p>
+          <p>The information you enter is part of an initiative to make local community groups easier to find. As such, the information that appears when logged out is available to others as part of an up-to-date directory of community information. Everyone can see it, your neighbors and the Seattle Police Department.</p>
+          <p>This is sometimes a concern for Block Watch Captains, due to the sensitive nature of their work.</p>
+          <p>To be listed, but still somewhat anonymous, we suggest the following:</p>
+          <ul>
+          <li>Anonymize your identity by not providing your name</li>
+          <li>Use a dedicated email account, and/or a dedicated phone line.</li>
+          </ul>',
+          'name_label' => 'Name Label',
+        );
+
+        if(!empty($add_variables_array['instructions'])) {
+          $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
+        }
+  
+        if(!empty($add_variables_array['prepare'])) {
+          $form['field_prepare']['und']["#description"] = $add_variables_array['prepare'];
+        }
+
+        if(!empty($add_variables_array['privacy'])) {
+          $form['field_privacy']['und']["#description"] = $add_variables_array['privacy'];
+        }
+
+// Label overrides.
+        $form['title']['#title'] = t("Name of Block Watch Captain or Community.");
+        $form['title']['#description'] = '
+          <div class="explanation">What is the name of the Block Watch Captain or Community?</div>
+          <div class="instruction">Enter the name as it should appear publicly on the Internet.</div>
+          <div class="example">8700 Block Watch</div>
+        ';
+        $form['field_url']['und'][0]['#title'] = t("URL");
+        $form['field_url']['und'][0]['#description'] ='
+          <div class="explanation">Is there a link to a webpage for this Block Watch Community? (It\'s OK if you don\'t have one)</div>
+          <div class="instruction">Enter the URL.</div>
+          <div class="example">http://yahoogroups.com/8700-block-watch</div>
+        ';
+        
+        $form['field_email']['und']['#title'] = t("Group Email Address");
+        $form['field_email']['und']['#description'] = '
+          <div class="explanation">You can use a dedicated email for your group. When we launch the tool, the owner of this email address will receive and email asking them if they would like thei email address to be public or if they should be contacted through a web form.</div>
+          <div class="instruction">Email the address for the group.</div>
+          <div class="example">8700-blockwatch@yahoogroups.com</div>
+          ';
+        $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
+        $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
+        $form['field_contact']['und'][0]['value']['#description'] = '
+          <div class="explanation">If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
+          <div class="instruction">Enter the contact information for this group.</div>
+          <div class="example">Just join our Yahoo group to find us.</div>
+          ';
+        $form['field_url_calendar']['und'][0]['#title'] = t("Calendar url");
+        $form['field_url_calendar']['und'][0]['#description'] = '
+          <div class="explanation">If you have a link to an event calendar, you may add it (Most Block Watch Communities do not have an event calendar.)</div>
+          <div class="instruction">Enter the URL that points to the Calendar.</div>
+          <div class="example">http://yahoogroups.com/calendar/8700-block-watch</div>
+          ';
+        //$form['field_source']['und'][0]['value']['#description'] = t("source description");
+        
+/*         dpm($form['field_city']['und']['#default_value']); */
+        $form['field_city']['und']['#default_value'] = t("Seattle");
+        $form['field_state']['und']['#default_value'] = t("WA");
+        //$form['field_city']['und'][0]['value']['#description'] = t("source description");
+        
+        if(!empty($add_variables_array['category'])) {
+          $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
+        }
+    
+        if(!empty($add_variables_array['map_instructions'])) {
+          $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
+        }
+        
+        $access = user_access('administer nodes');
+        if(!$access) {
+          $form['additional_settings']['#access'] = FALSE;
+        }
+    
+        // Custom map interface text.
+        $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
+        $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
+        $form['field_location']['#prefix'] .= '<div class="address-ajax">';
+        $form['field_location']['#prefix'] .= '<div id="search-links">';
+        $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
+        $form['field_location']['#prefix'] .= '<input placeholder="Enter address or zipcode." size=50 class="form-item" id="search-map-input" />';
+        $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_icon-50.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
+        $form['field_location']['#prefix'] .= '</div>';
+        $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
+        $form['field_location']['#prefix'] .= '</div>';
+    
+        $form['field_location']['#suffix'] = '<div class="map-interface-instructions">
+        <h3>You can Draw Shapes on the Map</h3>    
+        <h4>Step 1</h4>
+        <p>Zoom in to your block.</p>
+        <p>Enter your address or intersection. Include your city name.</p>
+        <p>Example: 8400 Genesee Ave. Seattle</p>
+        
+        <p>[move tool] Use the Move tool to move the map around.</p>
+        <p>[point tool] To just draw 1 point instead of a shape, use the Point tool.</p>
+        
+        <h4>Step 2</h4>
+        <p>[shape tool] Use the Shape tool to draw a shape around your block watch.</p>
+        <p>DOUBLE-CLICK to finish drawing your shape.</p>
+        <p>[CLEAR] Click the Clear button to erase your shape and start over.</p>
+       
+        <div class="element"><div class="icon">Help Icon</div><div class="label">Help</div></div>
+        <div class="element"><div class="icon">Move Map Icon</div><div class="label">Move Map</div></div>
+        <div class="element"><div class="icon">Place marker Icon</div><div class="label">Place marker</div></div>
+        <div class="element"><div class="icon">Draw shape Icon</div><div class="label">Draw shape</div></div>
+        <div class="element"><div class="icon">Finish Drawing Icon</div><div class="label">Finish Drawing: Double-click</div></div>
+        <div class="element"><div class="icon">Delete drawing Icon</div><div class="label">Delete drawing</div></div>        
+        </div>';
+        
+        
+        // Add Google API (uses openlayers API key)
+        // @TODO require openlayers.
+        drupal_add_js(
+            'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+            variable_get('openlayers_layers_google_api', 
+              variable_get('googlemap_api_key', '')
+            ), 'external');
+    
+        drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));          
+      }   
+    }
+  }
+}
+
+/** 
+ * Generate settings and return them to the theme.
+ */
+/** 
+ * Generate settings and return them to the theme.
+ */
+function sea_blockwatch_page_variables(&$vars) {
+  if(empty($vars['section'])) {
+    $settings = sea_blockwatch_settings($vars);
+  }
+  else {
+    $settings = $vars['section'];
+  }
+
+  // Custom object of special settings to be integrated with the main theme.
+  $vars['section'] = array();
+  $vars['section']['html_root'] = drupal_get_path('module', 'citygroups_group_map');
+  $vars['section']['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
+  $vars['section']['page_title'] = t('Map');
+  $vars['section']['section_name'] = "Block Watch Captain Directory";
+  $vars['section']['place'] = "Seattle";
+  $vars['section']['theme'] = "citygroups_blockwatch";
+  $vars['section']['term'] = "Block-watch";
+  $vars['section']['javascript_settings'] = $settings['javascript_settings'];
+
+  // Add javascript.
+
+  // Add Google API (uses openlayers API key)
+  // @TODO require openlayers.
+  drupal_add_js(
+      'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+      variable_get('openlayers_layers_google_api', 
+        variable_get('googlemap_api_key', '')
+      ), 'external');
+
+  // Pass javascript settings into container variable.
+  $citygroups_js_settings = array();
+  $citygroups_js_settings['citygroups'] = $settings['javascript_settings'];
+  drupal_add_js($citygroups_js_settings, 'setting');
+  
+  // Add special stylesheet.
+  drupal_add_css(drupal_get_path('module', 'sea_blockwatch') . '/css/sea_blockwatch.css', array('group' => CSS_THEME));
+}
+
+/**
+ * Generate settings that will be used in javascript.
+ * Can be overriden in submodules.
+ */
+function sea_blockwatch_settings() {
+  global $section;
+  $section = 'blockwatch';
+  $section_term = 'Block-watch';
+  $settings = array();
+  $settings['html_root'] = drupal_get_path('module', 'citygroups_group_map');
+  $settings['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sea_blockwatch.)
+  // Set the theme.  
+  $settings['theme'] = "citygroups_base";
+  $settings['term'] = $section_term;
+  $settings['javascript_settings'] = array();
+  $settings['javascript_settings']['customMapDataPath'] = 'data/community-group/map/' . $section_term;
+  $settings['javascript_settings']['mapColors'] = array();
+  $settings['javascript_settings']['mapColors']['color'] = "#2796F2";
+  $settings['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";
+  $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
+  $settings['javascript_settings']['mapColors']['weight'] = 1;
+  $settings['javascript_settings']['mapColors']['opacity'] = 1;
+  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/images/map-marker.png";
+  $settings['javascript_settings']['mapMarkerIconShadowUrl'] =  "";
+  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(30,30);
+  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(30,30);
+  $settings['javascript_settings']['mapMarkerIconAnchor'] = array(15,15);
+  $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(15,15);
+  $settings['javascript_settings']['legendLabelMarker'] = t('Block Watch Captain');
+  $settings['javascript_settings']['legendLabelData'] = t('Block Watch Communities');
+  return $settings;
+}
+
+include('sea_blockwatch.blocks.inc.php');

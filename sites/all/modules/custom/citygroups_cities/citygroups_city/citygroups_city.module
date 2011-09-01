@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * 
+ * This module just triggers loads CityGroups.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function citygroups_city_help($path, $arg) {
+  switch ($path) {
+    case 'citygroups_city':
+      $explanation = t(
+        'Custom content for CityGroups Seattle.');
+      return "<p>$explanation</p>";
+  }
+}
+
+
+/**
+ * Menu items for Blockwatch.
+ * 
+ * These are connected to the main menus, but the content & forms 
+ * are overwritten.
+ */
+function citygroups_city_menu() {
+  $items['citygroups/main'] = array(
+    'title' => 'Configure CityGroups',
+    'page callback' => 'citygroups_city_main_render',
+    'page arguments' => array(t('Configure CityGroups')),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+include('citygroups_city.blocks.inc.php');
+
+/**
+ * Main CityGroups Configuration Page.
+ */
+function citygroups_city_main_render() {
+  return "Main";
+}

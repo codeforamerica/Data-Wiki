@@ -111,8 +111,12 @@ dependencies[] = citygroups_developer
 dependencies[] = citygroups_site_settings
 dependencies[] = citygroups_permissions
 
-dependencies[] = citygroups_sea
+; City Configuration
+dependencies[] = citygroups_city
 
+; For development
+dependencies[] = sea_blockwatch
+dependencies[] = sea_blockwatch_context
 
 ; ##############################################################################
 

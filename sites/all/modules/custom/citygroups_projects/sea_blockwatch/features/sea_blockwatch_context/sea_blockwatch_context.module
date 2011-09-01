@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Seattle Blockwatch Context feature.
+ */
+
+include_once('sea_blockwatch_context.features.inc');
