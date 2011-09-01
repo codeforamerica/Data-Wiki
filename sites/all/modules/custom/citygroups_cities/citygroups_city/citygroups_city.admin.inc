@@ -10,9 +10,12 @@
  */
 function citygroups_city_edit_form($form, &$form_state, array $rule = array()) {
    $form['introduction'] = array(
-    '#type' => 'markup',
-    '#title' => t('Introduction'),
-    '#default_value' => 'blah',
+    '#markup' => '
+    <p>Set up CityGroups (in progress, not yet fully functional)</p>
+    <p><a href="">Documentation</a></p>
+    <p><a href="">Support</a></p>
+    <p><a href="">Contact</a></p>
+    ',
   );
 
   $form['city_name'] = array(
@@ -24,35 +27,47 @@ function citygroups_city_edit_form($form, &$form_state, array $rule = array()) {
   $form['city_slogan'] = array(
     '#type' => 'textfield',
     '#title' => t('City Slogan'),
-    '#default_vale' => 'Sharing community groups in CityName.',
+    '#default_value' => 'Sharing community groups in CityName.',
     '#description' => 'slogan',
   );
 
   $form['home_content'] = array(
     '#type' => 'textarea',
     '#title' => t('Homepage Markup'),
-    '#default_vale' => 'Homepage markup',
+    '#default_value' => 'Homepage markup',
     '#description' => 'HTML',
   );
 
   $form['about_content'] = array(
     '#type' => 'textarea',
     '#title' => t('About Markup'),
-    '#default_vale' => 'About markup',
+    '#default_value' => 'About markup',
     '#description' => 'HTML',
   );
 
-/*
-
-   $form['city_name'] = array(
-    '#type' => 'checkboxes',
-    '#title' => t('Redirect users with roles'),
-    '#options' => _login_destination_role_options(),
-    '#default_value' => $default_role_options,
-    '#description' => 'Redirect only the selected role(s). If you select no roles, all users will be redirected.',
+  $form['google_API_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google API Key'),
+    '#description' => 'get API key (link)',
   );
-*/
 
+  $form['cloudmade_API_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Cloudmade API Key'),
+    '#description' => 'get Cloudmade API key (link)',
+  );
+
+  $form['google_analytics'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Analytics'),
+    '#description' => 'Google Analytics (link)',
+  );
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
 
   return $form;
 }
