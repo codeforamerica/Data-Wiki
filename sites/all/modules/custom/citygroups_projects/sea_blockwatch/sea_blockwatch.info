@@ -5,5 +5,4 @@ package = citygroups
 
 files[] = sea_blockwatch.module
 
-dependencies[] = citygroups_group_categories
 dependencies[] = citygroups_group_map

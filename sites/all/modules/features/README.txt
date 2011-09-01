@@ -1,55 +1,77 @@
 # About the Features
 
-
-## citygroups Overview
+## CityGroups Overview
 We are using a very simple Features-based framework to set up structured
-data types for the Data Wiki. The citygroups is intended to be an open data
-workbook that allows for offline data collection (mobile apps & printable
- maps) & reconciling crowd-sourced data feeds.
-
+data types for CityGroups.
 
 There are a lot of features, the idea is that each feature is 
 broken into smaller components. 
-This makes the features easier to debug.
+This makes the features easier to debug & easier to work with.
 
 ## Structure
 
 CityGroups is an installation profile that will theme your site, 
 add content pages, and turn on all of the Drupal settings that will 
-give you a citygroups for collecting information on community groups 
+give you a toolset for collecting information on community groups 
 in your city.
 
+#Install Profile
 The install profile lives here: drupal/profiles/citygroups
 
-This install module triggers modules & dependent modules.
+This install module triggers:
+* features 
+* citygroups module
+
 It also installs the theme, user roles and a few custom settings.
 
 
 ## Modules
 sites/all
 There are many modules that need installing, they are installed to
-sites/all like a normal Drupal site. A custom make script could 
-build this. These must be installed before installing CityGroups.
+sites/all like a normal Drupal site. 
 
-If you checkout the Data-Wiki codebase, you should have most of the
-modules. There are a few modules we have checked out from 
+#Make Script
+A custom make script could be used to download and set up the 
+modules & 3rd party libraries.
+ 
+These must be installed before installing CityGroups.
+
+Cloning the CityGroups codebase from GitHub, you should have most of the
+modules. 
+
+There are a few modules we have checked out from 
 git.drupal.org because we are doing active devlopment (ex. geofield, geoPHP).
 
-Be sure you check out the correct branch: 
-currently: citygroups_prealpha_v1.0
 
-You will need to download and install these. (Use the master branch.)
+Be sure you check out the correct branch: 
+currently: citygroups_v2
+
 
 ## Features & Custom Modules Overview
 
-(Will try to keep this up to date.)
 
-citygroups is the core feature that turns on the shared Drupal settings 
-common for other types of citygroupss. For example, in addition to collecting
-crowd-sourced structured data for community groups, you can also collect 
-social services information, information about community gardens, 
-kitchens & farms.
-Lives here: 
+CityGroups is the core module that turns on the shared Drupal settings 
+common for other types of citygroups.
+
+
+## CUSTOM MODULES
+### sites/all/modules/custom/citygroups
+
+#### citygroups
+#### citygroups_group_categories
+#### citygroups_group_map
+#### citygroups_splash
+#### citygroups_group_form
+
+### citygroups_projects
+#### sea_blockwatch
+
+### views number results
+
+
+
+## FEATURES
+
 
 ### citygroups Install Feature
 drupal/sites/all/modules/features/citygroups_install

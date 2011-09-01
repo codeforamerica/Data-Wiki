@@ -1,3 +1,4 @@
+/* $Id: README.txt,v 1.8 2009/09/26 05:37:56 sun Exp $ */
 
 -- SUMMARY --
 
@@ -5,9 +6,9 @@ Wysiwyg API allows to users of your site to use WYSIWYG/rich-text, and other
 client-side editors for editing contents.  This module depends on third-party
 editor libraries, most often based on JavaScript.
 
-For a full description of the module, visit the project page:
+For a full description visit the project page:
   http://drupal.org/project/wysiwyg
-To submit bug reports and feature suggestions, or to track changes:
+Bug reports, feature suggestions and latest developments:
   http://drupal.org/project/issues/wysiwyg
 
 
@@ -20,14 +21,15 @@ To submit bug reports and feature suggestions, or to track changes:
 
 * Install as usual, see http://drupal.org/node/70151 for further information.
 
-* Go to Administration » Configuration » Content authoring » Wysiwyg,
+* Go to Administer > Configuration and modules > Content authoring > Wysiwyg,
   and follow the displayed installation instructions to download and install one
   of the supported editors.
 
 
 -- CONFIGURATION --
 
-* Go to Administration » Configuration » Content authoring » Text formats, and
+* Go to Administer > Configuration and modules > Content authoring > Text
+  formats and
 
   - either configure the Full HTML format, assign it to trusted roles, and
     disable "HTML filter", "Line break converter", and (optionally) "URL filter".
@@ -35,8 +37,8 @@ To submit bug reports and feature suggestions, or to track changes:
   - or add a new text format, assign it to trusted roles, and ensure that above
     mentioned input filters are disabled.
 
-* Setup editor profiles in Administration » Configuration » Content authoring
-  » Wysiwyg.
+* Setup editor profiles in Administer > Configuration and modules > Content
+  authoring > Wysiwyg.
 
 
 -- CONTACT --

@@ -1,3 +1,4 @@
+// $Id: fckeditor-2.6.js,v 1.22 2010/11/13 18:53:15 sun Exp $
 (function($) {
 
 /**

@@ -1,3 +1,4 @@
+// $Id: wysiwyg.init.js,v 1.4 2010/11/13 18:53:15 sun Exp $
 
 Drupal.wysiwyg = Drupal.wysiwyg || { 'instances': {} };
 

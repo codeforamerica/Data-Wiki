@@ -92,7 +92,6 @@ dependencies[] = feeds
 dependencies[] = geofield
 
 ; Custom Modules for CityGroups
-dependencies[] = citygroups_group_categories
 dependencies[] = citygroups_group_map
 dependencies[] = citygroups_splash
 dependencies[] = community_group_form

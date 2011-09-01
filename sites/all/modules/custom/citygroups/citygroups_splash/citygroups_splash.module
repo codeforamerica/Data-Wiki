@@ -137,7 +137,7 @@ function citygroups_splash_block_load($delta) {
  */
 function citygroups_splash_block_site_prealpha() {
 
-  $output .= '<p>' . t('This is a new site, we are understanding how best to make the site useful to Seattleites.') . '</p>';
+  $output .= '<p>' . t('This is a new site, we are understanding how best to make the site useful in your city.') . '</p>';
   $output .= '<p>' . t('We are inviting folks to test the site and add information to it. If you have any questions or thoughts, please ');
   $output .= l('contact us', 'contact') . '</p>';
   

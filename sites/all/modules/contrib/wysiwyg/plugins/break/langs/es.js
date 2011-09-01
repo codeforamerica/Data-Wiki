@@ -1,3 +1,4 @@
+// $Id: es.js,v 1.1 2008/10/25 13:35:51 sun Exp $
 
 tinyMCE.addToLang('break', {
   title: 'Insertar marcador de documento recortado',

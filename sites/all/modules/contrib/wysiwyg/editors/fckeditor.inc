@@ -1,4 +1,5 @@
 <?php
+// $Id: fckeditor.inc,v 1.22 2010/12/19 23:26:56 sun Exp $
 
 /**
  * @file
