@@ -112,14 +112,16 @@ function citygroups_splash_block_view($delta = '') {
     case 'site_welcome':
       $block['subject'] = t('Welcome to CityGroups');
       $block['content'] = citygroups_splash_block_site_welcome();
-      break;
-    case 'site_config':
-      $block['subject'] = t('Get Started');
-      $block['content'] = citygroups_splash_block_site_config();
+      $block['weight'] = 10;
       break;
     case 'site_prealpha':
       $block['subject'] = t('Alpha: This is a new site under active development.');
       $block['content'] = citygroups_splash_block_site_prealpha();
+      $block['weight'] = 15;
+      break;
+    case 'site_config':
+      $block['subject'] = t('Get Started');
+      $block['content'] = citygroups_splash_block_site_config();
       break;
   }
   return $block;
@@ -199,60 +201,16 @@ function citygroups_splash_block_site_config() {
   );
 
   $items[] = array (
-    'title' => 'Watch List',
+    'title' => 'Groups I am Watching',
     'href' => 'manage/dashboard/favorites',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
-    'description' => t('Groups you are watching.'),
+    'description' => t('Groups I am watching.'),
   );
+
   //node/add/community-group-feed-upload-csv
   
 /*   	/manage/duplicates, /manage/inappropriate, /manage/recommended, /manage/inactive, /manage/dashboard/favorites */
   	
-/*
-  $items[] = array (
-    'title' => 'Manage Categories',
-    'href' => 'admin/structure/taxonomy/categories/list',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
-    'description' => t('Once you\'ve imported groups, you can adjust the categories.'),
-  );
-*/
-  
-/*
-  $items[] = array (
-    'title' => 'Export all Groups as CSV',
-    'href' => 'data/community-group/csv',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
-    'description' => t('Get a CSV file of all your groups.'),
-  );  
-*/
-/*
-    
-  $items[] = array (
-    'title' => 'Manage Groups',
-    'href' => 'list/manage',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-site-settings'))),        
-    'description' => t('See recently added groups.'),
-  );
-*/
-
-/*
-  $items[] = array (
-    'title' => 'Personalize Site Settings',
-    'href' => 'admin/config/system/site-information',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-site-settings'))),        
-    'description' => t('Change the title, slogan, contact information, and default frontpage settings here.'),
-  );
-*/
-/*
-
-  $items[] = array (
-    'title' => 'Manage Users',
-    'href' => 'admin/people/people',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-roles'))),            
-    'description' => t('Set up accounts for your users, contributors, and site administrators.'),
-  );
-  
-*/
   $content = array ('content' => $items);
   $markup = theme('admin_block_content', $content);
 

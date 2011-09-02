@@ -59,10 +59,10 @@ function community_group_content_type_flag_default_flags() {
     ),
     'flag_short' => 'Watch',
     'flag_long' => 'Watch this group',
-    'flag_message' => 'You are now watching this group.',
+    'flag_message' => 'This post has been added to your watch list.',
     'unflag_short' => 'Stop Watching',
     'unflag_long' => 'Stop watching this group.',
-    'unflag_message' => 'You are no longer watching this group.',
+    'unflag_message' => 'This post has been removed from your watch list.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
     'roles' => array(

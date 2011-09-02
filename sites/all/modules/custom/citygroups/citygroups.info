@@ -13,6 +13,7 @@ core = 7.x
 dependencies[] = block
 dependencies[] = color
 dependencies[] = comment
+dependencies[] = contextual
 dependencies[] = contact
 dependencies[] = dblog
 dependencies[] = email
