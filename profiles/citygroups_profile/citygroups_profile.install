@@ -121,6 +121,12 @@ function citygroups_profile_install() {
   $preauthenticated_role->weight = 6;
   user_role_save($preauthenticated_role);
 
+  $data_contributor_role = new stdClass();
+  $data_contributor_role->name = 'data_contributor';
+  $data_contributor_role->weight = 7;
+  user_role_save($data_contributor_role);
+
+
   // Create a Home link in the main menu.
 /*
   $item = array(

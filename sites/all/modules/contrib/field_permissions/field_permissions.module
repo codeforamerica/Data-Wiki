@@ -1,0 +1,135 @@
+<?php
+
+/**
+ * @file
+ * This is the main script for the Field Permissions module. It merely contains
+ * the implementation of hooks invoked by Drupal core and CCK.
+ * All common functions are externalized into several scripts that are included
+ * on demand to save memory consumption during normal site operation.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function field_permissions_help($path, $arg) {
+  switch ($path) {
+    // Main module help for the Field Permissions module.
+    case 'admin/help#field_permissions':
+      return '<p>' . t('Set field-level permissions to edit or view CCK fields in any node, edit field during node creation, and edit or view permissions for nodes owned by the current user.') . '</p>';
+
+    // Help for the Field Permissions overview page.
+    case 'admin/reports/fields/permissions':
+      return '<p>' . t('Report and troubleshoot field permissions.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function field_permissions_menu() {
+  $items['admin/reports/fields/list'] = array(
+    'title' => 'List',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['admin/reports/fields/permissions'] = array(
+    'title' => 'Permissions',
+    'description' => 'Report and troubleshoot field permissions.',
+    'page callback' => 'field_permissions_overview',
+    'access arguments' => array('administer field permissions'),
+    'file' => 'includes/admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+  );
+
+  // @todo: what to do with non-node objects?
+/*
+  $items['admin/structure/field_permissions/troubleshooting'] = array(
+    'title' => 'Troubleshooting',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('field_permissions_troubleshooting_form'),
+    'access arguments' => array('administer field permissions'),
+    'file' => 'includes/admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+  $items['field_permissions/autocomplete'] = array(
+    'title' => 'Field permissions autocomplete',
+    'page callback' => 'field_permissions_autocomplete',
+    'access arguments' => array('administer field permissions'),
+    'file' => 'includes/admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+//*/
+  return $items;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function field_permissions_theme() {
+  return array(
+    'field_permissions_troubleshooting_form' => array('render element' => 'form', 'file' => 'includes/admin.inc'),
+  );
+}
+
+/**
+ * Implementation of hook_permission().
+ */
+function field_permissions_permission() {
+  module_load_include('inc', 'field_permissions', 'includes/admin');
+  return _field_permissions_permission();
+}
+
+/**
+ * Implements of hook_form_FORM_ID_alter().
+ */
+function field_permissions_form_field_ui_field_edit_form_alter(&$form, $form_state, $form_id) {
+  // Injects the Field Permissions settings on the Edit field tab.
+  module_load_include('inc', 'field_permissions', 'includes/admin');
+  return _field_permissions_field_settings_form_alter($form, $form_state, $form_id);
+}
+
+/**
+ * Implementation of hook_field_access().
+ *
+ * @param $op
+ *   The operation to be performed. Possible values:
+ *   - 'edit'
+ *   - 'view'
+ * @param $field
+ *   The field on which the operation is to be performed.
+ * @param $obj_type
+ *   The type of $object; e.g. 'node' or 'user'.
+ * @param $object
+ *   The object on which the operation is to be performed.
+ * @param $account
+ *   The account to check.
+ *
+ * @return
+ *   FALSE if the operation is not allowed.
+ *   Note when field_access() is invoked, access is granted unless one
+ *   implementation of hook_field_access() explicitly returns FALSE.
+ *
+ * @see field_access()
+ */
+function field_permissions_field_access($op, $field, $obj_type, $object, $account) {
+  // Ignore the request if permissions have not been enabled for this field.
+  $field_permissions = (isset($field['settings']['field_permissions']) && is_array($field['settings']['field_permissions']) ? array_filter($field['settings']['field_permissions']) : array());
+  if (empty($field_permissions)) {
+    return;
+  }
+
+  if ($op == 'view') {
+    if (!empty($field_permissions['view']) || !empty($field_permissions['view own'])) {
+      module_load_include('inc', 'field_permissions', 'includes/field_access');
+      return _field_permissions_field_view_access($field['field_name'], $field_permissions, $obj_type, $object, $account);
+    }
+  }
+  elseif ($op == 'edit') {
+    if (!empty($field_permissions['edit']) || !empty($field_permissions['edit own']) || !empty($field_permissions['create'])) {
+      module_load_include('inc', 'field_permissions', 'includes/field_access');
+      return _field_permissions_field_edit_access($field['field_name'], $field_permissions, $obj_type, $object, $account);
+    }
+  }
+}
