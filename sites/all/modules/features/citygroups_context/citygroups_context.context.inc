@@ -82,6 +82,12 @@ function citygroups_context_context_default_contexts() {
         'user*' => 'user*',
         'home' => 'home',
         'admin/dashboard' => 'admin/dashboard',
+        'citygroups' => 'citygroups',
+        'citygroups*' => 'citygroups*',
+        'dashboard' => 'dashboard',
+        'dashboard*' => 'dashboard*',
+        'manage' => 'manage',
+        'manage*' => 'manage*',
       ),
     ),
   );
@@ -182,7 +188,7 @@ function citygroups_context_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'dashboard';
   $context->description = '';
-  $context->tag = 'admin';
+  $context->tag = 'citygroups';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -193,9 +199,9 @@ function citygroups_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-dashboard-block' => array(
+        'views-community_groups_list-block_1' => array(
           'module' => 'views',
-          'delta' => 'dashboard-block',
+          'delta' => 'community_groups_list-block_1',
           'region' => 'sidebar_second',
           'weight' => '-10',
         ),
@@ -206,7 +212,7 @@ function citygroups_context_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('admin');
+  t('citygroups');
   $export['dashboard'] = $context;
 
   return $export;

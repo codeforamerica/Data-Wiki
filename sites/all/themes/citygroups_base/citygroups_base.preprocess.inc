@@ -71,7 +71,18 @@ function citygroups_base_preprocess_page(&$vars) {
     $account_text = t('My Account');
   }
   
-  $vars['account_link'] = l($account_text, 'user', array(
+  $vars['account_link'] = '';
+  
+  if ($user->uid > 0) {
+  $vars['account_link'] .= l('Dashboard', 'admin/dashboard', array(
+      'attributes' => array(
+        'id' => 'dashboard',
+      )
+    )) . ' | ' ;
+  }
+  
+  
+  $vars['account_link'] .= l($account_text, 'user', array(
     'attributes' => array(
       'id' => 'signin',
     )

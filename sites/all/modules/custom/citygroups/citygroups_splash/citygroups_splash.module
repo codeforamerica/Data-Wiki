@@ -185,19 +185,29 @@ function citygroups_splash_block_site_config() {
 */
   
   $items[] = array (
-    'title' => 'Add One Group',
+    'title' => 'Add a Community Group',
     'href' => 'node/add/community-group',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Add a Community Group'),
   );
   
   $items[] = array (
-    'title' => 'Data Standard for Community Groups',
+    'title' => 'Add a list of groups: Data Standard for Community Groups',
     'href' => 'data-standard-community-groups',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Find out how to format your CSV file.'),
   );
 
+  $items[] = array (
+    'title' => 'Watch List',
+    'href' => 'manage/dashboard/favorites',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
+    'description' => t('Groups you are watching.'),
+  );
+  //node/add/community-group-feed-upload-csv
+  
+/*   	/manage/duplicates, /manage/inappropriate, /manage/recommended, /manage/inactive, /manage/dashboard/favorites */
+  	
 /*
   $items[] = array (
     'title' => 'Manage Categories',
