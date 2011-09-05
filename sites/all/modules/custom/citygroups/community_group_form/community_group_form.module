@@ -139,31 +139,45 @@ function community_group_form_node_insert($node) {
       
       
       // @TODO: add a setting for the user, to automatically watch everything 
-      // they contribute & automatically recomment every node they make.
-      if(($value != 0) && !empty($value)) {
-        foreach($flags as $key => $flag) {
-          $result = flag('flag', $flag, $node->nid); 
-          if (!$result) {
-            // drupal_set_message(t('Content not flagged, ' . $flag));
-          }    
-          else {
-            // drupal_set_message(t('Content is flagged, ' . $flag));          
+       
+      // Automatically watch all imported content.
+/*
+      if ($field == 'field_import_flag_watch') {
+        $result = flag('flag', 'bookmarks', $node->nid); 
+        if (!$result) {
+           drupal_set_message(t('Content not flagged, bm'));
+        }    
+        else {
+           drupal_set_message(t('Content is flagged, bm'));          
+        }     
+      }
+      else{  
+*/
+        // they contribute & automatically recomment every node they make.
+        if(($value != 0) && !empty($value)) {
+          foreach($flags as $key => $flag) {
+            $result = flag('flag', $flag, $node->nid);
+            if (!$result) {
+              drupal_set_message(t('Content not flagged, ' . $flag));
+            }    
+            else {
+              drupal_set_message(t('Content is flagged, ' . $flag));          
+            }
           }
         }
-      }
-      // Unflag all feed nodes if value is not set.
-      else {
-        foreach($flags as $key => $flag) {
-          $result = flag('unflag', $flag, $node->nid);
-          if (!$result) {
-            // drupal_set_message(t('Content not unflagged, ' . $flag));
-          } 
-          else {
-            // drupal_set_message(t('Content is unflagged, ' . $flag));          
+        // Unflag all feed nodes if value is not set.
+        else {
+          foreach($flags as $key => $flag) {
+            $result = flag('unflag', $flag, $node->nid);
+            if (!$result) {
+              drupal_set_message(t('Content not unflagged, ' . $flag));
+            } 
+            else {
+              drupal_set_message(t('Content is unflagged, ' . $flag));          
+            }
           }
         }
-      }
-      
+     /*  } */
 
 /*
         // @TODO: Unset the import fields?

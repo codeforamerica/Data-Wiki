@@ -61,33 +61,9 @@ function citygroups_context_context_default_contexts() {
   $context->description = 'Sitewide settings for CityGroups';
   $context->tag = 'citygroups';
   $context->conditions = array(
-    'path' => array(
+    'sitewide' => array(
       'values' => array(
-        '<front>' => '<front>',
-        'map' => 'map',
-        'list' => 'list',
-        'about' => 'about',
-        'contact' => 'contact',
-        'topics' => 'topics',
-        'categories' => 'categories',
-        'get-involved' => 'get-involved',
-        'community-data-api' => 'community-data-api',
-        'projects' => 'projects',
-        'node/*' => 'node/*',
-        'blockwatch' => 'blockwatch',
-        'blockwatch*' => 'blockwatch*',
-        'search' => 'search',
-        'search*' => 'search*',
-        'user' => 'user',
-        'user*' => 'user*',
-        'home' => 'home',
-        'admin/dashboard' => 'admin/dashboard',
-        'citygroups' => 'citygroups',
-        'citygroups*' => 'citygroups*',
-        'dashboard' => 'dashboard',
-        'dashboard*' => 'dashboard*',
-        'manage' => 'manage',
-        'manage*' => 'manage*',
+        1 => 1,
       ),
     ),
   );
@@ -159,7 +135,7 @@ function citygroups_context_context_default_contexts() {
         'map' => 'map',
         'list' => 'list',
         'categories' => 'categories',
-        'node/add/community-groups' => 'node/add/community-groups',
+        'node/add/community-group' => 'node/add/community-group',
       ),
     ),
   );

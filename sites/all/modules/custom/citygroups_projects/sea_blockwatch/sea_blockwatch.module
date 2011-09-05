@@ -150,6 +150,7 @@ function sea_blockwatch_preprocess_page(&$vars) {
   // Because of the way nodes are saved, the node title is the only
   // data that would remain generally consistent between sites.
   // though you will have to reference the titles yourself if you change them.
+/*
 
   switch ($vars['node']->title) {
     case 'About':
@@ -158,7 +159,8 @@ function sea_blockwatch_preprocess_page(&$vars) {
     case 'Block Watch Captain Directory API':
       sea_blockwatch_page_variables($vars);
       break;  
-  }  
+  }
+*/  
 }
 
 function sea_blockwatch_map_render_output() {

@@ -589,7 +589,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '23',
+        'weight' => '24',
       ),
     ),
   );
@@ -984,7 +984,15 @@ function community_group_content_type_field_default_fields() {
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'email',
-      'settings' => array(),
+      'settings' => array(
+        'field_permissions' => array(
+          'create' => 'create',
+          'edit' => 'edit',
+          'edit own' => 'edit own',
+          'view' => 'view',
+          'view own' => 'view own',
+        ),
+      ),
       'translatable' => '1',
       'type' => 'email',
     ),
@@ -1810,7 +1818,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '21',
+        'weight' => '22',
       ),
     ),
   );
@@ -1958,7 +1966,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -2256,7 +2264,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '24',
+        'weight' => '25',
       ),
     ),
   );
@@ -2411,7 +2419,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -2662,7 +2670,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '5',
+        'weight' => '3',
       ),
     ),
   );
@@ -2741,7 +2749,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '22',
+        'weight' => '23',
       ),
     ),
   );

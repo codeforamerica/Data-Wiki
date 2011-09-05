@@ -5,15 +5,15 @@
  */
 function sea_blockwatch_block_info() {
   $blocks['sea_blockwatch_welcome'] = array(
-    'info' => t('Welcome Message'),
+    'info' => t('Seattle Blockwatch: Welcome Message'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   $blocks['sea_blockwatch_home_content'] = array(
-    'info' => t('Home Content'),
+    'info' => t('Seattle Blockwatch: Home Content'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   $blocks['sea_blockwatch_about'] = array(
-    'info' => t('About'),
+    'info' => t('Seattle Blockwatch: About'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
   return $blocks;

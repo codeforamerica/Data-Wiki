@@ -63,8 +63,7 @@ function sea_blockwatch_context_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'blockwatch' => 'blockwatch',
-        'blockwatch*' => 'blockwatch*',
+        'blockwatch/*' => 'blockwatch/*',
         'node/add/community-group?section=blockwatch' => 'node/add/community-group?section=blockwatch',
       ),
     ),
