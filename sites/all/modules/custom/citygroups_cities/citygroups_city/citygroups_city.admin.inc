@@ -15,6 +15,15 @@ function citygroups_city_edit_form($form, &$form_state, array $rule = array()) {
     <p><a href="">Documentation</a></p>
     <p><a href="">Support</a></p>
     <p><a href="">Contact</a></p>
+
+    <h3>Configure API Keys</h3>
+    <ul>
+      <li><a href="/admin/config/system/googleanalytics">Google Analytics</a></li>
+      <li><a href="/admin/build/openlayers/layers/settings">Set Map API Keys (Google & Cloudmade.)</a></li>
+      <li><a href="/admin/config/content/mollom/settings">Mollom, spam protection</a></li>
+      <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
+      <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li> (or change in code...)
+    </ul>
     ',
   );
 
@@ -46,6 +55,7 @@ function citygroups_city_edit_form($form, &$form_state, array $rule = array()) {
     '#description' => 'HTML',
   );
 
+/*
   $form['google_analytics'] = array(
     '#type' => 'textfield',
     '#title' => t('Google Analytics'),
@@ -66,6 +76,7 @@ function citygroups_city_edit_form($form, &$form_state, array $rule = array()) {
     '#description' => 'get API key (link)',
     '#default_value' =>  variable_get('citygroups_cloudmade_api_key', array()),
   );
+*/
 
   return system_settings_form($form);
 }
