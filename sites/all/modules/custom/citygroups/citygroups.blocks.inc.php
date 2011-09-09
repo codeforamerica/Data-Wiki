@@ -155,7 +155,7 @@ function citygroups_contents($type) {
            
             <div class=\"grid_6  push_2  add-new-group section omega\">
               <h3>Know community groups that should be listed?</h3>
-              <p>Anyone can suggest a group. Groups should be based in {City}, and do work to make {City} better.</p>
+              <p>Anyone can suggest a group. Groups should be based in " . ", and do work to make {City} better.</p>
               <div class=\"button\"><a href=\"/node/add/community-group\">Add New Group</a></div>
             </div>    
 

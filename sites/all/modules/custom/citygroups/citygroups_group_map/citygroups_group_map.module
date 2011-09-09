@@ -20,6 +20,7 @@ function citygroups_group_map_help($path, $arg) {
 /**
  * Implementatation of hook_menu().
  */
+/*
 function citygroups_group_map_menu() {
   $items['map'] = array(
     'title' => 'Map',
@@ -29,6 +30,7 @@ function citygroups_group_map_menu() {
   );
   return $items;
 }
+*/
 
 /**
  * Implements hook_cron_job_scheduler_info().

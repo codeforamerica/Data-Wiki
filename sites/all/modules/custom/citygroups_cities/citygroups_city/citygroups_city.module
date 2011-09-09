@@ -35,7 +35,183 @@ function citygroups_city_menu() {
     'weight' => 1,
     'file' => 'citygroups_city.admin.inc',
   );
+
+  $items['home'] = array(
+    'title' => 'CityGroups City Home Page',
+    'page callback' => 'citygroups_city_about_groups_render',
+    'page arguments' => array(t('CityGroups City About Groups Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_header',
+  );
+
+  $items['map'] = array(
+    'title' => 'CityGroups City Map Page',
+    'page callback' => 'citygroups_city_map_render',
+    'page arguments' => array(t('CityGroups City Map Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_header',
+  );
+
+
+
+
+
+
+
+
+
+  $items['about/groups'] = array(
+    'title' => 'CityGroups City About Groups Page',
+    'page callback' => 'citygroups_city_about_groups_render',
+    'page arguments' => array(t('CityGroups City About Groups Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_postscript',
+  );
+
+  $items['get-involved'] = array(
+    'title' => 'CityGroups City Get Involved Page',
+    'page callback' => 'citygroups_city_get_involved_render',
+    'page arguments' => array(t('CityGroups City Get Involved Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_postscript',
+  );
+
+  $items['api'] = array(
+    'title' => 'CityGroups City API Page',
+    'page callback' => 'citygroups_city_api_render',
+    'page arguments' => array(t('CityGroups City API Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_postscript',
+  );  
+
+  $items['about'] = array(
+    'title' => 'CityGroups City About Page',
+    'page callback' => 'citygroups_city_about_render',
+    'page arguments' => array(t('CityGroups City About Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_footer',
+  );
+
+  $items['developers'] = array(
+    'title' => 'CityGroups City Developers',
+    'page callback' => 'citygroups_city_developers_render',
+    'page arguments' => array(t('CityGroups City Developers Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_footer',
+  );  
+
+  $items['community-data'] = array(
+    'title' => 'CityGroups City Community Data',
+    'page callback' => 'citygroups_city_community_data_render',
+    'page arguments' => array(t('CityGroups City Community Data Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_footer',
+  );
+
+  $items['welcome'] = array(
+    'title' => 'CityGroups City Welcome',
+    'page callback' => 'citygroups_city_welcome_render',
+    'page arguments' => array(t('CityGroups City Welcome Page')),
+    'access callback' => TRUE,
+  );
+
   return $items;
 }
 
 include('citygroups_city.blocks.inc.php');
+
+function citygroups_city_about_groups_render() {
+  return "about groups";
+}
+
+function citygroups_city_get_involved_render() {
+  return "get involved";
+}
+
+function citygroups_city_developers_render() {
+  return "devs";
+}
+
+function citygroups_city_api_render() {
+  return "api";
+}
+
+function citygroups_city_about_render() {
+  return "about";
+}
+
+function citygroups_city_welcome_render() {
+  return "welcome";
+}
+
+function citygroups_city_community_data_render() {
+  return "com data";
+}
+
+
+function citygroups_city_init() {
+
+  $menu = array(
+    'menu_name' => 'citygroups_header',
+    'title' => 'CityGroups Header - module',
+    'description' => '',
+  );
+  menu_save($menu);
+
+  $menu = array(
+    'menu_name' => 'citygroups_footer',
+    'title' => 'CityGroups Footer - module',
+    'description' => '',
+  );
+  menu_save($menu);
+  
+  
+  $menu = array(
+    'menu_name' => 'citygroups_postscript',
+    'title' => 'CityGroups Postscript - module',
+    'description' => '',
+  );
+    
+  menu_save($menu);
+
+  $item = array(
+    'link_path' => 'contact',
+    'link_title' => 'Contact',
+    'menu_name' => 'citygroups_postscript',
+  );
+
+  menu_link_save($item);
+
+  $item = array(
+    'link_path' => 'node/add/community-group',
+    'link_title' => 'Add New',
+    'menu_name' => 'citygroups_header',
+  );
+
+  menu_link_save($item);
+
+  $item = array(
+    'link_path' => 'list',
+    'link_title' => 'List',
+    'menu_name' => 'citygroups_header',
+  );
+
+  menu_link_save($item);
+
+  $item = array(
+    'link_path' => 'categories',
+    'link_title' => 'Categories',
+    'menu_name' => 'citygroups_header',
+  );
+
+  menu_link_save($item);
+  
+}

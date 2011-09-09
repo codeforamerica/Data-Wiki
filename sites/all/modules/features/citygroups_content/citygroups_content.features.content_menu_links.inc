@@ -100,8 +100,8 @@ function citygroups_content_content_menu_links_defaults() {
     'expanded' => '0',
     'weight' => '-47',
   );
-  // Exported menu link: menu-footer-menu:node/6052
-  $menu_links['menu-footer-menu:node/6052'] = array(
+  // Exported menu link: menu-footer-menu:node/10
+  $menu_links['menu-footer-menu:node/10'] = array(
     'menu_name' => 'menu-footer-menu',
     'link_path' => 'node-name/citygroups_page_about',
     'router_path' => 'node/%',
@@ -118,8 +118,8 @@ function citygroups_content_content_menu_links_defaults() {
     'expanded' => '0',
     'weight' => '-50',
   );
-  // Exported menu link: menu-footer-menu:node/6043
-  $menu_links['menu-footer-menu:node/6043'] = array(
+  // Exported menu link: menu-footer-menu:node/7
+  $menu_links['menu-footer-menu:node/7'] = array(
     'menu_name' => 'menu-footer-menu',
     'link_path' => 'node-name/community_data',
     'router_path' => 'node/%',
@@ -136,8 +136,8 @@ function citygroups_content_content_menu_links_defaults() {
     'expanded' => '0',
     'weight' => '-47',
   );
-  // Exported menu link: menu-footer-menu:node/6042
-  $menu_links['menu-footer-menu:node/6042'] = array(
+  // Exported menu link: menu-footer-menu:node/1
+  $menu_links['menu-footer-menu:node/1'] = array(
     'menu_name' => 'menu-footer-menu',
     'link_path' => 'node-name/developers',
     'router_path' => 'node/%',
@@ -172,8 +172,8 @@ function citygroups_content_content_menu_links_defaults() {
     'expanded' => '0',
     'weight' => '-48',
   );
-  // Exported menu link: menu-postscript-menu:node/6048
-  $menu_links['menu-postscript-menu:node/6048'] = array(
+  // Exported menu link: menu-postscript-menu:node/13
+  $menu_links['menu-postscript-menu:node/13'] = array(
     'menu_name' => 'menu-postscript-menu',
     'link_path' => 'node-name/about_groups',
     'router_path' => 'node/%',
@@ -190,8 +190,8 @@ function citygroups_content_content_menu_links_defaults() {
     'expanded' => '0',
     'weight' => '-50',
   );
-  // Exported menu link: menu-postscript-menu:node/6047
-  $menu_links['menu-postscript-menu:node/6047'] = array(
+  // Exported menu link: menu-postscript-menu:node/9
+  $menu_links['menu-postscript-menu:node/9'] = array(
     'menu_name' => 'menu-postscript-menu',
     'link_path' => 'node-name/api',
     'router_path' => 'node/%',
@@ -208,8 +208,8 @@ function citygroups_content_content_menu_links_defaults() {
     'expanded' => '0',
     'weight' => '-47',
   );
-  // Exported menu link: menu-postscript-menu:node/6049
-  $menu_links['menu-postscript-menu:node/6049'] = array(
+  // Exported menu link: menu-postscript-menu:node/12
+  $menu_links['menu-postscript-menu:node/12'] = array(
     'menu_name' => 'menu-postscript-menu',
     'link_path' => 'node-name/citygroups_page_get_involved',
     'router_path' => 'node/%',
