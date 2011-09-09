@@ -1,0 +1,12 @@
+name = SPARQL Endpoints Registry
+description = SPARQL Endpoints Registry
+package = RDF
+core = 7.x
+files[] = sparql_registry.module
+
+; Information added by drupal.org packaging script on 2011-08-08
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "sparql"
+datestamp = "1312763656"
+

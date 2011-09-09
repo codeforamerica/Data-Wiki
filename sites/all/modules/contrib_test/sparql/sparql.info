@@ -1,0 +1,14 @@
+name = SPARQL API
+description = Enables the use of SPARQL queries.
+package = RDF
+dependencies[] = rdf
+dependencies[] = rdfx
+core = 7.x
+files[] = sparql.test
+
+; Information added by drupal.org packaging script on 2011-08-08
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "sparql"
+datestamp = "1312763656"
+

@@ -1,0 +1,14 @@
+name = SPARQL Endpoint
+description = Expose local RDF data in a SPARQL endpoint.
+package = RDF
+dependencies[] = rdfx
+dependencies[] = sparql
+version = VERSION
+core = 7.x
+
+; Information added by drupal.org packaging script on 2011-08-08
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "sparql"
+datestamp = "1312763656"
+

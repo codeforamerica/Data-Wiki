@@ -8,21 +8,20 @@ cityGroups.map.rendered;
 cityGroups.data = {};
 cityGroups.map.form = {};
 var citygroups;
-
 var geocodedAddressResults;
 var geocoder;
-
-
-// Custom search paths.
-cityGroups.paths = {
-    "defaultPath": "/data/community-group/map",
-    "#defaultPath": "/data/community-group/map",
-};
 
 (function($) {
 
 Drupal.behaviors.citygroups_group_map = {
   'attach': function(context, settings) {
+  
+      // Custom search paths.
+      cityGroups.paths = {
+          "defaultPath": Drupal.settings['basePath'] + "data/community-group/map",
+          "#defaultPath": Drupal.settings['basePath'] + "data/community-group/map",
+      };
+  
       // Set up geocoder.
       geocoder = new google.maps.Geocoder();
       
