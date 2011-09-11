@@ -107,7 +107,7 @@ function citygroups_contents($type) {
       break;
 
     case 'site_slogan':
-      $output .= '<h3>' . t('A public directory of community groups in the your city.') . '</h3>';
+      $output .= '<h3>' . t('A public directory of community groups in the your city.')  . '</h3>';
       break;
       
     case 'branding_header':

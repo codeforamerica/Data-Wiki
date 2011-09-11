@@ -376,15 +376,6 @@ function citygroups_base_menu_link($variables) {
         break;
     }
   }
- 
-
-
-
-
-
-
-
-
 
   $element['#attributes']['class'][] .= 'menu-' . $element['#original_link']['mlid'];
 

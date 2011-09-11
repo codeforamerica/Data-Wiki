@@ -121,22 +121,22 @@ strong {
 }
 
 .front h1.title,
-#block-menu-menu-postscript-menu .block-title,
-#block-menu-menu-footer-menu .block-title,
-#block-menu-menu-citygroups-menu .block-title {
+#block-menu-citygroups_postscript .block-title,
+#block-menu-citygroups_footer .block-title,
+#block-menu-citygroups_header .block-title {
   display: none;
 }
-#block-menu-menu-citygroups-menu ul,
-#block-menu-menu-postscript-menu ul,
-#block-menu-menu-footer-menu ul,
-#block-menu-menu-postscript-menu ul li,
-#block-menu-menu-footer-menu ul li {
+#block-menu-citygroups_header ul,
+#block-menu-citygroups_postscript ul,
+#block-menu-citygroups_footer ul,
+#block-menu-citygroups_postscript ul li,
+#block-menu-citygroups_footer ul li {
   margin: 20px 40px 10px 0;
   padding: 0;
 }
 
-#block-menu-menu-postscript-menu li,
-#block-menu-menu-footer-menu li {
+#block-menu-citygroups_postscript li,
+#block-menu-citygroups_footer li {
   list-style: none;
   width: auto;
   float: left;
@@ -145,43 +145,43 @@ strong {
   font-weight: bold;
 }
 
-#block-menu-menu-postscript-menu li a {
+#block-menu-citygroups_postscript li a {
   color: #fff;
 }
 
-#block-menu-menu-citygroups-menu li {
+#block-menu-citygroups_header li {
   list-style: none;
   width: auto;
   float: left;
   margin: 10px 10px 20px 0;
 }
 
-#block-menu-menu-citygroups-menu li a {
+#block-menu-citygroups_header li a {
   background-color: #9E9E9E;
   padding: 10px 15px 10px 30px;
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
 }
-#block-menu-menu-citygroups-menu li a:hover,
-#block-menu-menu-citygroups-menu li a.active {
+#block-menu-citygroups_header li a:hover,
+#block-menu-citygroups_header li a.active {
   color: #ccc;
   background-color: #444546;
 }
 
-#block-menu-menu-citygroups-menu li.home a {
+#block-menu-citygroups_header li.home a {
   background: url(../images/home.png) no-repeat #444546 0 3px;
 }
-#block-menu-menu-citygroups-menu li.map-view a {
+#block-menu-citygroups_header li.map-view a {
   background: url(../images/map.png) no-repeat #444546 0 3px;
 }
-#block-menu-menu-citygroups-menu li.list-view a {
+#block-menu-citygroups_header li.list-view a {
   background: url(../images/list.png) no-repeat #444546 0 3px;
 }
-#block-menu-menu-citygroups-menu li.add-new a {
+#block-menu-citygroups_header li.add-new a {
   background: url(../images/add.png) no-repeat #444546 0 3px;
 }
-#block-menu-menu-citygroups-menu li.categories a {
+#block-menu-citygroups_header li.categories a {
   background: url(../images/related_group.png) no-repeat #444546 0 3px;
 }
 

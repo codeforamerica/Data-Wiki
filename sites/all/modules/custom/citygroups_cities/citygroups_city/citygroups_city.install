@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ */
+ 
+function citygroups_city_install() {
+
+  $menu = array(
+    'menu_name' => 'citygroups_header',
+    'title' => 'CityGroups Header Menu',
+    'description' => '',
+  );
+  menu_save($menu);
+
+  $menu = array(
+    'menu_name' => 'citygroups_footer',
+    'title' => 'CityGroups Footer Menu',
+    'description' => '',
+  );
+  menu_save($menu);
+  
+  
+  $menu = array(
+    'menu_name' => 'citygroups_postscript',
+    'title' => 'CityGroups Postscript Menu',
+    'description' => '',
+  );
+    
+  menu_save($menu);
+
+  $item = array(
+    'link_path' => 'contact',
+    'link_title' => 'Contact',
+    'menu_name' => 'citygroups_postscript',
+    'weight' => -7,
+  );
+
+  menu_link_save($item);
+
+  $item = array(
+    'link_path' => 'node/add/community-group',
+    'link_title' => 'Add New',
+    'menu_name' => 'citygroups_header',
+    'weight' => -6,
+  );
+
+  menu_link_save($item);
+
+  $item = array(
+    'link_path' => 'list',
+    'link_title' => 'List',
+    'menu_name' => 'citygroups_header',
+    'weight' => -7,
+  );
+
+  menu_link_save($item);
+
+  $item = array(
+    'link_path' => 'categories',
+    'link_title' => 'Categories',
+    'menu_name' => 'citygroups_header',
+    'weight' => -5,
+  );
+
+  menu_link_save($item);
+}
