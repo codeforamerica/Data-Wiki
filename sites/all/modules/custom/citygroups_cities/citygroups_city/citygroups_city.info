@@ -3,4 +3,5 @@ description = Configure CityGroups City.
 name = CityGroups City
 package = citygroups
 
+files[] = citygroups_city.install
 files[] = citygroups_city.module

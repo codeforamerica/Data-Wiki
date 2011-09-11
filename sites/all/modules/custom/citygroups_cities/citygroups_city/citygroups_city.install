@@ -8,6 +8,10 @@
  
 function citygroups_city_install() {
 
+  // Update the menu router information.
+  menu_rebuild();
+  dpm("test");
+
   $menu = array(
     'menu_name' => 'citygroups_header',
     'title' => 'CityGroups Header Menu',

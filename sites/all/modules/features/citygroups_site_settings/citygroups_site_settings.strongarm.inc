@@ -760,7 +760,7 @@ After confirming your email address, you will be able to log in to [site:name] u
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_frontpage';
-  $strongarm->value = 'node/1';
+  $strongarm->value = 'home';
   $export['site_frontpage'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -1046,14 +1046,14 @@ Your account on [site:name] has been canceled.
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_pictures';
-  $strongarm->value = 1;
+  $strongarm->value = '1';
   $export['user_pictures'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_register';
-  $strongarm->value = '1';
+  $strongarm->value = 2;
   $export['user_register'] = $strongarm;
 
   $strongarm = new stdClass;

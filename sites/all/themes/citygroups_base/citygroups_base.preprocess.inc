@@ -269,7 +269,7 @@ function citygroups_base_menu_link($variables) {
   $element['#attributes']['class'][] = '';
 
   // Rewrite certain menu links to point to section.
-  if (($element['#theme'] == 'menu_link__menu_citygroups_menu')) {
+  if (($element['#theme'] == 'menu_link__citygroups_header')) {
     if ($section == '') {
         $section_path = '';
     }
@@ -279,6 +279,7 @@ function citygroups_base_menu_link($variables) {
     
     switch ($element['#href']) {
       case '<front>':
+      case 'home':
         $element['#localized_options']['attributes']['title'] = t('Home');
         $element['#attributes']['class'][] = 'home';
         if($section != '') {

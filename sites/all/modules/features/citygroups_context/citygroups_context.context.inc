@@ -20,6 +20,8 @@ function citygroups_context_context_default_contexts() {
     'path' => array(
       'values' => array(
         '<front>' => '<front>',
+        'welcome' => 'welcome',
+        'home' => 'home',
       ),
     ),
   );
@@ -36,12 +38,6 @@ function citygroups_context_context_default_contexts() {
           'module' => 'citygroups',
           'delta' => 'citygroups_home_content',
           'region' => 'content',
-          'weight' => '-10',
-        ),
-        'citygroups-citygroups_about' => array(
-          'module' => 'citygroups',
-          'delta' => 'citygroups_about',
-          'region' => 'postscript',
           'weight' => '-10',
         ),
       ),
@@ -70,9 +66,9 @@ function citygroups_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'menu-menu-citygroups-menu' => array(
+        'menu-citygroups_header' => array(
           'module' => 'menu',
-          'delta' => 'menu-citygroups-menu',
+          'delta' => 'citygroups_header',
           'region' => 'header_menu',
           'weight' => '-10',
         ),
@@ -88,29 +84,23 @@ function citygroups_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
-        'menu-menu-postscript-menu' => array(
+        'menu-citygroups_footer' => array(
           'module' => 'menu',
-          'delta' => 'menu-postscript-menu',
-          'region' => 'postscript',
-          'weight' => '10',
-        ),
-        'menu-menu-footer-menu' => array(
-          'module' => 'menu',
-          'delta' => 'menu-footer-menu',
+          'delta' => 'citygroups_footer',
           'region' => 'footer_bottom',
-          'weight' => '-21',
+          'weight' => '-10',
         ),
         'citygroups-citygroups_branding_footer' => array(
           'module' => 'citygroups',
           'delta' => 'citygroups_branding_footer',
           'region' => 'footer_bottom',
-          'weight' => '-20',
+          'weight' => '-9',
         ),
         'system-powered-by' => array(
           'module' => 'system',
           'delta' => 'powered-by',
           'region' => 'footer_bottom',
-          'weight' => '-19',
+          'weight' => '-8',
         ),
       ),
     ),
@@ -132,10 +122,17 @@ function citygroups_context_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
+        'home' => 'home',
+        'welcome' => 'welcome',
         'map' => 'map',
         'list' => 'list',
         'categories' => 'categories',
         'node/add/community-group' => 'node/add/community-group',
+        'about' => 'about',
+        'get-involved' => 'get-involved',
+        'community-data' => 'community-data',
+        'developers' => 'developers',
+        'api' => 'api',
       ),
     ),
   );
