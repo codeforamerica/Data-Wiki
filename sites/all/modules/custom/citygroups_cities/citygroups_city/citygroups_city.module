@@ -46,16 +46,16 @@ function citygroups_city_menu() {
     'weight' =>  -10,
   );
 
+  // Depends on citygroups_group_map
   $items['map'] = array(
     'title' => 'Map',
-    'page callback' => 'citygroups_city_map_render',
+    'page callback' => 'citygroups_group_map_render',
     'page arguments' => array(t('CityGroups City Map Page')),
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
     'menu_name' => 'citygroups_header',
     'weight' =>  -9,
   );
-
 
   $items['about/groups'] = array(
     'title' => 'About',

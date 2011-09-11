@@ -135,6 +135,7 @@ function sea_blockwatch_preprocess_page(&$vars) {
     case 'node/add/community-group':
       if(!empty($_GET['section'])) {
         $section = $_GET['section'];
+        $_GET['section'];
         if($section == 'blockwatch') {
           sea_blockwatch_page_variables($vars);
           $vars['title'] = t('Add Block Watch Community');
@@ -191,9 +192,8 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') {
   
     global $section;
-    $section = 'blockwatch';
-  
     if(!empty($_GET['section'])) {
+/*     $section = 'blockwatch'; */
       $section = $_GET['section'];
       if($section == 'blockwatch') {
 

@@ -84,6 +84,12 @@ function citygroups_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
+        'menu-citygroups_postscript' => array(
+          'module' => 'menu',
+          'delta' => 'citygroups_postscript',
+          'region' => 'postscript',
+          'weight' => '-10',
+        ),
         'menu-citygroups_footer' => array(
           'module' => 'menu',
           'delta' => 'citygroups_footer',
