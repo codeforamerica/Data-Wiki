@@ -105,13 +105,16 @@ dependencies[] = citygroups_basic_page
 dependencies[] = community_group_content_type
 dependencies[] = community_group_upload_csv
 dependencies[] = community_group_feed_csv_upload
-; dependencies[] = citygroups_content
 dependencies[] = citygroups_views
 dependencies[] = citygroups_context
 dependencies[] = citygroups_developer
-
+dependencies[] = citygroups_project
 dependencies[] = citygroups_site_settings
 dependencies[] = citygroups_permissions
+
+; Disabled
+; dependencies[] = citygroups_content
+
 
 ; City Configuration
 dependencies[] = citygroups_city

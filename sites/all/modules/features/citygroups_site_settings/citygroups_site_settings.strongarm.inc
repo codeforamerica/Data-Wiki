@@ -210,7 +210,7 @@ function citygroups_site_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_redirect_on_confirm';
-  $strongarm->value = '';
+  $strongarm->value = 'admin/dashboard';
   $export['logintoboggan_redirect_on_confirm'] = $strongarm;
 
   $strongarm = new stdClass;

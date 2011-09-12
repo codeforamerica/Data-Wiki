@@ -16,12 +16,6 @@ function citygroups_splash_menu() {
     'access callback' => TRUE, 
   );
 
-  $items['admin/content/demo-toggle'] = array(
-    'title' => t('Toggle demo content'),
-    'page callback' => 'citygroups_splash_toggle_demo_content',
-    'access arguments' => array('administer site configuration'), 
-  );
-
   return $items;
 }
 
@@ -31,7 +25,8 @@ function citygroups_splash_menu() {
  */
 function citygroups_splash_init() {
   // Admin splash screen.
-/*
+
+  // Site configured admin welcome screen
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
       && !variable_get('citygroups_splash_welcome_seen', FALSE)) {
@@ -51,8 +46,9 @@ function citygroups_splash_init() {
     // this variable is set back to FALSE.
     variable_set('citygroups_splash_welcome_seen', TRUE);
   }
-*/
-  
+
+/*
+  // Authenticated User Login
   if(drupal_is_front_page() 
       && !user_access('administer site configuration')
       && !isset($_COOKIE['prealpha_seen'])
@@ -73,7 +69,30 @@ function citygroups_splash_init() {
     drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
     drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
   }
+*/
   
+  // Config Site
+  if (drupal_is_front_page() 
+      && user_access('administer site configuration')
+      && !variable_get('citygroups_splash_config_seen', FALSE)
+      && !variable_get('city_name', array())      
+      ) {
+    
+
+    setcookie('config_seen', "seen", time + 3600 * 24 * 180);
+  
+    $url = url('splash/site_config');
+        
+    $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
+    $js .= 'href: "' . $url . '",';
+    $js .= 'width: 600,';
+    $js .= 'height: 400,';
+    $js .= 'opacity: .6,';
+    $js .= '});});';
+    
+    drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
+    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
+  }  
   
   $mod_uri = drupal_get_path('module', 'citygroups_splash');
   drupal_add_css( $mod_uri . '/citygroups_splash.css');
@@ -85,10 +104,10 @@ function citygroups_splash_init() {
  */
 function citygroups_splash_block_info() {
   $blocks['site_welcome'] = array(
-    'info' => t('Welcome message splash screen'),
+    'info' => t('Welcome message splash screen -- '),
   );
   $blocks['site_config'] = array(
-    'info' => t('Welcome message splash screen'),
+    'info' => t('Welcome message splash screen - admin/config/citygroups'),
     'status' => TRUE,
     'region' => 'dashboard_main', // Not usually provided. 
     'visibility' => 1, // Not usually provided. 
@@ -117,11 +136,12 @@ function citygroups_splash_block_view($delta = '') {
     case 'site_prealpha':
       $block['subject'] = t('Alpha: This is a new site under active development.');
       $block['content'] = citygroups_splash_block_site_prealpha();
-      $block['weight'] = 15;
+      $block['weight'] = -50;
       break;
     case 'site_config':
       $block['subject'] = t('Get Started');
       $block['content'] = citygroups_splash_block_site_config();
+      $block['weight'] = -40;
       break;
   }
   return $block;
@@ -150,6 +170,7 @@ function citygroups_splash_block_site_prealpha() {
   
   $block = array(
     '#markup' => $output,
+    '#weight' => -100,
   );
   return $block;
 
@@ -165,6 +186,7 @@ function citygroups_splash_block_site_welcome() {
 
   $block = array(
     '#markup' => $markup,
+    '#weight' => -90,
   );
   return $block;
 }
@@ -176,15 +198,6 @@ function citygroups_splash_block_site_config() {
   $items = array();
 
   $markup = '';
-
-/*
-  $items[] = array (
-    'title' => 'Upload CSV of Community Groups',
-    'href' => 'node/add/community-group-feed-upload-csv',
-    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
-    'description' => t('Add properly formatted CSV files to bulk upload groups into the system.'),
-  );
-*/
   
   $items[] = array (
     'title' => 'Add a Community Group',
@@ -216,6 +229,7 @@ function citygroups_splash_block_site_config() {
 
   $block = array(
     '#markup' => $markup,
+    '#weight' => -80,
   );
   return $block;
 }
