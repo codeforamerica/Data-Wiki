@@ -24,7 +24,54 @@ function citygroups_splash_menu() {
  * Implementation of hook_init().
  */
 function citygroups_splash_init() {
-  // Admin splash screen.
+
+  // Logged out users
+  if(drupal_is_front_page() 
+      && !user_access('administer site configuration')
+      && !isset($_COOKIE['prealpha_seen'])
+      && !user_is_logged_in() 
+      ){
+
+    setcookie('prealpha_seen', "seen", time + 3600 * 24 * 180);
+  
+    $url = url('splash/site_prealpha');
+        
+    $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
+    $js .= 'href: "' . $url . '",';
+    $js .= 'width: 600,';
+    $js .= 'height: 400,';
+    $js .= 'opacity: .6,';
+    $js .= '});});';
+    
+    drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
+    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
+  }
+
+
+
+  // Admin splash screens.
+  
+  // Config Site
+  if (drupal_is_front_page() 
+      && user_access('administer site configuration')
+
+      && !variable_get('city_name', array())      
+      ) {
+ 
+    setcookie('config_seen', "seen", time + 3600 * 24 * 180);
+  
+    $url = url('splash/site_config');
+        
+    $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
+    $js .= 'href: "' . $url . '",';
+    $js .= 'width: 800,';
+    $js .= 'height: 480,';
+    $js .= 'opacity: .6,';
+    $js .= '});});';
+    
+    drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
+    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
+  }  
 
   // Site configured admin welcome screen
   if (drupal_is_front_page() 
@@ -47,52 +94,7 @@ function citygroups_splash_init() {
     variable_set('citygroups_splash_welcome_seen', TRUE);
   }
 
-/*
-  // Authenticated User Login
-  if(drupal_is_front_page() 
-      && !user_access('administer site configuration')
-      && !isset($_COOKIE['prealpha_seen'])
-      && !user_is_logged_in() 
-      ){
 
-    setcookie('prealpha_seen', "seen", time + 3600 * 24 * 180);
-  
-    $url = url('splash/site_prealpha');
-        
-    $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
-    $js .= 'href: "' . $url . '",';
-    $js .= 'width: 600,';
-    $js .= 'height: 400,';
-    $js .= 'opacity: .6,';
-    $js .= '});});';
-    
-    drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
-    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
-  }
-*/
-  
-  // Config Site
-  if (drupal_is_front_page() 
-      && user_access('administer site configuration')
-      && !variable_get('citygroups_splash_config_seen', FALSE)
-      && !variable_get('city_name', array())      
-      ) {
-    
-
-    setcookie('config_seen', "seen", time + 3600 * 24 * 180);
-  
-    $url = url('splash/site_config');
-        
-    $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
-    $js .= 'href: "' . $url . '",';
-    $js .= 'width: 600,';
-    $js .= 'height: 400,';
-    $js .= 'opacity: .6,';
-    $js .= '});});';
-    
-    drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
-    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
-  }  
   
   $mod_uri = drupal_get_path('module', 'citygroups_splash');
   drupal_add_css( $mod_uri . '/citygroups_splash.css');
@@ -107,16 +109,10 @@ function citygroups_splash_block_info() {
     'info' => t('Welcome message splash screen -- '),
   );
   $blocks['site_config'] = array(
-    'info' => t('Welcome message splash screen - admin/config/citygroups'),
-    'status' => TRUE,
-    'region' => 'dashboard_main', // Not usually provided. 
-    'visibility' => 1, // Not usually provided. 
+    'info' => t('Install: Configure CityGroups'),
   );
   $blocks['site_prealpha'] = array(
     'info' => t('Alpha Site'),
-    'status' => TRUE,
-    'region' => 'dashboard_main', // Not usually provided. 
-    'visibility' => 1, // Not usually provided. 
   );
   return $blocks;
 }
@@ -131,17 +127,14 @@ function citygroups_splash_block_view($delta = '') {
     case 'site_welcome':
       $block['subject'] = t('Welcome to CityGroups');
       $block['content'] = citygroups_splash_block_site_welcome();
-      $block['weight'] = 10;
       break;
     case 'site_prealpha':
       $block['subject'] = t('Alpha: This is a new site under active development.');
       $block['content'] = citygroups_splash_block_site_prealpha();
-      $block['weight'] = -50;
       break;
     case 'site_config':
       $block['subject'] = t('Get Started');
       $block['content'] = citygroups_splash_block_site_config();
-      $block['weight'] = -40;
       break;
   }
   return $block;
@@ -195,9 +188,17 @@ function citygroups_splash_block_site_welcome() {
  * Helper function to assemble the initial site configuration block.
  */
 function citygroups_splash_block_site_config() {
+
   $items = array();
 
   $markup = '';
+
+  $items[] = array (
+    'title' => 'Configure CityGroups',
+    'href' => 'admin/config/citygroups',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
+    'description' => t('Configure CityGroups'),
+  );
   
   $items[] = array (
     'title' => 'Add a Community Group',
@@ -205,20 +206,31 @@ function citygroups_splash_block_site_config() {
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Add a Community Group'),
   );
+/*
   
   $items[] = array (
-    'title' => 'Add a list of groups: Data Standard for Community Groups',
-    'href' => 'data-standard-community-groups',
+    'title' => 'Data Standard for Community Groups',
+    'href' => 'data-standard/community-groups',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
+    'description' => t('Find out how to format your CSV file.'),
+  );
+*/
+
+  $items[] = array (
+    'title' => 'Import CSV of Community Groups',
+    'href' => 'node/add/community-group-feed-upload-csv',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Find out how to format your CSV file.'),
   );
 
+/*
   $items[] = array (
     'title' => 'Groups I am Watching',
     'href' => 'manage/dashboard/favorites',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
     'description' => t('Groups I am watching.'),
   );
+*/
 
   //node/add/community-group-feed-upload-csv
   
