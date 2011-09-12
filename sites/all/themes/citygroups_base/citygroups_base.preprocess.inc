@@ -148,7 +148,6 @@ function citygroups_base_preprocess_block(&$vars) {
  */
 function citygroups_base_preprocess_node(&$vars) {
   // dpm($vars); not working, use this krumo call instead to see the node object.
-/*   var_dump(krumo($vars)); */
 
   // Add to array of handy node classes
   $vars['classes_array'][] = $vars['zebra'];                              // Node is odd or even
@@ -385,4 +384,9 @@ function citygroups_base_menu_link($variables) {
   }
   $output = l($element['#title'], $element['#href'], $element['#localized_options']);
   return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
+}
+
+
+function citygroups_base_preprocess_flag(&$vars) {
+
 }

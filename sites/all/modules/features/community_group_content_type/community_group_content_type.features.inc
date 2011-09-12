@@ -48,6 +48,43 @@ function community_group_content_type_views_api() {
  * Implementation of hook_flag_default_flags().
  */
 function community_group_content_type_flag_default_flags() {
+  // Exported flag: "Recommend".
+  $flags['like'] = array(
+    'content_type' => 'node',
+    'title' => 'Recommend',
+    'global' => '0',
+    'types' => array(
+      0 => 'community_group',
+    ),
+    'flag_short' => 'Recommend',
+    'flag_long' => 'I would recommend this.',
+    'flag_message' => '',
+    'unflag_short' => 'Un-Recommend.',
+    'unflag_long' => 'You recommended this. You can un-recommend it.',
+    'unflag_message' => '',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+      ),
+      'unflag' => array(
+        0 => '2',
+      ),
+    ),
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
+    'show_on_form' => 0,
+    'access_author' => '',
+    'i18n' => 0,
+    'module' => 'community_group_content_type',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 2,
+  );
+  return $flags;
+
   $flags = array();
   // Exported flag: "Watch".
   $flags['bookmarks'] = array(
@@ -84,41 +121,7 @@ function community_group_content_type_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Duplicate Content".
-  $flags['duplicate'] = array(
-    'content_type' => 'node',
-    'title' => 'Duplicate Content',
-    'global' => '0',
-    'types' => array(
-      0 => 'community_group',
-    ),
-    'flag_short' => 'Flag as Duplicate',
-    'flag_long' => '',
-    'flag_message' => '',
-    'unflag_short' => 'My mistake, this is not a duplicate.',
-    'unflag_long' => '',
-    'unflag_message' => '',
-    'unflag_denied_text' => '',
-    'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => '2',
-      ),
-      'unflag' => array(
-        0 => '2',
-      ),
-    ),
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
-    'show_on_form' => 0,
-    'access_author' => '',
-    'i18n' => 0,
-    'module' => 'community_group_content_type',
-    'locked' => array(
-      0 => 'name',
-    ),
-    'api_version' => 2,
-  );
+
   // Exported flag: "Flag a group as inactive".
   $flags['group_inactive'] = array(
     'content_type' => 'node',
@@ -154,6 +157,43 @@ function community_group_content_type_flag_default_flags() {
     ),
     'api_version' => 2,
   );
+  
+  // Exported flag: "Duplicate Content".
+  $flags['duplicate'] = array(
+    'content_type' => 'node',
+    'title' => 'Duplicate Content',
+    'global' => '0',
+    'types' => array(
+      0 => 'community_group',
+    ),
+    'flag_short' => 'Flag as Duplicate',
+    'flag_long' => '',
+    'flag_message' => '',
+    'unflag_short' => 'My mistake, this is not a duplicate.',
+    'unflag_long' => '',
+    'unflag_message' => '',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+      ),
+      'unflag' => array(
+        0 => '2',
+      ),
+    ),
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
+    'show_on_form' => 0,
+    'access_author' => '',
+    'i18n' => 0,
+    'module' => 'community_group_content_type',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 2,
+  );
+  
   // Exported flag: "Inappropriate Content".
   $flags['inappropriate'] = array(
     'content_type' => 'node',
@@ -191,42 +231,7 @@ function community_group_content_type_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Recommend".
-  $flags['like'] = array(
-    'content_type' => 'node',
-    'title' => 'Recommend',
-    'global' => '0',
-    'types' => array(
-      0 => 'community_group',
-    ),
-    'flag_short' => 'Recommend',
-    'flag_long' => 'I would recommend this.',
-    'flag_message' => '',
-    'unflag_short' => 'Un-Recommend.',
-    'unflag_long' => 'You recommended this. You can un-recommend it.',
-    'unflag_message' => '',
-    'unflag_denied_text' => '',
-    'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => '2',
-      ),
-      'unflag' => array(
-        0 => '2',
-      ),
-    ),
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
-    'show_on_form' => 0,
-    'access_author' => '',
-    'i18n' => 0,
-    'module' => 'community_group_content_type',
-    'locked' => array(
-      0 => 'name',
-    ),
-    'api_version' => 2,
-  );
-  return $flags;
+
 }
 
 /**

@@ -524,9 +524,9 @@ clear: both;
   background-repeat: no-repeat;
   background-position-x: 3px;
   background-position-y: 3px;
-  filter:alpha(opacity=30);
+  filter:alpha(opacity=50);
   /* CSS3 standard */
-  opacity:0.3;
+  opacity:0.5;
 }
 
 #main .links .flag-wrapper a:focus,
@@ -1041,4 +1041,8 @@ html.js input.throbbing {
 
 .vertical-tab-hidden {
 /*   height: 0px; */
+}
+
+.flag-wrapper {
+  display: inline;
 }
