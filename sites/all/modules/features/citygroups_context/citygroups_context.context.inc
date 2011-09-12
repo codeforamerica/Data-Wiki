@@ -88,7 +88,7 @@ function citygroups_context_context_default_contexts() {
           'module' => 'menu',
           'delta' => 'citygroups_postscript',
           'region' => 'postscript',
-          'weight' => '-10',
+          'weight' => '20',
         ),
         'menu-citygroups_footer' => array(
           'module' => 'menu',
@@ -149,7 +149,7 @@ function citygroups_context_context_default_contexts() {
           'module' => 'citygroups',
           'delta' => 'citygroups_about',
           'region' => 'postscript',
-          'weight' => '-10',
+          'weight' => '10',
         ),
       ),
     ),
