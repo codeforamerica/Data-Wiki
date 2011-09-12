@@ -80,9 +80,12 @@ strong {
   color: #ffffff;
 }
 
-#block-search-form,
-.header-signin-container  {
+#block-search-form {
   padding: 10px 0;
+}
+
+.header-signin-container {
+  padding: 5px 0;
 }
 .views-exposed-widgets input.form-text,
 #block-search-form input.form-text{
@@ -594,8 +597,8 @@ clear: both;
 }
 
 html.js input.form-autocomplete {
-  background: url(../images/throbber.png);
-  background-position: 100% 0;
+/*   background: url(../images/throbber.png); */
+/*   background-position: 100% 0; */
   background-repeat: no-repeat;
 }
 
@@ -1025,3 +1028,17 @@ float: left;
   display: none;
 }
 
+
+/* undo input spacing while CSS is wrong */
+html.js input.throbbing {
+  background-position: 100% -23px; /* LTR */
+}
+
+.node-form .form-item input {
+  padding: 0px;
+}
+
+
+.vertical-tab-hidden {
+/*   height: 0px; */
+}
