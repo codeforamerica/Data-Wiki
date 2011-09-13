@@ -186,24 +186,6 @@ function citygroups_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-dashboard-block' => array(
-          'module' => 'views',
-          'delta' => 'dashboard-block',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
-        'views-community_groups_list-block_1' => array(
-          'module' => 'views',
-          'delta' => 'community_groups_list-block_1',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
-        'citygroups_splash-site_prealpha' => array(
-          'module' => 'citygroups_splash',
-          'delta' => 'site_prealpha',
-          'region' => 'content',
-          'weight' => '-26',
-        ),
         'citygroups_splash-site_config' => array(
           'module' => 'citygroups_splash',
           'delta' => 'site_config',
@@ -213,7 +195,7 @@ function citygroups_context_context_default_contexts() {
       ),
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -268,7 +250,7 @@ function citygroups_context_context_default_contexts() {
       ),
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.

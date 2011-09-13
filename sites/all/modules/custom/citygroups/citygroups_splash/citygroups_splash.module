@@ -305,7 +305,7 @@ function citygroups_splash_block_display($block) {
   $GLOBALS['devel_shutdown'] = FALSE; // Prevent devel module from spewing.
   
   $renderable_block = _block_get_renderable_array(_block_render_blocks(array($block)));
- // print render($renderable_block);
+  print render($renderable_block);
 
   exit;
 }
