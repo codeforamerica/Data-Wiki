@@ -23,7 +23,7 @@ function citygroups_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Menu items for Blockwatch.
+ * Menu items for CityGroups
  * 
  * These are connected to the main menus, but the content & forms 
  * are overwritten.
@@ -38,6 +38,8 @@ function citygroups_menu() {
     'weight' => 1,
     'file' => 'citygroups.admin.inc',
   );
+  
+  return $items;
 }
 
 include('citygroups.blocks.inc.php');
