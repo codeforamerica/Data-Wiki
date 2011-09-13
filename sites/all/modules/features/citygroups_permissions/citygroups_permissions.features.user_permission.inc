@@ -118,7 +118,7 @@ function citygroups_permissions_user_default_permissions() {
   $permissions['access overlay'] = array(
     'name' => 'access overlay',
     'roles' => array(
-      0 => 'administrator',
+/*       0 => 'administrator', */
     ),
     'module' => 'overlay',
   );

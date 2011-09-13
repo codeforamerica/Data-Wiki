@@ -96,7 +96,7 @@ function overlay_form_user_profile_form_alter(&$form, &$form_state) {
         '#type' => 'checkbox',
         '#title' => t('Use the overlay for administrative pages.'),
         '#description' => t('Show administrative pages on top of the page you started from.'),
-        '#default_value' => isset($account->data['overlay']) ? $account->data['overlay'] : 0,
+        '#default_value' => isset($account->data['overlay']) ? $account->data['overlay'] : 1,
       );
     }
   }
@@ -127,6 +127,10 @@ function overlay_init() {
   // Only act if the user has access to the overlay and a mode was not already
   // set. Other modules can also enable the overlay directly for other uses.
   $use_overlay = !isset($user->data['overlay']) || $user->data['overlay'];
+
+  // HACK: Disable overlay completely.
+  $use_overlay = 0;
+
   if (empty($mode) && user_access('access overlay') && $use_overlay) {
     $current_path = current_path();
     // After overlay is enabled on the modules page, redirect to
