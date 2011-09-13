@@ -112,7 +112,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
     '#default_value' =>  variable_get('citygroups_content_add_new_group', '
 <h3>' . t('Know community groups that should be listed?') . '</h3>
 <p>Anyone can suggest a group. Groups should be based in ' . variable_get('citygroups_city_name', 'our city') . ', and do work to make ' . variable_get('citygroups_city_name', 'our city') . ' better.</p>
-<div class=\"button\"><a href=\"/node/add/community-group\">Add New Group</a></div>
+<div class="button"><a href="/node/add/community-group">Add New Group</a></div>
     '),
     '#description' => 'HTML',
   );
@@ -139,30 +139,30 @@ t('CityGroups launches in our city!')),
 
   $form['citygroups_social_media_twitter'] = array(
     '#type' => 'textfield',
-    '#title' => t('Twitter'),
+    '#title' => t('Twitter Handle'),
     '#default_value' =>  variable_get('citygroups_social_media_twitter', array()),
-    '#description' => 'HTML',
+    '#description' => 'What is the account name? (Ex. BostonCityGroups)',
   );
   
   $form['citygroups_social_media_facebook'] = array(
     '#type' => 'textfield',
     '#title' => t('Facebook'),
     '#default_value' =>  variable_get('citygroups_social_media_facebook', array()),
-    '#description' => 'HTML',
+    '#description' => 'Link to Facebook page',
   );
 
-  $form['citygroups_social_media_email'] = array(
+  $form['citygroups_mailing_list'] = array(
     '#type' => 'textfield',
-    '#title' => t('Email'),
-    '#default_value' =>  variable_get('citygroups_social_media_email', array()),
-    '#description' => 'HTML',
+    '#title' => t('Mailing List'),
+    '#default_value' =>  variable_get('citygroups_mailing_list', array()),
+    '#description' => 'Link to mailing list.',
   );
 
   $form['citygroups_social_media_flyer'] = array(
     '#type' => 'textfield',
     '#title' => t('Flyer'),
     '#default_value' =>  variable_get('citygroups_social_media_flyer', array()),
-    '#description' => 'HTML',
+    '#description' => 'Path to printable flyer',
   );
 
   return system_settings_form($form);

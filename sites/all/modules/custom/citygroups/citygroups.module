@@ -46,7 +46,16 @@ function citygroups_menu() {
 function citygroups_promote() {
   $output = '<ul class="promote">';
   if(variable_get('citygroups_social_media_twitter')) {
-    $output .= '<li>' . l('Twitter', variable_get('citygroups_social_media_twitter')) . '</li>';
+    $output .= '<li>' . l('Twitter', 'http://twitter.com/' . variable_get('citygroups_social_media_twitter')) . '</li>';
+  }
+  if(variable_get('citygroups_social_media_facebook')) {
+    $output .= '<li>' . l('Facebook', variable_get('citygroups_social_media_facebook')) . '</li>';
+  }
+  if(variable_get('citygroups_mailing_list')) {
+    $output .= '<li>' . l('Mailing List', variable_get('citygroups_mailing_list')) . '</li>';
+  }
+  if(variable_get('citygroups_social_media_flyer')) {
+    $output .= '<li>' . l('Flyer', variable_get('citygroups_social_media_flyer')) . '</li>';
   }
   $output .= '</ul>';
  
