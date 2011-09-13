@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Stats for CityGroups
+ */
+ 
+/**
+ * Implementation of hook_cron().
+ */
+function citygroups_stats_cron() {
+  citygroups_stats_build();
+}
+
+function citygroups_stats_build() {
+
+  // Count number of published community groups.
+
+  $groups_published = '10';
+  
+  
+  
+  variable_set('citygroups_stats_groups_published', $groups_published);
+  drupal_set_message(t('"CityGroups Stats: Groups Counted: ') . $groups_published);
+}

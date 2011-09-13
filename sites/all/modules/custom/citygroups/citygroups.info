@@ -111,6 +111,7 @@ dependencies[] = citygroups_developer
 dependencies[] = citygroups_project
 dependencies[] = citygroups_site_settings
 dependencies[] = citygroups_permissions
+dependencies[] = citygroups_stats
 
 ; Disabled
 ; dependencies[] = citygroups_content

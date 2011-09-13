@@ -139,4 +139,5 @@
   </div>
 </div>
 <div class="clear"></div>
-<?php print $closure ?> 
+<?php print $closure ?>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>

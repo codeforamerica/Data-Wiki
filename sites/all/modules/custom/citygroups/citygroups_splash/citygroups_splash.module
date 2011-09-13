@@ -28,7 +28,7 @@ function citygroups_splash_init() {
   // Logged out users
   if(drupal_is_front_page() 
       && !user_access('administer site configuration')
-      && !isset($_COOKIE['prealpha_seen'])
+/*       && !isset($_COOKIE['prealpha_seen']) */
       && !user_is_logged_in() 
       ){
 
@@ -38,8 +38,8 @@ function citygroups_splash_init() {
         
     $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
     $js .= 'href: "' . $url . '",';
-    $js .= 'width: 600,';
-    $js .= 'height: 400,';
+    $js .= 'width: 800,';
+    $js .= 'height: 550,';
     $js .= 'opacity: .6,';
     $js .= '});});';
     
@@ -133,7 +133,7 @@ function citygroups_splash_block_view($delta = '') {
       $block['content'] = citygroups_splash_block_site_welcome();
       break;
     case 'site_prealpha':
-      $block['subject'] = t('Alpha: This is a new site under active development.');
+/*       $block['subject'] = '<h1>' .t('Alpha!') . '</h1>'; */
       $block['content'] = citygroups_splash_block_site_prealpha();
       break;
     case 'site_config':
@@ -159,10 +159,11 @@ function citygroups_splash_block_load($delta) {
  * Helper function to assemble the initial site configuration block.
  */
 function citygroups_splash_block_site_prealpha() {
-
+  $output .= '<h1>' . variable_get('citygroups_city_name') . '</h1>';
+  $output .= '<img src="' . path_to_theme() . '/images/citygroups_alpha.png" alt="CityGroups Alpha" />';
   $output .= '<p>' . t('This is a new site, we are understanding how best to make the site useful in your city.') . '</p>';
-  $output .= '<p>' . t('We are inviting folks to test the site and add information to it. If you have any questions or thoughts, please ');
-  $output .= l('contact us', 'contact') . '</p>';
+  $output .= '<p>' . t('We are inviting folks to test the site and add information to it.');
+  $output .= '<h3>' . t('Questions?') . ' ' . l('Contact us.', 'contact') . '</h3>';
   
 /*   $output .= '<p class="sign-in-link">' . l('Sign in', 'user') . ' to use all the features.</p>'; */
   // $output .= '<p class="sign-in-link">' . l('Sign in with Facebook', 'fbconnect/register/prompt') . '.</p>';  
