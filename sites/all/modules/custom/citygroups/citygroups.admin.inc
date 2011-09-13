@@ -21,7 +21,8 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
         <li><a href="#configure">Configure</a></li>
         <li><a href="#data">Data</a></li>
         <li><a href="#outreach">Outreach</a></li>
-        <li><a href="#content">Content</a></li>
+        <li><a href="#servers">Servers</a></li>
+        <li><a href="#site-content">Site Content</a></li>
       </ul>
     </div>
     
@@ -57,87 +58,115 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <li><a href="http://citygroups.org/documentation/community-mapping-project">Start a Community Mapping Project</a></li>
     </ul>
 
-    <a name="content"></a>    
+    <a name="servers"></a>  
+    <h4>Servers</h4>
+    <ul>
+      <li><a href="http://citygroups.org/documentation/servers">Servers</a></li>
+      <li><a href="http://citygroups.org/documentation/server-administration">Server Administration</a></li>
+      <li><a href="/admin/config/system/backup_migrate/export">Backup Database</a></li>
+      <li>Updates to code</li>
+    </ul>
+
+    <a name="site-content"></a>    
     <h3>Site Content</h3>
     <p>Enter custom text that should appear throughout the site & on the homepage.</p>
     ',
   );
 
-  $form['city_name'] = array(
+  $form['citygroups_city_name'] = array(
     '#type' => 'textfield',
     '#title' => t('City'),
-    '#default_value' =>  variable_get('city_name', array()),
-    '#description' => 'Enter the name of the city.',
+    '#default_value' =>  variable_get('citygroups_city_name'),
+    '#description' => 'Enter city name',
   );
 
-  $form['city_slogan'] = array(
+  $form['citygroups_city_slogan'] = array(
     '#type' => 'textfield',
     '#title' => t('City Slogan'),
-    '#default_value' =>  variable_get('city_slogan', array(t('A directory of community groups in our city.'))),
-    '#description' => 'slogan',
+    '#default_value' =>  variable_get('citygroups_city_slogan', 'A directory of community groups in ' . variable_get('citygroups_city_name', 'our city')),
+    '#description' => 'Customize the slogan for CityGroups',
   );
 
-  $form['welcome_content'] = array(
+  $form['citygroups_content_tagline'] = array(
     '#type' => 'textarea',
-    '#title' => t('Welcome'),
-    '#default_value' =>  variable_get('welcome_content', array()),
-    '#description' => 'HTML',
+    '#title' => t('Tagline'),
+    '#default_value' =>  variable_get('citygroups_content_tagline', '
+<h3>' . variable_get('citygroups_city_slogan', 'A directory of community groups in ' . variable_get('citygroups_city_name', 'our city')) . '</h3>
+<p>' . t('Making it easier to find those local community groups.') .'</p>'),
+    '#description' => 'Customize site tagline',
   );
 
-  $form['home_content_view_data'] = array(
+  $form['citygroups_content_groups'] = array(
     '#type' => 'textarea',
     '#title' => t('View Groups (homepage content)'),
-    '#default_value' =>  variable_get('home_content_view_data', array()),
+    '#default_value' =>  variable_get('citygroups_content_groups', '
+<h3>' . t('Search for Groups') .'</h3>
+<p>Since starting the project, we have located about 1,000 community groups in ' . variable_get('citygroups_city_name', 'our city') . '.</p>'
+    ),
     '#description' => 'HTML',
   );
 
-  $form['home_content_add_new_group'] = array(
+  $form['citygroups_content_add_new_group'] = array(
     '#type' => 'textarea',
     '#title' => t('Add New Group (homepage content)'),
-    '#default_value' =>  variable_get('home_content_add_new_group', array()),
+    '#default_value' =>  variable_get('citygroups_content_add_new_group', '
+<h3>' . t('Know community groups that should be listed?') . '</h3>
+<p>Anyone can suggest a group. Groups should be based in ' . variable_get('citygroups_city_name', 'our city') . ', and do work to make ' . variable_get('citygroups_city_name', 'our city') . ' better.</p>
+<div class=\"button\"><a href=\"/node/add/community-group\">Add New Group</a></div>
+    '),
     '#description' => 'HTML',
   );
 
-  $form['home_content_news'] = array(
+  $form['citygroups_content_news'] = array(
     '#type' => 'textarea',
     '#title' => t('News (homepage content)'),
-    '#default_value' =>  variable_get('home_content_news', array()),
+    '#default_value' =>  variable_get('citygroups_content_news', 
+    '<h3>' . t('Spread the word') . '</h3>
+' .
+t('CityGroups launches in our city!')),
     '#description' => 'HTML',
   );
 
-  $form['home_content_promote'] = array(
+  $form['citygroups_content_promote'] = array(
     '#type' => 'textarea',
     '#title' => t('Promote (homepage content)'),
-    '#default_value' =>  variable_get('home_content_promote', array(
-    '         
-    <h3>Spread the word</h3>
-    <p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>
-    <ul>
-      <li>/Tweet/</li>
-      <li>/Facebook/</li>
-      <li>/Email/</li>
-      <li>/Print/</li>
-    </ul>
-    '
-    
-    
-    )),
+    '#default_value' =>  variable_get('citygroups_content_promote', '
+<h3>Spread the word</h3>
+<p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>'),
+    '#description' => 'HTML',
+  );
+  
+
+  $form['citygroups_social_media_twitter'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Twitter'),
+    '#default_value' =>  variable_get('citygroups_social_media_twitter', array()),
+    '#description' => 'HTML',
+  );
+  
+  $form['citygroups_social_media_facebook'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Facebook'),
+    '#default_value' =>  variable_get('citygroups_social_media_facebook', array()),
     '#description' => 'HTML',
   );
 
-  $form['home_content_news'] = array(
-    '#type' => 'textarea',
-    '#title' => t('News (homepage content)'),
-    '#default_value' =>  variable_get('home_content_news', array()),
+  $form['citygroups_social_media_email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+    '#default_value' =>  variable_get('citygroups_social_media_email', array()),
     '#description' => 'HTML',
   );
 
-  $form['home_content_promote'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Promote (homepage content)'),
-    '#default_value' =>  variable_get('home_content_promote', array()),
+  $form['citygroups_social_media_flyer'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Flyer'),
+    '#default_value' =>  variable_get('citygroups_social_media_flyer', array()),
     '#description' => 'HTML',
   );
+
+
+
 
   return system_settings_form($form);
 }

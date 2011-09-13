@@ -16,10 +16,7 @@ function citygroups_block_info() {
     'info' => t('Branding Footer'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-  $blocks['citygroups_site_slogan'] = array(
-    'info' => t('Site Slogan'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
+
   $blocks['citygroups_facebook_like'] = array(
     'info' => t('Facebook Like'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
@@ -32,12 +29,7 @@ function citygroups_block_info() {
     'info' => t('About'),
     'cache' => DRUPAL_CACHE_PER_ROLE, // default
   );
-/*
-  $blocks['citygroups_map'] = array(
-    'info' => t('Map'),
-    'cache' => DRUPAL_CACHE_PER_ROLE, // default
-  );
-*/
+
   return $blocks;
 }
 
@@ -59,11 +51,6 @@ function citygroups_block_view($delta = '') {
     case 'citygroups_branding_footer':
       $block['subject'] = '';
       $block['content'] = citygroups_contents('branding_footer');
-      break;     
-
-    case 'citygroups_site_slogan':
-      $block['subject'] = '';
-      $block['content'] = citygroups_contents('site_slogan');
       break;
 
     case 'citygroups_about_citygroups':
@@ -102,12 +89,7 @@ function citygroups_contents($type) {
   
   switch ($type) {
     case 'welcome':
-      $output .= '<h3>' . t('Find community groups by location or topic.') . '</h3>';
-      $output .= '<p>' . t('Making it easier to find those little local community groups.') .'</p>';
-      break;
-
-    case 'site_slogan':
-      $output .= '<h3>' . t('A public directory of community groups in the your city.')  . '</h3>';
+      $output .= variable_get('citygroups_content_groups');
       break;
       
     case 'branding_header':
@@ -124,21 +106,13 @@ function citygroups_contents($type) {
       . '<div class="logo grid_10"><a href="http://codeforamerica.org">' . '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" width="150" />' . '</a></div>'
       . '</div>';
       break;
-
-      
-/*
-      case 'map':
-        $output .= citygroups_group_map_render();
-      break;
-*/
-      
+   
       case 'home_content':
         $output .= "
           <div class=\"grid_16 sections\">
 
-            <div class=\"grid_6 view-data section alpha\">
-              <h3>Search for Groups</h3>
-              <p>[Project Status]</p>" .
+            <div class=\"grid_6 view-data section alpha\">"
+              . variable_get('citygroups_content_groups') .
               
 /*
               "<div id=\"search-map\" class=\"form-input\">
@@ -148,34 +122,22 @@ function citygroups_contents($type) {
               " .
 */
               views_embed_view('number_groups', 'default') .
+              
               "<div class=\"button\"><a href=\"map\">Map view</a></div>
               <div class=\"button\"><a href=\"list\">List view</a></div>
             </div>
-
-           
-            <div class=\"grid_6  push_2  add-new-group section omega\">
-              <h3>Know community groups that should be listed?</h3>
-              <p>Anyone can suggest a group. Groups should be based in " . ", and do work to make {City} better.</p>
-              <div class=\"button\"><a href=\"/node/add/community-group\">Add New Group</a></div>
-            </div>    
-
+            <div class=\"grid_6  push_2  add-new-group section omega\">"
+              . variable_get('citygroups_content_add_new_group') .  "
+            </div>
           </div>
           <div class=\"clear\"></div>
           <div class=\"grid_16 sections\">
-            <div class=\"grid_6 news section alpha\">
-              <h3>News</h3>
-              <p>{NEWS}</p>
-              
+            <div class=\"grid_6 news section alpha\">"
+              . variable_get('citygroups_content_news') .  "                          
             </div>    
-            <div class=\"grid_6 push_2 promote section omega\">
-              <h3>Spread the word</h3>
-              <p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>
-              <ul>
-              <li>/Tweet/</li>
-              <li>/Facebook/</li>
-              <li>/Email/</li>
-              <li>/Print/</li>
-              </ul>
+            <div class=\"grid_6 push_2 promote section omega\">" 
+            . variable_get('citygroups_content_promote') .  "
+            {social media here}
             </div>      
           </div>
         ";
