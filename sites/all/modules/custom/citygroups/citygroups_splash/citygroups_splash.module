@@ -114,6 +114,10 @@ function citygroups_splash_block_info() {
   $blocks['site_prealpha'] = array(
     'info' => t('Alpha Site'),
   );
+  $blocks['site_start'] = array(
+    'info' => t('Start'),
+  );
+
   return $blocks;
 }
 
@@ -133,8 +137,12 @@ function citygroups_splash_block_view($delta = '') {
       $block['content'] = citygroups_splash_block_site_prealpha();
       break;
     case 'site_config':
-      $block['subject'] = t('Get Started');
+      $block['subject'] = t('Configure Site');
       $block['content'] = citygroups_splash_block_site_config();
+      break;
+    case 'site_start':
+      $block['subject'] = t('Get Started');
+      $block['content'] = citygroups_splash_block_site_start();
       break;
   }
   return $block;
@@ -175,6 +183,52 @@ function citygroups_splash_block_site_welcome() {
   $markup .= '<p>' . t('Ready to create a Drupal site?') . '</p>';
   $markup .= '<p>' . t('To get started with your site, go straight to the !dashboard. From there, you\'ll be able to choose your theme, personalize your site, and configure all the bells and whistles.', array('!dashboard' => l(t('Dashboard'), 'admin/dashboard', array('attributes' => array('class' => array('citygroups-splash-link')))))) . '</p>';
   $markup .= '<p>' . t('Tell us what you think, or better yet, !contribute to make it even better.', array('!contribute' => l(t('contribute to CityGroups'), 'http://citygroups.org/'))) . '</p>';
+
+  $block = array(
+    '#markup' => $markup,
+  );
+  return $block;
+}
+
+/**
+ * Helper function to assemble the initial site configuration block.
+ */
+function citygroups_splash_block_site_start() {
+
+  $items = array();
+
+  $markup = '';
+
+  
+  $items[] = array (
+    'title' => 'Add a Community Group',
+    'href' => 'node/add/community-group',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
+    'description' => t('Add a Community Group'),
+  );
+/*
+  
+  $items[] = array (
+    'title' => 'Data Standard for Community Groups',
+    'href' => 'data-standard/community-groups',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
+    'description' => t('Find out how to format your CSV file.'),
+  );
+*/
+
+  $items[] = array (
+    'title' => 'Groups I am Watching',
+    'href' => 'manage/dashboard/favorites',
+    'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
+    'description' => t('Groups I am watching.'),
+  );
+
+  //node/add/community-group-feed-upload-csv
+  
+/*   	/manage/duplicates, /manage/inappropriate, /manage/recommended, /manage/inactive, /manage/dashboard/favorites */
+  	
+  $content = array ('content' => $items);
+  $markup = theme('admin_block_content', $content);
 
   $block = array(
     '#markup' => $markup,
@@ -251,7 +305,7 @@ function citygroups_splash_block_display($block) {
   $GLOBALS['devel_shutdown'] = FALSE; // Prevent devel module from spewing.
   
   $renderable_block = _block_get_renderable_array(_block_render_blocks(array($block)));
-  print render($renderable_block);
+ // print render($renderable_block);
 
   exit;
 }

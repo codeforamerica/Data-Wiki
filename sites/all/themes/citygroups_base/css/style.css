@@ -510,7 +510,7 @@ clear: both;
 #main .links .flag-recommend a,
 #main .links .flag-watch a,
 #main .links .flag-duplicate a,
-#main .links .flag-group_inactive a,
+#main .links .flag-inactive a,
 #main .links .flag-inappropriate a {
   background: #ddd;
   margin: 5px 5px 0px 0;
@@ -540,7 +540,7 @@ clear: both;
 #main .view-content .links .flag-recommend a,
 #main .view-content .links .flag-watch a,
 #main .view-content .links .flag-duplicate a,
-#main .view-content .links .flag-group_inactive a,
+#main .view-content .links .flag-inactive a,
 #main .view-content .links .flag-inappropriate a {
   display: inline;
   float: none;
@@ -555,7 +555,7 @@ clear: both;
 #main .links .flag-duplicate a {
   background-image: url(../images/icon_duplicate.png);
 }
-#main .links .flag-group_inactive a {
+#main .links .flag-inactive a {
   background-image: url(../images/icon_dead.png);
 }
 #main .links .flag-inappropriate a {

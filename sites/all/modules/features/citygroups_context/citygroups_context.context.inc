@@ -168,7 +168,7 @@ function citygroups_context_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'dashboard';
+  $context->name = 'dashboard_admin';
   $context->description = '';
   $context->tag = 'citygroups';
   $context->conditions = array(
@@ -177,19 +177,24 @@ function citygroups_context_context_default_contexts() {
         'admin/dashboard' => 'admin/dashboard',
       ),
     ),
+    'user' => array(
+      'values' => array(
+        'administrator' => 'administrator',
+      ),
+    ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-community_groups_list-block_1' => array(
-          'module' => 'views',
-          'delta' => 'community_groups_list-block_1',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
         'views-dashboard-block' => array(
           'module' => 'views',
           'delta' => 'dashboard-block',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+        'views-community_groups_list-block_1' => array(
+          'module' => 'views',
+          'delta' => 'community_groups_list-block_1',
           'region' => 'sidebar_second',
           'weight' => '-10',
         ),
@@ -213,7 +218,62 @@ function citygroups_context_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('citygroups');
-  $export['dashboard'] = $context;
+  $export['dashboard_admin'] = $context;
+
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'dashboard_authenticated';
+  $context->description = '';
+  $context->tag = 'citygroups';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'admin/dashboard' => 'admin/dashboard',
+      ),
+    ),
+    'user' => array(
+      'values' => array(
+        'authenticated user' => 'authenticated user',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-community_groups_list-block_1' => array(
+          'module' => 'views',
+          'delta' => 'community_groups_list-block_1',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+        'views-dashboard-block' => array(
+          'module' => 'views',
+          'delta' => 'dashboard-block',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+        'citygroups_splash-site_prealpha' => array(
+          'module' => 'citygroups_splash',
+          'delta' => 'site_prealpha',
+          'region' => 'content',
+          'weight' => '-27',
+        ),
+        'citygroups_splash-site_start' => array(
+          'module' => 'citygroups_splash',
+          'delta' => 'site_start',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('citygroups');
+  $export['dashboard_authenticated'] = $context;
 
   return $export;
 }
