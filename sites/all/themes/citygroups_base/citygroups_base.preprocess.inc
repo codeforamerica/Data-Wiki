@@ -243,7 +243,7 @@ function citygroups_base_vertical_tabs($variables) {
   drupal_add_library('system', 'drupal.vertical-tabs');
 
   $output = '<h2 class="element-invisible">' . t('Vertical Tabs') . '</h2>';
-  $output .= '<div class="vertical-tabs-panes grid_12">' . $element['#children'] . '</div>';
+  $output .= '<div class="vertical-tabs-panes grid_8">' . $element['#children'] . '</div>';
   return $output;
 }
 

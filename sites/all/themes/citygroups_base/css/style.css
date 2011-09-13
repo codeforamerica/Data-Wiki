@@ -106,7 +106,7 @@ strong {
 }
 .views-exposed-widgets input.form-text,
 #block-search-form input.form-text{
-  width: 80%;
+  width: 70%;
   padding: 5px;
   filter:alpha(opacity=50);
   /* CSS3 standard */
@@ -1062,4 +1062,17 @@ html.js input.throbbing {
 
 .flag-wrapper {
   display: inline;
+}
+
+.front .promote {
+  padding: 10px 0 0 0;
+}
+
+.front .promote li {
+  padding: 5px 0;
+}
+
+.header-signin-container {
+  font-size: 80%;
+  color: #fff;
 }
