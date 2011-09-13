@@ -49,7 +49,9 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
     <a name="data"></a>    
     <h4>Data</h4>
     <ul>
-      <li><a href="http://citygroups.org/documentation/get-data">Get data</a></li>
+      <li><a href="http://citygroups.org/documentation/get-data/groups">Get groups data</a></li>
+      <li><a href="http://citygroups.org/documentation/get-data/neighborhood">Get neighborhood data</a></li>
+      <li><a href="http://citygroups.org/documentation/get-data/categories">Get category data</a></li>
     </ul>
 
     <a name="outreach"></a>  
@@ -64,6 +66,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <li><a href="http://citygroups.org/documentation/servers">Servers</a></li>
       <li><a href="http://citygroups.org/documentation/server-administration">Server Administration</a></li>
       <li><a href="/admin/config/system/backup_migrate/export">Backup Database</a></li>
+      <li>Robots (staging servers)</li>
       <li>Updates to code</li>
     </ul>
 
@@ -103,7 +106,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
 <h3>' . t('Search for Groups') .'</h3>
 <p>' . '0' . ' community groups in ' . variable_get('citygroups_city_name', 'our city') . '.</p>'
     ),
-    '#description' => 'HTML',
+    '#description' => 'Prompt to check out groups in the directory',
   );
 
   $form['citygroups_content_add_new_group'] = array(
@@ -114,7 +117,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
 <p>Anyone can suggest a group. Groups should be based in ' . variable_get('citygroups_city_name', 'our city') . ', and do work to make ' . variable_get('citygroups_city_name', 'our city') . ' better.</p>
 <div class="button"><a href="/node/add/community-group">Add New Group</a></div>
     '),
-    '#description' => 'HTML',
+    '#description' => 'Prompt to add new groups.',
   );
 
   $form['citygroups_content_news'] = array(
@@ -124,7 +127,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
     '<h3>' . t('Spread the word') . '</h3>
 ' .
 t('CityGroups launches in our city!')),
-    '#description' => 'HTML',
+    '#description' => 'News about CityGroups',
   );
 
   $form['citygroups_content_promote'] = array(
@@ -133,7 +136,7 @@ t('CityGroups launches in our city!')),
     '#default_value' =>  variable_get('citygroups_content_promote', '
 <h3>Spread the word</h3>
 <p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>'),
-    '#description' => 'HTML',
+    '#description' => 'Links to promotional content',
   );
   
 

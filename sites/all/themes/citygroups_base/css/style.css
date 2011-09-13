@@ -25,7 +25,8 @@ dt {
   margin: 1em 0 1.5em 0;
   display: block;
 }
-#main a {
+#main a,
+#postscript a {
   font-weight: bold;
 }
 a:link, a:visited {
@@ -36,6 +37,22 @@ a:link, a:visited {
 a:hover, a:active {
     color:#196DFF;
     text-decoration:none;
+}
+
+#postscript .content a:link, #postscript .content  a:visited  {
+    color:#6184E5;
+}
+
+#postscript .content  a:hover, #postscript .content  a:active {
+    color:#6184E5;
+}
+
+#postscript ul.menu a:link, #postscript ul.menu a:visited  {
+  color: #fff;
+}
+
+#postscript ul.menu a:hover, #postscript ul.menu a:active  {
+  color: #fff;
 }
 
 .form-item,
@@ -226,7 +243,7 @@ strong {
   font-size: 125%;
   font-weight: bold;
   text-transform: uppercase;
-  background-color: #ACDD8C;
+  background-color: #7C0E52;
   display: block;
   width: 50%;
   text-align: center;

@@ -89,7 +89,7 @@ function citygroups_contents($type) {
   
   switch ($type) {
     case 'welcome':
-      $output .= variable_get('citygroups_content_groups');
+      $output .= variable_get('citygroups_content_tagline');
       break;
       
     case 'branding_header':
