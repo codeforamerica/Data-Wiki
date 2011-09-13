@@ -42,4 +42,15 @@ function citygroups_menu() {
   return $items;
 }
 
+
+function citygroups_promote() {
+  $output = '<ul class="promote">';
+  if(variable_get('citygroups_social_media_twitter')) {
+    $output .= '<li>' . l('Twitter', variable_get('citygroups_social_media_twitter')) . '</li>';
+  }
+  $output .= '</ul>';
+ 
+  return $output;
+}
+
 include('citygroups.blocks.inc.php');

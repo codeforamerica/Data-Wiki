@@ -136,9 +136,9 @@ function citygroups_contents($type) {
               . variable_get('citygroups_content_news') .  "                          
             </div>    
             <div class=\"grid_6 push_2 promote section omega\">" 
-            . variable_get('citygroups_content_promote') .  "
-            {social media here}
-            </div>      
+            . variable_get('citygroups_content_promote')
+            . citygroups_promote()
+            . "</div>      
           </div>
         ";
       break;  

@@ -69,4 +69,7 @@ function citygroups_city_install() {
   );
 
   menu_link_save($item);
+  
+  // Set the city name.
+  variable_set('citygroups_city_name', 'CityName');
 }

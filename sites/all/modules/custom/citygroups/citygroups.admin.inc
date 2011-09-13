@@ -92,7 +92,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
     '#title' => t('Tagline'),
     '#default_value' =>  variable_get('citygroups_content_tagline', '
 <h3>' . variable_get('citygroups_city_slogan', 'A directory of community groups in ' . variable_get('citygroups_city_name', 'our city')) . '</h3>
-<p>' . t('Making it easier to find those local community groups.') .'</p>'),
+<p>' . t('Making it easier to find local community groups.') .'</p>'),
     '#description' => 'Customize site tagline',
   );
 
@@ -101,7 +101,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
     '#title' => t('View Groups (homepage content)'),
     '#default_value' =>  variable_get('citygroups_content_groups', '
 <h3>' . t('Search for Groups') .'</h3>
-<p>Since starting the project, we have located about 1,000 community groups in ' . variable_get('citygroups_city_name', 'our city') . '.</p>'
+<p>' . '0' . ' community groups in ' . variable_get('citygroups_city_name', 'our city') . '.</p>'
     ),
     '#description' => 'HTML',
   );
@@ -164,9 +164,6 @@ t('CityGroups launches in our city!')),
     '#default_value' =>  variable_get('citygroups_social_media_flyer', array()),
     '#description' => 'HTML',
   );
-
-
-
 
   return system_settings_form($form);
 }
