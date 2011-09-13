@@ -54,7 +54,6 @@ function citygroups_splash_init() {
   // Config Site
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
-
       && !variable_get('city_name', array())      
       ) {
  
@@ -76,10 +75,10 @@ function citygroups_splash_init() {
   // Site configured admin welcome screen
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
-      && !variable_get('citygroups_splash_welcome_seen', FALSE)) {
-    
+      && variable_get('citygroups_splash_welcome_seen', FALSE)) {
+
     $url = url('splash/site_welcome');
-      
+
     $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
     $js .= 'href: "' . $url . '",';
     $js .= 'width: 600,';
@@ -87,7 +86,7 @@ function citygroups_splash_init() {
     $js .= 'opacity: .6,';
     $js .= '});});';
     drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
-    drupal_add_js($js, 'inline');
+    drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
     
     // This makes it so that the splash page will never show up again, unless
     // this variable is set back to FALSE.
@@ -163,7 +162,6 @@ function citygroups_splash_block_site_prealpha() {
   
   $block = array(
     '#markup' => $output,
-    '#weight' => -100,
   );
   return $block;
 
@@ -179,7 +177,6 @@ function citygroups_splash_block_site_welcome() {
 
   $block = array(
     '#markup' => $markup,
-    '#weight' => -90,
   );
   return $block;
 }
@@ -241,7 +238,6 @@ function citygroups_splash_block_site_config() {
 
   $block = array(
     '#markup' => $markup,
-    '#weight' => -80,
   );
   return $block;
 }
