@@ -37,13 +37,13 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['style_options']['plaintext_output'] = 1;
   $handler->display->display_options['style_options']['jsonp_prefix'] = '';
   $handler->display->display_options['style_options']['using_views_api_mode'] = 0;
-  /* Relationship: Flags: bookmarks */
+  /* Relationship: Flags: watch */
   $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['label'] = 'watch';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'bookmarks';
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'watch';
   /* Relationship: Flags: inappropriate */
   $handler->display->display_options['relationships']['flag_content_rel_1']['id'] = 'flag_content_rel_1';
   $handler->display->display_options['relationships']['flag_content_rel_1']['table'] = 'node';
@@ -51,20 +51,20 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel_1']['label'] = 'inappropriate';
   $handler->display->display_options['relationships']['flag_content_rel_1']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel_1']['flag'] = 'inappropriate';
-  /* Relationship: Flags: like */
+  /* Relationship: Flags: recommend */
   $handler->display->display_options['relationships']['flag_content_rel_2']['id'] = 'flag_content_rel_2';
   $handler->display->display_options['relationships']['flag_content_rel_2']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_content_rel_2']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel_2']['label'] = 'recommended';
   $handler->display->display_options['relationships']['flag_content_rel_2']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_content_rel_2']['flag'] = 'like';
-  /* Relationship: Flags: group_inactive */
+  $handler->display->display_options['relationships']['flag_content_rel_2']['flag'] = 'recommend';
+  /* Relationship: Flags: inactive */
   $handler->display->display_options['relationships']['flag_content_rel_3']['id'] = 'flag_content_rel_3';
   $handler->display->display_options['relationships']['flag_content_rel_3']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_content_rel_3']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel_3']['label'] = 'inactive';
   $handler->display->display_options['relationships']['flag_content_rel_3']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_content_rel_3']['flag'] = 'group_inactive';
+  $handler->display->display_options['relationships']['flag_content_rel_3']['flag'] = 'inactive';
   /* Relationship: Flags: duplicate */
   $handler->display->display_options['relationships']['flag_content_rel_4']['id'] = 'flag_content_rel_4';
   $handler->display->display_options['relationships']['flag_content_rel_4']['table'] = 'node';
@@ -72,13 +72,13 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel_4']['label'] = 'duplicate';
   $handler->display->display_options['relationships']['flag_content_rel_4']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel_4']['flag'] = 'duplicate';
-  /* Relationship: Flags: bookmarks counter */
+  /* Relationship: Flags: watch counter */
   $handler->display->display_options['relationships']['flag_count_rel']['id'] = 'flag_count_rel';
   $handler->display->display_options['relationships']['flag_count_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_count_rel']['field'] = 'flag_count_rel';
   $handler->display->display_options['relationships']['flag_count_rel']['label'] = 'watch_count';
   $handler->display->display_options['relationships']['flag_count_rel']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'bookmarks';
+  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'watch';
   /* Relationship: Flags: duplicate counter */
   $handler->display->display_options['relationships']['flag_count_rel_1']['id'] = 'flag_count_rel_1';
   $handler->display->display_options['relationships']['flag_count_rel_1']['table'] = 'node';
@@ -86,13 +86,13 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['relationships']['flag_count_rel_1']['label'] = 'duplicate_count';
   $handler->display->display_options['relationships']['flag_count_rel_1']['required'] = 0;
   $handler->display->display_options['relationships']['flag_count_rel_1']['flag'] = 'duplicate';
-  /* Relationship: Flags: group_inactive counter */
+  /* Relationship: Flags: inactive counter */
   $handler->display->display_options['relationships']['flag_count_rel_2']['id'] = 'flag_count_rel_2';
   $handler->display->display_options['relationships']['flag_count_rel_2']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_count_rel_2']['field'] = 'flag_count_rel';
   $handler->display->display_options['relationships']['flag_count_rel_2']['label'] = 'inactive_count';
   $handler->display->display_options['relationships']['flag_count_rel_2']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_count_rel_2']['flag'] = 'group_inactive';
+  $handler->display->display_options['relationships']['flag_count_rel_2']['flag'] = 'inactive';
   /* Relationship: Flags: inappropriate counter */
   $handler->display->display_options['relationships']['flag_count_rel_3']['id'] = 'flag_count_rel_3';
   $handler->display->display_options['relationships']['flag_count_rel_3']['table'] = 'node';
@@ -100,13 +100,13 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['relationships']['flag_count_rel_3']['label'] = 'inappropriate_count';
   $handler->display->display_options['relationships']['flag_count_rel_3']['required'] = 0;
   $handler->display->display_options['relationships']['flag_count_rel_3']['flag'] = 'inappropriate';
-  /* Relationship: Flags: like counter */
+  /* Relationship: Flags: recommend counter */
   $handler->display->display_options['relationships']['flag_count_rel_4']['id'] = 'flag_count_rel_4';
   $handler->display->display_options['relationships']['flag_count_rel_4']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_count_rel_4']['field'] = 'flag_count_rel';
   $handler->display->display_options['relationships']['flag_count_rel_4']['label'] = 'recommended_count';
   $handler->display->display_options['relationships']['flag_count_rel_4']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_count_rel_4']['flag'] = 'like';
+  $handler->display->display_options['relationships']['flag_count_rel_4']['flag'] = 'recommend';
   /* Relationship: Feeds item: Owner feed */
   $handler->display->display_options['relationships']['feed_nid']['id'] = 'feed_nid';
   $handler->display->display_options['relationships']['feed_nid']['table'] = 'feeds_item';

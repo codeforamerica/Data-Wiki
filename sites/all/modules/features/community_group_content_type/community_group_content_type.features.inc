@@ -87,7 +87,7 @@ function community_group_content_type_flag_default_flags() {
 
   $flags = array();
   // Exported flag: "Watch".
-  $flags['bookmarks'] = array(
+  $flags['watch'] = array(
     'content_type' => 'node',
     'title' => 'Watch',
     'global' => '0',
@@ -123,7 +123,7 @@ function community_group_content_type_flag_default_flags() {
   );
 
   // Exported flag: "Flag a group as inactive".
-  $flags['group_inactive'] = array(
+  $flags['inactive'] = array(
     'content_type' => 'node',
     'title' => 'Flag a group as inactive',
     'global' => '0',

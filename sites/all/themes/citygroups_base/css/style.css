@@ -507,8 +507,8 @@ clear: both;
   
 }
 
-#main .links .flag-like a,
-#main .links .flag-bookmarks a,
+#main .links .flag-recommend a,
+#main .links .flag-watch a,
 #main .links .flag-duplicate a,
 #main .links .flag-group_inactive a,
 #main .links .flag-inappropriate a {
@@ -537,8 +537,8 @@ clear: both;
   opacity:1;
 }
 
-#main .view-content .links .flag-like a,
-#main .view-content .links .flag-bookmarks a,
+#main .view-content .links .flag-recommend a,
+#main .view-content .links .flag-watch a,
 #main .view-content .links .flag-duplicate a,
 #main .view-content .links .flag-group_inactive a,
 #main .view-content .links .flag-inappropriate a {
@@ -546,10 +546,10 @@ clear: both;
   float: none;
 }
 
-#main .links .flag-like a {
+#main .links .flag-recommend a {
   background-image: url(../images/icon_recommended.png);
 }
-#main .links .flag-bookmarks a {
+#main .links .flag-watch a {
   background-image: url(../images/icon_watch.png);
 }
 #main .links .flag-duplicate a {

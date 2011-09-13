@@ -3560,17 +3560,17 @@ function citygroups_views_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Recommended Groups';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Flags: like */
+  /* Relationship: Flags: recommend */
   $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'like';
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'recommend';
   $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
-  /* Relationship: Flags: like counter */
+  /* Relationship: Flags: recommend counter */
   $handler->display->display_options['relationships']['flag_count_rel']['id'] = 'flag_count_rel';
   $handler->display->display_options['relationships']['flag_count_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_count_rel']['field'] = 'flag_count_rel';
-  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'like';
+  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'recommend';
   $handler->display->display_options['path'] = 'manage/recommended';
 
   /* Display: Inactive Groups */
@@ -3578,17 +3578,17 @@ function citygroups_views_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Inactive Groups';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Flags: group_inactive */
+  /* Relationship: Flags: inactive */
   $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'group_inactive';
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'inactive';
   $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
-  /* Relationship: Flags: group_inactive counter */
+  /* Relationship: Flags: inactive counter */
   $handler->display->display_options['relationships']['flag_count_rel']['id'] = 'flag_count_rel';
   $handler->display->display_options['relationships']['flag_count_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_count_rel']['field'] = 'flag_count_rel';
-  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'group_inactive';
+  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'inactive';
   $handler->display->display_options['path'] = 'manage/inactive';
 
   /* Display: Favorited Groups */
@@ -3596,16 +3596,16 @@ function citygroups_views_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Favorite Groups';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Flags: bookmarks */
+  /* Relationship: Flags: watch */
   $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'bookmarks';
-  /* Relationship: Flags: bookmarks counter */
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'watch';
+  /* Relationship: Flags: watch counter */
   $handler->display->display_options['relationships']['flag_count_rel']['id'] = 'flag_count_rel';
   $handler->display->display_options['relationships']['flag_count_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_count_rel']['field'] = 'flag_count_rel';
-  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'bookmarks';
+  $handler->display->display_options['relationships']['flag_count_rel']['flag'] = 'watch';
   $handler->display->display_options['path'] = 'manage/dashboard/favorites';
   $export['flagged_content'] = $view;
 

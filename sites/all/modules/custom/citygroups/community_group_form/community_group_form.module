@@ -122,11 +122,11 @@ function community_group_form_node_insert($node) {
  
     // Names of flags in the system.
     $flags = array(
-      'group_inactive',
-      'bookmarks',
+      'inactive',
+      'watch',
       'inappropriate',
       'duplicate',
-      'like'
+      'recommend'
       );
       
     foreach($flag_import_fields as $key => $field) {
@@ -143,7 +143,7 @@ function community_group_form_node_insert($node) {
       // Automatically watch all imported content.
 /*
       if ($field == 'field_import_flag_watch') {
-        $result = flag('flag', 'bookmarks', $node->nid); 
+        $result = flag('flag', 'watch', $node->nid); 
         if (!$result) {
            drupal_set_message(t('Content not flagged, bm'));
         }    
