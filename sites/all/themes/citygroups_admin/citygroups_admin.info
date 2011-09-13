@@ -4,4 +4,4 @@ base theme = seven
 core = 7.x
 engine = phptemplate
 
-stylesheets[all][] = css/datwiki_admin.css
+stylesheets[all][] = css/citygroups_admin.css

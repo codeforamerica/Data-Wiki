@@ -11,19 +11,55 @@
 function citygroups_edit_form($form, &$form_state, array $rule = array()) {
    $form['introduction'] = array(
     '#markup' => '
-    <p>Set up CityGroups (in progress, not yet fully functional)</p>
-    <p><a href="">Documentation</a></p>
-    <p><a href="">Support</a></p>
-    <p><a href="">Contact</a></p>
-
-    <h3>Configure API Keys</h3>
+    <h3>Configure CityGroups</h3>
+    <p><strong>Let\'s set up CityGroups for your City.</strong></p>
+    <p>There are a few accounts, settings and data that you will need to do to customize the tool for your city.</p>
+    
+    <div class="admin clearfix">
+      <ul class="menu">
+        <li><a href="#help">Get Help</a></li>
+        <li><a href="#configure">Configure</a></li>
+        <li><a href="#data">Data</a></li>
+        <li><a href="#outreach">Outreach</a></li>
+        <li><a href="#content">Content</a></li>
+      </ul>
+    </div>
+    
+    <a name="help"></a>
+    <h4>Get Help</h4>
     <ul>
-      <li><a href="/admin/config/system/googleanalytics">Google Analytics</a></li>
-      <li><a href="/admin/build/openlayers/layers/settings">Set Map API Keys (Google & Cloudmade.)</a></li>
-      <li><a href="/admin/config/content/mollom/settings">Mollom, spam protection</a></li>
-      <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
-      <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li> (or change in code...)
+      <li><a href="http://citygroups.org/documentation">Documentation</a></li>
+      <li><a href="http://citygroups.org/support">Support</a></li>
+      <li><a href="http://citygroups.org/contact">Contact</a></li>
+      <li><a href="http://tasks.citygroups.org">CityGroups Project Blog</a></li>
     </ul>
+    
+    <a name="configure"></a>
+    <h4>Configure</h4>
+    <ol>
+      <li><a href="/admin/config/system/googleanalytics">Google Analytics</a></li>
+      <li><a href="/admin/config/content/mollom/settings">Mollom, spam protection</a></li>
+      <li><a href="/admin/config/content/mollom">Configure Mollom (spam control)</a></li>
+      <li><a href="/admin/build/openlayers/layers/settings">Set Map API Keys (Google & Cloudmade.)</a></li>
+      <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
+      <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li>
+    </ol>
+
+    <a name="data"></a>    
+    <h4>Data</h4>
+    <ul>
+      <li><a href="http://citygroups.org/documentation/get-data">Get data</a></li>
+    </ul>
+
+    <a name="outreach"></a>  
+    <h4>Outreach</h4>
+    <ul>
+      <li><a href="http://citygroups.org/documentation/community-mapping-project">Start a Community Mapping Project</a></li>
+    </ul>
+
+    <a name="content"></a>    
+    <h3>Site Content</h3>
+    <p>Enter custom text that should appear throughout the site & on the homepage.</p>
     ',
   );
 
@@ -37,46 +73,71 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
   $form['city_slogan'] = array(
     '#type' => 'textfield',
     '#title' => t('City Slogan'),
-    '#default_value' =>  variable_get('city_slogan', array()),
+    '#default_value' =>  variable_get('city_slogan', array(t('A directory of community groups in our city.'))),
     '#description' => 'slogan',
   );
 
-  $form['home_content'] = array(
+  $form['welcome_content'] = array(
     '#type' => 'textarea',
-    '#title' => t('Homepage Markup'),
-    '#default_value' =>  variable_get('home_content', array()),
+    '#title' => t('Welcome'),
+    '#default_value' =>  variable_get('welcome_content', array()),
     '#description' => 'HTML',
   );
 
-  $form['about_content'] = array(
+  $form['home_content_view_data'] = array(
     '#type' => 'textarea',
-    '#title' => t('About Markup'),
-    '#default_value' =>  variable_get('about_content', array()),
+    '#title' => t('View Groups (homepage content)'),
+    '#default_value' =>  variable_get('home_content_view_data', array()),
     '#description' => 'HTML',
   );
 
-/*
-  $form['google_analytics'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Google Analytics'),
-    '#description' => 'Google Analytics (link)',
-    '#default_value' =>  variable_get('google_analytics', array()),
+  $form['home_content_add_new_group'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Add New Group (homepage content)'),
+    '#default_value' =>  variable_get('home_content_add_new_group', array()),
+    '#description' => 'HTML',
   );
 
-  $form['citygroups_google_api_key'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Google API Key'),
-    '#description' => 'get API key (link)',
-    '#default_value' =>  variable_get('citygroups_google_api_key', array()),
+  $form['home_content_news'] = array(
+    '#type' => 'textarea',
+    '#title' => t('News (homepage content)'),
+    '#default_value' =>  variable_get('home_content_news', array()),
+    '#description' => 'HTML',
   );
-  
-  $form['citygroups_cloudmade_api_key'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Cloudmade API Key'),
-    '#description' => 'get API key (link)',
-    '#default_value' =>  variable_get('citygroups_cloudmade_api_key', array()),
+
+  $form['home_content_promote'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Promote (homepage content)'),
+    '#default_value' =>  variable_get('home_content_promote', array(
+    '         
+    <h3>Spread the word</h3>
+    <p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>
+    <ul>
+      <li>/Tweet/</li>
+      <li>/Facebook/</li>
+      <li>/Email/</li>
+      <li>/Print/</li>
+    </ul>
+    '
+    
+    
+    )),
+    '#description' => 'HTML',
   );
-*/
+
+  $form['home_content_news'] = array(
+    '#type' => 'textarea',
+    '#title' => t('News (homepage content)'),
+    '#default_value' =>  variable_get('home_content_news', array()),
+    '#description' => 'HTML',
+  );
+
+  $form['home_content_promote'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Promote (homepage content)'),
+    '#default_value' =>  variable_get('home_content_promote', array()),
+    '#description' => 'HTML',
+  );
 
   return system_settings_form($form);
 }

@@ -13,7 +13,7 @@ function citygroups_city_help($path, $arg) {
   switch ($path) {
     case 'citygroups_city':
       $explanation = t(
-        'Custom content for CityGroups Seattle.');
+        'Custom content for CityGroups City.');
       return "<p>$explanation</p>";
   }
 }

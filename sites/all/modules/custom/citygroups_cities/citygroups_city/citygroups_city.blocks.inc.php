@@ -107,11 +107,11 @@ function citygroups_city_contents($type) {
       break;
 
     case 'site_slogan':
-      $output .= '<h3>' . t('A public directory of community groups in the Seattle area.') . '</h3>';
+      $output .= '<h3>' .  variable_get('city_slogan') . '</h3>';
       break;
       
     case 'branding_header':
-      $output .= '<div id="branding-header"></div>';
+      $output .= '<div id="branding-header">Custom Branding Here</div>';
       break;
       
     case 'branding_footer':
@@ -124,13 +124,6 @@ function citygroups_city_contents($type) {
       . '<div class="logo grid_10"><a href="http://codeforamerica.org">' . '<img src="' . base_path() . path_to_theme() . '/images/cfa-full-logo.png" width="150" />' . '</a></div>'
       . '</div>';
       break;
-
-      
-/*
-      case 'map':
-        $output .= citygroups_city_group_map_render();
-      break;
-*/
       
       case 'home_content':
         $output .= "
@@ -170,7 +163,7 @@ function citygroups_city_contents($type) {
               Block Watch Captain Directory.</a></p>
               
             </div>    
-            <div class=\"grid_6 push_2 promote section omega\">
+            <div class=\"grid_6 push_2 promote section omega\">" . variable_get('home_content_promote') .  "
               <h3>Spread the word</h3>
               <p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>
               <ul>
