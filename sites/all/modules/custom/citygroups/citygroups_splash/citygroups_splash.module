@@ -50,7 +50,7 @@ function citygroups_splash_init() {
 
 
   // Admin splash screens.
-  
+
   // Config Site
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
@@ -71,14 +71,16 @@ function citygroups_splash_init() {
     drupal_add_js(drupal_get_path('module', 'citygroups_splash') . '/citygroups_splash.js');
     drupal_add_js($js, array('type' => 'inline', 'group' => JS_THEME, 'every_page' => TRUE)); 
   }  
-
+  
   // Site configured admin welcome screen
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
-/*       && variable_get('city_name', array()) */
-      && !isset($_COOKIE['welcome_seen'])) {
+      && !variable_get('citygroups_splash_welcome_seen', FALSE)) {
+      
+    setcookie('welcome_seen', "seen", time + 3600 * 24 * 180);
 
     $url = url('splash/site_welcome');
+    
 
     $js = 'jQuery(document).ready(function () { jQuery.colorbox({ ';
     $js .= 'href: "' . $url . '",';
