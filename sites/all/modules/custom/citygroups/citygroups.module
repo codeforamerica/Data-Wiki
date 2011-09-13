@@ -38,6 +38,6 @@ function citygroups_menu() {
     'weight' => 1,
     'file' => 'citygroups.admin.inc',
   );
-)
+}
 
 include('citygroups.blocks.inc.php');
