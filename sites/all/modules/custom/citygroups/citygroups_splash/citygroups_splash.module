@@ -54,8 +54,8 @@ function citygroups_splash_init() {
   // Config Site
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
-      && !variable_get('city_name', array())      
-      ) {
+      && !variable_get('city_name', array())
+      && !isset($_COOKIE['config_seen'])) {
  
     setcookie('config_seen', "seen", time + 3600 * 24 * 180);
   
@@ -75,7 +75,8 @@ function citygroups_splash_init() {
   // Site configured admin welcome screen
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
-      && variable_get('citygroups_splash_welcome_seen', FALSE)) {
+/*       && variable_get('city_name', array()) */
+      && !isset($_COOKIE['welcome_seen'])) {
 
     $url = url('splash/site_welcome');
 
