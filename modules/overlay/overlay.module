@@ -96,7 +96,7 @@ function overlay_form_user_profile_form_alter(&$form, &$form_state) {
         '#type' => 'checkbox',
         '#title' => t('Use the overlay for administrative pages.'),
         '#description' => t('Show administrative pages on top of the page you started from.'),
-        '#default_value' => isset($account->data['overlay']) ? $account->data['overlay'] : 1,
+        '#default_value' => isset($account->data['overlay']) ? $account->data['overlay'] : 0,
       );
     }
   }
