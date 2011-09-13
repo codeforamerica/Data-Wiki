@@ -25,16 +25,6 @@ function citygroups_city_help($path, $arg) {
  * are overwritten.
  */
 function citygroups_city_menu() {
-  $items['admin/config/citygroups'] = array(
-    'title' => 'CityGroups Settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('citygroups_city_edit_form'),
-    'access arguments' => array('administer users'),
-    'type' => MENU_LOCAL_ACTION,
-    'weight' => 1,
-    'file' => 'citygroups_city.admin.inc',
-  );
-
   $items['home'] = array(
     'title' => 'Home',
     'page callback' => 'citygroups_city_about_groups_render',

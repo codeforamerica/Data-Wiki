@@ -22,4 +22,22 @@ function citygroups_form_alter(&$form, &$form_state, $form_id) {
   drupal_add_js(drupal_get_path('module', 'citygroups') . '/js/stylish-select/jquery.stylish-select.min.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
 }
 
+/**
+ * Menu items for Blockwatch.
+ * 
+ * These are connected to the main menus, but the content & forms 
+ * are overwritten.
+ */
+function citygroups_menu() {
+  $items['admin/config/citygroups'] = array(
+    'title' => 'CityGroups Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('citygroups_edit_form'),
+    'access arguments' => array('administer users'),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+    'file' => 'citygroups.admin.inc',
+  );
+)
+
 include('citygroups.blocks.inc.php');
