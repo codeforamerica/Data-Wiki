@@ -22,6 +22,6 @@ function citygroups_profile_form_install_configure_form_alter(&$form, $form_stat
   $form['#submit'][] = 'citygroups_profile_submit';
 }
 
-function citygroups_profile_submit() {
+function citygroups_profile_submit(&$form, $form_state) {
   variable_set('citygroups_city_name', $form_state['values']['citygroups_city_name']);
 }

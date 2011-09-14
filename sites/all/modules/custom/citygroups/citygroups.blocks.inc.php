@@ -114,14 +114,13 @@ function citygroups_contents($type) {
             <div class=\"grid_6 view-data section alpha\">"
               . variable_get('citygroups_content_groups') .
               
-/*
+              /*
               "<div id=\"search-map\" class=\"form-input\">
               <input placeholder=\"Enter your address or zipcode here.\" class=\"form-item\" />
               <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
-              </div>
-              " .
-*/
-              "Over <strong>" . variable_get('citygroups_stats_groups_published') . " groups </strong> in " . variable_get('citygroups_city_name') . "." .
+              </div> 
+              */
+              "Over <strong>" . variable_get('citygroups_stats_groups_published') . " groups</strong> in " . variable_get('citygroups_city_name') . "." .
               
               "<div class=\"button\"><a href=\"map\">Map view</a></div>
               <div class=\"button\"><a href=\"list\">List view</a></div>

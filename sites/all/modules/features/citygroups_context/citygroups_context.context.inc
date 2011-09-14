@@ -235,12 +235,6 @@ function citygroups_context_context_default_contexts() {
           'region' => 'sidebar_second',
           'weight' => '-10',
         ),
-        'citygroups_splash-site_prealpha' => array(
-          'module' => 'citygroups_splash',
-          'delta' => 'site_prealpha',
-          'region' => 'content',
-          'weight' => '-27',
-        ),
         'citygroups_splash-site_start' => array(
           'module' => 'citygroups_splash',
           'delta' => 'site_start',

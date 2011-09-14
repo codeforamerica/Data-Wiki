@@ -11,6 +11,23 @@ function citygroups_stats_cron() {
   citygroups_stats_build();
 }
 
+function citygroups_stats_menu() {
+  $items['admin/citygroups_stats'] = array(
+    'title' => 'CityGroups Settings',
+    'page callback' => 'citygroups_stats_build_page',
+    'access arguments' => array('access content'),
+    'weight' => 1,
+  );
+  
+  return $items;
+}
+
+function citygroups_stats_build_page() {
+  citygroups_stats_build();
+  $count =  variable_get('citygroups_stats_groups_published');
+  return 'Groups counted:' . $count;
+}
+
 function citygroups_stats_build() {
 
   // Count number of published community groups.

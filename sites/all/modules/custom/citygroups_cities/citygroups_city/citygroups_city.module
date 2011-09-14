@@ -106,6 +106,17 @@ function citygroups_city_menu() {
     'weight' =>  -8,
   );
 
+  $items['data-standard/community-groups'] = array(
+    'title' => 'Data Standard: Community Groups',
+    'page callback' => 'citygroups_city_data_standard_community_groups_render',
+    'page arguments' => array(t('CityGroups City Community Groups Data Standard Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_footer',
+    'weight' =>  -8,
+  );
+
+
   $items['welcome'] = array(
     'title' => 'Welcome',
     'page callback' => 'citygroups_city_welcome_render',
@@ -146,3 +157,6 @@ function citygroups_city_community_data_render() {
   return "com data";
 }
 
+function citygroups_city_data_standard_community_groups_render() {
+  return "data standard";
+}

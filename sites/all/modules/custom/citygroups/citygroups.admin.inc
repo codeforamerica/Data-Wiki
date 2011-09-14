@@ -44,6 +44,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <li><a href="/admin/build/openlayers/layers/settings">Set Map API Keys (Google & Cloudmade.)</a></li>
       <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
       <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li>
+      <li><a href="/admin/citygroups_stats">Re-count groups</a></li>
       <li>RPX</li>
       <li>Typekit</li>
     </ol>
@@ -144,7 +145,7 @@ t('CityGroups launches in our city!')),
   $form['citygroups_social_media_twitter'] = array(
     '#type' => 'textfield',
     '#title' => t('Twitter Handle'),
-    '#default_value' =>  variable_get('citygroups_social_media_twitter', array()),
+    '#default_value' =>  variable_get('citygroups_social_media_twitter', 'AllCityGroups'),
     '#description' => 'What is the account name? (Ex. BostonCityGroups)',
   );
   
