@@ -48,8 +48,11 @@ function community_group_content_type_views_api() {
  * Implementation of hook_flag_default_flags().
  */
 function community_group_content_type_flag_default_flags() {
+  $flags = array();
+
+
   // Exported flag: "Recommend".
-  $flags['like'] = array(
+  $flags['recommend'] = array(
     'content_type' => 'node',
     'title' => 'Recommend',
     'global' => '0',
@@ -83,9 +86,7 @@ function community_group_content_type_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  return $flags;
 
-  $flags = array();
   // Exported flag: "Watch".
   $flags['watch'] = array(
     'content_type' => 'node',
@@ -232,6 +233,7 @@ function community_group_content_type_flag_default_flags() {
     'api_version' => 2,
   );
 
+  return $flags;
 }
 
 /**
