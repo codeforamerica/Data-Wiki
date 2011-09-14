@@ -14,11 +14,14 @@ function citygroups_stats_cron() {
 function citygroups_stats_build() {
 
   // Count number of published community groups.
+  
+  $result = db_query("SELECT nid, title FROM {node} WHERE type = :type AND status = :status", array(
+    ':type' => 'community_group',
+    ':status' => 1,
+  ));
 
-  $groups_published = '10';
-  
-  
-  
-  variable_set('citygroups_stats_groups_published', $groups_published);
-  drupal_set_message(t('"CityGroups Stats: Groups Counted: ') . $groups_published);
+  $count_groups_published = $result->rowCount(); //Count the results.
+
+  variable_set('citygroups_stats_groups_published', $count_groups_published);
+  drupal_set_message(t('"CityGroups Stats: Groups Counted: ') . $count_groups_published);
 }

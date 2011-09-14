@@ -706,6 +706,11 @@ div.vertical-tabs {
 }
 .vertical-tabs ul.vertical-tabs-list .summary {
   display: block;
+  font-size: 75%;
+  line-height: 0;
+  font-weight: normal;
+  padding: 5px 5px 0 0px;
+  color: #666;
 }
 .vertical-tabs ul.vertical-tabs ul.vertical-tabs-list .summary {
   line-height: normal;
@@ -732,9 +737,21 @@ div.vertical-tabs {
 
 fieldset.filter-wrapper {
   display: none;
-  
 }
 
+.fieldset-wrapper p {
+  margin: 0 0 10px 0;
+}
+
+.fieldset-wrapper ul {
+  margin: 0 0 10px 0;
+}
+
+.help, div.content-help-inner div.help {
+  background: none;
+  border: none;
+  color: #292929;
+}
 
 .node-form .description {
   background-color: #C4D9F1;
@@ -781,7 +798,6 @@ option {
   display: none;
 }
 
-
 #main #edit-group_geographic.selected-fieldset {
   display: block;
   position: inherit;
@@ -794,9 +810,6 @@ option {
   left: -10000px;
 }
 
-
-
-
 #main .form-type-checkbox label {
   padding: 0.5em;
   padding-left: 32px;
@@ -806,6 +819,7 @@ option {
   cursor: pointer;
 }
 
+/*
 #main .form-type-checkbox {
   background: url(../images/checkbox.png) no-repeat;
 }
@@ -820,6 +834,7 @@ option {
   left: -9999px;
 
 }
+*/
 
 .node-form .fieldset-description {
   font-size: 125%;
@@ -954,6 +969,7 @@ option {
   color: #fff;
   margin: 10px 10px 10px 0;
 }
+
 .views-exposed-widget input.form-submit:hover,
 .form-actions input.form-submit:hover {
   background: #555;
@@ -1079,4 +1095,43 @@ html.js input.throbbing {
 
 .block-citygroups_splash-site_prealpha h1 {
  color: #E10F8A;
+}
+
+.page-node-add-community-group-feed-upload-csv  .fieldset-wrapper {
+  padding: 10px;
+  background: #ededed;
+}
+
+.page-node-add-community-group-feed-upload-csv  .fieldset-legend {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.page-node-add-community-group-feed-upload-csv .node-form input {
+  padding: 5px;
+}
+
+.page-node-add-community-group-feed-upload-csv .node-form .description {
+  background: none;
+  border: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.form-type-file {
+  margin: 10px 0;
+}
+
+.form-type-file .description {
+  margin: 0;
+  padding: 0;
+}
+
+.form-type-file .description {
+  font-size: 80%;
+}
+
+.form-type-file label {
+  font-size: 200%;
+  font-weight: bold;
 }

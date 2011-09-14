@@ -158,10 +158,10 @@ function community_group_form_node_insert($node) {
           foreach($flags as $key => $flag) {
             $result = flag('flag', $flag, $node->nid);
             if (!$result) {
-              drupal_set_message(t('Content not flagged, ' . $flag));
+/*               drupal_set_message(t('Content not flagged, ' . $flag)); */
             }    
             else {
-              drupal_set_message(t('Content is flagged, ' . $flag));          
+/*               drupal_set_message(t('Content is flagged, ' . $flag));           */
             }
           }
         }
@@ -170,10 +170,10 @@ function community_group_form_node_insert($node) {
           foreach($flags as $key => $flag) {
             $result = flag('unflag', $flag, $node->nid);
             if (!$result) {
-              drupal_set_message(t('Content not unflagged, ' . $flag));
+/*               drupal_set_message(t('Content not unflagged, ' . $flag)); */
             } 
             else {
-              drupal_set_message(t('Content is unflagged, ' . $flag));          
+/*               drupal_set_message(t('Content is unflagged, ' . $flag));           */
             }
           }
         }
