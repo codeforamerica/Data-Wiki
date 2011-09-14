@@ -107,7 +107,7 @@ function citygroups_city_menu() {
   );
 
   $items['data-standard/community-groups'] = array(
-    'title' => 'Data Standard: Community Groups',
+    'title' => 'Data Standard',
     'page callback' => 'citygroups_city_data_standard_community_groups_render',
     'page arguments' => array(t('CityGroups City Community Groups Data Standard Page')),
     'access callback' => TRUE,

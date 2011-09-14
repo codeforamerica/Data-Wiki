@@ -914,6 +914,7 @@ function citygroups_views_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: E-mail */
+/*
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -937,6 +938,7 @@ function citygroups_views_views_default_views() {
   $handler->display->display_options['fields']['field_email']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_email']['type'] = 'email_plain';
   $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
+*/
   /* Field: Content: Calendar URL */
   $handler->display->display_options['fields']['field_url_calendar']['id'] = 'field_url_calendar';
   $handler->display->display_options['fields']['field_url_calendar']['table'] = 'field_data_field_url_calendar';
