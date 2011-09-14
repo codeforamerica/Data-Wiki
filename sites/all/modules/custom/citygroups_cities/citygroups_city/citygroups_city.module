@@ -47,7 +47,7 @@ function citygroups_city_menu() {
   );
 
   $items['about/groups'] = array(
-    'title' => 'About',
+    'title' => 'About the Groups',
     'page callback' => 'citygroups_city_about_groups_render',
     'page arguments' => array(t('CityGroups City About Groups Page')),
     'access callback' => TRUE,
@@ -130,33 +130,228 @@ function citygroups_city_menu() {
 include('citygroups_city.blocks.inc.php');
 
 function citygroups_city_about_groups_render() {
-  return "about groups";
+  return "
+  <p>The groups we feature are groups that are working to improve quality of life of people that live in the city.</p>
+  <p>Mainly, these are very small, very local groups, often volunteer-run. CityGroups helps make it easier to find these small groups.</p>
+  ";
 }
 
 function citygroups_city_get_involved_render() {
-  return "get involved";
+  return '
+  
+  We want to involve many people in the process.
+  
+    <p>
+      <ul class="list">
+        <li>CityGroups is a multi-city collaborative project. </li>
+        <li>We are seeking support to manage and develop CityGroups as an open source project. </li>
+        <li>We are organizing code sprints in cities that want CityGroups, and creating geeky projects for developers to learn new skills in Drupal and civic web technologies. </li>
+        <li>Check out our <a href="http://tasks.citygroups.org">Blog</a> for updates.</li>
+      </ul>
+    </p>
+  
+    <p>
+      <ul class="list">
+        <li>Email: <a href="mailto:citygroups@codeforamerica.org">citygroups (at) codeforamerica (dot) org</a></li>
+        <li>Twitter: <a href="http://twitter.com/AllCityGroups">@AllCityGroups</a></li>
+        <li>Human: <a href="http://chachaville.com">Chach Sikes</a>, chacha (at) codeforamerica (dot) org, <a href="http://twitter.com/chachasikes">@chachasikes</a></li>
+      </ul>
+    </p> 
+  ';
 }
 
 function citygroups_city_developers_render() {
-  return "devs";
+  return '
+  <div class="section alpha omega technical grid_12">
+      <a name="technical"></a>
+      <h3>Technical</h3>
+      <ul class="list">
+        <li><strong>Drupal.</strong> Built upon the open source content management system <a href="http://drupal.org">Drupal 7</a></li>
+        <li><strong>Web Service.</strong>Hosted web service as well as open source code base.</li>
+        <li><strong>Open Source Project.</strong> The project is collaboratively built.</li>
+      </ul>
+      <ul class="list bulleted">
+        <li><a href="https://github.com/codeforamerica/Data-Wiki">Code</a> on Github<br />
+        git clone git://github.com/codeforamerica/Data-Wiki.git<br />
+        Active branches: citygroups_v3, citygroups_boston (9/6/2011)</li>
+        <li><a href="https://github.com/codeforamerica/Data-Wiki/issues">Issues</a></li>
+        <li><a href="https://github.com/codeforamerica/Data-Wiki/wiki">Wiki</a></li>
+        <li><a href="http://drupal.org/sandbox/chachasikes/1216676">Drupal Project Page</a> (sandbox, empty git repository 9/6/2011)</li>
+        <li><a href="https://github.com/codeforamerica/CityGroups">Installation Instructions</a> (June 2011)</li>
+      </ul>
+    </div>
+    <div class="clear"></div>
+
+    <div class="section  alpha omega get_citygroups grid_12">
+      <a name="get_citygroups"></a>
+      <h3>Get CityGroups</h3>
+      
+      <em>More information coming soon.</em>
+
+        <h4>Web Service</h4>
+           <ul class="list">
+            <li>Request a Data Collection Community Mapping Project</li>
+            <li>Contribute Data</li>
+          </ul>
+ 
+        
+        <h4>Do-It Yourself</h4>
+          <ul class="list">
+            <li>Download Code</li>
+            <li>Get your city to join the project</li>
+            <li>Data Standard</li>
+          </ul>
+    <div class="clear"></div>
+  
+    ';
 }
 
 function citygroups_city_api_render() {
-  return "api";
+  global $base_url;
+  $output = '<h3>Community Group Data API</h3>';
+  $output .= '<p>JSON formatted community group data.</p>';
+
+  $output .= '<h4>All Community Groups</h4>';
+  $output .= '<p>
+  <h5>First 250 Recent Community Groups</h5>' . l($base_url . base_path() . 'data/community-group', $base_url . base_path() . 'data/community-group') . '</p>';
+  
+  $output .= '<p>
+  <h5>First 250 Recent Community Groups with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map', $base_url . base_path() . 'data/community-group/map') . '</p>';
+  
+  $output .= '<p>
+  <h5>First 250 Recent Community Groups filtered by category</h5>' . l($base_url . base_path() . 'data/community-group/Block-watch', $base_url . base_path() . 'data/community-group/Block-watch') . '</p>';
+  $output .= "<p>Note: Categories must match the case & have dashes instead of spaces.</p>";
+  
+  $output .= '<p>
+  <h5>First 250 Recent Community Groups filtered by category with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map/Block-watch', $base_url . base_path() . 'data/community-group/map/Block-watch') . '</p>';
+
+
+  $output .= '
+  <pre>
+  Sample JSON data
+{
+  nodes: [
+    {
+      node: {
+      name: "Neighborhood Community Groups",
+      email: "email@example.com",
+      description: "Description of the community group."
+      source: "Name of person contributing the group to the directory."
+      categories: "block watch"
+      neighborhood: "Neighborhood Name"
+      city: "City Name"
+      county: "County County"
+      state: "State"
+      location_geo: "{"type":"Point","coordinates":[-122.35748291,47.557993859]}"
+      latitude: "47.558"
+      longitude: "-122.357"
+      type_document: "Community Group"
+      permalink: "http://dev.citygroups.local/content/neighborhood-community-group"
+      citygroups_total_number_results: "950"
+      uuid: "2e0d9a1c-2888-fcb4-599f-bab6cd431c22"
+      citygroups_nid: "53"
+      external_id: "355"
+      citygroups_date_posted: "09/14/2011"
+      citygroups_date_updated: "09/14/2011"
+      citygroups_feed_nid: "4"
+      }
+    }
+  ]
+}
+  
+  </pre>
+  
+  ';
+
+  $output .= '
+  <h4>Data Usage & API Keys</h4>
+  <p>Data is free for community groups & non-profits to use.</p>
+  <p>Web application developers, governments & businesses using the data for commercial use will be able to apply for an API key.</p>
+  ';
+
+  $output .= '
+  <h4>Socrata Integration</h4>
+  <p>We are working with the Department of Information Technology in Seattle to sync certain datasets with the <a href="http://socrata.com">Socrata</a> social data platform\'s <a href="http://opendata.socrata.com/">Public Open database</a></p>
+  ';
+
+  return $output;
 }
 
 function citygroups_city_about_render() {
-  return "about";
+  return '
+    <div class="section  grid_12 intro alpha omega"> 
+      <p class="tk-adelle"><strong>CityGroups is a searchable public directory that allows community organizers and residents to find community groups by location and topic.</strong></p>
+      <p>In cities across the country, there is amazing work being done by community organizers to mobilize their neighbors and take on community problems. CityGroups helps connect and publicize these less-visible groups by working with local community groups, governments and local technologists to make an open platform for finding & recommending groups working to make your city better.</p>
+    </div>
+    <div class="clear"></div>     
+    
+    <div class="section alpha omega grid_12 features">
+      <a name="features"></a>
+      <h3>Features</h3>
+      <ul class="list">
+        <li><strong>Searchable.</strong> Search by location or topic. Generate lists of community groups in your neighborhood.</li>
+        <li><strong>Community Editable.</strong> Like a wiki, anyone can add or update information about local groups.</li>
+        <li><strong>Social Directory.</strong> Groups can be categorized, mapped & shared.</li>
+        <li><strong>Any and all groups included.</strong> We make it easier to find the little groups, be they “over the fence”, e-mail lists or any group with a link to a web page.</li>
+        <li><strong>Quality control.</strong> CityGroups provides simple tools for reporting if a group is recommended, or “dead.” Imagine if email lists and blog sites from 3 years ago could have Yelp and Meetup-like features.</li>
+        <li><strong>Standardized, open data.</strong> Using a simple data standard, humans and computers can import and export data from the system. Supports CSV import and JSON export (API).</li>
+        <li><strong>Supports Data Collection Projects.</strong> We support reaching out to collect community groups by neighborhood, by topic, or in partnership with local community focused non-profits. Provides customizable front-end for data collection efforts.</li>
+      </ul>
+    </div>
+    <div class="clear"></div>
+
+    <div class="section alpha omega  grid_12 goals">
+      <a name="goals"></a>
+      <h3>Goals</h3>
+      <ul class="list">
+        <li><strong>Collaboration.</strong> Help neighborhoods promote their many working groups to facilitate collaboration.</li>
+        <li><strong>Participation.</strong> Increase participation in local initiatives through better visibility.</li>
+        <li><strong>Data Collection.</strong> Support data collection projects: For example, Block Watch Captains in Seattle are finding each other by building upon the CityGroups platform.</li>
+        <li><strong>Discovery.</strong> Help people find new groups that make their lives better.</li>
+        <li><strong>Better Data.</strong> People update, correct and mark as “dead” out-dated group information.</li>
+      </ul>
+    </div>
+    <div class="clear"></div>
+    
+    <div class="section alpha omega  grid_12">
+      <a name="cities"></a>
+      <h3>Cities</h3>
+      
+      We are currently planning to launch CityGroups in the following metropolitan regions.
+      <ul class="list">
+        <li><a href="http://seattle.citygroups.org">Seattle</a> (launched August 2011)</li>
+        <li><a href="http://staging.boston.citygroups.org">Boston</a> (launch mid-September 2011)</li>
+        <li>Bay Area (launch early October 2011)</li>
+      </ul>
+      
+      <h4>Possible Cities</h4>
+      <ul class="list">
+        <li>Philadelphia</li>
+        <li>New York City</li>
+      </ul>
+    </div>
+    <div class="clear"></div>
+  </div>
+  ';
 }
 
 function citygroups_city_welcome_render() {
-  return "welcome";
+  return "";
 }
 
 function citygroups_city_community_data_render() {
-  return "com data";
+  return '
+  <div class="section  alpha omega project  grid_12">
+    <a name="projects"></a>
+    <h3>Projects</h3>
+    These are community mapping & data collection projects serving local community groups.
+    <ul class="list">
+      <li><a href="http://seattle.citygroups.org/blockwatch">Block Watch Captain Directory</a></li>
+    </ul>
+    </div>'
+  ;
 }
 
 function citygroups_city_data_standard_community_groups_render() {
-  return "data standard";
+  return "The Data Standard for describing Community Groups is underway and being developed in Google Docs. <a href='https://docs.google.com/a/codeforamerica.org/document/d/1R16GNOer_GEWqNcF8XcrU7DfC2GijO-pAWUZXY6wndQ/edit?hl=en_US'>Have a look.</a>";
 }

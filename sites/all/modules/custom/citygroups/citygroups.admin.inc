@@ -47,6 +47,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <li><a href="/admin/citygroups_stats">Re-count groups</a></li>
       <li>RPX</li>
       <li>Typekit</li>
+      <li>Mailchimp</li>
     </ol>
 
     <a name="data"></a>    
@@ -159,7 +160,7 @@ t('CityGroups launches in our city!')),
   $form['citygroups_mailing_list'] = array(
     '#type' => 'textfield',
     '#title' => t('Mailing List'),
-    '#default_value' =>  variable_get('citygroups_mailing_list', array()),
+    '#default_value' =>  variable_get('citygroups_mailing_list', 'http://citygroups.us2.list-manage1.com/subscribe?u=eb1facd19686e6ad279923882&id=ea0d4c3774'),
     '#description' => 'Link to mailing list.',
   );
 
