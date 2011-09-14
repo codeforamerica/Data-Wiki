@@ -24,7 +24,7 @@ http://api.drupal.org/api/drupal/developer--hooks--install.php/function/hook_upd
 /**
  * Update tasks
  */
-function citygroups_city_update_7_1_01 {
+function citygroups_city_update_7_1_01() {
 
   // Update the menu router information.
   menu_rebuild();
