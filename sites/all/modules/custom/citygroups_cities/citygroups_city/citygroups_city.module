@@ -258,8 +258,11 @@ function citygroups_city_api_render() {
     }
   ]
 }
-  
-  </pre>
+</pre>
+
+<h4>Note</h4>
+<p>Emails currently not available, but some fully public emails will be available in the future.</p>
+<p>The privacy of community group contact people is important to us. Only public & verified email addresses will be made available. Services using the API will need to link back to CityGroups to connect with community group leaders.</p>
   
   ';
 
