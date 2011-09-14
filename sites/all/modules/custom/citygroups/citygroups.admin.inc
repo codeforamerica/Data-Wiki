@@ -138,7 +138,7 @@ t('CityGroups launches in our city!')),
     '#title' => t('Promote (homepage content)'),
     '#default_value' =>  variable_get('citygroups_content_promote', '
 <h3>Spread the word</h3>
-<p>If you like this directory and know other people who should <a href=\"/get-involved\">get involved</a>, we want to help you do that.</p>'),
+<p>If you like this directory and know other people who should <a href="/get-involved">get involved</a>, we want to help you do that.</p>'),
     '#description' => 'Links to promotional content',
   );
   
