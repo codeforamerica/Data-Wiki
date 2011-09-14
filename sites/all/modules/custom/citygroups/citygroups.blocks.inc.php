@@ -121,7 +121,7 @@ function citygroups_contents($type) {
               </div>
               " .
 */
-              views_embed_view('number_groups', 'default') .
+              "Over <strong>" . variable_get('citygroups_stats_groups_published') . " groups </strong> in " . variable_get('citygroups_city_name') . "." .
               
               "<div class=\"button\"><a href=\"map\">Map view</a></div>
               <div class=\"button\"><a href=\"list\">List view</a></div>
