@@ -83,13 +83,14 @@ function taxonomy_cleanup_merge_similar_terms() {
   $output = '';
   $categories_vid = 4;
   $terms = taxonomy_cleanup_get_term_from_vid(4);
-  
-  dpm($terms);
-  
   foreach ($terms as $tid => $term) {
+
+  $link_tid = base_path() . 'taxonomy/term/' . $tid;
+
     foreach($terms as $tid_sub => $term_sub) {
       if ((preg_match("/\b" . $term . "\b/i", $term_sub)) && ($term !== $term_sub)) {
-         $output .= "<p>Found similar terms: <strong>" . $term . "</strong> & <strong>" . $term_sub . '</strong></p>';
+          $link_tid_sub = base_path() . 'taxonomy/term/' . $tid_sub;
+         $output .= "<p>Found similar terms: <strong>" . l($term, $link_tid) . "</strong> & <strong>" . l($term_sub, $link_tid_sub) . '</strong></p>';
       } 
     }
   }
