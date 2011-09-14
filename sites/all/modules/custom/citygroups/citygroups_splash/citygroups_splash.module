@@ -55,7 +55,8 @@ function citygroups_splash_init() {
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
       && !variable_get('citygroups_city_name', array())
-      && !variable_get('citygroups_splash_config_seen', FALSE)) {
+      && !variable_get('citygroups_splash_config_seen', FALSE)
+      ) {
  
     variable_set('citygroups_splash_config_seen', TRUE); 
     
@@ -75,7 +76,8 @@ function citygroups_splash_init() {
   // Site configured admin welcome screen
   if (drupal_is_front_page() 
       && user_access('administer site configuration')
-      && !variable_get('citygroups_splash_welcome_seen', FALSE)) {
+/*       && !variable_get('citygroups_splash_welcome_seen', FALSE) */
+      ) {
 
     $url = url('splash/site_welcome');
     
@@ -129,7 +131,7 @@ function citygroups_splash_block_view($delta = '') {
   $block = array();
   switch ($delta) {
     case 'site_welcome':
-      $block['subject'] = t('Welcome to CityGroups');
+      $block['subject'] = t('You have logged in to CityGroups');
       $block['content'] = citygroups_splash_block_site_welcome();
       break;
     case 'site_prealpha':
@@ -160,7 +162,7 @@ function citygroups_splash_block_load($delta) {
  */
 function citygroups_splash_block_site_prealpha() {
   $output .= '<h1>' . variable_get('citygroups_city_name') . '</h1>';
-  $output .= '<img src="' . path_to_theme() . '/images/citygroups_alpha.png" alt="CityGroups Alpha" />';
+  $output .= '<img src="' . base_path() . path_to_theme() . '/images/citygroups_alpha.png" alt="CityGroups Alpha" />';
   $output .= '<p>' . t('This is a new site, we are understanding how best to make the site useful in your city.') . '</p>';
   $output .= '<p>' . t('We are inviting folks to test the site and add information to it.');
   $output .= '<h3>' . t('Questions?') . ' ' . l('Contact us.', 'contact') . '</h3>';
@@ -181,9 +183,8 @@ function citygroups_splash_block_site_prealpha() {
  */
 function citygroups_splash_block_site_welcome() {
   $markup = '';
-  $markup .= '<p>' . t('Ready to create a Drupal site?') . '</p>';
-  $markup .= '<p>' . t('To get started with your site, go straight to the !dashboard. From there, you\'ll be able to choose your theme, personalize your site, and configure all the bells and whistles.', array('!dashboard' => l(t('Dashboard'), 'admin/dashboard', array('attributes' => array('class' => array('citygroups-splash-link')))))) . '</p>';
-  $markup .= '<p>' . t('Tell us what you think, or better yet, !contribute to make it even better.', array('!contribute' => l(t('contribute to CityGroups'), 'http://citygroups.org/'))) . '</p>';
+  $markup .= '<p><strong>Next: </strong>' . t('Setup your site. Go to the !dashboard.', array('!dashboard' => l(t('Dashboard'), 'admin/dashboard', array('attributes' => array('class' => array('citygroups-splash-link')))))) . '</p>';
+/*   $markup .= '<p>' . t('Tell us what you think, or better yet, !contribute to make it even better.', array('!contribute' => l(t('contribute to CityGroups'), 'http://citygroups.org/'))) . '</p>'; */
 
   $block = array(
     '#markup' => $markup,

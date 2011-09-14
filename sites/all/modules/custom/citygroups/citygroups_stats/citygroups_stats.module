@@ -23,5 +23,5 @@ function citygroups_stats_build() {
   $count_groups_published = $result->rowCount(); //Count the results.
 
   variable_set('citygroups_stats_groups_published', $count_groups_published);
-  drupal_set_message(t('"CityGroups Stats: Groups Counted: ') . $count_groups_published);
+  drupal_set_message(t('Number of Community Groups in the Directory: ') . $count_groups_published);
 }

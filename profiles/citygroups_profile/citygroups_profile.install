@@ -13,6 +13,7 @@ function citygroups_profile_install() {
 
  // Enable default theme
   theme_enable(array('citygroups_base', 'citygroups_admin'));
+  
   variable_set('theme_default', 'citygroups_base');
   variable_set('admin_theme', 'citygroups_admin');
   variable_set('node_admin_theme', '0');
@@ -137,6 +138,4 @@ function citygroups_profile_install() {
   menu_link_save($item);
 */
   //variable_set('clean_url', '1');
-  
-
 }

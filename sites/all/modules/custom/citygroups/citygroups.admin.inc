@@ -44,6 +44,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <li><a href="/admin/build/openlayers/layers/settings">Set Map API Keys (Google & Cloudmade.)</a></li>
       <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
       <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li>
+      <li>RPX/li>
       <li>Typekit</li>
     </ol>
 
@@ -104,8 +105,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
     '#type' => 'textarea',
     '#title' => t('View Groups (homepage content)'),
     '#default_value' =>  variable_get('citygroups_content_groups', '
-<h3>' . t('Search for Groups') .'</h3>
-<p>' . '0' . ' community groups in ' . variable_get('citygroups_city_name', 'our city') . '.</p>'
+<h3>' . t('Search for Groups') .'</h3>'
     ),
     '#description' => 'Prompt to check out groups in the directory',
   );
