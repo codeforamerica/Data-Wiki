@@ -8,6 +8,24 @@
  
 function citygroups_city_install() {
 
+  
+  // Optional setup the city name on install.
+  /*   variable_set('citygroups_city_name', 'CityName'); */
+}
+
+/*
+http://api.drupal.org/api/drupal/developer--hooks--install.php/function/hook_update_N/6
+
+1 digit for Drupal core compatibility
+1 digit for your module's major release version (e.g. is this the 5.x-1.* (1) or 5.x-2.* (2) series of your module?)
+2 digits for sequential counting starting with 00
+*/
+
+/**
+ * Update tasks
+ */
+function citygroups_city_update_7_1_01 {
+
   // Update the menu router information.
   menu_rebuild();
 
@@ -69,7 +87,4 @@ function citygroups_city_install() {
   );
 
   menu_link_save($item);
-  
-  // Optional setup the city name on install.
-  /*   variable_set('citygroups_city_name', 'CityName'); */
 }
