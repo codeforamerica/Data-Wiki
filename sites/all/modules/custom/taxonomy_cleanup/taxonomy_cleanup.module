@@ -1,0 +1,116 @@
+<?php
+
+/**
+ * Cleanup Taxonomy Terms
+ */
+ 
+function taxonomy_cleanup_menu() {  
+  $items['admin/config/taxonomy_cleanup'] = array(
+    'title' => 'Taxonomy Cleanup',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_cleanup_edit_form'),
+    'access arguments' => array('administer taxonomy'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+  
+  $items['admin/config/taxonomy_cleanup/remove_empty_terms'] = array(
+    'title' => 'Remove Empty Terms',
+    'page callback' => 'taxonomy_cleanup_remove_empty_terms',
+    'page arguments' => array(t('Remove Empty Terms')),
+    'access callback' => TRUE,
+    'access arguments' => array('administer taxonomy'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' =>  -10,
+  );
+ 
+  $items['admin/config/taxonomy_cleanup/merge_similar_terms'] = array(
+    'title' => 'Merge Similar Terms',
+    'page callback' => 'taxonomy_cleanup_merge_similar_terms',
+    'page arguments' => array(t('Merge Similiar Terms')),
+    'access callback' => TRUE,
+    'access arguments' => array('administer taxonomy'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' =>  -10,
+  ); 
+ 
+  
+/*
+  $items['admin/config/taxonomy_cleanup/sentence_case'] = array(
+    'title' => 'Make Taxonomy Terms Sentence Case',
+    'page callback' => 'taxonomy_cleanup_remove_empty_terms',
+    'page arguments' => array(t('Remove Empty Terms')),
+    'access callback' => TRUE,
+    'access arguments' => array('administer taxonomy'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' =>  -10,
+  ); 
+*/ 
+  
+  return $items;
+}
+
+function taxonomy_cleanup_edit_form($form, &$form_state, array $rule = array()) {
+
+  $form['taxonomy_cleanup'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Terms'),
+    '#default_value' =>  '',
+    '#description' => 'Enter a comma separated list of terms to clean up. Use exact cases.',
+  );
+
+  return system_settings_form($form);
+}
+
+function taxonomy_cleanup_remove_empty_terms() {
+  // @TODO This is hard coded for CityGroups - can change this.
+  $categories_vid = 4;
+  $terms = taxonomy_cleanup_get_term_from_vid(4);
+  
+  foreach ($terms as $tid => $term) {
+    $nodes = taxonomy_select_nodes($tid);
+    if(empty($nodes)) {
+      drupal_set_message("Removing Empty Term: " . $term);   
+      taxonomy_term_delete($tid);
+    }
+  }
+
+  drupal_set_message("All empty terms removed");
+  return "";
+}
+
+
+function taxonomy_cleanup_merge_similar_terms() {
+  $output = '';
+  $categories_vid = 4;
+  $terms = taxonomy_cleanup_get_term_from_vid(4);
+  
+  dpm($terms);
+  
+  foreach ($terms as $tid => $term) {
+    foreach($terms as $tid_sub => $term_sub) {
+      if ((preg_match("/\b" . $term . "\b/i", $term_sub)) && ($term !== $term_sub)) {
+         $output .= "<p>Found similar terms: <strong>" . $term . "</strong> & <strong>" . $term_sub . '</strong></p>';
+      } 
+    }
+  }
+  
+  return "<h2>Merging Similar Terms</h2>" . $output;
+}
+
+function taxonomy_cleanup_get_term_from_vid($vid) {
+    $query = db_select('taxonomy_term_data', 't');
+    $query->join('taxonomy_term_hierarchy', 'h', 'h.tid = t.tid');
+    $query->fields('t', array('tid', 'name'));
+    $query->condition('t.vid', $vid, '=');
+    $query->condition('h.parent', 0, '='); // remove this line to get all terms.
+    $result = $query->execute();
+
+    while ($record = $result->fetchAssoc()) {
+        $data[$record['tid']] = t($record['name']);
+    }
+
+    return $data;
+}
+
+//for merging
+//taxonomy_node_delete($node)
