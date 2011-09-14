@@ -85,6 +85,15 @@ http://api.drupal.org/api/drupal/developer--hooks--install.php/function/hook_upd
 /**
  * Update tasks
  */
-function citygroups_city_update_7101() {
+function citygroups_city_update_7100() {
+
+  $item = array(
+    'link_path' => 'http://tasks.citygroups.org',
+    'link_title' => 'Blog',
+    'menu_name' => 'citygroups_footer',
+    'weight' => -0,
+  );
+
+  menu_link_save($item);
 
 }
