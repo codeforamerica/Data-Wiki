@@ -13,7 +13,7 @@ function citygroups_stats_cron() {
 
 function citygroups_stats_menu() {
   $items['admin/citygroups_stats'] = array(
-    'title' => 'CityGroups Settings',
+    'title' => 'CityGroups Stats',
     'page callback' => 'citygroups_stats_build_page',
     'access arguments' => array('access content'),
     'weight' => 1,
