@@ -83,15 +83,7 @@ function taxonomy_cleanup_remove_empty_terms() {
 function taxonomy_cleanup_merge_similar_terms_settings_form() {
   $output = '';
   $categories_vid = 4;
-//  $terms = taxonomy_cleanup_get_term_from_vid(4);
-
- // $output .= taxonomy_cleanup_merge_similar_terms(195, 488);
-
-
-/*   return taxonomy_cleanup_term_merge_form(4); */
-
-
-/*
+  $terms = taxonomy_cleanup_get_term_from_vid(4);
 
   global $base_url;
 
@@ -103,23 +95,12 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
       if ((preg_match("/\b" . $term . "\b/i", $term_sub)) && ($term !== $term_sub)) {
         $link_tid_sub = $base_url. '/taxonomy/term/' . $tid_sub;
         $output .= "<p>Found similar terms: <strong>" . l($term, $link_tid) . "</strong> & <strong>" . l($term_sub, $link_tid_sub) . '</strong></p>';
-        $output .= "<p><span class='merge'>Merge</span> | " . $term_sub . " into <strong>" . $term . '</strong><br /><br /></p>';
-         
-
-         
-         
+        $output .= "<p><span class='merge'>Merge</span> | " . $term_sub . " into <strong>" . $term . '</strong><br /><br /></p>';       
       } 
     }
   }
-*/
-  
-/*   return "<h2>Merging Similar Terms</h2>" . $output; */
-/* } */
 
-/**
- * Form for the Term merge module
- */
-/* function taxonomy_cleanup_term_merge_form($vid) { */
+
   $vocabulary = taxonomy_vocabulary_load(4);
 
   if (!module_exists('term_merge') || !user_access('merge terms')) {
@@ -129,16 +110,13 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
   $form = array();
 
   $form['taxonomy_cleanup'] = array(
-/*
     '#type' => 'fieldset', 
     '#title' => t('Terms to Merge'), 
     '#collapsible' => FALSE, 
     '#collapsed' => FALSE,
-*/
+    '#submit' => array('_taxonomy_cleanup_merge_similar_terms_settings_form_submit'),
+    '#suffix' => $output,
   );
-
-  $form['taxonomy_cleanup']['#validate'][] = '_taxonomy_cleanup_merge_similar_terms_settings_form_validate';
-  $form['taxonomy_cleanup']['#submit'][] = '_taxonomy_cleanup_merge_similar_terms_settings_form_submit';
 
   $form['taxonomy_cleanup']['dest_term'] = array(
     '#type' => 'textfield',
@@ -154,7 +132,7 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
     '#default_value' => 'arts',
   );
    
- $form['taxonomy_cleanup']['submit'] = array(
+  $form['taxonomy_cleanup']['submit'] = array(
     '#type' => 'submit', 
     '#value' => t('Merge'),
   );
@@ -162,84 +140,37 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
   return $form;
 }
 
-
-/**
- * Validation handler for validating terms
- */
-function _taxonomy_cleanup_merge_similar_terms_settings_form_validate($form, &$form_state) {
+function taxonomy_cleanup_merge_similar_terms_settings_form_submit($form, $form_state) {
   $selected_tids = array();
-  dpm($form_state);
-  dsm("test");
-/*
-  $selected_tids = $form_state['values']['taxonomy']['manager']['tree']['selected_terms'];
-  $dest_terms = array();
-  $regexp = '%(?:^|,\ *)("(?>[^"]*)(?>""[^"]* )*"|(?: [^",]*))%x';
-  preg_match_all($regexp, $form_state['values']['term_merge']['dest_term'], $matches);
-  $dest_terms = $matches[1];
-  $error_msg = "";
-  $typed_terms = taxonomy_manager_autocomplete_tags_get_tids($form_state['values']['term_merge']['dest_term'], $form_state['values']['voc']->vid, FALSE);
-  
-  if (!is_array($dest_terms) || count($dest_terms) == 0 || empty($dest_terms[0])) {
-    form_set_error('term_merge][dest_term', t('Please enter a name into "Destination term"'));
-    $form_state['rebuild'] = TRUE;
-  }
-  else if (count($dest_terms) > 1) {
-    form_set_error('term_merge][dest_term', t('Please only enter single names into "Destination term"'));
-    $form_state['rebuild'] = TRUE;
-  }
-      
-  if (count($selected_tids) < 1) {
-    form_set_error('term_merge', t("Please selecte terms you want to merge"));
-    $form_state['rebuild'] = TRUE;
-  }
-  else if (_taxonomy_manager_check_duplicates($form_state['values']['voc']->vid, $form_state['values']['term_merge']['dest_term'], $error_msg)) {
-    form_set_error('term_merge', t("Warning: Your input matches with multiple terms, because of duplicated term names. Please enter a unique term name or the term id with 'term-id:[tid]'") ." (". $error_msg .").");
-    $form_state['rebuild'] = TRUE;
-  }
-*/
-}
 
-function _taxonomy_cleanup_merge_similar_terms_settings_form_submit($form, $form_state) {
-  $selected_tids = array();
-  dpm($form_state);
-  echo "test";
-  /*
-$selected_tids = $form_state['values']['taxonomy_cleanup']['tree']['selected_terms'];
-  $dest_term_ids = taxonomy_manager_autocomplete_tags_get_tids($form_state['values']['term_merge']['dest_term'], $form_state['values']['voc']->vid, TRUE);
-  $dest_term_id = array_shift($dest_term_ids);
-  $dest_term = taxonomy_term_load($dest_term_id['tid']);
-
-  $term_names_array = array();
-  foreach ($selected_tids as $selected_tid) {
-    $term = taxonomy_term_load($selected_tid);
-    $term_names_array[] = $term->name; 
-  }
   $term_names = implode($term_names_array, ', ');
   if (module_exists('term_merge')) {
-    term_merge($selected_tids, $dest_term, $form_state['values']['term_merge']['options']['keep_merged']);
-    drupal_set_message(t("Terms %term_names merged into %dest_term", array('%term_names' => $term_names, '%dest_term' => $dest_term->name)));
+  
+    $dest = array_values(taxonomy_get_term_by_name($form_state['values']['dest_term']));
+    $source = array_values(taxonomy_get_term_by_name($form_state['values']['source_term']));
+
+    // @TODO Kludgy, but works.
+    if(($dest[0]->vid == 4) && ($source[0]->vid == 4)) {
+      term_merge($source[0]->tid, $dest[0]->tid, FALSE);
+      drupal_set_message(t("Terms %term_names merged into %dest_term", array('%term_names' => $source[0]->name, '%dest_term' => $dest[0]->name)));
+    }
   }
   else {
     drupal_set_message(t('Term merge module not found'));
   }
-*/
 }
-
 
 function taxonomy_cleanup_get_term_from_vid($vid) {
-    $query = db_select('taxonomy_term_data', 't');
-    $query->join('taxonomy_term_hierarchy', 'h', 'h.tid = t.tid');
-    $query->fields('t', array('tid', 'name'));
-    $query->condition('t.vid', $vid, '=');
-    $query->condition('h.parent', 0, '='); // remove this line to get all terms.
-    $result = $query->execute();
+  $query = db_select('taxonomy_term_data', 't');
+  $query->join('taxonomy_term_hierarchy', 'h', 'h.tid = t.tid');
+  $query->fields('t', array('tid', 'name'));
+  $query->condition('t.vid', $vid, '=');
+  $query->condition('h.parent', 0, '='); // remove this line to get all terms.
+  $result = $query->execute();
 
-    while ($record = $result->fetchAssoc()) {
-        $data[$record['tid']] = t($record['name']);
-    }
+  while ($record = $result->fetchAssoc()) {
+      $data[$record['tid']] = t($record['name']);
+  }
 
-    return $data;
+  return $data;
 }
-
-//for merging
-//taxonomy_node_delete($node)
