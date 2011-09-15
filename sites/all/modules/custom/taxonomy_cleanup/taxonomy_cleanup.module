@@ -32,20 +32,7 @@ function taxonomy_cleanup_menu() {
     'type' => MENU_NORMAL_ITEM,
     'weight' =>  -10,
   ); 
- 
-  
-/*
-  $items['admin/config/taxonomy_cleanup/sentence_case'] = array(
-    'title' => 'Make Taxonomy Terms Sentence Case',
-    'page callback' => 'taxonomy_cleanup_remove_empty_terms',
-    'page arguments' => array(t('Remove Empty Terms')),
-    'access callback' => TRUE,
-    'access arguments' => array('administer taxonomy'),
-    'type' => MENU_NORMAL_ITEM,
-    'weight' =>  -10,
-  ); 
-*/ 
-  
+
   return $items;
 }
 
@@ -78,8 +65,6 @@ function taxonomy_cleanup_remove_empty_terms() {
   return "";
 }
 
-
-
 function taxonomy_cleanup_merge_similar_terms_settings_form() {
   $output = '';
   $categories_vid = 4;
@@ -94,13 +79,12 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
     foreach($terms as $tid_sub => $term_sub) {
       if ((preg_match("/\b" . $term . "\b/i", $term_sub)) && ($term !== $term_sub)) {
         $link_tid_sub = $base_url. '/taxonomy/term/' . $tid_sub;
-        $output .= "<p>Found similar terms: <strong>" . l($term, $link_tid) . "</strong> & <strong>" . l($term_sub, $link_tid_sub) . '</strong></p>';
-        $output .= "<p><span class='merge'>Merge</span> | " . $term_sub . " into <strong>" . $term . '</strong><br /><br /></p>';       
+        $output .= "<p>Similar terms: <strong>" . l($term, $link_tid) . "</strong> & <strong>" . l($term_sub, $link_tid_sub) . '</strong></p>';
+        //$output .= "<p><span class='merge'>Merge</span> | " . $term_sub . " into <strong>" . $term . '</strong><br /><br /></p>';       
       } 
     }
   }
-
-
+  
   $vocabulary = taxonomy_vocabulary_load(4);
 
   if (!module_exists('term_merge') || !user_access('merge terms')) {
@@ -114,7 +98,7 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
     '#title' => t('Terms to Merge'), 
     '#collapsible' => FALSE, 
     '#collapsed' => FALSE,
-    '#submit' => array('_taxonomy_cleanup_merge_similar_terms_settings_form_submit'),
+/*     '#submit' => array('_taxonomy_cleanup_merge_similar_terms_settings_form_submit'), */
     '#suffix' => $output,
   );
 
@@ -122,14 +106,12 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
     '#type' => 'textfield',
     '#title' => t('Term to keep (destination)'),
     '#description' => t("Enter a unique term name"),
-    '#default_value' => 'Arts',
   );
 
   $form['taxonomy_cleanup']['source_term'] = array(
     '#type' => 'textfield',
     '#title' => t('Term to remove (source)'),
     '#description' => t("Enter a unique term name"),
-    '#default_value' => 'arts',
   );
    
   $form['taxonomy_cleanup']['submit'] = array(
@@ -140,6 +122,17 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
   return $form;
 }
 
+/**
+ * Validate function for term merging.
+ * @TODO fix this and/or use autocomplete on the taxonomy selection forms.
+ */
+function taxonomy_cleanup_merge_similar_terms_settings_form_validate($form, $form_state) {
+
+}
+
+/**
+ * Submit function for term merging.
+ */
 function taxonomy_cleanup_merge_similar_terms_settings_form_submit($form, $form_state) {
   $selected_tids = array();
 
@@ -148,6 +141,9 @@ function taxonomy_cleanup_merge_similar_terms_settings_form_submit($form, $form_
   
     $dest = array_values(taxonomy_get_term_by_name($form_state['values']['dest_term']));
     $source = array_values(taxonomy_get_term_by_name($form_state['values']['source_term']));
+
+dpm($dest);
+dpm($source);
 
     // @TODO Kludgy, but works.
     if(($dest[0]->vid == 4) && ($source[0]->vid == 4)) {
