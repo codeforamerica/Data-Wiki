@@ -1,5 +1,4 @@
 <?php
-// $Id: link.crud_browser.test,v 1.1.4.2 2011/01/16 04:12:21 jcfiala Exp $
 
 /**
  * @file
@@ -122,6 +121,15 @@ class LinkUITest extends DrupalWebTestcase {
         'type' => self::LINK_INPUT_TYPE_BAD_URL
       ),
     );
+    $test_case = array(
+      'href' => 'www.example.com/'. $this->randomName(),
+      'label' => $this->randomName(),
+      'msg' => 'Link found',
+      'type' => self::LINK_INPUT_TYPE_GOOD,
+    );
+    $test_case['expected_href'] = 'http://'. $test_case['href'];
+    $input_test_cases[] = $test_case;
+    
     foreach ($input_test_cases as $input) {
       $this->drupalLogin($account);
       $this->drupalGet('node/add/page');
@@ -151,7 +159,12 @@ class LinkUITest extends DrupalWebTestcase {
       // If simpletest starts using something to override the error system, this will flag
       // us and let us know it's broken.
       $this->assertFalse(libxml_use_internal_errors(TRUE));
-      $path = '//a[@href="'. $input['href'] .'" and text()="'. $input['label'] .'"]';
+      if (isset($input['expected_href'])) {
+        $path = '//a[@href="'. $input['expected_href'] .'" and text()="'. $input['label'] .'"]';
+      }
+      else {
+        $path = '//a[@href="'. $input['href'] .'" and text()="'. $input['label'] .'"]';
+      }
       //$this->pass(htmlentities($path));
       $elements = $this->xpath($path);
       libxml_use_internal_errors(FALSE);
@@ -315,7 +328,7 @@ class LinkUITest extends DrupalWebTestcase {
     $this->drupalLogout();    
     $this->drupalGet($url);
 
-    $this->assertRaw(l('<strong>'. $name .'</strong>', $input['href'], array('html' => FALSE)));
+    $this->assertRaw(l('<strong>'. $name .'</strong>', $input['href'], array('html' => TRUE)));
   }
   
   /**

@@ -1,5 +1,4 @@
 <?php
-// $Id: link.validate.test,v 1.1.4.3 2011/02/07 06:39:47 jcfiala Exp $
 
 /**
  * @file
@@ -69,111 +68,141 @@ class LinkValidateTest extends LinkValidateTestCase {
   /**
    * Test if we're stopped from posting a bad url on default validation.
    */
-  function x_test_link_validate_bad_url_validate_default() {
-    $this->acquireContentTypes(1);
-    variable_set('node_options_'. $this->content_types[0]->name, array('status', 'promote'));
-    $field_settings = array(
-      'type' => 'link',
-      'widget_type' => 'link',
-      'type_name' => $this->content_types[0]->name,
-      'attributes' => array(), // <-- This is needed or we have an error
-      //'validate_url' => 1,
+  function test_link_validate_bad_url_validate_default() {
+    $account = $this->drupalCreateUser(array('administer content types',
+                                             'administer nodes',
+                                             'administer filters',
+                                             'access content',
+                                             'create page content',
+                                             'access administration pages'));
+    $this->drupalLogin($account);
+
+    // create field
+    $name = strtolower($this->randomName());
+    $edit = array(
+      'fields[_add_new_field][label]' => $name,
+      'fields[_add_new_field][field_name]' => $name,
+      'fields[_add_new_field][type]' => 'link_field',
+      'fields[_add_new_field][widget_type]' => 'link_field',
     );
+    $this->drupalPost('admin/structure/types/manage/page/fields', $edit, t('Save'));
+    $this->drupalPost(NULL, array(), t('Save field settings'));
+    $this->drupalPost(NULL, array(), t('Save settings'));
 
-    $field = $this->createField($field_settings, 0);
-    //$this->pass('<pre>'. print_r($field, TRUE) .'</pre>');
-    $field_db_info = content_database_info($field);
-
-    $this->acquireNodes(2);
+    // Is field created?
+    $this->assertRaw(t('Saved %label configuration', array('%label' => $name)), 'Field added');
+    node_types_rebuild();
+    menu_rebuild();
     
-    $node = node_load($this->nodes[0]->nid);
+    // create page form
+    $this->drupalGet('node/add/page');
+    $field_name = 'field_' . $name;
+    $this->assertField('edit-field-'. $name .'-und-0-title', 'Title found');
+    $this->assertField('edit-field-'. $name .'-und-0-url', 'URL found');
     
-    $this->drupalGet('node/'. $this->nodes[0]->nid);
     
-    $edit = array();
-    $edit[$field['field_name'] .'[0][url]'] = 'edik:naw';
+    $edit = array(
+      'title' => 'Simple Title',
+      $field_name .'[und][0][url]' => 'edik:naw',
+    );
     
-    $this->drupalPost('node/'. $this->nodes[0]->nid .'/edit', $edit, t('Save'));
-    //$this->pass($this->content);
+    $this->drupalPost(NULL, $edit, t('Save'));
     $this->assertText(t('Not a valid URL.'));
-    
-    // Make sure we get a new version!
-    $node = node_load($this->nodes[0]->nid, NULL, TRUE);
-    $this->assertNotEqual('edik:naw', $node->{$field['field_name']}[0]['url']);
-    
   }
   
   /**
    * Test if we're stopped from posting a bad url with validation on.
    */
-  function x_test_link_validate_bad_url_validate_on() {
-    $this->acquireContentTypes(1);
-    variable_set('node_options_'. $this->content_types[0]->name, array('status', 'promote'));
-    $field_settings = array(
-      'type' => 'link',
-      'widget_type' => 'link',
-      'type_name' => $this->content_types[0]->name,
-      'attributes' => array(), // <-- This is needed or we have an error
-      'validate_url' => 1,
+  function test_link_validate_bad_url_validate_on() {
+    $account = $this->drupalCreateUser(array('administer content types',
+                                             'administer nodes',
+                                             'administer filters',
+                                             'access content',
+                                             'create page content',
+                                             'access administration pages'));
+    $this->drupalLogin($account);
+
+    // create field
+    $name = strtolower($this->randomName());
+    $edit = array(
+      'fields[_add_new_field][label]' => $name,
+      'fields[_add_new_field][field_name]' => $name,
+      'fields[_add_new_field][type]' => 'link_field',
+      'fields[_add_new_field][widget_type]' => 'link_field',
     );
+    $this->drupalPost('admin/structure/types/manage/page/fields', $edit, t('Save'));
+    $this->drupalPost(NULL, array(), t('Save field settings'));
+    $this->drupalPost(NULL, array('instance[settings][validate_url]' => TRUE), t('Save settings'));
 
-    $field = $this->createField($field_settings, 0);
-    //$this->pass('<pre>'. print_r($field, TRUE) .'</pre>');
-    $field_db_info = content_database_info($field);
-
-    $this->acquireNodes(2);
+    // Is field created?
+    $this->assertRaw(t('Saved %label configuration', array('%label' => $name)), 'Field added');
+    node_types_rebuild();
+    menu_rebuild();
     
-    $node = node_load($this->nodes[0]->nid);
+    // create page form
+    $this->drupalGet('node/add/page');
+    $field_name = 'field_' . $name;
+    $this->assertField('edit-field-'. $name .'-und-0-title', 'Title found');
+    $this->assertField('edit-field-'. $name .'-und-0-url', 'URL found');
     
-    $this->drupalGet('node/'. $this->nodes[0]->nid);
     
-    $edit = array();
-    $edit[$field['field_name'] .'[0][url]'] = 'edik:naw';
+    $edit = array(
+      'title' => 'Simple Title',
+      $field_name .'[und][0][url]' => 'edik:naw',
+    );
     
-    $this->drupalPost('node/'. $this->nodes[0]->nid .'/edit', $edit, t('Save'));
-    //$this->pass($this->content);
+    $this->drupalPost(NULL, $edit, t('Save'));
     $this->assertText(t('Not a valid URL.'));
-    
-    // Make sure we get a new version!
-    $node = node_load($this->nodes[0]->nid, NULL, TRUE);
-    $this->assertNotEqual('edik:naw', $node->{$field['field_name']}[0]['url']);
     
   }
   
   /**
    * Test if we can post a bad url if the validation is expressly turned off.
    */
-  function x_test_link_validate_bad_url_validate_off() {
-    $this->acquireContentTypes(1);
-    variable_set('node_options_'. $this->content_types[0]->name, array('status', 'promote'));
-    $field_settings = array(
-      'type' => 'link',
-      'widget_type' => 'link',
-      'type_name' => $this->content_types[0]->name,
-      'attributes' => array(), // <-- This is needed or we have an error
-      'validate_url' => 0,
+  function test_link_validate_bad_url_validate_off() {
+    $account = $this->drupalCreateUser(array('administer content types',
+                                             'administer nodes',
+                                             'administer filters',
+                                             'access content',
+                                             'create page content',
+                                             'access administration pages'));
+    $this->drupalLogin($account);
+
+    // create field
+    $name = strtolower($this->randomName());
+    $edit = array(
+      'fields[_add_new_field][label]' => $name,
+      'fields[_add_new_field][field_name]' => $name,
+      'fields[_add_new_field][type]' => 'link_field',
+      'fields[_add_new_field][widget_type]' => 'link_field',
     );
+    $this->drupalPost('admin/structure/types/manage/page/fields', $edit, t('Save'));
+    $this->drupalPost(NULL, array(), t('Save field settings'));
+    $this->drupalPost(NULL, array('instance[settings][validate_url]' => FALSE), t('Save settings'));
+    
+    /*$instance_details = db_query("SELECT * FROM {field_config_instance} WHERE field_name = :field_name AND bundle = 'page'", array(':field_name' => 'field_'. $name))->fetchObject();
+    $this->fail('<pre>'. print_r($instance_details, TRUE) .'</pre>');
+    $this->fail('<pre>'. print_r(unserialize($instance_details->data), TRUE) .'</pre>');*/
 
-    $field = $this->createField($field_settings, 0);
-    //$this->pass('<pre>'. print_r($field, TRUE) .'</pre>');
-    $field_db_info = content_database_info($field);
-
-    $this->acquireNodes(2);
+    // Is field created?
+    $this->assertRaw(t('Saved %label configuration', array('%label' => $name)), 'Field added');
+    node_types_rebuild();
+    menu_rebuild();
     
-    $node = node_load($this->nodes[0]->nid);
+    // create page form
+    $this->drupalGet('node/add/page');
+    $field_name = 'field_' . $name;
+    $this->assertField('edit-field-'. $name .'-und-0-title', 'Title found');
+    $this->assertField('edit-field-'. $name .'-und-0-url', 'URL found');
     
-    $this->drupalGet('node/'. $this->nodes[0]->nid);
     
-    $edit = array();
-    $edit[$field['field_name'] .'[0][url]'] = 'edik:naw';
+    $edit = array(
+      'title' => 'Simple Title',
+      $field_name .'[und][0][url]' => 'edik:naw',
+    );
     
-    $this->drupalPost('node/'. $this->nodes[0]->nid .'/edit', $edit, t('Save'));
-    //$this->pass($this->content);
+    $this->drupalPost(NULL, $edit, t('Save'));
     $this->assertNoText(t('Not a valid URL.'));
-    
-    // Make sure we get a new version!
-    $node = node_load($this->nodes[0]->nid, NULL, TRUE);
-    $this->assertEqual('edik:naw', $node->{$field['field_name']}[0]['url']);
     
   }
   
@@ -451,6 +480,9 @@ class LinkValidateUrlLight extends DrupalWebTestCase {
     foreach ($links as $link) {
       $valid = link_validate_url($link);
       $this->assertEqual(LINK_EXTERNAL, $valid, 'Testing that '. $link .' is a valid external link.');
+      // The following two lines are commented out and only used for comparisons.
+      //$valid2 = valid_url($link, TRUE);
+      //$this->assertEqual(TRUE, $valid2, "Using valid_url() on $link.");
     }
   }
   

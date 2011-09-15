@@ -39,10 +39,13 @@ function taxonomy_cleanup_menu() {
 function taxonomy_cleanup_edit_form($form, &$form_state, array $rule = array()) {
 
   $form['taxonomy_cleanup'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Terms'),
-    '#default_value' =>  '',
-    '#description' => 'Enter a comma separated list of terms to clean up. Use exact cases.',
+    '#markup' => '
+    <p>You can clean up the Categories Taxonomy in two ways.</p>
+    <ul>
+      <li><a href="/admin/config/taxonomy_cleanup/remove_empty_terms">Remove Empty Terms</a></li>
+      <li><a href="/admin/config/taxonomy_cleanup/merge_similar_terms">Merge Similar Terms</a></li>
+    </ul>
+    ',
   );
 
   return system_settings_form($form);
@@ -88,7 +91,7 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
   $vocabulary = taxonomy_vocabulary_load(4);
 
   if (!module_exists('term_merge') || !user_access('merge terms')) {
-    return;
+    return t('Term Merge module needs to be installed & enabled.');
   }
   
   $form = array();
@@ -98,7 +101,6 @@ function taxonomy_cleanup_merge_similar_terms_settings_form() {
     '#title' => t('Terms to Merge'), 
     '#collapsible' => FALSE, 
     '#collapsed' => FALSE,
-/*     '#submit' => array('_taxonomy_cleanup_merge_similar_terms_settings_form_submit'), */
     '#suffix' => $output,
   );
 
@@ -142,10 +144,7 @@ function taxonomy_cleanup_merge_similar_terms_settings_form_submit($form, $form_
     $dest = array_values(taxonomy_get_term_by_name($form_state['values']['dest_term']));
     $source = array_values(taxonomy_get_term_by_name($form_state['values']['source_term']));
 
-dpm($dest);
-dpm($source);
-
-    // @TODO Kludgy, but works.
+    // @KLUDGE, but works.
     if(($dest[0]->vid == 4) && ($source[0]->vid == 4)) {
       term_merge($source[0]->tid, $dest[0]->tid, FALSE);
       drupal_set_message(t("Terms %term_names merged into %dest_term", array('%term_names' => $source[0]->name, '%dest_term' => $dest[0]->name)));

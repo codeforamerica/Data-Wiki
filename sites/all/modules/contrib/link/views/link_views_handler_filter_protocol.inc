@@ -1,5 +1,4 @@
 <?php
-// $Id: link_views_handler_filter_protocol.inc,v 1.2.2.1 2009/11/09 06:40:51 herc Exp $
 
 /**
  * @file
