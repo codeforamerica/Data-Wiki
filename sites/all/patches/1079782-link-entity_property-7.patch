@@ -1,0 +1,71 @@
+diff --git link.module link.module
+index 9e52de5..8561c5d 100644
+--- link.module
++++ link.module
+@@ -53,6 +53,9 @@ function link_field_info() {
+       ),
+       'default_widget' => 'link_field',
+       'default_formatter' => 'link_default',
++      // Support hook_entity_property_info() from contrib "Entity API".
++      'property_type' => 'field_item_link',
++      'property_callbacks' => array('link_field_property_info_callback'),
+     ),
+   );
+ }
+@@ -916,4 +919,54 @@ function link_content_migrate_instance_alter(&$instance_value, $field_value) {
+  */
+ function link_field_settings_form() {
+   return array();
+-}
+\ No newline at end of file
++}
++
++/**
++ * Additional callback to adapt the property info of link fields.
++ * @see entity_metadata_field_entity_property_info().
++ */
++function link_field_property_info_callback(&$info, $entity_type, $field, $instance, $field_type) {
++  $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$field['field_name']];
++  // Define a data structure so it's possible to deal with both the link title
++  // and URL.
++  $property['getter callback'] = 'entity_metadata_field_verbatim_get';
++  $property['setter callback'] = 'entity_metadata_field_verbatim_set';
++
++  // Auto-create the field item as soon as a property is set.
++ $property['auto creation'] = 'link_field_item_create';
++
++  $property['property info'] = link_field_item_property_info();
++  $property['property info']['url']['required'] = !$instance['settings']['url'];
++  $property['property info']['title']['required'] = ($instance['settings']['title'] == 'required');
++  if ($instance['settings']['title'] == 'none') {
++    unset($property['property info']['title']);
++  }
++
++  unset($property['query callback']);
++}
++
++/**
++ * Callback for creating a new, empty link field item.
++ *
++ * @see link_field_property_info_callback()
++ */
++function link_field_item_create() {
++  return array('title' => NULL, 'url' => NULL);
++}
++
++/**
++ * Defines info for the properties of the link-field item data structure.
++ */
++function link_field_item_property_info() {
++  $properties['title'] = array(
++    'type' => 'text',
++    'label' => t('The title of the link.'),
++    'setter callback' => 'entity_property_verbatim_set',
++  );
++  $properties['url'] = array(
++    'type' => 'uri',
++    'label' => t('The URL of the link.'),
++    'setter callback' => 'entity_property_verbatim_set',
++  );
++  return $properties;
++}
