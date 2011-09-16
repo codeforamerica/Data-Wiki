@@ -2462,14 +2462,14 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'default',
+          'type' => 'link_default',
           'weight' => '21',
         ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'default',
+          'type' => 'link_default',
           'weight' => '0',
         ),
         'teaser' => array(
@@ -2497,6 +2497,7 @@ function community_group_content_type_field_default_fields() {
         'title_value' => '',
         'url' => 'optional',
         'user_register_form' => FALSE,
+        'validate_url' => 1,
       ),
       'widget' => array(
         'active' => 0,
@@ -2546,14 +2547,14 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'default',
+          'type' => 'link_default',
           'weight' => '23',
         ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'default',
+          'type' => 'link_default',
           'weight' => '1',
         ),
         'teaser' => array(
@@ -2581,6 +2582,7 @@ function community_group_content_type_field_default_fields() {
         'title_value' => '',
         'url' => 'optional',
         'user_register_form' => FALSE,
+        'validate_url' => 1,
       ),
       'widget' => array(
         'active' => 0,
@@ -2630,7 +2632,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'url',
+          'type' => 'link_default',
           'weight' => '26',
         ),
         'search_result' => array(
@@ -2664,6 +2666,7 @@ function community_group_content_type_field_default_fields() {
         'title_value' => '',
         'url' => 'optional',
         'user_register_form' => FALSE,
+        'validate_url' => 1,
       ),
       'widget' => array(
         'active' => 0,
@@ -2849,7 +2852,7 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'link',
+          'module' => NULL,
           'settings' => array(),
           'type' => 'default',
           'weight' => 0,
@@ -2897,7 +2900,7 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'link',
+          'module' => NULL,
           'settings' => array(),
           'type' => 'default',
           'weight' => 0,
@@ -3026,7 +3029,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'default',
+          'type' => 'link_default',
           'weight' => 1,
         ),
       ),
@@ -3048,6 +3051,7 @@ function community_group_content_type_field_default_fields() {
         'title_value' => '',
         'url' => 'optional',
         'user_register_form' => FALSE,
+        'validate_url' => 1,
       ),
       'widget' => array(
         'active' => 0,
@@ -3082,7 +3086,7 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'link',
+          'module' => NULL,
           'settings' => array(),
           'type' => 'default',
           'weight' => 0,
@@ -3130,7 +3134,7 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'link',
+          'module' => NULL,
           'settings' => array(),
           'type' => 'default',
           'weight' => 1,
@@ -3179,7 +3183,7 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'link',
+          'module' => NULL,
           'settings' => array(),
           'type' => 'default',
           'weight' => 0,
@@ -3227,7 +3231,7 @@ function community_group_content_type_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'link',
+          'module' => NULL,
           'settings' => array(),
           'type' => 'default',
           'weight' => 0,

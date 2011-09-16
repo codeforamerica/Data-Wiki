@@ -11,7 +11,7 @@
  * which is stored in the zero position of the field values. During widget
  * validation, the rule is parsed to see what dates it will create,
  * and multiple values are added to the field, one for each repeat date.
- * That update only happens when the rule, the from date, or the to date
+ * That update only happens when the rule, the start date, or the end date
  * change, no need to waste processing cycles for other changes to the node
  * values.
  *
@@ -42,7 +42,8 @@ function _date_repeat_widget(&$element, $field, $instance, $items, $delta) {
     '#prev_value2' => isset($items[0]['value2']) ? $items[0]['value2'] : '',
     '#prev_rrule' => isset($items[0]['rrule']) ? $items[0]['rrule'] : '',
     '#date_repeat_widget' => str_replace('_repeat', '', $instance['widget']['type']),
-    '#date_repeat_collapsed' => $instance['settings']['repeat_collapsed'],
+    '#date_repeat_collapsed' => $instance['widget']['settings']['repeat_collapsed'],
+    '#date_flexible' => 0,
     );
   return $element;
 }
@@ -94,7 +95,6 @@ function _date_repeat_widget_validate($element, &$form_state) {
   // Is it right to not do anything unless there are changes? Will that
   // confuse anyone? Commenting that out for now...
   $rrule = $item['rrule'];
-
   if (!empty($rrule)
     //&& ($rrule != $element['rrule']['#prev_rrule']
     //|| $item['value'] != $element['rrule']['#prev_value']
@@ -133,7 +133,7 @@ function date_repeat_build_dates($rrule = NULL, $rrule_values = NULL, $field, $i
     $rrule = date_api_ical_build_rrule($rrule_values);
   }
   elseif (empty($rrule_values)) {
-    $rrule_values = date_ical_parse($rrule);
+    $rrule_values = date_ical_parse_rrule(NULL, $rrule);
   }
 
   // By the time we get here, the start and end dates have been 
@@ -174,11 +174,11 @@ function date_repeat_build_dates($rrule = NULL, $rrule_values = NULL, $field, $i
   $parsed_rdates = (array) $parts[2];
   $additions = array();
   foreach ($parsed_rdates as $rdate) {
-    $additions[] = date_ical_date($rdate, $timezone);
+    $date = date_ical_date($rdate, $timezone);
+    $additions[] = date_format($date, 'Y-m-d');
   }
 
   $dates = date_repeat_calc($rrule, $start_datetime, $end_datetime, $exceptions, $timezone, $additions);
-
   $value = array();
   foreach ($dates as $delta => $date) {
     // date_repeat_calc always returns DATE_DATETIME dates, which is

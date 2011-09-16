@@ -82,7 +82,7 @@ dependencies[] = rpx_widgets
 dependencies[] = strongarm
 dependencies[] = user_reference
 dependencies[] = uuid
-dependencies[] = uuid_node
+; dependencies[] = uuid_node
 dependencies[] = views
 dependencies[] = views_json
 dependencies[] = views_ui
@@ -123,6 +123,8 @@ dependencies[] = citygroups_city
 ; For development
 dependencies[] = sea_blockwatch
 dependencies[] = sea_blockwatch_context
+
+dependencies[] = taxonomy_cleanup
 
 ; ##############################################################################
 

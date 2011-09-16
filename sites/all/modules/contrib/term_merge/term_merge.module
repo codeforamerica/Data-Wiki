@@ -483,6 +483,10 @@ function _term_merge_insert_field_values($update_data, &$context) {
 
   // Save the new field values if something has changed.
   if ($target_merged) {
+    if($entity_type == 'node') {
+      node_save($entity);
+    }
+  
     field_attach_update($entity_type, $entity);
   }
 }

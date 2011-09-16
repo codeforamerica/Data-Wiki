@@ -4,5 +4,5 @@ name = Taxonomy Cleanup
 package = taxonomy
 
 files[] = taxonomy_cleanup.module
-
 dependencies[] = term_merge
+dependencies[] = entity

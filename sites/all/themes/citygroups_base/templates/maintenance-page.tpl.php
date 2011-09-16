@@ -24,7 +24,7 @@
 
       <!-- header-group region: width = grid_width -->
       <div id="header-group-wrapper" class="header-group-wrapper full-width">
-        <div id="header-group" class="header-group region <?php print $grid_width; ?>">
+        <div id="header-group" class="header-group region">
           <div id="header-group-inner" class="header-group-inner inner">
             <?php if ($logo || $site_name || $site_slogan): ?>
             <div id="header-site-info" class="header-site-info block">
@@ -49,7 +49,7 @@
 
       <!-- main region: width = grid_width -->
       <div id="main-wrapper" class="main-wrapper full-width">
-        <div id="main" class="main region <?php print $grid_width; ?>">
+        <div id="main" class="main region">
           <div id="main-inner" class="main-inner inner">
             <div id="content-region" class="content-region region nested">
               <div id="content-region-inner" class="content-region-inner inner">

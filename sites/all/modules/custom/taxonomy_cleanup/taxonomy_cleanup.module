@@ -147,7 +147,7 @@ function taxonomy_cleanup_merge_similar_terms_settings_form_submit($form, $form_
     // @KLUDGE, but works.
     if(($dest[0]->vid == 4) && ($source[0]->vid == 4)) {
       term_merge($source[0]->tid, $dest[0]->tid, FALSE);
-      drupal_set_message(t("Terms %term_names merged into %dest_term", array('%term_names' => $source[0]->name, '%dest_term' => $dest[0]->name)));
+      drupal_set_message(t("Term %term_names merged into %dest_term. ", array('%term_names' => $source[0]->name, '%dest_term' => $dest[0]->name)));
     }
   }
   else {

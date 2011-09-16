@@ -37,7 +37,7 @@ function date_field_schema($field) {
       break;
   }
 
-  // If a second date is needed for 'To date', just make a copy of the first one.
+  // If a second date is needed for 'End date', just make a copy of the first one.
   if (!empty($field['settings']['todate'])) {
     $db_columns['value2'] = $db_columns['value'];
 
@@ -78,22 +78,29 @@ function date_update_last_removed() {
 }
 
 /**
- * Move settings that were stored in variables to field formatter settings.
+ * Get rid of the individual formatters for each format type,
+ * these are now settings in the default formatter.
  */
-// TODO, update field formatter settings with the variables, once we know
-// how the field update process will work.
+function date_update_7000() {
+  $instances = field_info_instances();
+  foreach ($instances as $entity_type => $entities) {
+    foreach ($entities as $bundle => $fields) {
+      foreach ($fields as $field_name => $instance) {
+        if (in_array($instance['widget']['type'], array('date_popup'))) {
+          $changed = FALSE;
+          foreach ($instance['display'] as $context => $display) {
+            if ($display['type'] != 'date_default' && $display['type'] != 'date_interval') {
+              $instance['display'][$context]['type'] = 'date_default';
+              $instance['display'][$context]['settings']['format_type'] = str_replace('date_', '', $display['type']);
+              $changed = TRUE;
+            }
+          }
+          if ($changed) {
+            field_update_instance($instance);
+          }
+        }
+      }
+    }
+  }
 
-/**
- * A copy of a D6 function we can use to retrive the formatter settings
- * and return them as an option array.
- */
-function date_formatter_get_settings($field_name, $bundle, $context) {
-  $options = array();
-  $value = 'date:' . $bundle . ':' . $context . ':' . $field_name;
-  $options['repeat']['show_repeat_rule'] = variable_get($value . '_show_repeat_rule', 'show');
-  $options['multiple']['multiple_number'] = variable_get($value . '_multiple_number', '');
-  $options['multiple']['multiple_from'] = variable_get($value . '_multiple_from', '');
-  $options['multiple']['multiple_to'] = variable_get($value . '_multiple_to', '');
-  $options['fromto']['fromto'] = variable_get($value . '_fromto', 'both');
-  return $options;
 }
