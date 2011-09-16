@@ -446,38 +446,19 @@ function _term_merge_insert_field_values($update_data, &$context) {
       if ($value['tid'] == $update_data_arr['source_tid']) {
         if (!$target_merged) {  
           // If there are multiple destinations (splitting a term)
-          $check_field_values = array_values($field_values);        
           if(is_array($update_data_arr['dest_tid'])) {
-            // @TODO Test if the term already exists.
-            foreach($check_field_values as $key => $value) {       
-              // Replace the first tid.
-              $values = array_values($update_data_arr['dest_tid']);
-              if($new_tid == $value->tid) {
-              }
-              else {
-                $field_values[$i]['tid'] = $values[0];
-              } 
-              $new_field_values = $update_data_arr['dest_tid'];
-              array_shift($new_field_values);
-              // Add more tids to the field.
-              foreach($new_field_values as $new_tid) {
-                if($new_tid == $value->tid) {
-                }
-                else {
-                  $field_values[$i]['tid'] = array('tid' => $new_tid); 
-                }  
-              }
+            // Replace the first tid.
+            $values = array_values($update_data_arr['dest_tid']);
+            $field_values[$i]['tid'] = $values[0];  
+            $new_field_values = $update_data_arr['dest_tid'];
+            array_shift($new_field_values);
+            // Add more tids to the field.
+            foreach($new_field_values as $new_tid) {
+              $field_values[] = array('tid' => $new_tid);
             }
           }
           else {
-            // @TODO Test if the term already exists.
-            foreach($check_field_values as $key => $value) {
-              if($update_data_arr['dest_tid'] == $value->tid) {            
-              }
-              else {
-                $field_values[$i]['tid'] = $update_data_arr['dest_tid'];  
-              }  
-            }      
+            $field_values[$i]['tid'] = $update_data_arr['dest_tid'];
           }
           $target_merged = TRUE;
         }
