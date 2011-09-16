@@ -308,6 +308,7 @@ function term_merge($source, $dest, $keep_merged) {
   if (!is_array($source)) {
     $source = array($source);
   }
+  
   $source = array_values($source);
 
   // Create a skeleton for the merging batch.
@@ -331,7 +332,6 @@ function term_merge($source, $dest, $keep_merged) {
 
       $update_data = array();
       foreach ($source as $source_tid) {
-
         // Get data from fields previously containing a reference to the merged term.
         $fields_result = db_select($table_name, 'df')
           ->fields('df', array('entity_type', 'entity_id', 'delta'))
@@ -444,9 +444,41 @@ function _term_merge_insert_field_values($update_data, &$context) {
     $field_values = &$entity->{$update_data_arr['field_name']}[LANGUAGE_NONE];
     foreach ($field_values as $i => $value) {
       if ($value['tid'] == $update_data_arr['source_tid']) {
-
-        if (!$target_merged) {
-          $field_values[$i]['tid'] = $update_data_arr['dest_tid'];
+        if (!$target_merged) {  
+          // If there are multiple destinations (splitting a term)
+          $check_field_values = array_values($field_values);        
+          if(is_array($update_data_arr['dest_tid'])) {
+            // @TODO Test if the term already exists.
+            foreach($check_field_values as $key => $value) {       
+              // Replace the first tid.
+              $values = array_values($update_data_arr['dest_tid']);
+              if($new_tid == $value->tid) {
+              }
+              else {
+                $field_values[$i]['tid'] = $values[0];
+              } 
+              $new_field_values = $update_data_arr['dest_tid'];
+              array_shift($new_field_values);
+              // Add more tids to the field.
+              foreach($new_field_values as $new_tid) {
+                if($new_tid == $value->tid) {
+                }
+                else {
+                  $field_values[$i]['tid'] = array('tid' => $new_tid); 
+                }  
+              }
+            }
+          }
+          else {
+            // @TODO Test if the term already exists.
+            foreach($check_field_values as $key => $value) {
+              if($update_data_arr['dest_tid'] == $value->tid) {            
+              }
+              else {
+                $field_values[$i]['tid'] = $update_data_arr['dest_tid'];  
+              }  
+            }      
+          }
           $target_merged = TRUE;
         }
         // Any more occurrences of the source tid will simply be removed.
