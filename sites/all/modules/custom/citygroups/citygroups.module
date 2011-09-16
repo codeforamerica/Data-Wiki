@@ -19,7 +19,7 @@ function citygroups_help($path, $arg) {
 }
 
 function citygroups_form_alter(&$form, &$form_state, $form_id) {
-  drupal_add_js(drupal_get_path('module', 'citygroups') . '/js/stylish-select/jquery.stylish-select.min.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
+  // drupal_add_js(drupal_get_path('module', 'citygroups') . '/js/stylish-select/jquery.stylish-select.min.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
 }
 
 /**
