@@ -1008,7 +1008,7 @@ option {
 
 .view-categories .views-row .views-field-name {
   font-size: 125%;
-  text-transform: capitalize;
+/*   text-transform: capitalize; */
 }
 
 .related-categories ul {
