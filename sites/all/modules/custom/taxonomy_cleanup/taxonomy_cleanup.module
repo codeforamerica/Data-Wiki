@@ -98,7 +98,7 @@ function taxonomy_cleanup_capitalize_settings_form() {
       $output .= "<p><strong>" . l($term, $link_tid) . "</strong></p>";
     }
     else {
-      $output .= "<p>" . l($term, $link_tid) . "</p>";
+     // $output .= "<p>" . l($term, $link_tid) . "</p>";
     }
 
   }
@@ -137,7 +137,7 @@ function taxonomy_cleanup_capitalize_settings_form_submit($form, $form_state) {
   $term[0]->name = ucfirst($term[0]->name);
   
   taxonomy_term_save($term[0]);
-dpm($term[0]);
+
   drupal_set_message($term[0]->name . " capitalized.");
 }
 
