@@ -33,6 +33,16 @@ function taxonomy_cleanup_menu() {
     'weight' =>  -10,
   ); 
 
+  $items['admin/config/taxonomy_cleanup/capitalize'] = array(
+    'title' => 'Capitalize Terms',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_cleanup_capitalize_settings_form'),
+    'access callback' => TRUE,
+    'access arguments' => array('administer taxonomy'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' =>  -10,
+  ); 
+
   return $items;
 }
 
@@ -44,6 +54,7 @@ function taxonomy_cleanup_edit_form($form, &$form_state, array $rule = array()) 
     <ul>
       <li><a href="/admin/config/taxonomy_cleanup/remove_empty_terms">Remove Empty Terms</a></li>
       <li><a href="/admin/config/taxonomy_cleanup/merge_similar_terms">Merge Similar Terms</a></li>
+      <li><a href="/admin/config/taxonomy_cleanup/capitalize">Capitalize Terms</a></li>
     </ul>
     ',
   );
@@ -67,6 +78,69 @@ function taxonomy_cleanup_remove_empty_terms() {
   drupal_set_message("All empty terms removed");
   return "";
 }
+
+function taxonomy_cleanup_capitalize_settings_form() {
+
+
+
+  $output = '';
+  $categories_vid = 4;
+  $terms = taxonomy_cleanup_get_term_from_vid(4);
+
+  global $base_url;
+
+  foreach ($terms as $tid => $term) {
+
+    $link_tid = $base_url . '/taxonomy/term/' . $tid;
+
+    if (preg_match("/^[a-z]/", $term) == TRUE) {
+      
+      $output .= "<p><strong>" . l($term, $link_tid) . "</strong></p>";
+    }
+    else {
+      $output .= "<p>" . l($term, $link_tid) . "</p>";
+    }
+
+  }
+
+  $form = array();
+
+  $form['taxonomy_cleanup'] = array(
+    '#type' => 'fieldset', 
+    '#title' => t('Capitalize a term'), 
+    '#collapsible' => FALSE, 
+    '#collapsed' => FALSE,
+    '#suffix' => $output,
+  );
+
+  $form['taxonomy_cleanup']['capitalize_term'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Term to capitalize'),
+    '#description' => t("Enter a unique term name"),
+  );
+   
+  $form['taxonomy_cleanup']['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Capitalize'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit function for term merging.
+ */
+function taxonomy_cleanup_capitalize_settings_form_submit($form, $form_state) {
+
+  $term = taxonomy_get_term_by_name($form_state['values']['capitalize_term']);
+  $term = array_values($term);
+  $term[0]->name = ucfirst($term[0]->name);
+  
+  taxonomy_term_save($term[0]);
+dpm($term[0]);
+  drupal_set_message($term[0]->name . " capitalized.");
+}
+
 
 function taxonomy_cleanup_merge_similar_terms_settings_form() {
   $output = '';
