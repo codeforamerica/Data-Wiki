@@ -66,6 +66,7 @@ function taxonomy_cleanup_edit_form($form, &$form_state, array $rule = array()) 
       <li><a href="/admin/config/taxonomy_cleanup/merge_similar_terms">Merge Similar Terms</a></li>
       <li><a href="/admin/config/taxonomy_cleanup/capitalize">Capitalize Terms</a></li>
       <li><a href="/admin/config/taxonomy_cleanup/split">Split Terms</a></li>
+      <li><a href="/admin/structure/taxonomy/categories/add">Add term to category vocabulary</a></li>
     </ul>
     ',
   );
@@ -118,9 +119,7 @@ function taxonomy_cleanup_split_settings_form() {
     '#type' => 'textfield',
     '#title' => t('Term to split'),
     '#description' => t("Enter a term to split"),
-    '#default_value' => 'Members of the Alki Community Council and residents of the Alki Beach neighborhood',
   );
-
 
   $form['taxonomy_cleanup']['split_term_dest_1'] = array(
     '#type' => 'textfield',
@@ -171,7 +170,8 @@ function taxonomy_cleanup_split_settings_form_submit($form, $form_state) {
 
   foreach($new_terms as $key) {
     if($term_object = taxonomy_get_term_by_name($key)){
-      $terms_to_merge[] = $term_object;
+      $term_object = array_values($term_object);  
+      $terms_to_merge[$term_object[0]->tid] = $term_object[0]->tid;
     }
     else {
       // Build a term object and assign it to the categories vocabulary.        
@@ -185,36 +185,19 @@ function taxonomy_cleanup_split_settings_form_submit($form, $form_state) {
       
       $term_object_create = (object) $term_object_create;
       $new_term_object = taxonomy_term_save($term_object_create);
-      $new_term = taxonomy_get_term_by_name($key);
+      $term_object = taxonomy_get_term_by_name($key);
 
-      if($new_term_object) {
-        $terms_to_merge[] = $new_term;
+      if($term_object) {
+        $term_object = array_values($term_object); 
+        $terms_to_merge[$term_object[0]->tid] = $term_object[0]->tid;
       }
     }
   }
-  
-  
-   //dpm($terms_to_merge);
-   
-  // If a value has been set...
-/*
-  if(!empty($dest_1)) {
-    // Try to load an existing taxonomy term.
-    // @TODO adjust this for the vocabulary
-    
-    if($term = taxonomy_get_term_by_name($dest_1)){
-      // If the term exists, then add this to the list of terms to merge.
-      $terms_to_merge[] = $term;
-    }
-    else {
-      // Create a new taxonomy term & add it to the term merge.
-      
-    }
-*/
-/*   } */
 
-  // term_merge(array($new_terms), $term[0]->tid, FALSE);
-  drupal_set_message(t("Term %term_names split into %dest_term. ", array('%term_names' => $source[0]->name, '%dest_term' => $dest[0]->name)));
+  //dpm($terms_to_merge);
+
+  term_merge($term[0]->tid, $terms_to_merge, FALSE);
+  //drupal_set_message(t("Term %term_names split into %dest_term. ", array('%term_names' => $source[0]->name, '%dest_term' => $dest[0]->name)));
 
 
 }
