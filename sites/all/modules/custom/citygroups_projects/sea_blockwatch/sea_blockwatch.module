@@ -113,7 +113,14 @@ function sea_blockwatch_categories_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_about_render() {
-  $output = "";
+  $output = '<h3>Resources</h3>
+  <ul>
+    <li><a href="">West Seattle Blockwatch Captains Network</a></li>
+    <li><a href="">Emergency Hubs</a></li>
+    <li><a href="">SNAP (Seattle Neighborhoods Actively Prepare)</a></li>
+    <li><a href="">Seattle Police Department, Blockwatch</a></li>
+  </ul>  
+  ';
   return $output;
 }
 

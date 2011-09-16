@@ -80,10 +80,11 @@ function sea_blockwatch_contents($type) {
           <div class=\"grid_16 sections alpha omega\">
             <div class=\"grid_6 news section alpha\">
               <h3>Mapping in West Seattle.</h3>
-              <p>This fall we are reaching out to Block Watch Captains in West Seattle to build a public map of Block Watches.</p>
-              <p>As you can see, there are only a handful of Block Watch Captains listed.</p>
-              <p>We are working with the <a href=\"http://wsblockwatchnet.wordpress.com/\">West Seattle Block Watch Captain’s Network</a> and the 
+              <p>This fall we are reaching out to Block Watch Captains in West Seattle to build a public map of Block Watch Groups.</p>
+              <p>As you can see, there are only a handful of Block Watch Captains listed, and our goal is to develop a complete list and map, and eventually have a Captain on every block in West Seattle.</p>
+              <p>We are working with the <a href=\"http://genesee-schmitz.org\">Genesee-Schmitz Neighborhood Council</a>, the <a href=\"http://wsblockwatchnet.wordpress.com/\">West Seattle Block Watch Captain’s Network</a> and the 
               <a href=\"http://www.seattle.gov/spd/\">Seattle Police Department</a> to reach out to Block Watch Captains in Seattle and fill in this map.</p>
+            
             </div>    
             <div class=\"grid_6 push_1 promote section omega\">
               <h3>Spread the word</h3>
@@ -111,8 +112,8 @@ function sea_blockwatch_contents($type) {
         <div class=\"grid_16 postscript-content alpha omega\">
           <div class=\"grid_6 about alpha\">
             <h3>What is a Block Watch Captain?</h3>
-            <p>Block Watch is a national program that is based on the principle that neighbors working together are the first and best line of defense against crime.</p>
-            <p>Block Watch Captains take the lead among their neighbors by partnering with the police department and other city departments to alert them to suspicious activity and creating a better sense of community. Block parties, street cleanups and other creative initiatives at the block or neighborhood level makes this work</p>
+              <p>Block Watch is a national program that is based on the principle that neighbors working together are the first and best line of defense against crime. The Captain is also the logical person to organize the efforts to prepare for a disaster or emergency like a major earthquake.  Each household and every block needs to be prepared.</p>
+              <p>Block Watch Captains take the lead among their neighbors by partnering with the Seattle Police Department, the Department of Emergency Preparedness, and other city departments to alert them to suspicious activity,  to organize their block to prepare for and respond to an emergency, and create a better sense of community as neighbors help each other. Block parties, emergency kit building, street cleanups and other creative initiatives at the block or neighborhood level makes this work</p>
           </div>
   
           <div class=\"grid_4 push_1 participate\">
