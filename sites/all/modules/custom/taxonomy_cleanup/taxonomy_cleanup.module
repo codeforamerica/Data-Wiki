@@ -118,6 +118,12 @@ function taxonomy_cleanup_capitalize_settings_form() {
     '#title' => t('Term to capitalize'),
     '#description' => t("Enter a unique term name"),
   );
+
+  $form['taxonomy_cleanup']['capitalize_all_terms'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Capitalize All'),
+    '#description' => t("Capitalize all terms. (Cannot be undone.)"),
+  );
    
   $form['taxonomy_cleanup']['submit'] = array(
     '#type' => 'submit', 
@@ -132,13 +138,32 @@ function taxonomy_cleanup_capitalize_settings_form() {
  */
 function taxonomy_cleanup_capitalize_settings_form_submit($form, $form_state) {
 
-  $term = taxonomy_get_term_by_name($form_state['values']['capitalize_term']);
-  $term = array_values($term);
-  $term[0]->name = ucfirst($term[0]->name);
-  
-  taxonomy_term_save($term[0]);
+  if($form_state['values']['capitalize_all_terms'] == 1) {
+    $output = '';
+    $categories_vid = 4;
+    $terms = taxonomy_cleanup_get_term_from_vid(4);
+    $count = 0;
+    global $base_url;
 
-  drupal_set_message($term[0]->name . " capitalized.");
+    foreach ($terms as $tid => $term) {
+      $link_tid = $base_url . '/taxonomy/term/' . $tid; 
+      if (preg_match("/^[a-z]/", $term) == TRUE) {      
+        $term = taxonomy_term_load($tid);
+
+        $term->name = ucfirst($term->name);  
+        taxonomy_term_save($term);
+        $count++;
+      }
+    }
+    drupal_set_message($count . " terms capitalized.");
+  }
+  else {
+    $term = taxonomy_get_term_by_name($form_state['values']['capitalize_term']);
+    $term = array_values($term);
+    $term[0]->name = ucfirst($term[0]->name);  
+    taxonomy_term_save($term[0]);
+    drupal_set_message($term[0]->name . " capitalized.");
+  }
 }
 
 
