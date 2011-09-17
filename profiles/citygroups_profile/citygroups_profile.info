@@ -1,9 +1,11 @@
 name = CityGroups Profile
 description = Install CityGroups.
 version = VERSION
+
 core = 7.x
 
 dependencies[] = features
 dependencies[] = citygroups
 
 files[] = citygroups_profile.profile
+version = "7.8"

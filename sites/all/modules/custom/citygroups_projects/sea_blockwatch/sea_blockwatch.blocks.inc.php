@@ -113,7 +113,7 @@ function sea_blockwatch_contents($type) {
           <div class=\"grid_6 about alpha\">
             <h3>What is a Block Watch Captain?</h3>
               <p>Block Watch is a national program that is based on the principle that neighbors working together are the first and best line of defense against crime. The Captain is also the logical person to organize the efforts to prepare for a disaster or emergency like a major earthquake.  Each household and every block needs to be prepared.</p>
-              <p>Block Watch Captains take the lead among their neighbors by partnering with the Seattle Police Department, the Department of Emergency Preparedness, and other city departments to alert them to suspicious activity,  to organize their block to prepare for and respond to an emergency, and create a better sense of community as neighbors help each other. Block parties, emergency kit building, street cleanups and other creative initiatives at the block or neighborhood level makes this work</p>
+              <p>Block Watch Captains take the lead among their neighbors by partnering with the Seattle Police Department, the Department of Emergency Preparedness, and other city departments to alert them to suspicious activity,  to organize their block to prepare for and respond to an emergency, and create a better sense of community as neighbors help each other. Block parties, emergency kit building, street cleanups and other creative initiatives at the block or neighborhood level makes this work.</p>
           </div>
   
           <div class=\"grid_4 push_1 participate\">
@@ -125,8 +125,11 @@ function sea_blockwatch_contents($type) {
           <div class=\"grid_4 push_1 local omega\">
             <h3>Block Watch Resources</h3>
             <p>Get connected to the Seattle Police Department and other local crime prevention & emergency preparedness initiatives.</p>
+            <p><a href=\"/blockwatch/resources\">See list of resources</a></p>
+            <br />
             <h3>More Local community groups</h3>
             <p>CityGroups lists other kinds of community groups working to make your neighborhood better in Seattle. Find other community leaders near you.</p>
+            <p><a href=\"/blockwatch/categories\">See related groups</a></p>
           </div>
         </div>        
         ";

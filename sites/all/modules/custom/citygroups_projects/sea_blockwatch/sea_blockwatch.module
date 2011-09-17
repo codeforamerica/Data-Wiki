@@ -24,6 +24,18 @@ function sea_blockwatch_help($path, $arg) {
  * are overwritten.
  */
 function sea_blockwatch_menu() {
+
+  $items['admin/config/citygroups/sea_blockwatch'] = array(
+    'title' => 'CityGroups Seattle Block Watch Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sea_blockwatch_configure_edit_form'),
+    'access arguments' => array('administer users'),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+    'file' => 'sea_blockwatch.admin.inc',
+  );
+  
+
   $items['blockwatch'] = array(
     'title' => 'Find the nearest Block Watch Captain',
     'page callback' => 'sea_blockwatch_home_render',
@@ -52,6 +64,13 @@ function sea_blockwatch_menu() {
     'title' => 'About',
     'page callback' => 'sea_blockwatch_about_render',
     'page arguments' => array(t('Blockwatch About Page')),
+    'access callback' => TRUE,
+  );
+
+  $items['blockwatch/resources'] = array(
+    'title' => 'Resources',
+    'page callback' => 'sea_blockwatch_resources_render',
+    'page arguments' => array(t('Resources')),
     'access callback' => TRUE,
   );
   return $items;
@@ -92,8 +111,6 @@ function sea_blockwatch_list_render() {
 function sea_blockwatch_categories_render() {
   //@TODO This is where we would load related terms for civic taxonomy web service.
   
-  $output = '';
-  
   $output = '
   <div class="related-categories">
   <ul class="categories">
@@ -113,8 +130,16 @@ function sea_blockwatch_categories_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_about_render() {
-  $output = '<h3>Resources</h3>
-  <ul>
+  $output = '
+  ';
+  return $output;
+}
+
+/**
+ * Render custom page for blockwatch.
+ */
+function sea_blockwatch_resources_render() {
+  $output = '<ul>
     <li><a href="">West Seattle Blockwatch Captains Network</a></li>
     <li><a href="">Emergency Hubs</a></li>
     <li><a href="">SNAP (Seattle Neighborhoods Actively Prepare)</a></li>
@@ -136,6 +161,7 @@ function sea_blockwatch_preprocess_page(&$vars) {
     case 'blockwatch/categories':
     case 'blockwatch/list':
     case 'blockwatch/list/Block-watch':
+    case 'blockwatch/resources':
       sea_blockwatch_page_variables($vars);
       break;
     case 'blockwatch/add':   

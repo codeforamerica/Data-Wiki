@@ -97,6 +97,48 @@ function citygroups_site_settings_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'date_api_use_iso8601';
+  $strongarm->value = 0;
+  $export['date_api_use_iso8601'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'date_api_version';
+  $strongarm->value = '5.2';
+  $export['date_api_version'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'date_first_day';
+  $strongarm->value = '0';
+  $export['date_first_day'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'date_format_long';
+  $strongarm->value = 'l, F j, Y - H:i';
+  $export['date_format_long'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'date_format_medium';
+  $strongarm->value = 'D, Y-m-d H:i';
+  $export['date_format_medium'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'date_format_short';
+  $strongarm->value = 'Y-m-d H:i';
+  $export['date_format_short'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'error_level';
   $strongarm->value = '0';
   $export['error_level'] = $strongarm;
@@ -147,6 +189,11 @@ function citygroups_site_settings_strongarm() {
   $strongarm->name = 'flag_default_flag_status';
   $strongarm->value = array(
     'bookmarks' => TRUE,
+    'duplicate' => TRUE,
+    'inappropriate' => TRUE,
+    'watch' => TRUE,
+    'inactive' => TRUE,
+    'recommend' => TRUE,
   );
   $export['flag_default_flag_status'] = $strongarm;
 
@@ -230,6 +277,13 @@ function citygroups_site_settings_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'maintenance_mode_message';
+  $strongarm->value = 'CityGroups is currently under maintenance. We should be back shortly. Thank you for your patience.';
+  $export['maintenance_mode_message'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'menu_expanded';
   $strongarm->value = array(
     0 => 'navigation',
@@ -287,8 +341,57 @@ function citygroups_site_settings_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'minimum_word_size';
+  $strongarm->value = '3';
+  $export['minimum_word_size'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_fallback';
+  $strongarm->value = '1';
+  $export['mollom_fallback'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_privacy_link';
+  $strongarm->value = 1;
+  $export['mollom_privacy_link'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_servers';
+  $strongarm->value = array(
+    0 => 'http://174.37.205.152',
+    1 => 'http://67.228.84.11',
+  );
+  $export['mollom_servers'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_status';
+  $strongarm->value = array(
+    'keys' => TRUE,
+    'keys valid' => TRUE,
+    'servers' => FALSE,
+  );
+  $export['mollom_status'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_testing_mode';
+  $strongarm->value = 0;
+  $export['mollom_testing_mode'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'node_admin_theme';
-  $strongarm->value = '0';
+  $strongarm->value = 0;
   $export['node_admin_theme'] = $strongarm;
 
   $strongarm = new stdClass;
