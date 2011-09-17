@@ -285,7 +285,14 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
           'title' => 'Add a Block Watch Captain',
           'instructions' => 'Add & Map a Block Watch Community or Block Watch Captain to the Block Watch Captain Directory',
           'map_instructions' => 'Map',
-          'prepare' => 'Preparation instructions here',
+          'prepare' => '
+<p>Thanks for taking the time to share information about a Block Watch Community in Seattle.</p>
+<p>Before you begin, you might want to have this information on hand.</p>
+<ul>
+<li>Name of your Block Watch Community (ex. 8500 Block Dead End Crew, or 900 Block Admiral Way)</li>
+<li>Public email address (if you have one. If you meet in the street, that is also OK)</li>
+</ul>
+',
           'privacy' => '
           
           <p>The Block Watch Captain Directory is a public directory and map of Block Watches in Seattle.</p>
@@ -305,14 +312,17 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         }
   
         if(!empty($add_variables_array['prepare'])) {
+          $form['field_prepare']['und']['#title'] = "Ok, I'm ready. Next step.";
           $form['field_prepare']['und']["#description"] = $add_variables_array['prepare'];
         }
 
         if(!empty($add_variables_array['privacy'])) {
+          $form['field_privacy']['und']['#title'] = "Ok, I understand. I'm ready to start filling out the form.";
           $form['field_privacy']['und']["#description"] = $add_variables_array['privacy'];
         }
 
-// Label overrides.
+        // Label overrides.
+
         $form['title']['#title'] = t("Name of Block Watch Captain or Community.");
         $form['title']['#description'] = '
           <div class="explanation">What is the name of the Block Watch Captain or Community?</div>
@@ -328,18 +338,21 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         
         $form['field_email']['und']['#title'] = t("Group Email Address");
         $form['field_email']['und']['#description'] = '
-          <div class="explanation">You can use a dedicated email for your group. When we launch the tool, the owner of this email address will receive and email asking them if they would like thei email address to be public or if they should be contacted through a web form.</div>
+          <div class="explanation">You can use a dedicated email for your group.'
+/*           ' When we launch the tool, the owner of this email address will receive and email asking them if they would like thei email address to be public or if they should be contacted through a web form.'  */
+          . '</div>
           <div class="instruction">Email the address for the group.</div>
           <div class="example">8700-blockwatch@yahoogroups.com</div>
           ';
         $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
         $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
+        $form['field_contact']['und'][0]['value']['#type'] = 'textarea';
         $form['field_contact']['und'][0]['value']['#description'] = '
           <div class="explanation">If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
           <div class="instruction">Enter the contact information for this group.</div>
           <div class="example">Just join our Yahoo group to find us.</div>
           ';
-        $form['field_url_calendar']['und'][0]['#title'] = t("Calendar url");
+        $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
         $form['field_url_calendar']['und'][0]['#description'] = '
           <div class="explanation">If you have a link to an event calendar, you may add it (Most Block Watch Communities do not have an event calendar.)</div>
           <div class="instruction">Enter the URL that points to the Calendar.</div>
@@ -354,8 +367,55 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         
         if(!empty($add_variables_array['category'])) {
           $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
+          $form['field_categories']['und']['#description'] = 
+          '<p>Provide some categories for the Block Watch Community.<br />
+          Here are some suggestions:</p><div class="terms">' .
+          variable_get('sea_blockwatch_related_terms') . '</div>';
         }
-    
+        
+        // Alter the Audience Size taxonomy to display as households (rough number estimates, not meant to be exact)
+        $form['field_audience_size']['und']['#title'] = "Number of households";
+        $form['field_audience_size']['und']['#default_value'] = 621; // 50-100 People
+        
+        $form['field_audience_size']['und']['#options']['4'] = 'A few households';
+        $form['field_audience_size']['und']['#options']['619'] = '5-10 households';
+        $form['field_audience_size']['und']['#options']['620'] = '10-25 households';
+        $form['field_audience_size']['und']['#options']['621'] = '25-50 Households';
+        $form['field_audience_size']['und']['#options']['114'] = '50 or more households';
+        
+        
+        $form['field_type_group']['und']['#default_value'] = 542; // E-mail list
+        // Unset values that are our of the normal range of this data collection project.
+        unset($form['field_audience_size']['und']['#options']['107']);    
+        unset($form['field_audience_size']['und']['#options']['627']);
+        unset($form['field_audience_size']['und']['#options']['118']);
+        unset($form['field_audience_size']['und']['#options']['122']);
+        unset($form['field_audience_size']['und']['#options']['126']);
+        unset($form['field_audience_size']['und']['#options']['133']);
+/*
+        
+        _none (String, 8 characters ) - None -
+138 (String, 7 characters ) Unknown
+627 (String, 16 characters ) Number of People
+4 (String, 12 characters ) -1-10 People
+619 (String, 13 characters ) -10-25 People
+620 (String, 13 characters ) -25-50 People
+621 (String, 14 characters ) -50-100 People
+107 (String, 14 characters ) -10-100 People
+114 (String, 17 characters ) -100-1,000 People
+118 (String, 20 characters ) -1,000-10,000 People
+122 (String, 22 characters ) -10,000-100,000 People
+126 (String, 25 characters ) -100,000-1,000,000 People
+133 (String, 22 characters ) -Over 1 Million People
+*/
+        
+        
+        // Set default to occasionally.
+        $form['field_activity']['und']['#default_value'] = 339;
+
+        // Set default to community.
+        $form['field_ownership']['und']['#default_value'] = 536;
+
         if(!empty($add_variables_array['map_instructions'])) {
           $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
         }

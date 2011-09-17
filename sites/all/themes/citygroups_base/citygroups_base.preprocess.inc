@@ -214,7 +214,7 @@ function citygroups_base_node_share(&$vars) {
   $qrcode = citygroups_qrcode($path, 'medium', $vars['title'], strip_tags($vars['field_description']['und'][0]['value']));
   
   $output = '';
-  $output .= '<div class="node-share">
+  $output .= '<div class="node-share clearfix">
   <h3>Share</h3>';
   $output .= '<div class="facebook">' . $vars['fb_like'] . '</div>';
   $output .= '<a href="https://twitter.com/share" class="twitter-share-button" data-text="' .

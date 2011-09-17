@@ -760,9 +760,17 @@ fieldset.filter-wrapper {
   -moz-box-shadow: 2px 2px #ccc;
   -webkit-box-shadow: 2px 2px #ccc;
   box-shadow: 0px 2px #ccc;
-  width: 45%;
   display: block;
   clear: both;
+}
+
+.node-form .description li {
+  list-style: disc;
+  list-style-position: inside;
+}
+
+.node-form .description .terms {
+  font-size: 80;
 }
 
 .node-form .description .prompt {
@@ -773,7 +781,7 @@ fieldset.filter-wrapper {
 }
 
 .group-geographic .form-item {
-  width: 50%;
+/*   width: 50%; */
 }
 
 .form-type-select select {

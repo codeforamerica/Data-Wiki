@@ -182,6 +182,14 @@ function sea_blockwatch_configure_edit_form($form, &$form_state, array $rule = a
     '#description' => 'Links to related groups',
   );
 
+  $form['sea_blockwatch_related_terms'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Related Terms'),
+    '#default_value' =>  variable_get('sea_blockwatch_related_terms', 'Block watch, Crime prevention, National Night Out, Emergency preparedness, Public safety, Block party'),
+    '#description' => 'Links to related groups',
+  );
+
+
   $form['sea_blockwatch_term'] = array(
     '#type' => 'textfield',
     '#title' => t('Term'),

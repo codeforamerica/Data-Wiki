@@ -146,7 +146,7 @@ function community_group_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Categorize...',
+        'description' => 'Categorize',
       ),
       'formatter' => 'open',
     ),
@@ -236,7 +236,7 @@ function community_group_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Locate the group on the map...',
+        'description' => 'Locate the group on the map',
       ),
       'formatter' => 'open',
     ),
@@ -470,7 +470,7 @@ function community_group_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'What you need before you begin...',
+        'description' => 'Prepare',
       ),
       'formatter' => 'open',
     ),
@@ -497,7 +497,7 @@ function community_group_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Privacy notice here.',
+        'description' => 'Privacy',
       ),
       'formatter' => 'open',
     ),
