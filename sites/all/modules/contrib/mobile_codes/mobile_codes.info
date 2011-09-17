@@ -1,0 +1,31 @@
+name = "Mobile Codes"
+description = "Create <a href="http://en.wikipedia.org/wiki/Datamatrix">Datamatrix</a> or <a href="http://en.wikipedia.org/wiki/QR_Code">QR</a> codes via an input filter or a direct call in your template."
+core = 7.x
+dependencies[] = ctools
+configure = admin/config/content/mobile_codes
+files[] = mobile_codes.module
+files[] = includes/admin.inc
+files[] = includes/block.inc
+files[] = includes/ctools.inc
+files[] = includes/features.inc
+files[] = includes/field.inc
+files[] = includes/file.inc
+files[] = includes/filter.inc
+files[] = includes/help.inc
+files[] = includes/image.inc
+files[] = includes/libraries.inc
+files[] = includes/libraries.phpqrcode.inc
+files[] = includes/link.inc
+files[] = includes/mobile_codes.admin.inc
+files[] = includes/mobile_codes.inc
+files[] = includes/shorten.inc
+files[] = includes/system.inc
+files[] = includes/text.inc
+files[] = includes/vcard.inc
+
+; Information added by drupal.org packaging script on 2011-05-01
+version = "7.x-2.0"
+core = "7.x"
+project = "mobile_codes"
+datestamp = "1304287916"
+

@@ -1,0 +1,278 @@
+<?php
+/**
+ * @file
+ * Mobile Codes core functions.
+ */
+
+/**
+ * Include additional files.
+ */
+foreach (module_list() as $module) {
+  if (file_exists($file = dirname(__FILE__) . "/includes/{$module}.inc")) {
+    require_once $file;
+  }
+}
+
+/**
+ * Implements hook_init().
+ */
+function mobile_codes_init() {
+  /**
+   * Temporary fix for CTools #AJAX issue.
+   *
+   * @See http://drupal.org/node/1142812
+   */
+  if (strstr(request_uri(), 'system/ajax') && $_POST['form_id'] == 'ctools_export_ui_edit_item_form') {
+    ctools_include('export');
+  }
+
+  // Determine if CTools is available after Mobile Codes 1.x to 2.x upgrade.
+  if (!module_exists('ctools')) {
+    module_enable(array('ctools'));
+    if (!module_exists('ctools')) {
+      drupal_set_message(t('Mobile Codes has been disabled as the required !ctools module is not present.', array('!ctools' => l(t('Chaos tool suite'), 'http://drupal.org/project/ctools'))), 'error');
+      module_disable(array('mobile_codes'));
+    }
+  }
+}
+
+/**
+ * Implements hook_perm().
+ */
+function mobile_codes_permission() {
+  return array(
+    'administer mobile codes' => array(
+      'title' => t('Administer Mobile Codes'),
+      'description' => t('Add, edit or delete Mobile Codes presets, providers and settings.')
+    ),
+  );
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function mobile_codes_flush_caches() {
+  file_unmanaged_delete_recursive('public://mobile_codes');
+  return array();
+}
+
+/**
+ * Implements hook_mobile_codes_menu_alter().
+ */
+function mobile_codes_mobile_codes_menu_alter(&$items) {
+  $items['admin/config/content/mobile_codes/settings'] = array(
+    'title' => 'Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mobile_codes_settings_form'),
+    'access arguments' => array('administer mobile codes'),
+    'file' => 'includes/mobile_codes.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function mobile_codes_menu_alter(&$items) {
+  // @TODO - Make this better.
+  if (isset($items['admin/config/content/mobile_codes/presets'])) {
+    $items['admin/config/content/mobile_codes'] = array_merge(
+      $items['admin/config/content/mobile_codes/presets'],
+      array(
+        'title' => 'Mobile Codes',
+        'type' => MENU_NORMAL_ITEM,
+      )
+    );
+    $items['admin/config/content/mobile_codes/presets']['type'] = MENU_DEFAULT_LOCAL_TASK;
+    $items['admin/config/content/mobile_codes/presets']['parent'] = 'admin/config/content/mobile_codes';
+    $items['admin/config/content/mobile_codes/providers']['type'] = MENU_LOCAL_TASK;
+    $items['admin/config/content/mobile_codes/providers']['parent'] = 'admin/config/content/mobile_codes';
+  }
+}
+
+/**
+ * Implements hook_mobile_codes_theme_alter().
+ */
+function mobile_codes_mobile_codes_theme_alter(&$items) {
+  $items['mobilecode'] = array(
+    'variables' => array(
+      'data' => NULL,
+      'attributes' => array(),
+      'image_alt' => '',
+      'image_title' => '',
+      'image_attributes' => NULL,
+      'image_getsize' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Cache a Mobile Code.
+ *
+ * @param $url
+ *   A processed Mobile Code URL.
+ *
+ * @return
+ *   The path of the cached Mobile Code if request is successful, and FALSE if
+ *   it isn't.
+ */
+function mobile_codes_generate($url) {
+  if (!file_exists($file = 'public://mobile_codes/' . md5(serialize($url)) . '.png')) {
+    $request = drupal_http_request($url);
+    if ($request->code == 200) {
+      if (file_prepare_directory($dir = 'public://mobile_codes', FILE_CREATE_DIRECTORY)) {
+        file_unmanaged_save_data($request->data, $file);
+      }
+    }
+
+    else {
+      return FALSE;
+    }
+  }
+  return $file;
+}
+
+/**
+ * Determine the Data type of the provided data.
+ *
+ * @param $data
+ *   The data as provided for use in a Mobile Code.
+ *
+ * @return
+ *   The determined Data type.
+ */
+function mobile_code_data_type($data) {
+  switch ($data) {
+    case valid_url($data, TRUE):
+      return 'url';
+
+    default:
+      return 'text';
+  }
+}
+
+/**
+ * Process Mobile Codes request URL.
+ *
+ * @param $data
+ *   The data as provided for use in a Mobile Code.
+ * @param $attributes
+ *   An associative array of attributes necessary to create a Mobile Code.
+ *   - #preset: A string containing the name of a Mobile Code Preset.
+ *
+ * @return
+ *   The processed Mobile Codes request URL if all required attributes are
+ *   provided, or FALSE if they aren't.
+ */
+function mobile_codes_process_url($data, $attributes) {
+  if (isset($attributes['#preset']) || isset($attributes['#provider'])) {
+    ctools_include('export');
+    if (isset($attributes['#preset'])) {
+      $preset = clone(ctools_export_crud_load('mobile_codes_presets', $attributes['#preset']));
+      $attributes['#provider'] = $preset->provider;
+      $attributes = array_merge($attributes, $preset->defaults);
+    }
+
+    $provider = clone(ctools_export_crud_load('mobile_codes_providers', $attributes['#provider']));
+    foreach (element_children($provider->parameters) as $parameter) {
+      if (!isset($attributes[$parameter])) {
+        switch ($provider->parameters[$parameter]['type']) {
+          case 'data':
+            mobile_codes_process_data($data);
+            $attributes[$parameter] = urlencode($data);
+            break;
+
+          case 'select':
+            $provider->parameters[$parameter]['value'] = explode("\n", $provider->parameters[$parameter]['value']);
+            $provider->parameters[$parameter]['value'][0] = explode("|", $provider->parameters[$parameter]['value'][0]);
+            $attributes[$parameter] = $provider->parameters[$parameter]['value'][0][0];
+            break;
+
+          case 'text':
+            drupal_set_message(t('Mobile Codes argument %arg missing.', array('%arg' => $parameter)), 'error');
+            return '';
+        }
+      }
+      $provider->url = str_replace("[{$parameter}]", $attributes[$parameter], $provider->url);
+    }
+    return $provider->url;
+  }
+  return FALSE;
+}
+
+/**
+ * Process the data provided to a Mobile Code.
+ *
+ * @param $data
+ *   The data provided to a Mobile Code.
+ */
+function mobile_codes_process_data(&$data) {
+  $settings = array();
+  $type = mobile_code_data_type($data);
+  $defaults = variable_get('mobile_codes_settings', array(
+    'url' => array(
+      'alias' => 'alias',
+    ),
+  ));
+
+  drupal_alter('mobile_codes_settings', $settings);
+  if (isset($settings[$type]) && count($settings[$type]) > 0) {
+    foreach ($settings[$type] as $setting => $values) {
+      if (!empty($defaults[$type][$setting])) {
+        $weight = isset($values['weight']) ? $values['weight'] : 0;
+        $order[$weight] = isset($order[$weight]) ? $order[$weight] : array();
+        $order[$weight][] = $setting;
+      }
+    }
+
+    if (isset($order)) {
+      ksort($order);
+      foreach ($order as $settings) {
+        sort($settings);
+        foreach ($settings as $setting) {
+          if (function_exists($function = "mobile_codes_data_{$type}_{$setting}")) {
+            $function($data);
+          }
+        }
+      }
+    }
+  }
+}
+
+function mobile_codes_presets_load_all() {
+  ctools_include('export');
+  $presets = ctools_export_crud_load_all('mobile_codes_presets');
+  foreach ($presets as &$preset) {
+    if (isset($preset->disabled) && $preset->disabled) {
+      unset($preset);
+    }
+  }
+  if ($presets) {
+    ksort($presets);
+  }
+  return $presets;
+}
+
+/**
+ * Theme function for displaying Mobile Codes
+ */
+function theme_mobilecode($variables) {
+  if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
+    if ($path = mobile_codes_generate($url)) {
+      return theme('image', array('path' => $path, 'alt' => $variables['image_alt'], 'title' => $variables['image_title'], 'attributes' => $variables['image_attributes'], 'getsize' => $variables['image_getsize']));
+    }
+  }
+  // @TODO - Set error.
+  return 'Error';
+}
+
+/**
+ * Invokes hook_preprocess_page().
+ */
+function mobile_codes_preprocess_page(&$vars) {
+  global $theme;
+  if (file_exists($file = drupal_get_path('module', 'mobile_codes') . "/styles/{$theme}.css")) {
+    drupal_add_css($file);
+  }
+}

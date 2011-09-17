@@ -1,0 +1,9 @@
+/**
+ * @file
+ * Mobile Codes styles for the Cube theme.
+ */
+
+.path-admin-settings-mobile_codes .icon {
+  background-image: url('../images/icon.png') !important;
+  background-position: 0 0 !important;
+}

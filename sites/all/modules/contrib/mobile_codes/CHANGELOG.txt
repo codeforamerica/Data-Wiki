@@ -1,0 +1,4 @@
+Mobile Codes 7.x-2.x-dev, xxxx-xx-xx (Development release)
+--------------------------------------------------------------------------------
+
+- Initial 7.x release.

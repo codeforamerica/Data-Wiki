@@ -223,7 +223,7 @@ Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Di
     '#type' => 'textarea',
     '#title' => t('Facebook Text'),
     '#default_value' =>  variable_get('sea_blockwatch_facebook', '
-Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Directory. http://seattle.citygroups.org/blockwatch
+Share the Block Watch Captain Directory on Facebook.
     '),
     '#description' => 'Text to be used in facebook share links',
   );

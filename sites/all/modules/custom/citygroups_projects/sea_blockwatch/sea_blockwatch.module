@@ -152,7 +152,7 @@ function sea_blockwatch_share_render() {
 <h3>Tweet</h3>' .
 variable_get('sea_blockwatch_tweet')
 . '
-
+<br />
 <a href="https://twitter.com/share" class="twitter-share-button" data-text="' 
 . variable_get('sea_blockwatch_tweet') .
 '" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
@@ -162,7 +162,20 @@ variable_get('sea_blockwatch_tweet')
 <div class="section">
 <h3>Facebook</h3>' .
 variable_get('sea_blockwatch_facebook')
-. '</div>
+. '
+<br />
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=249561838420518&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, \'script\', \'facebook-jssdk\'));</script>
+
+<div class="fb-like" data-href="http://seattle.citygroup.org/blockwatch" data-send="true" data-width="450" data-show-faces="true"></div>
+
+</div>
 
 <div class="section">
 <h3>Email</h3>' .
