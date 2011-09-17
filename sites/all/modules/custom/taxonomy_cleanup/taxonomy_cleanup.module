@@ -112,7 +112,7 @@ function taxonomy_cleanup_split_settings_form() {
   // Remove $form_id from the arguments.
   array_shift($args);
   $form_state['build_info']['args'] = $args;
-  $vid = $args[2];
+  $vid = $args[1];
 
   $terms = taxonomy_cleanup_get_term_from_vid($vid);
 
@@ -179,7 +179,7 @@ function taxonomy_cleanup_split_settings_form_submit($form, $form_state, $vid) {
   $vid = $form['taxonomy_cleanup']['vid']['#value'];
   
   $vocabulary = taxonomy_vocabulary_load($vid);
-  
+
   $term = array_values($term);
 
   $new_terms = array();
@@ -196,24 +196,25 @@ function taxonomy_cleanup_split_settings_form_submit($form, $form_state, $vid) {
   $terms_to_merge = array();
 
   foreach($new_terms as $key) {
+    // If term already exists.
     if($term_object = taxonomy_get_term_by_name($key)){
       $term_object = array_values($term_object);  
       $terms_to_merge[$term_object[0]->tid] = $term_object[0]->tid;
     }
     else {
-      // Build a term object and assign it to the categories vocabulary.        
+      // Build a term object and assign it to the categories vocabulary.    
+
       $term_object_create = array(
         'name' => t($key),
         'vid' => $vid,
         'description' => '', 
         'parent' => array(0), 
-        'vocabulary_machine_name' => $vocabulary->vocabulary_machine_name,    
+        'vocabulary_machine_name' => $vocabulary->machine_name,    
       );
-      
+
       $term_object_create = (object) $term_object_create;
       $new_term_object = taxonomy_term_save($term_object_create);
       $term_object = taxonomy_get_term_by_name($key);
-
       if($term_object) {
         $term_object = array_values($term_object); 
         $terms_to_merge[$term_object[0]->tid] = $term_object[0]->tid;
@@ -406,6 +407,7 @@ function taxonomy_cleanup_merge_similar_terms_settings_form_submit($form, $form_
 
     foreach($dest as $key => $dest_value) {
       if(($dest_value->vid == $vid)) {
+
         if ($source[0]->vid == $vid){
           term_merge($source[0]->tid, $dest_value->tid, FALSE);
           drupal_set_message(t("Term %term_names merged into %dest_term. ", array('%term_names' => $source[0]->name, '%dest_term' => $dest_value->name)));
