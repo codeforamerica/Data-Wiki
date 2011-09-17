@@ -2003,7 +2003,8 @@ function community_group_content_type_field_default_fields() {
       'default_value_function' => '',
       'default_value_php' => '',
       'deleted' => '0',
-      'description' => 'What you need to prepare,...',
+      'description' => '<p>Thanks for taking the time to contribute a community group.</p>
+      <p>Contributing a group is easy. You can share basic contact information, categories & map the group.</p>',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -2026,7 +2027,7 @@ function community_group_content_type_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_prepare',
-      'label' => 'Prepare',
+      'label' => 'Share Community Group',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,

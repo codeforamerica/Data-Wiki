@@ -36,15 +36,48 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.
     // @TODO fix those modules to have better permission control.
+    // @TODO Integrate email verification.
+    
     $access = user_access('administer nodes');
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
     }
-    
-    $form['title']['#suffix'] = '<div class="description">' . t('What is the official name of this community group?') . '</div>';
-    
-    // Hide some fields.
 
+    $form['#groups']['group_prepare']->label = t('Start');
+    $form['field_prepare']['und']['#description'] = '<p>' . t('Thanks for taking the time to contribute a community group.') . '</p>
+      <p>' . t('Contributing a group is easy. You can share basic contact information, categories & map the group. Your group will be listed in the public directory.') 
+      . '</p><p>' . t('If you need to <a href="/user/login">edit</a> your group, you will want to <a href="/user/login">Login</a>') . '</p>';
+    $form['field_prepare']['und']['#title'] = t("OK, I'm ready.");
+
+
+    $form['#groups']['group_privacy']->label = t('Privacy');
+    $form['field_privacy']['und']['#description'] = '<p>' . t('The information you contribute will be publicly visible on the web. You should only contribute information that is meant to be fully public. If you are entering information about a project you would recommend, please add your name as the Source.') . '</p>';
+    $form['field_privacy']['und']['#title'] = t("Let's add a group.");
+
+
+
+    $form['title']['#suffix'] = '<div class="description"><div class="prompt">(Required)</div>' . t('What is the official name of this community group?') . '</div>';
+    
+    // Email verification notice.
+    
+
+    $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
+
+    $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
+    $form['field_contact']['und'][0]['value']['#type'] = 'textarea';
+    $form['field_contact']['und'][0]['value']['#description'] = '
+      <div class="explanation"><div class="prompt">(Optional)</div>If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
+      <div class="instruction">Enter the contact information for this group.</div>
+      <div class="example">Join our Yahoo group to find us.</div>
+      ';
+    $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
+    $form['field_url_calendar']['und'][0]['#description'] = '
+      <div class="explanation"><div class="prompt">(Optional)</div>If you have a link to an event calendar, you may add it.</div>
+      <div class="instruction">Enter the URL that points to the Calendar.</div>
+      <div class="example">http://yahoogroups.com/calendar/8700-block-watch</div>
+      ';
+
+    // Hide some fields.
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
     $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
     $form['field_location']['#prefix'] .= '<div class="instructions-1">';
@@ -61,6 +94,19 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     $form['field_location']['#prefix'] .= '</div>';
     $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
     $form['field_location']['#prefix'] .= '</div>';
+
+
+    // Categories
+    // @TODO add suggested categories on autocomplete (ajax)
+/*     $form['field_categories']['#suffix'] .= ''; */
+
+    $form['field_audience_size']['und']['#title'] = "Members";
+        unset($form['field_audience_size']['und']['#options']['107']);    
+        unset($form['field_audience_size']['und']['#options']['627']);
+/*         unset($form['field_audience_size']['und']['#options']['118']); */
+/*         unset($form['field_audience_size']['und']['#options']['122']); */
+        unset($form['field_audience_size']['und']['#options']['126']);
+        unset($form['field_audience_size']['und']['#options']['133']);
 
     // Add Google API (uses openlayers API key)
     // @TODO require openlayers.
