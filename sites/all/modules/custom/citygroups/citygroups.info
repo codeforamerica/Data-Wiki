@@ -69,6 +69,7 @@ dependencies[] = libraries
 ; dependencies[] = login_destination
 dependencies[] = logintoboggan
 dependencies[] = markdown
+dependencies[] = mobile_codes
 dependencies[] = mollom
 dependencies[] = node_reference
 dependencies[] = openlayers
