@@ -173,6 +173,17 @@ function citygroups_base_preprocess_node(&$vars) {
   $vars['node_content_width'] = 'alpha';
 }
 
+function citygroups_base_preprocess_node_community_group(&$vars) {
+
+dpm("test");
+/*
+  if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
+    if ($path = mobile_codes_generate($url)) {
+      return theme('image', array('path' => $path, 'alt' => $variables['image_alt'], 'title' => $variables['image_title'], 'attributes' => $variables['image_attributes'], 'getsize' => $variables['image_getsize']));
+    }
+  }
+*/
+}
 /* Load location data for nodes */
 function citygroups_base_node_location(&$vars) {
   $output = '';
