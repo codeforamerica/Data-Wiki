@@ -189,5 +189,46 @@ function sea_blockwatch_configure_edit_form($form, &$form_state, array $rule = a
     '#description' => 'Term to filter content',
   );
 
+  $form['sea_blockwatch_flyer'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Flyer Text'),
+    '#default_value' =>  variable_get('sea_blockwatch_flyer', '
+<h3>Help Map Block Watches in Seattle</h3>
+<p>Know a Block Watch Captain in Seattle?</p>
+<a href="http://seattle.citygroups.org/blockwatch">http://seattle.citygroups.org/blockwatch</a>
+<p>Contact: Name Lastname, phone.</p>
+    '),
+    '#description' => 'Text to be used in flyers',
+  );
+
+  $form['sea_blockwatch_email'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Email Text'),
+    '#default_value' =>  variable_get('sea_blockwatch_email', '
+Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Directory. <a href="http://seattle.citygroups.org/blockwatch">http://seattle.citygroups.org/blockwatch</a>
+    '),
+    '#description' => 'Text to be used in emails',
+  );
+
+  $form['sea_blockwatch_tweet'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Tweet Text'),
+    '#default_value' =>  variable_get('sea_blockwatch_tweet', '
+Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Directory. http://seattle.citygroups.org/blockwatch
+    '),
+    '#description' => 'Text to be used in tweets',
+  );
+
+  $form['sea_blockwatch_facebook'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Facebook Text'),
+    '#default_value' =>  variable_get('sea_blockwatch_facebook', '
+Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Directory. http://seattle.citygroups.org/blockwatch
+    '),
+    '#description' => 'Text to be used in facebook share links',
+  );
+
+
+
   return system_settings_form($form);
 }
