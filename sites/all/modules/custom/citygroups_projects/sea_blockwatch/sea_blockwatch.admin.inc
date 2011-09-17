@@ -151,5 +151,36 @@ function sea_blockwatch_configure_edit_form($form, &$form_state, array $rule = a
     '#description' => 'Local',
   );
 
+  $form['sea_blockwatch_resources'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Resources'),
+    '#default_value' =>  variable_get('sea_blockwatch_resources', '
+<ul>
+  <li><a href="">West Seattle Blockwatch Captains Network</a></li>
+  <li><a href="">Emergency Hubs</a></li>
+  <li><a href="">SNAP (Seattle Neighborhoods Actively Prepare)</a></li>
+  <li><a href="">Seattle Police Department, Blockwatch</a></li>
+</ul> 
+'),
+    '#description' => 'Links and resources',
+  );
+
+  $form['sea_blockwatch_related_groups'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Related Groups'),
+    '#default_value' =>  variable_get('sea_blockwatch_related_groups', '
+<div class="related-categories">
+<ul class="categories">
+  <li><a href="categories/emergency-preparedness">Emergency Preparedness</a></li>
+  <li><a href="categories/national-night-out">National Night Out</a></li>
+  <li><a href="categories/crime-prevention">Crime Prevention</a></li>
+  <li><a href="categories/public-safety">Public Safety</a></li>
+  <li><a href="categories/block-party">Block Party</a></li>
+</ul>
+</div>
+'),
+    '#description' => 'Links to related groups',
+  );
+
   return system_settings_form($form);
 }

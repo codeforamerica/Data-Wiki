@@ -109,19 +109,9 @@ function sea_blockwatch_list_render() {
  */
 function sea_blockwatch_categories_render() {
   //@TODO This is where we would load related terms for civic taxonomy web service.
-  
-  $output = '
-  <div class="related-categories">
-  <ul class="categories">
-    <li><a href="categories/emergency-preparedness">Emergency Preparedness</a></li>
-    <li><a href="categories/national-night-out">National Night Out</a></li>
-    <li><a href="categories/crime-prevention">Crime Prevention</a></li>
-    <li><a href="categories/public-safety">Public Safety</a></li>
-    <li><a href="categories/block-party">Block Party</a></li>
-  </ul>
-  </div>
-  ';
-  
+  $output = '<div class="related-categories">';
+  $output .= variable_get('sea_blockwatch_related_groups');
+  $output .= '</div>';
   return $output;
 }
 
@@ -138,13 +128,7 @@ function sea_blockwatch_about_render() {
  * Render custom page for blockwatch.
  */
 function sea_blockwatch_resources_render() {
-  $output = '<ul>
-    <li><a href="">West Seattle Blockwatch Captains Network</a></li>
-    <li><a href="">Emergency Hubs</a></li>
-    <li><a href="">SNAP (Seattle Neighborhoods Actively Prepare)</a></li>
-    <li><a href="">Seattle Police Department, Blockwatch</a></li>
-  </ul>  
-  ';
+  $output = variable_get('sea_blockwatch_resources');
   return $output;
 }
 
