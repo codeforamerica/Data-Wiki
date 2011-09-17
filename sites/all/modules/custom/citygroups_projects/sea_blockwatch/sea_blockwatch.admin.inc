@@ -228,7 +228,17 @@ Share the Block Watch Captain Directory on Facebook.
     '#description' => 'Text to be used in facebook share links',
   );
 
+  $form['sea_blockwatch_qrcode'] = array(
+    '#type' => 'textarea',
+    '#title' => t('QR Code path'),
+    '#default_value' =>  variable_get('sea_blockwatch_qrcode', '
+Seattle Block Watch Captain Directory
+The Block Watch Captain Directory lists basic contact information for Block Watch Captains in Seattle.
 
+http://seattle.citygroups.org/blockwatch
+'),
+    '#description' => 'QR Code message: Message URL',
+  );
 
   return system_settings_form($form);
 }

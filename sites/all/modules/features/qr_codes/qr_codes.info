@@ -1,0 +1,4 @@
+core = "7.x"
+description = "QR codes for groups"
+name = "QR Codes"
+package = "Features"

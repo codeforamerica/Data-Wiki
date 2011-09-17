@@ -175,7 +175,10 @@ function citygroups_base_preprocess_node(&$vars) {
 
 function citygroups_base_preprocess_node_community_group(&$vars) {
 
-dpm("test");
+
+if($vars['view_mode'] == 'full') {
+  $vars['content']['links']['#suffix'] = citygroups_base_node_share($vars, 'full');
+}
 /*
   if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
     if ($path = mobile_codes_generate($url)) {
@@ -206,12 +209,28 @@ function citygroups_base_node_location(&$vars) {
 
 function citygroups_base_node_share(&$vars) {
   citygroups_base_fb_like($vars);
+  global $base_url;
+  $path = $base_url . $vars['node_url'];
+  $qrcode = citygroups_qrcode($path, 'medium', $vars['title'], strip_tags($vars['field_description']['und'][0]['value']));
+  
   $output = '';
-  $output .= '<div class="node-share">';
+  $output .= '<div class="node-share">
+  <h3>Share</h3>';
   $output .= '<div class="facebook">' . $vars['fb_like'] . '</div>';
+  $output .= '<a href="https://twitter.com/share" class="twitter-share-button" data-text="' .
+  $vars['title'] .
+  '" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>';
+  $output .= '<h4>Email</h4>';
+  $output .= 'Thought you should know about this group: ' . $vars['title'] . ' ' . $path ;
+
+  
+  $output .=  $qrcode;
   $output .= '</div>';
   return $output;
 }
+
+
+
 
 function citygroups_base_fb_like(&$vars) {
   

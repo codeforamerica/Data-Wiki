@@ -187,9 +187,8 @@ variable_get('sea_blockwatch_email')
 variable_get('sea_blockwatch_flyer')
 . '</div>
 
-<div class="section">
-<h3>QR Code</h3>'
-. sea_blockwatch_qr_code() . 
+<div class="section">'
+. citygroups_qrcode(variable_get('sea_blockwatch_qrcode'), 'medium', variable_get('sea_blockwatch_name')) . 
 '</div>
   
   ';
@@ -197,24 +196,6 @@ variable_get('sea_blockwatch_flyer')
   return $output;
 }
 
-function sea_blockwatch_qr_code() {
-
-  $variables = array(
-    'data' => 'http://seattle.citygroups.org/blockwatch',
-    'attributes' => array('#preset' => 'large'),
-    'image_alt' => 'Block Watch Captain Directory',
-    'image_title' => 'Block Watch Captain Directory',
-    'image_attributes' => NULL,
-    'image_getsize' => TRUE,
-  );
-
-  if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
-    if ($path = mobile_codes_generate($url)) {
-      return theme('image', array('path' => $path, 'alt' => $variables['image_alt'], 'title' => $variables['image_title'], 'attributes' => $variables['image_attributes'], 'getsize' => $variables['image_getsize']));
-    }
-  }
-  return 'test';
-}
 
 /**
  * Create variables for theme.
