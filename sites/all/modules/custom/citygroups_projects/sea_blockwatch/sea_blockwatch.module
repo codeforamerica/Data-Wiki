@@ -35,7 +35,6 @@ function sea_blockwatch_menu() {
     'file' => 'sea_blockwatch.admin.inc',
   );
   
-
   $items['blockwatch'] = array(
     'title' => 'Find the nearest Block Watch Captain',
     'page callback' => 'sea_blockwatch_home_render',

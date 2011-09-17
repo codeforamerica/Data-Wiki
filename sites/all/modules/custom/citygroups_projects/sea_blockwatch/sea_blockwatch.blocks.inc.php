@@ -57,40 +57,34 @@ function sea_blockwatch_contents($type) {
       
       case 'home_content':
         $output .= "
-          <div class=\"grid_16 sections alpha omega \">
-           
-            <div class=\"grid_6 add-new-group section alpha\">
-              <h3>Are you a Block Watch Captain?</h3>
-              <p>Help your neighbors and other Block Watch captains find you.
-
-              <a href=\"/node/add/community-group" . $add_variables . "\">Add</a> your contact information and map your Block Watch community.</p>
-              <div class=\"button\"><a href=\"/node/add/community-group" . $add_variables . "\">Add New</a></div>
-            </div>    
-
-            <div class=\"grid_6 push_1 view-data section omega\">
-              <h3>View Block Watch Captains</h3>
-              <p>Find a Block Watch Captain on the map.</p>
-        
-              <div class=\"button\"><a href=\"blockwatch/map\">Map view</a></div>
-              <div class=\"button\"><a href=\"blockwatch/list\">List view</a></div>
+          <div class=\"grid_16 sections\">
+            <div class=\"grid_6 add-new-group section alpha\">"
+              . variable_get('sea_blockwatch_content_add_new_group') .  "
             </div>
-
+            <div class=\"grid_6 push_2 view-data section omega\">"
+              . variable_get('sea_blockwatch_content_groups') .
+              
+              /*
+              "<div id=\"search-map\" class=\"form-input\">
+              <input placeholder=\"Enter your address or zipcode here.\" class=\"form-item\" />
+              <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
+              </div> 
+              */
+              "Over <strong>" . variable_get('citygroups_stats_groups_published') . " groups</strong> in " . variable_get('citygroups_city_name') . "." .
+              
+              "<div class=\"button\"><a href=\"map\">Map view</a></div>
+              <div class=\"button\"><a href=\"list\">List view</a></div>
+            </div>
           </div>
           <div class=\"clear\"></div>
-          <div class=\"grid_16 sections alpha omega\">
-            <div class=\"grid_6 news section alpha\">
-              <h3>Mapping in West Seattle.</h3>
-              <p>This fall we are reaching out to Block Watch Captains in West Seattle to build a public map of Block Watch Groups.</p>
-              <p>As you can see, there are only a handful of Block Watch Captains listed, and our goal is to develop a complete list and map, and eventually have a Captain on every block in West Seattle.</p>
-              <p>We are working with the <a href=\"http://genesee-schmitz.org\">Genesee-Schmitz Neighborhood Council</a>, the <a href=\"http://wsblockwatchnet.wordpress.com/\">West Seattle Block Watch Captain’s Network</a> and the 
-              <a href=\"http://www.seattle.gov/spd/\">Seattle Police Department</a> to reach out to Block Watch Captains in Seattle and fill in this map.</p>
-            
+          <div class=\"grid_16 sections\">
+            <div class=\"grid_6 news section alpha\">"
+              . variable_get('sea_blockwatch_content_news') .  "                          
             </div>    
-            <div class=\"grid_6 push_1 promote section omega\">
-              <h3>Spread the word</h3>
-              <p>Tell your friends, neighbors & local community groups.</p>
-              <p>We’ve written emails, made <a href=\"blockwatch/get-involved\">printable flyers</a> to make it easy to explain to others.</p>
-            </div>      
+            <div class=\"grid_6 push_2 promote section omega\">" 
+            . variable_get('sea_blockwatch_content_promote')
+            . citygroups_promote()
+            . "</div>      
           </div>
         ";
       break;  
