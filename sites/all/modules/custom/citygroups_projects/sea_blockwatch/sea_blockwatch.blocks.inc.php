@@ -84,7 +84,7 @@ function sea_blockwatch_contents($type) {
             </div>    
             <div class=\"grid_6 push_2 promote section omega\">" 
             . variable_get('sea_blockwatch_content_promote')
-            . citygroups_promote()
+/*             . citygroups_promote() */
             . "</div>      
           </div>
         ";
