@@ -307,8 +307,7 @@ function term_merge($source, $dest, $keep_merged) {
   // Create an array of source if it isn't already one.
   if (!is_array($source)) {
     $source = array($source);
-  }
-  
+  }  
   $source = array_values($source);
 
   // Create a skeleton for the merging batch.
@@ -434,7 +433,6 @@ function _term_merge_insert_field_values($update_data, &$context) {
   // Load the entity.
   $entity = entity_load($entity_type, array($entity_id));
   $entity = $entity[$entity_id];
-
   $context['message'] = 'Merging terms in fields of ' . $entity_type . ' ' . $entity->title . '.';
 
   $target_merged = FALSE;
