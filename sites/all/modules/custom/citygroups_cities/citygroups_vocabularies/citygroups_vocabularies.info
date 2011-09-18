@@ -1,0 +1,7 @@
+core = 7.x
+description = Load CityGroups Vocabularies
+name = CityGroups Vocabularies
+package = citygroups
+
+files[] = citygroups_vocabularies.install
+files[] = citygroups_vocabularies.module

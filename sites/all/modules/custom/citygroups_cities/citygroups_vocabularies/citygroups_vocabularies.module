@@ -1,0 +1,172 @@
+<?php 
+
+/**
+ * @file
+ * citygroups_vocabularies_install
+ */
+
+function citygroups_vocabularies_init() {
+
+}
+
+function citygroups_vocabularies_menu() {
+  $items['admin/config/citygroups_vocabularies'] = array(
+    'title' => 'CityGroups Vocabularies',
+    'page callback' => 'citygroups_vocabularies_render',
+    'page arguments' => array(t('CityGroups Vocabularies Load')),
+    'access arguments' => array('administer taxonomy'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+  
+  return $items;
+}
+
+function citygroups_vocabularies_render(){
+  $vocabularies = array(
+    'categories',
+    'neighborhood',
+    'zipcode',
+    'state',
+    'city',
+    'audience_size',
+    'activity_level',
+    'type_group',
+    'ownership',
+  );
+  
+  $output = '';
+  foreach($vocabularies as $vocabulary) {
+    $output .= citygroups_vocabulary_build_vocabulary($vocabulary);
+  }
+
+  return '<h2>Load & Updating Taxonomy Vocabularies</h2>' . $output;
+}
+
+function citygroups_vocabulary_build_vocabulary($vocabulary) {
+  // Load vocabulary by name.
+  
+  // Create vocabulary if it does not already exist.
+  // Note: the vocabularies are created in features.
+
+  // Get vocabulary vid.
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary);
+  $output = '';
+
+  // Process all vocabularies.
+  // Load function based on vocabulary name.
+  $function = __FUNCTION__ . '_' . $vocabulary->machine_name;
+  // Show which terms are updated.
+  if (function_exists($function)) {
+    $output .= $function($vocabulary);
+  }
+  
+  return $output;
+}
+
+function citygroups_vocabulary_build_terms($terms, &$vocabulary) {
+  $output = '<h3>' . $vocabulary->name . '</h3>';
+  foreach($terms as $term) {
+    // Check if the term already exists.  
+    $term_object = taxonomy_get_term_by_name($term);
+    //dpm($term_object);
+    
+    if(empty($term_object)) {
+      $term_object_create = (object) array(
+        'name' => $term,
+        'vid' => $vocabulary->vid,
+        'description' => '', 
+        'parent' => array(0), 
+        'vocabulary_machine_name' => $vocabulary->machine_name,    
+      );
+      // Save new term.
+      $saved = taxonomy_term_save($term_object_create);
+      if($saved) {
+        $output .= '<p>New term <em><strong>' . $term . '</strong></em> created.</p>';
+      }
+    }
+    else {
+      $output .= '<p><em>' . $term . '</em> already exists.</p>';
+    }
+  }
+  return $output;
+}
+
+function citygroups_vocabulary_build_vocabulary_categories(&$vocabulary) {
+ // dpm($vocabulary);
+  // Simple array of terms.
+  // @TODO this or else a CSV file.
+  $terms = array(
+    'Block watch',
+    'Emergency Preparedness',
+    'National Night Out',
+    'Freaky',
+    'Friday',
+    'Wednesday',
+    'Tuesday',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_neighborhood(&$vocabulary) {
+  $vocabulary_name = 'neighborhoods';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_zipcode(&$vocabulary) {
+  $vocabulary_name = 'zipcode';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_state(&$vocabulary) {
+  $vocabulary_name = 'state';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_city(&$vocabulary) {
+  $vocabulary_name = 'city';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_audience_size(&$vocabulary) {
+  $vocabulary_name = 'audience_size';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_activity_level(&$vocabulary) {
+  $vocabulary_name = 'activity_level';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_type_group(&$vocabulary) {
+  $vocabulary_name = 'type_group';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
+
+function citygroups_vocabulary_build_vocabulary_ownership(&$vocabulary) {
+  $vocabulary_name = 'ownership';
+  $terms = array(
+    'Bananaville',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
