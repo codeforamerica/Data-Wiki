@@ -96,13 +96,7 @@ function citygroups_vocabulary_build_vocabulary_categories(&$vocabulary) {
   // Simple array of terms.
   // @TODO this or else a CSV file.
   $terms = array(
-    'Block watch',
-    'Emergency Preparedness',
-    'National Night Out',
-    'Freaky',
-    'Friday',
-    'Wednesday',
-    'Tuesday',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -110,7 +104,7 @@ function citygroups_vocabulary_build_vocabulary_categories(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_neighborhood(&$vocabulary) {
   $vocabulary_name = 'neighborhoods';
   $terms = array(
-    'Bananaville',
+/*     'Neighborhood', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -118,7 +112,7 @@ function citygroups_vocabulary_build_vocabulary_neighborhood(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_zipcode(&$vocabulary) {
   $vocabulary_name = 'zipcode';
   $terms = array(
-    'Bananaville',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -126,7 +120,7 @@ function citygroups_vocabulary_build_vocabulary_zipcode(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_state(&$vocabulary) {
   $vocabulary_name = 'state';
   $terms = array(
-    'Bananaville',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -134,7 +128,7 @@ function citygroups_vocabulary_build_vocabulary_state(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_city(&$vocabulary) {
   $vocabulary_name = 'city';
   $terms = array(
-    'Bananaville',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -142,7 +136,7 @@ function citygroups_vocabulary_build_vocabulary_city(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_audience_size(&$vocabulary) {
   $vocabulary_name = 'audience_size';
   $terms = array(
-    'Bananaville',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -150,7 +144,7 @@ function citygroups_vocabulary_build_vocabulary_audience_size(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_activity_level(&$vocabulary) {
   $vocabulary_name = 'activity_level';
   $terms = array(
-    'Bananaville',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -158,7 +152,7 @@ function citygroups_vocabulary_build_vocabulary_activity_level(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_type_group(&$vocabulary) {
   $vocabulary_name = 'type_group';
   $terms = array(
-    'Bananaville',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
@@ -166,7 +160,7 @@ function citygroups_vocabulary_build_vocabulary_type_group(&$vocabulary) {
 function citygroups_vocabulary_build_vocabulary_ownership(&$vocabulary) {
   $vocabulary_name = 'ownership';
   $terms = array(
-    'Bananaville',
+/*     'Term', */
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
