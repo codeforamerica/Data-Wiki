@@ -45,6 +45,7 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
       <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li>
       <li><a href="/admin/citygroups_stats">Re-count groups</a></li>
+      <li><a href="/admin/config/citygroups_vocabularies">Load & Update Vocabularies</a></li>
       <li>RPX</li>
       <li>Typekit</li>
       <li>Mailchimp</li>

@@ -11,9 +11,9 @@ function citygroups_vocabularies_init() {
 
 function citygroups_vocabularies_menu() {
   $items['admin/config/citygroups_vocabularies'] = array(
-    'title' => 'CityGroups Vocabularies',
+    'title' => 'Load & Update Vocabularies',
     'page callback' => 'citygroups_vocabularies_render',
-    'page arguments' => array(t('CityGroups Vocabularies Load')),
+    'page arguments' => array(t('Load & Update Vocabularies')),
     'access arguments' => array('administer taxonomy'),
     'type' => MENU_LOCAL_ACTION,
   );
@@ -39,7 +39,7 @@ function citygroups_vocabularies_render(){
     $output .= citygroups_vocabulary_build_vocabulary($vocabulary);
   }
 
-  return '<h2>Load & Updating Taxonomy Vocabularies</h2>' . $output;
+  return '<h2>Load & Update Vocabularies</h2>' . $output;
 }
 
 function citygroups_vocabulary_build_vocabulary($vocabulary) {
