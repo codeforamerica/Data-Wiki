@@ -25,17 +25,13 @@ function community_group_form_menu() {
 
 /**
  * Alter the community group form (a content type.)
- 
- 
- This is sort of a mess... sorry.
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {
-    // Hide content type settings except for admins.
-    // defaultcontent and revisions are showing and they are distracting.
     // @TODO fix those modules to have better permission control.
     // @TODO Integrate email verification.
 
+    // Override form elements, by section.
     // Customize prefix.
     community_group_form_prefix_elements(&$form, &$form_values);
 
@@ -63,11 +59,11 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     // Customize Location.
     community_group_form_location_elements(&$form, &$form_values);
 
+    // Hide content type settings except for admins.
     $access = user_access('administer nodes');
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
     }
-
 
     // Add a special submit handler.
     $form['#submit'][] = 'community_group_form_form_submit';

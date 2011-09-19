@@ -275,11 +275,14 @@ function sea_blockwatch_map_render_output() {
  
 function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') {
-
+    // Get the section and use that to adjust the form display.
     global $section;
     if(!empty($_GET['section'])) {
       $section = $_GET['section'];
-      if($section == 'blockwatch') {  
+      if($section == 'blockwatch') {
+      
+        // Override form elements, by section.  
+        
         // Customize prefix.
         community_group_form_prefix_elements(&$form, &$form_values);
       
@@ -306,8 +309,8 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         
         // Customize Location.
         community_group_form_location_elements(&$form, &$form_values);
- 
     
+        // Special overrides, just for this module.
         sea_blockwatch_community_group_form_overrides(&$form, &$form_values) ;         
         $access = user_access('administer nodes');
         if(!$access) {
@@ -353,7 +356,6 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
     $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
   }
 
-/*
   if(!empty($add_variables_array['prepare'])) {
     $form['field_prepare']['und']['#title'] = "Ok, I'm ready. Next step.";
     $form['field_prepare']['und']["#description"] = $add_variables_array['prepare'];
@@ -363,7 +365,6 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
     $form['field_privacy']['und']['#title'] = "Ok, I understand. I'm ready to start filling out the form.";
     $form['field_privacy']['und']["#description"] = $add_variables_array['privacy'];
   }
-*/
 
   $form['title']['#title'] = t("Name of Block Watch Captain or Community.");
   $form['title']['#description'] = '
