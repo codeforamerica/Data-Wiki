@@ -65,11 +65,13 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
     
     // Customize categories.
     community_group_form_categories_elements(&$form, &$form_values);
+
+    // Customize map.
+    community_group_form_map_elements(&$form, &$form_values);
     
     // Customize Location.
     community_group_form_location_elements(&$form, &$form_values);
 
-        
     $access = user_access('administer nodes');
     if(!$access) {
       $form['additional_settings']['#access'] = FALSE;
@@ -137,12 +139,10 @@ function community_group_form_categories_elements(&$form, &$form_values) {
   unset($form['field_audience_size']['und']['#options']['133']);
 }
 
-function community_group_form_location_elements(&$form, &$form_values) {
-    if(!empty($add_variables_array['map_instructions'])) {
-      $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
-    }
-
-
+function community_group_form_map_elements(&$form, &$form_values) {
+  if(!empty($add_variables_array['map_instructions'])) {
+    $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
+  }
     // Custom map interface text.
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
     $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
@@ -154,7 +154,7 @@ function community_group_form_location_elements(&$form, &$form_values) {
     $form['field_location']['#prefix'] .= '</div>';
     $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
     $form['field_location']['#prefix'] .= '</div>';
-
+    
     $form['field_location']['#suffix'] = '<div class="map-interface-instructions">
     <h3>You can Draw Shapes on the Map</h3>    
     <h4>Step 1</h4>
@@ -177,11 +177,20 @@ function community_group_form_location_elements(&$form, &$form_values) {
     <div class="element"><div class="icon">Finish Drawing Icon</div><div class="label">Finish Drawing: Double-click</div></div>
     <div class="element"><div class="icon">Delete drawing Icon</div><div class="label">Delete drawing</div></div>        
     </div>';
-        
 
+    // Add Google API (uses openlayers API key)
+    // @TODO require openlayers.
+    drupal_add_js(
+        'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+        variable_get('openlayers_layers_google_api', 
+          variable_get('googlemap_api_key', '')
+        ), 'external');
 
+    drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
+}
+
+function community_group_form_location_elements(&$form, &$form_values) {       
     // Hide Citywide Taxonomy term
-
     // Load the tid for the Citywide taxonomy term in the Neighborhood vocabulary.
     $citywide_term = taxonomy_get_term_by_name('Citywide');
     foreach(array_values($citywide_term) as $key => $value) {
@@ -238,17 +247,6 @@ function community_group_form_location_elements(&$form, &$form_values) {
     $form['field_city']['und']['#default_value'] = variable_get('citygroups_default_city', '');
     $form['field_state']['und']['#default_value'] = variable_get('citygroups_default_state', '');
     $form['field_state']['und']['#default_value'] = variable_get('citygroups_default_county', '');
-    
-    // Add Google API (uses openlayers API key)
-    // @TODO require openlayers.
-    drupal_add_js(
-        'http://maps.google.com/maps/api/js?sensor=false&key=' . 
-        variable_get('openlayers_layers_google_api', 
-          variable_get('googlemap_api_key', '')
-        ), 'external');
-
-    drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
-
 }
 
 
