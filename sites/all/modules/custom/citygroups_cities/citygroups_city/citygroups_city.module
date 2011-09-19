@@ -112,7 +112,8 @@ function citygroups_city_menu() {
     'page arguments' => array(t('CityGroups City Community Groups Data Standard Page')),
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
-    'menu_name' => 'citygroups_footer',
+/*     'menu_name' => 'citygroups_footer', */
+/*     'parent' => 'citygroups_footer', */
     'weight' =>  -8,
   );
 
@@ -344,16 +345,35 @@ function citygroups_city_welcome_render() {
 
 function citygroups_city_community_data_render() {
   return '
-  <div class="section  alpha omega project  grid_12">
-    <a name="projects"></a>
-    <h3>Projects</h3>
-    These are community mapping & data collection projects serving local community groups.
-    <ul class="list">
-      <li><a href="http://seattle.citygroups.org/blockwatch">Block Watch Captain Directory</a></li>
-    </ul>
-    </div>'
+    <div class="section alpha omega community-data grid_12">
+      <p>About community data.</p>
+    </div>
+
+    <div class="section alpha omega csv grid_12">    
+      <h3>Import & Export Data with CSV files</h3>
+      <p>About <a href="/data-standard/community-groups">CSV</a>.</p>
+    </div>
+
+    <div class="section alpha omega data-standard grid_12">    
+      <h3>Data Standard</h3>
+      <p><a href="/data-standard/community-groups">Data Standard</a></p>
+    </div>
+    
+    <div class="section  alpha omega project grid_12">
+      <a name="projects"></a>
+      <h3>Projects</h3>
+      <p>These are community mapping & data collection projects serving local community groups.</p>
+      <ul class="list">
+        <li><a href="http://seattle.citygroups.org/blockwatch">Block Watch Captain Directory</a></li>
+      </ul>
+      
+      <p>Have an idea for a project? <a href="/contact">Let us know</a> we can help you set it up.</p>
+    </div>
+    '
   ;
 }
+
+
 
 function citygroups_city_data_standard_community_groups_render() {
   return "The Data Standard for describing Community Groups is underway and being developed in Google Docs. <a href='https://docs.google.com/a/codeforamerica.org/document/d/1R16GNOer_GEWqNcF8XcrU7DfC2GijO-pAWUZXY6wndQ/edit?hl=en_US'>Have a look.</a>";
