@@ -25,14 +25,15 @@ function community_group_form_menu() {
 
 /**
  * Alter the community group form (a content type.)
+ 
+ 
+ This is sort of a mess... sorry.
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {
-    $form['#prefix'] .= '<div class="instructions grid_10 alpha omega">';
-    $form['#prefix'] .= '<h2>' .t("Add a Community Group") . '</h2>';
-    $form['#prefix'] .= '<h3>' .t("You can submit community groups here.") . '</h3>';
-    $form['#prefix'] .= '<p>' .t("UPDATE: We've just upgraded and are demonstrating some new features this week. 8/28/2011.") . '</p>';
-    $form['#prefix'] .= '</div><div class="clear"></div>';
+
+    
+    
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.
     // @TODO fix those modules to have better permission control.
@@ -43,74 +44,154 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
       $form['additional_settings']['#access'] = FALSE;
     }
 
-    $form['#groups']['group_prepare']->label = t('Start');
-    $form['field_prepare']['und']['#description'] = '<p>' . t('Thanks for taking the time to contribute a community group.') . '</p>
-      <p>' . t('Contributing a group is easy. You can share basic contact information, categories & map the group. Your group will be listed in the public directory.') 
-      . '</p><p>' . t('If you need to <a href="/user/login">edit</a> your group, you will want to <a href="/user/login">Login</a>') . '</p>';
-    $form['field_prepare']['und']['#title'] = t("OK, I'm ready.");
 
+    // Customize prefix.
+    community_group_form_prefix_elements(&$form, &$form_values);
 
-    $form['#groups']['group_privacy']->label = t('Privacy');
-    $form['field_privacy']['und']['#description'] = '<p>' . t('The information you contribute will be publicly visible on the web. You should only contribute information that is meant to be fully public. If you are entering information about a project you would recommend, please add your name as the Source.') . '</p>';
-    $form['field_privacy']['und']['#title'] = t("Let's add a group.");
+    // Customize prepare.
+    community_group_form_prepare_elements(&$form, &$form_values);
 
+    // Customize privacy.
+    community_group_form_privacy_elements(&$form, &$form_values);
 
+    // Customize contact.
+    community_group_form_contact_elements(&$form, &$form_values);
 
-    $form['title']['#suffix'] = '<div class="description"><div class="prompt">(Required)</div>' . t('What is the official name of this community group?') . '</div>';
+    // Customize contact.
+    community_group_form_email_elements(&$form, &$form_values);
     
-    // Email verification notice.
+    // Customize details.
+    community_group_form_contact_elements(&$form, &$form_values);
     
+    // Customize categories.
+    community_group_form_categories_elements(&$form, &$form_values);
+    
+    // Customize Location.
+    community_group_form_location_elements(&$form, &$form_values);
 
-    $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
+        
+    $access = user_access('administer nodes');
+    if(!$access) {
+      $form['additional_settings']['#access'] = FALSE;
+    }
 
-    $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
-    $form['field_contact']['und'][0]['value']['#type'] = 'textarea';
-    $form['field_contact']['und'][0]['value']['#description'] = '
-      <div class="explanation"><div class="prompt">(Optional)</div>If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
-      <div class="instruction">Enter the contact information for this group.</div>
-      <div class="example">Join our Yahoo group to find us.</div>
-      ';
-    $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
-    $form['field_url_calendar']['und'][0]['#description'] = '
-      <div class="explanation"><div class="prompt">(Optional)</div>If you have a link to an event calendar, you may add it.</div>
-      <div class="instruction">Enter the URL that points to the Calendar.</div>
-      <div class="example">http://yahoogroups.com/calendar/8700-block-watch</div>
-      ';
 
-    // Hide some fields.
+    // Add a special submit handler.
+    $form['#submit'][] = 'community_group_form_form_submit';
+  }
+}
+
+function community_group_form_prefix_elements(&$form, &$form_values) {
+  $form['#prefix'] .= '<div class="instructions grid_10 alpha omega">';
+  $form['#prefix'] .= '<h2>' .t("Add a Community Group") . '</h2>';
+  $form['#prefix'] .= '<h3>' .t("You can submit community groups here.") . '</h3>';
+  $form['#prefix'] .= '<p>' .t("UPDATE: We've just upgraded and are demonstrating some new features this week. 8/28/2011.") . '</p>';
+  $form['#prefix'] .= '</div><div class="clear"></div>';
+}
+
+function community_group_form_prepare_elements(&$form, &$form_values) {
+  $form['#groups']['group_prepare']->label = t('Start');
+  $form['field_prepare']['und']['#description'] = '<p>' . t('Thanks for taking the time to contribute a community group.') . '</p>
+    <p>' . t('Contributing a group is easy. You can share basic contact information, categories & map the group. Your group will be listed in the public directory.') 
+    . '</p><p>' . t('If you need to <a href="/user/login">edit</a> your group, you will want to <a href="/user/login">Login</a>') . '</p>';
+  $form['field_prepare']['und']['#title'] = t("OK, I'm ready.");
+}
+
+function community_group_form_privacy_elements(&$form, &$form_values) {
+  $form['#groups']['group_privacy']->label = t('Privacy');
+  $form['field_privacy']['und']['#description'] = '<p>' . t('The information you contribute will be publicly visible on the web. You should only contribute information that is meant to be fully public. If you are entering information about a project you would recommend, please add your name as the Source.') . '</p>';
+  $form['field_privacy']['und']['#title'] = t("Let's add a group.");
+}
+
+function community_group_form_contact_elements(&$form, &$form_values) {
+  $form['title']['#suffix'] = '<div class="description"><div class="prompt">(Required)</div>' . t('What is the official name of this community group?') . '</div>';
+  
+  $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
+  $form['field_contact']['und'][0]['value']['#type'] = 'textarea';
+  $form['field_contact']['und'][0]['value']['#description'] = '
+    <div class="explanation"><div class="prompt">(Optional)</div>If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
+    <div class="instruction">Enter the contact information for this group.</div>
+    <div class="example">Join our Yahoo group to find us.</div>
+    ';
+}
+
+function community_group_form_email_elements(&$form, &$form_values) {
+  // Email verification notice.
+  $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
+}
+
+function community_group_form_details_elements(&$form, &$form_values) {
+  $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
+  $form['field_url_calendar']['und'][0]['#description'] = '
+    <div class="explanation"><div class="prompt">(Optional)</div>If you have a link to an event calendar, you may add it.</div>
+    <div class="instruction">Enter the URL that points to the Calendar.</div>
+    <div class="example">http://yahoogroups.com/calendar/8700-block-watch</div>
+    ';
+}
+
+function community_group_form_categories_elements(&$form, &$form_values) {
+  $form['field_audience_size']['und']['#title'] = "Members";
+  unset($form['field_audience_size']['und']['#options']['107']);    
+  unset($form['field_audience_size']['und']['#options']['627']);
+  unset($form['field_audience_size']['und']['#options']['126']);
+  unset($form['field_audience_size']['und']['#options']['133']);
+}
+
+function community_group_form_location_elements(&$form, &$form_values) {
+    if(!empty($add_variables_array['map_instructions'])) {
+      $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
+    }
+
+
+    // Custom map interface text.
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
     $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
-    $form['field_location']['#prefix'] .= '<div class="instructions-1">';
-    $form['field_location']['#prefix'] .= t('Enter address or intersection to map the group.');
-    $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '<div class="instructions-2">';
-    $form['field_location']['#prefix'] .= t('Draw the shape of the extent of this group.');
-    $form['field_location']['#prefix'] .= '</div>';
     $form['field_location']['#prefix'] .= '<div class="address-ajax">';
     $form['field_location']['#prefix'] .= '<div id="search-links">';
-    $form['field_location']['#prefix'] .= '<div id="search-map" class="form-input">';
+    $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
     $form['field_location']['#prefix'] .= '<input placeholder="Enter address or zipcode." size=50 class="form-item" id="search-map-input" />';
     $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_button.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
     $form['field_location']['#prefix'] .= '</div>';
     $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
     $form['field_location']['#prefix'] .= '</div>';
 
-
-    // Categories
-    // @TODO add suggested categories on autocomplete (ajax)
-/*     $form['field_categories']['#suffix'] .= ''; */
-
-    $form['field_audience_size']['und']['#title'] = "Members";
-    unset($form['field_audience_size']['und']['#options']['107']);    
-    unset($form['field_audience_size']['und']['#options']['627']);
-/*         unset($form['field_audience_size']['und']['#options']['118']); */
-/*         unset($form['field_audience_size']['und']['#options']['122']); */
-    unset($form['field_audience_size']['und']['#options']['126']);
-    unset($form['field_audience_size']['und']['#options']['133']);
+    $form['field_location']['#suffix'] = '<div class="map-interface-instructions">
+    <h3>You can Draw Shapes on the Map</h3>    
+    <h4>Step 1</h4>
+    <p>Zoom in to your block.</p>
+    <p>Enter your address or intersection. Include your city name.</p>
+    <p>Example: 8400 Genesee Ave. Seattle</p>
     
-    // Location fields
-/*         dpm($form['field_city']['und']['#default_value']); */
+    <p>[move tool] Use the Move tool to move the map around.</p>
+    <p>[point tool] To just draw 1 point instead of a shape, use the Point tool.</p>
+    
+    <h4>Step 2</h4>
+    <p>[shape tool] Use the Shape tool to draw a shape around your block watch.</p>
+    <p>DOUBLE-CLICK to finish drawing your shape.</p>
+    <p>[CLEAR] Click the Clear button to erase your shape and start over.</p>
+   
+    <div class="element"><div class="icon">Help Icon</div><div class="label">Help</div></div>
+    <div class="element"><div class="icon">Move Map Icon</div><div class="label">Move Map</div></div>
+    <div class="element"><div class="icon">Place marker Icon</div><div class="label">Place marker</div></div>
+    <div class="element"><div class="icon">Draw shape Icon</div><div class="label">Draw shape</div></div>
+    <div class="element"><div class="icon">Finish Drawing Icon</div><div class="label">Finish Drawing: Double-click</div></div>
+    <div class="element"><div class="icon">Delete drawing Icon</div><div class="label">Delete drawing</div></div>        
+    </div>';
+        
 
+
+    // Hide Citywide Taxonomy term
+
+    // Load the tid for the Citywide taxonomy term in the Neighborhood vocabulary.
+    $citywide_term = taxonomy_get_term_by_name('Citywide');
+    foreach(array_values($citywide_term) as $key => $value) {
+      if($value->vocabulary_machine_name === 'neighborhood') {
+        // Completely replace the value for neighborhood with Citywide if the box is checked.
+        // Unset the Citywide term.
+        unset($form['field_neighborhood']['und']['#options'][$value->tid]);
+        break;
+      }
+    }
 
     // Add a Citywide checkbox.
     $form['field_neighborhood_city_wide'] = $form['field_neighborhood'];
@@ -118,17 +199,46 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
       '#type' => 'checkbox',
       '#title' => 'Citywide',
       '#weight' => ($form['field_neighborhood']['#weight'] - 1),
+/*
+      '#ajax' => array(
+        'wrapper' => 'citywide-checkbox',
+        'callback' => 'community_group_form_form_citywide_callback',
+        'effect' => 'fade',
+      ),   
+*/   
     );
+    
+/*
+    $form['field_neighborhood_select'] = array(
+      '#title' => t("Neighborhoods"),
+      '#prefix' => '<div id="citywide-checkbox">',
+      '#suffix' => '</div>',
+      '#type' => 'fieldset',
+      '#description' => t('Neighborhood or Citywide.'),
+    );
+*/
 
+    // Since checkboxes return TRUE or FALSE, we have to check that
+    // $form_state has been filled as well as what it contains.
+/*
+    if (empty($form_state['values']['field_neighborhood_city_wide'])) {
+      $form['citywide-checkbox']['citywide_other'] = array(
+        '#type' => 'checkbox',
+        '#weight' => ($form['field_neighborhood']['#weight'] - 1),
+        '#title' => t('CityWide Other'),
+      );
+    }
+*/
+    
+    // Place citywide checkbox in the correct group.
     $form['#group_children']['field_neighborhood_city_wide'] = 'group_geographic';
+//    $form['#group_children']['citywide-checkbox'] = 'group_geographic';
 
+    // Load some default settings from CityGroups configuration settings.
     $form['field_city']['und']['#default_value'] = variable_get('citygroups_default_city', '');
     $form['field_state']['und']['#default_value'] = variable_get('citygroups_default_state', '');
     $form['field_state']['und']['#default_value'] = variable_get('citygroups_default_county', '');
-        //$form['field_city']['und'][0]['value']['#description'] = t("source description");
-
     
-
     // Add Google API (uses openlayers API key)
     // @TODO require openlayers.
     drupal_add_js(
@@ -138,9 +248,27 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
         ), 'external');
 
     drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
-dpm($form);
-    $form['#submit'][] = 'community_group_form_form_submit';
+
+}
+
+
+function community_group_form_form_citywide_callback(&$form, &$form_values) {
+  
+  //@NOTE This doesn't do anything really yet...just testing.
+  
+  // Since checkboxes return TRUE or FALSE, we have to check that
+  // $form_state has been filled as well as what it contains.
+  if (empty($form_state['values']['field_neighborhood_city_wide'])) {
+
+    $form['citywide-checkbox'] = array(
+      '#markup' => 'mhasdfkhasdkhjf asd fashkjafsdkhafsdk ',
+      '#title' => t('CityWide Other'),
+    );
+
+    $form['field_neighborhood']['#attributes']['class'][] = array('neighborhood-hidden');
   }
+
+  return $form['citywide-checkbox'];
 }
 
 function community_group_form_form_submit(&$form, &$form_values) {
@@ -148,7 +276,7 @@ function community_group_form_form_submit(&$form, &$form_values) {
     // Load the tid for the Citywide taxonomy term in the Neighborhood vocabulary.
     $citywide_term = taxonomy_get_term_by_name('Citywide');
     foreach(array_values($citywide_term) as $key => $value) {
-      if($value->vocabulary_machine_name = 'neighborhood') {
+      if($value->vocabulary_machine_name === 'neighborhood') {
         // Completely replace the value for neighborhood with Citywide if the box is checked.
         $form_values['values']['field_neighborhood']['und'] = array(array('tid' => $value->tid));
         break;

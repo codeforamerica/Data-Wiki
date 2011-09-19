@@ -269,6 +269,7 @@ function sea_blockwatch_map_render_output() {
 
 /**
  * Alter the community group form (a content type.)
+ * @TODO Make this inherit better from the main community group form - probably w/ some functions.
  */
 function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form') {
@@ -293,17 +294,16 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
 <li>Public email address (if you have one. If you meet in the street, that is also OK)</li>
 </ul>
 ',
-          'privacy' => '
-          
-          <p>The Block Watch Captain Directory is a public directory and map of Block Watches in Seattle.</p>
-          <p>You should use the same caution and Internet safety as you would use on other website. </p>
-          <p>The information you enter is part of an initiative to make local community groups easier to find. As such, the information that appears when logged out is available to others as part of an up-to-date directory of community information. Everyone can see it, your neighbors and the Seattle Police Department.</p>
-          <p>This is sometimes a concern for Block Watch Captains, due to the sensitive nature of their work.</p>
-          <p>To be listed, but still somewhat anonymous, we suggest the following:</p>
-          <ul>
-          <li>Anonymize your identity by not providing your name</li>
-          <li>Use a dedicated email account, and/or a dedicated phone line.</li>
-          </ul>',
+          'privacy' => '       
+<p>The Block Watch Captain Directory is a public directory and map of Block Watches in Seattle.</p>
+<p>You should use the same caution and Internet safety as you would use on other website. </p>
+<p>The information you enter is part of an initiative to make local community groups easier to find. As such, the information that appears when logged out is available to others as part of an up-to-date directory of community information. Everyone can see it, your neighbors and the Seattle Police Department.</p>
+<p>This is sometimes a concern for Block Watch Captains, due to the sensitive nature of their work.</p>
+<p>To be listed, but still somewhat anonymous, we suggest the following:</p>
+<ul>
+<li>Anonymize your identity by not providing your name</li>
+<li>Use a dedicated email account, and/or a dedicated phone line.</li>
+</ul>',
           'name_label' => 'Name Label',
         );
 
@@ -325,38 +325,38 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
 
         $form['title']['#title'] = t("Name of Block Watch Captain or Community.");
         $form['title']['#description'] = '
-          <div class="explanation">What is the name of the Block Watch Captain or Community?</div>
-          <div class="instruction">Enter the name as it should appear publicly on the Internet.</div>
-          <div class="example">8700 Block Watch</div>
+<div class="explanation">What is the name of the Block Watch Captain or Community?</div>
+<div class="instruction">Enter the name as it should appear publicly on the Internet.</div>
+<div class="example">8700 Block Watch</div>
         ';
         $form['field_url']['und'][0]['#title'] = t("URL");
         $form['field_url']['und'][0]['#description'] ='
-          <div class="explanation">Is there a link to a webpage for this Block Watch Community? (It\'s OK if you don\'t have one)</div>
-          <div class="instruction">Enter the URL.</div>
-          <div class="example">http://yahoogroups.com/8700-block-watch</div>
+<div class="explanation">Is there a link to a webpage for this Block Watch Community? (It\'s OK if you don\'t have one)</div>
+<div class="instruction">Enter the URL.</div>
+<div class="example">http://yahoogroups.com/8700-block-watch</div>
         ';
         
         $form['field_email']['und']['#title'] = t("Group Email Address");
         $form['field_email']['und']['#description'] = '
-          <div class="explanation">You can use a dedicated email for your group.'
+<div class="explanation">You can use a dedicated email for your group.'
 /*           ' When we launch the tool, the owner of this email address will receive and email asking them if they would like thei email address to be public or if they should be contacted through a web form.'  */
-          . '</div>
-          <div class="instruction">Email the address for the group.</div>
-          <div class="example">8700-blockwatch@yahoogroups.com</div>
+. '</div>
+<div class="instruction">Email the address for the group.</div>
+<div class="example">8700-blockwatch@yahoogroups.com</div>
           ';
         $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
         $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
         $form['field_contact']['und'][0]['value']['#type'] = 'textarea';
         $form['field_contact']['und'][0]['value']['#description'] = '
-          <div class="explanation">If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
-          <div class="instruction">Enter the contact information for this group.</div>
-          <div class="example">Just join our Yahoo group to find us.</div>
+<div class="explanation">If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
+<div class="instruction">Enter the contact information for this group.</div>
+<div class="example">Just join our Yahoo group to find us.</div>
           ';
         $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
         $form['field_url_calendar']['und'][0]['#description'] = '
-          <div class="explanation">If you have a link to an event calendar, you may add it (Most Block Watch Communities do not have an event calendar.)</div>
-          <div class="instruction">Enter the URL that points to the Calendar.</div>
-          <div class="example">http://yahoogroups.com/calendar/8700-block-watch</div>
+<div class="explanation">If you have a link to an event calendar, you may add it (Most Block Watch Communities do not have an event calendar.)</div>
+<div class="instruction">Enter the URL that points to the Calendar.</div>
+<div class="example">http://yahoogroups.com/calendar/8700-block-watch</div>
           ';
         //$form['field_source']['und'][0]['value']['#description'] = t("source description");
         
@@ -368,9 +368,9 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         if(!empty($add_variables_array['category'])) {
           $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
           $form['field_categories']['und']['#description'] = 
-          '<p>Provide some categories for the Block Watch Community.<br />
-          Here are some suggestions:</p><div class="terms">' .
-          variable_get('sea_blockwatch_related_terms') . '</div>';
+'<p>Provide some categories for the Block Watch Community.<br />
+Here are some suggestions:</p><div class="terms">' .
+variable_get('sea_blockwatch_related_terms') . '</div>';
         }
         
         // Alter the Audience Size taxonomy to display as households (rough number estimates, not meant to be exact)
@@ -392,24 +392,7 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         unset($form['field_audience_size']['und']['#options']['122']);
         unset($form['field_audience_size']['und']['#options']['126']);
         unset($form['field_audience_size']['und']['#options']['133']);
-/*
-        
-        _none (String, 8 characters ) - None -
-138 (String, 7 characters ) Unknown
-627 (String, 16 characters ) Number of People
-4 (String, 12 characters ) -1-10 People
-619 (String, 13 characters ) -10-25 People
-620 (String, 13 characters ) -25-50 People
-621 (String, 14 characters ) -50-100 People
-107 (String, 14 characters ) -10-100 People
-114 (String, 17 characters ) -100-1,000 People
-118 (String, 20 characters ) -1,000-10,000 People
-122 (String, 22 characters ) -10,000-100,000 People
-126 (String, 25 characters ) -100,000-1,000,000 People
-133 (String, 22 characters ) -Over 1 Million People
-*/
-        
-        
+   
         // Set default to occasionally.
         $form['field_activity']['und']['#default_value'] = 339;
 
@@ -419,12 +402,7 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         if(!empty($add_variables_array['map_instructions'])) {
           $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
         }
-        
-        $access = user_access('administer nodes');
-        if(!$access) {
-          $form['additional_settings']['#access'] = FALSE;
-        }
-    
+
         // Custom map interface text.
         $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
         $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
@@ -459,7 +437,15 @@ function sea_blockwatch_form_alter(&$form, &$form_state, $form_id) {
         <div class="element"><div class="icon">Finish Drawing Icon</div><div class="label">Finish Drawing: Double-click</div></div>
         <div class="element"><div class="icon">Delete drawing Icon</div><div class="label">Delete drawing</div></div>        
         </div>';
+
+
         
+        $access = user_access('administer nodes');
+        if(!$access) {
+          $form['additional_settings']['#access'] = FALSE;
+        }
+    
+
         
         // Add Google API (uses openlayers API key)
         // @TODO require openlayers.

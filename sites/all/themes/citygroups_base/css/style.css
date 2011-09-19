@@ -1151,3 +1151,7 @@ html.js input.throbbing {
   font-size: 200%;
   font-weight: bold;
 }
+
+.neighborhood-hidden {
+  display: none;
+}
