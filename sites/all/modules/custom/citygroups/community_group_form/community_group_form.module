@@ -31,19 +31,10 @@ function community_group_form_menu() {
  */
 function community_group_form_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'community_group_node_form' && empty($_GET['section'])) {
-
-    
-    
     // Hide content type settings except for admins.
     // defaultcontent and revisions are showing and they are distracting.
     // @TODO fix those modules to have better permission control.
     // @TODO Integrate email verification.
-    
-    $access = user_access('administer nodes');
-    if(!$access) {
-      $form['additional_settings']['#access'] = FALSE;
-    }
-
 
     // Customize prefix.
     community_group_form_prefix_elements(&$form, &$form_values);
