@@ -101,12 +101,33 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
 /*     $form['field_categories']['#suffix'] .= ''; */
 
     $form['field_audience_size']['und']['#title'] = "Members";
-        unset($form['field_audience_size']['und']['#options']['107']);    
-        unset($form['field_audience_size']['und']['#options']['627']);
+    unset($form['field_audience_size']['und']['#options']['107']);    
+    unset($form['field_audience_size']['und']['#options']['627']);
 /*         unset($form['field_audience_size']['und']['#options']['118']); */
 /*         unset($form['field_audience_size']['und']['#options']['122']); */
-        unset($form['field_audience_size']['und']['#options']['126']);
-        unset($form['field_audience_size']['und']['#options']['133']);
+    unset($form['field_audience_size']['und']['#options']['126']);
+    unset($form['field_audience_size']['und']['#options']['133']);
+    
+    // Location fields
+/*         dpm($form['field_city']['und']['#default_value']); */
+
+
+    // Add a Citywide checkbox.
+    $form['field_neighborhood_city_wide'] = $form['field_neighborhood'];
+    $form['field_neighborhood_city_wide'] = array(
+      '#type' => 'checkbox',
+      '#title' => 'Citywide',
+      '#weight' => ($form['field_neighborhood']['#weight'] - 1),
+    );
+
+    $form['#group_children']['field_neighborhood_city_wide'] = 'group_geographic';
+
+    $form['field_city']['und']['#default_value'] = variable_get('citygroups_default_city', '');
+    $form['field_state']['und']['#default_value'] = variable_get('citygroups_default_state', '');
+    $form['field_state']['und']['#default_value'] = variable_get('citygroups_default_county', '');
+        //$form['field_city']['und'][0]['value']['#description'] = t("source description");
+
+    
 
     // Add Google API (uses openlayers API key)
     // @TODO require openlayers.
@@ -117,7 +138,23 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
         ), 'external');
 
     drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
+dpm($form);
+    $form['#submit'][] = 'community_group_form_form_submit';
+  }
+}
 
+function community_group_form_form_submit(&$form, &$form_values) {
+  if($form_values['values']['field_neighborhood_city_wide']) {
+    // Load the tid for the Citywide taxonomy term in the Neighborhood vocabulary.
+    $citywide_term = taxonomy_get_term_by_name('Citywide');
+    foreach(array_values($citywide_term) as $key => $value) {
+      if($value->vocabulary_machine_name = 'neighborhood') {
+        // Completely replace the value for neighborhood with Citywide if the box is checked.
+        $form_values['values']['field_neighborhood']['und'] = array(array('tid' => $value->tid));
+        break;
+      }
+    }
+    dpm( $form_values);
   }
 }
 

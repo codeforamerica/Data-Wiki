@@ -172,5 +172,40 @@ t('CityGroups launches in our city!')),
     '#description' => 'Path to printable flyer',
   );
 
+  $form['citygroups_default_city'] = array(
+    '#type' => 'textfield',
+    '#title' => t('City'),
+    '#default_value' =>  variable_get('citygroups_default_city', array()),
+    '#description' => 'Set Default City for Taxonomy',
+  );
+
+  $form['citygroups_default_state'] = array(
+    '#type' => 'textfield',
+    '#title' => t('State'),
+    '#default_value' =>  variable_get('citygroups_default_state', array()),
+    '#description' => 'Set Default State for Taxonomy',
+  );
+
+  $form['citygroups_default_county'] = array(
+    '#type' => 'textfield',
+    '#title' => t('County'),
+    '#default_value' =>  variable_get('citygroups_default_county', array()),
+    '#description' => 'Set Default County for Taxonomy',
+  );
+
+  $form['citygroups_default_location_latitude'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Latitude'),
+    '#default_value' =>  variable_get('citygroups_default_location_latitude', array()),
+    '#description' => 'Set Default Latitude',
+  );
+
+  $form['citygroups_default_location_longitude'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Longitude'),
+    '#default_value' =>  variable_get('citygroups_default_location_longitude', array()),
+    '#description' => 'Set Default Longitude',
+  );
+
   return system_settings_form($form);
 }
