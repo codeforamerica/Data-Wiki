@@ -6,9 +6,3 @@ core = 7.x
 dependencies[] = field
 files[] = field_sql_storage.test
 required = TRUE
-
-; Information added by drupal.org packaging script on 2011-08-31
-version = "7.8"
-project = "drupal"
-datestamp = "1314817616"
-
