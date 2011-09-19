@@ -232,7 +232,7 @@ function taxonomy_cleanup_capitalize_settings_form() {
   // Remove $form_id from the arguments.
   array_shift($args);
   $form_state['build_info']['args'] = $args;
-  $vid = $args[2];
+  $vid = $args[1];
   $terms = taxonomy_cleanup_get_term_from_vid($vid);
 
   global $base_url;
@@ -243,7 +243,7 @@ function taxonomy_cleanup_capitalize_settings_form() {
       $output .= "<p><strong>" . l($term, $link_tid) . "</strong></p>";
     }
     else {
-/*       $output .= "<p>" . l($term, $link_tid) . "</p>";     */
+      $output .= "<p>" . l($term, $link_tid) . "</p>";    
     }
   }
 
