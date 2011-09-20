@@ -175,10 +175,15 @@ function citygroups_base_preprocess_node(&$vars) {
 
 function citygroups_base_preprocess_node_community_group(&$vars) {
 
+  
 
 if($vars['view_mode'] == 'full') {
+
   $vars['content']['links']['#suffix'] = citygroups_base_node_share($vars, 'full');
 }
+
+  citygroups_base_reorder_community_group_flags($vars);
+
 /*
   if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
     if ($path = mobile_codes_generate($url)) {
@@ -187,6 +192,23 @@ if($vars['view_mode'] == 'full') {
   }
 */
 }
+
+function citygroups_base_reorder_community_group_flags(&$vars) {
+
+  $flags = $vars['content']['links']['flag']['#links'];
+  
+  $new_flags = array(
+    'flag-watch' => $flags['flag-watch'],
+    'flag-recommend' => $flags['flag-recommend'],
+    'flag-inactive' => $flags['flag-inactive'],
+    'flag-duplicate' => $flags['flag-duplicate'],
+    'flag-inappropriate' => $flags['flag-inappropriate'],
+  );
+  unset($vars['content']['links']['flag']['#links']);
+  $vars['content']['links']['flag']['#links'] = $new_flags;
+
+}
+
 /* Load location data for nodes */
 function citygroups_base_node_location(&$vars) {
   $output = '';
