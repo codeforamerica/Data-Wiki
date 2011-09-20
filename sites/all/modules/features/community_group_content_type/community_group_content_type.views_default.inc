@@ -2104,7 +2104,6 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['fields']['field_location_3']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_location_3']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_location_3']['click_sort_column'] = 'wkt';
-  $handler->display->display_options['fields']['field_location_3']['type'] = 'geofield_wkt';
   $handler->display->display_options['fields']['field_location_3']['settings'] = array(
     'data' => 'full',
   );

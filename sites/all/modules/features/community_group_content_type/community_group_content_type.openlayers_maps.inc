@@ -42,6 +42,7 @@ function community_group_content_type_openlayers_maps() {
       ),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
+        'documentDrag' => 0,
       ),
       'openlayers_behavior_dragpan' => array(),
       'openlayers_behavior_boxselect' => array(),
@@ -52,30 +53,111 @@ function community_group_content_type_openlayers_maps() {
         'point_zoom_level' => '5',
       ),
     ),
-    'default_layer' => 'osm_mapnik',
+    'default_layer' => 'google_hybrid',
     'layers' => array(
-      'osm_mapnik' => 'osm_mapnik',
-      'osm_cycle' => 'osm_cycle',
+      'google_hybrid' => 'google_hybrid',
       'geofield_formatter' => 'geofield_formatter',
     ),
+    'layer_weight' => array(
+      'geofield_formatter' => '0',
+      'community_groups_map_openlayers_1' => '0',
+    ),
     'layer_styles' => array(
-      'geofield_formatter' => 'city_group_map_style',
+      'community_groups_map_openlayers_1' => '0',
+      'geofield_formatter' => '0',
     ),
     'layer_activated' => array(
       'geofield_formatter' => 'geofield_formatter',
+      'community_groups_map_openlayers_1' => 0,
     ),
     'layer_switcher' => array(
       'geofield_formatter' => 'geofield_formatter',
+      'community_groups_map_openlayers_1' => 0,
     ),
     'projection' => '900913',
     'displayProjection' => '4326',
     'styles' => array(
-      'default' => 'city_group_map_style',
-      'select' => 'city_group_map_style',
-      'temporary' => 'city_group_map_style',
+      'default' => 'city_group_map_form_style',
+      'select' => 'city_group_map_form_style',
+      'temporary' => 'city_group_map_form_style',
     ),
   );
   $export['citygroups'] = $openlayers_maps;
+
+  $openlayers_maps = new stdClass;
+  $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
+  $openlayers_maps->api_version = 1;
+  $openlayers_maps->name = 'citygroups_map_form';
+  $openlayers_maps->title = 'CityGroups Map Form';
+  $openlayers_maps->description = 'Form for Maps';
+  $openlayers_maps->data = array(
+    'width' => 'auto',
+    'height' => '400px',
+    'image_path' => 'sites/all/themes/citygroups_base/openlayers/img/',
+    'css_path' => '',
+    'proxy_host' => '',
+    'hide_empty_map' => 0,
+    'center' => array(
+      'initial' => array(
+        'centerpoint' => '-122.28332519042, 47.552433022586',
+        'zoom' => '10',
+      ),
+      'restrict' => array(
+        'restrictextent' => 0,
+        'restrictedExtent' => '-13642327.931837,6002752.704216,-13576439.213467,6060691.971646',
+      ),
+    ),
+    'behaviors' => array(
+      'openlayers_behavior_geofield' => array(
+        'geofield_draw_features' => array(
+          'point' => 'point',
+          'polygon' => 'polygon',
+          'bounds' => 0,
+          'line' => 0,
+        ),
+      ),
+      'openlayers_behavior_attribution' => array(),
+      'openlayers_behavior_keyboarddefaults' => array(),
+      'openlayers_behavior_layerswitcher' => array(
+        'ascending' => 1,
+      ),
+      'openlayers_behavior_navigation' => array(
+        'zoomWheelEnabled' => 1,
+        'documentDrag' => 0,
+      ),
+      'openlayers_behavior_panzoombar' => array(),
+      'openlayers_behavior_scaleline' => array(),
+    ),
+    'default_layer' => 'google_hybrid',
+    'layers' => array(
+      'google_hybrid' => 'google_hybrid',
+      'geofield_formatter' => 'geofield_formatter',
+    ),
+    'layer_weight' => array(
+      'geofield_formatter' => '0',
+      'community_groups_map_openlayers_1' => '0',
+    ),
+    'layer_styles' => array(
+      'community_groups_map_openlayers_1' => '0',
+      'geofield_formatter' => 'city_group_map_form_style',
+    ),
+    'layer_activated' => array(
+      'geofield_formatter' => 'geofield_formatter',
+      'community_groups_map_openlayers_1' => 0,
+    ),
+    'layer_switcher' => array(
+      'geofield_formatter' => 0,
+      'community_groups_map_openlayers_1' => 0,
+    ),
+    'projection' => '900913',
+    'displayProjection' => '4326',
+    'styles' => array(
+      'default' => 'city_group_map_form_style',
+      'select' => 'city_group_map_form_style',
+      'temporary' => 'city_group_map_form_style',
+    ),
+  );
+  $export['citygroups_map_form'] = $openlayers_maps;
 
   return $export;
 }
