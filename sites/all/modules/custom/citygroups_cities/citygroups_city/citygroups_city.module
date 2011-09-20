@@ -117,6 +117,14 @@ function citygroups_city_menu() {
     'weight' =>  -8,
   );
 
+  $items['projects/add'] = array(
+    'title' => 'How to add a project',
+    'page callback' => 'citygroups_city_projects_add_render',
+    'page arguments' => array(t('CityGroups City Projects Add Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'weight' =>  -8,
+  );
 
   $items['welcome'] = array(
     'title' => 'Welcome',
@@ -124,6 +132,8 @@ function citygroups_city_menu() {
     'page arguments' => array(t('CityGroups City Welcome Page')),
     'access callback' => TRUE,
   );
+  
+
 
   return $items;
 }
@@ -373,8 +383,15 @@ function citygroups_city_community_data_render() {
   ;
 }
 
-
-
 function citygroups_city_data_standard_community_groups_render() {
   return "The Data Standard for describing Community Groups is underway and being developed in Google Docs. <a href='https://docs.google.com/a/codeforamerica.org/document/d/1R16GNOer_GEWqNcF8XcrU7DfC2GijO-pAWUZXY6wndQ/edit?hl=en_US'>Have a look.</a>";
+}
+
+function citygroups_city_projects_add_render() {
+  return '
+  <a href="/projects">List of projects</a>
+  <a href="/node/add/projects">Add new Project</a>
+  <h3>Set up module</h3>
+  <p>You can create a custom module & install it and it will automatically configure the site and provide you with a customize form and website text.</p>
+  ';
 }

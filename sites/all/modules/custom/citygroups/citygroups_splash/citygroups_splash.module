@@ -142,7 +142,7 @@ function citygroups_splash_block_view($delta = '') {
       $block['content'] = citygroups_splash_block_site_config();
       break;
     case 'site_start':
-      $block['subject'] = t('Add & Manage Content');
+      $block['subject'] = t('Community Groups');
       $block['content'] = citygroups_splash_block_site_start();
       break;
   }
@@ -205,7 +205,7 @@ function citygroups_splash_block_site_start() {
     'title' => 'Add a Community Group',
     'href' => 'node/add/community-group',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
-    'description' => t('Add a Community Group'),
+    'description' => t('Add a new Community Group'),
   );
 /*
   
@@ -221,7 +221,7 @@ function citygroups_splash_block_site_start() {
     'title' => 'Groups I am Watching',
     'href' => 'manage/dashboard/favorites',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
-    'description' => t('Groups I am watching.'),
+    'description' => t('On any community group, you can click the "Watch" button, and watch the group. Use this to build a list of groups that you watch over time.'),
   );
 
   //node/add/community-group-feed-upload-csv
@@ -247,10 +247,10 @@ function citygroups_splash_block_site_config() {
   $markup = '';
 
   $items[] = array (
-    'title' => 'Configure CityGroups',
+    'title' => 'Configure & Manage CityGroups',
     'href' => 'admin/config/citygroups',
     'localized_options' => array('attributes' => array('class' => array('opic-dashboard-content'))),    
-    'description' => t('Configure CityGroups'),
+    'description' => t('Configure & Manage CityGroups'),
   );
   
 /*

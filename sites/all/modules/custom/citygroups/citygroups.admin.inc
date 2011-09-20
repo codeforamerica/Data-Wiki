@@ -11,88 +11,146 @@
 function citygroups_edit_form($form, &$form_state, array $rule = array()) {
    $form['introduction'] = array(
     '#markup' => '
-    <h3>Configure CityGroups</h3>
+    <h3>Configure & Manage CityGroups</h3>
     <p><strong>Let\'s set up CityGroups for your City.</strong></p>
     <p>There are a few accounts, settings and data that you will need to do to customize the tool for your city.</p>
     
     <div class="admin clearfix">
-      <ul class="menu">
+      <h4>Initial Setup</h4>
+      <ul class="menu-list">
         <li><a href="#help">Get Help</a></li>
         <li><a href="#configure">Configure</a></li>
+        <li><a href="#site-content">Site Content</a></li>
+      </ul>
+
+      <h4>Ongoing Maintenance & Moderation</h4>      
+      <ul class="menu-list">
+        <li><a href="#content">Content</a></li>
+        <li><a href="#flags">Flags</a></li>        
         <li><a href="#data">Data</a></li>
         <li><a href="#outreach">Outreach</a></li>
         <li><a href="#servers">Servers</a></li>
-        <li><a href="#site-content">Site Content</a></li>
+        <li><a href="#moderation">Moderation</a></li>
       </ul>
     </div>
     
-    <a name="help"></a>
-    <h4>Get Help</h4>
-    <ul>
-      <li><a href="http://citygroups.org/documentation">Documentation</a></li>
-      <li><a href="http://citygroups.org/support">Support</a></li>
-      <li><a href="http://citygroups.org/contact">Contact</a></li>
-      <li><a href="http://tasks.citygroups.org">CityGroups Project Blog</a></li>
-    </ul>
+    <fieldset class="configure">
+      <legend>Get Help</legend>
+        <a name="help"></a>
+        <h4>Get Help</h4>
+        <ul>
+          <li><a href="http://citygroups.org/documentation">Documentation</a></li>
+          <li><a href="http://citygroups.org/support">Support</a></li>
+          <li><a href="http://citygroups.org/contact">Contact</a></li>
+          <li><a href="http://tasks.citygroups.org">CityGroups Project Blog</a></li>
+        </ul>
+    </fieldset>
+
+    <fieldset class="configure">
+      <legend>Configure</legend>    
+        <a name="configure"></a>
+        <h4>Configure</h4>
+        <ol>
+          <li><a href="/admin/config/system/googleanalytics">Google Analytics</a></li>
+          <li><a href="/admin/config/content/mollom/settings">Mollom, spam protection</a></li>
+          <li><a href="/admin/config/content/mollom">Configure Mollom (spam control)</a></li>
+          <li><a href="/admin/build/openlayers/layers/settings">Set Map API Keys (Google & Cloudmade.)</a></li>
+          <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
+          <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li>
+          <li><a href="/admin/citygroups_stats">Re-count groups</a></li>
+          <li><a href="/admin/config/citygroups_vocabularies">Load & Update Vocabularies</a></li>
+          <li>RPX</li>
+          <li>Typekit</li>
+          <li>Mailchimp</li>
+        </ol>
+    </fieldset>
+
+    <fieldset class="configure">
+      <legend>Content</legend>    
+        <a name="content"></a>    
+        <h4>Content</h4>
+        <ul>
+          <li><a href="/admin/content/node">Content</a> View all content</li>
     
-    <a name="configure"></a>
-    <h4>Configure</h4>
-    <ol>
-      <li><a href="/admin/config/system/googleanalytics">Google Analytics</a></li>
-      <li><a href="/admin/config/content/mollom/settings">Mollom, spam protection</a></li>
-      <li><a href="/admin/config/content/mollom">Configure Mollom (spam control)</a></li>
-      <li><a href="/admin/build/openlayers/layers/settings">Set Map API Keys (Google & Cloudmade.)</a></li>
-      <li><a href="/admin/build/openlayers/presets/citygroups_group_display/edit">Set Map Center in Map for Forms</a></li>
-      <li><a href="/admin/build/openlayers/presets/citygroups_form/edit">Set Map Center in Map for Display</a></li>
-      <li><a href="/admin/citygroups_stats">Re-count groups</a></li>
-      <li><a href="/admin/config/citygroups_vocabularies">Load & Update Vocabularies</a></li>
-      <li>RPX</li>
-      <li>Typekit</li>
-      <li>Mailchimp</li>
-    </ol>
+          <li><a href="/admin/content/node">Content</a> View all content</li>
+          <li><a href="/admin/config/taxonomy_cleanup">Taxonomy Cleanup</a> Cleanup, merge & split taxonomies.</li>
+          <li><a href="/admin/config/citygroups_vocabularies">Update Taxonomoy Vocabularies</a> This will add new terms to vocabularies.</li>
+        </ul>
+    </fieldset>
 
-    <a name="data"></a>    
-    <h4>Data</h4>
-    <ul>
-      <li><a href="http://citygroups.org/documentation/get-data/groups">Get groups data</a></li>
-      <li><a href="http://citygroups.org/documentation/get-data/neighborhood">Get neighborhood data</a></li>
-      <li><a href="http://citygroups.org/documentation/get-data/categories">Get category data</a></li>
-    </ul>
+    <fieldset class="configure">
+      <legend>Flags</legend>  
+        <a name="flags"></a>    
+        <h4>Flagged Content</h4>
+        <p>Users who are signed in have the ability to set a number of "flags" on any community group content.</p>
+        <ul>
+          <li><a href="/manage/recommended">Duplicates</a> View duplicates.</li>
+          <li><a href="/manage/dashboard/favorites">Duplicates</a> View groups people are watching.</li>
+          <li><a href="/manage/duplicates">Duplicates</a> View duplicates.</li>
+          <li><a href="/manage/inactive">Duplicates</a> View groups people consider to be inactive.</li>
+          <li><a href="/manage/inappropriate">Duplicates</a> View groups flagged as inappropriate.</li>
+        </ul>
+    </fieldset>
+    
+    <fieldset class="configure">
+      <legend>Data</legend>  
+        <a name="data"></a>    
+        <h4>Data</h4>
+        <ul>
+          <li><a href="http://citygroups.org/documentation/get-data/groups">Get groups data</a></li>
+          <li><a href="http://citygroups.org/documentation/get-data/neighborhood">Get neighborhood data</a></li>
+          <li><a href="http://citygroups.org/documentation/get-data/categories">Get category data</a></li>
+          <li><a href="/datasets</a> Contributed datasets</li>
+          <li><a href="/projects</a> Data collection Projects</li>
+          <li><a href="/node/add/community-group-feed-upload-csv</a> Contribute dataset with CSV File</li>
+          <li><a href="/data-standard/community-groups</a> Data Standard</li>
+          <li><a href="/projects</a> Data collection Projects</li>
+          <li><a href="/projects/add"</a> How to add a data collection project</li>
+        </ul>
+    </fieldset>
 
-    <a name="outreach"></a>  
-    <h4>Outreach</h4>
-    <ul>
-      <li><a href="http://citygroups.org/documentation/community-mapping-project">Start a Community Mapping Project</a></li>
-    </ul>
+    <fieldset class="configure">
+      <legend>Outreach</legend>          
+        <a name="outreach"></a>  
+        <h4>Outreach</h4>
+        <ul>
+          <li><a href="http://citygroups.org/documentation/community-mapping-project">Start a Community Mapping Project</a></li>
+        </ul>
+    </fieldset>
+ 
+     <fieldset class="configure">
+      <legend>Servers</legend>        
+        <a name="servers"></a>  
+        <h4>Servers</h4>
+        <ul>
+          <li><a href="http://citygroups.org/documentation/servers">Servers</a></li>
+          <li><a href="http://citygroups.org/documentation/server-administration">Server Administration</a></li>
+          <li><a href="/admin/config/system/backup_migrate/export">Backup Database</a></li>
+          <li>Robots (staging servers)</li>
+          <li>Updates to code</li>
+          <li>Maintenance</li>
+        </ul>
+     </fieldset>
 
-    <a name="servers"></a>  
-    <h4>Servers</h4>
-    <ul>
-      <li><a href="http://citygroups.org/documentation/servers">Servers</a></li>
-      <li><a href="http://citygroups.org/documentation/server-administration">Server Administration</a></li>
-      <li><a href="/admin/config/system/backup_migrate/export">Backup Database</a></li>
-      <li>Robots (staging servers)</li>
-      <li>Updates to code</li>
-      <li>Maintenance</li>
-    </ul>
-
-    <a name="moderation"></a>  
-    <h4>Content Moderation</h4>
-    <p>All public facing sites that allow users to join are subject to the pressures 
-    of robots and people who try to get accounts, or add comments that try to sell things.
-    Here are some links to tools that will allow you to delete bad content.</p>
-    <p>In general, it is good to check on the comments & users at least every month or two to make sure the site is OK.</p>
-    <p>When a site is attacked, a robot can fill up the database with bad content, which has the potential to crash the server.</p>
-    <ul>
-      <li><a href="/admin/content/comment/approval">Comment Approval Queue</a> Approve comments. (Configuring Mollom will cut down on any spam from forms.)</li>
-      <li><a href="/admin/people/people">Users</a> This is where you can cancel accounts for any robots that might try to join the site.</li>
-    </ul>
-
-
-
-    <a name="site-content"></a>    
-    <h3>Site Content</h3>
-    <p>Enter custom text that should appear throughout the site & on the homepage.</p>
+ 
+     <fieldset class="configure">
+      <legend>Moderation</legend>     
+        <a name="moderation"></a>  
+        <h4>Content Moderation</h4>
+        <p>All public facing sites that allow users to join are subject to the pressures 
+        of robots and people who try to get accounts, or add comments that try to sell things.
+        Here are some links to tools that will allow you to delete bad content.</p>
+        <p>In general, it is good to check on the comments & users at least every month or two to make sure the site is OK.</p>
+        <p>When a site is attacked, a robot can fill up the database with bad content, which has the potential to crash the server.</p>
+        <ul>
+          <li><a href="/admin/content/comment/approval">Comment Approval Queue</a> Approve comments. (Configuring Mollom will cut down on any spam from forms.)</li>
+          <li><a href="/admin/people/people">Users</a> This is where you can cancel accounts for any robots that might try to join the site.</li>
+        </ul>
+     </fieldset>
+ 
+      <a name="site-content"></a>    
+      <h3>Site Content</h3>
+      <p>Enter custom text that should appear throughout the site & on the homepage.</p>
     ',
   );
 

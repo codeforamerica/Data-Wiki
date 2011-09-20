@@ -18,3 +18,7 @@
 #page #content .block {
   margin: 0 0 40px 0;
 }
+
+fieldset.configure {
+  padding: 20px;
+}
