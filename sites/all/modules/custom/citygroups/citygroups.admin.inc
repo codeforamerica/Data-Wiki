@@ -71,8 +71,6 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
         <h4>Content</h4>
         <ul>
           <li><a href="/admin/content/node">Content</a> View all content</li>
-    
-          <li><a href="/admin/content/node">Content</a> View all content</li>
           <li><a href="/admin/config/taxonomy_cleanup">Taxonomy Cleanup</a> Cleanup, merge & split taxonomies.</li>
           <li><a href="/admin/config/citygroups_vocabularies">Update Taxonomoy Vocabularies</a> This will add new terms to vocabularies.</li>
         </ul>
@@ -84,11 +82,11 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
         <h4>Flagged Content</h4>
         <p>Users who are signed in have the ability to set a number of "flags" on any community group content.</p>
         <ul>
-          <li><a href="/manage/recommended">Duplicates</a> View duplicates.</li>
-          <li><a href="/manage/dashboard/favorites">Duplicates</a> View groups people are watching.</li>
+          <li><a href="/manage/recommended">Recommended</a> View recommended groups.</li>
+          <li><a href="/manage/dashboard/favorites">Watch</a> View groups people are watching.</li>
           <li><a href="/manage/duplicates">Duplicates</a> View duplicates.</li>
-          <li><a href="/manage/inactive">Duplicates</a> View groups people consider to be inactive.</li>
-          <li><a href="/manage/inappropriate">Duplicates</a> View groups flagged as inappropriate.</li>
+          <li><a href="/manage/inactive">Inactive</a> View groups people consider to be inactive.</li>
+          <li><a href="/manage/inappropriate">Inappropriate</a> View groups flagged as inappropriate.</li>
         </ul>
     </fieldset>
     
@@ -96,16 +94,20 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <legend>Data</legend>  
         <a name="data"></a>    
         <h4>Data</h4>
+        <h5>Documentation</h5>
         <ul>
           <li><a href="http://citygroups.org/documentation/get-data/groups">Get groups data</a></li>
           <li><a href="http://citygroups.org/documentation/get-data/neighborhood">Get neighborhood data</a></li>
           <li><a href="http://citygroups.org/documentation/get-data/categories">Get category data</a></li>
-          <li><a href="/datasets</a> Contributed datasets</li>
-          <li><a href="/projects</a> Data collection Projects</li>
-          <li><a href="/node/add/community-group-feed-upload-csv</a> Contribute dataset with CSV File</li>
-          <li><a href="/data-standard/community-groups</a> Data Standard</li>
-          <li><a href="/projects</a> Data collection Projects</li>
-          <li><a href="/projects/add"</a> How to add a data collection project</li>
+          <li><a href="http://citygroups.org/documentation/data-standard/community-groups">Data Standard</a></li>
+          <li><a href="http://citygroups.org/documentation/projects/add">How to add a data collection project</a></li>
+        </ul>
+        
+        <h5>Import & Manage</h5>
+        <ul>
+          <li><a href="/node/add/community-group-feed-upload-csv">Import CSV</a> Contribute dataset with CSV File</li>
+          <li><a href="/datasets">Datasets</a> Contributed datasets</li>
+          <li><a href="/projects">Projects</a> Data collection Projects</li>
         </ul>
     </fieldset>
 
