@@ -73,7 +73,22 @@ function citygroups_edit_form($form, &$form_state, array $rule = array()) {
       <li><a href="/admin/config/system/backup_migrate/export">Backup Database</a></li>
       <li>Robots (staging servers)</li>
       <li>Updates to code</li>
+      <li>Maintenance</li>
     </ul>
+
+    <a name="moderation"></a>  
+    <h4>Content Moderation</h4>
+    <p>All public facing sites that allow users to join are subject to the pressures 
+    of robots and people who try to get accounts, or add comments that try to sell things.
+    Here are some links to tools that will allow you to delete bad content.</p>
+    <p>In general, it is good to check on the comments & users at least every month or two to make sure the site is OK.</p>
+    <p>When a site is attacked, a robot can fill up the database with bad content, which has the potential to crash the server.</p>
+    <ul>
+      <li><a href="/admin/content/comment/approval">Comment Approval Queue</a> Approve comments. (Configuring Mollom will cut down on any spam from forms.)</li>
+      <li><a href="/admin/people/people">Users</a> This is where you can cancel accounts for any robots that might try to join the site.</li>
+    </ul>
+
+
 
     <a name="site-content"></a>    
     <h3>Site Content</h3>

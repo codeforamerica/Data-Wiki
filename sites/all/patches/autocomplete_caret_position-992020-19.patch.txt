@@ -1,0 +1,186 @@
+From d531bc30fd4f5466e8be141ae5a25f879917fb49 Mon Sep 17 00:00:00 2001
+From: Stefan Borchert <stefan.borchert@undpaul.de>
+Date: Tue, 7 Jun 2011 18:46:15 +0200
+Subject: [PATCH] Issue #992020: Autocomplete caret position. Add test.
+
+---
+ includes/common.inc                 |   12 ++++++++----
+ misc/autocomplete.js                |    6 +++---
+ modules/taxonomy/taxonomy.pages.inc |   34 +++++++++++++++++++++++++---------
+ modules/taxonomy/taxonomy.test      |   27 ++++++++++++++++++++++-----
+ 4 files changed, 58 insertions(+), 21 deletions(-)
+
+diff --git a/includes/common.inc b/includes/common.inc
+index 4ec37dc..5cd9ddb 100644
+--- a/includes/common.inc
++++ b/includes/common.inc
+@@ -7069,17 +7069,21 @@ function drupal_explode_tags($tags) {
+   // This regexp allows the following types of user input:
+   // this, "somecompany, llc", "and ""this"" w,o.rks", foo bar
+   $regexp = '%(?:^|,\ *)("(?>[^"]*)(?>""[^"]* )*"|(?: [^",]*))%x';
+-  preg_match_all($regexp, $tags, $matches);
+-  $typed_tags = array_unique($matches[1]);
++  preg_match_all($regexp, $tags, $matches, PREG_OFFSET_CAPTURE);
++  $typed_tags = array();
++  foreach ($matches[1] as $match) {
++    $typed_tags[$match[1]] = $match[0];
++  }
++  $typed_tags = array_unique($typed_tags);
+ 
+   $tags = array();
+-  foreach ($typed_tags as $tag) {
++  foreach ($typed_tags as $position => $tag) {
+     // If a user has escaped a term (to demonstrate that it is a group,
+     // or includes a comma or quote character), we remove the escape
+     // formatting so to save the term into the database as the user intends.
+     $tag = trim(str_replace('""', '"', preg_replace('/^"(.*)"$/', '\1', $tag)));
+     if ($tag != "") {
+-      $tags[] = $tag;
++      $tags[$position] = $tag;
+     }
+   }
+ 
+diff --git a/misc/autocomplete.js b/misc/autocomplete.js
+index 5e85be4..e39476c 100644
+--- a/misc/autocomplete.js
++++ b/misc/autocomplete.js
+@@ -200,7 +200,7 @@ Drupal.jsAC.prototype.populatePopup = function () {
+ 
+   // Do search.
+   this.db.owner = this;
+-  this.db.search(this.input.value);
++  this.db.search(this.input.value, $input.get(0).selectionStart);
+ };
+ 
+ /**
+@@ -264,7 +264,7 @@ Drupal.ACDB = function (uri) {
+ /**
+  * Performs a cached and delayed search.
+  */
+-Drupal.ACDB.prototype.search = function (searchString) {
++Drupal.ACDB.prototype.search = function (searchString, caretPosition) {
+   var db = this;
+   this.searchString = searchString;
+ 
+@@ -290,7 +290,7 @@ Drupal.ACDB.prototype.search = function (searchString) {
+     // Ajax GET request for autocompletion.
+     $.ajax({
+       type: 'GET',
+-      url: db.uri + '/' + encodeURIComponent(searchString),
++      url: db.uri + '/' + encodeURIComponent(searchString) + '/' + caretPosition,
+       dataType: 'json',
+       success: function (matches) {
+         if (typeof matches.status == 'undefined' || matches.status != 0) {
+diff --git a/modules/taxonomy/taxonomy.pages.inc b/modules/taxonomy/taxonomy.pages.inc
+index 3aed290..fe61eb0 100644
+--- a/modules/taxonomy/taxonomy.pages.inc
++++ b/modules/taxonomy/taxonomy.pages.inc
+@@ -76,15 +76,31 @@ function taxonomy_term_feed($term) {
+ /**
+  * Helper function for autocompletion
+  */
+-function taxonomy_autocomplete($field_name, $tags_typed = '') {
++function taxonomy_autocomplete($field_name, $tags_typed = '', $caret_position = 0) {
+   $field = field_info_field($field_name);
+ 
+-  // The user enters a comma-separated list of tags. We only autocomplete the last tag.
+-  $tags_typed = drupal_explode_tags($tags_typed);
+-  $tag_last = drupal_strtolower(array_pop($tags_typed));
++  // The user enters a comma-separated list of tags.
++  $tags_typed_array = drupal_explode_tags($tags_typed);
++  // Try to find the tag based on the current caret position.
++  $tag_current = '';
++  $tag_positions = array_keys($tags_typed_array);
++  $tag_positions[] = drupal_strlen($tags_typed) + 1;
++  $position_last = -1;
++  foreach ($tag_positions as $position) {
++    if ($caret_position >= $position_last && $caret_position < $position) {
++      // Tag found on caret position.
++      $tag_current = $tags_typed_array[$position_last];
++      break;
++    }
++    // Save position for later use.
++    $position_last = $position;
++  }
++  if (isset($tags_typed_array[$position_last])) {
++    unset($tags_typed_array[$position_last]);
++  }
+ 
+   $matches = array();
+-  if ($tag_last != '') {
++  if ($tag_current != '') {
+ 
+     // Part of the criteria for the query come from the field's own settings.
+     $vids = array();
+@@ -98,19 +114,19 @@ function taxonomy_autocomplete($field_name, $tags_typed = '') {
+     $query->addTag('term_access');
+ 
+     // Do not select already entered terms.
+-    if (!empty($tags_typed)) {
+-      $query->condition('t.name', $tags_typed, 'NOT IN');
++    if (!empty($tags_typed_array)) {
++      $query->condition('t.name', $tags_typed_array, 'NOT IN');
+     }
+     // Select rows that match by term name.
+     $tags_return = $query
+       ->fields('t', array('tid', 'name'))
+       ->condition('t.vid', $vids)
+-      ->condition('t.name', '%' . db_like($tag_last) . '%', 'LIKE')
++      ->condition('t.name', '%' . db_like($tag_current) . '%', 'LIKE')
+       ->range(0, 10)
+       ->execute()
+       ->fetchAllKeyed();
+ 
+-    $prefix = count($tags_typed) ? implode(', ', $tags_typed) . ', ' : '';
++    $prefix = count($tags_typed_array) ? implode(', ', $tags_typed_array) . ', ' : '';
+ 
+     $term_matches = array();
+     foreach ($tags_return as $tid => $name) {
+diff --git a/modules/taxonomy/taxonomy.test b/modules/taxonomy/taxonomy.test
+index 1fd47f5..ff32f96 100644
+--- a/modules/taxonomy/taxonomy.test
++++ b/modules/taxonomy/taxonomy.test
+@@ -592,11 +592,6 @@ class TaxonomyTermTestCase extends TaxonomyWebTestCase {
+       $this->assertText($term_name, t('The term %name appears on the node page after one term %deleted was deleted', array('%name' => $term_name, '%deleted' => $term1->name)));
+     }
+     $this->assertNoText($term1->name, t('The deleted term %name does not appear on the node page.', array('%name' => $term1->name)));
+-
+-    // Test autocomplete on term 2.
+-    $input = substr($term2->name, 0, 3);
+-    $this->drupalGet('taxonomy/autocomplete/taxonomy_' . $this->vocabulary->machine_name . '/' . $input);
+-    $this->assertRaw('{"' . $term2->name . '":"' . $term2->name . '"}', t('Autocomplete returns term %term_name after typing the first 3 letters.', array('%term_name' => $term2->name)));
+   }
+ 
+   /**
+@@ -756,6 +751,28 @@ class TaxonomyTermTestCase extends TaxonomyWebTestCase {
+     $terms = taxonomy_get_term_by_name(drupal_substr($term->name, 2));
+     $this->assertFalse($terms);
+   }
++
++  /**
++   * Test autocomplete functionality of taxonomy.
++   */
++  function testTaxonomyAutocomplete() {
++    // Create two taxonomy terms.
++    $term1 = $this->createTerm($this->vocabulary);
++    $term2 = $this->createTerm($this->vocabulary);
++
++    // Test autocomplete on term 2.
++    $input = substr($term2->name, 0, 3);
++    $this->drupalGet('taxonomy/autocomplete/taxonomy_' . $this->vocabulary->machine_name . '/' . $input);
++    $this->assertRaw('{"' . $term2->name . '":"' . $term2->name . '"}', t('Autocomplete returns term %term_name after typing the first 3 letters.', array('%term_name' => $term2->name)));
++
++    // Test autocomplete at specific position.
++    $term1_name = substr($term1->name, 0, 3);
++    $input = drupal_implode_tags(array($term1_name, $term2->name));
++    // Call autocomplete with given input and set cursor after 3rd character.
++    $this->drupalGet('taxonomy/autocomplete/taxonomy_' . $this->vocabulary->machine_name . '/' . $input . '/3');
++    // First term should be expanded and after second term.
++    $this->assertRaw('{"' . drupal_implode_tags(array($term2->name, $term1->name)) . '":"' . $term1->name . '"}', t('Autocomplete returns term %term1_name after %term2_name.', array('%term1_name' => $term1->name, '%term2_name' => $term2->name)));
++  }
+ }
+ 
+ /**
+-- 
+1.7.4
+
