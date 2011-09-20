@@ -2003,8 +2003,7 @@ function community_group_content_type_field_default_fields() {
       'default_value_function' => '',
       'default_value_php' => '',
       'deleted' => '0',
-      'description' => '<p>Thanks for taking the time to contribute a community group.</p>
-      <p>Contributing a group is easy. You can share basic contact information, categories & map the group.</p>',
+      'description' => 'What you need to prepare,...',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -2027,7 +2026,7 @@ function community_group_content_type_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_prepare',
-      'label' => 'Share Community Group',
+      'label' => 'Prepare',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -2475,8 +2474,9 @@ function community_group_content_type_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
+          'module' => 'link',
           'settings' => array(),
-          'type' => 'hidden',
+          'type' => 'link_default',
           'weight' => 0,
         ),
       ),
@@ -2560,8 +2560,9 @@ function community_group_content_type_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
+          'module' => 'link',
           'settings' => array(),
-          'type' => 'hidden',
+          'type' => 'link_default',
           'weight' => 0,
         ),
       ),
@@ -2633,19 +2634,21 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
+          'type' => 'link_url',
           'weight' => '26',
         ),
         'search_result' => array(
           'label' => 'hidden',
+          'module' => 'link',
           'settings' => array(),
-          'type' => 'hidden',
+          'type' => 'link_default',
           'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
+          'module' => 'link',
           'settings' => array(),
-          'type' => 'hidden',
+          'type' => 'link_default',
           'weight' => 0,
         ),
       ),

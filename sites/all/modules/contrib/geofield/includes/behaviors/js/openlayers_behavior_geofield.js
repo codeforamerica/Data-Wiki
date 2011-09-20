@@ -24,10 +24,11 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       centroid = geom.getCentroid();
       bounds = geom.getBounds();
       type = typeLookup(feature);
+        
       feature.layer.map.data_form.wkt.val(geom.toString());
       feature.layer.map.data_form.type.val(type);
-      feature.layer.map.data_form.lat.val(centroid.x);      
-      feature.layer.map.data_form.lon.val(centroid.y);
+      feature.layer.map.data_form.lat.val(centroid.x); // New
+      feature.layer.map.data_form.lon.val(centroid.y); // New
       feature.layer.map.data_form.left.val(bounds.left);
       feature.layer.map.data_form.top.val(bounds.top);
       feature.layer.map.data_form.bottom.val(bounds.bottom);
@@ -49,6 +50,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       
       return lookup[feature.geometry.__proto__.CLASS_NAME];
     }
+
     
     if (data && data.map.behaviors['openlayers_behavior_geofield']) {
       
@@ -63,26 +65,28 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         'bottom':$(data.map.behaviors['openlayers_behavior_geofield']['bottom'])
       };
       
+      
+      
       /*
        * Style
        */
 
-    // Redraw feature with style.
-    var geofieldStyleMap = new OpenLayers.StyleMap({
-                "default": new OpenLayers.Style({
-                    pointRadius: "5", // sized according to type attribute
-                    strokeColor: "#333333",
-                    fillColor: "#666666",
-                    strokeWidth: 2,
-                    fillOpacity: 0.6
-                }),
-                "select": new OpenLayers.Style({
-                    strokeColor: "#333333",
-                    fillColor: "#666666",
-                    strokeWidth: 2,
-                    fillOpacity: 0.6
-                })
-            });
+      // Redraw feature with style.
+      var geofieldStyleMap = new OpenLayers.StyleMap({
+          "default": new OpenLayers.Style({
+              pointRadius: "5", // sized according to type attribute
+              strokeColor: "#333333",
+              fillColor: "#666666",
+              strokeWidth: 2,
+              fillOpacity: 0.6
+          }),
+          "select": new OpenLayers.Style({
+              strokeColor: "#333333",
+              fillColor: "#666666",
+              strokeWidth: 2,
+              fillOpacity: 0.6
+          })
+      });
 
       selection_layer = new OpenLayers.Layer.Vector('Selection Layer', {styleMap: geofieldStyleMap});
       
@@ -329,7 +333,6 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       }      
     }
   }
-  
 };
 
 })(jQuery);

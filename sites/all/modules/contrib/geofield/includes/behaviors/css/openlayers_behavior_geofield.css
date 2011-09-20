@@ -2,11 +2,17 @@
   position: absolute;
   top: 5px;
   right: 5px;
-  }
+}
 
 .openlayers_behavior_geofield_buttonItemInactive {
 /*  background:url(openlayers_behavior_fullscreen.png);*/
   background: #b44;
+/*
+  
+  width:20px;
+  height:20px;
+*/
+  
   width:56px;
   height:54px;
   float: left;

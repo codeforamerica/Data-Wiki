@@ -23,7 +23,6 @@ class openlayers_behavior_geofield extends openlayers_behavior {
         'bottom' => '#geofield_bottom',
         'right' => '#geofield_right',
         'top' => '#geofield_top',
-        'geofield_draw_features' => array(),
     );
   }
 
@@ -50,8 +49,8 @@ class openlayers_behavior_geofield extends openlayers_behavior {
    * Render.
    */
   function render(&$map) {
-    drupal_add_js(drupal_get_path('module', 'geofield') .'/includes/behaviors/js/openlayers_behavior_geofield.js');
-    drupal_add_css(drupal_get_path('module', 'geofield') .'/includes/behaviors/css/openlayers_behavior_geofield.css');
+    drupal_add_js(drupal_get_path('module', 'geofield') . '/includes/behaviors/js/openlayers_behavior_geofield.js');
+    drupal_add_css(drupal_get_path('module', 'geofield') . '/includes/behaviors/css/openlayers_behavior_geofield.css');
     return $this->options;
   }
 }

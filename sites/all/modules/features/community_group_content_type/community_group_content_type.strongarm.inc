@@ -94,7 +94,7 @@ function community_group_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_layers_google_api';
-  $strongarm->value = 'ABQIAAAA69Pr8X6qVjpuLObW66yHqxRtG6K2lptYY2zuNrogIPAa3HyRphTwwT7p1qesSDzNxFzP6q6ItsRnPQ';
+  $strongarm->value = 'ABQIAAAA69Pr8X6qVjpuLObW66yHqxQHqhcS5AE4ewR1TUFP6GNO4Oj90BSFArcNLFdiZnaTXKBdmP0wyGBUyw';
   $export['openlayers_layers_google_api'] = $strongarm;
 
   $strongarm = new stdClass;

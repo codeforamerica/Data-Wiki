@@ -1,8 +1,12 @@
 <?php
 
+/**
+ * @file
+ * Provides integration with Feeds module (http://drupal.org/project/feeds)
+ */
 
 /**
- * Implementation of hook_feeds_node_processor_targets_alter().
+ * Implements hook_feeds_node_processor_targets_alter().
  */
 function geofield_feeds_processor_targets_alter(&$targets, $entity_type,
   $bundle_name) {

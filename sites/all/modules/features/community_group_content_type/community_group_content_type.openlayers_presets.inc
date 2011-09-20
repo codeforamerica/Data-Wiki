@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * community_group_content_type.openlayers_presets.inc
+ * community_group_content_type.openlayers_maps.inc
  */
 
 /**
  * Implementation of hook_openlayers_presets().
  */
-function community_group_content_type_openlayers_presets() {
+function community_group_content_type_openlayers_maps() {
   $export = array();
 
   $openlayers_presets = new stdClass;
