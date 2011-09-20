@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_openlayers_behaviors().
+ */
+function openlayers_behavior_geolocatefield_openlayers_behaviors() {
+  module_load_include('inc', 'openlayers_behavior_geolocatefield', 'includes/openlayers_behavior_geolocatefield');
+  return _openlayers_openlayers_behaviors();
+}
+
+
+
+/**
+ * Implementation of hook_openlayers_behaviors().
+ *
+ */
+/*
+function _openlayers_openlayers_behaviors() {
+  return array(
+    'openlayers_behavior_attribution' => array(
+      'title' => t('Attribution'),
+      'description' => t('Allows layers to provide attribution to the map if it exists.'),
+      'type' => 'layer',
+      'path' => drupal_get_path('module', 'openlayers') . '/includes/behaviors',
+      'file' => 'openlayers_behavior_attribution.inc',
+      'behavior' => array(
+        'class' => 'openlayers_behavior_attribution',
+        'parent' => 'openlayers_behavior',
+      ),
+    ),
+*/

@@ -1,0 +1,9 @@
+core = 7.x
+description = A behavior that provides a form element for centering the map.
+name = OpenLayers Geolocate Field
+package = openlayers
+
+files[] = openlayers_geolocate_field.module
+dependencies[] = openlayers
+
+; requires OpenLayers 2.11 (which has Geolocate.js - may conflict with other behaviors.)
