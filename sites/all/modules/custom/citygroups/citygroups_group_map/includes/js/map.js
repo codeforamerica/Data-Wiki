@@ -284,6 +284,7 @@ cityGroups.map.fullScreenMap = function () {
 };
 
 cityGroups.map.polygonsOn = function () {
+/*
   $('div#map').before('<div class="polygons-on">Polygons On</div>');
   $('div#map').before('<div class="polygons-off">Polygons Off</div>');
   $('div.polygons-on').click(function(){
@@ -292,13 +293,14 @@ cityGroups.map.polygonsOn = function () {
       }
       return false;
     });
-     $('div.polygons-off').click(function(){
-      for (p in cityGroups.map.mapPolygons) {
-        cityGroups.map.rendered.removeLayer(cityGroups.map.mapPolygons[p]);  
-      }
-      return false;
-    }); 
-    
+  $('div.polygons-off').click(function(){
+    for (p in cityGroups.map.mapPolygons) {
+      cityGroups.map.rendered.removeLayer(cityGroups.map.mapPolygons[p]);  
+    }
+    return false;
+  }); 
+*/
+  
   return false;
 };
 
