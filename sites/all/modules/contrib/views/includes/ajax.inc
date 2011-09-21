@@ -346,13 +346,18 @@ function views_ajax_autocomplete_taxonomy($vid, $tags_typed = '') {
     $term_matches = array();
     foreach ($tags_return as $tid => $name) {
       $n = $name;
-      // Term names containing commas or quotes must be wrapped in quotes.
-      if (strpos($name, ',') !== FALSE || strpos($name, '"') !== FALSE) {
-        $n = '"' . str_replace('"', '""', $name) . '"';
-      }
-      else {
-        $term_matches[$prefix . $n] = check_plain($name);
-      }
+      $term_object = taxonomy_select_nodes($tid, TRUE, 1); 
+      
+      // @TODO = HACK: Only return items if the node has at least 1 entry.
+      if(!empty($term_object)) {
+        // Term names containing commas or quotes must be wrapped in quotes.
+        if (strpos($name, ',') !== FALSE || strpos($name, '"') !== FALSE) {
+          $n = '"' . str_replace('"', '""', $name) . '"';
+        }
+        else {
+          $term_matches[$prefix . $n] = check_plain($name);
+        }
+      }  
     }
   }
 
