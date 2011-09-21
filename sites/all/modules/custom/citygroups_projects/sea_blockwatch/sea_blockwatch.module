@@ -106,9 +106,8 @@ function sea_blockwatch_list_render() {
   $args = array('Block-Watch');
   $view->override_path = 'blockwatch/list';
   //$output = views_build_view('default', $view, $args);
-  $output = $view->execute_display('default', $args);
-  //$output = views_embed_view('community_groups_list', 'default', 'Block-Watch');
-
+  $output = '<h4>Block Watch</h4>';
+  $output .=  $view->execute_display('default', $args);
   return $output;
 }
 /**

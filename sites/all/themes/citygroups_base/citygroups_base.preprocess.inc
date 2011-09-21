@@ -174,7 +174,7 @@ function citygroups_base_preprocess_node(&$vars) {
 }
 
 function citygroups_base_preprocess_node_community_group(&$vars) {
-    
+    dpm(  $vars['content']['links']);
   // Configure links.
   switch ($vars['view_mode']) {
     case 'full':
@@ -288,11 +288,26 @@ function citygroups_base_node_share(&$vars, $view_mode) {
           'class' => array('links', 'inline'),
         ),
       );
+
+      $edit_link = array( 
+        '#theme' => 'links__node__node',
+        '#attributes' => array(
+          'class' => array('links', 'inline'),
+        ),
+      );
       break;  
   }
 
-    
-   $share_link['#links']  =  array(
+   $edit_link['#links']  =  array(
+        'twitter' => array(
+          'title' => '
+              edit link
+          ',
+          'html' => TRUE,            
+        ),
+  );
+
+  $share_link['#links']  =  array(
         'twitter' => array(
           'title' => '
           <div class="flag-wrapper twitter">
@@ -336,7 +351,7 @@ function citygroups_base_node_share(&$vars, $view_mode) {
   );
 
   $vars['content']['links']['share'] = $share_link;
-
+  $vars['content']['links']['edit'] = $edit_link;
   
 
   return $output;

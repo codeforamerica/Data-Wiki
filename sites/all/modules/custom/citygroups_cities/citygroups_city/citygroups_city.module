@@ -249,11 +249,11 @@ function citygroups_city_api_render() {
   <h5>First 50 Recent Community Groups with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map', $base_url . base_path() . 'data/community-group/map') . '</p>';
   
   $output .= '<p>
-  <h5>First 50 Recent Community Groups filtered by category</h5>' . l($base_url . base_path() . 'data/community-group/Block-watch', $base_url . base_path() . 'data/community-group/Block-watch') . '</p>';
+  <h5>First 50 Recent Community Groups filtered by category</h5>' . l($base_url . base_path() . 'data/community-group/Block-Watch', $base_url . base_path() . 'data/community-group/Block-Watch') . '</p>';
   $output .= "<p>Note: Categories must match the case & have dashes instead of spaces.</p>";
   
   $output .= '<p>
-  <h5>First 50 Recent Community Groups filtered by category with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map/Block-watch', $base_url . base_path() . 'data/community-group/map/Block-watch') . '</p>';
+  <h5>First 50 Recent Community Groups filtered by category with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map/Block-Watch', $base_url . base_path() . 'data/community-group/map/Block-Watch') . '</p>';
 
 
   $output .= '
