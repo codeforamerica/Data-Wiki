@@ -193,7 +193,7 @@ function sea_blockwatch_configure_edit_form($form, &$form_state, array $rule = a
   $form['sea_blockwatch_term'] = array(
     '#type' => 'textfield',
     '#title' => t('Term'),
-    '#default_value' =>  variable_get('sea_blockwatch_term', 'Block-watch'),
+    '#default_value' =>  variable_get('sea_blockwatch_term', 'Block-Watch'),
     '#description' => 'Term to filter content',
   );
 

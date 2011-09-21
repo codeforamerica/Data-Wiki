@@ -10,9 +10,9 @@
 function sea_blockwatch_context_menu_default_menu_custom() {
   $menus = array();
 
-  // Exported menu: menu-block-watch-menu
-  $menus['menu-block-watch-menu'] = array(
-    'menu_name' => 'menu-block-watch-menu',
+  // Exported menu: menu-Block-Watch-menu
+  $menus['menu-Block-Watch-menu'] = array(
+    'menu_name' => 'menu-Block-Watch-menu',
     'title' => 'Block Watch Menu',
     'description' => '',
   );

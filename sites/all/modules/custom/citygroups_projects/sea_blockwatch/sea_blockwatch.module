@@ -103,11 +103,11 @@ function sea_blockwatch_map_render() {
 function sea_blockwatch_list_render() {
   $view = views_get_view('community_groups_list');
   //dpm($view);
-  $args = array('Block-watch');
+  $args = array('Block-Watch');
   $view->override_path = 'blockwatch/list';
   //$output = views_build_view('default', $view, $args);
   $output = $view->execute_display('default', $args);
-  //$output = views_embed_view('community_groups_list', 'default', 'Block-watch');
+  //$output = views_embed_view('community_groups_list', 'default', 'Block-Watch');
 
   return $output;
 }
@@ -208,7 +208,7 @@ function sea_blockwatch_preprocess_page(&$vars) {
     case 'blockwatch/about':
     case 'blockwatch/categories':
     case 'blockwatch/list':
-    case 'blockwatch/list/Block-watch':
+    case 'blockwatch/list/Block-Watch':
     case 'blockwatch/resources':
     case 'blockwatch/share':
       sea_blockwatch_page_variables($vars);
@@ -376,7 +376,7 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
   $form['field_url']['und'][0]['#description'] ='
     <div class="explanation">Is there a link to a webpage for this Block Watch Community? (It\'s OK if you don\'t have one)</div>
     <div class="instruction">Enter the URL.</div>
-    <div class="example">http://yahoogroups.com/8700-block-watch</div>
+    <div class="example">http://yahoogroups.com/8700-Block-Watch</div>
         ';
         
   $form['field_email']['und']['#title'] = t("Group Email Address");
@@ -399,7 +399,7 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
   $form['field_url_calendar']['und'][0]['#description'] = '
     <div class="explanation">If you have a link to an event calendar, you may add it (Most Block Watch Communities do not have an event calendar.)</div>
     <div class="instruction">Enter the URL that points to the Calendar.</div>
-    <div class="example">http://yahoogroups.com/calendar/8700-block-watch</div>
+    <div class="example">http://yahoogroups.com/calendar/8700-Block-Watch</div>
     ';
 
 
@@ -466,7 +466,7 @@ function sea_blockwatch_page_variables(&$vars) {
   $vars['section']['section_name'] = "Block Watch Captain Directory";
   $vars['section']['place'] = "Seattle";
   $vars['section']['theme'] = "citygroups_blockwatch";
-  $vars['section']['term'] = "Block-watch";
+  $vars['section']['term'] = "Block-Watch";
   $vars['section']['javascript_settings'] = $settings['javascript_settings'];
 
   // Add javascript.
@@ -495,7 +495,7 @@ function sea_blockwatch_page_variables(&$vars) {
 function sea_blockwatch_settings() {
   global $section;
   $section = 'blockwatch';
-  $section_term = 'Block-watch';
+  $section_term = 'Block-Watch';
   $settings = array();
   $settings['html_root'] = drupal_get_path('module', 'citygroups_group_map');
   $settings['html_root_custom'] = drupal_get_path('module', 'sea_blockwatch');

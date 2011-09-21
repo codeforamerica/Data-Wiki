@@ -10,9 +10,9 @@
 function sea_blockwatch_context_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: menu-block-watch-menu:blockwatch
-  $menu_links['menu-block-watch-menu:blockwatch'] = array(
-    'menu_name' => 'menu-block-watch-menu',
+  // Exported menu link: menu-Block-Watch-menu:blockwatch
+  $menu_links['menu-Block-Watch-menu:blockwatch'] = array(
+    'menu_name' => 'menu-Block-Watch-menu',
     'link_path' => 'blockwatch',
     'router_path' => 'blockwatch',
     'link_title' => 'Home/Map',
@@ -28,10 +28,10 @@ function sea_blockwatch_context_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-50',
   );
-  // Exported menu link: menu-block-watch-menu:list/all/block-watch
-  $menu_links['menu-block-watch-menu:list/all/block-watch'] = array(
-    'menu_name' => 'menu-block-watch-menu',
-    'link_path' => 'list/all/block-watch',
+  // Exported menu link: menu-Block-Watch-menu:list/all/Block-Watch
+  $menu_links['menu-Block-Watch-menu:list/all/Block-Watch'] = array(
+    'menu_name' => 'menu-Block-Watch-menu',
+    'link_path' => 'list/all/Block-Watch',
     'router_path' => 'list',
     'link_title' => 'List',
     'options' => array(
@@ -46,9 +46,9 @@ function sea_blockwatch_context_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-49',
   );
-  // Exported menu link: menu-block-watch-menu:node/add/community-group
-  $menu_links['menu-block-watch-menu:node/add/community-group'] = array(
-    'menu_name' => 'menu-block-watch-menu',
+  // Exported menu link: menu-Block-Watch-menu:node/add/community-group
+  $menu_links['menu-Block-Watch-menu:node/add/community-group'] = array(
+    'menu_name' => 'menu-Block-Watch-menu',
     'link_path' => 'node/add/community-group',
     'router_path' => 'node/add/community-group',
     'link_title' => 'Add',
