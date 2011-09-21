@@ -190,7 +190,7 @@ function citygroups_vocabulary_build_vocabulary_categories(&$vocabulary) {
     'Sports',
     'Sustainability',
     'Sustainable Food',
-    'Tech',
+    'Technology',
     'Topic-based Group',
     'Traffic',
     'Watershed',   															
