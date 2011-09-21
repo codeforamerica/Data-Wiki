@@ -411,10 +411,11 @@ function citygroups_city_categories_add_render() {
     array('categories', 'grid_4 alpha'),
     array('neighborhood', 'grid_4'),
     array('zipcode', 'grid_2'),
+    array('type_group', 'grid_2'),
     array('audience_size', 'grid_2'),
     array('activity_level', 'grid_2'),
-    array('type_group', 'grid_2'),
     array('ownership', 'grid_2'),
+
   );
   
    $output = '';
