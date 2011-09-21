@@ -526,8 +526,8 @@ clear: both;
 #main .links .flag-inactive a,
 #main .links .flag-inappropriate a {
   background: #ddd;
-  margin: 5px 5px 0px 0;
-  padding: 10px 10px 10px 35px;
+  margin: 5px 5px 0px 0px;
+  padding: 10px 10px 5px 25px;
   color: #666;
   font-size: 80%;
   text-transform: uppercase;
@@ -537,9 +537,11 @@ clear: both;
   background-repeat: no-repeat;
   background-position-x: 3px;
   background-position-y: 3px;
-  filter:alpha(opacity=50);
+  filter:alpha(opacity=70);
   /* CSS3 standard */
-  opacity:0.5;
+  opacity:0.7;
+  text-indent: -10000em;
+  width: 0px;
 }
 
 #main .links .flag-wrapper a:focus,
@@ -548,6 +550,18 @@ clear: both;
   filter:alpha(opacity=100);
   /* CSS3 standard */
   opacity:1;
+  text-indent: 0em;
+  width: auto;
+  padding: 10px 10px 5px 35px;
+}
+
+
+.flag-wrapper {
+  display: inline;
+}
+
+#main .links .flag-wrapper .flag-throbber {
+  display: none;
 }
 
 #main .view-content .links .flag-recommend a,
@@ -556,8 +570,17 @@ clear: both;
 #main .view-content .links .flag-inactive a,
 #main .view-content .links .flag-inappropriate a {
   display: inline;
-  float: none;
+/*   float: none; */
+  text-indent: none;
 }
+
+
+#main .view-content .links .flag-wrapper a:focus,
+#main .view-content .links .flag-wrapper a:active,
+#main .view-content .links .flag-wrapper a:hover {
+/*   text-indent: 0em; */
+}
+
 
 #main .links .flag-recommend a {
   background-image: url(../images/icon_recommended.png);
@@ -576,6 +599,9 @@ clear: both;
 }
 
 
+#main .view-content .meta {
+  display: none;
+}
 
 
 #main .view-content .links span {
@@ -1076,10 +1102,6 @@ html.js input.form-autocomplete.throbbing { background-position: 100% -12px; }
 
 .vertical-tab-hidden {
 /*   height: 0px; */
-}
-
-.flag-wrapper {
-  display: inline;
 }
 
 .front .promote {
