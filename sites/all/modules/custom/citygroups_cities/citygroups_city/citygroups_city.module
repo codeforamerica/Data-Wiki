@@ -126,6 +126,15 @@ function citygroups_city_menu() {
     'weight' =>  -8,
   );
 
+  $items['categories_new'] = array(
+    'title' => 'Categories (New)',
+    'page callback' => 'citygroups_city_categories_add_render',
+    'page arguments' => array(t('CityGroups City Categories Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'weight' =>  -8,
+  );
+
   $items['welcome'] = array(
     'title' => 'Welcome',
     'page callback' => 'citygroups_city_welcome_render',
@@ -394,4 +403,94 @@ function citygroups_city_projects_add_render() {
   <h3>Set up module</h3>
   <p>You can create a custom module & install it and it will automatically configure the site and provide you with a customize form and website text.</p>
   ';
+}
+
+function citygroups_city_categories_add_render() {
+  $vocabularies = array(
+    array('categories', 'grid_4 alpha'),
+    array('neighborhood', 'grid_4'),
+    array('zipcode', 'grid_2'),
+    array('audience_size', 'grid_2'),
+    array('activity_level', 'grid_2'),
+    array('type_group', 'grid_2'),
+    array('ownership', 'grid_2'),
+  );
+  
+   $output = '';
+  foreach($vocabularies as $vocabulary) {
+    $output .= citygroups_city_view_terms($vocabulary);
+  }
+
+/*
+  <ul class="menu">
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#neighborhood">Neighborhood</a></li>
+    <li><a href="#zipcode">Zipcode</a></li>
+    <li><a href="#activity_level">Audience Size</a></li>
+    <li><a href="#type_group">Activity Level</a></li>
+    <li><a href="#ownership">Ownership</a></li>
+  </ul>
+*/
+  
+  return '
+  <div id="vocabularies">' .
+  '<h3>All Categories</h3>'
+  . $output 
+  . '</div>';
+}
+
+
+function citygroups_city_view_terms($vocabulary) {
+  $grid = $vocabulary[1];
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary[0]);
+  $terms = citygroups_city_get_term_from_vid($vocabulary->vid); 
+  $output = '<div class="vocabulary ' . $grid. '">';
+  $output .= '<a name="' . $vocabulary->machine_name . '"></a>';
+  $output .= '<h3>' . $vocabulary->name . '</h3>';
+  $count = 0;
+  $max_terms = 400;
+  foreach($terms as $term) {
+  
+    if($count < $max_terms) {
+      // dpm($term);
+      // Check if the term has nodes.  
+      $term_object = taxonomy_select_nodes($term['tid']); 
+
+      if(!empty($term_object)) {
+        $term_object_create = (object) array(
+          'name' => $term->name,
+          'vid' => $vocabulary->vid,
+          'description' => '', 
+          'parent' => array(0), 
+          'vocabulary_machine_name' => $vocabulary->machine_name,    
+        );
+        // Save new term.
+        //$saved = taxonomy_term_save($term_object_create);
+          $output .= '<p><em><a href="/taxonomy/term/' . $term['tid'] .'">' . $term['name'] . '</a> (' . count($term_object) . ')</em></p>';
+      }
+      else {
+        $output .= '<p><em>' . $term['name'] . '</em></p>';
+      }
+      $count++;
+    }
+  }
+  $output .= '</div>';
+  return $output;
+}
+
+
+
+function citygroups_city_get_term_from_vid($vid) {
+  $query = db_select('taxonomy_term_data', 't');
+  $query->join('taxonomy_term_hierarchy', 'h', 'h.tid = t.tid');
+  $query->fields('t', array('tid', 'name'));
+  $query->condition('t.vid', $vid, '=');
+  $query->condition('h.parent', 0, '='); // remove this line to get all terms.
+  $result = $query->execute();
+
+  while ($record = $result->fetchAssoc()) {
+      $data[$record['tid']] = $record;
+  }
+
+  return $data;
 }

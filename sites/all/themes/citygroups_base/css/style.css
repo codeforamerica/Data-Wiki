@@ -1247,3 +1247,10 @@ color: black;
   background: rgba(256, 256, 256, 0.7);
   margin-bottom: 100px;
 }
+
+/* New Categories Page */
+
+#vocabularies .vocabulary {
+  background-color: #eeeeee;
+  padding: 10px;
+}
