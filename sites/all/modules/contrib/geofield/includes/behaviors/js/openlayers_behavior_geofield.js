@@ -213,7 +213,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         polygon_control.activate();
         deactivateButtons();
         $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '1');
-        $('div.map-interface-instructions-tooltip').html('<div class="map-draw-tip"><h4>Draw Shape</h4><p>' + Drupal.t('Single-Click to set shape.') + '</p></div>');
+        $('div.map-interface-instructions-tooltip').html('<div class="map-draw-tip"><h4>Draw Shape</h4><p>' + Drupal.t('Click to start drawing a shape. <strong>Single-Click</strong> on the last point to set the shape.') + '</p></div>');
       }
 
       buttonToggleNavigate = function() {
