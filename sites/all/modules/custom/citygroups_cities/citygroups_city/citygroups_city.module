@@ -142,7 +142,16 @@ function citygroups_city_menu() {
     'page arguments' => array(t('CityGroups City Welcome Page')),
     'access callback' => TRUE,
   );
-  
+
+  $items['share'] = array(
+    'title' => 'Share',
+    'page callback' => 'citygroups_city_share_render',
+    'page arguments' => array(t('CityGroups City Share Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_postscript',
+    'weight' =>  0,
+  );  
 
 
   return $items;
@@ -478,6 +487,79 @@ function citygroups_city_view_terms($vocabulary) {
   $output .= '</div>';
   return $output;
 }
+
+
+function citygroups_city_share_render() {
+  global $base_url;
+  
+  $output = '
+    <h2>Spread the word about the CityGroups</h2>
+    <p>We want to make it easy to get up to date information about groups active in your city.</p>';
+
+  $twitter = variable_get('citygroups_social_media_twitter');
+  if(isset($twitter)) {
+    $output .= '
+    <div class="section">
+      <h3>Tweet</h3>
+      <p><a href="http://twitter.com/' . variable_get('citygroups_social_media_twitter') . '">@' .
+        variable_get('citygroups_social_media_twitter')
+        . '</a></p>
+      <p><a href="https://twitter.com/share" class="twitter-share-button" data-text="' 
+        . variable_get('citygroups_social_media_twitter') .
+        '" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script></p>
+    </div>';
+  }
+
+  $facebook = variable_get('citygroups_social_media_facebook');
+  if(isset($facebook)) {
+    $output .= '
+      <div class="section">
+      <h3>Facebook</h3>' .
+      variable_get('citygroups_social_media_facebook')
+      . '
+      <br />
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#appId=249561838420518&xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, \'script\', \'facebook-jssdk\'));</script>
+      
+      <div class="fb-like" data-href="' . $base_url . '" data-send="true" data-width="450" data-show-faces="true"></div>
+      </div>';
+  }
+
+  $email = variable_get('citygroups_social_media_email');
+  if(!empty($email)) {
+  $output .= '
+    <div class="section">
+    <h3>Email</h3>' .
+    variable_get('citygroups_social_media_email')
+    . '</div>';
+    }
+
+  $flyer = variable_get('citygroups_social_media_flyer');
+  if(!empty($flyer)) {
+    $output .= '
+      <div class="section">
+      <h3>Flyer</h3>' .
+      variable_get('citygroups_social_media_flyer')
+      . '</div>';
+    }
+
+  $qrcode = variable_get('citygroups_social_media_qrcode');
+  if(!empty($qrcode)) {
+  $output .= '
+    <div class="section">'
+    . citygroups_qrcode(variable_get('citygroups_social_media_qrcode'), 'medium', variable_get('citygroups_name')) . 
+    '</div>';
+  }
+  
+  return $output;
+}
+
 
 
 

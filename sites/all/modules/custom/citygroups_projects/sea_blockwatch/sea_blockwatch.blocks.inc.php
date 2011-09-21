@@ -62,7 +62,7 @@ function sea_blockwatch_contents($type) {
             <div class=\"grid_6 add-new-group section alpha\">"
               . variable_get('sea_blockwatch_content_add_new_group') .  "
             </div>
-            <div class=\"grid_6 push_2 view-data section omega\">"
+            <div class=\"grid_6 push_1 view-data section omega\">"
               . variable_get('sea_blockwatch_content_groups') .
               
               /*
@@ -82,7 +82,7 @@ function sea_blockwatch_contents($type) {
             <div class=\"grid_6 news section alpha\">"
               . variable_get('sea_blockwatch_content_news') .  "                          
             </div>    
-            <div class=\"grid_6 push_2 promote section omega\">" 
+            <div class=\"grid_6 push_1 promote section omega\">" 
             . variable_get('sea_blockwatch_content_promote')
 /*             . citygroups_promote() */
             . "</div>      

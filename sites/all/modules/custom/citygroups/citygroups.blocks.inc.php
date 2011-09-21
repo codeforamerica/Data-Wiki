@@ -125,7 +125,7 @@ function citygroups_contents($type) {
               "<div class=\"button\"><a href=\"map\">Map view</a></div>
               <div class=\"button\"><a href=\"list\">List view</a></div>
             </div>
-            <div class=\"grid_6  push_2  add-new-group section omega\">"
+            <div class=\"grid_6  push_1  add-new-group section omega\">"
               . variable_get('citygroups_content_add_new_group') .  "
             </div>
           </div>
@@ -134,7 +134,7 @@ function citygroups_contents($type) {
             <div class=\"grid_6 news section alpha\">"
               . variable_get('citygroups_content_news') .  "                          
             </div>    
-            <div class=\"grid_6 push_2 promote section omega\">" 
+            <div class=\"grid_6 push_1 promote section omega\">" 
             . variable_get('citygroups_content_promote')
             . citygroups_promote()
             . "</div>      
