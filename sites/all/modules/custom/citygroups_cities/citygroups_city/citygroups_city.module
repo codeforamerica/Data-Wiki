@@ -149,7 +149,7 @@ function citygroups_city_menu() {
     'page arguments' => array(t('CityGroups City Share Page')),
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
-    'menu_name' => 'citygroups_postscript',
+    'menu_name' => 'citygroups_footer',
     'weight' =>  0,
   );  
 
