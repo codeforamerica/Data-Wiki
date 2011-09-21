@@ -64,8 +64,10 @@ a:hover, a:active {
 }
 
 .form-item,
-.form-text {
+.form-text,
+textarea {
   font-size: 14px;
+  padding: 8px;
 }
 
 p {
@@ -1145,4 +1147,103 @@ html.js input.form-autocomplete.throbbing { background-position: 100% -12px; }
 .fieldset-description {
   font-weight: bold;
   text-transform: uppercase; 
+}
+
+
+
+/* Unified login */
+
+#login-message {
+  color: #666;
+  padding: 10px 0;
+  text-transform: uppercase;
+
+  
+}
+.toboggan-unified #login-message {
+  text-align: left;
+  font-size: 2em;
+  line-height: 1.2;
+}
+.toboggan-unified #login-links {
+  text-align: left;
+}
+
+.toboggan-unified #login-links a{
+  margin: 20px 10px 20px 0;
+  padding: 20px 30px;
+  
+  text-align: center;
+  background-color: #7C0E52;
+  display: block;
+  width: 25%;
+  display: inline;
+  text-align: left;
+  border: none;
+  line-height: 2.7em;
+  color: white;
+    font-size: 125%;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.toboggan-unified #login-links a {
+/*   padding: .5em; */
+/*   border: 1px #666 solid; */
+  background-color: #7C0E52;
+  border: none;
+}
+
+.toboggan-unified #login-links a:hover {
+  background-color: #7C0E52;
+  border: none;
+    filter:alpha(opacity=50);
+  /* CSS3 standard */
+  opacity:0.5;
+}
+
+.toboggan-unified #login-links a.lt-active,
+.toboggan-unified #login-links a.lt-active:hover {
+  background-color: #7C0E52;
+  border: none;
+    filter:alpha(opacity=50);
+  /* CSS3 standard */
+  opacity:0.5;
+}
+
+#register-form label,
+#user-login label {
+  text-transform: uppercase;
+  font-size: 125%;
+  color: #666;
+  padding: 5px 0;
+}
+#user-login .description, 
+#register-form .description {
+  color: #666;
+/*   font-size: 1em; */
+  padding: 5px 0;
+  width: 35%;
+  float: right;
+}
+
+/* #login-form */
+
+#register-form input.form-submit,
+#user-login input.form-submit {
+  background-color: rgba(124, 14, 81, 0.8);
+  background-image: none;
+}
+
+#user-login input:-webkit-autofill {
+background-color: #ffffff;
+background-image: none;
+color: black;
+}
+
+
+.node-form .form-item-field-neighborhood-city-wide {
+  padding: 20px;
+  background: rgba(256, 256, 256, 0.7);
+  margin-bottom: 100px;
 }
