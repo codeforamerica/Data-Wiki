@@ -46,6 +46,16 @@ function citygroups_city_menu() {
     'weight' =>  -9,
   );
 
+  $items['categories'] = array(
+    'title' => 'Categories',
+    'page callback' => 'citygroups_city_categories_add_render',
+    'page arguments' => array(t('CityGroups City Categories Page')),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'citygroups_header',
+    'weight' =>  -0,
+  );
+
   $items['about/groups'] = array(
     'title' => 'About the Groups',
     'page callback' => 'citygroups_city_about_groups_render',
@@ -121,15 +131,6 @@ function citygroups_city_menu() {
     'title' => 'How to add a project',
     'page callback' => 'citygroups_city_projects_add_render',
     'page arguments' => array(t('CityGroups City Projects Add Page')),
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
-    'weight' =>  -8,
-  );
-
-  $items['categories_new'] = array(
-    'title' => 'Categories (New)',
-    'page callback' => 'citygroups_city_categories_add_render',
-    'page arguments' => array(t('CityGroups City Categories Page')),
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
     'weight' =>  -8,
@@ -433,8 +434,7 @@ function citygroups_city_categories_add_render() {
 */
   
   return '
-  <div id="vocabularies">' .
-  '<h3>All Categories</h3>'
+  <div id="vocabularies">'
   . $output 
   . '</div>';
 }
@@ -448,14 +448,13 @@ function citygroups_city_view_terms($vocabulary) {
   $output .= '<a name="' . $vocabulary->machine_name . '"></a>';
   $output .= '<h3>' . $vocabulary->name . '</h3>';
   $count = 0;
-  $max_terms = 400;
-  foreach($terms as $term) {
-  
+  $max_terms = 2000;
+  foreach($terms as $term) { 
     if($count < $max_terms) {
       // dpm($term);
       // Check if the term has nodes.  
-      $term_object = taxonomy_select_nodes($term['tid']); 
-
+      $term_object = taxonomy_select_nodes($term['tid'], TRUE, $max_terms); 
+      //dpm($term_object);
       if(!empty($term_object)) {
         $term_object_create = (object) array(
           'name' => $term->name,
