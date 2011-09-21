@@ -2,6 +2,18 @@
 
 Drupal.behaviors.citygroups_base = {
   attach: function (context, settings) {
+  
+  
+  }
+};
+
+})(jQuery);
+
+
+
+
+
+
     /*
         $('select.form-select', context).once('select.form-select').each(function() {
           $(this).sSelect();
@@ -11,7 +23,7 @@ Drupal.behaviors.citygroups_base = {
     */
      // $('div.views-exposed-widgets select.form-select').sSelect();
 
-    var neighborhoods = [];
+   // var neighborhoods = [];
     /*
       $('select#edit-field-neighborhood-tid option').each(function(){
         var html = $(this).html();
@@ -28,7 +40,3 @@ Drupal.behaviors.citygroups_base = {
     			source: neighborhoods
     		});
     */
-  }
-};
-
-})(jQuery);

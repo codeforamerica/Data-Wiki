@@ -174,29 +174,35 @@ function citygroups_base_preprocess_node(&$vars) {
 }
 
 function citygroups_base_preprocess_node_community_group(&$vars) {
+    
+  // Configure links.
+  switch ($vars['view_mode']) {
+    case 'full':
+      $vars['content']['links']['#suffix'] = citygroups_base_node_share($vars, 'full');
+      break;
+    case 'search_result':
+    case 'teaser':
+    case 'search_index':
+      $vars['content']['links']['#suffix'] = citygroups_base_node_share($vars, 'teaser');    
+    default:
+      break;  
+  }
 
-  
-
-if($vars['view_mode'] == 'full') {
-
-  $vars['content']['links']['#suffix'] = citygroups_base_node_share($vars, 'full');
-}
-
+  // Reorder flags.
   citygroups_base_reorder_community_group_flags($vars);
 
-/*
-  if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
-    if ($path = mobile_codes_generate($url)) {
-      return theme('image', array('path' => $path, 'alt' => $variables['image_alt'], 'title' => $variables['image_title'], 'attributes' => $variables['image_attributes'], 'getsize' => $variables['image_getsize']));
+  /*
+    if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
+      if ($path = mobile_codes_generate($url)) {
+        return theme('image', array('path' => $path, 'alt' => $variables['image_alt'], 'title' => $variables['image_title'], 'attributes' => $variables['image_attributes'], 'getsize' => $variables['image_getsize']));
+      }
     }
-  }
-*/
+  */
 }
 
 function citygroups_base_reorder_community_group_flags(&$vars) {
 
   $flags = $vars['content']['links']['flag']['#links'];
-  
   $new_flags = array(
     'flag-watch' => $flags['flag-watch'],
     'flag-recommend' => $flags['flag-recommend'],
@@ -229,40 +235,126 @@ function citygroups_base_node_location(&$vars) {
   return $output;
 }
 
-function citygroups_base_node_share(&$vars) {
-  citygroups_base_fb_like($vars);
+function citygroups_base_node_share(&$vars, $view_mode) {
+
   global $base_url;
   $path = $base_url . $vars['node_url'];
+
   $qrcode = citygroups_qrcode($path, 'medium', $vars['title'], strip_tags($vars['field_description']['und'][0]['value']));
   
+  $twitter_full = '<h4>Twitter</h4>' . 
+  $vars['title'] . ' ' . $path .
+  '<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $path . '" data-text="' .
+      $vars['title'] .
+      '" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>';
+      
+  $twitter_teaser = '<h4>Twitter</h4>' .  $vars['title'] . ' ' . $path;
+  
+  citygroups_base_fb_like($vars);
+  
+  $facebook_full = '<h4>Facebook</h4><div class="facebook">' . $vars['fb_like'] . '</div>';
+  
+  $email = '<h4>Email</h4>' .
+            'Did know about this group? ' . $vars['title'] . ' ' . $path ;
+  
   $output = '';
-  $output .= '<div class="node-share clearfix">
-  <h3>Share</h3>';
-  $output .= '<div class="facebook">' . $vars['fb_like'] . '</div>';
-  $output .= '<a href="https://twitter.com/share" class="twitter-share-button" data-text="' .
-  $vars['title'] .
-  '" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>';
-  $output .= '<h4>Email</h4>';
-  $output .= 'Thought you should know about this group: ' . $vars['title'] . ' ' . $path ;
+    
+  switch ($vars['view_mode']) {
+    case 'full':
+      $twitter = $twitter_full;
+      $facebook = $facebook_full;
+    
+    case 'search_result':
+    case 'teaser':
+    case 'search_index':
+
+      $twitter = $twitter_teaser;
+      $facebook = '';
+
+      $share_link = array( 
+        '#theme' => 'links__node__flag',
+        '#attributes' => array(
+          'class' => array('links', 'inline'),
+        ),
+      );
+        
+       $share_link['#links']  =  array(
+            'twitter' => array(
+              'title' => '
+              <div class="flag-wrapper twitter">
+              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+                Twitter<span class="flag-message">' . $twitter . '</span>
+              </a>
+              </div>
+              ',
+              'html' => TRUE,            
+            ),
+            'facebook' => array(
+              'title' => '
+              <div class="flag-wrapper facebook">
+              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+               Facebook<span class="flag-message">' . $facebook . '</span>
+              </a>
+              </div>
+              ',
+              'html' => TRUE,            
+            ),
+            'email' => array(
+              'title' => '
+              <div class="flag-wrapper email">
+              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+               Email<span class="flag-message">' . $email . '</span>
+              </a>
+              </div>              
+              ',
+              'html' => TRUE,            
+            ),
+            'qrcode' => array(
+              'title' => '
+              <div class="flag-wrapper qrcode">
+              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+                QR Code<span class="flag-message">' . $qrcode . '</span>
+              </a>
+              </div>
+              ',
+              'html' => TRUE,            
+            ),
+      );
+
+      $vars['content']['links']['share'] = $share_link;
+
+    default:
+      break;  
+  }
 
   
-  $output .=  $qrcode;
-  $output .= '</div>';
+
   return $output;
 }
 
 
+function citygroups_base_fb_like(&$vars, $url) {
+
+  if(isset($url)) {
+    $path = $url;
+  }
+
+  $fb_script = 
+  '
+     <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#appId=249561838420518&xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, \'script\', \'facebook-jssdk\'));</script>
+      
+      <div class="fb-like" data-href="' . $base_url . '" data-send="true" data-width="450" data-show-faces="true"></div>
+
+  ';
 
 
-function citygroups_base_fb_like(&$vars) {
-  
-  // Facebook Like link (TODO: Use module)
-  // Make URL, Facebook is not ok with a "localhost" URL.
-  $url = ($_SERVER['SERVER_PORT'] == '443') ? 'https' : 'http';
-  $url .= '://';
-  $url .= ($_SERVER['HTTP_HOST'] == 'localhost') ? 'localhost.com' : $_SERVER['HTTP_HOST'];
-  $url .= $_SERVER['REQUEST_URI'];
-  // @TODO replace with block from context.
   $vars['fb_like'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="' . urlencode($url) . '" send="true" width="200" show_faces="false" font=""></fb:like>';
 
 }

@@ -520,11 +520,16 @@ clear: both;
   
 }
 
+/* Flags & Fake Flags */
 #main .links .flag-recommend a,
 #main .links .flag-watch a,
 #main .links .flag-duplicate a,
 #main .links .flag-inactive a,
-#main .links .flag-inappropriate a {
+#main .links .flag-inappropriate a,
+#main .links .twitter a,
+#main .links .facebook a,
+#main .links .email a,
+#main .links .qrcode a {
   background: #ddd;
   margin: 5px 5px 0px 0px;
   padding: 10px 10px 5px 25px;
@@ -568,7 +573,11 @@ clear: both;
 #main .view-content .links .flag-watch a,
 #main .view-content .links .flag-duplicate a,
 #main .view-content .links .flag-inactive a,
-#main .view-content .links .flag-inappropriate a {
+#main .view-content .links .flag-inappropriate a,
+#main .view-content .links .twitter a,
+#main .view-content .links .facebook a,
+#main .view-content .links .email a,
+#main .view-content .links .qrcode a {
   display: inline;
 /*   float: none; */
   text-indent: none;
@@ -598,6 +607,39 @@ clear: both;
   background-image: url(../images/icon_inappropriate.png);
 }
 
+/*  Fake Flags */
+#main .links .twitter a {
+  background-image: url(../images/icon_twitter.png);
+}
+#main .links .facebook a {
+  background-image: url(../images/icon_facebook.png);
+}
+#main .links .email a {
+  background-image: url(../images/icon_email.png);
+}
+#main .links .qrcode a {
+  background-image: url(../images/icon_qrcode.png);
+}
+
+#main .links .flag-wrapper a .flag-message {
+  display: none;
+}
+
+
+#main .links .flag-wrapper a:hover .flag-message,
+#main .links .flag-wrapper a:active .flag-message,
+#main .links .flag-wrapper a:focus .flag-message {
+  display: block;
+  margin: 0px 0 20px 0px;
+/*   border-bottom: 20px solid #ddd; */
+  padding: 20px 20px 40px 20px;
+  background: #fff;
+  color: #000;
+  z-index: 1000;
+  position: relative;
+  top: 0px;
+  
+}
 
 #main .view-content .meta {
   display: none;
