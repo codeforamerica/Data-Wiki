@@ -73,8 +73,8 @@ function community_group_form_form_alter(&$form, &$form_state, $form_id) {
 function community_group_form_prefix_elements(&$form, &$form_values) {
   $form['#prefix'] .= '<div class="instructions grid_10 alpha omega">';
   $form['#prefix'] .= '<h2>' .t("Add a Community Group") . '</h2>';
-  $form['#prefix'] .= '<h3>' .t("You can submit community groups here.") . '</h3>';
-  $form['#prefix'] .= '<p>' .t("UPDATE: We've just upgraded and are demonstrating some new features this week. 8/28/2011.") . '</p>';
+  $form['#prefix'] .= t("Contribute information about a community group.");
+/*   $form['#prefix'] .= '<p>' .t("UPDATE: We've just upgraded and are demonstrating some new features this week. 8/28/2011.") . '</p>'; */
   $form['#prefix'] .= '</div><div class="clear"></div>';
 }
 
@@ -82,17 +82,21 @@ function community_group_form_prepare_elements(&$form, &$form_values) {
   $form['#groups']['group_prepare']->label = t('Start');
   $form['field_prepare']['und']['#description'] = '<p>' . t('Thanks for taking the time to contribute a community group.') . '</p>
     <p>' . t('Contributing a group is easy. You can share basic contact information, categories & map the group. Your group will be listed in the public directory.') 
-    . '</p><p>' . t('If you need to <a href="/user/login">edit</a> your group, you will want to <a href="/user/login">Login</a>') . '</p>';
+    . '</p><p>' . t('To <a href="/user/login">edit</a> your group, you will want to <a href="/user/register">Register</a> & <a href="/user/login">Login</a>') . '</p>';
   $form['field_prepare']['und']['#title'] = t("OK, I'm ready.");
 }
 
 function community_group_form_privacy_elements(&$form, &$form_values) {
   $form['#groups']['group_privacy']->label = t('Privacy');
-  $form['field_privacy']['und']['#description'] = '<p>' . t('The information you contribute will be publicly visible on the web. You should only contribute information that is meant to be fully public. If you are entering information about a project you would recommend, please add your name as the Source.') . '</p>';
-  $form['field_privacy']['und']['#title'] = t("Let's add a group.");
+  $form['field_privacy']['und']['#description'] = '<p>' . t('The information you contribute will be publicly visible on the web.
+  You should only contribute information that is meant to be fully public.') . '</p>' .
+  '<p>' . t('9/21/2011 - E-mail addresses will be hidden until the e-mail verification system is built.') . '</p>';
+  $form['field_privacy']['und']['#title'] = t("I understand. Let's add a group!");
 }
 
 function community_group_form_contact_elements(&$form, &$form_values) {
+  $form['title']['#prefix'] = '<div class="fieldset-description">' . ('Contact') . '</div>';
+
   $form['title']['#suffix'] = '<div class="description"><div class="prompt">(Required)</div>' . t('What is the official name of this community group?') . '</div>';
   
   $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
@@ -105,6 +109,9 @@ function community_group_form_contact_elements(&$form, &$form_values) {
 }
 
 function community_group_form_email_elements(&$form, &$form_values) {
+  $form['field_email']['und']['#description'] = '<div class="prompt">(Recommended)</div>  
+  Provide an email address (if appropriate) for the best way to join the group by email.';
+  
   // Email verification notice.
   $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
 }
@@ -133,12 +140,15 @@ function community_group_form_map_elements(&$form, &$form_values) {
     // Custom map interface text.
     $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
     $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
+    $form['field_location']['#prefix'] .= '<h3>Map this Group</h3>';
     $form['field_location']['#prefix'] .= '<div class="address-ajax">';
     $form['field_location']['#prefix'] .= '<div id="search-links">';
     $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
-    $form['field_location']['#prefix'] .= '<input placeholder="Enter address or zipcode." size=50 class="form-item" id="search-map-input" />';
-    $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . path_to_theme() . '/images/search_button.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">';
+    $form['field_location']['#prefix'] .= '<input placeholder="First, ZOOM to address or zipcode" size=50 class="form-item" id="search-map-input" />';
+    // @TODO Add graphic in two places. : drupal_get_path('module', 'community_group_form') .
+    $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . drupal_get_path('module', 'community_group_form') . '/images/search_button_large.png" id="search-links-submit" class="search_btn" align="middle" value="Search" alt="Search">';
     $form['field_location']['#prefix'] .= '</div>';
+    $form['field_location']['#prefix'] .= '<h4>Then set a point or draw the area of the map.</h4>';
     $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
     $form['field_location']['#prefix'] .= '</div>';
 

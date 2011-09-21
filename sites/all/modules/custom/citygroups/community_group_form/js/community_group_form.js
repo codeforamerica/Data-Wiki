@@ -196,14 +196,14 @@ Drupal.settings.community_group_form.openLayersDropPoint = function(result){
     var myStyles = new OpenLayers.StyleMap({
               "default": new OpenLayers.Style({
                   pointRadius: "5", // sized according to type attribute
-                  strokeColor: "#333333",
-                  fillColor: "#FF9900",
+                  strokeColor: "#000000",
+                  fillColor: "#00FFFF",
                   strokeWidth: 2,
-                  fillOpacity: 0.6
+                  fillOpacity: 0.8
               }),
               "select": new OpenLayers.Style({
-                  strokeColor: "#333333",
-                  fillColor: "#FF9900",
+                  strokeColor: "#000000",
+                  fillColor: "#00FFFF",
               })
           });
 
@@ -261,17 +261,17 @@ Drupal.settings.community_group_form.centerOnFeature = function() {
   try {
     // Redraw feature with style.
     var myStyles = new OpenLayers.StyleMap({
-                "default": new OpenLayers.Style({
-                    pointRadius: "5", // sized according to type attribute
-                    strokeColor: "#333333",
-                    fillColor: "#666666",
-                    strokeWidth: 2,
-                    fillOpacity: 0.6
-                }),
-                "select": new OpenLayers.Style({
-                    strokeColor: "#333333",
-                    fillColor: "#666666",
-                })
+              "default": new OpenLayers.Style({
+                  pointRadius: "5", // sized according to type attribute
+                  strokeColor: "#000000",
+                  fillColor: "#00FFFF",
+                  strokeWidth: 2,
+                  fillOpacity: 0.8
+              }),
+              "select": new OpenLayers.Style({
+                  strokeColor: "#000000",
+                  fillColor: "#00FFFF",
+              })
             });
     var edit_feature_layer = new OpenLayers.Layer.Vector("edit-feature", {
           styleMap: myStyles

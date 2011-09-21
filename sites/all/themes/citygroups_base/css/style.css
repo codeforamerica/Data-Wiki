@@ -279,47 +279,31 @@ body.logged-in #block-system-user-menu ul.menu li.first,
 /*   display: none; */
 }
 
-#block-citygroups_sub-citygroups_sub_new_group_search.block {
 
-}
-
-#block-citygroups_sub-citygroups_sub_home_menu.block {
-
-}
-
-#map-links ul li {
-
-}
-
-#map-links ul li a {
-
+#search-places #search-map-input {
+  height: 35px;
+  margin: 0;
+  padding: 0 8px;
 }
 
 #search-places input {
-
-}
-.address-ajax {
-
-}
-#search-places input:focus, 
-#search-places input.focused {
-
+  display: inline;
 }
 
 #search-places input.search_btn {
-
+  background-color: #666;
+/*   padding: 4px; */
+/*   float: right; */
+/*   color: #FFFFFF; */
+  border: none;
+  padding: 2px;
+  margin: -12px 0 0 0;
+  width: 35px;
+  height: 35px;
 }
 
 #search-places input.search_btn:hover {
-  background-color: #96A044;
-  padding: 10px;
-  font-size: 2.75em;
-  color: #FFFFFF;
-  border: none;
-  float: right;
-  height: 50px;
-  width: 50px;
-	margin-top:2px;
+  background-color: #777;
 }
 
 
@@ -827,12 +811,13 @@ option {
 }
 
 #main .form-type-checkbox label {
-  padding: 0.5em;
-  padding-left: 32px;
+  padding: 5px 0 0 5px;
+/*   padding-left: 32px; */
   background-position: 8px center;
   background-repeat: no-repeat;
   clear: both;
   cursor: pointer;
+  font-size: 125%;
 }
 
 /*
@@ -1077,15 +1062,8 @@ float: left;
   display: none;
 }
 
-
-/* undo input spacing while CSS is wrong */
-html.js input.throbbing {
-  background-position: 100% -23px; /* LTR */
-}
-
-.node-form .form-item input {
-  padding: 0px;
-}
+html.js input.form-autocomplete { background-position: 100% 8px; }
+html.js input.form-autocomplete.throbbing { background-position: 100% -12px; }
 
 
 .vertical-tab-hidden {
@@ -1162,4 +1140,9 @@ html.js input.throbbing {
   padding: 0;
   text-transform: uppercase;
   font-size: 90%;
+}
+
+.fieldset-description {
+  font-weight: bold;
+  text-transform: uppercase; 
 }

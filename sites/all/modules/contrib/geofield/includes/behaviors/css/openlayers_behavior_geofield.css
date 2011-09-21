@@ -3,7 +3,9 @@
   left: 0px;
   margin-left: 70px;
   margin-top: 20px;
-  background: #00FFFF;
+/*   background: #00FFFF;  Cyan, high contrast. */
+  background: rgba(10,10,10, 0.7);
+  padding: 4px;
 }
 
 .openlayers_behavior_geofield_buttonItemInactive {
@@ -105,4 +107,11 @@
 
 .map-interface-instructions .element .label {
   font-weight: bold;
+}
+
+.map-interface-instructions-tooltip h4 {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  font-size: 90%;
 }

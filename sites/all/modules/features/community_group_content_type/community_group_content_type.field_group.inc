@@ -34,7 +34,7 @@ function community_group_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Contact information here...',
+        'description' => 'Details',
       ),
       'formatter' => 'open',
     ),
@@ -146,7 +146,7 @@ function community_group_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Categorize',
+        'description' => 'Categories',
       ),
       'formatter' => 'open',
     ),
@@ -162,7 +162,8 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_details';
   $field_group->data = array(
-    'label' => 'Contact Information',
+    'label' => 'Contact',
+    'description' => 'Contact',
     'weight' => '30',
     'children' => array(
       0 => 'field_contact',
@@ -236,7 +237,7 @@ function community_group_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Locate the group on the map',
+        'description' => 'Map',
       ),
       'formatter' => 'open',
     ),
@@ -459,18 +460,18 @@ function community_group_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_details';
   $field_group->data = array(
-    'label' => 'Prepare',
+    'label' => 'Start',
     'weight' => '28',
     'children' => array(
       0 => 'field_prepare',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'label' => 'Prepare',
+      'label' => 'State',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => 'Prepare',
+        'description' => 'Start',
       ),
       'formatter' => 'open',
     ),

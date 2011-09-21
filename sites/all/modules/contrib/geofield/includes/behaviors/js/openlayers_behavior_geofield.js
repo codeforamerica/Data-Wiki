@@ -27,8 +27,8 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         
       feature.layer.map.data_form.wkt.val(geom.toString());
       feature.layer.map.data_form.type.val(type);
-      feature.layer.map.data_form.lat.val(centroid.x); // New
-      feature.layer.map.data_form.lon.val(centroid.y); // New
+      feature.layer.map.data_form.lat.val(centroid.x); // Note: this needed to be switched to make the data store correctly.
+      feature.layer.map.data_form.lon.val(centroid.y); // Note: this needed to be switched to make the data store correctly.
       feature.layer.map.data_form.left.val(bounds.left);
       feature.layer.map.data_form.top.val(bounds.top);
       feature.layer.map.data_form.bottom.val(bounds.bottom);
@@ -64,8 +64,6 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         'right':$(data.map.behaviors['openlayers_behavior_geofield']['right']),
         'bottom':$(data.map.behaviors['openlayers_behavior_geofield']['bottom'])
       };
-      
-      
       
       /*
        * Style
@@ -283,9 +281,12 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       data.openlayers.addControl(button_panel);
 
 
+      // @TODO Keystokes seemed to be causing conflicts (If I remember right.)
+
       // Hold down control key for polygons
       // Hold down alt key for lines
       // Hold down shift for bounds
+
 /*
 
       $(document).keydown(function(event) {
