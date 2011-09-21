@@ -23,11 +23,11 @@ h3, h4, h5, dt { font-size:125%; line-height:150%;  margin: 15px 0 15px 0; font-
 #main h3, #main h4, #main h5, #main dt {
   margin: 15px 0 15px 0;
 }
+*/
 
 #main .section h3, #main .section h4, #main .section h5, #main .section dt {
-  margin: 15px 0 15px 0;
+  margin: 0px 0 15px 0;
 }
-*/
 
 dl,
 dd,
@@ -49,12 +49,16 @@ a:hover, a:active {
     text-decoration:none;
 }
 
+#postscript .content a {
+
+}
+
 #postscript .content a:link, #postscript .content  a:visited  {
-    color:#6184E5;
+    color:#fff;
 }
 
 #postscript .content  a:hover, #postscript .content  a:active {
-    color:#6184E5;
+    color:#fff;
 }
 
 #postscript ul.menu a:link, #postscript ul.menu a:visited  {
@@ -241,7 +245,14 @@ strong {
   float: none;
 }
 
+#content-container .section ul {
+  padding: 10px 0;
+}
 
+#content-container .section li {
+  list-style: disc;
+  list-style-position: inside;
+}
 
 #search-map input.form-item {
   padding: 10px 0 10px 10px;

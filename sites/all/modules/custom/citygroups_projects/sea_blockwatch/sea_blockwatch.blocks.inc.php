@@ -71,7 +71,7 @@ function sea_blockwatch_contents($type) {
               <input type=\"image\" src=\"" . base_path() . path_to_theme() . "/images/search_button.png\" id=\"search-links-submit\" class=\"search_btn\" value=\"Search\" alt=\"Search\">
               </div> 
               */
-              "Over <strong>" . variable_get('citygroups_stats_groups_published') . " groups</strong> in " . variable_get('citygroups_city_name') . "." .
+/*               "Over <strong>" . variable_get('citygroups_stats_groups_published') . " groups</strong> in " . variable_get('citygroups_city_name') . "." . */
               
               "<div class=\"button\"><a href=\"map\">Map view</a></div>
               <div class=\"button\"><a href=\"list\">List view</a></div>
