@@ -560,6 +560,13 @@ clear: both;
   width: 0px;
 }
 
+#main .links .flag-recommend a.unflag-action,
+#main .links .flag-watch a.unflag-action,
+#main .links .flag-duplicate a.unflag-action,
+#main .links .flag-inactive a.unflag-action,
+#main .links .flag-inappropriate a.unflag-action {
+  background-color: rgba(124, 14, 81, 0.2);
+}
 
 #main .links .flag-wrapper .flag:focus,
 #main .links .flag-wrapper .flag:active,
@@ -581,7 +588,11 @@ clear: both;
 }
 
 #main .links .flag-wrapper .flag-throbber {
-  display: none;
+  padding: 20px;
+}
+
+#main .links .flag-wrapper .flag-throbber img {
+
 }
 
 #main .view-content .links .flag-recommend a,
