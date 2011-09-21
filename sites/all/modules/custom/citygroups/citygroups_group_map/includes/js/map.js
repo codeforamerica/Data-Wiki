@@ -28,7 +28,7 @@ Drupal.behaviors.citygroups_group_map = {
   
       // Set up geocoder.
       geocoder = new google.maps.Geocoder();
-      
+      console.log(geocoder);
       // Get Map Colors.
       cityGroups.map.polygonOptions = Drupal.settings.citygroups.mapColors;
     
@@ -66,7 +66,6 @@ cityGroups.data.mapTopicLoad = function () {
 };
 
 cityGroups.loadData = function(path) {
-  cityGroups.map.loadMap();
 
   if (path === undefined) {
     var path = cityGroups.paths.defaultPath;
@@ -94,7 +93,7 @@ cityGroups.loadDataError = function(data) {
 cityGroups.loadDataSuccess = function(data) {
   $('div.loading').hide();
   cityGroups.data = data;
-
+  cityGroups.map.loadMap();
   cityGroups.geoJSON(cityGroups.data.nodes);
   cityGroups.map.fullScreenMap();
   cityGroups.map.polygonsOn(cityGroups.map.polygonPoints, cityGroups.map.nodes);

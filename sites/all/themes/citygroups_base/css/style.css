@@ -17,15 +17,17 @@ body {
 -------------------------------------------------------------- */
 h1 { font-size: 175%; line-height:150%; margin-bottom:15px; font-weight: bold; font-family: adelle, Helvetica, Arial, sans-serif;}
 h2 { font-size: 150%; line-height:150%; margin-bottom:15px; font-weight: bold; font-family: adelle, Helvetica, Arial, sans-serif;}
-h3, h4, h5, dt { font-size:125%; line-height:150%;  margin-bottom:15px; font-weight: bold;  font-family: adelle, Helvetica, Arial, sans-serif;}
+h3, h4, h5, dt { font-size:125%; line-height:150%;  margin: 15px 0 15px 0; font-weight: bold;  font-family: adelle, Helvetica, Arial, sans-serif;}
 
+/*
 #main h3, #main h4, #main h5, #main dt {
   margin: 15px 0 15px 0;
 }
 
 #main .section h3, #main .section h4, #main .section h5, #main .section dt {
-  margin: 0 0 15px 0;
+  margin: 15px 0 15px 0;
 }
+*/
 
 dl,
 dd,
