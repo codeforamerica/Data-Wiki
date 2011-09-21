@@ -1577,7 +1577,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'geofield',
           'settings' => array(
             'data' => 'full',
-            'map_preset' => 'citygroups_group_display',
+            'map_preset' => 'citygroups',
           ),
           'type' => 'geofield_openlayers',
           'weight' => '6',

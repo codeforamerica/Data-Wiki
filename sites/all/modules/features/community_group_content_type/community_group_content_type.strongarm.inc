@@ -94,14 +94,14 @@ function community_group_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_layers_google_api';
-  $strongarm->value = 'ABQIAAAA69Pr8X6qVjpuLObW66yHqxSCA4djylbTmgnd_4AK0UV0cebb8xTsnWNf2AISG823RjH866KVA9r1Aw ';
+  $strongarm->value = 'ABQIAAAA69Pr8X6qVjpuLObW66yHqxSCA4djylbTmgnd_4AK0UV0cebb8xTsnWNf2AISG823RjH866KVA9r1Aw';
   $export['openlayers_layers_google_api'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_source';
-  $strongarm->value = 'sites/all/libraries/openlayers-2.11/OpenLayers.js';
+  $strongarm->value = 'sites/all/libraries/openlayers-2.10/OpenLayers.js';
   $export['openlayers_source'] = $strongarm;
 
   return $export;

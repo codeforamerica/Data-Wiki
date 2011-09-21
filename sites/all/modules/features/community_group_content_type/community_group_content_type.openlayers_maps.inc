@@ -18,7 +18,7 @@ function community_group_content_type_openlayers_maps() {
   $openlayers_maps->description = 'A map for CityGroups';
   $openlayers_maps->data = array(
     'width' => 'auto',
-    'height' => '350px',
+    'height' => '400px',
     'image_path' => '',
     'css_path' => '',
     'proxy_host' => '',
@@ -34,22 +34,17 @@ function community_group_content_type_openlayers_maps() {
       ),
     ),
     'behaviors' => array(
-      'openlayers_behavior_geofield' => array(),
       'openlayers_behavior_attribution' => array(),
       'openlayers_behavior_keyboarddefaults' => array(),
-      'openlayers_behavior_layerswitcher' => array(
-        'ascending' => 1,
-      ),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
         'documentDrag' => 0,
       ),
       'openlayers_behavior_dragpan' => array(),
-      'openlayers_behavior_boxselect' => array(),
       'openlayers_behavior_scaleline' => array(),
       'openlayers_behavior_zoompanel' => array(),
       'openlayers_behavior_zoomtolayer' => array(
-        'zoomtolayer' => 'geofield_formatter',
+        'zoomtolayer' => 'google_hybrid',
         'point_zoom_level' => '5',
       ),
     ),
@@ -71,15 +66,15 @@ function community_group_content_type_openlayers_maps() {
       'community_groups_map_openlayers_1' => 0,
     ),
     'layer_switcher' => array(
-      'geofield_formatter' => 'geofield_formatter',
+      'geofield_formatter' => 0,
       'community_groups_map_openlayers_1' => 0,
     ),
     'projection' => '900913',
     'displayProjection' => '4326',
     'styles' => array(
-      'default' => 'city_group_map_form_style',
-      'select' => 'city_group_map_form_style',
-      'temporary' => 'city_group_map_form_style',
+      'default' => 'default',
+      'select' => 'default',
+      'temporary' => 'default',
     ),
   );
   $export['citygroups'] = $openlayers_maps;

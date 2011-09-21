@@ -59,7 +59,7 @@ function community_group_content_type_field_group_info() {
     'format_settings' => array(
       'label' => 'Location',
       'instance_settings' => array(
-        'classes' => 'grid_4',
+        'classes' => 'grid_8',
         'description' => '',
         'effect' => 'none',
         'speed' => 'fast',
