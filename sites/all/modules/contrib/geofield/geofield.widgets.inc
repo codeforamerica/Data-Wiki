@@ -153,31 +153,7 @@ function geofield_field_widget_form(&$form, &$form_state, $field, $instance,
                       . '</div>'
     );
     $element['helpmap_desc'] = array(
-      '#markup' => '
-    <div class="map-interface-instructions">
-      <h3>You can Draw Shapes on the Map</h3>    
-      <h4>Step 1</h4>
-      <p>Zoom in to your block.</p>
-      <p>Enter your address or intersection. Include your city name.</p>
-      <p>Example: 8400 Genesee Ave. Seattle</p>
-      
-      <p>[move tool] Use the Move tool to move the map around.</p>
-      <p>[point tool] To just draw 1 point instead of a shape, use the Point tool.</p>
-    
-    <h4>Step 2</h4>
-      <p>[shape tool] Use the Shape tool to draw a shape around your block watch.</p>
-      <p>DOUBLE-CLICK to finish drawing your shape.</p>
-      <p>[CLEAR] Click the Clear button to erase your shape and start over.</p>
-   
-      <div class="element"><div class="icon">Help Icon</div><div class="label">Help</div></div>
-      <div class="element"><div class="icon">Move Map Icon</div><div class="label">Move Map</div></div>
-      <div class="element"><div class="icon">Place marker Icon</div><div class="label">Place marker</div></div>
-      <div class="element"><div class="icon">Draw shape Icon</div><div class="label">Draw shape</div></div>
-      <div class="element"><div class="icon">Finish Drawing Icon</div><div class="label">Finish Drawing: Double-click</div></div>
-      <div class="element"><div class="icon">Delete drawing Icon</div><div class="label">Delete drawing</div></div>        
-    </div>
-      
-      ',
+      '#markup' => '<div class="map-interface-instructions-tooltip"><div class="map-draw-tip"><h4>Map Area</h4><p>'  . t('Click the buttons to add geographic information.') . '</p></div></div>',
       
     );
   }

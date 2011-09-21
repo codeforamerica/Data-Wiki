@@ -167,12 +167,12 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       var draw_features_settings = data.map.behaviors['openlayers_behavior_geofield']['geofield_draw_features'];  
 
       function deactivateButtons() {
-         $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '0.7');
-         $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '0.7');
-         $('div.openlayers_behavior_geofield_button_boundsItemInactive').css('opacity', '0.7');
-         $('div.openlayers_behavior_geofield_button_lineItemInactive').css('opacity', '0.7');
-         $('div.openlayers_behavior_geofield_button_navigateItemInactive').css('opacity', '0.7');
-        // $('div.map-draw-tip').remove();
+         $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '0.8');
+         $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '0.8');
+         $('div.openlayers_behavior_geofield_button_boundsItemInactive').css('opacity', '0.8');
+         $('div.openlayers_behavior_geofield_button_lineItemInactive').css('opacity', '0.8');
+         $('div.openlayers_behavior_geofield_button_navigateItemInactive').css('opacity', '0.8');
+         $('div.map-draw-tip').remove();
       }
 
       // Functions when buttons are clicked 
@@ -183,6 +183,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         point_control.activate();
         deactivateButtons();
         $('div.openlayers_behavior_geofield_button_pointItemInactive').css('opacity', '1');
+          $('div.map-interface-instructions-tooltip').html('<div class="map-draw-tip"><h4>Set Marker</h4><p>' + Drupal.t('Click to set a marker.') + '</p></div>');
       }
 
       buttonToggleLine = function() {
@@ -192,6 +193,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.activate();
         deactivateButtons();
         $('div.openlayers_behavior_geofield_button_lineItemInactive').css('opacity', '1');
+        $('div.map-interface-instructions-tooltip').html('<div class="map-draw-tip"><h4>Draw Line</h4><p>' + Drupal.t('Double-Click to release line.') + '</p></div>');
       }
 
       buttonToggleBounds = function() {
@@ -201,6 +203,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         bounds_control.activate();
         deactivateButtons();
         $('div.openlayers_behavior_geofield_button_boundsItemInactive').css('opacity', '1');
+        $('div.map-interface-instructions-tooltip').html('<div class="map-draw-tip"><h4>Draw Box</h4><p>' + Drupal.t('Double-Click to release box.') + '</p></div>');
       }
 
       buttonTogglePolygon = function() {
@@ -209,9 +212,8 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         line_control.deactivate();
         polygon_control.activate();
         deactivateButtons();
-        //$('div.openlayers_behavior_geofield_button_polygonItemInactive').after('<div class="map-draw-tip">Single click on the last point to set the polygon.</div>');
         $('div.openlayers_behavior_geofield_button_polygonItemInactive').css('opacity', '1');
-        
+        $('div.map-interface-instructions-tooltip').html('<div class="map-draw-tip"><h4>Draw Shape</h4><p>' + Drupal.t('Single-Click to set shape.') + '</p></div>');
       }
 
       buttonToggleNavigate = function() {
@@ -221,25 +223,26 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         polygon_control.deactivate();
         deactivateButtons();
         $('div.openlayers_behavior_geofield_button_navigateItemInactive').css('opacity', '1');
+        $('div.map-interface-instructions-tooltip').html('<div class="map-draw-tip"><h4>Move Map</h4><p>' + Drupal.t('Move the map.') + '</p></div>');
       }
 
       // Add buttons to control_panel for each control type
       // @TODO add graphic icons.
       point_button = new OpenLayers.Control.Button({
         displayClass: "openlayers_behavior_geofield_button_point", 
-        title: Drupal.t('Set a point'),
+        title: Drupal.t('Set Marker'),
         trigger: buttonTogglePoint
       });
 
       line_button = new OpenLayers.Control.Button({
         displayClass: "openlayers_behavior_geofield_button_line", 
-        title: Drupal.t('Add a line'),
+        title: Drupal.t('Draw Line'),
         trigger:  buttonToggleLine
       });
 
       polygon_button = new OpenLayers.Control.Button({
         displayClass: "openlayers_behavior_geofield_button_polygon", 
-        title: Drupal.t('Add a polygon'),
+        title: Drupal.t('Draw Shape'),
         trigger: buttonTogglePolygon
       });
 
@@ -251,7 +254,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
  
       navigate_button = new OpenLayers.Control.Button({
         displayClass: "openlayers_behavior_geofield_button_navigate", 
-        title: Drupal.t('Navigate'),
+        title: Drupal.t('Move'),
         trigger: buttonToggleNavigate
       });
       
@@ -274,7 +277,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         buttons.push(bounds_button); 
       }
       if(buttons.length > 0) {
-        buttons.push(navigate_button);
+        buttons.unshift(navigate_button);
       }
       button_panel.addControls(buttons);
       data.openlayers.addControl(button_panel);
@@ -319,7 +322,7 @@ Drupal.behaviors.openlayers_behavior_geofield = {
         }
       });
       */
-      
+
       /*
        * Draw features if the form has values
        */

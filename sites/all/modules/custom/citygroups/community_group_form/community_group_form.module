@@ -142,6 +142,15 @@ function community_group_form_map_elements(&$form, &$form_values) {
     $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
     $form['field_location']['#prefix'] .= '</div>';
 
+/*
+      <h3>You can Draw Shapes on the Map</h3>    
+      <h4>Step 1</h4>
+      <p>Zoom in to your block.</p>
+      <p>Enter your address or intersection. Include your city name.</p>
+      <p>Example: 8400 Genesee Ave. Seattle</p>
+*/
+
+
     // Add Google API (uses openlayers API key)
     // @TODO require openlayers.
     drupal_add_js(

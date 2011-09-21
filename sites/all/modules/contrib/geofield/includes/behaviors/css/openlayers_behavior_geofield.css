@@ -1,8 +1,9 @@
 .openlayers_behavior_geofield_button_panel {
   position: absolute;
-  top: 5px;
-  left: 5px;
-  margin-left: 50px;
+  left: 0px;
+  margin-left: 70px;
+  margin-top: 20px;
+  background: #00FFFF;
 }
 
 .openlayers_behavior_geofield_buttonItemInactive {
@@ -82,6 +83,11 @@
 .map-interface-instructions {
   background: #ddd;
   padding: 10px;
+}
+
+.map-interface-instructions-tooltip {
+  padding: 10px;
+  background: rgba(0, 256,256, 0.2);
 }
 
 .map-interface-instructions .element {
