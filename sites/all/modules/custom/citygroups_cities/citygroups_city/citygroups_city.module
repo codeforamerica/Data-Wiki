@@ -234,17 +234,17 @@ function citygroups_city_api_render() {
 
   $output .= '<h4>All Community Groups</h4>';
   $output .= '<p>
-  <h5>First 250 Recent Community Groups</h5>' . l($base_url . base_path() . 'data/community-group', $base_url . base_path() . 'data/community-group') . '</p>';
+  <h5>First 50 Recent Community Groups</h5>' . l($base_url . base_path() . 'data/community-group', $base_url . base_path() . 'data/community-group') . '</p>';
   
   $output .= '<p>
-  <h5>First 250 Recent Community Groups with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map', $base_url . base_path() . 'data/community-group/map') . '</p>';
+  <h5>First 50 Recent Community Groups with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map', $base_url . base_path() . 'data/community-group/map') . '</p>';
   
   $output .= '<p>
-  <h5>First 250 Recent Community Groups filtered by category</h5>' . l($base_url . base_path() . 'data/community-group/Block-watch', $base_url . base_path() . 'data/community-group/Block-watch') . '</p>';
+  <h5>First 50 Recent Community Groups filtered by category</h5>' . l($base_url . base_path() . 'data/community-group/Block-watch', $base_url . base_path() . 'data/community-group/Block-watch') . '</p>';
   $output .= "<p>Note: Categories must match the case & have dashes instead of spaces.</p>";
   
   $output .= '<p>
-  <h5>First 250 Recent Community Groups filtered by category with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map/Block-watch', $base_url . base_path() . 'data/community-group/map/Block-watch') . '</p>';
+  <h5>First 50 Recent Community Groups filtered by category with Geo Data</h5>' . l($base_url . base_path() . 'data/community-group/map/Block-watch', $base_url . base_path() . 'data/community-group/map/Block-watch') . '</p>';
 
 
   $output .= '
@@ -434,8 +434,9 @@ function citygroups_city_categories_add_render() {
   </ul>
 */
   
-  return '
-  <div id="vocabularies">'
+  return 
+  '<div class="number-results"><div class="number">' . variable_get('citygroups_stats_groups_published') . '</div><div class="label">groups</div></div>' .
+  '<div id="vocabularies">'
   . $output 
   . '</div>';
 }

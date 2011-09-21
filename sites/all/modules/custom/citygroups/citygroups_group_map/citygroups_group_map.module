@@ -116,7 +116,7 @@ function citygroups_group_map_page_variables(&$vars) {
 
 
 function citygroups_group_map_render() {
-  $output =
+  $output = '<div class="number-results"><div class="number">' . variable_get('citygroups_stats_groups_published') . '</div><div class="label">groups</div></div>' .
   '<div id="search-map" class="form-input">
   <input placeholder="Enter your address or zipcode here." class="form-item" />
   <input type="image" src="' . base_path() . path_to_theme() . '/images/search_button_large.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">

@@ -986,7 +986,7 @@ option {
   color: #fff;
   margin: 0px 0px 0px 0;
 }
-
+.number-results,
 .views-number-results {
   font-size: 200%;
   font-weight: bold;
@@ -997,6 +997,7 @@ option {
   margin-bottom: 10px;
 }
 
+.number-results .label,
 .views-number-results .label {
   text-transform: uppercase;
   color: #666;
@@ -1005,6 +1006,9 @@ option {
   text-align: center;
 }
 
+.number-results {
+
+}
 .view-categories .views-row {
   padding-bottom: 10px;
 }
