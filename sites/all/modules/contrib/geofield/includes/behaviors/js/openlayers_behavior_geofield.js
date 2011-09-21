@@ -74,17 +74,17 @@ Drupal.behaviors.openlayers_behavior_geofield = {
       // Redraw feature with style.
       var geofieldStyleMap = new OpenLayers.StyleMap({
           "default": new OpenLayers.Style({
-              pointRadius: "5", // sized according to type attribute
-              strokeColor: "#333333",
-              fillColor: "#666666",
+              pointRadius: "6", // sized according to type attribute
+              strokeColor: "#00FFFF",
+              fillColor: "#F78C0D",
               strokeWidth: 2,
-              fillOpacity: 0.6
+              fillOpacity: 0.8
           }),
           "select": new OpenLayers.Style({
               strokeColor: "#333333",
-              fillColor: "#666666",
+              fillColor: "#ffffff",
               strokeWidth: 2,
-              fillOpacity: 0.6
+              fillOpacity: 0.8
           })
       });
 
