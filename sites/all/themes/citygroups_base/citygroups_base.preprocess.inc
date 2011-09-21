@@ -174,7 +174,7 @@ function citygroups_base_preprocess_node(&$vars) {
 }
 
 function citygroups_base_preprocess_node_community_group(&$vars) {
-    dpm(  $vars['content']['links']);
+  //dpm(  $vars['content']['links']);
   // Configure links.
   switch ($vars['view_mode']) {
     case 'full':
