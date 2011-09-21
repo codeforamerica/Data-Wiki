@@ -64,7 +64,6 @@ function citygroups_promote() {
 
 
 function citygroups_qrcode($url_to_render, $preset, $title, $data) {
-
   $variables = array(
     'data' => $title . ' ' . $url_to_render . 
 // new line break

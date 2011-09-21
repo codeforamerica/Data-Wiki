@@ -526,10 +526,10 @@ clear: both;
 #main .links .flag-duplicate a,
 #main .links .flag-inactive a,
 #main .links .flag-inappropriate a,
-#main .links .twitter a,
-#main .links .facebook a,
-#main .links .email a,
-#main .links .qrcode a {
+#main .links .twitter .flag,
+#main .links .facebook .flag,
+#main .links .email .flag,
+#main .links .qrcode .flag {
   background: #ddd;
   margin: 5px 5px 0px 0px;
   padding: 10px 10px 5px 25px;
@@ -549,6 +549,10 @@ clear: both;
   width: 0px;
 }
 
+
+#main .links .flag-wrapper .flag:focus,
+#main .links .flag-wrapper .flag:active,
+#main .links .flag-wrapper .flag:hover,
 #main .links .flag-wrapper a:focus,
 #main .links .flag-wrapper a:active,
 #main .links .flag-wrapper a:hover  {
@@ -574,15 +578,16 @@ clear: both;
 #main .view-content .links .flag-duplicate a,
 #main .view-content .links .flag-inactive a,
 #main .view-content .links .flag-inappropriate a,
-#main .view-content .links .twitter a,
-#main .view-content .links .facebook a,
-#main .view-content .links .email a,
-#main .view-content .links .qrcode a {
+#main .view-content .links .twitter .flag,
+#main .view-content .links .facebook .flag,
+#main .view-content .links .email .flag,
+#main .view-content .links .qrcode .flag {
   display: inline;
 /*   float: none; */
   text-indent: none;
 }
 
+//  background-repeat: none;
 
 #main .view-content .links .flag-wrapper a:focus,
 #main .view-content .links .flag-wrapper a:active,
@@ -608,24 +613,27 @@ clear: both;
 }
 
 /*  Fake Flags */
-#main .links .twitter a {
+#main .links .twitter .flag {
   background-image: url(../images/icon_twitter.png);
 }
-#main .links .facebook a {
+#main .links .facebook .flag {
   background-image: url(../images/icon_facebook.png);
 }
-#main .links .email a {
+#main .links .email .flag {
   background-image: url(../images/icon_email.png);
 }
-#main .links .qrcode a {
+#main .links .qrcode .flag {
   background-image: url(../images/icon_qrcode.png);
 }
 
+#main .links .flag-wrapper .flag .flag-message, 
 #main .links .flag-wrapper a .flag-message {
   display: none;
 }
 
-
+#main .links .flag-wrapper .flag:hover .flag-message,
+#main .links .flag-wrapper .flag:active .flag-message,
+#main .links .flag-wrapper .flag:focus .flag-message, 
 #main .links .flag-wrapper a:hover .flag-message,
 #main .links .flag-wrapper a:active .flag-message,
 #main .links .flag-wrapper a:focus .flag-message {

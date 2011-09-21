@@ -239,8 +239,18 @@ function citygroups_base_node_share(&$vars, $view_mode) {
 
   global $base_url;
   $path = $base_url . $vars['node_url'];
+  
+  $data = $vars['field_description']['und'][0]['value'];
+    // Trim Data if over maximum number of characters.
+  $max_chars = 100;
+  if(strlen($data) > $max_chars) {
+    $data = strip_tags($data);
+    $data = substr ($data, 0, $max_chars) . ' ...';
+  }
+  
+  
 
-  $qrcode = citygroups_qrcode($path, 'medium', $vars['title'], strip_tags($vars['field_description']['und'][0]['value']));
+  $qrcode = citygroups_qrcode($path, 'medium', $vars['title'], $data);
   
   $twitter_full = '<h4>Twitter</h4>' . 
   $vars['title'] . ' ' . $path .
@@ -263,7 +273,8 @@ function citygroups_base_node_share(&$vars, $view_mode) {
     case 'full':
       $twitter = $twitter_full;
       $facebook = $facebook_full;
-    
+      break;
+    default:   
     case 'search_result':
     case 'teaser':
     case 'search_index':
@@ -277,55 +288,54 @@ function citygroups_base_node_share(&$vars, $view_mode) {
           'class' => array('links', 'inline'),
         ),
       );
-        
-       $share_link['#links']  =  array(
-            'twitter' => array(
-              'title' => '
-              <div class="flag-wrapper twitter">
-              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-                Twitter<span class="flag-message">' . $twitter . '</span>
-              </a>
-              </div>
-              ',
-              'html' => TRUE,            
-            ),
-            'facebook' => array(
-              'title' => '
-              <div class="flag-wrapper facebook">
-              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-               Facebook<span class="flag-message">' . $facebook . '</span>
-              </a>
-              </div>
-              ',
-              'html' => TRUE,            
-            ),
-            'email' => array(
-              'title' => '
-              <div class="flag-wrapper email">
-              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-               Email<span class="flag-message">' . $email . '</span>
-              </a>
-              </div>              
-              ',
-              'html' => TRUE,            
-            ),
-            'qrcode' => array(
-              'title' => '
-              <div class="flag-wrapper qrcode">
-              <a href="#" title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-                QR Code<span class="flag-message">' . $qrcode . '</span>
-              </a>
-              </div>
-              ',
-              'html' => TRUE,            
-            ),
-      );
-
-      $vars['content']['links']['share'] = $share_link;
-
-    default:
       break;  
   }
+
+    
+   $share_link['#links']  =  array(
+        'twitter' => array(
+          'title' => '
+          <div class="flag-wrapper twitter">
+          <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+            Twitter<span class="flag-message">' . $twitter . '</span>
+          </div>
+          </div>
+          ',
+          'html' => TRUE,            
+        ),
+        'facebook' => array(
+          'title' => '
+          <div class="flag-wrapper facebook">
+          <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+           Facebook<span class="flag-message">' . $facebook . '</span>
+          </div>
+          </div>
+          ',
+          'html' => TRUE,            
+        ),
+        'email' => array(
+          'title' => '
+          <div class="flag-wrapper email">
+          <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+           Email<span class="flag-message">' . $email . '</span>
+          </div>
+          </div>              
+          ',
+          'html' => TRUE,            
+        ),
+        'qrcode' => array(
+          'title' => '
+          <div class="flag-wrapper qrcode">
+          <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
+            QR Code<span class="flag-message">' . $qrcode . '</span>
+          </div>
+          </div>
+          ',
+          'html' => TRUE,            
+        ),
+  );
+
+  $vars['content']['links']['share'] = $share_link;
 
   
 
