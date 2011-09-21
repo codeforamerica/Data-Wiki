@@ -318,7 +318,8 @@ function views_ajax_autocomplete_user($string = '') {
 function views_ajax_autocomplete_taxonomy($vid, $tags_typed = '') {
   // The user enters a comma-separated list of tags. We only autocomplete the last tag.
   $tags_typed = drupal_explode_tags($tags_typed);
-  $tag_last = drupal_strtolower(array_pop($tags_typed));
+/*   $tag_last = drupal_strtolower(array_pop($tags_typed)); */
+  $tag_last = array_pop($tags_typed);
 
   $matches = array();
   if ($tag_last != '') {
