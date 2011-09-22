@@ -861,6 +861,26 @@ fieldset.filter-wrapper {
 .node-form .description li {
   list-style: disc;
   list-style-position: inside;
+  padding: 0 0 5px 0;
+}
+
+.node-form .description .explanation {
+   padding: 0 0 10px 0; 
+}
+
+
+.node-form .description .instruction {
+   padding: 0 0 10px 0;
+   font-size: 90%;
+   color: #666;
+   text-transform: uppercase;
+}
+
+.node-form .description .example {
+   padding: 0 0 10px 0;
+   font-size: 90%;
+   color: #666;
+   font-style: italic;
 }
 
 .node-form .description .terms {

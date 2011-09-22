@@ -361,7 +361,7 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
   }
 
   if(!empty($add_variables_array['privacy'])) {
-    $form['field_privacy']['und']['#title'] = "Ok, I understand. I'm ready to start filling out the form.";
+    $form['field_privacy']['und']['#title'] = "Ok, I understand. Let's Start.";
     $form['field_privacy']['und']["#description"] = $add_variables_array['privacy'];
   }
 
