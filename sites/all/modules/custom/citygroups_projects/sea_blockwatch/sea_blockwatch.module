@@ -328,8 +328,8 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
    // Section overrides.
   $add_variables_array = array(
     'category' => 'Block Watch, Crime Prevention',
-    'title' => 'Add a Block Watch Captain',
-    'instructions' => 'Add & Map a Block Watch Community or Block Watch Captain to the Block Watch Captain Directory',
+    'title' => 'Add & Map a Block Watch Group',
+    'instructions' => 'Add & Map a Block Watch Group',
     'map_instructions' => 'Map',
     'prepare' => '
         <p>Thanks for taking the time to share information about a Block Watch Community in Seattle.</p>
@@ -350,10 +350,13 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
         <li>Use a dedicated email account, and/or a dedicated phone line.</li>
         </ul>',
   );
- 
-  if(!empty($add_variables_array['instructions'])) {
-    $form['#prefix'] .= '<h3>' .  $add_variables_array['instructions'] . '</h3>';
-  }
+  
+  $form['#prefix'] = '<div class="instructions grid_10 alpha omega">';
+  $form['#prefix'] .= '<h2>' .t($add_variables_array['title']) . '</h2>';
+  //$form['#prefix'] .= t($add_variables_array['instructions']);
+  $form['#prefix'] .= '<p>' .t("UPDATE: We are testing this feature this week - 9/21/2011") . '</p>';
+  $form['#prefix'] .= '</div><div class="clear"></div>';
+
 
   if(!empty($add_variables_array['prepare'])) {
     $form['field_prepare']['und']['#title'] = "Ok, I'm ready. Next step.";
@@ -366,20 +369,21 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
   }
 
   $form['title']['#title'] = t("Name of Block Watch Captain or Community.");
-  $form['title']['#description'] = '
+  $form['title']['#suffix'] = '<div class="description"><div class="prompt">(Required)</div>
     <div class="explanation">What is the name of the Block Watch Captain or Community?</div>
     <div class="instruction">Enter the name as it should appear publicly on the Internet.</div>
     <div class="example">8700 Block Watch</div>
+    </div>
     ';
   $form['field_url']['und'][0]['#title'] = t("URL");
-  $form['field_url']['und'][0]['#description'] ='
+  $form['field_url']['und'][0]['#description'] ='<div class="prompt">(Optional)</div>
     <div class="explanation">Is there a link to a webpage for this Block Watch Community? (It\'s OK if you don\'t have one)</div>
     <div class="instruction">Enter the URL.</div>
     <div class="example">http://yahoogroups.com/8700-Block-Watch</div>
         ';
         
   $form['field_email']['und']['#title'] = t("Group Email Address");
-  $form['field_email']['und']['#description'] = '
+  $form['field_email']['und']['#description'] = '<div class="prompt">(Optional)</div>
     <div class="explanation">You can use a dedicated email for your group.'
     /*           ' When we launch the tool, the owner of this email address will receive and email asking them if they would like thei email address to be public or if they should be contacted through a web form.'  */
     . '</div>
@@ -389,13 +393,13 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
   $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
   $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
   $form['field_contact']['und'][0]['value']['#type'] = 'textarea';
-  $form['field_contact']['und'][0]['value']['#description'] = '
+  $form['field_contact']['und'][0]['value']['#description'] = '<div class="prompt">(Optional)</div>
     <div class="explanation">If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
     <div class="instruction">Enter the contact information for this group.</div>
     <div class="example">Just join our Yahoo group to find us.</div>
     ';
   $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
-  $form['field_url_calendar']['und'][0]['#description'] = '
+  $form['field_url_calendar']['und'][0]['#description'] = '<div class="prompt">(Optional)</div>
     <div class="explanation">If you have a link to an event calendar, you may add it (Most Block Watch Communities do not have an event calendar.)</div>
     <div class="instruction">Enter the URL that points to the Calendar.</div>
     <div class="example">http://yahoogroups.com/calendar/8700-Block-Watch</div>
@@ -406,19 +410,26 @@ function sea_blockwatch_community_group_form_overrides(&$form, &$form_values) {
   if(!empty($add_variables_array['category'])) {
     $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
     $form['field_categories']['und']['#description'] = 
-      '<p>Provide some categories for the Block Watch Community.<br />
+      '<div class="prompt">(Recommended)</div><p>Provide some categories for the Block Watch Community.<br />
       Here are some suggestions:</p><div class="terms">' .
-      variable_get('sea_blockwatch_related_terms') . '</div>';
+      variable_get('sea_blockwatch_related_terms', 'Block watch, Crime prevention, National Night Out, Emergency preparedness, Public safety, Block party') . '</div>';
   }
         
   // Alter the Audience Size taxonomy to display as households (rough number estimates, not meant to be exact)
   $form['field_audience_size']['und']['#title'] = "Number of households";
-  $form['field_audience_size']['und']['#default_value'] = 621; // 50-100 People
-  $form['field_audience_size']['und']['#options']['4'] = 'A few households';
-  $form['field_audience_size']['und']['#options']['619'] = '5-10 households';
-  $form['field_audience_size']['und']['#options']['620'] = '10-25 households';
-  $form['field_audience_size']['und']['#options']['621'] = '25-50 Households';
-  $form['field_audience_size']['und']['#options']['114'] = '50 or more households';
+  $form['field_audience_size']['und']['#description'] = '<div class="prompt">(Optional)</div>Approximately how many households participate in this Block Watch Group?';
+  
+  $form['field_audience_size']['und']['#default_value'] = 794; // 50-100 People
+  $form['field_audience_size']['und']['#options']['790'] = 'A few households';
+  $form['field_audience_size']['und']['#options']['792'] = '5-10 households';
+  $form['field_audience_size']['und']['#options']['793'] = '10-25 households';
+  $form['field_audience_size']['und']['#options']['794'] = '25-50 Households';
+  $form['field_audience_size']['und']['#options']['795'] = '50 or more households';
+
+  unset($form['field_audience_size']['und']['#options']['796']);   
+  unset($form['field_audience_size']['und']['#options']['797']);   
+  unset($form['field_audience_size']['und']['#options']['798']);   
+  unset($form['field_audience_size']['und']['#options']['799']);   
         
         
   $form['field_type_group']['und']['#default_value'] = 542; // E-mail list

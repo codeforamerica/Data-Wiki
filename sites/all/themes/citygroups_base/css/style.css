@@ -907,7 +907,7 @@ fieldset.filter-wrapper {
     background-color: transparent;
 }
 option {
-    background-color: #dedede;
+/*     background-color: #dedede; */
     border-bottom: 1px solid #ebdac0;
     border-right: 1px solid #d6bb86;
     border-left: 1px solid #d6bb86;
