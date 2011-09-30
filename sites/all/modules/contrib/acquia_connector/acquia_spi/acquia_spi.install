@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ *   Installer file for Acquia SPI module.
+ */
+
+// -- Core hooks ---------------------------------------------------------------
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function acquia_spi_uninstall() {
+  variable_del('acquia_spi_cron_last');
+  variable_del('acquia_spi_cron_interval');
+}
