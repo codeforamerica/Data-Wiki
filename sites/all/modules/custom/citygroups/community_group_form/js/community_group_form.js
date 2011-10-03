@@ -108,7 +108,7 @@ geocoder = new google.maps.Geocoder();
 
 Drupal.settings.community_group_form.geocodeAddress = function (){
     var inputValue = $('div.map-instructions-container div.address-ajax input#search-map-input').val();
-    console.log(inputValue);
+    //console.log(inputValue);
     Drupal.settings.community_group_form.codeAddress(inputValue);
 };
 
@@ -127,7 +127,7 @@ Drupal.settings.community_group_form.codeAddress = function(address) {
 Drupal.settings.community_group_form.mapGeocodedData = function(results) {
   var result = {};
   result.field_address = '';
-  console.log(results);
+ // console.log(results);
   var item = results[0]['address_components'];
 
   for (i in item) {     
@@ -150,7 +150,7 @@ Drupal.settings.community_group_form.mapGeocodedData = function(results) {
     }
     
    // map geometry
-   console.log(results[0]);
+  // console.log(results[0]);
    result.latitude = results[0]["geometry"]["location"].lat();
    result.longitude = results[0]["geometry"]["location"].lng();
   }
@@ -291,7 +291,7 @@ Drupal.settings.community_group_form.centerOnFeature = function() {
     data.openlayers.setCenter(center, false, false, false);
   }
   catch(e) {
-    console.log(e);
+    //console.log(e);
   }  
 };
 

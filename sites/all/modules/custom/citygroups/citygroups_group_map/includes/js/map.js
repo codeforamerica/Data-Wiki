@@ -19,7 +19,7 @@ Drupal.behaviors.citygroups_group_map = {
       // Custom search paths.
       cityGroups.paths = {
           "defaultPath": Drupal.settings['basePath'] + "data/community-group/map",
-          "#defaultPath": Drupal.settings['basePath'] + "data/community-group/map",          
+          "#defaultPath": Drupal.settings['basePath'] + "data/community-group/map"          
       };
 
 /*           "defaultPath": 'https://lleystakedaysentrulteren:n1jJnHh4wWc3Fr24wvhNelCO@citygroups.cloudant.com/citygroups', */
@@ -28,7 +28,7 @@ Drupal.behaviors.citygroups_group_map = {
   
       // Set up geocoder.
       geocoder = new google.maps.Geocoder();
-      console.log(geocoder);
+     // console.log(geocoder);
       // Get Map Colors.
       cityGroups.map.polygonOptions = Drupal.settings.citygroups.mapColors;
     
@@ -86,7 +86,7 @@ cityGroups.loadData = function(path) {
 };
 
 cityGroups.loadDataError = function(data) {
-  console.log("error");
+  //console.log("error");
   return false;
 };
 
