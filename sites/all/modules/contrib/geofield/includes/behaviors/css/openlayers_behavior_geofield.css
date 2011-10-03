@@ -89,7 +89,9 @@
 
 .map-interface-instructions-tooltip {
   padding: 10px;
-  background: rgba(0, 256,256, 0.2);
+  background: rgba(0, 256,256, 0.8);
+  position: relative;
+  top: -90px;
 }
 
 .map-interface-instructions .element {
