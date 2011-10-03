@@ -73,8 +73,8 @@ function sea_blockwatch_contents($type) {
               */
 /*               "Over <strong>" . variable_get('citygroups_stats_groups_published') . " groups</strong> in " . variable_get('citygroups_city_name') . "." . */
               
-              "<div class=\"button\"><a href=\"map?section=blockwatch\">Map view</a></div>
-              <div class=\"button\"><a href=\"list?section=blockwatch\">List view</a></div>
+              "<div class=\"button\"><a href=\"blockwatch/map\">Map view</a></div>
+              <div class=\"button\"><a href=\"blockwatch/list\">List view</a></div>
             </div>
           </div>
           <div class=\"clear\"></div>
