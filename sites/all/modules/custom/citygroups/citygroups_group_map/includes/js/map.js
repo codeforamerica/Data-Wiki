@@ -10,7 +10,6 @@ cityGroups.map.form = {};
 var citygroups;
 var geocodedAddressResults;
 var geocoder;
-
 (function($) {
 
 Drupal.behaviors.citygroups_group_map = {
@@ -21,6 +20,7 @@ Drupal.behaviors.citygroups_group_map = {
           "defaultPath": Drupal.settings['basePath'] + "data/community-group/map",
           "#defaultPath": Drupal.settings['basePath'] + "data/community-group/map"          
       };
+      
 
 /*           "defaultPath": 'https://lleystakedaysentrulteren:n1jJnHh4wWc3Fr24wvhNelCO@citygroups.cloudant.com/citygroups', */
 /*           "#defaultPath": 'https://lleystakedaysentrulteren:n1jJnHh4wWc3Fr24wvhNelCO@citygroups.cloudant.com/citygroups', */
@@ -104,16 +104,19 @@ cityGroups.loadDataSuccess = function(data) {
 
 cityGroups.map.loadMap = function() {
   // initialize the map on the "map" div with a given center and zoom
-  cityGroups.map.settings.zoom = 11;
-  cityGroups.map.settings.zoomNeighborhood = 14;
-  cityGroups.map.settings.center = new L.LatLng(47.6061889, -122.3308133);
+  cityGroups.map.settings.zoom = Drupal.settings.citygroups['zoom'];
+  
+
+  cityGroups.map.settings.zoomNeighborhood = Drupal.settings.citygroups['zoomNeighborhood'];
+  console.log(cityGroups.map.settings);
+  cityGroups.map.settings.center = new L.LatLng(Drupal.settings.citygroups['latitude'], -1 * Drupal.settings.citygroups['longitude']);
   // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
   if(cityGroups.map.rendered === undefined) {
     cityGroups.map.rendered = new L.Map('map', cityGroups.map.settings.center);
   }
   // create a CloudMade tile layer
   cityGroups.map.cloudmadeUrl = 'http://{s}.tile.cloudmade.com/b59bc8b09cd84af58fcef3019d84e662/997/256/{z}/{x}/{y}.png',
-  cityGroups.map.cloudmade = new L.TileLayer(cityGroups.map.cloudmadeUrl, {maxZoom: 18});
+  cityGroups.map.cloudmade = new L.TileLayer(cityGroups.map.cloudmadeUrl, {maxZoom: Drupal.settings.citygroups['maxZoom']});
   cityGroups.map.rendered.setView(cityGroups.map.settings.center, cityGroups.map.settings.zoom).addLayer(cityGroups.map.cloudmade);
 };
 

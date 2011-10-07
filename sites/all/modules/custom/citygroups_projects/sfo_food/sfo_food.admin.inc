@@ -151,10 +151,6 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('Resources'),
     '#default_value' =>  variable_get('sfo_food_resources', '
-<ul>
-  <li><a href="">Link</a></li>
-
-</ul> 
 '),
     '#description' => 'Links and resources',
   );
