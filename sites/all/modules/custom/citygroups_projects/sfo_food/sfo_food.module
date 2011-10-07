@@ -392,7 +392,7 @@ function sfo_food_community_group_form_overrides(&$form, &$form_values) {
 /*
   $form['field_email']['und']['#description'] = '<div class="prompt">(Optional)</div>
     <div class="explanation">You can use a dedicated email for your group.'
-    /*           ' When we launch the tool, the owner of this email address will receive and email asking them if they would like thei email address to be public or if they should be contacted through a web form.'  */
+ 
     . '</div>
     <div class="instruction">Email the address for the group.</div>
     <div class="example">8700-food@yahoogroups.com</div>
