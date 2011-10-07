@@ -178,11 +178,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '27',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '27',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '24',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -247,11 +254,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'text_default',
           'weight' => '8',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '8',
+        ),
         'search_result' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '23',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -275,7 +289,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '20',
+        'weight' => '26',
       ),
     ),
   );
@@ -325,11 +339,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '10',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '10',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '27',
+          'weight' => '34',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -404,11 +424,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '28',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '28',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '18',
+          'weight' => '26',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -480,12 +507,19 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '24',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '24',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -560,6 +594,13 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '11',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '11',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
@@ -589,7 +630,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '24',
+        'weight' => '28',
       ),
     ),
   );
@@ -635,11 +676,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'text_default',
           'weight' => '22',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '22',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '25',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -714,12 +762,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '12',
         ),
-        'search_result' => array(
+        'search_index' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '7',
+          'weight' => '12',
+        ),
+        'search_result' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -793,11 +847,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '8',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '8',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '20',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -862,11 +922,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'text_default',
           'weight' => '20',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '20',
+        ),
         'search_result' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '20',
+          'weight' => '28',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -940,11 +1007,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '11',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '11',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '24',
+          'weight' => '31',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1008,11 +1081,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '20',
         ),
+        'search_index' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '20',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '18',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1080,11 +1159,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '19',
         ),
+        'search_index' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '19',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1153,11 +1238,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '15',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '15',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1226,11 +1317,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '14',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '14',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1299,11 +1396,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '16',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '16',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1372,11 +1475,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '13',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '13',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1445,11 +1554,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '12',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '12',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1518,11 +1633,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '17',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '17',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1582,11 +1703,21 @@ function community_group_content_type_field_default_fields() {
           'type' => 'geofield_openlayers',
           'weight' => '6',
         ),
+        'search_index' => array(
+          'label' => 'hidden',
+          'module' => 'geofield',
+          'settings' => array(
+            'data' => 'full',
+            'map_preset' => 'citygroups',
+          ),
+          'type' => 'geofield_openlayers',
+          'weight' => '6',
+        ),
         'search_result' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '25',
+          'weight' => '32',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1614,7 +1745,7 @@ function community_group_content_type_field_default_fields() {
           'openlayers_preset' => 'citygroups_map_form',
         ),
         'type' => 'geofield_openlayers',
-        'weight' => '19',
+        'weight' => '24',
       ),
     ),
   );
@@ -1658,11 +1789,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'text_default',
           'weight' => '7',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
         'search_result' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '22',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1686,7 +1824,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '18',
+        'weight' => '23',
       ),
     ),
   );
@@ -1718,11 +1856,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '18',
         ),
+        'search_index' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '18',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '21',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1802,6 +1946,13 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '9',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '9',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
@@ -1828,7 +1979,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '22',
+        'weight' => '25',
       ),
     ),
   );
@@ -1872,11 +2023,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'text_default',
           'weight' => '24',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '24',
+        ),
         'search_result' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '21',
+          'weight' => '29',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1951,11 +2109,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '29',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '29',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '22',
+          'weight' => '30',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2021,11 +2186,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '7',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '17',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2093,11 +2264,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '6',
         ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2166,11 +2343,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'text_default',
           'weight' => '25',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '25',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '27',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2245,12 +2429,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '13',
         ),
-        'search_result' => array(
+        'search_index' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '13',
+        ),
+        'search_result' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2274,7 +2464,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '25',
+        'weight' => '29',
       ),
     ),
   );
@@ -2324,11 +2514,17 @@ function community_group_content_type_field_default_fields() {
           'type' => 'hidden',
           'weight' => '9',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '9',
+        ),
         'search_result' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '19',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2361,7 +2557,7 @@ function community_group_content_type_field_default_fields() {
   $fields['node-community_group-field_type_group'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_type_group',
@@ -2403,12 +2599,19 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '30',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '30',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2469,6 +2672,13 @@ function community_group_content_type_field_default_fields() {
       'description' => '<span class="prompt">(Recommended)</span> Point to the best page that explains the group and how to join the group.',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '21',
+        ),
+        'search_index' => array(
           'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
@@ -2561,6 +2771,13 @@ function community_group_content_type_field_default_fields() {
           'type' => 'link_default',
           'weight' => '23',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '23',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'module' => 'link',
@@ -2647,12 +2864,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'link_url',
           'weight' => '26',
         ),
-        'search_result' => array(
+        'search_index' => array(
           'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '13',
+          'type' => 'link_url',
+          'weight' => '26',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2738,11 +2961,18 @@ function community_group_content_type_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '10',
         ),
+        'search_index' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '10',
+        ),
         'search_result' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '26',
+          'weight' => '33',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2766,7 +2996,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '23',
+        'weight' => '27',
       ),
     ),
   );

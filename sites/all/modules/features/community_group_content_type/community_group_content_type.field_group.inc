@@ -51,7 +51,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_location',
     ),
@@ -104,7 +104,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '3',
+    'weight' => '1',
     'children' => array(
       0 => 'field_categories',
     ),
@@ -112,7 +112,7 @@ function community_group_content_type_field_group_info() {
     'format_settings' => array(
       'label' => 'Categories',
       'instance_settings' => array(
-        'classes' => 'grid_8  push_8 omega',
+        'classes' => 'grid_4',
         'description' => '',
         'effect' => 'none',
         'speed' => 'none',
@@ -163,7 +163,6 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = 'group_details';
   $field_group->data = array(
     'label' => 'Contact',
-    'description' => 'Contact',
     'weight' => '30',
     'children' => array(
       0 => 'field_contact',
@@ -301,7 +300,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_address',
       1 => 'field_city',
@@ -368,14 +367,14 @@ function community_group_content_type_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_demographic',
-      1 => 'field_external_id',
-      2 => 'field_import_flag_duplicate',
-      3 => 'field_import_flag_inactive',
-      4 => 'field_import_flag_inappropriate',
-      5 => 'field_import_flag_recommended',
-      6 => 'field_import_flag_watch',
-      7 => 'field_import_uuid',
-      8 => 'field_term_civic_taxonomy',
+      1 => 'field_term_civic_taxonomy',
+      2 => 'field_external_id',
+      3 => 'field_import_flag_watch',
+      4 => 'field_import_flag_recommended',
+      5 => 'field_import_flag_inactive',
+      6 => 'field_import_flag_duplicate',
+      7 => 'field_import_flag_inappropriate',
+      8 => 'field_import_uuid',
       9 => 'group_location',
     ),
     'format_type' => 'fieldset',

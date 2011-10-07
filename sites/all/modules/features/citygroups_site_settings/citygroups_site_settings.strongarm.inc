@@ -164,6 +164,9 @@ function citygroups_site_settings_strongarm() {
             'custom_settings' => FALSE,
           ),
           'search_index' => array(
+            'custom_settings' => TRUE,
+          ),
+          'token' => array(
             'custom_settings' => FALSE,
           ),
         ),
@@ -174,6 +177,12 @@ function citygroups_site_settings_strongarm() {
             ),
             'path' => array(
               'weight' => '4',
+            ),
+            'flag' => array(
+              'weight' => '1',
+            ),
+            'mollom' => array(
+              'weight' => '99',
             ),
           ),
           'display' => array(),
@@ -1149,14 +1158,14 @@ Your account on [site:name] has been canceled.
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_pictures';
-  $strongarm->value = '1';
+  $strongarm->value = 1;
   $export['user_pictures'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_register';
-  $strongarm->value = 2;
+  $strongarm->value = '1';
   $export['user_register'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -1172,6 +1181,48 @@ Your account on [site:name] has been canceled.
   $strongarm->name = 'uuid_generator';
   $strongarm->value = 'php';
   $export['uuid_generator'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_cache_clear';
+  $strongarm->value = '1';
+  $export['varnish_cache_clear'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_control_key';
+  $strongarm->value = '';
+  $export['varnish_control_key'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_control_terminal';
+  $strongarm->value = '127.0.0.1:6082';
+  $export['varnish_control_terminal'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_flush_cron';
+  $strongarm->value = '1';
+  $export['varnish_flush_cron'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_socket_timeout';
+  $strongarm->value = 100;
+  $export['varnish_socket_timeout'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'varnish_version';
+  $strongarm->value = '2.1';
+  $export['varnish_version'] = $strongarm;
 
   return $export;
 }

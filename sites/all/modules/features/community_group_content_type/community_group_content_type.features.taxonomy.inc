@@ -13,7 +13,7 @@ function community_group_content_type_taxonomy_default_vocabularies() {
       'name' => 'Activity Level',
       'machine_name' => 'activity_level',
       'description' => '',
-      'hierarchy' => '1',
+      'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(
@@ -220,7 +220,7 @@ function community_group_content_type_taxonomy_default_vocabularies() {
       'name' => 'Neighborhood',
       'machine_name' => 'neighborhood',
       'description' => '',
-      'hierarchy' => '1',
+      'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(

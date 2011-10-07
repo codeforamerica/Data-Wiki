@@ -35,6 +35,9 @@ function community_group_content_type_openlayers_maps() {
     ),
     'behaviors' => array(
       'openlayers_behavior_attribution' => array(),
+      'openlayers_behavior_fullscreen' => array(
+        'activated' => 0,
+      ),
       'openlayers_behavior_keyboarddefaults' => array(),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
@@ -44,8 +47,8 @@ function community_group_content_type_openlayers_maps() {
       'openlayers_behavior_scaleline' => array(),
       'openlayers_behavior_zoompanel' => array(),
       'openlayers_behavior_zoomtolayer' => array(
-        'zoomtolayer' => 'google_hybrid',
-        'point_zoom_level' => '5',
+        'zoomtolayer' => 'geofield_formatter',
+        'point_zoom_level' => '14',
       ),
     ),
     'default_layer' => 'google_hybrid',

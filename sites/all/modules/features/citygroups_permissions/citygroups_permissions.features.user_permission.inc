@@ -24,6 +24,7 @@ function citygroups_permissions_user_default_permissions() {
     'name' => 'access administration menu',
     'roles' => array(
       0 => 'administrator',
+      1 => 'preauthenticated',
     ),
     'module' => 'admin_menu',
   );
@@ -71,6 +72,7 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
       1 => 'anonymous user',
       2 => 'authenticated user',
+      3 => 'preauthenticated',
     ),
     'module' => 'comment',
   );
@@ -82,6 +84,7 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
       1 => 'anonymous user',
       2 => 'authenticated user',
+      3 => 'preauthenticated',
     ),
     'module' => 'node',
   );
@@ -101,26 +104,24 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'authenticated user',
+      2 => 'preauthenticated',
     ),
     'module' => 'dashboard',
   );
 
-  // Exported permission: access devel information
-  $permissions['access devel information'] = array(
-    'name' => 'access devel information',
+  // Exported permission: access mollom statistics
+  $permissions['access mollom statistics'] = array(
+    'name' => 'access mollom statistics',
     'roles' => array(
       0 => 'administrator',
     ),
-    'module' => 'devel',
+    'module' => 'mollom',
   );
 
   // Exported permission: access overlay
   $permissions['access overlay'] = array(
     'name' => 'access overlay',
-    'roles' => array(
-/*       0 => 'administrator', */
-    ),
-    'module' => 'overlay',
+    'roles' => array(),
   );
 
   // Exported permission: access site in maintenance mode
@@ -149,6 +150,7 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
       1 => 'anonymous user',
       2 => 'authenticated user',
+      3 => 'preauthenticated',
     ),
     'module' => 'contact',
   );
@@ -319,6 +321,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'menu',
   );
 
+  // Exported permission: administer mobile codes
+  $permissions['administer mobile codes'] = array(
+    'name' => 'administer mobile codes',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'mobile_codes',
+  );
+
   // Exported permission: administer modules
   $permissions['administer modules'] = array(
     'name' => 'administer modules',
@@ -328,6 +339,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: administer mollom
+  $permissions['administer mollom'] = array(
+    'name' => 'administer mollom',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'mollom',
+  );
+
   // Exported permission: administer nodes
   $permissions['administer nodes'] = array(
     'name' => 'administer nodes',
@@ -335,6 +355,12 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: administer openlayers
+  $permissions['administer openlayers'] = array(
+    'name' => 'administer openlayers',
+    'roles' => array(),
   );
 
   // Exported permission: administer pathauto
@@ -429,6 +455,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'uuid',
   );
 
+  // Exported permission: administer varnish
+  $permissions['administer varnish'] = array(
+    'name' => 'administer varnish',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'varnish',
+  );
+
   // Exported permission: administer views
   $permissions['administer views'] = array(
     'name' => 'administer views',
@@ -448,6 +483,15 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: bypass mollom protection
+  $permissions['bypass mollom protection'] = array(
+    'name' => 'bypass mollom protection',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'mollom',
+  );
+
   // Exported permission: bypass node access
   $permissions['bypass node access'] = array(
     'name' => 'bypass node access',
@@ -463,6 +507,7 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'authenticated user',
+      2 => 'preauthenticated',
     ),
     'module' => 'user',
   );
@@ -474,6 +519,26 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: clear community_group_feed_csv_reimport feeds
+  $permissions['clear community_group_feed_csv_reimport feeds'] = array(
+    'name' => 'clear community_group_feed_csv_reimport feeds',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'feeds',
+  );
+
+  // Exported permission: clear community_group_feed_csv_upload feeds
+  $permissions['clear community_group_feed_csv_upload feeds'] = array(
+    'name' => 'clear community_group_feed_csv_upload feeds',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+      2 => 'tester',
+    ),
+    'module' => 'feeds',
   );
 
   // Exported permission: clear feed_categories feeds
@@ -510,6 +575,7 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
       1 => 'anonymous user',
       2 => 'authenticated user',
+      3 => 'preauthenticated',
     ),
     'module' => 'node',
   );
@@ -539,6 +605,12 @@ function citygroups_permissions_user_default_permissions() {
       1 => 'moderator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: create project content
+  $permissions['create project content'] = array(
+    'name' => 'create project content',
+    'roles' => array(),
   );
 
   // Exported permission: create taxonomy_import content
@@ -595,6 +667,12 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: delete any project content
+  $permissions['delete any project content'] = array(
+    'name' => 'delete any project content',
+    'roles' => array(),
+  );
+
   // Exported permission: delete any taxonomy_import content
   $permissions['delete any taxonomy_import content'] = array(
     'name' => 'delete any taxonomy_import content',
@@ -618,6 +696,7 @@ function citygroups_permissions_user_default_permissions() {
     'name' => 'delete own community_group content',
     'roles' => array(
       0 => 'administrator',
+      1 => 'preauthenticated',
     ),
     'module' => 'node',
   );
@@ -645,6 +724,12 @@ function citygroups_permissions_user_default_permissions() {
       1 => 'moderator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: delete own project content
+  $permissions['delete own project content'] = array(
+    'name' => 'delete own project content',
+    'roles' => array(),
   );
 
   // Exported permission: delete own taxonomy_import content
@@ -710,6 +795,12 @@ function citygroups_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: edit any project content
+  $permissions['edit any project content'] = array(
+    'name' => 'edit any project content',
+    'roles' => array(),
+  );
+
   // Exported permission: edit any taxonomy_import content
   $permissions['edit any taxonomy_import content'] = array(
     'name' => 'edit any taxonomy_import content',
@@ -725,6 +816,7 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'authenticated user',
+      2 => 'preauthenticated',
     ),
     'module' => 'comment',
   );
@@ -735,6 +827,7 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'authenticated user',
+      2 => 'preauthenticated',
     ),
     'module' => 'node',
   );
@@ -764,6 +857,12 @@ function citygroups_permissions_user_default_permissions() {
       1 => 'moderator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: edit own project content
+  $permissions['edit own project content'] = array(
+    'name' => 'edit own project content',
+    'roles' => array(),
   );
 
   // Exported permission: edit own taxonomy_import content
@@ -889,6 +988,7 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
       1 => 'anonymous user',
       2 => 'authenticated user',
+      3 => 'preauthenticated',
     ),
     'module' => 'comment',
   );
@@ -918,6 +1018,7 @@ function citygroups_permissions_user_default_permissions() {
       0 => 'administrator',
       1 => 'anonymous user',
       2 => 'authenticated user',
+      3 => 'preauthenticated',
     ),
     'module' => 'search',
   );
@@ -995,6 +1096,7 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'authenticated user',
+      2 => 'preauthenticated',
     ),
     'module' => 'search',
   );
@@ -1052,6 +1154,7 @@ function citygroups_permissions_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'moderator',
+      2 => 'preauthenticated',
     ),
     'module' => 'node',
   );
