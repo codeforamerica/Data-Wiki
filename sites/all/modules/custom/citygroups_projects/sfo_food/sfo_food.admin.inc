@@ -22,14 +22,14 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
   $form['sfo_food_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name of Project'),
-    '#default_value' =>  variable_get('sfo_food_name', 'Block Watch Captain Directory'),
+    '#default_value' =>  variable_get('sfo_food_name', 'Bay Area Food System Groups Directory'),
     '#description' => 'Name of project.',
   );
   
   $form['sfo_food_slogan'] = array(
     '#type' => 'textarea',
     '#title' => t('Slogan'),
-    '#default_value' =>  variable_get('sfo_food_slogan', 'Find the nearest Block Watch Captain.'),
+    '#default_value' =>  variable_get('sfo_food_slogan', 'Find the nearest Food System Group.'),
     '#description' => 'Slogan.',
   ); 
 
@@ -37,7 +37,7 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('Tagline'),
     '#default_value' =>  variable_get('sfo_food_content_tagline', '
-<p>The Block Watch Captain Directory lists basic contact information for Block Watch Captains in Bay Area.</p>'),
+<p>The Bay Area Food System Groups Directory lists basic contact information for Food System Groups in Bay Area.</p>'),
     '#description' => 'Customize site tagline',
   );
 
@@ -45,8 +45,8 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('View Groups (homepage content)'),
     '#default_value' =>  variable_get('sfo_food_content_groups', '
-<h3>' . t('View Block Watch Captains') .'</h3>
-<p>Find a Block Watch Captain on the map.</p>'
+<h3>' . t('View Food System Groups') .'</h3>
+<p>Find a Food System Group on the map.</p>'
     ),
     '#description' => 'Prompt to check out groups in the directory',
   );
@@ -55,8 +55,8 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('Add New Group (homepage content)'),
     '#default_value' =>  variable_get('sfo_food_content_add_new_group', '
-<h3>' . t('Are you a Block Watch Captain?') . '</h3>
-<p>Help your neighbors and other Block Watch captains find you. <a href="/node/add/community-group">Add</a> your contact information and map your Block Watch community.</p>
+<h3>' . t('Are you a Food System Group?') . '</h3>
+<p>Help your neighbors and other Food System Groups find you. <a href="/node/add/community-group">Add</a> your contact information and map a food community.</p>
 <div class="button"><a href="/node/add/community-group">Add New</a></div>
     '),
     '#description' => 'Prompt to add new groups.',
@@ -67,10 +67,8 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#title' => t('News (homepage content)'),
     '#default_value' =>  variable_get('sfo_food_content_news', 
     '<h3>' . t('Mapping in West Bay Area.') . '</h3>
-<p>This fall we are reaching out to Block Watch Captains in West Bay Area to build a public map of Block Watch Groups.</p>
-<p>As you can see, there are only a handful of Block Watch Captains listed, and our goal is to develop a complete list and map, and eventually have a Captain on every block in West Bay Area.</p>
-<p>We are working with the <a href="http://genesee-schmitz.org">Genesee-Schmitz Neighborhood Council</a>, the <a href="http://wsfoodnet.wordpress.com/">West Bay Area Block Watch Captain’s Network</a> and the 
-<a href="http://www.Bay Area.gov/spd/">Bay Area Police Department</a> to reach out to Block Watch Captains in Bay Area and fill in this map.</p>
+    <p>We will change this text this weekend at the hackathon</p>
+    <p>This fall we are reaching out to Food System Groups in the Bay Area.</p>
 '),
     '#description' => 'News about this project',
   );
@@ -118,9 +116,8 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('About'),
     '#default_value' =>  variable_get('sfo_food_content_about', '
-<h3>What is a Block Watch Captain?</h3>
-<p>Block Watch is a national program that is based on the principle that neighbors working together are the first and best line of defense against crime. The Captain is also the logical person to organize the efforts to prepare for a disaster or emergency like a major earthquake.  Each household and every block needs to be prepared.</p>
-<p>Block Watch Captains take the lead among their neighbors by partnering with the Bay Area Police Department, the Department of Emergency Preparedness, and other city departments to alert them to suspicious activity,  to organize their block to prepare for and respond to an emergency, and create a better sense of community as neighbors help each other. Block parties, emergency kit building, street cleanups and other creative initiatives at the block or neighborhood level makes this work.</p>           
+<h3>What is a Food System Group?</h3>
+<pGroups that are working to improve access to local food & to improve the food system in general.</p>
     '),
     '#description' => 'About content',
   );
@@ -130,8 +127,7 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#title' => t('Participate'),
     '#default_value' =>  variable_get('sfo_food_content_about_participate', '
 <h3>Get on the map</h3>
-<p>The Bay Area Police Department estimates that there may be over 4,000 Block Watch Captains in various Block Watch Communities throughout Bay Area.</p>
-<p>If you want to help your neighborhood get on the map, contact XXXXX, a community of Block Watch Organizers & Emergency Preparedness community leaders who are working to make Bay Area safer by building community.</p>
+<p>Add your group!</p>
     '),
     '#description' => 'Participate',
   );
@@ -140,8 +136,8 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('Local'),
     '#default_value' =>  variable_get('sfo_food_content_about_local', '
-<h3>Block Watch Resources</h3>
-<p>Get connected to the Bay Area Police Department and other local crime prevention & emergency preparedness initiatives.</p>
+<h3>Food Group Resources</h3>
+<p>These are some of the main groups that coordinate food at a regional and city level.</p>
 <p><a href="/food/resources">See list of resources</a></p>
 <br />
 <h3>More Local community groups</h3>
@@ -156,10 +152,8 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#title' => t('Resources'),
     '#default_value' =>  variable_get('sfo_food_resources', '
 <ul>
-  <li><a href="">West Bay Area food Captains Network</a></li>
-  <li><a href="">Emergency Hubs</a></li>
-  <li><a href="">SNAP (Bay Area Neighborhoods Actively Prepare)</a></li>
-  <li><a href="">Bay Area Police Department, food</a></li>
+  <li><a href="">Link</a></li>
+
 </ul> 
 '),
     '#description' => 'Links and resources',
@@ -171,11 +165,8 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#default_value' =>  variable_get('sfo_food_related_groups', '
 <div class="related-categories">
 <ul class="categories">
-  <li><a href="categories/emergency-preparedness">Emergency Preparedness</a></li>
-  <li><a href="categories/national-night-out">National Night Out</a></li>
-  <li><a href="categories/crime-prevention">Crime Prevention</a></li>
-  <li><a href="categories/public-safety">Public Safety</a></li>
-  <li><a href="categories/block-party">Block Party</a></li>
+  <li><a href="categories/link">Link</a></li>
+
 </ul>
 </div>
 '),
@@ -185,7 +176,7 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
   $form['sfo_food_related_terms'] = array(
     '#type' => 'textarea',
     '#title' => t('Related Terms'),
-    '#default_value' =>  variable_get('sfo_food_related_terms', 'Block watch, Crime prevention, National Night Out, Emergency preparedness, Public safety, Block party'),
+    '#default_value' =>  variable_get('sfo_food_related_terms', 'Food, Urban Agriculture, Food System'),
     '#description' => 'Links to related groups',
   );
 
@@ -193,7 +184,7 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
   $form['sfo_food_term'] = array(
     '#type' => 'textfield',
     '#title' => t('Term'),
-    '#default_value' =>  variable_get('sfo_food_term', 'Block-Watch'),
+    '#default_value' =>  variable_get('sfo_food_term', 'Food'),
     '#description' => 'Term to filter content',
   );
 
@@ -201,9 +192,9 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('Flyer Text'),
     '#default_value' =>  variable_get('sfo_food_flyer', '
-<h3>Help Map Block Watches in Bay Area</h3>
-<p>Know a Block Watch Captain in Bay Area?</p>
-<a href="http://Bay Area.citygroups.org/food">http://Bay Area.citygroups.org/food</a>
+<h3>Help Map Food Groups in Bay Area</h3>
+<p>Know a Food System Group in Bay Area?</p>
+<a href="http://bayarea.citygroups.org/food">http://bayarea.citygroups.org/food</a>
 <p>Contact: Name Lastname, phone.</p>
     '),
     '#description' => 'Text to be used in flyers',
@@ -213,7 +204,7 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#type' => 'textarea',
     '#title' => t('Email Text'),
     '#default_value' =>  variable_get('sfo_food_email', '
-Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Directory. <a href="http://Bay Area.citygroups.org/food">http://Bay Area.citygroups.org/food</a>
+Know a Food System Group? Ask them to get listed in the Bay Area Food System Groups Directory. <a href="http://bayarea.citygroups.org/food">http://bayarea.citygroups.org/food</a>
     '),
     '#description' => 'Text to be used in emails',
   );
@@ -222,7 +213,7 @@ Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Di
     '#type' => 'textarea',
     '#title' => t('Tweet Text'),
     '#default_value' =>  variable_get('sfo_food_tweet', '
-Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Directory. http://Bay Area.citygroups.org/food
+Know a Food System Group? Ask them to get listed in the Bay Area Food System Groups Directory. http://bayarea.citygroups.org/food
     '),
     '#description' => 'Text to be used in tweets',
   );
@@ -231,7 +222,7 @@ Know a Block Watch Captain? Ask them to get listed in the Block Watch Captain Di
     '#type' => 'textarea',
     '#title' => t('Facebook Text'),
     '#default_value' =>  variable_get('sfo_food_facebook', '
-Share the Block Watch Captain Directory on Facebook.
+Share the Bay Area Food System Groups Directory on Facebook.
     '),
     '#description' => 'Text to be used in facebook share links',
   );
@@ -240,10 +231,10 @@ Share the Block Watch Captain Directory on Facebook.
     '#type' => 'textarea',
     '#title' => t('QR Code path'),
     '#default_value' =>  variable_get('sfo_food_qrcode', '
-Bay Area Block Watch Captain Directory
-The Block Watch Captain Directory lists basic contact information for Block Watch Captains in Bay Area.
+Bay Area Bay Area Food System Groups Directory
+The Bay Area Food System Groups Directory lists basic contact information for Food System Groups in Bay Area.
 
-http://Bay Area.citygroups.org/food
+http://bayarea.citygroups.org/food
 '),
     '#description' => 'QR Code message: Message URL',
   );

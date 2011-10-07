@@ -11,14 +11,14 @@ function sfo_food_context_menu_default_menu_custom() {
   $menus = array();
 
   // Exported menu: menu-Block-Watch-menu
-  $menus['menu-Block-Watch-menu'] = array(
-    'menu_name' => 'menu-Block-Watch-menu',
-    'title' => 'Block Watch Menu',
+  $menus['menu-food-menu'] = array(
+    'menu_name' => 'menu-food-menu',
+    'title' => 'Food Menu',
     'description' => '',
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Block Watch Menu');
+  t('Food Menu');
 
 
   return $menus;

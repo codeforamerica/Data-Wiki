@@ -24,11 +24,11 @@ $content['sfo_food_about'] = (object)array(
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>About Block Watch Captain Directory</p>
+        'value' => '<p>About Bay Area Food System Groups Directory</p>
 ',
         'summary' => '',
         'format' => 'filtered_html',
-        'safe_value' => '<p>About Block Watch Captain Directory</p>
+        'safe_value' => '<p>About Bay Area Food System Groups Directory</p>
 ',
         'safe_summary' => '',
       ),
@@ -37,7 +37,7 @@ $content['sfo_food_about'] = (object)array(
 );
 $content['sfo_food_api'] = (object)array(
   'exported_path' => 'food/api',
-  'title' => 'Block Watch Captain Directory API',
+  'title' => 'Bay Area Food System Groups Directory API',
   'status' => '1',
   'promote' => '0',
   'sticky' => '0',
@@ -50,11 +50,11 @@ $content['sfo_food_api'] = (object)array(
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>Block Watch Captain Directory API</p>
+        'value' => '<p>Bay Area Food System Groups Directory API</p>
 ',
         'summary' => '',
         'format' => 'filtered_html',
-        'safe_value' => '<p>Block Watch Captain Directory API</p>
+        'safe_value' => '<p>Bay Area Food System Groups Directory API</p>
 ',
         'safe_summary' => '',
       ),
@@ -76,11 +76,11 @@ $content['sfo_food_get_involved'] = (object)array(
   'body' => array(
     'und' => array(
       0 => array(
-        'value' => '<p>Get involved with Block Watch Captain Directory.</p>
+        'value' => '<p>Get involved with Bay Area Food System Groups Directory.</p>
 ',
         'summary' => '',
         'format' => 'filtered_html',
-        'safe_value' => '<p>Get involved with Block Watch Captain Directory.</p>
+        'safe_value' => '<p>Get involved with Bay Area Food System Groups Directory.</p>
 ',
         'safe_summary' => '',
       ),

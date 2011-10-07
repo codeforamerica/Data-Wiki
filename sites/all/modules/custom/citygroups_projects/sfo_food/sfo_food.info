@@ -6,3 +6,4 @@ package = citygroups
 files[] = sfo_food.module
 
 dependencies[] = citygroups_group_map
+dependencies[] = sfo_food_context

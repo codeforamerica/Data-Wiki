@@ -48,7 +48,7 @@ function sfo_food_block_view($delta = '') {
 function sfo_food_contents($type) {
   $output = '';
   $add_variables = '?section=food&destination=food';
-  // $add_variables = "?category=Block Watch, Crime Prevention&title=Add a Block Watch Captain&instructions=List Block Watch Captain or Block Watch Group.&map_instructions=Where is this Block Watch?";
+  // $add_variables = "?category=Block Watch, Crime Prevention&title=Add a Food System Group&instructions=List Food System Group or Block Watch Group.&map_instructions=Where is this Block Watch?";
     
   switch ($type) {
     case 'welcome':

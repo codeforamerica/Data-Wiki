@@ -238,7 +238,7 @@ function sfo_food_preprocess_page(&$vars) {
     case 'About':
     case 'Get Involved':
     case 'Contact':  // @TODO Contact not working right.
-    case 'Block Watch Captain Directory API':
+    case 'Bay Area Food System Groups Directory API':
       sfo_food_page_variables($vars);
       break;  
   }  
@@ -341,10 +341,10 @@ function sfo_food_community_group_form_overrides(&$form, &$form_values) {
         </ul>
         ',
       'privacy' => '       
-        <p>The Block Watch Captain Directory is a public directory and map of Block Watches in Bay Area.</p>
+        <p>The Bay Area Food System Groups Directory is a public directory and map of Block Watches in Bay Area.</p>
         <p>You should use the same caution and Internet safety as you would use on other website. </p>
         <p>The information you enter is part of an initiative to make local community groups easier to find. As such, the information that appears when logged out is available to others as part of an up-to-date directory of community information. Everyone can see it, your neighbors and the Bay Area Police Department.</p>
-        <p>This is sometimes a concern for Block Watch Captains, due to the sensitive nature of their work.</p>
+        <p>This is sometimes a concern for Food System Groups, due to the sensitive nature of their work.</p>
         <p>To be listed, but still somewhat anonymous, we suggest the following:</p>
         <ul>
         <li>Anonymize your identity by not providing your name</li>
@@ -373,7 +373,7 @@ function sfo_food_community_group_form_overrides(&$form, &$form_values) {
   $form['title']['#title'] = t("Name of Food Group.");
 /*
   $form['title']['#suffix'] = '<div class="description"><div class="prompt">(Required)</div>
-    <div class="explanation">What is the name of the Block Watch Captain or Community?</div>
+    <div class="explanation">What is the name of the Food System Group or Community?</div>
     <div class="instruction">Enter the name as it should appear publicly on the Internet.</div>
     <div class="example">8700 Block Watch</div>
     </div>
@@ -533,7 +533,7 @@ function sfo_food_settings() {
   $settings['javascript_settings'] = array();
   $settings['javascript_settings']['customMapDataPath'] = 'data/community-group/map/' . $section_term;
   $settings['javascript_settings']['mapColors'] = array();
-  $settings['javascript_settings']['mapColors']['color'] = "#2796F2";
+  $settings['javascript_settings']['mapColors']['color'] = "#6EA038";
   $settings['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";
   $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
   $settings['javascript_settings']['mapColors']['weight'] = 1;
