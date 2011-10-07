@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Bay Area Food System Groups Context feature.
+ */
+
+include_once('sfo_food_context.features.inc');

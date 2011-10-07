@@ -1,0 +1,8 @@
+name = Bay Area Food System Groups
+description = "Groups working to improve the food system in the Bay Area."
+core = 7.x
+package = citygroups
+
+files[] = sfo_food.module
+
+dependencies[] = citygroups_group_map

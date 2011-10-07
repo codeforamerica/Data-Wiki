@@ -1,0 +1,552 @@
+<?php
+
+/**
+ * @file
+ * Custom module that renders and caches a json+leaflet map.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function sfo_food_help($path, $arg) {
+  switch ($path) {
+    case 'sfo_food':
+      $explanation = t(
+        'Custom features for Bay Area Food System Groups Directory.');
+      return "<p>$explanation</p>";
+  }
+}
+
+/**
+ * Menu items for food.
+ * 
+ * These are connected to the main menus, but the content & forms 
+ * are overwritten.
+ */
+function sfo_food_menu() {
+
+  $items['admin/config/citygroups/sfo_food'] = array(
+    'title' => 'CityGroups Bay Area Food System Groups Directory Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sfo_food_configure_edit_form'),
+    'access arguments' => array('administer users'),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+    'file' => 'sfo_food.admin.inc',
+  );
+  
+  $items['food'] = array(
+    'title' =>  variable_get('sfo_food_name', ' Bay Area Food System Groups Directory'),
+    'page callback' => 'sfo_food_home_render',
+    'page arguments' => array(t('Food Home Page')),
+    'access callback' => TRUE,
+  );
+  $items['food/map'] = array(
+    'title' => 'Map',
+    'page callback' => 'sfo_food_map_render',
+    'page arguments' => array(t('Food Map Page')),
+    'access callback' => TRUE,
+  );
+  $items['food/list'] = array(
+    'title' => 'List',
+    'page callback' => 'sfo_food_list_render',
+    'page arguments' => array(t('Food List Page')),
+    'access callback' => TRUE,
+  );
+  $items['food/categories'] = array(
+    'title' => 'Topics',
+    'page callback' => 'sfo_food_categories_render',
+    'page arguments' => array(t('Food Categories Page')),
+    'access callback' => TRUE,
+  );
+  $items['food/about'] = array(
+    'title' => 'About',
+    'page callback' => 'sfo_food_about_render',
+    'page arguments' => array(t('Food About Page')),
+    'access callback' => TRUE,
+  );
+
+  $items['food/resources'] = array(
+    'title' => 'Resources',
+    'page callback' => 'sfo_food_resources_render',
+    'page arguments' => array(t('Food Resources')),
+    'access callback' => TRUE,
+  );
+
+  $items['food/share'] = array(
+    'title' => 'Share',
+    'page callback' => 'sfo_food_share_render',
+    'page arguments' => array(t('Food Share')),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Render custom page for food.
+ */
+function sfo_food_home_render() {
+  $output = "";
+  return $output;
+}
+
+/**
+ * Render custom page for food.
+ */
+function sfo_food_map_render() {
+  $output = sfo_food_map_render_output();
+  return $output;
+}
+/**
+ * Render custom page for food.
+ */
+function sfo_food_list_render() {
+  $view = views_get_view('community_groups_list');
+  //dpm($view);
+  $args = array('Food');
+  $view->override_path = 'food/list';
+  //$output = views_build_view('default', $view, $args);
+  $output = '<h4>Food System Groups</h4>';
+  $output .=  $view->execute_display('default', $args);
+  return $output;
+}
+/**
+ * Render custom page for food.
+ */
+function sfo_food_categories_render() {
+  //@TODO This is where we would load related terms for civic taxonomy web service.
+  $output = '<div class="related-categories">';
+  $output .= variable_get('sfo_food_related_groups');
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Render custom page for food.
+ */
+function sfo_food_about_render() {
+  $output = '
+  ';
+  return $output;
+}
+
+/**
+ * Render custom page for food.
+ */
+function sfo_food_resources_render() {
+  $output = variable_get('sfo_food_resources');
+  return $output;
+}
+
+
+/**
+ * Render custom page for food.
+ */
+function sfo_food_share_render() {
+  $output = '
+<h2>Spread the word about the Bay Area Food System Groups Directory</h2>
+<p>We want to make it easy to get better information about groups working to improve the local food system.</p>
+
+<div class="section">
+<h3>Tweet</h3>' .
+variable_get('sfo_food_tweet')
+. '
+<br />
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="' 
+. variable_get('sfo_food_tweet') .
+'" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+
+</div>
+
+<div class="section">
+<h3>Facebook</h3>' .
+variable_get('sfo_food_facebook')
+. '
+<br />
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=249561838420518&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, \'script\', \'facebook-jssdk\'));</script>
+
+<div class="fb-like" data-href="http://bayarea.citygroups.org/food" data-send="true" data-width="450" data-show-faces="true"></div>
+
+</div>
+
+<div class="section">
+<h3>Email</h3>' .
+variable_get('sfo_food_email')
+. '</div>
+
+<div class="section">
+<h3>Flyer</h3>' .
+variable_get('sfo_food_flyer')
+. '</div>
+
+<div class="section">'
+. citygroups_qrcode(variable_get('sfo_food_qrcode'), 'medium', variable_get('sfo_food_name')) . 
+'</div>
+  
+  ';
+  
+  return $output;
+}
+
+
+/**
+ * Create variables for theme.
+ */
+function sfo_food_preprocess_page(&$vars) {
+  $vars['page_path'] = isset($_GET['q']) ? $_GET['q'] : '<front>';
+  // Load custom page variables.
+  // This has some ties into the main theme.
+  switch ($vars['page_path']) {
+    case 'food/about':
+    case 'food/categories':
+    case 'food/list':
+    case 'food/list/Food':
+    case 'food/resources':
+    case 'food/share':
+      sfo_food_page_variables($vars);
+      break;
+    case 'food/add':   
+    case 'node/add/community-group':
+      if(!empty($_GET['section'])) {
+        $section = $_GET['section'];
+        $_GET['section'];
+        if($section == 'food') {
+          sfo_food_page_variables($vars);
+          $vars['title'] = t('Add Food System Group');
+        }
+      }
+      break;
+    case 'food':
+    case 'food/map': 
+      sfo_food_page_variables($vars);
+      citygroups_group_map_page_variables($vars);
+    break;
+  }
+  // Because of the way nodes are saved, the node title is the only
+  // data that would remain generally consistent between sites.
+  // though you will have to reference the titles yourself if you change them.
+
+/*
+  switch ($vars['node']->title) {
+    case 'About':
+    case 'Get Involved':
+    case 'Contact':  // @TODO Contact not working right.
+    case 'Block Watch Captain Directory API':
+      sfo_food_page_variables($vars);
+      break;  
+  }  
+*/
+}
+
+function sfo_food_map_render_output() {
+  $output =
+  '<div id="search-map" class="form-input">
+  <input placeholder="Enter your address or zipcode here." class="form-item" />
+  <input type="image" src="' . base_path() . path_to_theme() . '/images/search_button_large.png" id="search-links-submit" class="search_btn" value="Search" alt="Search">
+  </div>
+  <div class="clear"></div>
+  ';
+
+  $output .= '  
+  <div>
+    <div id="map" style="width: 600px; height: 400px"><div class="loading">Loading Map</div></div>
+    <div id="data"></div>
+  </div>
+
+  <div id="popup-content" class="block">
+      <div class="content">Click map to see where the groups are</div>
+  </div>';
+  return $output;
+}
+
+/**
+ * Alter the community group form (a content type.)
+ */
+ 
+ 
+ 
+function sfo_food_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'community_group_node_form') {
+    // Get the section and use that to adjust the form display.
+    global $section;
+    if(!empty($_GET['section'])) {
+      $section = $_GET['section'];
+      if($section == 'food') {
+      
+        // Override form elements, by section.  
+        
+        // Customize prefix.
+        community_group_form_prefix_elements(&$form, &$form_values);
+      
+        // Customize prepare.
+        community_group_form_prepare_elements(&$form, &$form_values);
+      
+        // Customize privacy.
+        community_group_form_privacy_elements(&$form, &$form_values);
+      
+        // Customize contact.
+        community_group_form_contact_elements(&$form, &$form_values);
+      
+        // Customize contact.
+        community_group_form_email_elements(&$form, &$form_values);
+        
+        // Customize details.
+        community_group_form_contact_elements(&$form, &$form_values);
+        
+        // Customize categories.
+        community_group_form_categories_elements(&$form, &$form_values);
+      
+        // Customize map.
+        community_group_form_map_elements(&$form, &$form_values);
+        
+        // Customize Location.
+        community_group_form_location_elements(&$form, &$form_values);
+    
+        // Special overrides, just for this module.
+        sfo_food_community_group_form_overrides(&$form, &$form_values) ;         
+        $access = user_access('administer nodes');
+        if(!$access) {
+          $form['additional_settings']['#access'] = FALSE;
+        }
+    
+        // Add a special submit handler.
+        $form['#submit'][] = 'community_group_form_form_submit';
+      }
+    }
+  }
+}
+ 
+function sfo_food_community_group_form_overrides(&$form, &$form_values) {
+
+   // Section overrides.
+  $add_variables_array = array(
+    'category' => 'Food, Urban Agriculture, Food System',
+    'title' => 'Add & Map a Food Group',
+    'instructions' => 'Add & Map a Food Group',
+    'map_instructions' => 'Map',
+/*
+    'prepare' => '
+        <p>Thanks for taking the time to share information about a Block Watch Community in Bay Area.</p>
+        <p>Before you begin, you might want to have this information on hand.</p>
+        <ul>
+        <li>Name of your Block Watch Community (ex. 8500 Block Dead End Crew, or 900 Block Admiral Way)</li>
+        <li>Public email address (if you have one. If you meet in the street, that is also OK)</li>
+        </ul>
+        ',
+      'privacy' => '       
+        <p>The Block Watch Captain Directory is a public directory and map of Block Watches in Bay Area.</p>
+        <p>You should use the same caution and Internet safety as you would use on other website. </p>
+        <p>The information you enter is part of an initiative to make local community groups easier to find. As such, the information that appears when logged out is available to others as part of an up-to-date directory of community information. Everyone can see it, your neighbors and the Bay Area Police Department.</p>
+        <p>This is sometimes a concern for Block Watch Captains, due to the sensitive nature of their work.</p>
+        <p>To be listed, but still somewhat anonymous, we suggest the following:</p>
+        <ul>
+        <li>Anonymize your identity by not providing your name</li>
+        <li>Use a dedicated email account, and/or a dedicated phone line.</li>
+        </ul>',
+*/
+  );
+  
+  $form['#prefix'] = '<div class="instructions grid_10 alpha omega">';
+  $form['#prefix'] .= '<h2>' .t($add_variables_array['title']) . '</h2>';
+  //$form['#prefix'] .= t($add_variables_array['instructions']);
+  $form['#prefix'] .= '<p>' .t("UPDATE: We are testing this feature this week - 10/8/2011") . '</p>';
+  $form['#prefix'] .= '</div><div class="clear"></div>';
+
+
+  if(!empty($add_variables_array['prepare'])) {
+    $form['field_prepare']['und']['#title'] = "Ok, I'm ready. Next step.";
+    $form['field_prepare']['und']["#description"] = $add_variables_array['prepare'];
+  }
+
+  if(!empty($add_variables_array['privacy'])) {
+    $form['field_privacy']['und']['#title'] = "Ok, I understand. Let's Start.";
+    $form['field_privacy']['und']["#description"] = $add_variables_array['privacy'];
+  }
+
+  $form['title']['#title'] = t("Name of Food Group.");
+/*
+  $form['title']['#suffix'] = '<div class="description"><div class="prompt">(Required)</div>
+    <div class="explanation">What is the name of the Block Watch Captain or Community?</div>
+    <div class="instruction">Enter the name as it should appear publicly on the Internet.</div>
+    <div class="example">8700 Block Watch</div>
+    </div>
+    ';
+*/
+  $form['field_url']['und'][0]['#title'] = t("URL");
+/*
+  $form['field_url']['und'][0]['#description'] ='<div class="prompt">(Optional)</div>
+    <div class="explanation">Is there a link to a webpage for this Block Watch Community? (It\'s OK if you don\'t have one)</div>
+    <div class="instruction">Enter the URL.</div>
+    <div class="example">http://yahoogroups.com/8700-Block-Watch</div>
+        ';
+*/
+        
+  $form['field_email']['und']['#title'] = t("Group Email Address");
+/*
+  $form['field_email']['und']['#description'] = '<div class="prompt">(Optional)</div>
+    <div class="explanation">You can use a dedicated email for your group.'
+    /*           ' When we launch the tool, the owner of this email address will receive and email asking them if they would like thei email address to be public or if they should be contacted through a web form.'  */
+    . '</div>
+    <div class="instruction">Email the address for the group.</div>
+    <div class="example">8700-food@yahoogroups.com</div>
+    ';
+*/
+  $form['field_email']['und'][0]['#suffix'] = '<div class="verify">COMING SOON: VERIFY THIS EMAIL ADDRESS</div>';
+  $form['field_contact']['und'][0]['value']['#title'] = t("Contact Information");
+  $form['field_contact']['und'][0]['value']['#type'] = 'textarea';
+/*
+  $form['field_contact']['und'][0]['value']['#description'] = '<div class="prompt">(Optional)</div>
+    <div class="explanation">If your group meets in the street, you can describe the best way to find each other. (Remember, this will be visible on the Internet.)</div>
+    <div class="instruction">Enter the contact information for this group.</div>
+    <div class="example">Just join our Yahoo group to find us.</div>
+    ';
+*/
+  $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
+/*
+  $form['field_url_calendar']['und'][0]['#description'] = '<div class="prompt">(Optional)</div>
+    <div class="explanation">If you have a link to an event calendar, you may add it (Most Block Watch Communities do not have an event calendar.)</div>
+    <div class="instruction">Enter the URL that points to the Calendar.</div>
+    <div class="example">http://yahoogroups.com/calendar/8700-Block-Watch</div>
+    ';
+*/
+
+
+        
+/*
+  if(!empty($add_variables_array['category'])) {
+    $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
+    $form['field_categories']['und']['#description'] = 
+      '<div class="prompt">(Recommended)</div><p>Provide some categories for the Block Watch Community.<br />
+      Here are some suggestions:</p><div class="terms">' .
+      variable_get('sfo_food_related_terms', 'Block watch, Crime prevention, National Night Out, Emergency preparedness, Public safety, Block party') . '</div>';
+  }
+*/
+/*
+        
+  // Alter the Audience Size taxonomy to display as households (rough number estimates, not meant to be exact)
+  $form['field_audience_size']['und']['#title'] = "Number of households";
+  $form['field_audience_size']['und']['#description'] = '<div class="prompt">(Optional)</div>Approximately how many households participate in this Block Watch Group?';
+  
+  $form['field_audience_size']['und']['#default_value'] = 794; // 50-100 People
+  $form['field_audience_size']['und']['#options']['790'] = 'A few households';
+  $form['field_audience_size']['und']['#options']['792'] = '5-10 households';
+  $form['field_audience_size']['und']['#options']['793'] = '10-25 households';
+  $form['field_audience_size']['und']['#options']['794'] = '25-50 Households';
+  $form['field_audience_size']['und']['#options']['795'] = '50 or more households';
+
+  unset($form['field_audience_size']['und']['#options']['796']);   
+  unset($form['field_audience_size']['und']['#options']['797']);   
+  unset($form['field_audience_size']['und']['#options']['798']);   
+  unset($form['field_audience_size']['und']['#options']['799']);   
+        
+        
+  $form['field_type_group']['und']['#default_value'] = 542; // E-mail list
+  // Unset values that are our of the normal range of this data collection project.
+  unset($form['field_audience_size']['und']['#options']['107']);    
+  unset($form['field_audience_size']['und']['#options']['627']);
+  unset($form['field_audience_size']['und']['#options']['118']);
+  unset($form['field_audience_size']['und']['#options']['122']);
+  unset($form['field_audience_size']['und']['#options']['126']);
+  unset($form['field_audience_size']['und']['#options']['133']);
+   
+  // Set default to occasionally.
+  $form['field_activity']['und']['#default_value'] = 339;
+
+  // Set default to community.
+  $form['field_ownership']['und']['#default_value'] = 536;
+*/
+
+  if(!empty($add_variables_array['map_instructions'])) {
+    $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
+  }
+}
+
+/** 
+ * Generate settings and return them to the theme.
+ */
+/** 
+ * Generate settings and return them to the theme.
+ */
+function sfo_food_page_variables(&$vars) {
+  if(empty($vars['section'])) {
+    $settings = sfo_food_settings($vars);
+  }
+  else {
+    $settings = $vars['section'];
+  }
+
+  // Custom object of special settings to be integrated with the main theme.
+  $vars['section'] = array();
+  $vars['section']['html_root'] = drupal_get_path('module', 'citygroups_group_map');
+  $vars['section']['html_root_custom'] = drupal_get_path('module', 'sfo_food');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sfo_food.)
+  $vars['section']['page_title'] = t('Map');
+  $vars['section']['section_name'] = "Bay Area Food System Group Directory";
+  $vars['section']['place'] = "Bay Area";
+  $vars['section']['theme'] = "citygroups_food";
+  $vars['section']['term'] = "Food";
+  $vars['section']['javascript_settings'] = $settings['javascript_settings'];
+
+  // Add javascript.
+
+  // Add Google API (uses openlayers API key)
+  // @TODO require openlayers.
+  drupal_add_js(
+      'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+      variable_get('openlayers_layers_google_api', 
+        variable_get('googlemap_api_key', '')
+      ), 'external');
+
+  // Pass javascript settings into container variable.
+  $citygroups_js_settings = array();
+  $citygroups_js_settings['citygroups'] = $settings['javascript_settings'];
+  drupal_add_js($citygroups_js_settings, 'setting');
+  
+  // Add special stylesheet.
+  drupal_add_css(drupal_get_path('module', 'sfo_food') . '/css/sfo_food.css', array('group' => CSS_THEME));
+}
+
+/**
+ * Generate settings that will be used in javascript.
+ * Can be overriden in submodules.
+ */
+function sfo_food_settings() {
+  global $section;
+  $section = 'food';
+  $section_term = 'Food';
+  $settings = array();
+  $settings['html_root'] = drupal_get_path('module', 'citygroups_group_map');
+  $settings['html_root_custom'] = drupal_get_path('module', 'sfo_food');
+  // Get current theme
+  // Set these settings in the theme or the submodule (ex. sfo_food.)
+  // Set the theme.  
+  $settings['theme'] = "citygroups_base";
+  $settings['term'] = $section_term;
+  $settings['javascript_settings'] = array();
+  $settings['javascript_settings']['customMapDataPath'] = 'data/community-group/map/' . $section_term;
+  $settings['javascript_settings']['mapColors'] = array();
+  $settings['javascript_settings']['mapColors']['color'] = "#2796F2";
+  $settings['javascript_settings']['mapColors']['fillColor'] = "#FFFFFF";
+  $settings['javascript_settings']['mapColors']['fillOpacity'] = 0.5;
+  $settings['javascript_settings']['mapColors']['weight'] = 1;
+  $settings['javascript_settings']['mapColors']['opacity'] = 1;
+  $settings['javascript_settings']['mapMarkerIconUrl'] =  "/" . $settings['html_root_custom'] . "/images/map-marker.png";
+  $settings['javascript_settings']['mapMarkerIconShadowUrl'] =  "";
+  $settings['javascript_settings']['mapMarkerIconPointSize'] = array(30,30);
+  $settings['javascript_settings']['mapMarkerIconShadowSize'] = array(30,30);
+  $settings['javascript_settings']['mapMarkerIconAnchor'] = array(15,15);
+  $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(15,15);
+  $settings['javascript_settings']['legendLabelMarker'] = t('Food Group');
+  $settings['javascript_settings']['legendLabelData'] = t('Food System Working Group');
+  return $settings;
+}
+
+include('sfo_food.blocks.inc.php');

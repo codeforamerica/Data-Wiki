@@ -1,0 +1,19 @@
+#header {
+  background-color: #204496;
+}
+
+
+#postscript-area {
+  background-color: #204496;
+}
+
+#content-container .section {
+  padding: 40px;
+  background: #DDD;
+  height: 100%;
+  margin: 10px 0 40px 0;
+}
+
+#content-container .button a {
+  background-color: #204496;
+}
