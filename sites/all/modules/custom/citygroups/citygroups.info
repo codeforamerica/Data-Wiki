@@ -122,10 +122,6 @@ dependencies[] = qr_codes
 ; City Configuration
 dependencies[] = citygroups_city
 
-; For development
-dependencies[] = sea_blockwatch
-dependencies[] = sea_blockwatch_context
-
 dependencies[] = taxonomy_cleanup
 dependencies[] = citygroups_vocabularies
 
