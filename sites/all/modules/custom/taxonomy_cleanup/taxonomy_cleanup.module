@@ -308,7 +308,19 @@ function taxonomy_cleanup_capitalize_settings_form_submit($form, $form_state) {
   else {
     $term = taxonomy_get_term_by_name($form_state['values']['capitalize_term']);
     $term = array_values($term);
-    $term[0]->name = ucfirst($term[0]->name);  
+    
+    $exclude_lowercase = array( 'of','a','the','and','an','or','nor','but','is','if','then','else','when', 'at','from','by','on','off','for','in','out','over','to','into','with' );;
+    $words = explode(' ', $term[0]->name);
+    foreach ($words as $key => $word) { 
+      if (!$key or !in_array($word, $smallwordsarray)) {
+        $words[$key] = ucwords($word); 
+      }
+
+      $new_words = implode(' ', $words);
+      $term[0]->name = ucwords($new_words);  
+    }
+    
+    //$term[0]->name = ucwords($term[0]->name);  
     taxonomy_term_save($term[0]);
     drupal_set_message($term[0]->name . " capitalized.");
   }
