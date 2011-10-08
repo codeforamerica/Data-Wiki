@@ -456,6 +456,40 @@ function community_group_content_type_field_group_info() {
 
   $field_group = new stdClass;
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_popup|node|community_group|search_result';
+  $field_group->group_name = 'group_popup';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'community_group';
+  $field_group->mode = 'search_result';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => '',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_description',
+      1 => 'field_ownership',
+      2 => 'field_type_group',
+      3 => 'field_input',
+      4 => 'field_output',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => 'Click for full information and map.
+<br />
+If information is missing, you can update the record yourself.',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'collapsible',
+    ),
+  );
+  $export['group_popup|node|community_group|search_result'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_prepare|node|community_group|form';
   $field_group->group_name = 'group_prepare';
   $field_group->entity_type = 'node';
