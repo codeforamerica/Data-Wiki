@@ -116,7 +116,8 @@ function sea_blockwatch_list_render() {
 function sea_blockwatch_categories_render() {
   //@TODO This is where we would load related terms for civic taxonomy web service.
   $output = '<div class="related-categories">';
-  $output .= variable_get('sea_blockwatch_related_groups');
+/*   $output .= variable_get('sea_blockwatch_related_groups'); */
+  $output .= sea_blockwatch_related_categories();
   $output .= '</div>';
   return $output;
 }
@@ -539,3 +540,47 @@ function sea_blockwatch_settings() {
 }
 
 include('sea_blockwatch.blocks.inc.php');
+
+function sea_blockwatch_related_categories() {
+  $term = array_values(taxonomy_get_term_by_name("Block Watch"));
+  // Look up all content with tag food.
+  $related_terms = array();
+  $nodes =  taxonomy_select_nodes($term[0]->tid, FALSE);
+  $i = 0;
+
+  // @TODO Set Cache & timeout?
+  $output = '';
+  
+  foreach($nodes as $nid) {
+
+    $node = node_load($nid);
+    $items = field_get_items('node', $node, 'field_categories');
+
+    
+
+    // Add each unique term to the list of related terms
+    foreach($items as $item) {
+      if(!isset($related_terms[$item['tid']])) {
+        $related_terms[$item['tid']] = 1;
+      }
+      // Otherwise bump the item up higher in the array.
+      else {
+        $related_terms[$item['tid']]++;
+      }
+    }
+  $i++;
+  }
+  
+  
+  
+  // Reorder list by term count.
+  arsort($related_terms);
+
+
+  foreach($related_terms as $item => $count) {     
+    $related_term = taxonomy_term_load($item);
+    $output .= '<p>' . l($related_term->name, 'term/' . $item['tid']) . ' (' . $count . ')</p>';
+  }
+  // build array of other tags for content.
+  return $output;
+}
