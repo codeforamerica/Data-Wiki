@@ -202,118 +202,53 @@ function citygroups_vocabulary_build_vocabulary_categories(&$vocabulary) {
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
 
-function citygroups_vocabulary_build_vocabulary_neighborhood(&$vocabulary) {
-  $vocabulary_name = 'neighborhood';
-  $terms = array(
-/*     'Neighborhood', */
-  );
-  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
-}
 
-function citygroups_vocabulary_build_vocabulary_zipcode(&$vocabulary) {
-  $vocabulary_name = 'zipcode';
+function citygroups_vocabulary_build_vocabulary_ownership(&$vocabulary) {
+  $vocabulary_name = 'ownership';
   $terms = array(
-/*     'Term', */
-  );
-  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
-}
-
-function citygroups_vocabulary_build_vocabulary_state(&$vocabulary) {
-  $vocabulary_name = 'state';
-  $terms = array(
-    'WA',
-  );
-  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
-}
-
-
-function citygroups_vocabulary_build_vocabulary_county(&$vocabulary) {
-  $vocabulary_name = 'county';
-  $terms = array(
-    'King County',
-  );
-  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
-}
-
-function citygroups_vocabulary_build_vocabulary_demographics(&$vocabulary) {
-  // This is a list of terms output from various systems.
-  // Should provide list of cultural & personal statuses.
-  // The idea is to have a big list of everything necessary for your city.
-  
-  $vocabulary_name = 'categories';
-  
-  $terms = array(
-    'African',
-    'African American',
-    'Arab',
-    'Asian',
-    'Asian Pacific Islander',
-    'Cambodian',
-    'Caucasian',
-    'Chinese',
-    'East African',
-    'Eastern European',
-    'Eritrean',
-    'Ethiopian',
-    'Filipino',
-    'First Nations',
-    'Hmong',
-    'Interracial',
-    'Iraqi',
-    'Japanese',
-    'Jewish',
-    'Khmer',
-    'Korean',
-    'Latino',
-    'Muslim',
-    'Native American',
-    'Nepali',
-    'Nordic',
-    'Norwegian',
-    'People of color',
-    'Queer',
-    'Samoan',
-    'Somali',
-    'Sudanese',
-    'Taiwanese',
-    'Transgender',
-    'Turkish',
-    'Vietnamese',
-    
-    'Homeowner',
-    'Renter',
-    'Homeless',
-    'Parent',
-    'Dependent',
-    'Volunteer',
-    'Neighbor',
-    'Citizen',
-    'Immigrant/Refugee',
-    'Immigrant',
-    'Refugee',
-    'Samaritan',
-    'Children',
-    'Dads',
-    'Divorced Families',
-    'Family',
-    'Moms',
-    'Parents',    
-    'Renters',   
-    'Singles',    
-    'Youth',
-    'Seniors',
+    'Business',
+    'Commercial',
+    'Communal',
+    'Community',
+    'Media',
+    'Neighborhood',
+    'Non-profit',
+    'Personal/Private',
+    'Shared',
+    'Government',
+    'Municipal',
+    'State',
+    'County',
+    'Federal',
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
 
 
-function citygroups_vocabulary_build_vocabulary_city(&$vocabulary) {
-  $vocabulary_name = 'city';
+function citygroups_vocabulary_build_vocabulary_type_group(&$vocabulary) {
+  $vocabulary_name = 'type_group';
   $terms = array(
-    'Seattle',
+    'Blog',
+    'Calendar',
+    'Community News Blog',
+    'Door-to-Door',   
+    'Email',
+    'Face-to-Face', 
+    'Facebook',
+    'Flyer',
+    'Mailing List',
+    'MySpace',
+    'Online Group',
+    'Neighbor-to-Neighbor Message',
+    'Newsletter',
+    'Newspaper',
+    'Ning',
+    'Twitter',
+    'Website',
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
+
 
 function citygroups_vocabulary_build_vocabulary_audience_size(&$vocabulary) {
   $vocabulary_name = 'audience_size';
@@ -345,59 +280,6 @@ function citygroups_vocabulary_build_vocabulary_activity_level(&$vocabulary) {
     'Daily',
     'Multiple Daily',
     'Apparently Inactive',
-  );
-  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
-}
-
-function citygroups_vocabulary_build_vocabulary_type_group(&$vocabulary) {
-  $vocabulary_name = 'type_group';
-  $terms = array(
-    'Blog',
-    'Calendar',
-    'Community News Blog',
-    'Door-to-Door',   
-    'Email',
-    'Face-to-Face', 
-    'Facebook',
-    'Flyer',
-    'Mailing List',
-    'MySpace',
-    'Online Group',
-    'Neighbor-to-Neighbor Message',
-    'Newsletter',
-    'Newspaper',
-    'Ning',
-    'Twitter',
-    'Website',
-  );
-  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
-}
-
-function citygroups_vocabulary_build_vocabulary_ownership(&$vocabulary) {
-  $vocabulary_name = 'ownership';
-  $terms = array(
-    'Business',
-    'Commercial',
-    'Communal',
-    'Community',
-    'Media',
-    'Neighborhood',
-    'Non-profit',
-    'Personal/Private',
-    'Shared',
-    'Government',
-    'Municipal',
-    'State',
-    'County',
-    'Federal',
-  );
-  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
-}
-
-function citygroups_vocabulary_build_vocabulary_area_code(&$vocabulary) {
-  $vocabulary_name = 'area_code';
-  $terms = array(
-    '206',
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
