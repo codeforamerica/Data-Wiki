@@ -668,7 +668,7 @@ div#main div.views-popup {
   right: 50px;
   top: 0;
   margin: 50px 0 0 0;
-  background: rgba(256,256,256, 0.7);
+  background: rgba(256,256,256, 1);
   color: #000;
   z-index: 1000;  
   padding: 20px 20px 40px 20px;
