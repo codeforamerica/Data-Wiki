@@ -27,6 +27,8 @@ function community_group_content_type_field_group_info() {
       2 => 'field_source',
       3 => 'field_url_calendar',
       4 => 'field_url_image',
+      5 => 'field_input',
+      6 => 'field_output',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -139,8 +141,6 @@ function community_group_content_type_field_group_info() {
       2 => 'field_categories',
       3 => 'field_ownership',
       4 => 'field_type_group',
-      5 => 'field_input',
-      6 => 'field_output',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

@@ -1745,7 +1745,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '8',
+        'weight' => '4',
       ),
     ),
   );
@@ -2214,7 +2214,7 @@ function community_group_content_type_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '9',
+        'weight' => '5',
       ),
     ),
   );
