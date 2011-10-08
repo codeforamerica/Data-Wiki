@@ -295,13 +295,14 @@ function taxonomy_cleanup_capitalize_settings_form_submit($form, $form_state) {
 
     foreach ($terms as $tid => $term) {
       $link_tid = $base_url . '/taxonomy/term/' . $tid; 
-      if (preg_match("/^[a-z]/", $term) == TRUE) {      
+     // if (preg_match("/^[a-z]/", $term) == TRUE) {      
         $term = taxonomy_term_load($tid);
 
-        $term->name = ucfirst($term->name);  
+        taxonomy_cleanup_capitalize_titlecase(&$term);
+        
         taxonomy_term_save($term);
         $count++;
-      }
+      //}
     }
     drupal_set_message($count . " terms capitalized.");
   }
@@ -309,16 +310,7 @@ function taxonomy_cleanup_capitalize_settings_form_submit($form, $form_state) {
     $term = taxonomy_get_term_by_name($form_state['values']['capitalize_term']);
     $term = array_values($term);
     
-    $exclude_lowercase = array( 'of','a','the','and','an','or','nor','but','is','if','then','else','when', 'at','from','by','on','off','for','in','out','over','to','into','with' );;
-    $words = explode(' ', $term[0]->name);
-    foreach ($words as $key => $word) { 
-      if (!$key or !in_array($word, $smallwordsarray)) {
-        $words[$key] = ucwords($word); 
-      }
-
-      $new_words = implode(' ', $words);
-      $term[0]->name = ucwords($new_words);  
-    }
+    taxonomy_cleanup_capitalize_titlecase(&$term[0]);
     
     //$term[0]->name = ucwords($term[0]->name);  
     taxonomy_term_save($term[0]);
@@ -326,6 +318,27 @@ function taxonomy_cleanup_capitalize_settings_form_submit($form, $form_state) {
   }
 }
 
+function taxonomy_cleanup_capitalize_titlecase(&$term) {
+  $exclude_lowercase = array(
+    'of','a','the','and','an','or','nor','but','is','if','then','else','when', 'at','from','by','on','off','for','in','out','over','to','into','with',
+  );
+
+  $words = explode(' ', $term->name);
+  //dsm($words);
+  foreach($words as $key => $word) {
+    if (!$key || !in_array(strtolower($word), $exclude_lowercase)) {
+      $words[$key] = ucwords($word); 
+    }
+    else {
+      // Make prepositions lowercase.
+      if(in_array(strtolower($word), $exclude_lowercase)) {
+        $words[$key] = strtolower($word);
+      }
+    }
+    $new_words = implode(' ', $words);
+    $term->name = $new_words;  
+  }
+}
 
 function taxonomy_cleanup_merge_similar_terms_settings_form() {
   $output = '';

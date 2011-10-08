@@ -283,3 +283,75 @@ function citygroups_vocabulary_build_vocabulary_activity_level(&$vocabulary) {
   );
   return citygroups_vocabulary_build_terms($terms, &$vocabulary);
 }
+
+
+function citygroups_vocabulary_build_vocabulary_demographics(&$vocabulary) {
+  // This is a list of terms output from various systems.
+  // Should provide list of cultural & personal statuses.
+  // The idea is to have a big list of everything necessary for your city.
+  
+  $vocabulary_name = 'categories';
+  
+  $terms = array(
+    'African',
+    'African American',
+    'Arab',
+    'Asian',
+    'Asian Pacific Islander',
+    'Cambodian',
+    'Caucasian',
+    'Chinese',
+    'East African',
+    'Eastern European',
+    'Eritrean',
+    'Ethiopian',
+    'Filipino',
+    'First Nations',
+    'Hmong',
+    'Interracial',
+    'Iraqi',
+    'Japanese',
+    'Jewish',
+    'Khmer',
+    'Korean',
+    'Latino',
+    'Muslim',
+    'Native American',
+    'Nepali',
+    'Nordic',
+    'Norwegian',
+    'People of color',
+    'Queer',
+    'Samoan',
+    'Somali',
+    'Sudanese',
+    'Taiwanese',
+    'Transgender',
+    'Turkish',
+    'Vietnamese',
+    
+    'Homeowner',
+    'Renter',
+    'Homeless',
+    'Parent',
+    'Dependent',
+    'Volunteer',
+    'Neighbor',
+    'Citizen',
+    'Immigrant/Refugee',
+    'Immigrant',
+    'Refugee',
+    'Samaritan',
+    'Children',
+    'Dads',
+    'Divorced Families',
+    'Family',
+    'Moms',
+    'Parents',    
+    'Renters',   
+    'Singles',    
+    'Youth',
+    'Seniors',
+  );
+  return citygroups_vocabulary_build_terms($terms, &$vocabulary);
+}
