@@ -1,0 +1,7 @@
+core = 7.x
+description = Load CityGroups Vocabularies (SFO)
+name = CityGroups Vocabularies
+package = citygroups
+
+files[] = citygroups_vocabularies_sfo.install
+files[] = citygroups_vocabularies_sfo.module
