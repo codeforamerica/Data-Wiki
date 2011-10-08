@@ -80,7 +80,7 @@ function community_group_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_layers_cloudmade_api';
-  $strongarm->value = 'b59bc8b09cd84af58fcef3019d84e662';
+  $strongarm->value = 'e655e369c96b430fb33af12d1b2b8682';
   $export['openlayers_layers_cloudmade_api'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -94,7 +94,7 @@ function community_group_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_layers_google_api';
-  $strongarm->value = 'ABQIAAAA69Pr8X6qVjpuLObW66yHqxQHqhcS5AE4ewR1TUFP6GNO4Oj90BSFArcNLFdiZnaTXKBdmP0wyGBUyw';
+  $strongarm->value = 'ABQIAAAA69Pr8X6qVjpuLObW66yHqxRP89N7crUNQ0i8e-rafbPdvgY6KRT_m2fiW9a52Ug9RSzcQo9StpTiUA';
   $export['openlayers_layers_google_api'] = $strongarm;
 
   $strongarm = new stdClass;

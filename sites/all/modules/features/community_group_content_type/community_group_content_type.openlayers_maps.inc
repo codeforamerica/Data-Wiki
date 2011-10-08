@@ -25,12 +25,12 @@ function community_group_content_type_openlayers_maps() {
     'hide_empty_map' => 0,
     'center' => array(
       'initial' => array(
-        'centerpoint' => '-122.29499816389, 47.581157651478',
-        'zoom' => '11',
+        'centerpoint' => '-122.35816955077, 37.74574303671',
+        'zoom' => '9',
       ),
       'restrict' => array(
         'restrictextent' => 1,
-        'restrictedExtent' => '',
+        'restrictedExtent' => '-13648672.205184,4509326.045845,-13574069.665591,4567112.439219',
       ),
     ),
     'behaviors' => array(
@@ -97,12 +97,12 @@ function community_group_content_type_openlayers_maps() {
     'hide_empty_map' => 0,
     'center' => array(
       'initial' => array(
-        'centerpoint' => '-122.28332519042, 47.552433022586',
-        'zoom' => '10',
+        'centerpoint' => '-122.31079101101, 37.591642486714',
+        'zoom' => '9',
       ),
       'restrict' => array(
         'restrictextent' => 0,
-        'restrictedExtent' => '-13642327.931837,6002752.704216,-13576439.213467,6060691.971646',
+        'restrictedExtent' => '-13669386.639874,4474812.914899,-13550450.623884,4580907.51014',
       ),
     ),
     'behaviors' => array(

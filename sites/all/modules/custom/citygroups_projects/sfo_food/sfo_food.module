@@ -420,15 +420,13 @@ function sfo_food_community_group_form_overrides(&$form, &$form_values) {
 
 
         
-/*
   if(!empty($add_variables_array['category'])) {
     $form['field_categories']["und"]["#default_value"] = $add_variables_array['category'];
     $form['field_categories']['und']['#description'] = 
-      '<div class="prompt">(Recommended)</div><p>Provide some categories for the Block Watch Community.<br />
+      '<div class="prompt">(Recommended)</div><p>Provide some categories for the group.<br />
       Here are some suggestions:</p><div class="terms">' .
-      variable_get('sfo_food_related_terms', 'Block watch, Crime prevention, National Night Out, Emergency preparedness, Public safety, Block party') . '</div>';
+      variable_get('sfo_food_related_terms', '') . '</div>';
   }
-*/
 /*
         
   // Alter the Audience Size taxonomy to display as households (rough number estimates, not meant to be exact)

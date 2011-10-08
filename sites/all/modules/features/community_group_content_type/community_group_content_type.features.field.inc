@@ -189,7 +189,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '24',
+          'weight' => '26',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -265,7 +265,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '23',
+          'weight' => '25',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -337,7 +337,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '11',
         ),
         'search_index' => array(
           'label' => 'inline',
@@ -349,7 +349,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '34',
+          'weight' => '36',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -435,7 +435,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '26',
+          'weight' => '28',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -519,7 +519,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -606,7 +606,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -687,7 +687,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '25',
+          'weight' => '27',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -773,7 +773,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -845,7 +845,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '9',
         ),
         'search_index' => array(
           'label' => 'inline',
@@ -857,7 +857,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '20',
+          'weight' => '22',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -933,7 +933,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '28',
+          'weight' => '30',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1005,7 +1005,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '12',
         ),
         'search_index' => array(
           'label' => 'inline',
@@ -1017,7 +1017,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '31',
+          'weight' => '33',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1079,7 +1079,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '20',
+          'weight' => '21',
         ),
         'search_index' => array(
           'label' => 'hidden',
@@ -1091,7 +1091,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '18',
+          'weight' => '20',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1157,7 +1157,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '20',
         ),
         'search_index' => array(
           'label' => 'hidden',
@@ -1169,7 +1169,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1193,7 +1193,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '10',
+        'weight' => '12',
       ),
     ),
   );
@@ -1236,7 +1236,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '16',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -1248,7 +1248,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1272,7 +1272,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '14',
+        'weight' => '16',
       ),
     ),
   );
@@ -1315,7 +1315,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '15',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -1327,7 +1327,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1351,7 +1351,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '13',
+        'weight' => '15',
       ),
     ),
   );
@@ -1394,7 +1394,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '17',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -1406,7 +1406,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '18',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1430,7 +1430,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '15',
+        'weight' => '17',
       ),
     ),
   );
@@ -1473,7 +1473,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '14',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -1485,7 +1485,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1509,7 +1509,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '12',
+        'weight' => '14',
       ),
     ),
   );
@@ -1552,7 +1552,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '13',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -1564,7 +1564,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1588,7 +1588,7 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '11',
+        'weight' => '13',
       ),
     ),
   );
@@ -1631,7 +1631,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '18',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -1643,7 +1643,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '17',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1667,7 +1667,85 @@ function community_group_content_type_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '9',
+        'weight' => '11',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_input'
+  $fields['node-community_group-field_input'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_input',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Borrowing a term from permaculture design, what kinds of "input" goes into this group. This could be the funding sources, the volunteer energy, land donations.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '31',
+        ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_input',
+      'label' => 'Input',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '1',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '8',
       ),
     ),
   );
@@ -1717,7 +1795,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '32',
+          'weight' => '34',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1800,7 +1878,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '22',
+          'weight' => '24',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1854,7 +1932,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '18',
+          'weight' => '19',
         ),
         'search_index' => array(
           'label' => 'hidden',
@@ -1866,7 +1944,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '21',
+          'weight' => '23',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1958,7 +2036,7 @@ function community_group_content_type_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2034,7 +2112,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '29',
+          'weight' => '31',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2059,6 +2137,84 @@ function community_group_content_type_field_default_fields() {
         ),
         'type' => 'text_textarea',
         'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-community_group-field_output'
+  $fields['node-community_group-field_output'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_output',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'community_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Another term borrowed from permaculture design, what kinds of "output" does this group produce. This could be the positive impact of the group, number of people served, number of people fed, and other general metrics about what this group gives back.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '32',
+        ),
+        'search_index' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_output',
+      'label' => 'Output',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '1',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '9',
       ),
     ),
   );
@@ -2120,7 +2276,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '30',
+          'weight' => '32',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2141,7 +2297,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '7',
       ),
     ),
   );
@@ -2184,7 +2340,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '7',
+          'weight' => '8',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -2196,7 +2352,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '19',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2262,7 +2418,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '6',
+          'weight' => '7',
         ),
         'search_index' => array(
           'label' => 'above',
@@ -2274,7 +2430,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2354,7 +2510,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '27',
+          'weight' => '29',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2440,7 +2596,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '6',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2512,7 +2668,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '10',
         ),
         'search_index' => array(
           'label' => 'inline',
@@ -2524,7 +2680,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '21',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2548,7 +2704,7 @@ function community_group_content_type_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '8',
+        'weight' => '10',
       ),
     ),
   );
@@ -2608,9 +2764,8 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
-          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
+          'type' => 'hidden',
           'weight' => '4',
         ),
         'teaser' => array(
@@ -2632,7 +2787,7 @@ function community_group_content_type_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '7',
+        'weight' => '6',
       ),
     ),
   );
@@ -2780,10 +2935,9 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '1',
+          'type' => 'hidden',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2875,7 +3029,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '7',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2972,7 +3126,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '33',
+          'weight' => '35',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3569,9 +3723,11 @@ function community_group_content_type_field_default_fields() {
   t('<span class="prompt">(Recommended)</span> Point to the best page that explains the group and how to join the group.');
   t('Activity Level');
   t('Address');
+  t('Another term borrowed from permaculture design, what kinds of "output" does this group produce. This could be the positive impact of the group, number of people served, number of people fed, and other general metrics about what this group gives back.');
   t('Area Code');
   t('Audience Size');
   t('Body');
+  t('Borrowing a term from permaculture design, what kinds of "input" goes into this group. This could be the funding sources, the volunteer energy, land donations.');
   t('Calendar URL');
   t('Categories');
   t('City');
@@ -3587,11 +3743,13 @@ function community_group_content_type_field_default_fields() {
   t('Geocode');
   t('Image File');
   t('Image URL');
+  t('Input');
   t('Link to Image for this Group');
   t('Location');
   t('Location Description');
   t('Neighborhood');
   t('Notes');
+  t('Output');
   t('Ownership');
   t('Prepare');
   t('Privacy');

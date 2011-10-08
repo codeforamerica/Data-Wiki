@@ -323,9 +323,8 @@ function community_group_upload_csv_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
+          'type' => 'hidden',
           'weight' => 0,
         ),
       ),

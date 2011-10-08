@@ -51,7 +51,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_location',
     ),
@@ -104,7 +104,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Categories',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_categories',
     ),
@@ -139,6 +139,8 @@ function community_group_content_type_field_group_info() {
       2 => 'field_categories',
       3 => 'field_ownership',
       4 => 'field_type_group',
+      5 => 'field_input',
+      6 => 'field_output',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -220,7 +222,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = 'group_details';
   $field_group->data = array(
     'label' => 'Map',
-    'weight' => '34',
+    'weight' => '33',
     'children' => array(
       0 => 'field_address',
       1 => 'field_city',
@@ -253,7 +255,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -300,7 +302,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_address',
       1 => 'field_city',
@@ -367,14 +369,14 @@ function community_group_content_type_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_demographic',
-      1 => 'field_term_civic_taxonomy',
-      2 => 'field_external_id',
-      3 => 'field_import_flag_watch',
-      4 => 'field_import_flag_recommended',
-      5 => 'field_import_flag_inactive',
-      6 => 'field_import_flag_duplicate',
-      7 => 'field_import_flag_inappropriate',
-      8 => 'field_import_uuid',
+      1 => 'field_external_id',
+      2 => 'field_import_flag_duplicate',
+      3 => 'field_import_flag_inactive',
+      4 => 'field_import_flag_inappropriate',
+      5 => 'field_import_flag_recommended',
+      6 => 'field_import_flag_watch',
+      7 => 'field_import_uuid',
+      8 => 'field_term_civic_taxonomy',
       9 => 'group_location',
     ),
     'format_type' => 'fieldset',
@@ -398,7 +400,7 @@ function community_group_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -435,6 +437,8 @@ function community_group_content_type_field_group_info() {
       8 => 'field_url',
       9 => 'field_url_calendar',
       10 => 'field_url_image',
+      11 => 'field_input',
+      12 => 'field_output',
     ),
     'format_type' => 'div',
     'format_settings' => array(
