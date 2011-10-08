@@ -2567,11 +2567,24 @@ function citygroups_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'community_group' => 'community_group',
   );
+  $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Search: Search Terms */
+  $handler->display->display_options['filters']['keys']['id'] = 'keys';
+  $handler->display->display_options['filters']['keys']['table'] = 'search_index';
+  $handler->display->display_options['filters']['keys']['field'] = 'keys';
+  $handler->display->display_options['filters']['keys']['group'] = 0;
+  $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
+  $handler->display->display_options['filters']['keys']['expose']['label'] = 'Search';
+  $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
+  $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
+  $handler->display->display_options['filters']['keys']['expose']['multiple'] = FALSE;
   /* Filter criterion: Content: Categories (field_categories) */
   $handler->display->display_options['filters']['field_categories_tid']['id'] = 'field_categories_tid';
   $handler->display->display_options['filters']['field_categories_tid']['table'] = 'field_data_field_categories';
   $handler->display->display_options['filters']['field_categories_tid']['field'] = 'field_categories_tid';
   $handler->display->display_options['filters']['field_categories_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_categories_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_categories_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_categories_tid']['expose']['operator_id'] = 'field_categories_tid_op';
   $handler->display->display_options['filters']['field_categories_tid']['expose']['label'] = 'Categories';
@@ -2584,6 +2597,7 @@ function citygroups_views_views_default_views() {
   $handler->display->display_options['filters']['field_neighborhood_tid']['id'] = 'field_neighborhood_tid';
   $handler->display->display_options['filters']['field_neighborhood_tid']['table'] = 'field_data_field_neighborhood';
   $handler->display->display_options['filters']['field_neighborhood_tid']['field'] = 'field_neighborhood_tid';
+  $handler->display->display_options['filters']['field_neighborhood_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_neighborhood_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['operator_id'] = 'field_neighborhood_tid_op';
   $handler->display->display_options['filters']['field_neighborhood_tid']['expose']['label'] = 'Neighborhood';
