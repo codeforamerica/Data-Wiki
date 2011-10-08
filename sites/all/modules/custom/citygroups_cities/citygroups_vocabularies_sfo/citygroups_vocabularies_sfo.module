@@ -4,8 +4,8 @@
  Implementation of vocabulary loading hook.
  @TODO This is only really sort of a hook.
 */ 
-function citygroups_vocabulary_build_vocabulary_neighborhoods(&$vocabulary) {
-  $vocabulary_name = 'neighborhoods';
+function citygroups_vocabulary_build_vocabulary_neighborhood(&$vocabulary) {
+  $vocabulary_name = 'neighborhood';
   $terms = array(
 'Alamo Square',
 'Anza Vista',
