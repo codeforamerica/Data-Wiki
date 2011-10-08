@@ -530,6 +530,11 @@ function sea_blockwatch_settings() {
   $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(15,15);
   $settings['javascript_settings']['legendLabelMarker'] = t('Block Watch Captain');
   $settings['javascript_settings']['legendLabelData'] = t('Block Watch Communities');
+  $settings['javascript_settings']['maxZoom'] = 18;
+  $settings['javascript_settings']['zoom'] = 11;
+  $settings['javascript_settings']['zoomNeighborhood'] = 14;
+  $settings['javascript_settings']['latitude'] = variable_get('citygroups_default_location_latitude', array());
+  $settings['javascript_settings']['longitude'] = variable_get('citygroups_default_location_longitude', array());  
   return $settings;
 }
 

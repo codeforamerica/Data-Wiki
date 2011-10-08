@@ -544,9 +544,7 @@ function sfo_food_settings() {
   $settings['javascript_settings']['mapMarkerIconAnchor'] = array(15,15);
   $settings['javascript_settings']['mapMarkerPopupAnchor'] = array(15,15);
   $settings['javascript_settings']['legendLabelMarker'] = t('Food Group');
-  $settings['javascript_settings']['legendLabelData'] = t('Food System Working Group');
-  
-    
+  $settings['javascript_settings']['legendLabelData'] = t('Food System Working Group'); 
   $settings['javascript_settings']['maxZoom'] = 18;
   $settings['javascript_settings']['zoom'] = 11;
   $settings['javascript_settings']['zoomNeighborhood'] = 14;
