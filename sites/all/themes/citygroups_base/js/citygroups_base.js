@@ -17,13 +17,12 @@ Drupal.behaviors.citygroups_base = {
       $('div#main div.views-popup').css('visibility', 'hidden');
     });    
     
-/*
     $('div#main div.node-community-group h2 a').mouseover(function(){
-  
-      $('div#main div.views-popup').html('load');
+      var group_popup;
+      group_popup = $(this).parent().parent().find('div.group-popup').html();
+      $('div#main div.views-popup div.content').html(group_popup);
       $('div#main div.views-popup').css('height', '80%');    
     });
-*/
   
   }
 };

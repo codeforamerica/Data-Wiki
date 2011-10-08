@@ -1417,3 +1417,20 @@ color: black;
   font-weight: normal;
   color: #000;
 }
+
+#main .links .edit {
+  color: #666;
+  font-size: 95%;
+  padding: 3px;
+}
+
+.group-popup {
+  display: none;
+}
+
+.views-popup .description {
+  color: #666;
+  font-size: 95%;
+  font-style: italic;
+  padding: 3px 8px 10px 0;
+}

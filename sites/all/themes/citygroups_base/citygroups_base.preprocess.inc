@@ -260,17 +260,17 @@ function citygroups_base_node_share(&$vars, $view_mode) {
   
   citygroups_base_fb_like($vars);
   
-  $facebook_full = '<h4>Facebook</h4><div class="facebook">' . $vars['fb_like'] . '</div>';
+  $facebook_full = '<div class="facebook">' . $vars['fb_like'] . '</div>';
   
   $email = 'Did know about this group? ' . $vars['title'] . ' ' . $path ;
 
   global $user;
  
   if (user_is_logged_in()) {
-    $edit = l('Edit', $base_url . '/node/' . $vars['nid'] . '/edit');
+    $edit = '<div class="edit">' . l('Edit', $base_url . '/node/' . $vars['nid'] . '/edit') . ' information about this group.</div>';
   }
   else {
-    $edit = 'sign in to ' . l('Edit',  $base_url . '/user/login',  array('query' => array('destination' => 'node/' . $vars['nid'] . '/edit')));
+    $edit = '<div class="edit">Sign in to ' . l('edit',  $base_url . '/user/login',  array('query' => array('destination' => 'node/' . $vars['nid'] . '/edit'))) . ' information about this group.</div>';
   }
   
   $output = '';
@@ -320,7 +320,7 @@ function citygroups_base_node_share(&$vars, $view_mode) {
           'title' => '
           <div class="flag-wrapper twitter">
           <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-            Twitter<span class="flag-message">' . $twitter . '</span>
+          Twitter<span class="flag-message">' . $twitter . '</span>
           </div>
           </div>
           ',
@@ -330,7 +330,7 @@ function citygroups_base_node_share(&$vars, $view_mode) {
           'title' => '
           <div class="flag-wrapper facebook">
           <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-           Facebook<span class="flag-message">' . $facebook . '</span>
+          Facebook<span class="flag-message">' . $facebook . '</span>
           </div>
           </div>
           ',
@@ -340,7 +340,7 @@ function citygroups_base_node_share(&$vars, $view_mode) {
           'title' => '
           <div class="flag-wrapper email">
           <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-           Email<span class="flag-message">' . $email . '</span>
+          Email<span class="flag-message">' . $email . '</span>
           </div>
           </div>              
           ',
@@ -350,7 +350,7 @@ function citygroups_base_node_share(&$vars, $view_mode) {
           'title' => '
           <div class="flag-wrapper qrcode">
           <div title="" class="flag flag-action flag-link-toggle" rel="nofollow">
-            QR Code<span class="flag-message">' . $qrcode . '</span>
+          QR Code<span class="flag-message">' . $qrcode . '</span>
           </div>
           </div>
           ',

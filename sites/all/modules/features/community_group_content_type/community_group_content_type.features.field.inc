@@ -349,7 +349,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '36',
+          'weight' => '33',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -435,7 +435,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '28',
+          'weight' => '27',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -687,7 +687,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '27',
+          'weight' => '18',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -773,7 +773,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -931,9 +931,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'hidden',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '30',
+          'type' => 'text_default',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1017,7 +1018,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '33',
+          'weight' => '30',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1091,7 +1092,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '20',
+          'weight' => '19',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1169,7 +1170,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1248,7 +1249,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1327,7 +1328,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1406,7 +1407,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '18',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1485,7 +1486,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1564,7 +1565,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1643,7 +1644,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1719,9 +1720,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'above',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '7',
+          'type' => 'text_default',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1795,7 +1797,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '34',
+          'weight' => '31',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2112,7 +2114,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '31',
+          'weight' => '29',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2188,9 +2190,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'above',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '6',
+          'type' => 'text_default',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2274,9 +2277,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '32',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2352,7 +2356,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '20',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2430,7 +2434,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2510,7 +2514,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '29',
+          'weight' => '28',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2596,7 +2600,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2764,9 +2768,10 @@ function community_group_content_type_field_default_fields() {
         ),
         'search_result' => array(
           'label' => 'inline',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '4',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3029,7 +3034,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3126,7 +3131,7 @@ function community_group_content_type_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '35',
+          'weight' => '32',
         ),
         'teaser' => array(
           'label' => 'above',
