@@ -116,8 +116,7 @@ function sfo_food_list_render() {
 function sfo_food_categories_render() {
   //@TODO This is where we would load related terms for civic taxonomy web service.
   $output = '<div class="related-categories">';
-  $output .= variable_get('sfo_food_related_groups');
-  $output .= "<h4>Also</h4>";
+//  $output .= variable_get('sfo_food_related_groups');
   $output .= sfo_food_related_categories();
   $output .= '</div>';
   return $output;
@@ -583,12 +582,6 @@ function sfo_food_related_categories() {
     foreach($items as $item) {
       if(!isset($related_terms[$item['tid']])) {
         $related_terms[$item['tid']] = 1;
-        
-        $related_term = taxonomy_term_load($item['tid']);
-
-        $output .= '<p>' . l($related_term->name, 'term/' . $item['tid']) . '</p>';
-
-        // array(/* 'tid' => $item['tid'],  *//* 'count' =>  */1);
       }
       // Otherwise bump the item up higher in the array.
       else {
@@ -596,12 +589,18 @@ function sfo_food_related_categories() {
       }
     }
   $i++;
-  
   }
+  
+  
+  
   // Reorder list by term count.
   arsort($related_terms);
 
 
+  foreach($related_terms as $item => $count) {     
+    $related_term = taxonomy_term_load($item);
+    $output .= '<p>' . l($related_term->name, 'term/' . $item['tid']) . ' (' . $count . ')</p>';
+  }
   // build array of other tags for content.
-  return "Related categories." . $output;
+  return $output;
 }

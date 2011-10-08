@@ -160,10 +160,6 @@ function sfo_food_configure_edit_form($form, &$form_state, array $rule = array()
     '#title' => t('Related Groups'),
     '#default_value' =>  variable_get('sfo_food_related_groups', '
 <div class="related-categories">
-<ul class="categories">
-  <li><a href="categories/link">Link</a></li>
-
-</ul>
 </div>
 '),
     '#description' => 'Links to related groups',

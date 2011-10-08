@@ -2,6 +2,7 @@
 
 Drupal.behaviors.citygroups_base = {
   attach: function (context, settings) {
+/*
   $('div#main').prepend('<div class="popup"></div>'); 
   $('div#main div.popup').css('position', 'fixed');
   $('div#main div.links div.flag-wrapper').mouseover(function(){
@@ -11,6 +12,7 @@ Drupal.behaviors.citygroups_base = {
     $('div#main div.popup').html(flag);
 
   });
+*/
   
   }
 };
