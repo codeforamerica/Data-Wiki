@@ -174,7 +174,6 @@ function citygroups_base_preprocess_node(&$vars) {
 }
 
 function citygroups_base_preprocess_node_community_group(&$vars) {
-  //dpm(  $vars['content']['links']);
   // Configure links.
   switch ($vars['view_mode']) {
     case 'full':
@@ -183,7 +182,7 @@ function citygroups_base_preprocess_node_community_group(&$vars) {
     case 'search_result':
     case 'teaser':
     case 'search_index':
-      $vars['content']['links']['#suffix'] = citygroups_base_node_share($vars, 'teaser');    
+      $vars['content']['links']['#suffix'] = citygroups_base_node_share($vars, 'teaser');
     default:
       break;  
   }
@@ -252,20 +251,27 @@ function citygroups_base_node_share(&$vars, $view_mode) {
 
   $qrcode = citygroups_qrcode($path, 'medium', $vars['title'], $data);
   
-  $twitter_full = '<h4>Twitter</h4>' . 
-  $vars['title'] . ' ' . $path .
+  $twitter_full =  $vars['title'] . ' ' . $path .
   '<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $path . '" data-text="' .
       $vars['title'] .
       '" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>';
       
-  $twitter_teaser = '<h4>Twitter</h4>' .  $vars['title'] . ' ' . $path;
+  $twitter_teaser = $vars['title'] . ' ' . $path;
   
   citygroups_base_fb_like($vars);
   
   $facebook_full = '<h4>Facebook</h4><div class="facebook">' . $vars['fb_like'] . '</div>';
   
-  $email = '<h4>Email</h4>' .
-            'Did know about this group? ' . $vars['title'] . ' ' . $path ;
+  $email = 'Did know about this group? ' . $vars['title'] . ' ' . $path ;
+
+  global $user;
+ 
+  if (user_is_logged_in()) {
+    $edit = l('Edit', $base_url . '/node/' . $vars['nid'] . '/edit');
+  }
+  else {
+    $edit = 'sign in to ' . l('Edit',  $base_url . '/user/login',  array('query' => array('destination' => 'node/' . $vars['nid'] . '/edit')));
+  }
   
   $output = '';
     
@@ -299,9 +305,11 @@ function citygroups_base_node_share(&$vars, $view_mode) {
   }
 
    $edit_link['#links']  =  array(
-        'twitter' => array(
+        'edit' => array(
           'title' => '
-              edit link
+            <div class="edit">'
+            . $edit . '
+            </div>
           ',
           'html' => TRUE,            
         ),

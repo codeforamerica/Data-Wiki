@@ -80,7 +80,7 @@ function citygroups_qrcode($url_to_render, $preset, $title, $data) {
   if ($url = mobile_codes_process_url($variables['data'], $variables['attributes'])) {
     if ($path = mobile_codes_generate($url)) {
       return 
-      '<h4>QR Code</h3><h4>' . $title . '</h4>
+      '<h4>' . $title . '</h4>
       <p>' . $url_to_render . '</p>' . 
       '<p>' . $data . '</p>' .
       theme('image', array('path' => $path, 'alt' => $variables['image_alt'], 'title' => $variables['image_title'], 'attributes' => $variables['image_attributes'], 'getsize' => $variables['image_getsize']));
