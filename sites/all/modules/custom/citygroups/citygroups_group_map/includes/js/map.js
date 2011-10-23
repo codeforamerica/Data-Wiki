@@ -108,7 +108,7 @@ cityGroups.map.loadMap = function() {
   
 
   cityGroups.map.settings.zoomNeighborhood = Drupal.settings.citygroups['zoomNeighborhood'];
-  console.log(cityGroups.map.settings);
+
   cityGroups.map.settings.center = new L.LatLng(Drupal.settings.citygroups['latitude'], -1 * Drupal.settings.citygroups['longitude']);
   // cityGroups.map.settings.center = new L.LatLng(cityGroups.map.settings.latitude, cityGroups.map.settings.longitude);
   if(cityGroups.map.rendered === undefined) {
@@ -188,7 +188,7 @@ cityGroups.map.popupPoints = function (nodes){
 /*
   	function onMapClick(e) {
   	  $('div#popup-content div.content').html(cityGroups.map.popupTemplate(node));
-  	  console.log("test");
+
   	}
   	
   	function offMapClick(e) {

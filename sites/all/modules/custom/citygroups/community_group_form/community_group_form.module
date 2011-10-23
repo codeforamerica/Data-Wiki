@@ -152,6 +152,15 @@ function community_group_form_map_elements(&$form, &$form_values) {
   $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
   $form['field_location']['#prefix'] .= '</div>';
   
+  
+  $settings = array();
+  $settings['javascript_settings']['maxZoom'] = 18;
+  $settings['javascript_settings']['zoom'] = 11;
+  $settings['javascript_settings']['zoomNeighborhood'] = 14;
+  $settings['javascript_settings']['latitude'] = variable_get('citygroups_default_location_latitude', array());
+  $settings['javascript_settings']['longitude'] = variable_get('citygroups_default_location_longitude', array());  
+  drupal_add_js($settings, 'setting');
+  
   // Add Google API (uses openlayers API key)
   // @TODO require openlayers.
   drupal_add_js(

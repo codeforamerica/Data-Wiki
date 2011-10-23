@@ -30,68 +30,6 @@ Drupal.behaviors.community_group_form = {
   $('fieldset.group-prepare div.fieldset-description').after($('div.field-name-field-prepare div.description'));
   $('fieldset.group-privacy div.fieldset-description').after($('div.field-name-field-privacy div.description'));
 
-  
-  // true/false indication if the label should be moved.
-/*
-  var fields = {
-    'div.form-item-title': true,
-    'div.field-name-field-url': true,
-    'div.field-name-field-url-calendar': true,
-    'div.field-name-field-email': true,
-    'div.field-name-field-contact': true,
-    'div.field-name-field-notes': false,
-    'div.field-name-field-description': false,
-    'div.field-name-field-source': true,
-    'div.field-name-field-ownership': false,
-    'div.field-name-field-url-image': true,
-    'div.field-name-field-location-description': false,
-    'div.field-name-field-location': true,
-    'div.field-name-field-location-address': false,
-    'div.field-name-field-location-neighborhood': true,
-    'div.field-name-field-location-district': true,
-    'div.field-name-field-location-city': true,
-    'div.field-name-field-location-state': true,
-    'div.field-name-field-location-region': true,
-    'div.field-name-field-location-zipcode': true,
-    'div.field-name-field-location-area-code': true
-    /*     'div.field-name-field-categories': false */
-/*   }; */
-/*
-  var description;
-  var label;
-*/
-
-/*
-  for (var field in fields) {
-    // Move the description markup to an interactive element.
-    // @TODO a focus css might be a better approach in the long term.
-    description = $(field + ' div.description').html();
-    label =  $(field + ' label').html();
-    if(description !== null) {
-    
-      if(fields[field]){
-        $(field + ' label').remove();
-        $(field + ' input').before('<label>' + label + '</label>');
-      }
-    
-      $(field + ' div.description').remove();
-      $(field + ' input').after('<div class="description"><div class="close-btn"></div>' + description + '</div>');
-      // $(field + ' div.description').hide();
-    }
-  }
-*/
-/*
-  // When input is selected, show the tooltip.
-  $('div.form-item input').click(function(){
-    $(this).parent().find('div.description').show();
-  });
-
-  // When description close button is clicked, hide the tooltip.
-  $('div.description div.close-btn').click(function() {
-    $(this).parent().hide();
-  });
-*/
-
   var geocodedAddressResults;
   
   // Autoload existing address.
@@ -149,10 +87,10 @@ Drupal.settings.community_group_form.mapGeocodedData = function(results) {
         break;
     }
     
-   // map geometry
-  // console.log(results[0]);
-   result.latitude = results[0]["geometry"]["location"].lat();
-   result.longitude = results[0]["geometry"]["location"].lng();
+    // map geometry
+    // console.log(results[0]);
+    result.latitude = results[0]["geometry"]["location"].lat();
+    result.longitude = results[0]["geometry"]["location"].lng();
   }
   Drupal.settings.community_group_form.updateMapForm(result);
 };
@@ -276,22 +214,29 @@ Drupal.settings.community_group_form.centerOnFeature = function() {
     var edit_feature_layer = new OpenLayers.Layer.Vector("edit-feature", {
           styleMap: myStyles
       });
+
     edit_feature_layer.addFeatures(feature);
     data.openlayers.addLayers([edit_feature_layer]);
 
     // Center the map on the feature.
     var  geom = feature.clone().geometry.transform(
     feature.layer.map.projection,
-    new OpenLayers.Projection('EPSG:4326'));        
+    new OpenLayers.Projection('EPSG:4326'));
     
+    // If feature exists, center on the default map center.    
     centroid = geom.getCentroid();
     var center = new OpenLayers.LonLat(centroid.x, centroid.y).transform(
             new OpenLayers.Projection('EPSG:4326'),
             new OpenLayers.Projection(data.openlayers.projection.projCode));
+
     data.openlayers.setCenter(center, false, false, false);
   }
   catch(e) {
-    //console.log(e);
+    // If no feature, center on the default map center.
+    var center = new OpenLayers.LonLat(Drupal.settings.javascript_settings['longitude'] * -1, Drupal.settings.javascript_settings['latitude']).transform(
+          new OpenLayers.Projection('EPSG:4326'),
+          new OpenLayers.Projection(data.openlayers.projection.projCode));
+    data.openlayers.setCenter(center, false, false, false);
   }  
 };
 
