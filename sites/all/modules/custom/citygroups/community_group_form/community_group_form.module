@@ -117,7 +117,6 @@ function community_group_form_email_elements(&$form, &$form_values) {
 }
 
 function community_group_form_details_elements(&$form, &$form_values) {
-dpm(  $form['field_url_calendar']);
   $form['field_url_calendar']['und'][0]['#title'] = t("Calendar URL");
   $form['field_url_calendar']['und'][0]['#description'] = '
     <div class="explanation"><div class="prompt">(Optional)</div>If you have a link to an event calendar, you may add it.</div>
@@ -138,39 +137,30 @@ function community_group_form_map_elements(&$form, &$form_values) {
   if(!empty($add_variables_array['map_instructions'])) {
     $form['#groups']['group_geographic']->label = $add_variables_array['map_instructions'];
   }
-    // Custom map interface text.
-    $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
-    $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
-    $form['field_location']['#prefix'] .= '<h3>Map this Group</h3>';
-    $form['field_location']['#prefix'] .= '<div class="address-ajax">';
-    $form['field_location']['#prefix'] .= '<div id="search-links">';
-    $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
-    $form['field_location']['#prefix'] .= '<input placeholder="First, ZOOM to address or zipcode" size=50 class="form-item" id="search-map-input" />';
-    // @TODO Add graphic in two places. : drupal_get_path('module', 'community_group_form') .
-    $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . drupal_get_path('module', 'community_group_form') . '/images/search_button_large.png" id="search-links-submit" class="search_btn" align="middle" value="Search" alt="Search">';
-    $form['field_location']['#prefix'] .= '</div>';
-    $form['field_location']['#prefix'] .= '<h4>Then set a point or draw the area of the map.</h4>';
-    $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
-    $form['field_location']['#prefix'] .= '</div>';
+  // Custom map interface text.
+  $form['field_location']['#prefix'] = '<div id="field-location-add-more-wrapper">';
+  $form['field_location']['#prefix'] .= '<div class="map-instructions-container">';
+  $form['field_location']['#prefix'] .= '<h3>Map this Group</h3>';
+  $form['field_location']['#prefix'] .= '<div class="address-ajax">';
+  $form['field_location']['#prefix'] .= '<div id="search-links">';
+  $form['field_location']['#prefix'] .= '<div id="search-places" class="form-input">';
+  $form['field_location']['#prefix'] .= '<input placeholder="First, ZOOM to address or zipcode" size=50 class="form-item" id="search-map-input" />';
+  // @TODO Add graphic in two places. : drupal_get_path('module', 'community_group_form') .
+  $form['field_location']['#prefix'] .= '<input type="image" src="' . base_path() . drupal_get_path('module', 'community_group_form') . '/images/search_button_large.png" id="search-links-submit" class="search_btn" align="middle" value="Search" alt="Search">';
+  $form['field_location']['#prefix'] .= '</div>';
+  $form['field_location']['#prefix'] .= '<h4>Then set a point or draw the area of the map.</h4>';
+  $form['field_location']['#prefix'] .= '</div><div class="clear"></div>';   
+  $form['field_location']['#prefix'] .= '</div>';
+  
+  // Add Google API (uses openlayers API key)
+  // @TODO require openlayers.
+  drupal_add_js(
+      'http://maps.google.com/maps/api/js?sensor=false&key=' . 
+      variable_get('openlayers_layers_google_api', 
+        variable_get('googlemap_api_key', '')
+      ), 'external');
 
-/*
-      <h3>You can Draw Shapes on the Map</h3>    
-      <h4>Step 1</h4>
-      <p>Zoom in to your block.</p>
-      <p>Enter your address or intersection. Include your city name.</p>
-      <p>Example: 8400 Genesee Ave. Seattle</p>
-*/
-
-
-    // Add Google API (uses openlayers API key)
-    // @TODO require openlayers.
-    drupal_add_js(
-        'http://maps.google.com/maps/api/js?sensor=false&key=' . 
-        variable_get('openlayers_layers_google_api', 
-          variable_get('googlemap_api_key', '')
-        ), 'external');
-
-    drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
+  drupal_add_js(drupal_get_path('module', 'community_group_form') . '/js/community_group_form.js', array('type' => 'file',  'group' => JS_THEME, 'scope' =>'footer'));
 }
 
 function community_group_form_location_elements(&$form, &$form_values) {       
@@ -227,6 +217,13 @@ function community_group_form_location_elements(&$form, &$form_values) {
     // Place citywide checkbox in the correct group.
     $form['#group_children']['field_neighborhood_city_wide'] = 'group_geographic';
 //    $form['#group_children']['citywide-checkbox'] = 'group_geographic';
+
+    $form['field_input']['und'][0]['#title'] = t("Annual budget");
+    $form['field_input']['und'][0]['#type'] = 'textfield';
+    $form['field_input']['und'][0]['#description'] = t("What is the annual budget of this group?");
+
+    $form['field_output']['und'][0]['#title'] = t("Value");
+    $form['field_output']['und'][0]['#description'] = t("What value does this group provide the community?");
 
     // Load some default settings from CityGroups configuration settings.
     $form['field_city']['und']['#default_value'] = variable_get('citygroups_default_city', '');

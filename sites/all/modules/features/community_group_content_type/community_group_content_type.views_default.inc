@@ -159,7 +159,7 @@ function community_group_content_type_views_default_views() {
   $handler->display->display_options['fields']['vid']['hide_empty'] = 0;
   $handler->display->display_options['fields']['vid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['vid']['hide_alter_empty'] = 0;
-  /* Field: Broken/missing handler */
+  /* Field: Content: UUID */
   $handler->display->display_options['fields']['uuid']['id'] = 'uuid';
   $handler->display->display_options['fields']['uuid']['table'] = 'node';
   $handler->display->display_options['fields']['uuid']['field'] = 'uuid';

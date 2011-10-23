@@ -25,12 +25,12 @@ function community_group_content_type_openlayers_maps() {
     'hide_empty_map' => 0,
     'center' => array(
       'initial' => array(
-        'centerpoint' => '-122.35816955077, 37.74574303671',
-        'zoom' => '9',
+        'centerpoint' => '-122.29499816389, 47.581157651478',
+        'zoom' => '11',
       ),
       'restrict' => array(
         'restrictextent' => 1,
-        'restrictedExtent' => '-13648672.205184,4509326.045845,-13574069.665591,4567112.439219',
+        'restrictedExtent' => '',
       ),
     ),
     'behaviors' => array(

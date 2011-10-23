@@ -142,11 +142,11 @@ function sea_blockwatch_configure_edit_form($form, &$form_state, array $rule = a
     '#default_value' =>  variable_get('sea_blockwatch_content_about_local', '
 <h3>Block Watch Resources</h3>
 <p>Get connected to the Seattle Police Department and other local crime prevention & emergency preparedness initiatives.</p>
-<p><a href="/blockwatch/resources">See list of resources</a></p>
+<p><a href="/blockwatch/resources">&raquo; See list of resources</a></p>
 <br />
 <h3>More Local community groups</h3>
 <p>CityGroups lists other kinds of community groups working to make your neighborhood better in Seattle. Find other community leaders near you.</p>
-<p><a href="/blockwatch/categories">See related groups</a></p>
+<p><a href="/blockwatch/categories">&raquo; See related groups</a></p>
 '),
     '#description' => 'Local',
   );

@@ -326,6 +326,9 @@ function sfo_food_form_alter(&$form, &$form_state, $form_id) {
  
 function sfo_food_community_group_form_overrides(&$form, &$form_values) {
 
+// @TODO - change the input labels for permaculture.
+
+//    $form['field_input']['und'][0]['description']
    // Section overrides.
   $add_variables_array = array(
     'category' => 'Food, Urban Agriculture, Food System',
